@@ -45,6 +45,7 @@ import com.techmust.master.businesstype.BusinessTypeData;
 import com.techmust.master.tax.ApplicableTax;
 import com.techmust.master.tax.Tax;
 import com.techmust.organization.OrganizationInformationData;
+import com.techmust.scholarshipmanagement.StudentInformationData;
 import com.techmust.usermanagement.action.ActionData;
 import com.techmust.usermanagement.actionarea.ActionAreaData;
 import com.techmust.usermanagement.role.RoleData;
@@ -59,6 +60,7 @@ public class TradeMustHelper extends GenericData {
 	private UserInformationData m_oUserData;
 	private OrganizationInformationData m_oOrganizationData;
 	private FacilitatorInformationData m_oFacilitatorInformationData;
+	private StudentInformationData m_oStudentInformationData;
 	private RoleData m_oRoleData;
 	private ReceiptData m_oReceiptData;
 	private ActionAreaData m_oActionArea;
@@ -115,6 +117,7 @@ public class TradeMustHelper extends GenericData {
 		m_oUserData = new UserInformationData ();
 		m_oOrganizationData = new OrganizationInformationData();
 		m_oFacilitatorInformationData = new FacilitatorInformationData();
+		m_oStudentInformationData = new StudentInformationData();
 		m_oTaxData = new Tax ();
 		m_oRoleData = new RoleData ();
 		m_oReceiptData = new ReceiptData ();
@@ -148,8 +151,18 @@ public class TradeMustHelper extends GenericData {
 		m_nPageSize = 10;
 		setM_nBusinessId(-1);
 		m_nClientId = -1;
-	}
+	}	
 		
+	public StudentInformationData getM_oStudentInformationData()
+	{
+		return m_oStudentInformationData;
+	}
+
+	public void setM_oStudentInformationData(StudentInformationData m_oStudentInformationData) 
+	{
+		this.m_oStudentInformationData = m_oStudentInformationData;
+	}
+
 	public FacilitatorInformationData getM_oFacilitatorInformationData()
 	{
 		return m_oFacilitatorInformationData;
