@@ -54,7 +54,7 @@ HTML, BODY
 
 .formHeading, .trademust, .addButton, .filterButton, .tallButton, .exportButton, .calendar-header, .tabs li a.tabs-inner, .panel-title, .accordion .accordion-header-selected .panel-title 
 {
-	color: #F09F05;	
+	color: #fff;	
 }
 
 div.trademust
@@ -130,7 +130,7 @@ img.backgroundLogo
 {
     display: block;
     margin-left: auto;
-    margin-right: auto 
+    margin-right: auto;
 }
 	
 td.fieldHeading
@@ -274,14 +274,14 @@ td.TrademustLogo, .welcome_user, .footer
 td.welcome_user
 {
 	font-size: 12px;
-	color: #F09F05;
+	color: #fff;
 	text-align: right;
 }
 
 a.anchorTag
 {
 	font-size: 12px;
-	color: #F09F05;
+	color: #fff;
 	text-align: right;
 }
 

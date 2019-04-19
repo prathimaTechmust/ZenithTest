@@ -11,4 +11,74 @@
      <PhoneNumber>9864767432</PhoneNumber>
       <EmployeeID>100</EmployeeID>
   </AdminUser>
+  <root>
+<ActionArea name = "User Management" SequenceId="10">
+	<Actions>
+      <Action>
+         <ActionName>User List</ActionName>
+         <Target>navigate('userList','widgets/usermanagement/userinfo/listUserInfo.js')</Target>
+         <SequenceId>10</SequenceId>
+        </Action>
+        <Action>
+          <ActionName>New User</ActionName>
+          <Target>navigate('newuser','widgets/usermanagement/userinfo/newUserInfo.js')</Target>
+          <SequenceId>20</SequenceId>
+        </Action>
+         <Action>
+          <ActionName>New Role</ActionName>
+          <Target>navigate('newRole','widgets/usermanagement/role/newRole.js')</Target>
+          <SequenceId>30</SequenceId>
+        </Action>
+         <Action>
+           <ActionName>Role List</ActionName>
+           <Target>navigate('roleList','widgets/usermanagement/role/listRole.js')</Target>
+           <SequenceId>40</SequenceId>
+        </Action>
+        <Action>
+           <ActionName>New Action Area</ActionName>
+           <Target>navigate('newActionArea','widgets/usermanagement/actionarea/newActionArea.js')</Target>
+           <SequenceId>50</SequenceId>
+        </Action>
+        <Action>
+           <ActionName>Action Area List</ActionName>
+           <Target>navigate('actionAreaList','widgets/usermanagement/actionarea/listActionArea.js')</Target>
+           <SequenceId>60</SequenceId>
+        </Action>
+          <Action>
+           <ActionName>New Action</ActionName>
+           <Target>navigate('newAction','widgets/usermanagement/action/newAction.js')</Target>
+           <SequenceId>70</SequenceId>
+        </Action>
+        <Action>
+           <ActionName>Action List</ActionName>
+           <Target>navigate('ActionList','widgets/usermanagement/action/listAction.js')</Target>
+           <SequenceId>80</SequenceId>
+        </Action>
+        <Action>
+           <ActionName>Facilitators</ActionName>
+           <Target>navigate('ActionList','widgets/usermanagement/userinfo/listFacilitatorInfo.js')</Target>
+           <SequenceId>90</SequenceId>
+        </Action>
+         <Action>
+           <ActionName>Facilitators Report</ActionName>
+           <Target>navigate('ActionList','widgets/usermanagement/action/listReports.js')</Target>
+           <SequenceId>100</SequenceId>
+        </Action>
+     </Actions>
+   </ActionArea>
+   <ActionArea name = "Scholarship Management"  SequenceId="20">
+		<Actions>
+				<Action>
+				<ActionName>Student List</ActionName>
+				<Target>navigate ('Studentlist','widgets/scholarshipmanagement/listStudent.js')</Target>
+				<SequenceId>10</SequenceId>
+			</Action>
+			<Action>
+				<ActionName>Institution List</ActionName>
+				<Target>navigate ('listinstitution','widgets/scholarshipmanagement/listInstitution.js')</Target>
+				<SequenceId>20</SequenceId>
+			</Action>
+		</Actions> 
+	</ActionArea>
+</root>  
 </UserManagementDefaults>

@@ -55,8 +55,6 @@ public class AutoSetTradeRpPropertiesServlet extends HttpServlet
 		System.out.println ("AutoSetTradeRpPropertiesServlet : initialize : ");
 // TODO : commented to check connection pool issues using hibernate sessions 0n 2/6/2019
 		UserManagementInitializer.initialize ();
-		InventoryManagementInitializer.initialize ();
-		InventoryManagementInitializer.createListeners();
 //		EMailDataProcessor oEMailDataProcessor = new EMailDataProcessor ();
 //		oEMailDataProcessor.initiateSendEMailThread();
 	}

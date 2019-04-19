@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>
+     Student Information List
+    </title>
+  </head>
+  <body>
+    <form class="trademust" id="listStudentInfo_form_id">
+      <table class="trademust" id="listStudentInfo_table_filter" summary="">
+        <tr>
+          <td class="trademust">
+            <div class="trademust" id="listStudentInfo_div_dataGridToolbar">
+              <table class="trademust" cellpadding="2" cellspacing="2" summary="">
+                <tr>
+                  <td class="trademust" style="width:15%">
+                    <button 
+                        id="listStudentInfo_button_add"
+                        class="trademust addButton"
+                        type="button"
+                        style="visibility: initial;"
+                        onclick="listStudentInfo_showAddPopup ()">
+                      New Student
+                    </button>
+                  </td>
+                  <td class="trademust" style="width:25%">
+                    <input 
+                        class="filterTextBox"
+                        id="filterStudentInfo_input_studentName"
+                        onkeypress="handleFilter('listStudentInfo_filter()','')"
+                        placeholder="Student Name"/>
+                  </td>
+                  <td class="trademust" style="width:25%">
+                     <input 
+                        class="filterTextBox"
+                        id="filterStudentInfo_input_phonenumber"
+                        onkeypress="handleFilter('listStudentInfo_filter()','')"
+                        placeholder="PhoneNumber"/>
+                  </td>
+                  </td>
+                  <td class="trademust" style="width:25%">
+                    <input 
+                        class="filterTextBox"
+                        id="filterStudentInfo_input_city"
+                        onkeypress="handleFilter('listStudentInfo_filter()','')"
+                        placeholder="City"/>
+                  </td>
+                  <td class="trademust" style="width:10%">
+                    <button class="trademust filterButton" type="button" onclick="listStudentInfo_filter ()">
+                      Filter
+                    </button>
+                  </td>
+                  <td class="trademust" style="width:10%">
+                    <button class="trademust importButton" type="button" onclick="listStudentInfo_import ()">
+                      Import
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="trademust">
+            <div id="listStudentInfo_div_horizontalSplitter" style="z-index: 0">
+              <div id="listStudentInfo_div_dataGrid">
+                <table 
+                    id="listStudentInfo_table_users"
+                    class="easyui-datagrid"
+                    title="Student Information List"
+                    data-options="striped:true, pagination:true, pagesize:15, rownumbers:true, fitColumns:true, remoteSort:false, singleSelect:true, toolbar:'#listStudentInfo_div_dataGridToolbar'">
+
+                </table>
+              </div>
+              <div class="gridDetails" id="listStudentInfo_div_listDetail">
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>

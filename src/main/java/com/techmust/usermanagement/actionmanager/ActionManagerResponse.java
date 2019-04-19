@@ -38,7 +38,7 @@ public class ActionManagerResponse extends GenericResponse
 	{
 		m_strUser = oData.getM_strUserName ();
 		m_strLoginId = oData.getM_strLoginId ();
-		m_strActionsXml = getAdminActionsAsXML ();
+		m_strActionsXml = oData.getActionsAsXML();//getAdminActionsAsXML ();
 		m_nUserId = oData.getM_nUserId ();
 		m_nUID = oData.getM_nUID();
 		m_strMenuHTML = GenericUtil.buildHtml (m_strActionsXml, GenericUtil.getProjectProperty ("MENU_XSLT_FILE"));
