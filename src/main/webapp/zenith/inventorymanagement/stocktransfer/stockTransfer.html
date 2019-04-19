@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>
+      Insert title here
+    </title>
+  </head>
+  <body>
+    <form class="trademust" id="stockTransfer_form_id" style="width:585px">
+      <table class="trademust" summary="">
+        <tr>
+          <td class="formHeading">
+            StockTransfer Information
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <table class="trademust">
+              <tr>
+                <td class="trademust">
+                  <table class="trademust">
+                    <tr>
+                      <td class="fieldHeading">
+                        From
+                      </td>
+                      <td class="fieldData" style="width:50%;">
+                        <select id="stockTransfer_select_locationNameFrom" class="trademust"/>
+                      </td>
+                      <td class="fieldHeading">
+                        To  
+                      </td>
+                      <td class="fieldData" style="width:50%;">
+                        <select id="stockTransfer_select_locationNameTo" class="trademust"/>
+                      </td>
+                      <td class="fieldHeading">
+                        Date  
+                      </td>
+                      <td class="fieldData">
+                        <!-- <input id="stockTransfer_input_date" class="easyui-datebox" style="width:150px;height: 20px"/> -->
+                        <input id="stockTransfer_input_date" type="text"  readonly style="width:150px;height: 20px"/>
+                        <!-- As system is providing datepicker box to select the date from, user should not be allowed to type the date  -->
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              <tr align="left">
+                <td class="trademust">
+                  <table 
+                      id="stockTransfer_table_articles"
+                      name="stockTransfer_table_articles"
+                      class="easyui-datagrid"
+                      title="List Of Articles"
+                      data-options="striped:true, fitColumns:true, checkOnSelect:false"
+                      style="width:570px;height:265px;"
+                      showFooter="true">
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td align="right">
+            <hr>
+            <button 
+                class="trademust"
+                id="stockTransfer_button_create"
+                update="false"
+                type="button"
+                onclick="stockTransfer_submit ()">
+              Transfer
+            </button>
+            <button class="trademust" id="stockTransfer_button_cancel" type="button" onclick="stockTransfer_cancel ()">
+              Cancel
+            </button>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>

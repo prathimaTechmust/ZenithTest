@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>
+      Discount Structure
+    </title>
+  </head>
+  <body>
+    <form class="trademust" id="discountStructure_form_id" style="width:510px">
+      <table class="trademust">
+        <tr>
+          <td class="trademust">
+            <table class="trademust" summary="" width="100%">
+              <tr>
+                <td class="formHeading">
+                  Discount Structure
+                </td>
+              </tr>
+              <tr>
+                <td class="fieldHeading">
+                  Client Group
+                  <img 
+                      id="discountStructure_img_add"
+                      alt=""
+                      align="right"
+                      style="padding-right: 2px;"
+                      src="images/Arrow.png"
+                      title="Info"
+                      onclick="discountStructure_getclientGroupInfo ();"/>
+                </td>
+              </tr>
+              <tr>
+                <td class="fieldData">
+                  <input 
+                      type="text"
+                      class="easyui-combobox"
+                      data-options="hasDownArrow:false,panelWidth: 0"
+                      style="width:495px ; height:25px"
+                      id="discountStructure_input_clientGroup"/>
+                </td>
+              </tr>
+              <tr>
+                <td class="trademust">
+                  <table 
+                      id="discountStructure_table_itemGroupTable"
+                      class="easyui-datagrid"
+                      title="List Of Group Items"
+                      data-options="striped:true, fitColumns:true, rownumbers:true, checkOnSelect:false, showFooter: true"
+                      style="width:495px;height:250px;">
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td align="right">
+                  <hr>
+                  <button 
+                      class="trademust"
+                      id="discountStructure_button_save"
+                      update="false"
+                      type="button"
+                      onclick="discountStructure_submit ()">
+                    Save
+                  </button>
+                  <button 
+                      class="trademust"
+                      id="discountStructure_button_cancel"
+                      type="button"
+                      onclick="discountStructure_cancel ()">
+                    Cancel
+                  </button>
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td class="trademust" style="vertical-align:top; padding-left: 10px;">
+          	<div id="discountStructure_div_clientGroupInfo" style="display:none;">
+          		<table 
+		          id="discountStructure_table_clientGroupListDG"
+		          class="easyui-datagrid"
+		          title="Client Group List"
+		          style="height:410px; width:230px"
+		          data-options="striped:true, rownumbers:true, fitColumns:true, singleSelect:true">
+		     	 </table>
+          	</div>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>

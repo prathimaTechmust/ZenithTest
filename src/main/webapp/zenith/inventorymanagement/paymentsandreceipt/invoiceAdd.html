@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<form class="trademust" style="width:800px">
+      <table class="trademust">
+        <tr>
+          <td class="formHeading">
+            List of Invoice
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <table class="trademust">
+              <tr>
+                <td class="trademust" style="width:20%">
+                  <input 
+                      class="filterTextBox"
+                      id="invoiceAdd_input_invoiceNumber"
+                      onkeypress="handleFilter('invoiceAdd_filter()','')"
+                      placeholder="Invoice Number"/>
+                </td>
+                <td class="trademust" style="width:10%" align="right">
+                  <button class="filterButton" type="button" onclick="invoiceAdd_filter()">
+                    Filter
+                  </button>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td class="trademust">
+            <table 
+                id="invoiceAdd_table_invoiceDG"
+                class="easyui-datagrid"
+                style="height:380px"
+                title="List of Invoice"
+                data-options="striped:true,fitColumns:true, showFooter:true, pagination:true, pagesize:15">
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td align="right">
+            <hr>
+            <button class="trademust" id="invoiceAdd_button_add" update="false" type="button" onclick="invoiceAdd_addInvoices ()">
+              Add
+            </button>
+            <button class="trademust" id="invoiceAdd_button_cancel" type="button" onclick="invoiceAdd_cancel ()">
+              Cancel
+            </button>
+          </td>
+        </tr>
+      </table>
+    </form>
+</body>
+</html>

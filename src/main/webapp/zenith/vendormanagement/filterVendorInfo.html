@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <title>
+      Filter Vendor Infomation
+    </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  </head>
+  <body>
+    <form class="trademust" id="filterVendorInfo_form_id" style="width:360px;">
+      <table width="100%" class="trademust" summary="">
+        <tr>
+          <td class="formHeading" align="center">
+            Filter Vendor Infomation
+          </td>
+        </tr>
+        <tr>
+          <td class="fieldHeading">
+            Vendor Name
+          </td>
+        </tr>
+        <tr>
+          <td class="fieldData">
+            <input 
+                type="text"
+                id="filterVendorInfo_input_vendorName"
+                data-options="required:true"
+                class="trademust easyui-validatebox"/>
+          </td>
+        </tr>
+        <tr>
+          <td class="fieldHeading">
+            City
+          </td>
+        </tr>
+        <tr>
+          <td class="fieldData">
+            <input 
+                type="text"
+                id="filterVendorInfo_input_city"
+                data-options="required:true"
+                class="trademust easyui-validatebox"/>
+          </td>
+        </tr>
+        <tr>
+          <td class="fieldHeading">
+            Telephone No.
+          </td>
+        </tr>
+        <tr>
+          <td class="fieldData">
+            <input 
+                type="text"
+                id="filterVendorInfo_input_telephone"
+                data-options="required:true"
+                onkeyup="validateNumber (this)"
+                class="trademust easyui-validatebox"/>
+          </td>
+        </tr>
+        <tr>
+          <td class="fieldHeading">
+            E-mail
+          </td>
+        </tr>
+        <tr>
+          <td class="fieldData">
+            <input 
+                type="text"
+                id="filterVendorInfo_input_email"
+                data-options="required:true,validType:'email'"
+                class="trademust easyui-validatebox"/>
+          </td>
+        </tr>
+        <tr>
+          <td align="right">
+            <hr>
+            <button 
+                type="button"
+                class="trademust"
+                id="filterVendorInfo_button_cancel"
+                onclick="filterVendorInfo_cancel ()">
+              Cancel
+            </button>
+            <button  type="button" class="trademust" id="filterVendorInfo_button_submit" onclick="listVendor_list ()">
+              Filter
+            </button>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>

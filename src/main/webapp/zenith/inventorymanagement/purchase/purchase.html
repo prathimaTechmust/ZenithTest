@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>
+      Insert title here
+    </title>
+  </head>
+  <body>
+    <form class="trademust" id="purchase_form_id" style="width:990px">
+      <table class="trademust" summary="" width="100%">
+        <tr>
+          <td class="formHeading">
+            Purchase Information
+          </td>
+        </tr>
+        <tr>
+          <td class="trademust" >
+            <table class="trademust">
+              <tr>
+                <td class="trademust" style="width:50%;vertical-align:top;">
+                  <table class="trademust">
+                    <tr>
+                      <td class="trademust" style="width:50%;vertical-align:top;">
+                        <table class="trademust">
+                          <tr>
+                            <td class="fieldHeading" style="width:50%">
+                              From
+                              <img 
+                                  id="purchase_img_add"
+                                  alt=""
+                                  align="right"
+                                  src="images/add.PNG"
+                                  title="New Vendor"
+                                  style="visibility: hidden;"
+                                   data-options="required:true"
+                                  onclick="purchase_addVendor ();"/>
+                            </td>
+                            <td class="fieldHeading">
+                                    Invoice no.
+                          	</td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <input 
+                                  style="width:245px ; height:25px"
+                                  class="easyui-combobox"
+                                  data-options="hasDownArrow:false,panelWidth: 0"
+                                  id="purchase_input_from"
+                                  type="text"/>
+                            </td>
+                            <td class="fieldData" style="width:50%;">
+                                <input 
+                                    class="trademust easyui-validatebox"
+                                    data-options="required:true"
+                                    id="purchase_input_invoiceNo" maxlength="25"
+                                    onchange="purchase_validatePurchaseDetails ()"
+                                    type="text"/>
+                              </td>
+                          </tr>
+                          <tr>
+	                          <td class="fieldHeading">
+	                            Date
+	                          </td>
+	                          <td class="fieldHeading" id="purchase_td_locationLabel" style="visibility: hidden;">
+	                            Location
+	                          </td>
+                         </tr>
+                    	 <tr>
+                              <td>
+                                <!-- <input 
+                                    id="purchase_input_date"
+                                    class="easyui-datebox"
+                                    style="width:245px;height: 25px"/> -->
+                                <input 
+                                    id="purchase_input_date"
+                                    type="text" 
+                                    readonly
+                                    style="width:245px;"/>
+                                    <!-- As system is providing datepicker box to select the date from, user should not be allowed to type the date  -->
+                              </td>
+                              <td class="fieldData" style="width:50%;">
+		                        <select id="purchase_select_locationName"  style="visibility: hidden;" class="trademust"/>
+		                      </td>
+                    	 </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td class="trademust" style="width:50%; vertical-align:top; background:#fff;border: 1px solid gray;">
+                  <div style="height:110px; overflow:auto">
+                 <table class="trademust">
+                      <tr>
+                        <td class="trademust">
+                          <label id="purchase_label_address">
+                          </label>
+                          <br>
+                          <label id="purchase_label_city" >
+                          </label>
+                          <br>
+                          <label id="purchase_label_phoneNumber">
+                          </label>
+                          <br>
+                          <label id="purchase_label_email">
+                          </label>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <table>
+                            <tr>
+                              <td align="right">
+                                TIN NO :
+                              </td>
+                              <td>
+                                <label id="purchase_label_tinNo">
+                                </label>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td align="right">
+                                VAT NO :
+                              </td>
+                              <td>
+                                <label id="purchase_label_vatNo">
+                                </label>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td align="right">
+                                CST NO :
+                              </td>
+                              <td>
+                                <label id="purchase_label_cstNo" >
+                                </label>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td class="trademust">
+            <table 
+                id="purchase_table_articles"
+                name="purchase_table_articles"
+                class="easyui-datagrid"
+                title="List Of Articles"
+                data-options="striped:true, rownumbers:true, fitColumns:true, checkOnSelect:false"
+                style="width:985px;height:265px;"
+                showFooter="true">
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td align="right">
+            <hr>
+            <button 
+                class="trademust"
+                id="purchase_button_create"
+                update="false"
+                type="button"
+                onclick="purchase_submit ()">
+              Save
+            </button>
+            <button class="trademust" id="purchase_button_cancel" type="button" onclick="purchase_cancel ()">
+              Cancel
+            </button>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>

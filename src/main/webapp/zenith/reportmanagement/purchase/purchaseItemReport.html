@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<form class="trademust" id="purchaseItemReport_form_id" style="width:800px">
+      <table class="trademust">
+        <tr>
+          <td class="formHeading">
+           Purchase Item Report
+          </td>
+        </tr>
+        <tr>
+          <td class="trademust" style="vertical-align: top;">
+            <table 
+                id="purchaseItemReport_table_purchaseDG"
+                class="easyui-datagrid"
+                title="Item List"
+                style="height:400px"
+                data-options="striped:true, fitColumns:true, singleSelect:true, remoteSort:false, showFooter:true, checkOnSelect:false">
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td align="right">
+            <hr>
+            <button class="trademust" id="purchaseItemReport_button_cancel" type="button" onclick="purchaseItemReport_cancel ()">
+              Close
+            </button>
+          </td>
+        </tr>
+      </table>
+    </form>
+</body>
+</html>

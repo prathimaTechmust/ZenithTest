@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>
+      Receipt Report
+    </title>
+  </head>
+  <body>
+    <form class="trademust">
+      <table class="trademust">
+        <tr>
+          <td class="trademust">
+            <div id="receiptReport_div_dataGridToolbar">
+              <table class="trademust" cellpadding="2" cellspacing="2" summary="">
+                <tr>
+                  <td style="width:65%" class="trademust">
+                    <input 
+	                    class="filterTextBox" 
+	                    id="receiptReport_input_clientName" 
+	                    onkeypress="handleFilter('receiptReport_generateReceiptReport()','')"
+	                    placeholder="Client Name"/>
+                  </td>
+                  <td style="width:10%" class="trademust">
+                    <button class="filterButton" type="button" onclick="receiptReport_generateReceiptReport ()">
+                      Filter
+                    </button>
+                  </td>
+                  <td style="width:10%" class="trademust">
+                    <button class="filterButton" type="button" onclick="receiptReport_printReceiptReport ()">
+                      Print
+                    </button>
+                  </td>
+                  <td style="width:15%" class="trademust">
+                    <button class="exportButton" type="button" onclick="receiptReport_exportToTally ()">
+                      Export To Tally
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="trademust">
+            <div id="div_dataGrid">
+              <table 
+                  id="receiptReport_table_receiptReportDG"
+                  class="easyui-datagrid"
+                  style="height:100%;"
+                  title="Overall Receipt Report"
+                  data-options="striped:true, rownumbers:true, fitColumns:true, singleSelect:true, showFooter:true, toolbar:'#receiptReport_div_dataGridToolbar', remoteSort:false">
+              </table>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>

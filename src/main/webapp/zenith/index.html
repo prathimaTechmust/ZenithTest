@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>
+      Zenith Back Office System
+    </title>
+    <link rel="stylesheet" type="text/css" href="css/easyui.css">
+    <link rel="stylesheet" type="text/css" href="css/icon.css">
+    <link media="all" href="css/jquery-ui.css" type="text/css" rel="stylesheet"/>
+    <link rel="stylesheet" href="include/jqwidgets/jqwidgets/styles/jqx.base.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="css/menu.css"/>
+    <!-- <link rel="stylesheet" type="text/css" href="css/sprites.css"/> -->
+    <link rel="stylesheet" type="text/css" href="css/trademust.css">
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/chai/3.5.0/chai.min.js"></script>
+    <script type="text/javascript">
+    	var assert = chai.assert;
+    </script>
+    <script type="text/javascript" src="include/jquery.min.js">
+    </script>
+    <!-- <script src="http://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script> -->
+    <script type="text/javascript" src="include/jquery.easyui.min.js">
+    </script>
+    <script type="text/javascript" src="include/trademust.js">
+    </script>
+    <script type="text/javascript" src="include/ui/jquery.ui.core.js">
+    </script>
+    <script type="text/javascript" src="include/ui/jquery.ui.widget.js">
+    </script>
+    
+     <script type="text/javascript" src="include/jqwidgets/jqwidgets/jqxcore.js">
+    </script>
+     <script type="text/javascript" src="include/jqwidgets/jqwidgets/jqxpanel.js">
+    </script>
+     <script type="text/javascript" src="include/jqwidgets/jqwidgets/jqxbuttons.js">
+    </script>
+     <script type="text/javascript" src="include/jqwidgets/jqwidgets/jqxscrollbar.js">
+    </script>
+    <script type="text/javascript" src="include/jqwidgets/jqwidgets/jqxlistbox.js">
+    </script>
+    <script type="text/javascript" src="include/jqwidgets/jqwidgets/jqxcombobox.js">
+    </script>
+    <script type="text/javascript" src="include/jqwidgets/jqwidgets/jqxsplitter.js">
+    </script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js">
+    </script>
+    <script type="text/javascript" src="include/TradeMustHelper.js">
+    </script>
+    <script type="text/javascript" src="interface/usermanagement/actionmanager/ActionManagerDataProcessor.js">
+    </script>
+    <script type="text/javascript" src="include/sha3.js">
+    </script>
+    <script type="text/javascript">
+	 var garrDWRHeaders = 
+	 [
+		'include/ui/jquery.ui.menu.js',
+		'include/ui/jquery.ui.position.js',
+		'include/ui/jquery.ui.autocomplete.js',
+    	'include/jquery.ui.addresspicker.js',
+    	'include/jquery.ui.datepicker.js',
+    	'include/jquery.i18n.properties-min-1.0.9.js',
+  		'include/datagrid-detailview.js',
+  		'interface/usermanagement/userinfo/UserInformationDataProcessor.js',
+  		'interface/usermanagement/role/RoleDataProcessor.js',
+  		'interface/usermanagement/actionarea/ActionAreaDataProcessor.js',
+  		'interface/usermanagement/facilitateInfo/FacilitatorInformationDataProcessor.js',
+  		'interface/usermanagement/action/ActionDataProcessor.js',
+  		'interface/inventory/tax/TaxDataProcessor.js',
+  		'interface/inventory/tax/ApplicableTaxDataProcessor.js',
+  		'interface/propertymanagement/PropertyTypeDataProcessor.js',
+  		'interface/propertymanagement/PropertyDataProcessor.js',
+  		'interface/MarketPlaceManagement/VendorItemDataProcessor.js',
+  		'interface/inventory/client/ClientDataProcessor.js',
+  		'interface/inventory/sales/SalesDataProcessor.js',
+  		'interface/inventory/challan/ChallanDataProcessor.js',
+  		'interface/inventory/vendor/BusinessTypeDataProcessor.js',
+  		'interface/inventory/vendor/VendorDataProcessor.js',
+  		'interface/inventory/vendor/VendorGroupDataProcessor.js',
+  		'interface/inventory/vendorpurchaseorder/VendorPurchaseOrderDataProcessor.js',
+  		'interface/inventory/client/ClientGroupDataProcessor.js',
+  		'interface/ClientRelationManagement/TemplateDataProcessor.js',
+  		'interface/ClientRelationManagement/TemplateCategoryDataProcessor.js',
+  		'interface/ClientRelationManagement/MessageDataProcessor.js',
+  		'interface/ClientRelationManagement/ContactDataProcessor.js',
+  		'interface/ClientRelationManagement/CustomizedItemDataProcessor.js',
+  		'interface/inventory/quotation/QuotationDataProcessor.js',
+  		'interface/inventory/quotation/QuotationLogDataProcessor.js',
+  		'interface/inventory/sales/DiscountStructureDataProcessor.js',
+  		'interface/inventory/item/ItemDataProcessor.js',
+  		'interface/inventory/item/OwnItemDataProcessor.js',
+    	'interface/inventory/item/ItemGroupDataProcessor.js',
+    	'interface/inventory/item/ItemCategoryDataProcessor.js',
+		'interface/paymentsandreceipts/TransactionModeDataProcessor.js',
+  		'interface/paymentsandreceipts/PaymentDataProcessor.js',
+  		'interface/paymentsandreceipts/ReceiptDataProcessor.js',
+		'interface/purchase/PurchaseDataProcessor.js',
+		'interface/purchase/NonStockSalesLineItemDataProcessor.js',
+		'interface/purchase/PurchasePaymentDataProcessor.js',
+		'interface/purchase/PurchaseOrderDataProcessor.js',
+		'interface/purchase/PurchaseLineItemDataProcessor.js',
+		'interface/purchase/POInvoiceDataProcessor.js',
+		'interface/inventory/location/LocationDataProcessor.js',
+		'interface/inventory/serial/SerialNumberDataProcessor.js',
+		'interface/inventory/vendor/ConfigurationDataProcessor.js',
+		'interface/inventory/stocktransfer/ItemLocationDataProcessor.js',
+		'interface/inventory/invoice/InvoiceDataProcessor.js',
+		'interface/inventory/invoice/InvoiceReceiptDataProcessor.js',
+		'interface/inventory/stocktransfer/StockTransferDataProcessor.js',
+		'interface/inventory/stocktransfer/StockTransferMemoDataProcessor.js',
+		'interface/inventory/sales/SalesLineItemDataProcessor.js',
+		'interface/inventory/returned/ReturnedDataProcessor.js',
+		'interface/inventory/purchasereturned/PurchaseReturnedDataProcessor.js',
+		'interface/organization/OrganizationDataProcessor.js'
+		
+	];
+   </script>
+  </head>
+  <body onload="navigate('login','widgets/usermanagement/actionmanager/login.js')">
+    <table class="noprint" align="center" width="100%" height="100%" cellspacing="0" class="borderstyle">
+      <tr>
+      	<td id="TrademustLogo" class="TrademustLogo" style="width:25%;">
+      		<table class="noprint" align="center" width="100%" height="100%" cellspacing="0">
+      			<tr>
+        			<td class="TrademustLogo" style="width:15%;">
+		               <a href="index.html">
+		                <img 
+		                    width="200px"
+		                    height="40px"
+		                    src="images/TechMust.jpg"
+		                    title="Logo"/>
+		                 </a>
+		              </td>
+        		</tr>
+        	</table>
+      	</td>
+      	<td class="welcome_user" style="width:50%;text-align:center">
+      		<b class="headerTitle" style="color:#fff;">ZENITH FOUNDATION</b>
+      	</td>
+        <td class="welcome_user" style="width:25%;">
+          <div id="index_div_login" style="visibility: hidden">
+            <table class="trademust" cellspacing="0">
+              <tr>
+                <td width="95%" class="welcome_user">
+                  Welcome
+                  <span id="index_div_userName">
+                  </span>
+                  <br/>
+                  <a class="anchorTag" href="javascript:changePassword ()">
+                    Change Password
+                  </a>
+                </td>
+                <td width="5%" class="welcome_user">
+                <a class="anchorTag" href="javascript:logout ()">
+                <img 
+                    src="images/logout.png"
+                    title="logout"></a>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="divsion" valign="top" height="100%" colspan="3" width="100%">
+          <div id="verticalSplitter" style="height:100%;">
+            <div>
+              <div id="menubar" style="overflow: auto; height:100%;">
+              </div>
+            </div>
+            <div id="workarea" style="overflow: auto;height:100%;">
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3" class="footer" id="footer">
+           <a class="footerTag" href="http://www.techmust.com" target="_blank"> TechMust Software Pvt Ltd.</a> 
+        </td>
+      </tr>
+    </table>
+    <div id="display-message" class="noprint">
+	</div>
+    <div id="dialog"  class="dialog" align="center" style="z-index: 999">
+    </div>
+     <div id="secondDialog"  class="dialog" align="center" style="z-index: 1000">
+    </div>
+    <div id="thirdDialog"  class="dialog" align="center" style="z-index: 1200">
+    </div>
+    <div id="ProcessDialog"  class="dialog" align="center" style="z-index: 1500">
+    </div>
+     <div id="overlay" class="dialog_overlay noprint"/>
+    <div id="status">
+    </div>
+  </body>
+</html>

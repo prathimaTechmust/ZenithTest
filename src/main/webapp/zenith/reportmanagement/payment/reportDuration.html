@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>
+      Insert title here
+    </title>
+  </head>
+  <body>
+    <form class="trademust" id="reportDuration_form_id" style="width:300px">
+      <table class="trademust" summary="" width="100%">
+        <tr>
+          <td class="formHeading">
+            Report Duration
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <table class="trademust">
+              <tr>
+                <td class="fieldHeading">
+                  From
+                </td>
+              </tr>
+              <tr>
+                <td class="fieldData">
+                  <input style="width:295px;height:25px" id="reportDuration_input_dateFrom" class="easyui-datebox"/>
+                </td>
+              </tr>
+              <tr>
+                <td class="fieldHeading">
+                  To
+                </td>
+              </tr>
+              <tr>
+                <td class="fieldData">
+                  <input style="width:295px;height:25px" id="reportDuration_input_dateTo" class="easyui-datebox"/>
+                </td>
+              </tr>
+              <tr>
+                <td align="right">
+                  <hr>
+                  <button 
+                      class="trademust"
+                      id="reportDuration_button_generate"
+                      update="false"
+                      type="button"
+                      onclick="paymentReport_processReport ()">
+                    Generate
+                  </button>
+                   <button 
+                      class="trademust"
+                      id="reportDuration_button_cancel"
+                      type="button"
+                      onclick="paymentReport_cancel ()">
+                    Cancel
+                  </button>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<form id="vendorSerialNumberList_form_id" class="trademust">
+      <table class="trademust">
+        <tr>
+          <td class="trademust">
+            <div id="vendorSerialNumberList_div_dataGridToolbar">
+              <table class="trademust" cellpadding="2" cellspacing="2" summary="">
+                <tr>
+                  <td class="trademust" style="width:90%">
+                    <input 
+	                    class="filterTextBox" 
+	                    id="filtervendorSerialNumberList_input_vendorName" 
+	                    onkeypress="handleFilter('vendorSerialNumberList_filter()','')"
+	                    placeholder="Vendor Name"/>
+                  </td>
+                  <td class="trademust" style="width:10%">
+                    <button class="filterButton" type="button" onclick="vendorSerialNumberList_filter ()">
+                      Filter
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="trademust">
+              <div id="vendorSerialNumberList_div_dataGrid">
+                <table 
+                    id="vendorSerialNumberList_table_vendors"
+                    class="easyui-datagrid"
+                    title="List of Vendor Serial Number"
+                    data-options="striped:true, remoteSort:false, pagination:true, pageSize:20, pageList:[20,40,60,80,100], rownumbers:true, fitColumns:true, singleSelect:true, toolbar:'#vendorSerialNumberList_div_dataGridToolbar'">
+                </table>
+              </div>
+          </td>
+        </tr>
+      </table>
+    </form>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>
+      Insert title here
+    </title>
+  </head>
+  <body>
+    <form class="trademust" id="vatReport_form_id">
+      <table class="trademust" summary="">
+      	<tr>
+			<td class="formHeading" id = "vatReport_td_headerId" style="text-align:left">
+				VAT Report
+			</td>
+		</tr>
+      	<tr>
+          <td align="right" class="noprint">
+            <button 
+                class="trademust"
+                id="vatReport_button_exportToExcel"
+                type="button"
+                style= "width:150px"
+                onclick="vatReport_exportToCSV ()">
+                Export To CSV
+            </button>
+            <button 
+                class="trademust"
+                id="vatReport_button_showPrintPopup"
+                type="button"
+                onclick="vatReport_showPrintPopup ()">
+              Print
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div style="height:100%" class="gridDetails" id="vatReport_div_listDetail">
+            </div>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>

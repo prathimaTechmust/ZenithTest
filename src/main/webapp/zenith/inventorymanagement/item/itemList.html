@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <title>
+      Item List
+    </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  </head>
+  <body>
+    <form class="trademust">
+      <table class="trademust">
+        <tr>
+          <td class="trademust">
+            <div id="itemList_div_dataGridToolbar">
+              <table class="trademust" cellpadding="2" cellspacing="2" summary="">
+                <tr>
+                  <td class="trademust" style="width:15%">
+                    <button 
+                        id="itemList_button_add"
+                        class="trademust addButton"
+                        type="button"
+                        style="visibility: hidden;"
+                        onclick="itemList_showAddPopup ()">
+                      New Item
+                    </button>
+                  </td>
+                  <td class="trademust" style="width:15%">
+                    <input 
+                        class="easyui-combobox"
+                        id="filterItem_input_articleNumber"
+                        style=" width: 150px"
+                        data-options="hasDownArrow:false,panelWidth: 150"/>
+                  </td>
+                  <td class="trademust" style="width:20%">
+                    <input 
+                        class="filterTextBox"
+                        id="filterItem_input_itemname"
+                        onkeypress="handleFilter('itemList_filter()','#filterItem_input_brand')"
+                        placeholder="Item Name"/>
+                  </td>
+                  <td class="trademust" style="width:20%">
+                    <input class="filterTextBox" id="filterItem_input_brand" onkeypress="handleFilter('itemList_filter()','')" placeholder="Brand"/>
+                  </td>
+                  <td class="trademust" style="width:10%">
+                    <button class="filterButton" type="button" onclick="itemList_filter()">
+                      Filter
+                    </button>
+                  </td>
+                  <td class="trademust" style="width:10%">
+                    <button class="filterButton" type="button" style="visibility: hidden;" id="itemList_button_import" onclick="itemList_import()">
+                      Import
+                    </button>
+                  </td>
+                  <td class="trademust" style="width:10%">
+                    <button class="filterButton" type="button" style="visibility: hidden;" id="itemList_button_export" onclick="itemList_export()">
+                      Export
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="trademust">
+            <div id="itemList_div_horizontalSplitter" style="z-index: 0">
+              <div id="div_dataGrid">
+                <table 
+                    id="itemList_table_itemListDG"
+                    class="easyui-datagrid"
+                    style="height:50%;"
+                    title="Item List"
+                    data-options="striped:true, pagination:true, remoteSort:false, pagesize:15, rownumbers:true, fitColumns:true, singleSelect:true, toolbar:'#itemList_div_dataGridToolbar'">
+                </table>
+              </div>
+              <div class="gridDetails" id="itemList_div_listDetail">
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>

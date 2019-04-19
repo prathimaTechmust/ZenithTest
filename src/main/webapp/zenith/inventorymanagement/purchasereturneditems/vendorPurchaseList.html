@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>
+      Sales Items
+    </title>
+  </head>
+  <body>
+    <form class="trademust" id="vendorPurchaseList_form_id" style="width:600px">
+      <table class="trademust">
+      <tr>
+          <td class="formHeading">
+            Purchase Information
+          </td>
+        </tr>
+        <tr>
+          <td class="trademust">
+            <div id="vendorPurchaseList_div_dataGridToolbar">
+              <table class="trademust" cellpadding="2" cellspacing="2" summary="">
+                <tr>
+                  <td style="width:40%" class="trademust">
+                    <input 
+                        class="easyui-combobox"
+                        id="vendorPurchaseList_input_receivedBy"
+                        data-options="hasDownArrow:false,panelWidth: 180"
+                        style="width:200px"/>
+                  </td>
+                  <td style="width:30%" class="trademust">
+                    <input 
+                        class="filterTextBox"
+                        id="vendorPurchaseList_input_invoiceNumber"
+                        placeholder="Invoice Number"
+                        style="width:180px"/>
+                  </td>
+                  <td class="trademust" style="width:20%">
+                    <input class="easyui-datebox" id="vendorPurchaseList_input_date" style="width:120px"  placeholder="Date" readonly/>
+                  </td>
+                  <td style="width:10%" class="trademust">
+                    <button class="filterButton" type="button" onclick="vendorPurchaseList_filter ()">
+                      Filter
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </td>
+        </tr>
+        <td class="trademust">
+          <div id="div_dataGrid">
+            <table 
+                id="vendorPurchaseList_table_purchaseItemsDG"
+                class="easyui-datagrid"
+                style="width:590px;height:400px;"
+                title="Purchase List"
+                data-options="striped:true, rownumbers:true,pagination:true, pagesize:15,remoteSort:false, fitColumns:true, singleSelect:true, showFooter:true, toolbar:'#vendorPurchaseList_div_dataGridToolbar'">
+            </table>
+          </div>
+        </td>
+      </tr>
+       <tr>
+          <td align="right">
+            <hr>
+            <button 
+                class="trademust"
+                id="vendorPurchaseList_button_add"
+                update="false"
+                type="button"
+                onclick="vendorPurchaseList_addLineItems ()">
+              Add
+            </button>
+            <button class="trademust" id="vendorPurchaseList_button_cancel" type="button" onclick="vendorPurchaseList_cancel ()">
+              Cancel
+            </button>
+          </td>
+        </tr>
+    </table>
+  </form>
+</body>
+</html>

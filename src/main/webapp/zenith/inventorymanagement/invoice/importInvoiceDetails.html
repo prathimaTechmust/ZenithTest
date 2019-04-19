@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>
+      Insert title here
+    </title>
+  </head>
+  <body>
+    <form class="trademust" id="importInvoiceDetails_form_id" style="width:400px">
+      <table class="trademust">
+        <tr>
+          <td class="formHeading">
+            Import Invoice Details
+          </td>
+        </tr>
+        <tr>
+          <td class="fieldHeading">
+            Import File
+          </td>
+        </tr>
+        <tr>
+          <td class="fieldData">
+            <select id="importInvoiceDetails_select_provider" class="trademust"/>
+          </td>
+        </tr>
+        <tr></tr>
+        <tr>
+          <td class="fieldData">
+            <input 
+                id="importInvoiceDetails_input_importFile"
+                type="file"
+                style="width:89px"
+                onchange="importInvoiceDetails_getFileName ()">
+          </td>
+        </tr>
+        <tr>
+          <td class="trademust">
+            <label id="importInvoiceDetails_td_fileName">
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td align="right">
+            <hr>
+            <button 
+                 class="trademust"
+                id="importInvoiceDetails_button_import"
+                update="false"
+                type="button"
+                onclick="importInvoiceDetails_import ()">
+              Import
+            </button>
+            <button class="trademust" id="importInvoiceDetails_button_cancel" type="button" onclick="importInvoiceDetails_cancel ()">
+              Cancel
+            </button>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>

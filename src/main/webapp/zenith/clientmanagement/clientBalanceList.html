@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<form class="trademust" style="width:800px;">
+      <table class="trademust">
+        <tr>
+          <td class="trademust">
+            <div id="clientBalanceList_div_dataGridToolbar">
+              <table class="trademust" cellpadding="2" cellspacing="2" summary="">
+                <tr>
+                  <td class="trademust" style="width:45%">
+                    <input class="filterTextBox" id="clientBalanceList_input_clientname" onkeypress="handleFilter('clientBalanceList_listFilter()','#clientBalanceList_input_address')" placeholder="Client Name"/>
+                  </td>
+                  <td class="trademust" style="width:45%">
+                    <input class="filterTextBox" id="clientBalanceList_input_address" onkeypress="handleFilter('clientBalanceList_listFilter()','')" placeholder="Address"/>
+                  </td>
+                  <td class="trademust" style="width:10%">
+                    <button class="filterButton" type="button" onclick="clientBalanceList_listFilter()">
+                      Filter
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="trademust">
+            <div id="div_dataGrid">
+              <table 
+                  id="clientBalanceList_table_clientBalanceListDG"
+                  class="easyui-datagrid"
+                  style="height:500px;"
+                  title="Client Balance List"
+                  data-options="striped:true, pagination:true, remoteSort:false, pageSize:15, pageList:[15,30,45,60,75],rownumbers:true, fitColumns:true, loadMsg: 'loading...', singleSelect:true,toolbar:'#clientBalanceList_div_dataGridToolbar', onClickCell: clientBalanceList_editDG_cell">
+              </table>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td align="right">
+            <hr>
+            <button 
+                class="trademust"
+                id="clientBalanceList_button_save"
+                type="button"
+                onclick="clientBalanceList_save ()">
+              Save
+            </button>
+            <button 
+                class="trademust"
+                id="clientBalanceList_button_cancel"
+                type="button"
+                onclick="clientBalanceList_cancel ()">
+              Cancel
+            </button>
+          </td>
+        </tr>
+      </table>
+    </form>
+</body>
+</html>

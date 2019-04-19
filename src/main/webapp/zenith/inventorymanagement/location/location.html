@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<form id="location_form_id" class="trademust" style="width:360px">
+      <table class="trademust">
+        <tr>
+          <td class="formHeading">
+            Location
+          </td>
+        </tr>
+        <tr>
+          <td class="fieldHeading">
+          	Name
+            <em>
+              *
+            </em>
+          </td>
+        </tr>
+        <tr>
+          <td class="fieldData">
+            <input type="text" 
+                   id="location_input_name"  maxlength="40"
+                   class="easyui-validatebox trademust"
+                   data-options="required:true" onchange="location_checkLocation ();"/>
+          </td>
+        </tr>
+        <tr>
+	          <td class="fieldHeading">
+	            Address
+	            <em>
+	              *
+	            </em>
+	          </td>
+        </tr>
+        <tr>
+	          <td class="fieldData">
+	            <textarea 
+	                id="location_textarea_address"
+	                rows="3"
+	                cols="20" maxlength="200"
+	                class="trademust easyui-validatebox"
+	                data-options="required:true"></textarea>
+	          </td>
+         </tr>
+        <tr>
+          <td class="trademust" align="right">
+            <hr>
+            <button id="location_button_submit" class="trademust" update="false"  type="button" onclick="location_submit()">
+              Create
+            </button>
+            <button id="location_button_cancel" class="trademust" type="button" onclick="location_cancel()" >
+              Cancel
+            </button>
+          </td>
+        </tr>
+      </table>
+    </form>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Property Lsit</title>
+</head>
+<body>
+	<form class="trademust">
+      <table class="trademust">
+        <tr>
+          <td class="trademust">
+            <div id="propertyList_div_dataGridToolbar">
+              <table class="trademust" cellpadding="2" cellspacing="2" summary="">
+                <tr>
+                  <td class="trademust" style="width:20%">
+                    <button 
+                        id="propertyList_button_add"
+                        class="trademust addButton"
+                        type="button"
+                        style="visibility: hidden;"
+                        onclick="propertyList_showAddPopup ()">
+                      New Property
+                    </button>
+                  </td>
+                  <td class="trademust" style="width:35%">
+                    <input 
+                        class="filterTextBox"
+                        id="filterProperty_input_clientName"
+                        style=" width: 300px"
+                        placeholder="Client Name"
+                        onkeypress="handleFilter('propertyList_filter()','#filterProperty_input_propertyType')"/>
+                  </td>
+                  <td class="trademust" style="width:35%">
+                    <input 
+                        class="filterTextBox"
+                        id="filterProperty_input_propertyType"
+                        style=" width: 300px"
+                        placeholder="Property Type"
+                        onkeypress="handleFilter('propertyList_filter()','')"/>
+                  </td>
+                  <td class="trademust" style="width:10%">
+                    <button class="filterButton" type="button" onclick="propertyList_filter()">
+                      Filter
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="trademust">
+            <div id="propertyList_div_horizontalSplitter" style="z-index: 0">
+              <div id="div_dataGrid">
+                <table 
+                    id="propertyList_table_propertyListDG"
+                    class="easyui-datagrid"
+                    style="height:50%;"
+                    title="Property List"
+                    data-options="striped:true, pagination:true, remoteSort:false, pagesize:15, rownumbers:true, fitColumns:true, singleSelect:true, toolbar:'#propertyList_div_dataGridToolbar'">
+                </table>
+              </div>
+              <div class="gridDetails" id="propertyList_div_listDetail">
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </form>
+</body>
+</html>

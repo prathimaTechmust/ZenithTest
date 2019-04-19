@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VendorManagementDefaults>
+<BusinessTypes>
+	 <BusinessType>
+	 	<BusinessTypeName>Other</BusinessTypeName>
+	 </BusinessType>
+</BusinessTypes>
+<ActionAreas>
+<ActionArea name="Vendor Management" SequenceId="40">
+	<Actions>
+		<Action>
+			<ActionName>Vendor List</ActionName>
+			<Target>navigate ('vendorList','widgets/vendormanagement/vendorListUser.js')</Target>
+			<SequenceId>220</SequenceId>
+		</Action>
+		<Action>
+			<ActionName>Vendor List +</ActionName>
+			<Target>navigate ('vendorList','widgets/vendormanagement/vendorListAdmin.js')</Target>
+			<SequenceId>220</SequenceId>
+		</Action>
+		<Action>
+			<ActionName>New Vendor Info</ActionName>
+			<Target>navigate ('Vendor Info','widgets/vendormanagement/newVendorInfo.js')</Target>
+			<SequenceId>230</SequenceId>
+		</Action>
+		<Action>
+			<ActionName>New Business Type</ActionName>
+			<Target>navigate ('BusinessType Info','widgets/clientmanagement/newBusinessType.js')</Target>
+			<SequenceId>240</SequenceId>
+		</Action>
+		<Action>
+			<ActionName>Business Type List</ActionName>
+			<Target>navigate ('BusinessType List','widgets/clientmanagement/listBusinessType.js')</Target>
+			<SequenceId>250</SequenceId>
+		</Action>
+	</Actions>
+</ActionArea>
+ </ActionAreas>
+</VendorManagementDefaults>

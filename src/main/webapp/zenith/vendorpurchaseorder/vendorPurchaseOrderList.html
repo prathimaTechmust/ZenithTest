@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>
+      Purchase Order List
+    </title>
+  </head>
+  <body>
+    <form class="trademust">
+      <table class="trademust">
+        <tr>
+          <td class="trademust">
+            <div id="vendorPurchaseOrderList_div_dataGridToolbar">
+              <table class="trademust" cellpadding="2" cellspacing="2" summary="">
+                <tr>
+                  <td class="trademust" style="width:15%">
+                    <button 
+                        id="vendorPurchaseOrderList_button_add"
+                        class="trademust addButton"
+                        type="button"
+                        style="visibility: hidden;"
+                        onclick="vendorPurchaseOrderList_showAddPopup ()">
+                      New Order
+                    </button>
+                  </td>
+                  <td class="trademust" style="width:30%">
+                    <input 
+                    	class="filterTextBox" 
+                    	id="vendorPurchaseOrderList_input_vendorName" 
+                    	onkeypress="handleFilter('vendorPurchaseOrderList_filter()','#vendorPurchaseOrderList_input_siteName')"
+                    	placeholder="Vendor Name"/>
+                  </td>
+                  <td class="trademust" style="width:20%">
+                    <input 
+                        class="filterTextBox"
+                        id="vendorPurchaseOrderList_input_purchaseOrderNumber"
+                        onkeypress="handleFilter('vendorPurchaseOrderList_filter()','#vendorPurchaseOrderList_input_date')"
+                        placeholder="Purchase Order#"/>
+                  </td>
+                  <td class="trademust" style="width:15%">
+                    <input 
+	                    class="easyui-datebox" 
+	                    id="vendorPurchaseOrderList_input_fromDate" 
+	                    style="width:150px;height:22px"/>
+                  </td>
+                   <td class="trademust" style="width:15%">
+                    <input 
+	                    class="easyui-datebox" 
+	                    id="vendorPurchaseOrderList_input_toDate" 
+	                    style="width:120px;height:22px"/>
+                  </td>
+                  <td class="trademust" style="width:5%">
+                    <button class="filterButton" type="button" onclick="vendorPurchaseOrderList_filter ()">
+                      Filter
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="trademust">
+            <div id="vendorPurchaseOrderList_div_horizontalSplitter" style="z-index: 0">
+              <div>
+              	<div id="vendorPurchaseOrderList_div_POStatusTabs" class="easyui-tabs" data-options="tabWidth:100,tabHeight:30">
+                <div id="vendorPurchaseOrderList_div_pending" title="<span>Pending</span>" style="padding: 5px">
+                  <table 
+                      id="vendorPurchaseOrderList_table_purchaseOrderPendingListDG"
+                      class="easyui-datagrid"
+                      title="Vendor Purchase Order List"
+                      style="height:50%"
+                      data-options="striped:true, pagination:true, pagesize:15, rownumbers:true, fitColumns:true, singleSelect:true, remoteSort:false, toolbar:'#vendorPurchaseOrderList_div_dataGridToolbar'">
+                  </table>
+                </div>
+                <div id="vendorPurchaseOrderList_div_completed" title="<span>Completed</span>" style="padding: 5px">
+                  <table 
+                      id="vendorPurchaseOrderList_table_purchaseOrderCompletedListDG"
+                      class="easyui-datagrid"
+                      title="Purchase Order List"
+                      style="height:50%"
+                      data-options="striped:true, pagination:true, pagesize:15, rownumbers:true, fitColumns:true, singleSelect:true, remoteSort:false, toolbar:'#vendorPurchaseOrderList_div_dataGridToolbar'">
+                  </table>
+                </div>
+              </div>
+              </div>
+              <div class="gridDetails" id="vendorPurchaseOrderList_div_listDetail">
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>

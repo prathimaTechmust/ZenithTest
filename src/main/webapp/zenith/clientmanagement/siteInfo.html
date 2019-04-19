@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<form id="siteInfo_form_id" class="trademust" style="width:260px;">
+      <table class="trademust">
+        <tr>
+          <td class="formHeading">
+           Site Information
+          </td>
+        </tr>
+        <tr>
+          <td class="fieldHeading">
+      		 Name
+            <em>
+              *
+            </em>
+          </td>
+        </tr>
+        <tr>
+          <td class="fieldData">
+            <input 
+                type="text"
+                id="siteInfo_input_siteName" maxlength="30"
+                data-options="required:true"
+                class="trademust easyui-validatebox"/>
+          </td>
+        </tr>
+        <tr>
+          <td class="fieldHeading">
+            Address
+            <em>
+              *
+            </em>
+          </td>
+        </tr>
+        <tr>
+          <td class="fieldData">
+	            <textarea 
+	                id="siteInfo_textarea_address"
+	                rows="3"
+	                cols="20" maxlength="200"
+	                class="trademust easyui-validatebox"
+	                data-options="required:true"></textarea>
+	      </td>
+        </tr>
+        <tr>
+          <td class="fieldHeading">
+           	Active
+          </td>
+        </tr>
+        <tr>
+          <td class="fieldData">
+            <input type="checkbox" id="siteInfo_input_checkActive" checked="checked">
+          </td>
+        </tr>
+        <tr>
+          <td align="right">
+            <hr>
+            <button 
+                id="siteInfo_button_submit"
+                class="trademust"
+                type="button"
+                update="false"
+                editSite="false"
+                onclick="siteInfo_submit()">
+              Create
+            </button>
+            <button id="siteInfo_button_cancel" class="trademust" type="button" onclick="siteInfo_cancel()">
+              Cancel
+            </button>
+          </td>
+        </tr>
+      </table>
+    </form>
+</body>
+</html>

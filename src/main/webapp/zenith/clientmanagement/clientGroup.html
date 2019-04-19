@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <title>
+      Client Group Information
+    </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+</head>
+<body>
+  <form id="clientGroup_form_id" class="trademust" style="width:500px;">
+     <table class="trademust">
+      <tr>
+        <td class="formHeading">
+          Client Group Information
+        </td>
+      </tr>
+      <tr>
+        <td class="fieldHeading">
+          Group Name
+          <em>
+            *
+          </em>
+        </td>
+      </tr>
+      <tr>
+        <td class="fieldData">
+          <input type="text" id="clientGroup_input_clientGroupName"   maxlength="40" class="easyui-validatebox trademust" data-options="required:true"/>
+        </td>
+      </tr>
+      <tr>
+      <td>
+      <table class="trademust">
+      <tr>
+      <td class="fieldHeading">
+          List Of Clients
+          <em>
+            *
+          </em>
+        </td>
+        <td align="right">
+          <button type="button" id="clientGroup_button_add" class="trademust" onclick="clientGroup_addClients ()">
+          Add
+        </button>
+        </td>
+      </tr>
+      </table>
+      </td>
+      </tr>
+      <tr>
+        <td>
+          <table 
+              id="clientGroup_table_listofclientDG"
+              class="easyui-datagrid"
+              summary=""
+              data-options="striped:true, pagination:true, pagesize:15, fitColumns:true,  rownumbers:true"
+              style="width:490px;height:300px;">
+          </table>
+        </td>
+      </tr>
+    <tr>
+      <td class="trademust">
+        <div id="clientGroup_div_lblError" style="display:none">
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="trademust" align="right">
+        <hr>
+        <button  type="button" id="clientGroup_button_submit" class="trademust" update="false" onclick="clientGroup_submit ()">
+          Create
+        </button>
+        <button type="button" id="clientGroup_button_cancel" class="trademust" onclick="clientGroup_cancel ()">
+          Cancel
+        </button>
+      </td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>

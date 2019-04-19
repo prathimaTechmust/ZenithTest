@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserManagementDefaults>
+  <AdminUser>
+    <LoginId>admin</LoginId>
+    <Password>admin</Password>
+    <UserName>Administrator</UserName>
+    <Email>madhu@techmust.com</Email>
+    <DateofBirth>1999-05-30</DateofBirth>
+     <Gender>male</Gender>
+     <Address>Banglore</Address>
+     <PhoneNumber>9864767432</PhoneNumber>
+      <EmployeeID>100</EmployeeID>
+  </AdminUser>
+</UserManagementDefaults>

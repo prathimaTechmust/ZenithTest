@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>
+      Business Type Information
+    </title>
+  </head>
+  <body>
+    <form id="businessType_form_id" class="trademust" style="width:360px;">
+      <table class="trademust">
+        <tr>
+          <td class="formHeading">
+            Business Information
+          </td>
+        </tr>
+        <tr>
+          <td class="fieldHeading">
+            Business Type Name
+            <em>
+              *
+            </em>
+          </td>
+        </tr>
+        <tr>
+          <td class="fieldData">
+            <input 
+                type="text"
+                id="businessType_input_businessName"
+                class="easyui-validatebox trademust"
+                data-options="required:true"/>
+          </td>
+        </tr>
+        <tr>
+          <td align="right">
+            <hr>
+            <button 
+                id="businessType_button_submit"
+                type="button"
+                class="trademust"
+                update="false"
+                onclick="businessType_submit()">
+              Create
+            </button>
+            <button id="businessType_button_cancel" type="button" class="trademust" onclick="businessType_cancel()">
+              Cancel
+            </button>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>

@@ -1,0 +1,321 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>
+      Client Information
+    </title>
+  </head>
+  <body>
+    <form id="clientInfo_form_id" class="trademust"  style="width:550px;">
+      <table class="trademust">
+        <tr>
+          <td class="formHeading">
+            Client Information
+          </td>
+        </tr>
+        <tr>
+          <td class="trademust">
+            <table class="trademust">
+              <tr align="left">
+                <td class="fieldData">
+                  <input 
+                      data-options="required:true"
+                      class="trademust easyui-validatebox"
+                      id="clientInfo_input_clientName"  maxlength="70"
+                      placeholder="Client Name"
+                      type="text"/>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td class="trademust">
+            <table class="trademust">
+              <tr>
+                <td class="trademust">
+                  <div id="clientInfo_div_tabs" class="easyui-tabs" data-options="tabWidth:125,tabHeight:30">
+                    <div title="<span class='tt-inner'>Contact Information</span>" style="padding: 10px">
+                      <table class="trademust">
+                        <tr>
+                          <td class="trademust">
+                            <table class="trademust">
+                               <tr>
+				                <td class="trademust">
+				                  <table class="trademust">
+					                 <tr align="left">
+					                  <td class="fieldData" >
+					                    <textarea 
+					                        class="trademust "
+					                        placeholder="Address"
+					                        id="clientInfo_input_address" maxlength="200" ></textarea>
+					                  </td>
+					                </tr>
+				                  </table>
+				                </td>
+				              </tr>
+                              <tr>
+				                <td class="trademust">
+				                  <table class="trademust">
+				                  	<tr align="left">
+	                                <td class="fieldData" style="width:75%">
+	                                  <input class="trademust" placeholder="City" id="clientInfo_input_city" maxlength="20" type="text"/>
+	                                </td>
+	                                <td class="fieldData" style="width:25%">
+	                                  <input 
+	                                      class="trademust"
+	                                      id="clientInfo_input_pinCode" maxlength="6"
+	                                      placeholder="Pin Code"
+	                                      onkeyup="validateNumber (this)"
+	                                      type="text"/>
+	                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="trademust">
+                            <table class="trademust">
+                              <tr align="left">
+                                <td class="fieldData" style="width:50%">
+                                  <input 
+                                      class="trademust" data-options="validType:'minLength[10]'"
+                                      id="clientInfo_input_telephone"   
+                                      maxlength="10"
+                                      placeholder="Landline Number"
+                                      onkeyup="validateNumber (this)"
+                                      type="tel"/>
+                                </td>
+                                <td class="fieldData" style="width:50%">
+                                  <input 
+                                      class="trademust" data-options="validType:'minLength[10]'"
+                                      id="clientInfo_input_mobile"  maxlength="10"
+                                      placeholder="Mobile Number"
+                                      onkeyup="validateNumber (this)"
+                                      type="tel"/>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="trademust">
+                            <table class="trademust" >
+                              <tr align="left">
+                                <td class="fieldData" style="width:50%">
+                                  <input 
+                                      type="text"
+                                      id="clientInfo_input_email"  maxlength="40"
+                                      class="trademust easyui-validatebox"
+                                      placeholder="E-mail Address"
+                                      onchange="clientInfo_validateEmail ()"
+                                      data-options="validType:'email'"/>
+                                </td>
+                                <td class="fieldData" style="width:50%">
+                                  <input 
+                                      type="url"
+                                      placeholder="Web URL"
+                                      id="clientInfo_input_webUrl" maxlength="50"
+                                      class="trademust"
+                                      onblur="isUrlValid('clientInfo_input_webUrl')"/>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="trademust">
+                            <table class="trademust">
+                              <tr>
+                                <td class="fieldHeading" style="width:33%">
+                                  TIN Number
+                                </td>
+                                <td class="fieldHeading" style="width:33%">
+                                  VAT Number
+                                </td>
+                                <td class="fieldHeading" style="width:33%">
+                                  CST Number
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="trademust">
+                            <table class="trademust">
+                              <tr>
+                                <td class="fieldData" style="width:33%">
+                                  <div class="textboxImage">
+                                    <img 
+                                        id="clientInfo_img_verifyTin"
+                                        alt=""
+                                        src="images/Verify.png"
+                                        title="Verify Tin"
+                                        class="textboxImage"
+                                        style="visibility: hidden;"
+                                        enable="false"
+                                        onclick="clientInfo_verifyTinNumber ()"/>
+                                    <input 
+                                        type="text" minlength="11"
+                                        id="clientInfo_input_tinNumber" maxlength="12"
+                                        placeholder="TIN Number"
+                                        onkeyup="clientInfo_showVerifyIcon ()"
+                                        class="trademust"/>
+                                        <!-- In maharastra the TIN number as a 12 digit alpha numeric character -->
+                                  </div>
+                                </td>
+                                <td class="fieldData" style="width:33%">
+                                  <input 
+                                      type="text"
+                                      id="clientInfo_input_vatNumber" maxlength="11"
+                                      placeholder="VAT Number"
+                                      class="trademust"/>
+                                </td>
+                                <td class="fieldData" style="width:33%">
+                                  <input 
+                                      type="text" 
+                                      id="clientInfo_input_cstNumber" maxlength="11"
+                                      placeholder="CST Number"
+                                      class="trademust"/>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="trademust">
+                            <table class="trademust">
+                              <tr>
+                                <td class="fieldData" style="width:33%">
+                                  <input 
+                                      type="checkbox"
+                                      onclick="clientInfo_checkEmailAddress ()"
+                                      id="clientInfo_input_onlineAccess"  maxlength="40"/>
+                                  Allow online Access
+                                </td>
+                                <td class="fieldData" style="width:33%">
+                                  <input type="checkbox" id="clientInfo_input_clientLock"/>
+                                  Client Lock
+                                </td>
+                                <td class="fieldData" style="width:33%">
+                                  <input type="checkbox" id="clientInfo_input_outStationClient"/>
+                                  Out Of State Client
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                    </tr>
+                    </table>
+                    </div>
+                    <div title="<span class='tt-inner'>Demography</span>" style="padding: 10px">
+                      <table class="trademust">
+                        <tr align="left">
+                          <td class="fieldHeading">
+                            Business Type
+                            <em>
+                              *
+                            </em>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="fieldData">
+                            <select 
+                                id="clientInfo_select_businessType"
+                                class="trademust"
+                                onchange="clientInfo_removeLabel ()"/>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                    <div title="<span class='tt-inner'>Contacts</span>" style="padding: 10px">
+                      <table class="trademust">
+                        <tr>
+                          <td align="right">
+                            <button 
+                                id="clientInfo_button_addContact"
+                                type="button"
+                                update="false"
+                                class="trademust"
+                                onclick="clientInfo_contactInfo_addContact()">
+                              Add
+                            </button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <table 
+                                id="clientInfo_table_listContactPersons"
+                                class="easyui-datagrid"
+                                style="width:'100%';height:200px;"
+                                title="List of Contacts"
+                                singleSelect="true">
+                            </table>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                    <div title="<span class='tt-inner'>Sites</span>" style="padding: 10px">
+                      <table class="trademust">
+                        <tr>
+                          <td align="right">
+                            <button 
+                                id="clientInfo_button_addSites"
+                                type="button"
+                                update="false"
+                                class="trademust"
+                                onclick="clientInfo_siteinfo_addSites()">
+                              Add
+                            </button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <table 
+                                id="clientInfo_table_listSites"
+                                class="easyui-datagrid"
+                                style="width:'100%';height:200px;"
+                                title="List of Sites"
+                                singleSelect="true">
+                            </table>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td align="right" colspan="2">
+            <hr>
+            <button 
+                id="clientInfo_button_submit"
+                class="trademust"
+                type="button"
+                update="false"
+                onclick="clientInfo_submit()">
+              Create
+            </button>
+            <button id="clientInfo_button_cancel" class="trademust" type="button" onclick="clientInfo_cancel()">
+              Cancel
+            </button>
+          </td>
+        </tr>
+      </table>
+      <label id="clientInfo_label_error" class="error">
+      </label>
+    </form>
+    <div id="clientInfo_contactInfo_dialog"  class="dialog" align="center">
+    </div>
+    <div id="clientInfo_siteInfo_dialog"  class="dialog" align="center">
+    </div>
+    <div id="clientInfo_tinVerfication_dialog"  class="dialog" align="center">
+    </div>
+  </body>
+</html>

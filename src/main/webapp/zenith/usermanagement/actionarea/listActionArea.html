@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>    
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>
+      Action Area List
+    </title>
+  </head>
+  <body>
+    <form id="listActionArea_form_id" class="trademust">
+      <table class="trademust">
+        <tr>
+          <td class="trademust">
+          	<div id="listActionArea_div_dataGridToolbar">
+          	<button 
+          	    id="listActionArea_button_add"
+          	    class="trademust addButton"
+          	    type="button"
+          	    style="visibility: initial; width: 20%"
+          	    onclick="listActionArea_showAddPopup ()">
+          	  New ActionArea
+          	</button>
+          	<input 
+          		class="filterTextBox" 
+          		id="filterActionArea_input_actionAreaName" 
+          		style="width: 30%" 
+          		onkeypress="handleFilter('listActionArea_filter()','')"
+          		placeholder="Action Area Name"/>
+          	<button class="trademust filterButton" type="button" onclick="listActionArea_filter ()">
+          	  Filter
+          	</button>
+          	</div>
+          </td>
+        </tr>
+      	<tr>
+      		<td class="trademust">
+      		<div id="listActionArea_div_horizontalSplitter" style="z-index: 0">
+      		<div id="div_dataGrid">
+		      <table 
+		          id="listActionArea_table_dataGridId"
+		          class="easyui-datagrid trademust"
+		          title="ActionArea List"
+		          data-options="striped:true, pagination:true, pagesize:15, rownumbers:true, fitColumns:true, singleSelect:true, toolbar: '#listActionArea_div_dataGridToolbar'">
+		      </table>
+		     </div>
+		     <div class="gridDetails trademust" id="listActionArea_div_listDetail">
+      		 </div>
+      		 </div>
+		   </td>
+      	</tr>
+      </table>
+    </form>
+  </body>
+</html>

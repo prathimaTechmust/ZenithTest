@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>
+      Customize Client Article 
+    </title>
+  </head>
+  <body>
+    <form class="trademust" id="articleCustomize_form_id" style="width:315px">
+      <table class="trademust">
+        <tr>
+          <td class="formHeading">
+            Customize Client Article 
+          </td>
+        </tr>
+        <tr>
+          <td class="trademust">
+            <table class="trademust">
+              <tr>
+                <td class="fieldHeading">
+                  Client Article Number
+                </td>
+              </tr>
+              <tr>
+                <td class="fieldData">
+                  <input 
+                      data-options="required:true"
+                      class="trademust easyui-validatebox"
+                      id="articleCustomize_input_clientArticleNumber"
+                      type="text"/>
+                </td>
+              </tr>
+              <tr>
+                <td class="fieldHeading">
+                  Article Number
+                </td>
+              </tr>
+              <tr>
+                <td class="trademust" style="width:15%">
+                    <input 
+                        class="easyui-combobox"
+                        id="articleCustomize_input_articleNumber"
+                        style="width: 300px"
+                        data-options="hasDownArrow:false,panelWidth: 300,panelHeight: 150"/>
+                  </td>
+              </tr>
+              <tr>
+                <td class="fieldHeading">
+                  Description
+                </td>
+              </tr>
+              <tr>
+                <td class="fieldData">
+                  <textarea 
+                      data-options="required:true"
+                      class="trademust"
+                      id="articleCustomize_input_description"
+                      readonly
+                      type="text"></textarea>
+                </td>
+              </tr>
+              <tr>
+                <td class="fieldHeading">
+                  Client Description
+                </td>
+              </tr>
+              <tr>
+                <td class="fieldData">
+                  <textarea 
+                      data-options="required:true"
+                      class="trademust easyui-validatebox"
+                      id="articleCustomize_input_clientDescription"
+                      type="text"></textarea>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td align="right">
+            <hr>
+            <button class="trademust" id="articleCustomize_button_create" update="false" type="button" onclick="articleCustomize_submit ()">
+              Save 
+            </button>
+            <button class="trademust" id="articleCustomize_button_cancel" type="button" onclick="articleCustomize_cancel ()">
+              Cancel
+            </button>
+          </td>
+        </tr>
+      </table>
+      <tr>
+      </tr>
+    </table>
+  </form>
+</body>
+</html>

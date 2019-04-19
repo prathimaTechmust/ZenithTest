@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>
+      Sales Items
+    </title>
+  </head>
+  <body>
+    <form class="trademust" id="clientSalesList_form_id" style="width:600px">
+      <table class="trademust">
+      <tr>
+          <td class="formHeading">
+            Sales Information
+          </td>
+        </tr>
+        <tr>
+          <td class="trademust">
+            <div id="clientSalesList_div_dataGridToolbar">
+              <table class="trademust" cellpadding="2" cellspacing="2" summary="">
+                <tr>
+                  <td style="width:30%" class="trademust">
+                    <input 
+                        class="easyui-combobox"
+                        id="clientSalesList_input_soldBy"
+                        data-options="hasDownArrow:false,panelWidth: 150"
+                        style="width:170px"/>
+                  </td>
+                  <td style="width:20%" class="trademust">
+                    <input 
+                        class="filterTextBox"
+                        id="clientSalesList_input_challanNumber"
+                        placeholder="Challan Number"/>
+                  </td>
+                  <td style="width:20%" class="trademust">
+                    <input 
+                        class="filterTextBox"
+                        id="clientSalesList_input_invoiceNumber"
+                        placeholder="Invoice Number"/>
+                  </td>
+                  <td class="trademust" style="width:20%">
+                    <input class="easyui-datebox" id="clientSalesList_input_date" style="width:120px;height:22px"/>
+                  </td>
+                  <td style="width:10%" class="trademust">
+                    <button class="filterButton" type="button" onclick="clientSalesList_filter ()">
+                      Filter
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </td>
+        </tr>
+        <td class="trademust">
+          <div id="div_dataGrid">
+            <table 
+                id="clientSalesList_table_salesItemsDG"
+                class="easyui-datagrid"
+                style="width:590px;height:400px;"
+                title="Sales List"
+                data-options="striped:true, rownumbers:true,pagination:true, pagesize:15,remoteSort:false, fitColumns:true, singleSelect:true, showFooter:true, toolbar:'#clientSalesList_div_dataGridToolbar'">
+            </table>
+          </div>
+        </td>
+      </tr>
+       <tr>
+          <td align="right">
+            <hr>
+            <button 
+                class="trademust"
+                id="clientSalesList_button_add"
+                update="false"
+                type="button"
+                onclick="clientSalesList_addLineItems ()">
+              Add
+            </button>
+            <button class="trademust" id="clientSalesList_button_cancel" type="button" onclick="clientSalesList_cancel ()">
+              Cancel
+            </button>
+          </td>
+        </tr>
+    </table>
+  </form>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <title>
+      Stock Entry List
+    </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  </head>
+  <body>
+    <form class="trademust" style="width:1000px">
+      <table class="trademust">
+        <tr>
+          <td class="trademust">
+            <div id="stockEntryList_div_dataGridToolbar">
+              <table class="trademust" cellpadding="2" cellspacing="2" summary="">
+                <tr>
+                  <td class="trademust" style="width:20%">
+                    <input class="easyui-combobox" style="width:250px" id="stockEntryList_input_articleNumber" data-options="hasDownArrow:false,panelWidth: 250"/>
+                  </td>
+                  <td class="trademust" style="width:40%">
+                    <input class="filterTextBox" id="stockEntryList_input_itemname" onkeypress="handleFilter('stockEntryList_listFilter()','#stockEntryList_input_brand')" placeholder="Item Name"/>
+                  </td>
+                  <td class="trademust" style="width:30%">
+                    <input class="filterTextBox" id="stockEntryList_input_brand" onkeypress="handleFilter('stockEntryList_listFilter()','')" placeholder="Brand"/>
+                  </td>
+                  <td class="trademust" style="width:10%">
+                    <button class="filterButton" type="button" onclick="stockEntryList_listFilter()">
+                      Filter
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="trademust">
+            <div id="div_dataGrid">
+              <table 
+                  id="stockEntryList_table_stockEntryListDG"
+                  class="easyui-datagrid"
+                  style="height:500px;"
+                  title="Stock Entry List"
+                  data-options="striped:true, pagination:true, remoteSort:false, pageSize:15, pageList:[15,30,45,60,75],rownumbers:true, fitColumns:true, loadMsg: 'loading...', singleSelect:true,toolbar:'#stockEntryList_div_dataGridToolbar', onClickCell: stockEntryList_editDG_cell">
+              </table>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td align="right">
+            <hr>
+            <button 
+                class="trademust"
+                id="stockEntryList_button_save"
+                type="button"
+                onclick="stockEntryList_save ()">
+              Save
+            </button>
+            <button 
+                class="trademust"
+                id="stockEntryList_button_cancel"
+                type="button"
+                onclick="stockEntryList_cancel ()">
+              Cancel
+            </button>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>

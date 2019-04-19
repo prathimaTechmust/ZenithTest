@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>
+      Insert title here
+    </title>
+  </head>
+  <body>
+    <form class="trademust" id="purchaseReturnedItems_form_id" style="width:900px">
+      <table class="trademust" summary="" width="100%">
+        <tr>
+          <td class="formHeading">
+            Purchase Returned Items
+          </td>
+        </tr>
+        <tr>
+          <td class="trademust">
+            <table class="trademust">
+              <tr>
+                <td class="fieldHeading" style="width:50%">
+                  Vendor Name
+                  <img 
+                      id="purchaseReturnedItems_img_add"
+                      alt=""
+                      src="images/add.PNG"
+                      title="New Vendor"
+                      align="right"
+                      style="visibility: hidden;"
+                      onclick="purchaseReturnedItems_addVendor ();"/>
+                </td>
+                <td class="fieldHeading" style="width:50%">
+                  Debit Note Number
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td class="trademust">
+            <table class="trademust">
+              <tr>
+                <td class="fieldData" style="width:50%">
+                  <input 
+                      type="text"
+                      class="easyui-combobox"
+                      data-options="hasDownArrow:false,panelWidth: 0"
+                      style="width:440px ; height:25px"
+                      id="purchaseReturnedItems_input_vendorName"/>
+                </td>
+                <td class="fieldData" style="width:50%">
+                  <input 
+                      id="purchaseReturnedItems_input_debitNoteNumber"
+                      data-options="required:true"
+                      readonly
+                      placeholder="Auto Generated"
+                      class="trademust"
+                      type="text"/>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td class="trademust" align="right">
+            <button 
+                class="tallButton"
+                id="purchaseReturnedItems_button_selectPurchases"
+                disabled
+                style="background-Color:#c0c0c0"
+                type="button"
+                onclick="purchasepurchaseReturnedItems_selectPurchases ()">
+              Select Purchases
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <table 
+                id="purchaseReturnedItems_table_itemDG"
+                class="easyui-datagrid"
+                title="List Of Articles"
+                data-options="striped:true, rownumbers:true, pagesize:15, fitColumns:true, checkOnSelect:false, showFooter: true"
+                style="width:890px;height:300px;">
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td align="right">
+            <hr>
+            <button 
+                class="tallButton"
+                id="purchaseReturnedItems_button_saveAndPrint"
+                type="button"
+                update="false"
+                onclick="purchaseReturnedItems_saveAndPrint ()">
+              Save & Print
+            </button>
+            <button 
+                class="trademust"
+                id="purchaseReturnedItems_button_save"
+                update="false"
+                type="button"
+                onclick="purchaseReturnedItems_submit ()">
+              Save
+            </button>
+            <button class="trademust" id="purchaseReturnedItems_button_cancel" type="button" onclick="purchaseReturnedItems_cancel ()">
+              Cancel
+            </button>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>

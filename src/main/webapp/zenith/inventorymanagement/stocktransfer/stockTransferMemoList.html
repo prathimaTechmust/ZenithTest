@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <title>
+      Stock Transfer Memo List
+    </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  </head>
+  <body>
+    <form class="trademust">
+      <table class="trademust">
+      	<tr>
+          <td class="trademust">
+            <div id="stockTransferMemoList_div_dataGridToolbar">
+              <table class="trademust" cellpadding="2" cellspacing="2" summary="">
+                <tr>
+                  <td class="trademust" style="width:25%">
+                  	<button 
+                        id="quotationList_button_add"
+                        class="trademust addButton"
+                        type="button"
+                        onclick="stockTransferMemoList_showAddPopup ()">
+                       New Stock Transfer
+                    </button>
+                  </td>
+                  <td class="trademust" style="width:25%">
+                    <input 
+                    	class="filterTextBox" 
+                    	id="stockTransferMemoList_input_transferredFrom" 
+                    	onkeypress="handleFilter('stockTransferMemoList_filter()','#stockTransferMemoList_input_transferredFrom')"
+                    	placeholder="Transferred From"/>
+                  </td>
+                  <td class="trademust" style="width:25%">
+                    <input 
+	                    class="filterTextBox" 
+	                    id="stockTransferMemoList_input_transferredTo" 
+	                    onkeypress="handleFilter('stockTransferMemoList_filter()','#stockTransferMemoList_input_transferredTo')"
+	                    placeholder="Transferred To"/>
+                  </td>
+                  <td class="trademust" style="width:10%">
+                    <input 
+	                    class="easyui-datebox" 
+	                    id="stockTransferMemoList_input_fromDate" 
+	                    style="width:140px;height:22px"/>
+                  </td>
+                  <td class="trademust" style="width:10%">
+                    <input 
+	                    class="easyui-datebox" 
+	                    id="stockTransferMemoList_input_toDate" 
+	                    style="width:140px;height:22px"/>
+                  </td>
+                  <td class="trademust" style="width:10%">
+                    <button class="filterButton" type="button" onclick="stockTransferMemoList_filter ()">
+                      Filter
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="trademust">
+            <div id="stockTransferMemoList_div_horizontalSplitter" style="z-index: 0">
+              <div id="div_dataGrid">
+                <table 
+                    id="stockTransferMemoList_table_stockTransferMemoListDG"
+                    class="easyui-datagrid"
+                    style="height:50%;"
+                    title="Stock Transfer Memo List"
+                    data-options="striped:true, pagination:true, remoteSort:false, pagesize:15, rownumbers:true, fitColumns:true, singleSelect:true, toolbar:'#stockTransferMemoList_div_dataGridToolbar'">
+                </table>
+              </div>
+              <div class="gridDetails" id="stockTransferMemoList_div_listDetail">
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>

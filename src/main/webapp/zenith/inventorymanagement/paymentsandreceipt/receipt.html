@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>
+      Insert title here
+    </title>
+  </head>
+  <body>
+    <form class="trademust" id="receipt_form_id" style="width:700px">
+      <table class="trademust" summary="" width="100%">
+        <tr>
+          <td class="formHeading">
+            Receipt Information
+          </td>
+        </tr>
+        <tr>
+          <td class="fieldData">
+            <table class="trademust">
+              <tr>
+                <td class="trademust" style="width:50%">
+                  <table class="trademust">
+                    <tr>
+                      <td class="fieldHeading">
+                        Client Name
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="fieldData">
+                        <input 
+                            type="text"
+                            class="easyui-combobox"
+                            data-options="hasDownArrow:false,panelWidth: 0"
+                            style="width:350px ; height:25px"
+                            id="receipt_input_client"/>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="fieldHeading">
+                        Amount
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="fieldData">
+                        <input 
+                            type="text"
+                            id="receipt_input_amount"  maxlength="7"  onkeyup="validateNumber(this);"
+                            class="easyui-validatebox trademust"   
+                            data-options="required:true"
+                            onchange="receipt_updateInvoiceDG ()">
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="trademust">
+                        <table class="trademust">
+                          <tr>
+                            <td class="fieldHeading" style="width:50%">
+                              Transaction Mode
+                            </td>
+                            <td class="fieldHeading" style="width:50%">
+                              Receipt Number
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                      </tr>
+                      <tr>
+                      <td class="trademust">
+                        <table class="trademust">
+                          <tr>
+                            <td class="fieldData" style="width:50%">
+		                        <select style="height:25px" id="receipt_select_mode" class="trademust"/>
+		                     </td>
+                            <td class="fieldData" style="width:50%">
+                                <input 
+                                    id="receipt_select_receiptNumber"
+                                    data-options="required:true" readonly
+                                    placeholder="Auto Generated"
+                       				class="trademust"
+                                    type="text"/>
+                              </td>
+                          </tr>
+                        </table>
+                      </td>
+                      </tr>
+                  </table>
+                </td>
+                <td class="trademust" style="width:50%;">
+                  <table class="trademust">
+                    <tr>
+                      <td class="fieldHeading">
+                        Details
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="fieldData" style="verticle-align:top">
+                        <textarea 
+                            data-options="required:true"
+                            class="trademust"
+                            rows="6"  maxlength="200"
+                            style="resize: none;"
+                            id="receipt_textarea_details"></textarea>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+	 	 <td class="trademust"> 
+		 	 <table class="trademust">
+	          	<tr>
+		            <td class="trademust"> 
+		             	 Balance Amount : <b><label id="receipt_label_balanceAmount"></label></b>
+		            </td>
+	                <td class="trademust" align="right">
+			            <button 
+			                class="filterButton"
+			                type="button"
+			                id="receipt_button_add"
+			                disabled
+			                style="width:100px; background-color:#c0c0c0"
+			                onclick="receipt_addInvoice()">
+			              Add Invoices
+			            </button>
+	      			</td>
+	              </tr>
+	          </table>
+         </td>
+        </tr>
+        <tr align="left">
+          <td class="trademust">
+            <div id="div_dataGrid">
+              <table 
+                  id="receipt_table_invoiceDG"
+                  class="easyui-datagrid"
+                  title="List of Invoices"
+                  style="height:350px"
+                  data-options="striped:true, remoteSort:false, rownumbers:true, fitColumns:true, showFooter: true">
+              </table>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td align="right">
+            <hr>
+            <button 
+                class="tallButton"
+                id="receipt_button_saveAndPrint"
+                type="button"
+                update="false"
+                onclick="receipt_saveAndPrint ()">
+              Save & Print
+            </button>
+            <button 
+                class="trademust"
+                id="receipt_button_create"
+                update="false"
+                type="button"
+                onclick="receipt_create ()">
+              Save
+            </button>
+            <button class="trademust" id="receipt_button_cancel" type="button" onclick="receipt_cancel ()">
+              Cancel
+            </button>
+          </td>
+        </tr>
+      </table>
+    </form>
+    <div id="receipt_addInvoices_dialog"  class="dialog" align="center">
+    </div>
+  </body>
+</html>

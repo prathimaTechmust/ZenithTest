@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>
+      Insert title here
+    </title>
+  </head>
+  <body>
+    <form id="contactInfo_form_id" class="trademust" style="width:260px;">
+      <table class="trademust">
+        <tr>
+          <td class="formHeading">
+            Contact Information
+          </td>
+        </tr>
+        <tr>
+          <td class="fieldHeading">
+            Contact Name
+            <em>
+              *
+            </em>
+          </td>
+        </tr>
+        <tr>
+          <td class="fieldData">
+            <input 
+                type="text"
+                id="contactInfo_input_contactName" maxlength="30"
+                data-options="required:true"
+                class="trademust easyui-validatebox"/>
+          </td>
+        </tr>
+        <tr>
+          <td class="fieldHeading">
+            Department
+          </td>
+        </tr>
+        <tr>
+          <td class="fieldData">
+            <input 
+                type="text"
+                id="contactInfo_input_department" maxlength="30"
+                class="trademust"/>
+          </td>
+        </tr>
+        <tr>
+          <td class="fieldHeading">
+            Designation
+             <em>
+              *
+            </em>
+          </td>
+        </tr>
+        <tr>
+          <td class="fieldData">
+            <input 
+                type="text"
+                id="contactInfo_input_designation" maxlength="30"
+                data-options="required:true"
+                class="trademust easyui-validatebox"/>
+          </td>
+        </tr>
+        <tr>
+          <td class="fieldHeading">
+            Phone Number
+            <em>
+              *
+            </em>
+          </td>
+        </tr>
+        <tr>
+          <td class="fieldData">
+            <input 
+                type="tel" 
+                id="contactInfo_input_phoneNumber" maxlength="10"
+                data-options="required:true"
+                onkeyup="validateNumber (this)"
+                class="trademust easyui-validatebox" data-options="validType:'minLength[10]'"/>
+          </td>
+        </tr>
+        <tr>
+          <td class="fieldHeading">
+            Email Address
+            <em>
+              *
+            </em>
+          </td>
+        </tr>
+        <tr>
+          <td class="fieldData">
+            <input 
+                type="text"
+                id="contactInfo_input_emailAddress"  maxlength="40"
+                class="trademust easyui-validatebox"
+                data-options="required:true,validType:'email'"/>
+          </td>
+        </tr>
+        <tr>
+          <td align="right">
+            <hr>
+            <button 
+                id="contactInfo_button_submit"
+                class="trademust"
+                type="button"
+                update="false"
+                editContact="false"
+                onclick="contactInfo_submit()">
+              Create
+            </button>
+            <button id="contactInfo_button_cancel" class="trademust" type="button" onclick="contactInfo_cancel()">
+              Cancel
+            </button>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>

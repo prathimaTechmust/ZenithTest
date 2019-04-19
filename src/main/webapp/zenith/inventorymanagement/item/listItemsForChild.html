@@ -1,0 +1,62 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>
+      List of Items for Child
+    </title>
+  </head>
+  <body>
+    <form class="trademust" style="width:600px" id="listItemsForChild_form_id">
+      <table class="trademust">
+        <tr>
+          <td class="formHeading">
+            List Of Items
+          </td>
+        </tr>
+        <tr>
+          <td class="trademust">
+            <div id="listItemsForChild_div_dataGridToolbar">
+              <table class="trademust" cellpadding="2" cellspacing="2" summary="">
+                <tr>
+                  <td class="trademust" style="width:80%">
+                    <input 
+                        class="filterTextBox"
+                        id="listItemsForChild_input_filterItemName"
+                        onkeypress="handleFilter('listItemsForChild_filter()','')"
+                        style=" width: 100%"
+                        placeholder="Item Name"/>
+                  </td>
+                  <td class="trademust" style="width:20%">
+                    <button class="filterButton" type="button" style=" width: 100%" onclick="listItemsForChild_filter()">
+                      Filter
+                    </button>
+                  </td>
+                </tr>
+        	  </table>
+        	</div>
+        <tr>
+          <td class="trademust">
+            <table 
+                id="listItemsForChild_table_itemsListDG"
+                class="easyui-datagrid"
+                style="height:340px"
+                title="List of Items"
+                data-options="striped:true, pagination:true, remoteSort:false, pagesize:15, rownumbers:true, fitColumns:true">
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td align="right">
+            <hr>
+            <button  class="trademust" id="listItemsForChild_button_add" update="false" type="button" onclick="listItemsForChild_addItems ()">
+              Add
+            </button>
+            <button class="trademust" id="listItemsForChild_button_cancel" type="button" onclick="listItemsForChild_cancel ()">
+              Cancel
+            </button>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>

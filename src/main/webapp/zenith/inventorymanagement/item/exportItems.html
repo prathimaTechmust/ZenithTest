@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<form id="exportItems_form_id" class="trademust" style="width:400px;">
+      <table class="trademust">
+        <tr>
+          <td class="formHeading">
+			Export Item List
+          </td>
+        </tr>
+        <tr>
+		    <td class="fieldHeading">
+		     Export Item List As
+		    </td>
+       </tr>
+        <tr>
+          <td class="fieldData">
+           	<select id="exportItems_select_exportAs" name="exportItems_select_exportAs" class="trademust">
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td align="right">
+            <hr>
+            <button 
+                class="trademust"
+                id="exportItems_button_export"
+                type="button"
+                onclick="exportItems_export ()">
+              Export
+            </button>
+            <button 
+                class="trademust"
+                id="exportItems_button_cancel"
+                type="button"
+                onclick="exportItems_cancel ()">
+              Cancel
+            </button>
+          </td>
+        </tr>
+      </table>
+    </form>
+</body>
+</html>

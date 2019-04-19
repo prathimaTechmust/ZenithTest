@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>
+      Item Transaction
+    </title>
+  </head>
+  <body>
+    <form class="trademust" id="item_form_id" style="width:800px">
+      <table class="trademust">
+        <tr>
+          <td class="formHeading">
+            Item Transaction
+          </td>
+        </tr>
+        <tr>
+          <td class="trademust" style="vertical-align: top;">
+            <div id="itemTransaction_div_itemInfoTabs" class="easyui-tabs" data-options="tabWidth:100,tabHeight:30">
+              <div id="itemTransaction_div_sales" title="<span>Sales</span>" style="padding: 10px">
+                <table 
+                    id="itemTransaction_table_salesDG"
+                    class="easyui-datagrid"
+                    title="Sales List"
+                    style="height:400px"
+                    data-options="striped:true, fitColumns:true, singleSelect:true, remoteSort:false, showFooter:true, checkOnSelect:false">
+                </table>
+              </div>
+              <div id="itemTransaction_div_purchase" title="<span>Purchase</span>" style="padding: 10px">
+                <table 
+                    id="itemTransaction_table_purchaseDG"
+                    class="easyui-datagrid"
+                    title="Purchase List"
+                    style="height:400px"
+                    data-options="striped:true, fitColumns:true, singleSelect:true, remoteSort:false, showFooter:true, checkOnSelect:false">
+                </table>
+              </div>
+              <div id="itemTransaction_div_clientwise" title="<span>Clientwise</span>" style="padding: 10px">
+                <div id="itemTransaction_div_dataGridToolbar" align="right">
+                  <button 
+                      id="itemTransaction_button_sendMessage"
+                      class="trademust"
+                      type="button"
+                      disabled
+                      style="width:150px;background-Color:#c0c0c0"
+                      onclick="itemTransaction_sendMessage ()">
+                    Send Message
+                  </button>
+                </div>
+                <table 
+                    id="itemTransaction_table_clientwiseDG"
+                    class="easyui-datagrid"
+                    title="Clientwise List"
+                    style="height:400px"
+                    data-options="striped:true, fitColumns:true, remoteSort:false, checkOnSelect:false, toolbar:'#itemTransaction_div_dataGridToolbar'">
+                </table>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td align="right">
+            <hr>
+            <button 
+                class="trademust"
+                id="itemTransaction_button_cancel"
+                type="button"
+                onclick="itemTransaction_cancel ()">
+              Close
+            </button>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>
+      Insert title here
+    </title>
+  </head>
+  <body>
+    <form id="vendorGroup_form_id" class="trademust" style="width:500px;">
+      <table class="trademust">
+        <tr>
+          <td class="formHeading">
+            Vendor Group Information
+          </td>
+        </tr>
+        <tr>
+          <td class="fieldHeading">
+            Group Name
+            <em>
+              *
+            </em>
+          </td>
+        </tr>
+        <tr>
+          <td class="fieldData">
+            <input 
+                type="text"
+                id="vendorGroup_input_groupName" maxlength="40"
+                class="easyui-validatebox trademust"
+                data-options="required:true"/>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <table class="trademust">
+              <tr>
+                <td class="fieldHeading">
+                  List Of Vendors
+                  <em>
+                    *
+                  </em>
+                </td>
+                <td align="right">
+                  <button 
+                      type="button"
+                      id="vendorGroup_button_add"
+                      class="trademust"
+                      update="false"
+                      onclick="vendorGroup_add ()">
+                    Add
+                  </button>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <table 
+                id="vendorGroup_table_listofvendorGroupDG"
+                class="easyui-datagrid"
+                style="height:250px;"
+               data-options="striped:true, pagination:true, remoteSort:false, pagesize:15, rownumbers:true, fitColumns:true, singleSelect:true">
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td class="trademust">
+            <div id="vendorGroup_div_lblError" style="display:none">
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="trademust" align="right">
+            <hr>
+            <button  type="button" id="vendorGroup_button_save" class="trademust" update="false" onclick="vendorGroup_submit ()">
+              Create
+            </button>
+            <button type="button" id="vendorGroup_button_cancel" class="trademust" onclick="vendorGroup_cancel ()">
+              Cancel
+            </button>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>

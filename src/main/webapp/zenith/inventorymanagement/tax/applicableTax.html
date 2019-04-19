@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<form id="applicableTax_form_id" class="trademust" style="width:360px;">
+      <table class="trademust">
+      <tr>
+        <td class="formHeading">
+          Applicable Tax Information
+        </td>
+      </tr>
+       <tr>
+        <td class="fieldHeading">
+          Applicable Tax Name
+          <em>
+            *
+          </em>
+        </td>
+      </tr>
+       <tr>
+        <td class="fieldData">
+          <input type="text" id="applicableTax_input_applicableTaxName" maxlength="30" class="easyui-validatebox trademust" data-options="required:true"/>
+        </td>
+      </tr>
+      <tr><td></td></tr>
+      <tr>
+        <td class="fieldHeading">
+          List Of Tax Names
+          <em>
+            *
+          </em>
+        </td>
+      </tr>
+	    <tr>
+		     <td class="trademust">
+					     <table 
+				          id="applicableTax_table_listofapplicabletaxDG"
+				          class="easyui-datagrid trademust"
+				          pagination="true"
+				          style="width:350px;height:300px;">
+				     	 </table>
+		     </td>
+	    </tr>
+	    <tr>
+	      <td class="trademust">
+	        <div id="applicableTax_div_lblError" style="display:none">
+	        </div>
+	      </td>
+    	</tr>
+	     <tr>
+      <td class="trademust" align="right">
+        <hr>
+        <button  type="button" id="applicableTax_button_submit" class="trademust" update="false" onclick="applicableTax_submit ()">
+          Create
+        </button>
+        <button type="button" id="applicableTax_button_cancel" class="trademust" onclick="applicableTax_cancel ()">
+          Cancel
+        </button>
+      </td>
+    </tr>
+      </table>
+    </form>
+</body>
+</html>

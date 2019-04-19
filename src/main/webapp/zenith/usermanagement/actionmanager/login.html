@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>
+      LogIn Information
+    </title>
+  </head>
+  <body>
+    <form id="login_form_Id" class="trademust" style="width:300px;">
+        <table summary="" class="trademust">
+          <tr>
+            <td class="formHeading">
+              Log In
+            </td>
+          </tr>
+          <tr>
+            <td class="fieldHeading">
+              User Name
+              <em>
+                *
+              </em>
+            </td>
+          </tr>
+          <tr>
+            <td class="fieldData">
+              <input type="text" id="login_input_userName" data-options="required:true" class="easyui-validatebox trademust"/>
+            </td>
+          </tr>
+          <tr>
+            <td class="fieldHeading">
+              Password
+              <em>
+                *
+              </em>
+            </td>
+          </tr>
+          <tr>
+            <td class="fieldData">
+              <input type="password" id="login_input_password" data-options="required:true" class="easyui-validatebox trademust"/>
+            </td>
+          </tr>
+ <!--     <tr>
+			<td class="trademust"><a href="javascript:login_forgotPasswordLoad()">Forgot Password?</a>
+		 	 </td>
+			</tr>
+ -->
+          <tr>
+            <td class="trademust" align="right">
+              <hr>
+              <button class="trademust" type="submit" id="login_button_submit" onclick="login_submit ()">
+              LogIn
+            </button>
+          </td>
+        </tr>
+      </table>
+  </form>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<html>
+  <head>
+    <title>
+      Sales List
+    </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  </head>
+  <body>
+    <form class="trademust">
+      <table class="trademust">
+        <tr>
+          <td class="trademust">
+            <div id="invoiceList_div_dataGridToolbar">
+              <table class="trademust" cellpadding="2" cellspacing="2" summary="">
+                <tr>
+                  <td class="trademust" style="width:25%">
+                    <input 
+                        class="filterTextBox"
+                        id="filterInvoice_input_to"
+                        type="text"
+                        onkeypress="handleFilter('invoiceList_filter()','#filterInvoice_input_invoiceNumber')"
+                        placeholder="To"/>
+                  </td>
+                  <td class="trademust" style="width:25%">
+                    <input 
+                        class="filterTextBox"
+                        id="filterInvoice_input_invoiceNumber"
+                        type="text"
+                        onkeypress="handleFilter('invoiceList_filter()','#filterInvoice_input_remarks')"
+                        placeholder="Invoice Number"/>
+                  </td>
+                  <td class="trademust" style="width:35%">
+                    <input 
+                        class="filterTextBox"
+                        id="filterInvoice_input_remarks"
+                        type="text"
+                        onkeypress="handleFilter('invoiceList_filter()','')"
+                        placeholder="Remarks"/>
+                  </td>
+                  <td class="trademust" style="width:10%">
+                    <input 
+	                    class="easyui-datebox" 
+	                    id="filterInvoice_input_fromDate" 
+	                    style="width:140px;height:22px"/>
+                  </td>
+                  <td class="trademust" style="width:10%">
+                    <input 
+	                    class="easyui-datebox" 
+	                    id="filterInvoice_input_toDate" 
+	                    style="width:140px;height:22px"/>
+                  </td>
+                  <td class="trademust" style="width:10%">
+                    <button class="filterButton" type="button" onclick="invoiceList_filter ()">
+                      Filter
+                    </button>
+                  </td>
+                  <td class="trademust" style="width:10%">
+                    <button class="filterButton" type="button" id="invoiceList_button_import" onclick="invoiceList_import()">
+                      Import
+                    </button>
+                  </td>
+                  <td class="trademust" style="width:10%">
+                    <button class="filterButton" type="button" id="invoiceList_button_export" onclick="invoiceList_export()">
+                      Export
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="trademust">
+              <div id="invoiceList_div_horizontalSplitter" style="z-index: 0">
+                <div id="div_dataGrid">
+                  <table 
+                      id="invoiceList_table_invoiceListDG"
+                      class="easyui-datagrid"
+                      style="height:50%;"
+                      title="Invoice List"
+                      data-options="striped:true, remoteSort:false, pagination:true, pagesize:15, rownumbers:true, fitColumns:true, singleSelect:true, toolbar:'#invoiceList_div_dataGridToolbar'">
+                  </table>
+                </div>
+                <div class="gridDetails" id="invoiceList_div_listDetail">
+                </div>
+              </div>
+            </td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>

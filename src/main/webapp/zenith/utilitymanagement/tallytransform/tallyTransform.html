@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>
+      Tally Transform Information
+    </title>
+  </head>
+  <body>
+    <form id="tallyTransform_form_Id" class="trademust" style="width:300px;">
+      <table summary="" class="trademust">
+        <tr>
+          <td class="formHeading">
+            Tally Transform Information
+          </td>
+        </tr>
+        <tr>
+          <td class="fieldHeading">
+            Key
+          </td>
+        </tr>
+        <tr>
+          <td class="fieldData">
+          	<select id="tallyTransform_select_key" class="trademust"/>
+          </td>
+        </tr>
+        <tr>
+          <td class="fieldHeading">
+            Tax Name
+          </td>
+        </tr>
+        <tr>
+          <td class="fieldData">
+            <input 
+                type="text"
+                id="tallyTransform_input_taxName"
+                data-options="required:true"
+                class="easyui-validatebox trademust"/>
+          </td>
+        </tr>
+        <tr>
+          <td class="fieldHeading">
+            Percentage
+          </td>
+        </tr>
+        <tr>
+          <td class="fieldData">
+            <input 
+                type="text"
+                id="tallyTransform_input_percentage"
+                data-options="required:true"
+                class="easyui-validatebox trademust"
+                onkeyup="validateFloatNumber (this);validatePercentage(this)"/>
+          </td>
+        </tr>
+        <tr>
+          <td class="fieldHeading">
+            Tally Key Value
+          </td>
+        </tr>
+        <tr>
+          <td class="fieldData">
+            <input 
+                type="text"
+                id="tallyTransform_input_tallyKey"
+                class="trademust"/>
+          </td>
+        </tr>
+        <tr>
+          <td class="trademust" align="right">
+            <hr>
+            <button  class="trademust" id="tallyTransform_button_create" update="false" type="button" onclick="tallyTransform_submit ()">
+              Create
+            </button>
+            <button class="trademust" id="tallyTransform_button_cancel" type="button" onclick="tallyTransform_cancel ()">
+              Cancel
+            </button>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>

@@ -1,0 +1,94 @@
+<root>
+<ActionArea>
+	<ActionAreaName>User Management</ActionAreaName>
+	<Sequence>10</Sequence>
+	<ActionList>
+      <Action>
+         <ActionName>User List</ActionName>
+         <Target>navigate('userList','widgets/usermanagement/userinfo/listUserInfo.js')</Target>
+         <Sequence>10</Sequence>
+        </Action>
+        <Action>
+          <ActionName>New User</ActionName>
+          <Target>navigate('newuser','widgets/usermanagement/userinfo/newUserInfo.js')</Target>
+          <Sequence>20</Sequence>
+        </Action>
+         <Action>
+          <ActionName>New Role</ActionName>
+          <Target>navigate('newRole','widgets/usermanagement/role/newRole.js')</Target>
+          <Sequence>30</Sequence>
+        </Action>
+         <Action>
+           <ActionName>Role List</ActionName>
+           <Target>navigate('roleList','widgets/usermanagement/role/listRole.js')</Target>
+           <Sequence>40</Sequence>
+        </Action>
+        <Action>
+           <ActionName>New Action Area</ActionName>
+           <Target>navigate('newActionArea','widgets/usermanagement/actionarea/newActionArea.js')</Target>
+           <Sequence>50</Sequence>
+        </Action>
+        <Action>
+           <ActionName>Action Area List</ActionName>
+           <Target>navigate('actionAreaList','widgets/usermanagement/actionarea/listActionArea.js')</Target>
+           <Sequence>60</Sequence>
+        </Action>
+          <Action>
+           <ActionName>New Action</ActionName>
+           <Target>navigate('newAction','widgets/usermanagement/action/newAction.js')</Target>
+           <Sequence>70</Sequence>
+        </Action>
+        <Action>
+           <ActionName>Action List</ActionName>
+           <Target>navigate('ActionList','widgets/usermanagement/action/listAction.js')</Target>
+           <Sequence>80</Sequence>
+        </Action>
+        <Action>
+           <ActionName>Facilitators</ActionName>
+           <Target>navigate('ActionList','widgets/usermanagement/userinfo/listFacilitatorInfo.js')</Target>
+           <Sequence>90</Sequence>
+        </Action>
+         <Action>
+           <ActionName>Facilitators Report</ActionName>
+           <Target>navigate('ActionList','widgets/usermanagement/action/listAction.js')</Target>
+           <Sequence>100</Sequence>
+        </Action>
+     </ActionList>
+   </ActionArea>
+   <ActionArea>
+	<ActionAreaName>System Config</ActionAreaName>
+	<Sequence>20</Sequence>
+		<ActionList>
+			<!-- <Action>
+				<ActionName>Create Organization</ActionName>
+				<Target>navigate ('newOrganization','widgets/organization/newOrganization.js')</Target>
+				<SequenceId>80</SequenceId>
+			</Action>
+			<Action>
+				<ActionName>List Organization</ActionName>
+				<Target>navigate ('listOrganization','widgets/organization/listOrganization.js')</Target>
+				<SequenceId>90</SequenceId>
+			</Action>
+			<Action>
+				<ActionName>New Business Type</ActionName>
+				<Target>navigate ('newBusinessType','widgets/clientmanagement/newBusinessType.js')</Target>
+				<SequenceId>100</SequenceId>
+			</Action>
+			<Action>
+				<ActionName>Business Type List</ActionName>
+				<Target>navigate ('listBusinessType','widgets/clientmanagement/listBusinessType.js')</Target>
+				<SequenceId>110</SequenceId>
+			</Action>
+			<Action>
+				<ActionName>Tax List</ActionName>
+				<Target>navigate ('taxList','widgets/inventorymanagement/tax/taxList.js')</Target>
+				<SequenceId>120</SequenceId>
+			</Action>
+			<Action>
+				<ActionName>Applicable Tax List</ActionName>
+				<Target>navigate ('applicableTaxList','widgets/inventorymanagement/tax/applicableTaxList.js')</Target>
+				<SequenceId>130</SequenceId>
+			</Action> -->
+		</ActionList> 
+	</ActionArea>
+</root>

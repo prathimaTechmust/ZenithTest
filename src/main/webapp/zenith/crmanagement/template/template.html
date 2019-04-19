@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>
+       New Template
+    </title>
+  </head>
+  <body>
+    <form class="trademust" id="template_form_id" style="width:300px">
+      <table class="trademust">
+        <tr>
+          <td class="formHeading">
+            New Template
+          </td>
+        </tr>
+        <tr>
+          <td class="fieldHeading">
+            Template Name
+          </td>
+        </tr>
+        <tr>
+          <td class="fieldData">
+            <input 
+                data-options="required:true"
+                class="trademust easyui-validatebox"
+                id="template_input_templateName"
+                type="text"/>
+          </td>
+        </tr>
+        <tr>
+        <td class="fieldHeading">
+                        Template Category
+                      </td>
+        </tr>
+        <tr>
+        <td class="trademust">
+              <select style="width:290px;height:25px" id="template_select_category">
+              </select>
+            </td>
+        </tr>
+        <tr>
+          <td class="fieldHeading">
+            Template File
+          </td>
+        </tr>
+        <tr>
+          <td class="fieldData">
+            <input id="template_input_templateFile" type="file" style="width:89px" onchange="template_getTemplateFileName ()">
+          </td>
+        </tr>
+        <tr>
+    		<td class="trademust">
+				<label id="template_td_templateName"></label>
+    		</td>
+    	</tr>
+         <tr>
+          <td align="right">
+            <hr>
+            <button  class="trademust" id="template_button_create" update="false" type="button" onclick="template_submit ()">
+              Save
+            </button>
+            <button class="trademust" id="template_button_cancel" type="button" onclick="template_cancel ()">
+              Cancel
+            </button>
+          </td>
+        </tr>
+      </table>
+    </body>
+  </html>

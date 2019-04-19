@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <title>
+      Item List
+    </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  </head>
+  <body>
+    <form class="trademust">
+      <table class="trademust">
+        <tr>
+          <td class="trademust">
+            <div id="localPurchaseList_div_dataGridToolbar">
+              <table class="trademust" cellpadding="2" cellspacing="2" summary="">
+                <tr>
+                  <td class="trademust" style="width:70%">
+                    <input 
+                        class="filterTextBox"
+                        id="filterlocalPurchaseList_input_itemname"
+                        onkeypress="handleFilter('localPurchaseList_filter()','')"
+                        placeholder="Item Name"/>
+                  </td>
+                  <td class="trademust" style="width:15%">
+                    <button class="filterButton" type="button" onclick="localPurchaseList_filter()">
+                      Filter
+                    </button>
+                  </td>
+                  <td style="width:15%" class="trademust">
+                    <button class="filterButton" type="button" onclick="localPurchaseList_printLocalPurchaseList ()">
+                      Print
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="trademust">
+              <div id="div_dataGrid">
+                <table 
+                    id="localPurchaseList_table_localPurchaseListDG"
+                    class="easyui-datagrid"
+                    style="height:100%;"
+                    title="Local Purchase List"
+                    data-options="striped:true, pagination:true, pageSize:20, pageList:[20,40,60,80,100], remoteSort:false, rownumbers:true, fitColumns:true, singleSelect:true, toolbar:'#localPurchaseList_div_dataGridToolbar'">
+                </table>
+              </div>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>

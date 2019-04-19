@@ -1,0 +1,266 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>
+      Item
+    </title>
+  </head>
+  <body>
+    <form class="trademust" id="item_form_id" style="width:900px">
+      <table class="trademust">
+        <tr>
+          <td class="formHeading">
+            Item Information
+          </td>
+        </tr>
+        <td class="trademust">
+          <table class="trademust">
+            <tr>
+              <td class="trademust">
+                <div id="item_div_tabs" class="easyui-tabs" data-options="tabWidth:125,tabHeight:30">
+                  <div title="<span class='tt-inner'>Item Information</span>" style="padding: 10px">
+                    <table class="trademust">
+                      <tr>
+                        <td class="trademust">
+                          <table class="trademust">
+                            <tr>
+                              <td style="width:30%" valign="top">
+                                <table class="trademust">
+                                  <tr>
+                                    <td class="fieldHeading">
+                                      Article Number
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="fieldData">
+                                      <input 
+                                         data-options="required:true"
+                                       class="trademust easyui-validatebox"
+                                         id="item_input_articleNumber" maxlength="14"
+                                          type="text"
+                                          onchange="item_checkArticleNumber ()"/>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="fieldHeading">
+                                      Item Name
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="fieldData">
+                                      <input 
+                                          data-options="required:true"
+                                          class="trademust easyui-validatebox autoCapitalize"
+                                          id="item_input_itemname"  maxlength="30"
+                                          type="text"/>
+                                    </td>
+                                  </tr>
+                                  <tr>
+		                            <td class="fieldHeading">
+		                              Category
+		                              <img 
+		                                  id="item_img_addCategory"
+		                                  alt=""
+		                                  align="right"
+		                                  src="images/add.PNG"
+		                                  title="New Category"
+		                                  style="visibility: hidden;"
+		                                  onclick="item_addCategory ();"/>
+		                            </td>
+		                          </tr>
+		                          <tr>
+		                            <td class="fieldData">
+		                              <input 
+		                                  type="text"
+		                                  class="easyui-combobox"
+		                                  data-options="hasDownArrow:false,panelWidth: 0,required:true"
+		                                  style="width:250px ; height:25px"
+		                                  id="item_input_category"/>
+		                            </td>
+		                          </tr>
+                                  <tr>
+                                    <td class="fieldHeading">
+                                      Brand
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="fieldData"> 
+                                      <input class="trademust autoCapitalize"  id="item_input_brand" maxlength="30"  type="text"/>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="fieldHeading">
+                                      Detail
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="fieldData">
+                                      <input 
+                                          data-options="required:true"
+                                          class="trademust easyui-validatebox"
+                                          id="item_input_detail" maxlength="200"
+                                          type="text"/>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="fieldHeading">
+                                      Unit
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="fieldData">
+                                      <input 
+                                          data-options="required:true"
+                                          class="trademust easyui-validatebox"
+                                          id="item_input_unit"  maxlength="10"
+                                          value="No."
+                                          type="text"/>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="fieldHeading">
+                                      Location Code
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="fieldData">
+                                      <input id="item_input_locationCode"  maxlength="5" class="trademust" type="text">
+                                    </td>
+                                  </tr>
+                                </table>
+                              </td>
+                              <td style="width:30%" valign="top">
+                                <table>
+                                  <tr>
+                                    <td class="fieldHeading">
+                                      Applicable tax within state
+                                      <em>*</em>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="fieldData">
+                                      <select id="item_select_applicableTax" class="trademust" />
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="fieldHeading">
+                                      Applicable tax with C form
+                                      <em>*</em>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="fieldData">
+                                      <select id="item_select_applicableTaxWithCForm" class="trademust"/>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="fieldHeading">
+                                      Upload Image
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="fieldData">
+                                      <input id="item_input_uploadImg" type="file" accept="image/*"  onchange="item_loadImagePreview ()">
+                                    </td>
+                                  </tr>
+                                  <tr><td></td></tr>
+                                  <tr>
+                                    <td class="fieldData" align="center">
+                                      <img style="max-height: 150px;" id="item_img_itemImage"/>
+                                    </td>
+                                  </tr>
+                                </table>
+                              </td>
+                              <td style="width:40%" valign="top">
+                                <table class="trademust">
+                                  <tr>
+                                    <td class="trademust">
+                                      <div id="item_div_dataGridToolbar" align="right">
+                                        <button 
+                                            class="filterButton"
+                                            type="button"
+                                            style="width:150px"
+                                            onclick="item_addChildItems()">
+                                          Add SKU Parts
+                                        </button>
+                                      </div>
+                                      <div id="div_dataGrid">
+                                        <table 
+                                            id="item_table_itemListDG"
+                                            class="easyui-datagrid"
+                                            title="SKU Parts"
+                                            style="height:350px"
+                                            data-options="striped:true, rownumbers:true, fitColumns:true ,checkOnSelect:false,onClickCell: item_editDG_cell, toolbar:'#item_div_dataGridToolbar'">
+                                        </table>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                </table>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div title="<span class='tt-inner'>Item Group</span>" style="padding: 10px">
+                    <table  class="trademust">
+                      <tr>
+                        <td   class="trademust" valign="top">
+                          <table 
+                              id="item_table_itemGroupDG"
+                              class="easyui-datagrid"
+                              title="Item Group List"
+                              style="height:320px"
+                              data-options="striped:true, rownumbers:true, fitColumns:true">
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+                <tr>
+                  <td align="right">
+                    <hr>
+                    
+                    <button
+                    class="trademust"
+                    style="width:150px"
+                    id="item_button_reset"
+                    update="false"
+                    type="button"
+                    onclick="item_reset()">
+                    Reset</button>
+                    
+                    
+                    <button 
+                        class="trademust"
+                        style="width:150px"
+                        id="item_button_saveAndContinue"
+                        update="false"
+                        type="button"
+                        onclick="item_saveAndContinue ()">
+                      Save and Continue
+                    </button>
+                    <button 
+                        class="trademust"
+                        id="item_button_create"
+                        style=
+                        "width:150px"
+                        update="false"
+                        type="button"
+                        onclick="item_submit ()">
+                      Save and Exit
+                    </button>
+                    <button class="trademust" id="item_button_cancel" type="button" onclick="item_cancel ()">
+                      Cancel
+                    </button>
+                  </td>
+                </tr>
+              </table>
+               <div id="item_div_ChildItemsDialog"  class="dialog" align="center" style="z-index: 999">
+    			</div>
+            </form>
+          </body>
+        </html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>
+      Insert title here
+    </title>
+  </head>
+  <body>
+    <form class="trademust noprint" id="vendorTransaction_form_id" style="width:900px">
+      <table class="trademust" summary = "">
+        <tr>
+          <td class="formHeading">
+            Transaction Details
+          </td>
+        </tr>
+        <tr>
+          <td class="trademust">
+            <table class="trademust" summary = "">
+              <tr>
+                <td class="fieldHeading" style="width:30%">
+                  <b>
+                    Vendor Name :
+                  </b>
+                  <label id="vendorTransaction_label_vendorName">
+                  </label>
+                </td>
+                <td class="fieldHeading" style="width:35%">
+                  <b>
+                    City :
+                  </b>
+                  <label id="vendorTransaction_label_city">
+                  </label>
+                </td>
+                <td class="fieldHeading" style="width:35%">
+                  <b>
+                    Address :
+                  </b>
+                  <label id="vendorTransaction_label_address">
+                  </label>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td class="trademust">
+            <div id="vendorTransaction_div_tabs" class="easyui-tabs" data-options="tabWidth:150,tabHeight:30">
+              <div title="<span class='tt-inner'>Age Wise</span>" style="padding: 10px">
+                <table class="trademust" summary = "">
+                  <tr>
+                    <td class="trademust" style="vertical-align:top;">
+                      <table 
+                          id="vendorTransaction_table_ageWiseDG"
+                          class="easyui-datagrid"
+                          title="Age Wise"
+                          style="height:400px"
+                          data-options="striped:true, remoteSort:false, pagesize:15, rownumbers:true, fitColumns:true, singleSelect:true">
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+                </div>
+              <div title="<span class='tt-inner'>Purchase Details</span>" style="padding: 10px">
+                <table class="trademust" summary = "">
+                  <tr>
+                    <td class="trademust" style="vertical-align:top;">
+                      <table 
+                          id="vendorTransaction_table_purchaseDetailsDG"
+                          class="easyui-datagrid"
+                          title="Purchase Details"
+                          style="height:400px"
+                          data-options="striped:true, remoteSort:false, pagination:true, pagesize:15, rownumbers:true, fitColumns:true, singleSelect:true">
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <div title="<span class='tt-inner'>Payment Details</span>" style="padding: 10px">
+                <table class="trademust" summary = "">
+                  <tr>
+                    <td class="trademust" style="vertical-align:top;">
+                      <table 
+                          id="vendorTransaction_table_paymentDetailsDG"
+                          class="easyui-datagrid"
+                          title="Payment Details"
+                          style="height:400px"
+                          data-options="striped:true, remoteSort:false, pagination:true, pagesize:15, rownumbers:true, fitColumns:true, singleSelect:true">
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+               </div>
+             </div>
+          </td>
+         </tr>
+      <tr>
+        <td  class="trademust" align= "right">
+          <hr>
+          <button 
+              class="trademust"
+              id="vendorTransaction_button_cancel"
+              type="button"
+              onclick="vendorTransaction_cancel ()">
+            Close
+          </button>
+        </td>
+      </tr>
+    </table>
+  </form>
+</body>
+</html>

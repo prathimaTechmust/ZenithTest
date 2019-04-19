@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>
+      Action List
+    </title>
+  </head>
+  <body>
+    <form id="listAction_form_id" class="trademust">
+      <table class="trademust">
+        <tr>
+          <td class="trademust">
+            <div id="listAction_div_toolbar">
+              <table class="trademust" cellpadding="2" cellspacing="2" summary="">
+                <tr>
+                  <td class="trademust" style="width:15%">
+                    <button 
+                        id="listAction_button_add"
+                        class="trademust addButton"
+                        type="button"
+                        style="visibility: initial;"
+                        onclick="listAction_showAddPopup ()">
+                      New Action
+                    </button>
+                  </td>
+                  <td class="trademust" style="width:25%">
+                    <select 
+                        class="filterTextBox"
+                        id="filterAction_select_actionAreaName"
+                        style="height:22px;"
+                        placeholder="Action Area"/>
+                  </td>
+                  <td class="trademust" style="width:25%">
+                    <input 
+                        class="filterTextBox"
+                        id="filterAction_input_actionName"
+                        onkeypress="handleFilter('listAction_filter()','#filterAction_input_actionTarget')"
+                        placeholder="Action Name"/>
+                  </td>
+                  <td class="trademust" style="width:25%">
+                    <input 
+                        class="filterTextBox"
+                        id="filterAction_input_actionTarget"
+                        onkeypress="handleFilter('listAction_filter()','')"
+                        placeholder="Target"/>
+                  </td>
+                  <td class="trademust" style="width:10%">
+                    <button class="trademust filterButton" type="button" onclick="listAction_filter ()">
+                      Filter
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="trademust">
+            <div id="listAction_div_horizontalSplitter" style="z-index: 0">
+              <div id="listAction_div_dataGrid">
+                <table 
+                    id="listAction_table_actions"
+                    class="easyui-datagrid"
+                    data-options="striped:true, pagination:true, pagesize:15, rownumbers:true, fitColumns:true, singleSelect:true, toolbar:'#listAction_div_toolbar'">
+
+                </table>
+              </div>
+              <div class="gridDetails" id="listAction_div_listDetail">
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>

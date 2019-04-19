@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>
+      Insert title here
+    </title>
+  </head>
+  <body>
+    <form class="trademust">
+      <table class="trademust">
+        <tr>
+          <td class="trademust">
+            <div id="messageList_div_dataGridToolbar">
+              <table class="trademust" cellpadding="2" cellspacing="2" summary="">
+                <tr>
+                  <td class="trademust" style="width:15%">
+                    <button 
+                        id="messageList_button_add"
+                        class="trademust addButton"
+                        type="button"
+                        style="visibility: hidden;"
+                        onclick="messageList_showAddPopup ()">
+                      New Message
+                    </button>
+                  </td>
+                  <td class="trademust" style="width:30%">
+                    <input 
+                        class="filterTextBox"
+                        id="messageList_input_Client"
+                        type="text"
+                        onkeypress="handleFilter('messageList_filter()','#messageList_input_subject')"
+                        placeholder="Client Name"/>
+                  </td>
+                  <td class="trademust" style="width:25%">
+                    <input 
+                        class="filterTextBox"
+                        id="messageList_input_subject"
+                        onkeypress="handleFilter('messageList_filter()','')"
+                        placeholder="Subject"/>
+                  </td>
+                  <td class="trademust" style="width:10%">
+                    <input 
+	                    class="easyui-datebox" 
+	                    id="filterMessageList_input_fromDate" 
+	                    style="width:140px;height:22px"/>
+                  </td>
+                  <td class="trademust" style="width:10%">
+                    <input 
+	                    class="easyui-datebox" 
+	                    id="filterMessageList_input_toDate" 
+	                    style="width:140px;height:22px"/>
+                  </td>
+                  <td class="trademust" style="width:10%">
+                    <button class="filterButton" type="button" onclick="messageList_filter()">
+                      Filter
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="trademust">
+            <div id="messageList_div_horizontalSplitter" style="z-index: 0">
+              <div id="div_dataGrid">
+                <table 
+                    id="messageList_table_messageListDG"
+                    class="easyui-datagrid"
+                    style="height:50%;"
+                    title="Message List"
+                    data-options="striped:true, pagination:true, remoteSort:false, pagesize:15, rownumbers:true, fitColumns:true, singleSelect:true, toolbar:'#messageList_div_dataGridToolbar'">
+
+                </table>
+              </div>
+              <div class="gridDetails" id="messageList_div_listDetail">
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>

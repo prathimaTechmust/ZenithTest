@@ -1,0 +1,309 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>
+      Vendor Information
+    </title>
+  </head>
+  <body>
+    <form id="vendorInfo_form_id" class="trademust" style="width:515px;">
+      <table class="trademust">
+        <tr>
+          <td class="formHeading">
+            Vendor Information
+          </td>
+        </tr>
+        <tr>
+          <td class="trademust">
+            <table class="trademust">
+              <tr align="left">
+                <td class="fieldData">
+                  <input 
+                      data-options="required:true"
+                      class="trademust easyui-validatebox"
+                      id="vendorInfo_input_vendorName"  maxlength="70"
+                      placeholder="Vendor Name"
+                      type="text"/>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td class="trademust">
+            <table class="trademust">
+              <tr>
+                <td class="trademust">
+                  <div id="vendorInfo_div_tabs" class="easyui-tabs" data-options="tabWidth:130,tabHeight:30">
+                    <div title="<span class='tt-inner'>Contact Information</span>" style="padding: 10px">
+                      <table class="trademust">
+                        <tr>
+                          <td class="trademust">
+                            <table class="trademust">
+                              <tr>
+                                <td class="trademust">
+                                  <table class="trademust">
+                                    <tr align="left">
+                                      <td class="fieldData">
+                                        <textarea 
+                                            id="vendorInfo_textarea_address" maxlength="200"
+                                            placeholder="Address"
+                                            class="trademust">
+                                        </textarea>
+                                      </td>
+                                    </tr>
+                                  </table>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="trademust">
+                                  <table class="trademust">
+                                    <tr>
+                                      <td class="trademust">
+                                        <table class="trademust">
+                                          <tr align="left">
+                                            <td class="fieldData" style="width:75%">
+                                              <input 
+                                                  class="trademust"
+                                                  placeholder="City"
+                                                  id="vendorInfo_input_city" maxlength="20"
+                                                  type="text"/>
+                                            </td>
+                                            <td class="fieldData" style="width:25%">
+                                              <input 
+                                                  class="trademust"
+                                                  id="vendorInfo_input_pinCode" maxlength="6"
+                                                  placeholder="Pin Code"
+                                                  onkeyup="validateNumber (this)"
+                                                  type="text"/>
+                                            </td>
+                                          </tr>
+                                        </table>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td class="trademust">
+                                        <table class="trademust">
+                                          <tr align="left">
+                                            <td class="fieldData" style="width:50%">
+                                              <input 
+                                                  class="trademust" data-options="validType:'minLength[10]'"
+                                                  id="vendorInfo_input_telephone"
+                                                  placeholder="Landline Number"
+                                                  onkeyup="validateNumber (this)"
+                                                  type="tel"  maxlength="10"/>
+                                            </td>
+                                            <td class="fieldData" style="width:50%">
+                                              <input 
+                                                  class="trademust" data-options="validType:'minLength[10]'"
+                                                  id="vendorInfo_input_mobile"
+                                                  placeholder="Mobile Number"
+                                                  onkeyup="validateNumber (this)"
+                                                  type="tel" maxlength="10"/>
+                                            </td>
+                                          </tr>
+                                        </table>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td class="trademust">
+                                        <table class="trademust">
+                                          <tr align="left">
+                                            <td class="fieldData" style="width:50%">
+                                              <input 
+                                                  type="text"
+                                                  id="vendorInfo_input_email"  maxlength="40"
+                                                  class="trademust"
+                                                  placeholder="E-mail Address"
+                                                  data-options="validType:'email'"/>
+                                            </td>
+                                            <td class="fieldData" style="width:50%">
+                                              <input 
+                                                  type="text"
+                                                  placeholder="Web URL"
+                                                  id="vendorInfo_input_webUrl" maxlength="50"
+                                                  class="trademust"
+                                                  onblur="isUrlValid('vendorInfo_input_webUrl')" />
+                                            </td>
+                                          </tr>
+                                        </table>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td class="trademust">
+                                        <table class="trademust">
+                                          <tr>
+                                            <td class="fieldHeading" style="width:33%">
+                                              TIN Number
+                                            </td>
+                                            <td class="fieldHeading" style="width:33%">
+                                              VAT Number
+                                            </td>
+                                            <td class="fieldHeading" style="width:33%">
+                                              CST Number
+                                            </td>
+                                          </tr>
+                                        </table>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td class="trademust">
+                                        <table class="trademust">
+                                          <tr>
+                                            <td class="fieldData" style="width:33%">
+                                              <div class="textboxImage">
+                                                <img 
+                                                    id="vendorInfo_img_verifyTin"
+                                                    alt=""
+                                                    src="images/Verify.png"
+                                                    title="Verify Tin"
+                                                    class="textboxImage"
+                                                    style="visibility: hidden;"
+                                                    enable="false"
+                                                    onclick="vendorInfo_verifyTinNumber ()"/>
+                                                <input 
+                                                    type="text"
+                                                    id="vendorInfo_input_tinNumber" maxlength="11"
+                                                    placeholder="TIN Number"
+                                                    onkeyup="vendorInfo_showVerifyIcon ()"
+                                                    class="trademust"/>
+                                              </div>
+                                            </td>
+                                            <td class="fieldData" style="width:33%">
+                                              <input 
+                                                  type="text"
+                                                  id="vendorInfo_input_vatNumber" maxlength="11"
+                                                  placeholder="VAT Number"
+                                                  class="trademust"/>
+                                            </td>
+                                            <td class="fieldData" style="width:33%">
+                                              <input 
+                                                  type="text"
+                                                  id="vendorInfo_input_cstNumber" maxlength="11"
+                                                  placeholder="CST Number"
+                                                  class="trademust"/>
+                                            </td>
+                                          </tr>
+                                        </table>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td class="trademust">
+                                        <table class="trademust">
+                                          <tr>
+                                            <td class="fieldData" style="width:50%">
+                                              <input 
+                                                  type="checkbox"
+                                                  onclick="vendorInfo_checkEmailAddress ()"
+                                                  id="vendorInfo_input_onlineAccess"/>
+                                              Allow online Access
+                                            </td>
+                                            <td class="fieldData" style="width:50%">
+                                              <input type="checkbox" id="vendorInfo_input_outStationVendor"/>
+                                              Out Of State Vendor
+                                            </td>
+                                          </tr>
+                                        </table>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td class="trademust">
+                                        <table class="trademust">
+                                          <tr>
+                                            <td class="fieldData" style="width:50%">
+                                              <input type="checkbox" id="vendorInfo_input_verified"/>
+                                              Verified
+                                            </td>
+                                            <td class="fieldData" style="width:50%">
+                                              <input type="checkbox" id="vendorInfo_input_vendorLock"/>
+                                              Vendor Lock
+                                            </td>
+                                          </tr>
+                                        </table>
+                                      </td>
+                                    </tr>
+                                  </table>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                    <div title="<span class='tt-inner'>Demography</span>" style="padding: 10px">
+                      <table class="trademust">
+                        <tr>
+                          <td class="fieldHeading">
+                            Business Type
+                            <em>
+                              *
+                            </em>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td align="left">
+                            <select 
+                                id="vendorInfo_select_businessType"
+                                class="trademust"
+                                onchange="vendorInfo_removeLabel ()"/>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                    <div title="<span class='tt-inner'>Contacts</span>" style="padding: 10px">
+                      <table class="trademust">
+                        <tr>
+                          <td align="right">
+                            <button 
+                                id="vendorInfo_button_addContact"
+                                type="button"
+                                update="false"
+                                class="trademust"
+                                onclick="vendorInfo_contactInfo_addContact()">
+                              Add
+                            </button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <table 
+                                id="vendorInfo_table_listContactPersons"
+                                class="easyui-datagrid"
+                                style="width:470px;height:200px;"
+                                title="List of Contacts"
+                                singleSelect="true">
+                            </table>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td align="right" colspan="2">
+              <hr>
+              <button 
+                  id="vendorInfo_button_submit"
+                  class="trademust"
+                  type="button"
+                  update="false"
+                  onclick="vendorInfo_submit()">
+                Create
+              </button>
+              <button id="vendorInfo_button_cancel" class="trademust" type="button" onclick="vendorInfo_cancel()">
+                Cancel
+              </button>
+            </td>
+          </tr>
+        </table>
+        <label id="vendorInfo_label_error" class="error">
+        </label>
+      </form>
+      <div id="vendorInfo_contactInfo_dialog"  class="dialog" align="center">
+      </div>
+    </body>
+  </html>

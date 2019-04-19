@@ -1,0 +1,637 @@
+<InventoryManagementDefaults>
+	<ActionAreas>
+		<ActionArea name="Inventory Management" SequenceId="20">
+			<Actions>
+				<Action>
+					<ActionName>New Item</ActionName>
+					<Target>navigate('newItem','widgets/inventorymanagement/item/newItem.js')</Target>
+					<SequenceId>100</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Add Product</ActionName>
+					<Target>navigate('newItem','widgets/inventorymanagement/item/newItem.js')</Target>
+					<SequenceId>150</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Item List</ActionName>
+					<Target>navigate('itemListUser','widgets/inventorymanagement/item/itemListUser.js')</Target>
+					<SequenceId>200</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Item List +</ActionName>
+					<Target>navigate('itemListAdmin','widgets/inventorymanagement/item/itemListAdmin.js')</Target>
+					<SequenceId>300</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Product List</ActionName>
+					<Target>navigate('itemListAdmin','widgets/inventorymanagement/item/itemListAdmin.js')</Target>
+					<SequenceId>350</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Stock Entry List</ActionName>
+					<Target>navigate('stockEntryList','widgets/inventorymanagement/item/stockEntryList.js')</Target>
+					<SequenceId>400</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>New Item Group</ActionName>
+					<Target>navigate ("newItemGroup", "widgets/inventorymanagement/item/newItemGroup.js")</Target>
+					<SequenceId>500</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Item Group List</ActionName>
+					<Target>navigate ('itemGroupListUser','widgets/inventorymanagement/item/itemGroupListUser.js')</Target>
+					<SequenceId>600</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Item Group List +</ActionName>
+					<Target>navigate ('itemGroupListAdmin','widgets/inventorymanagement/item/itemGroupListAdmin.js')</Target>
+					<SequenceId>700</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>New Stock Transfer</ActionName>
+					<Target>navigate ('newStockTransfer','widgets/inventorymanagement/stocktransfer/newStockTransfer.js')</Target>
+					<SequenceId>800</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Stock Transfer List</ActionName>
+					<Target>navigate ('stockTransferList','widgets/inventorymanagement/stocktransfer/stockTransferList.js')
+					</Target>
+					<SequenceId>900</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Stock Transfer Memo List</ActionName>
+					<Target>navigate ('stockTransferMemoList','widgets/inventorymanagement/stocktransfer/stockTransferMemoList.js')</Target>
+					<SequenceId>1000</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Stock Movement Report</ActionName>
+					<Target>navigate('stockMovementReport','widgets/reportmanagement/stockmovement/stockMovementReport.js')</Target>
+					<SequenceId>1100</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Inventory Report</ActionName>
+					<Target>navigate ('inventoryReport','widgets/reportmanagement/inventory/inventoryReport.js')</Target>
+					<SequenceId>1200</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Reorder List</ActionName>
+					<Target>navigate ("reorderList", "widgets/inventorymanagement/item/reorderList.js");</Target>
+					<SequenceId>1300</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>New Item Category</ActionName>
+					<Target>navigate('itemCategoryNew','widgets/inventorymanagement/item/itemCategoryNew.js')</Target>
+					<SequenceId>1400</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Item Category List</ActionName>
+					<Target>navigate('itemCategoryList','widgets/inventorymanagement/item/itemCategoryList.js')</Target>
+					<SequenceId>1500</SequenceId>
+				</Action>
+			</Actions>
+		</ActionArea>
+		<ActionArea name="Sales Management" SequenceId="30">
+			<Actions>
+				<Action>
+					<ActionName>New Sale</ActionName>
+					<Target>navigate ('newSales','widgets/inventorymanagement/sales/newSales.js')</Target>
+					<SequenceId>100</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>New Sale +</ActionName>
+					<Target>navigate ('salesAdmin','widgets/inventorymanagement/sales/salesAdmin.js')</Target>
+					<SequenceId>200</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Sales List</ActionName>
+					<Target>navigate ('salesListUser','widgets/inventorymanagement/sales/salesListUser.js')</Target>
+					<SequenceId>300</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Sales List +</ActionName>
+					<Target>navigate ('salesListAdmin','widgets/inventorymanagement/sales/salesListAdmin.js')</Target>
+					<SequenceId>400</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>New Order</ActionName>
+						<Target>navigate ("purchaseOrderNew", "widgets/purchaseordermanagement/purchaseorder/purchaseOrderNew.js")</Target>
+						<SequenceId>500</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Order List</ActionName>
+						<Target>navigate ("purchaseOrderListUser", "widgets/purchaseordermanagement/purchaseorder/purchaseOrderListUser.js")</Target>
+						<SequenceId>600</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Order List +</ActionName>
+					<Target>navigate ("purchaseOrderListAdmin", "widgets/purchaseordermanagement/purchaseorder/purchaseOrderListAdmin.js")</Target>
+					<SequenceId>700</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Order List</ActionName>
+					<Target>navigate ("purchaseOrderList", "widgets/purchaseordermanagement/purchaseorder/purchaseOrderList.js")</Target>
+					<SequenceId>750</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Returned Items</ActionName>
+					<Target>navigate ("returnedItemsUser", "widgets/inventorymanagement/returneditems/returnedItemsUser.js")</Target>
+					<SequenceId>800</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Returned Items+</ActionName>
+					<Target>navigate ("returnedItemsAdmin", "widgets/inventorymanagement/returneditems/returnedItemsAdmin.js")</Target>
+					<SequenceId>900</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Returned Items List</ActionName>
+					<Target>navigate ("returnedListUser", "widgets/inventorymanagement/returneditems/returnedListUser.js")</Target>
+					<SequenceId>1000</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Returned Items List+</ActionName>
+					<Target>navigate ("returnedListAdmin", "widgets/inventorymanagement/returneditems/returnedListAdmin.js")</Target>
+					<SequenceId>1100</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Discount Structure</ActionName>
+					<Target>navigate ("discountStructure", "widgets/inventorymanagement/sales/discountStructure.js");</Target>
+					<SequenceId>1200</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>New Client</ActionName>
+					<Target>navigate ('newClientInfo','widgets/clientmanagement/newClientInfo.js')</Target>
+					<SequenceId>1300</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Client List</ActionName>
+					<Target>navigate ('clientListUser','widgets/clientmanagement/clientListUser.js')</Target>
+					<SequenceId>1400</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Client List +</ActionName>
+					<Target>navigate ('clientListAdmin', 'widgets/clientmanagement/clientListAdmin.js')</Target>
+					<SequenceId>1500</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>New Client Group</ActionName>
+					<Target>navigate ("newClientGroup", "widgets/clientmanagement/newClientGroup.js")</Target>
+					<SequenceId>1600</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Client Group List</ActionName>
+					<Target>navigate ('clientGroupListUser','widgets/clientmanagement/clientGroupListUser.js')</Target>
+					<SequenceId>1700</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Client Group List +</ActionName>
+					<Target>navigate ('clientGroupListAdmin','widgets/clientmanagement/clientGroupListAdmin.js')</Target>
+					<SequenceId>1800</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Challan list</ActionName>
+					<Target>navigate ("challanList", "widgets/inventorymanagement/challan/challanList.js")</Target>
+					<SequenceId>1900</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Invoice List</ActionName>
+					<Target>navigate ("invoiceList", "widgets/inventorymanagement/invoice/invoiceList.js")</Target>
+					<SequenceId>2000</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>My Sales Report</ActionName>
+					<Target>navigate ('mySalesReport','widgets/reportmanagement/sales/mySalesReport.js')</Target>
+					<SequenceId>2100</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Overall Sales Report</ActionName>
+					<Target>navigate ('overallSalesReport','widgets/reportmanagement/sales/overallSalesReport.js')</Target>
+					<SequenceId>2200</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Overall Challan Report</ActionName>
+					<Target>navigate ('overallChallanReport','widgets/reportmanagement/challan/overallChallanReport.js')</Target>
+					<SequenceId>2300</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Overall Invoice Report</ActionName>
+					<Target>navigate ('overallInvoiceReport','widgets/reportmanagement/invoice/overallInvoiceReport.js')</Target>
+					<SequenceId>2400</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Client Balance List</ActionName>
+					<Target>navigate ("clientBalanceList", "widgets/clientmanagement/clientBalanceList.js")</Target>
+					<SequenceId>2500</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Client Outstanding Report</ActionName>
+					<Target>navigate ('clientOutstandingReport','widgets/reportmanagement/clientoutstanding/clientOutstandingReport.js')</Target>
+					<SequenceId>2600</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>My Orders</ActionName>
+					<Target>navigate ("clientPurchaseOrderList", "widgets/purchaseordermanagement/purchaseorder/clientPurchaseOrderList.js")</Target>
+					<SequenceId>2700</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Show Orders</ActionName>
+					<Target>navigate ("purchaseOrderList", "widgets/purchaseordermanagement/purchaseorder/purchaseOrderList.js")</Target>
+					<SequenceId>2800</SequenceId>
+				</Action>
+			</Actions>
+		</ActionArea>
+		<ActionArea name="Quotation Management" SequenceId="40">
+			<Actions>
+				<Action>
+					<ActionName>New Quotation</ActionName>
+					<Target>navigate ("quotationUser", "widgets/quotationmanagement/quotation/quotationUser.js")</Target>
+					<SequenceId>100</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>New Quotation +</ActionName>
+					<Target>navigate ("Quotation", "widgets/quotationmanagement/quotation/quotationAdmin.js")</Target>
+					<SequenceId>200</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Quotation List</ActionName>
+					<Target>navigate ("Quotation", "widgets/quotationmanagement/quotation/quotationListUser.js")</Target>
+					<SequenceId>300</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Quotation list +</ActionName>
+					<Target>navigate ("Quotation", "widgets/quotationmanagement/quotation/quotationListAdmin.js")</Target>
+					<SequenceId>400</SequenceId>
+				</Action>
+			</Actions>
+		</ActionArea>
+		<ActionArea name="Purchase Management" SequenceId="50">
+			<Actions>
+				<Action>
+					<ActionName>New Purchase</ActionName>
+					<Target>navigate ('newPurchase','widgets/inventorymanagement/purchase/newPurchase.js')</Target>
+					<SequenceId>100</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>New Purchase +</ActionName>
+					<Target>navigate ('purchaseAdmin','widgets/inventorymanagement/purchase/purchaseAdmin.js')</Target>
+					<SequenceId>200</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Purchase List</ActionName>
+					<Target>navigate ('purchaseListUser','widgets/inventorymanagement/purchase/purchaseListUser.js')</Target>
+					<SequenceId>300</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Purchase List +</ActionName>
+					<Target>navigate ('purchaseListAdmin','widgets/inventorymanagement/purchase/purchaseListAdmin.js')</Target>
+					<SequenceId>400</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>New Supply</ActionName>
+					<Target>navigate ("supplyUser", "widgets/purchaseordermanagement/supply/supplyUser.js")</Target>
+					<SequenceId>500</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>New Supply +</ActionName>
+					<Target>navigate ("supplyAdmin", "widgets/purchaseordermanagement/supply/supplyAdmin.js")</Target>
+					<SequenceId>600</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Supply List</ActionName>
+					<Target>navigate ("supplyListUser", "widgets/purchaseordermanagement/supply/supplyListUser.js")</Target>
+					<SequenceId>700</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Supply List +</ActionName>
+					<Target>navigate ("supplyListAdmin", "widgets/purchaseordermanagement/supply/supplyListAdmin.js")</Target>
+					<SequenceId>800</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>New Vendor</ActionName>
+					<Target>navigate ('newVendorInfo','widgets/vendormanagement/newVendorInfo.js')</Target>
+					<SequenceId>900</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Vendor List</ActionName>
+					<Target>navigate ('vendorList','widgets/vendormanagement/vendorListUser.js')</Target>
+					<SequenceId>1000</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>VendorList +</ActionName>
+					<Target>navigate ('vendorAdmin', 'widgets/vendormanagement/vendorListAdmin.js')</Target>
+					<SequenceId>1100</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>New Vendor Group</ActionName>
+					<Target>navigate ("vendorGroupNew", "widgets/vendormanagement/vendorGroupNew.js")</Target>
+					<SequenceId>1200</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Vendor Group List</ActionName>
+					<Target>navigate ('vendorGroupList','widgets/vendormanagement/vendorGroupListUser.js')</Target>
+					<SequenceId>1300</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Vendor Group List +</ActionName>
+					<Target>navigate ('vendorGroupList','widgets/vendormanagement/vendorGroupListAdmin.js')</Target>
+					<SequenceId>1400</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Vendor Purchase Order</ActionName>
+					<Target>navigate ("vendorPurchaseOrderNew", "widgets/vendorpurchaseorder/vendorPurchaseOrderNew.js")</Target>
+					<SequenceId>1500</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Vendor Purchase Order +</ActionName>
+					<Target>navigate ("vendorPurchaseOrderNew", "widgets/vendorpurchaseorder/vendorPurchaseOrderNew.js")</Target>
+					<SequenceId>1600</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Vendor Purchase Order List</ActionName>
+					<Target>navigate ("vendorPurchaseOrderListUser", "widgets/vendorpurchaseorder/vendorPurchaseOrderListUser.js")</Target>
+					<SequenceId>1700</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Vendor Purchase Order List +</ActionName>
+					<Target>navigate ("vendorPurchaseOrderListAdmin", "widgets/vendorpurchaseorder/vendorPurchaseOrderListAdmin.js")</Target>
+					<SequenceId>1800</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>My Purchase Report</ActionName>
+					<Target>navigate ('myPurchaseReport','widgets/reportmanagement/purchase/myPurchaseReport.js')</Target>
+					<SequenceId>1900</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Overall Purchase Report</ActionName>
+					<Target>navigate ('overallPurchaseReport','widgets/reportmanagement/purchase/overallPurchaseReport.js')</Target>
+					<SequenceId>2000</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Local Purchase List</ActionName>
+					<Target>navigate ("localPurchaseList", "widgets/inventorymanagement/localpurchase/localPurchaseList.js")</Target>
+					<SequenceId>2100</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Vendor Balance List</ActionName>
+					<Target>navigate ("vendorBalanceList", "widgets/inventorymanagement/purchase/vendorBalanceList.js")</Target>
+					<SequenceId>2200</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Vendor Outstanding Report</ActionName>
+					<Target>navigate ('vendorOutstandingReport','widgets/reportmanagement/vendoroutstanding/vendorOutstandingReport.js')</Target>
+					<SequenceId>2300</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Purchase Returned Items+</ActionName>
+					<Target>navigate ("PurchaseReturnedItems", "widgets/inventorymanagement/purchasereturneditems/purchaseReturnedItemsAdmin.js")</Target>
+					<SequenceId>2400</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Purchase Returned Items List</ActionName>
+					<Target>navigate ("PurchaseReturnedItemList", "widgets/inventorymanagement/purchasereturneditems/purchaseReturnedListUser.js")</Target>
+					<SequenceId>2500</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Purchase Returned Items List +</ActionName>
+					<Target>navigate ("PurchaseReturnedItemList", "widgets/inventorymanagement/purchasereturneditems/purchaseReturnedListAdmin.js")</Target>
+					<SequenceId>2600</SequenceId>
+				</Action>
+			</Actions>
+		</ActionArea>
+		<ActionArea name="Payments And Receipts" SequenceId="60">
+			<Actions>
+				<Action>
+					<ActionName>New Payment</ActionName>
+					<Target>navigate ("newPayment", "widgets/inventorymanagement/paymentsandreceipt/newPayment.js")</Target>
+					<SequenceId>100</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Payment List</ActionName>
+					<Target>navigate ("paymentListUser", "widgets/inventorymanagement/paymentsandreceipt/paymentListUser.js")</Target>
+					<SequenceId>200</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Payment List +</ActionName>
+					<Target>navigate ("paymentListAdmin", "widgets/inventorymanagement/paymentsandreceipt/paymentListAdmin.js")</Target>
+					<SequenceId>300</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Payment Report</ActionName>
+					<Target>navigate ('overallPaymentReport','widgets/reportmanagement/payment/overallPaymentReport.js')</Target>
+					<SequenceId>400</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>New Receipt</ActionName>
+					<Target>navigate ("newReceipt", "widgets/inventorymanagement/paymentsandreceipt/newReceipt.js")</Target>
+					<SequenceId>500</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Receipt List</ActionName>
+					<Target>navigate ("receiptListUser", "widgets/inventorymanagement/paymentsandreceipt/receiptListUser.js")</Target>
+					<SequenceId>600</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Receipt List +</ActionName>
+					<Target>navigate ("receiptListAdmin", "widgets/inventorymanagement/paymentsandreceipt/receiptListAdmin.js")</Target>
+					<SequenceId>700</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Receipt Report</ActionName>
+					<Target>navigate ('overallReceiptReport','widgets/reportmanagement/receipt/overallReceiptReport.js')</Target>
+					<SequenceId>800</SequenceId>
+				</Action>
+			</Actions>
+		</ActionArea>
+		<ActionArea name="Client Relation Management" SequenceId="70">
+			<Actions>
+				<Action>
+					<ActionName>New Message</ActionName>
+					<Target>navigate ("emailMessageNew", "widgets/crmanagement/emailMessageNew.js")</Target>
+					<SequenceId>100</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Message List</ActionName>
+					<Target>navigate ("messageListUser", "widgets/crmanagement/messageListUser.js");</Target>
+					<SequenceId>200</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Message List+</ActionName>
+					<Target>navigate ("messageListAdmin", "widgets/crmanagement/messageListAdmin.js");</Target>
+					<SequenceId>300</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Template List</ActionName>
+					<Target>navigate ("templateList", "widgets/crmanagement/template/templateList.js")</Target>
+					<SequenceId>400</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Template Category List</ActionName>
+					<Target>navigate ("templateCategoryList", "widgets/crmanagement/template/templateCategoryList.js")</Target>
+					<SequenceId>500</SequenceId>
+				</Action>
+			</Actions>
+		</ActionArea>
+		<ActionArea name="Property Management" SequenceId="80">
+			<Actions>
+				<Action>
+					<ActionName>New Property</ActionName>
+					<Target>navigate('propertyNew','widgets/propertymanagement/propertyNew.js')</Target>
+					<SequenceId>100</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Property List</ActionName>
+					<Target>navigate('propertyListUser','widgets/propertymanagement/propertyListUser.js')</Target>
+					<SequenceId>200</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Property List +</ActionName>
+					<Target>navigate('propertyTypeAdmin','widgets/propertymanagement/propertyTypeAdmin.js')</Target>
+					<SequenceId>300</SequenceId>
+				</Action>
+				<Action>
+					<ActionName>Property Type List</ActionName>
+					<Target>navigate('propertyTypeList','widgets/propertymanagement/propertytype/propertyTypeList.js')</Target>
+					<SequenceId>400</SequenceId>
+				</Action>
+			</Actions>
+		</ActionArea>
+		<ActionArea name="System Config" SequenceId="90">
+		<Actions>
+			<Action>
+				<ActionName>Location List</ActionName>
+				<Target>navigate ('locationList','widgets/inventorymanagement/location/locationList.js')</Target>
+				<SequenceId>500</SequenceId>
+			</Action>
+			<Action>
+				<ActionName>Default Location</ActionName>
+				<Target>navigate ("defaultLocation", "widgets/inventorymanagement/location/defaultLocation.js")</Target>
+				<SequenceId>600</SequenceId>
+			</Action>
+			<Action>
+				<ActionName>Update serials</ActionName>
+				<Target>navigate ("serialList", "widgets/inventorymanagement/serial/serialList.js")</Target>
+				<SequenceId>700</SequenceId>
+			</Action>
+			<Action>
+				<ActionName>Transaction Mode List</ActionName>
+				<Target>navigate("transactionModeList", "widgets/inventorymanagement/paymentsandreceipt/transactionModeList.js")</Target>
+				<SequenceId>800</SequenceId>
+			</Action>
+			<Action>
+				<ActionName>Default Vendor</ActionName>
+				<Target>navigate ('defaultVendor', 'widgets/marketplacemanagement/defaultVendor.js')</Target>
+				<SequenceId>800</SequenceId>
+			</Action>
+		</Actions>
+	</ActionArea>
+	<ActionArea name="Utility Management" SequenceId="100">
+		<Actions>
+			<Action>
+				<ActionName>Merge Client</ActionName>
+				<Target>navigate ('mergeClient','widgets/utilitymanagement/mergeclient/mergeClient.js')</Target>
+				<SequenceId>100</SequenceId>
+			</Action>
+			<Action>
+				<ActionName>Tally Transform List</ActionName>
+				<Target>navigate('tallyTransformList','widgets/utilitymanagement/tallytransform/tallyTransformList.js')</Target>
+				<SequenceId>200</SequenceId>
+			</Action>
+			<Action>
+				<ActionName>Generate Thumbnails</ActionName>
+				<Target>navigate ('generateThumbnails','widgets/utilitymanagement/thumbnail/generateThumbnails.js')
+				</Target>
+				<SequenceId>300</SequenceId>
+			</Action>
+			<Action>
+				<ActionName>Tally Transform Key List</ActionName>
+				<Target>navigate('tallyTransformKeyList','widgets/utilitymanagement/tallytransform/tallyTransformKeyList.js')</Target>
+				<SequenceId>400</SequenceId>
+			</Action>
+		</Actions>
+	</ActionArea>
+	<ActionArea name="Online Trading" SequenceId="110">
+		<Actions>
+			<Action>
+				<ActionName>Publish Item</ActionName>
+				<Target>navigate ("newPublishItem","widgets/onlinetradingmanagement/publishItem.js")</Target>
+				<SequenceId>100</SequenceId>
+			</Action>
+		</Actions>
+	</ActionArea>
+	<ActionArea name="Logs" SequenceId="120">
+			<Actions>
+				<Action>
+					<ActionName>Log List+</ActionName>
+					<Target>navigate ("logList","widgets/logmanagement/logList.js")</Target>
+					<SequenceId>100</SequenceId>
+				</Action>
+			</Actions>
+		</ActionArea>
+	<ActionArea name="VAT Report" SequenceId="130">
+			<Actions>
+				<Action>
+					<ActionName>Report</ActionName>
+					<Target>navigate ('vatReportDuration','widgets/reportmanagement/vat/vatReportDuration.js')</Target>
+					<SequenceId>100</SequenceId>
+				</Action>
+			</Actions>
+		</ActionArea>
+	</ActionAreas>
+	<ActionArea name="Market Place Management" SequenceId="150">
+		<Actions>
+			<Action>
+				<ActionName>VendorList</ActionName>
+				<Target>navigate ('vendorList', 'widgets/marketplacemanagement/vendorList.js')</Target>
+				<SequenceId>100</SequenceId>
+			</Action>
+			<Action>
+				<ActionName>vendorItemList+</ActionName>
+				<Target>navigate ('vendorItemListAdmin', 'widgets/marketplacemanagement/vendorItemListAdmin.js')</Target>
+				<SequenceId>200</SequenceId>
+			</Action>
+			<Action>
+				<ActionName>VendorSerialNumberList</ActionName>
+				<Target>navigate ("vendorSerialNumberList", "widgets/marketplacemanagement/vendorSerialNumberList.js");</Target>
+				<SequenceId>200</SequenceId>
+			</Action>
+		</Actions>
+	</ActionArea>
+	<ActionArea name="My Profile" SequenceId="160">
+		<Actions>
+			<Action>
+				<ActionName>Edit Profile</ActionName>
+				<Target>navigate('editUserInfo','widgets/usermanagement/userinfo/editUserInfo.js')</Target>
+				<SequenceId>100</SequenceId>
+			</Action>
+			<Action>
+				<ActionName>Edit Profile</ActionName>
+				<Target>navigate('vendorEdit','widgets/usermanagement/vendor/vendorEdit.js')</Target>
+				<SequenceId>200</SequenceId>
+			</Action>
+			<Action>
+				<ActionName>Edit Profile</ActionName>
+				<Target>navigate('clientEdit','widgets/usermanagement/actionmanager/clientEdit.js')</Target>
+				<SequenceId>300</SequenceId>
+			</Action>
+			<Action>
+				<ActionName>Change Password</ActionName>
+				<Target>navigate ('changePassword','widgets/usermanagement/actionmanager/changePassword.js')</Target>
+				<SequenceId>400</SequenceId>
+			</Action>
+			<Action>
+				<ActionName>Change Password</ActionName>
+				<Target>navigate ('changePassword','widgets/usermanagement/vendor/vendorChangePassword.js')</Target>
+				<SequenceId>500</SequenceId>
+			</Action>
+			<Action>
+				<ActionName>Logout</ActionName>
+				<Target>logoutOnlineUser ()</Target>
+				<SequenceId>600</SequenceId>
+			</Action>
+			<Action>
+				<ActionName>Logout</ActionName>
+				<Target>logout ()</Target>
+				<SequenceId>700</SequenceId>
+			</Action>
+		</Actions>
+	</ActionArea>
+</InventoryManagementDefaults>

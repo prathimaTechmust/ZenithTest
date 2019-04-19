@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>
+      Purchase Order List
+    </title>
+  </head>
+  <body>
+    <form class="trademust">
+      <table class="trademust">
+        <tr>
+          <td class="trademust">
+            <div id="purchaseOrderList_div_dataGridToolbar">
+              <table class="trademust" cellpadding="2" cellspacing="2" summary="">
+                <tr>
+                  <td class="trademust" style="width:15%">
+                    <button 
+                        id="purchaseOrderList_button_add"
+                        class="trademust addButton"
+                        type="button"
+                        style="visibility: hidden; width:200px"
+                        onclick="purchaseOrderList_showAddPopup ()">
+                      Add Purchase Order
+                    </button>
+                  </td>
+                  <td class="trademust" style="width:25%">
+                    <input 
+                    	class="filterTextBox" 
+                    	id="filterPurchaseOrder_input_clientName" 
+                    	onkeypress="handleFilter('purchaseOrderList_filter()','#filterPurchaseOrder_input_siteName')"
+                    	placeholder="From"/>
+                  </td>
+                  <td class="trademust" style="width:25%">
+                    <input 
+	                    class="filterTextBox" 
+	                    id="filterPurchaseOrder_input_siteName" 
+	                    onkeypress="handleFilter('purchaseOrderList_filter()','#filterPurchaseOrder_input_purchaseOrderNumber')"
+	                    placeholder="Site"/>
+                  </td>
+                  <td class="trademust" style="width:25%">
+                    <input 
+                        class="filterTextBox"
+                        id="filterPurchaseOrder_input_purchaseOrderNumber"
+                        onkeypress="handleFilter('purchaseOrderList_filter()','#filterPurchaseOrder_input_date')"
+                        placeholder="Purchase Order#"/>
+                  </td>
+                  <td class="trademust" style="width:10%">
+                    <input 
+	                    class="easyui-datebox" 
+	                    id="filterPurchaseOrder_input_fromDate" 
+	                    style="width:100px;height:22px"/>
+                  </td>
+                  <td class="trademust" style="width:10%">
+                    <input 
+	                    class="easyui-datebox" 
+	                    id="filterPurchaseOrder_input_toDate" 
+	                    style="width:100px;height:22px"/>
+                  </td>
+                  <td class="trademust" style="width:5%">
+                    <button class="filterButton" type="button" onclick="purchaseOrderList_filter ()">
+                      Filter
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="trademust">
+            <div id="purchaseOrderList_div_horizontalSplitter" style="z-index: 0">
+              <div>
+              	<div id="purchaseOrderList_div_POStatusTabs" class="easyui-tabs" data-options="tabWidth:100,tabHeight:30">
+                <div id="purchaseOrderList_div_pending" title="<span>Pending</span>" style="padding: 5px">
+                  <table 
+                      id="purchaseOrderList_table_purchaseOrderPendingListDG"
+                      class="easyui-datagrid"
+                      title="Purchase Order Pending List"
+                      style="height:50%"
+                      data-options="striped:true, pagination:true, pagesize:15, rownumbers:true, fitColumns:true, singleSelect:true, remoteSort:false, toolbar:'#purchaseOrderList_div_dataGridToolbar'">
+                  </table>
+                </div>
+                <div id="purchaseOrderList_div_completed" title="<span>Completed</span>" style="padding: 5px">
+                  <table 
+                      id="purchaseOrderList_table_purchaseOrderCompletedListDG"
+                      class="easyui-datagrid"
+                      title="Purchase Order Completed List"
+                      style="height:50%"
+                      data-options="striped:true, pagination:true, pagesize:15, rownumbers:true, fitColumns:true, singleSelect:true, remoteSort:false, toolbar:'#purchaseOrderList_div_dataGridToolbar'">
+                  </table>
+                </div>
+                <div id="purchaseOrderList_div_completed" title="<span>Cancelled</span>" style="padding: 5px">
+                  <table 
+                      id="purchaseOrderList_table_purchaseOrderCancelledListDG"
+                      class="easyui-datagrid"
+                      title="Purchase Order Cancelled List"
+                      style="height:50%"
+                      data-options="striped:true, pagination:true, pagesize:15, rownumbers:true, fitColumns:true, singleSelect:true, remoteSort:false, toolbar:'#purchaseOrderList_div_dataGridToolbar'">
+                  </table>
+                </div>
+              </div>
+              </div>
+              <div class="gridDetails" id="purchaseOrderList_div_listDetail">
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>

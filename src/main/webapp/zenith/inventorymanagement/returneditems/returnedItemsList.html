@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <title>
+      Sales List
+    </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  </head>
+  <body>
+    <form class="trademust">
+      <table class="trademust">
+        <tr>
+          <td class="trademust">
+            <div id="returnedItemsList_div_dataGridToolbar">
+              <table class="trademust" cellpadding="2" cellspacing="2" summary="">
+                <tr>
+                  <td class="trademust" style="width:15%">
+                    <button 
+                        id="returnedItemsList_button_add"
+                        class="trademust addButton"
+                        type="button"
+                        style="visibility: hidden; width: 120px;"
+                        onclick="returnedItemsList_showAddPopup ()">
+                      New Return
+                    </button>
+                  </td>
+                  <td class="trademust" style="width:50%">
+                    <input 
+                        class="filterTextBox"
+                        id="filterReturns_input_from"
+                        type="text"
+                        onkeypress="handleFilter('returnedItemsList_filter()','')"
+                        placeholder="from"/>
+                  </td>
+                   <td class="trademust" style="width:10%">
+                    <input 
+	                    class="easyui-datebox" 
+	                    id="returnedItemsList_input_fromDate" 
+	                    style="width:140px;height:22px"/>
+                  </td>
+                  <td class="trademust" style="width:10%">
+                    <input 
+	                    class="easyui-datebox" 
+	                    id="returnedItemsList_input_toDate" 
+	                    style="width:140px;height:22px"/>
+                  </td>
+                  <td class="trademust" style="width:10%">
+                    <button class="filterButton" type="button" onclick="returnedItemsList_filter ()">
+                      Filter
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="trademust">
+            <div id="returnedItemsList_div_horizontalSplitter" style="z-index: 0">
+              <div id="div_dataGrid">
+                <table 
+                    id="returnedItemsList_table_salesListDG"
+                    class="easyui-datagrid"
+                    style="height:50%;"
+                    title="Returned Items List"
+                    data-options="striped:true, pagination:true, pagesize:15, rownumbers:true, remoteSort: false, fitColumns:true, singleSelect:true, toolbar:'#returnedItemsList_div_dataGridToolbar'">
+                </table>
+              </div>
+              <div class="gridDetails" id="returnedItemsList_div_listDetail">
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>
