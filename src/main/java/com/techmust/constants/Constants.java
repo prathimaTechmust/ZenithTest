@@ -24,7 +24,7 @@ public class Constants
 	public static final String CLIENTREGION = "ap-southeast-1";
 	public static final String BUCKETNAME = "zenithfoundation";
 	public static final String STUDENTIMAGEFOLDER = "images/student/";
-	public static final String STUDENTIMAGEURL = "https://s3-ap-southeast-1.amazonaws.com/zenith/";
+	public static final String STUDENTIMAGEURL = "https://s3-ap-southeast-1.amazonaws.com/zenithfoundation/";
 	
 	//connection URL for organization
 	public static final String ORGANIZATION_CREATION_DB_URL = "jdbc:mysql://zenithdb.cdwear8cwwuw.ap-southeast-1.rds.amazonaws.com:3306/%s?useSSL=false&createDatabaseIfNotExist=TRUE";

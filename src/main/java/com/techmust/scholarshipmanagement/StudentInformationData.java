@@ -309,7 +309,7 @@ public class StudentInformationData  extends MasterData
 			addChild (oXmlDocument, oRootElement, "m_strState", m_strState);
 			addChild (oXmlDocument, oRootElement, "m_nPincode", m_nPincode);
 			addChild (oXmlDocument, oRootElement, "m_strStudentImageName", m_strStudentImageName);
-			addChild (oXmlDocument, oRootElement, "m_strStudentImageURL", getStudentImageURL(m_nStudentId,m_strStudentImageName));
+			addChild (oXmlDocument, oRootElement, "m_strStudentImageUrl", getStudentImageURL(m_nStudentId,m_strStudentImageName));
 			strItemInfoXML = getXmlString (oXmlDocument);
 		}
 		catch (Exception oException) 
