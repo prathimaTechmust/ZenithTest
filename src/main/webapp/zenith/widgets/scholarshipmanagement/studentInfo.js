@@ -7,10 +7,10 @@ var studentInfo_includeDataObjects =
 
 function studentInfo_memberData ()
 {
-	this.m_strNewPassword = "";
-	this.m_strPassword = "";
-	this.m_buffImage = null;
-	this.m_nStudentId = -1; 
+	this.m_oStudentData = new StudentInformationData();
+	this.m_nStudentId = -1;
+	this.m_strImageName = "";
+	this.m_oformData = new FormData();
 }
 
 var m_oStudentInfoMemberData = new studentInfo_memberData ();
@@ -45,7 +45,7 @@ function studentInfo_edit ()
 {
 	studentInfo_init();
 	var oStudentInformationData = new StudentInformationData ();
-	oStudentInformationData.m_nFacilitatorId = oStudentInformationData.m_nSelectedStudentId;
+	oStudentInformationData.m_nStudentId = m_oStudentInfoListMemberData.m_nSelectedStudentId;
 	document.getElementById("studentInfo_button_submit").setAttribute('update', true);
 	document.getElementById("studentInfo_button_submit").innerHTML = "Update";
 	StudentInformationDataProcessor.get (oStudentInformationData, studentInfo_gotData);
@@ -54,38 +54,81 @@ function studentInfo_edit ()
 function studentInfo_getFormData ()
 {
 	var oStudentInformationData = new StudentInformationData ();
-	oStudentInformationData.m_nStudentId = m_oFacilitatorInfoMemberData.m_nStudentId;
+	oStudentInformationData.m_nStudentId = m_oStudentInfoMemberData.m_nStudentId;
 	oStudentInformationData.m_strStudentName = $("#studentInfo_input_studentName").val();
-	oStudentInformationData.m_strGender = $("#studentInfo_input_male").val();
+	var selectedvalue = $("input:radio[name=studentInfo_input_gender]:checked").val();
+	oStudentInformationData.m_strGender = selectedvalue;
+	if($("#studentInfo_input_studentPhoto").val() == '')
+		oStudentInformationData.m_strStudentImageName = m_oStudentInfoMemberData.m_strImageName;			
+	else
+		oStudentInformationData.m_strStudentImageName = $("#studentInfo_input_studentPhoto").val().replace(/.*(\/|\\)/, '');
 	oStudentInformationData.m_strFatherName = $("#studentInfo_input_fathername").val();
 	oStudentInformationData.m_strFatherOccupation = $("#studentInfo_input_fatheroccupation").val();
 	oStudentInformationData.m_strMotherName = $("#studentInfo_input_mothername").val();
 	oStudentInformationData.m_strMotherOccupation = $("#studentInfo_input_motheroccupation").val();
 	oStudentInformationData.m_strPhoneNumber = $("#studentInfo_input_phoneNumber1").val();
+	oStudentInformationData.m_strAlternateNumber = $("#studentInfo_input_phoneNumber2").val();
+	oStudentInformationData.m_nFamilyIncome = $("#studentInfo_input_income").val();	
 	oStudentInformationData.m_strEmailAddress = $("#studentInfo_input_email").val();
 	oStudentInformationData.m_strCurrentAddress = $("#studentInfo_textarea_address").val();
-	oStudentInformationData.m_strCity = $("#studentInfo_select_cityName").val();
-	oStudentInformationData.m_strState= $("#studentInfo_select_stateName").val();
-	oStudentInformationData.m_strPincode = $("#studentInfo_select_pincode").val();
+	oStudentInformationData.m_strCity = $("#studentInfo_input_cityName").val();
+	oStudentInformationData.m_strState= $("#studentInfo_input_stateName").val();
+	oStudentInformationData.m_nPincode = $("#studentInfo_input_pincodeName").val();
 	return oStudentInformationData;
 }
 
 function studentInfo_created (oStudentInfoResponse)
 {
 	HideDialog ("ProcessDialog");
-	if(oStudentInfoResponse.m_bSuccess && oStudentInfoResponse.m_strError_Desc != "kLoginIdExist")
-		studentInfo_displayInfo ("studentcreatedsuccessfully");
+	if (oStudentInfoResponse.m_bSuccess)
+	{
+		studentInfo_displayInfo("studentcreatedsuccessfully", "kSuccess");
+		try
+		{
+			var oForm = $('#studentInfo_form_id')[0];
+			var oFormData = new FormData (oForm);
+			oFormData.append('studentId',oStudentInfoResponse.m_arrStudentInformationData[0].m_nStudentId);
+			StudentInformationDataProcessor.setImagetoS3bucket (oFormData, student_image_created);
+		}
+		catch(oException){}
+	}
 	else
-		studentInfo_displayInfo ("studentinfo_loginidalreadyexists");
+		studentInfo_displayInfo("studentcreationcreationfailed", "kError");
 }
 
 function studentInfo_updated (oStudentInfoResponse)
 {
 	HideDialog ("ProcessDialog");
-	if(oStudentInfoResponse.m_bSuccess && oStudentInfoResponse.m_strError_Desc != "kLoginIdExist")
+	if(oStudentInfoResponse.m_bSuccess)
+	{
 		studentInfo_displayInfo ("studentupdatedsuccessfully");
-	else
-		studentInfo_displayInfo ("studentinfo_loginidalreadyexists");
+		try
+		{
+			var oForm = $('#studentInfo_form_id')[0];
+			var oFormData = new FormData (oForm);
+			var strImageName = oFormData.get("studentimage");
+			if(strImageName == "")
+			{
+				student_details_updated();
+			}
+			else if(oStudentInfoResponse.m_arrStudentInformationData[0].m_strStudentImageName == "" || m_oStudentInfoMemberData.m_strImageName != strImageName)
+			{
+				oFormData.append('studentId',oStudentInfoResponse.m_arrStudentInformationData[0].m_nStudentId);				
+				StudentInformationDataProcessor.setImagetoS3bucket (oFormData, student_details_updated);
+			}			
+		}
+		catch(oException){}		
+	}	
+}
+
+function student_image_created ()
+{
+	HideDialog ("secondDialog");
+}
+
+function student_details_updated ()
+{
+	HideDialog ("secondDialog");
 }
 
 function studentInfo_validate ()
@@ -103,12 +146,38 @@ function studentInfo_displayInfo (strMessage)
 function studentInfo_gotData (oStudentInfoResponse)
 {	
 	var oStudentInfoData = oStudentInfoResponse.m_arrStudentInformationData[0];
-	oStudentInfoData.m_nStudentId = oStudentInfoData.m_nStudentId;
-	$("#facilitatorInfo_input_facilitatorName").val(oFacilitatorInfoData.m_strFacilitatorName);
-	$("#facilitatorInfo_input_phoneNumber").val(oFacilitatorInfoData.m_strPhoneNumber);
-	$("#facilitatorInfo_input_email").val(oFacilitatorInfoData.m_strEmail);
-	$("#facilitatorInfo_input_city").val(oFacilitatorInfoData.m_strCity);
-	initFormValidateBoxes ("facilitatorInfo_form_id");
+	m_oStudentInfoMemberData.m_strImageName = oStudentInfoData.m_strStudentImageName;
+	 oStudentInfoData.m_nStudentId = oStudentInfoData.m_nStudentId;
+	 $("#studentInfo_input_studentName").val(oStudentInfoData.m_strStudentName);
+	 if(oStudentInfoData.m_strGender == "M")
+	 {
+		var radiobutton = document.getElementById("studentInfo_input_male");
+		radiobutton.checked = true;
+	 }
+	 else if(oStudentInfoData.m_strGender == "F")
+	 {
+		 var radiobutton = document.getElementById("studentInfo_input_female");
+			radiobutton.checked = true;
+	 }
+	 else
+	 {
+		 var radiobutton = document.getElementById("studentInfo_input_others");
+			radiobutton.checked = true;
+	 }
+	 $("#studentInfo_input_male").val(oStudentInfoData.m_strGender);
+	 $("#studentInfo_input_fathername").val(oStudentInfoData.m_strFatherName);
+	 $("#studentInfo_input_fatheroccupation").val(oStudentInfoData.m_strFatherOccupation);
+	 $("#studentInfo_input_mothername").val(oStudentInfoData.m_strMotherName);
+	 $("#studentInfo_input_motheroccupation").val(oStudentInfoData.m_strMotherOccupation);
+	 $("#studentInfo_input_income").val(oStudentInfoData.m_nFamilyIncome);
+	 $("#studentInfo_input_phoneNumber1").val(oStudentInfoData.m_strPhoneNumber);
+	 $("#studentInfo_input_phoneNumber2").val(oStudentInfoData.m_strAlternateNumber);
+	 $("#studentInfo_input_email").val(oStudentInfoData.m_strEmailAddress);
+	 $("#studentInfo_textarea_address").val(oStudentInfoData.m_strCurrentAddress);
+	 $("#studentInfo_input_cityName").val(oStudentInfoData.m_strCity);
+	 $("#studentInfo_input_stateName").val(oStudentInfoData.m_strState);
+	 $("#studentInfo_input_pincodeName").val(oStudentInfoData.m_nPincode);
+	 initFormValidateBoxes ("studentInfo_form_id");
 }
 
 function studentInfo_cancel()

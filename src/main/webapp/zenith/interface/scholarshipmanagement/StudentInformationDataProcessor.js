@@ -12,6 +12,11 @@ var StudentInformationDataProcessor = (function __StudentInformationDataProcesso
 		
 	}
 	
+	function setImagetoS3bucket(oStudentData,callback)
+	{
+		multipartAjaxCall(oStudentData, "/createStudentImageData", callback);   
+	}
+	
 	function list(oStudentData, strSortColumn, strSortOrder, nPageNo, nPageSize, callback)
 	{
 		var oTradeMustHelper = new TradeMustHelper ();
@@ -58,7 +63,7 @@ var StudentInformationDataProcessor = (function __StudentInformationDataProcesso
 				 m_strColumn:strSortColumn, 
 				 m_strOrderBy:strSortOrder
 		} 
-		 ajaxCall(oTradeMustHelper, "/studentInfoGetFacilitatorSuggestions", callback);
+		 ajaxCall(oTradeMustHelper, "/studentInfoGetSuggestions", callback);
 		
 	}
 	
@@ -70,6 +75,7 @@ var StudentInformationDataProcessor = (function __StudentInformationDataProcesso
 		deleteData : deleteData, 
 		getImagePreview : getImagePreview,
 		getXML : getXML,
-		getStudentSuggesstions :getStudentSuggesstions
+		getStudentSuggesstions :getStudentSuggesstions,
+		setImagetoS3bucket :setImagetoS3bucket
 	};
 })();

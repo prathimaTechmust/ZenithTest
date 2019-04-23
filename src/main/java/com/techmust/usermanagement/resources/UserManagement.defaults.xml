@@ -78,6 +78,11 @@
 				<Target>navigate ('listinstitution','widgets/scholarshipmanagement/listInstitution.js')</Target>
 				<SequenceId>20</SequenceId>
 			</Action>
+			<Action>
+				<ActionName>Course List</ActionName>
+				<Target>navigate ('courselist','widgets/scholarshipmanagement/listCourses.js')</Target>
+				<SequenceId>30</SequenceId>
+			</Action>
 		</Actions> 
 	</ActionArea>
 </root>  

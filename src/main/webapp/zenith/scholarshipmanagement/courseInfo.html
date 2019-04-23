@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+     <title>
+      Course Information
+     </title>
+ </head>
+<body>
+<form class="trademust" id="courseInfo_form_id" style="width:500px;">
+		<table class="trademust"  summary="">
+			<tr>
+				  <td class="formHeading" style="width:500px;">
+					Course Information
+				  </td>
+			</tr>
+			<tr>
+				  <td class="trademust">
+				  <fieldset>
+                  <legend>
+				  Course Details
+				  </legend>
+					<table  summary="">
+					<tr>
+					  <td class="fieldHeading">
+                                ShortCourse Name
+                      </td>
+					  <td>
+                         <input 
+                             type="text"
+                             maxlength="30"
+                             id="courseInfo_input_shortcourseName"
+                             data-options="required:true"
+                             width="50px"
+                             class="trademust easyui-validatebox"/>
+                      </td>                              
+					</tr>
+					<tr>
+					  <td class="fieldHeading">
+                                LongCourse Name
+                      </td>
+					  <td>
+                         <input 
+                             type="text"
+                             maxlength="30"
+                             id="courseInfo_input_longcourseName"
+                             data-options="required:true"
+                             width="50px"
+                             class="trademust easyui-validatebox"/>
+                      </td>                              
+					</tr>				
+					</table>
+				  </td>
+			</tr>
+			<tr>
+			  <td align="right" colspan="2">
+				<hr>
+				<button 
+					id="courseInfo_button_submit"
+					type="button"
+					class="trademust"
+					update="false"
+					onclick="courseInfo_submit()">
+				  Create
+				</button>
+				 <button id="courseInfo_button_cancel" type="button" class="trademust" onclick="courseInfo_cancel()">
+				  Cancel
+				 </button>
+			  </td>
+          </tr>
+	   </table>
+</form>
+</body>
+</html>

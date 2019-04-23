@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>
+     Course Information List
+    </title>
+  </head>
+  <body>
+    <form class="trademust" id="listCourseInfo_form_id">
+      <table class="trademust" id="listCourseInfo_table_filter" summary="">
+        <tr>
+          <td class="trademust">
+            <div class="trademust" id="listCourseInfo_div_dataGridToolbar">
+              <table class="trademust" cellpadding="2" cellspacing="2" summary="">
+                <tr>
+                  <td class="trademust" style="width:15%">
+                    <button 
+                        id="listCourseInfo_button_add"
+                        class="trademust addButton"
+                        type="button"
+                        style="visibility: initial;"
+                        onclick="listCourseInfo_showAddPopup ()">
+                      New Course
+                    </button>
+                  </td>
+                  <td class="trademust" style="width:25%">
+                    <input 
+                        class="filterTextBox"
+                        id="filterCourseInfo_input_shortcourseName"
+                        onkeypress="handleFilter('listCourseInfo_filter()','')"
+                        placeholder="ShortCourse Name"/>
+                  </td>
+                  <td class="trademust" style="width:25%">
+                     <input 
+                        class="filterTextBox"
+                        id="filterCourseInfo_input_longcourseName"
+                        onkeypress="handleFilter('listCourseInfo_filter()','')"
+                        placeholder="LongCourse Name"/>
+                  </td>                  
+                  <td class="trademust" style="width:10%">
+                    <button class="trademust filterButton" type="button" onclick="listCourseInfo_filter ()">
+                      Filter
+                    </button>
+                  </td>
+                  <td class="trademust" style="width:10%">
+                    <button class="trademust importButton" type="button" onclick="listCourseInfo_import ()">
+                      Import
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="trademust">
+            <div id="listCourseInfo_div_horizontalSplitter" style="z-index: 0">
+              <div id="listCourseInfo_div_dataGrid">
+                <table 
+                    id="listCourseInfo_table_users"
+                    class="easyui-datagrid"
+                    title="Course Information List"
+                    data-options="striped:true, pagination:true, pagesize:15, rownumbers:true, fitColumns:true, remoteSort:false, singleSelect:true, toolbar:'#listCourseInfo_div_dataGridToolbar'">
+
+                </table>
+              </div>
+              <div class="gridDetails" id="listCourseInfo_div_listDetail">
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>

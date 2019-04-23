@@ -190,6 +190,15 @@ button.trademust, .addButton, .filterButton, .tallButton, .exportButton
 	text-align: center;
 }
 
+select.dropdown
+{
+	text-align: left;
+	background-color: #fff;
+	width: 25%;
+	height:27px;
+	color: #000;
+}
+
 button.addButton, .filterButton  
 {
 	width: 100%;
@@ -395,6 +404,12 @@ img.imagePreview
 }
 
 img.itemDetailImage
+{
+	max-width: 150px;
+	max-height: 150px;
+}
+
+img.studentDetailImage
 {
 	max-width: 150px;
 	max-height: 150px;

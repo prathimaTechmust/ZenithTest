@@ -3,15 +3,16 @@ package com.techmust.config;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
+import com.techmust.constants.Constants;
+
 @Configuration
 @ConfigurationProperties(prefix = "aws.s3")
 public class AwsS3ConfigProperties
 {
-	private String m_strClientRegion;	
-	private String m_strBucketName;	
-	private String m_strCauseImagesFolder;
-	private String m_strCauseThumbnailsFolder;
-	private String m_strOrganizationLogosFolder;
+	private String m_strClientRegion = Constants.CLIENTREGION;	
+	private String m_strBucketName = Constants.BUCKETNAME;	
+	private String m_strStudentImagesFolder = Constants.STUDENTIMAGEFOLDER;
+	
 	
 	public String getClientRegion()
 	{
@@ -30,35 +31,25 @@ public class AwsS3ConfigProperties
 	public void setBucketName(String strBucketName)
 	{
 		this.m_strBucketName = strBucketName;
+	}
+
+	public String getM_strClientRegion()
+	{
+		return m_strClientRegion;
+	}
+
+	public void setM_strClientRegion(String strClientRegion)
+	{
+		this.m_strClientRegion = strClientRegion;
+	}
+
+	public String getM_strStudentImagesFolder()
+	{
+		return m_strStudentImagesFolder;
+	}
+
+	public void setM_strStudentImagesFolder(String m_strStudentImagesFolder)
+	{
+		this.m_strStudentImagesFolder = m_strStudentImagesFolder;
 	}	
-	
-	public String getCauseImagesFolder() 
-	{
-		return m_strCauseImagesFolder;
-	}
-
-	public void setCauseImagesFolder(String strCauseImagesFolder)
-	{
-		this.m_strCauseImagesFolder = strCauseImagesFolder;
-	}
-
-	public String getCauseThumbnailsFolder() 
-	{
-		return m_strCauseThumbnailsFolder;
-	}
-
-	public void setCauseThumbnailsFolder(String strCauseThumbnailsFolder)
-	{
-		this.m_strCauseThumbnailsFolder = strCauseThumbnailsFolder;
-	}
-
-	public String getOrganizationLogosFolder()
-	{
-		return m_strOrganizationLogosFolder;
-	}
-
-	public void setOrganizationLogosFolder(String m_strOrganizationLogosFolder)
-	{
-		this.m_strOrganizationLogosFolder = m_strOrganizationLogosFolder;
-	}
 }

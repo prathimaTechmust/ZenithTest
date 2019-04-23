@@ -10,11 +10,14 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.apache.commons.io.FilenameUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.techmust.constants.Constants;
 import com.techmust.generic.data.GenericData;
 import com.techmust.generic.data.MasterData;
+import com.techmust.utils.Utils;
 
 @Entity
 @Table(name = "student")
@@ -58,6 +61,9 @@ public class StudentInformationData  extends MasterData
 	@Column(name = "phonenumber")
 	private String m_strPhoneNumber;
 	
+	@Column(name = "alternatenumber")
+	private String m_strAlternateNumber;
+	
 	@Column(name = "address")
 	private String m_strCurrentAddress;
 	
@@ -86,12 +92,24 @@ public class StudentInformationData  extends MasterData
 		m_nFamilyIncome = -1;
 		m_strEmailAddress = "";
 		m_strPhoneNumber = "";
+		m_strAlternateNumber = "";
 		m_strCurrentAddress = "";
 		m_strCity = "";
 		m_strState = "";
 		m_nPincode = -1;
 		m_strStudentImageName = "";
 		
+	}
+	
+
+	public String getM_strAlternateNumber()
+	{
+		return m_strAlternateNumber;
+	}
+
+	public void setM_strAlternateNumber(String m_strAlternateNumber)
+	{
+		this.m_strAlternateNumber = m_strAlternateNumber;
 	}
 
 	public int getM_nStudentId()
@@ -284,10 +302,14 @@ public class StudentInformationData  extends MasterData
 			addChild (oXmlDocument, oRootElement, "m_strMotherOccupation", m_strMotherOccupation);			
 			addChild (oXmlDocument, oRootElement, "m_nFamilyIncome", m_nFamilyIncome);
 			addChild (oXmlDocument, oRootElement, "m_strEmailAddress", m_strEmailAddress);
+			addChild (oXmlDocument, oRootElement, "m_strPhoneNumber", m_strPhoneNumber);
+			addChild (oXmlDocument, oRootElement, "m_strAlternateNumber", m_strAlternateNumber);
 			addChild (oXmlDocument, oRootElement, "m_strCurrentAddress", m_strCurrentAddress);
 			addChild (oXmlDocument, oRootElement, "m_strCity", m_strCity);
 			addChild (oXmlDocument, oRootElement, "m_strState", m_strState);
 			addChild (oXmlDocument, oRootElement, "m_nPincode", m_nPincode);
+			addChild (oXmlDocument, oRootElement, "m_strStudentImageName", m_strStudentImageName);
+			addChild (oXmlDocument, oRootElement, "m_strStudentImageURL", getStudentImageURL(m_nStudentId,m_strStudentImageName));
 			strItemInfoXML = getXmlString (oXmlDocument);
 		}
 		catch (Exception oException) 
@@ -295,6 +317,12 @@ public class StudentInformationData  extends MasterData
 			m_oLogger.error("generateXML - oException : " + oException);
 		}
 		return strItemInfoXML;		
-	}	
+	}
 
+	private static String getStudentImageURL(int nStudentId, String strStudentImageName)
+	{
+		String strFileExtension = FilenameUtils.getExtension(strStudentImageName);
+		String strStudentImageUrl = Constants.STUDENTIMAGEURL + Constants.STUDENTIMAGEFOLDER+ nStudentId + "." + strFileExtension;
+		return strStudentImageUrl;
+	}
 }

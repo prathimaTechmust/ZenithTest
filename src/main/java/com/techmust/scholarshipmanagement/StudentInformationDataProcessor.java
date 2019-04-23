@@ -3,18 +3,20 @@ package com.techmust.scholarshipmanagement;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.techmust.constants.Constants;
 import com.techmust.generic.dataprocessor.GenericIDataProcessor;
 import com.techmust.generic.response.GenericResponse;
 import com.techmust.helper.TradeMustHelper;
-import com.techmust.inventory.items.ItemData;
-import com.techmust.inventory.items.ItemDataResponse;
-import com.techmust.usermanagement.userinfo.UserInformationData;
+import com.techmust.utils.AWSUtils;
 
 @Controller
 public class StudentInformationDataProcessor extends GenericIDataProcessor <StudentInformationData>
@@ -60,6 +62,19 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		}
 		return oStudentDataResponse;
 	}
+	
+	@RequestMapping(value="/createStudentImageData", method = RequestMethod.POST)
+	@ResponseBody
+	public GenericResponse createStudentImagetoS3bucket(@RequestParam("studentimage") MultipartFile oMultipartFile, @RequestParam("studentId") String strStudentId ) throws Exception
+   {
+		
+		StudentDataResponse oStudentDataResponse = new StudentDataResponse();
+        String strFileName = oMultipartFile.getOriginalFilename();
+        String strNewName = strStudentId + "." + FilenameUtils.getExtension(strFileName);
+		String strPath = Constants.STUDENTIMAGEFOLDER + strNewName;
+	    AWSUtils.UploadToStudentImagesFolder(strPath, oMultipartFile);		
+		return oStudentDataResponse; 
+   }
 
 	@Override
 	@RequestMapping(value="/studentInfoGet", method = RequestMethod.POST, headers = {"Content-type=application/json"})
@@ -123,6 +138,7 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		try
 		{			
 			oStudentDataResponse.m_bSuccess = oStudentInformationData.updateObject();
+			oStudentDataResponse.m_arrStudentInformationData.add(oStudentInformationData);
 		}
 		catch (Exception oException)
 		{

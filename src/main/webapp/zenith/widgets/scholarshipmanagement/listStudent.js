@@ -11,6 +11,7 @@ function listStudentInfo_memberData ()
 	this.m_nIndex = -1;
 	this.m_nPageNumber = 1;
     this.m_nPageSize = 10;
+    this.m_strImageUrl = "";
     this.m_strSortColumn = "m_strStudentName";
     this.m_strSortOrder = "asc";
 }
@@ -119,14 +120,14 @@ function listStudentInfo_list (strColumn, strOrder, nPageNumber, nPageSize)
 	loadPage ("inventorymanagement/progressbar.html", "dialog", "listStudentInfo_progressbarLoaded ()");
 }
 
-function listFacilitatorInfo_displayImages (nStudentId,index)
+function listStudentInfo_displayImages (nStudentId,index)
 {
  	assert.isNumber(nStudentId, "nUserId expected to be a Number.");
 	assert.isNumber(index, "index expected to be a Number.");
 	var oImage = 	'<table align="center">'+
 						'<tr>'+
-							'<td> <img src="images/edit_database_24.png" width="20" align="center" id="editImageId" title="Edit" onClick="listFacilitatorInfo_edit('+nStudentId+')"/> </td>'+
-							'<td> <img src="images/delete.png" width="20" align="center" id="deleteImageId" title="Delete" onClick="listFacilitatorInfo_delete('+index+')"/> </td>'+
+							'<td> <img src="images/edit_database_24.png" width="20" align="center" id="editImageId" title="Edit" onClick="listStudentInfo_edit('+nStudentId+')"/> </td>'+
+							'<td> <img src="images/delete.png" width="20" align="center" id="deleteImageId" title="Delete" onClick="listStudentInfo_delete('+index+')"/> </td>'+
 						'</tr>'+
 					'</table>'
 	return oImage;
@@ -172,7 +173,7 @@ function student_delete_Response (oResponse)
 	{
 		informUser ("studentdeletedsuccessfully", "kSuccess");
 		document.getElementById("listStudentInfo_div_listDetail").innerHTML = "";
-		listFacililtatorInfo_list (m_oStudentInfoListMemberData.m_strSortColumn, m_oStudentInfoListMemberData.m_strSortOrder, 1, 10);
+		listStudentInfo_list (m_oStudentInfoListMemberData.m_strSortColumn, m_oStudentInfoListMemberData.m_strSortOrder, 1, 10);
 	}
 	else
 		informUser (oResponse.m_strError_Desc, "kError");
@@ -181,4 +182,22 @@ function student_delete_Response (oResponse)
 function listStudentInfo_showAddPopup ()
 {
 	navigate ("newstudennt", "widgets/scholarshipmanagement/newStudentInfo.js");
+}
+
+function studentList_setPreview (m_strStudentImageUrl)
+{
+	m_oStudentInfoListMemberData.m_strImageUrl = m_strStudentImageUrl;
+	loadPage ("scholarshipmanagement/studentImagePreview.html", "dialog", "studentList_showImagePreview ()");
+}
+
+function studentList_showImagePreview ()
+{
+	createPopup ('dialog', '', '', true);
+	document.getElementById('dialog').style.position = "fixed";
+	$(".imagePreview").attr('src', m_oStudentInfoListMemberData.m_strImageUrl);
+}
+
+function studentList_cancelImagePreview ()
+{
+	HideDialog ("dialog");
 }

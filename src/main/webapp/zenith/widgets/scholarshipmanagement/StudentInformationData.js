@@ -10,6 +10,7 @@ function StudentInformationData ()
 	this.m_strCurrentAddress = "";
 	this.m_nFamilyIncome = -1;
 	this.m_strPhoneNumber = "";
+	this.m_strAlternateNumber = "";
 	this.m_strEmailAddress = "";
 	this.m_strStudentImageName = "";
 	this.m_strCity = "";

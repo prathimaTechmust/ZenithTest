@@ -12,7 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
-import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
@@ -39,31 +38,12 @@ public class AWSUtils
 		this.m_oAwsS3ConfigProperties = oAwsS3ConfigProperties;
 	}
 	
-	public static String UploadToCauseImagesFolder(String strFileName, MultipartFile oCauseImg) throws AmazonServiceException, 
+	public static String UploadToStudentImagesFolder(String strFileName, MultipartFile oStudentImg) throws AmazonServiceException, 
 	                                                                                    AmazonClientException, 
 	                                                                                    IOException, 
 	                                                                                    InterruptedException 
 	{
-		strFileName = m_oAwsS3ConfigProperties.getCauseImagesFolder() + strFileName;
-		return UploadFile(strFileName, oCauseImg);
-	}
-	
-	public static String UploadToOrganizationLogosFolder(String strFileName, MultipartFile oOrganizationImg) throws AmazonServiceException,
-																													 AmazonClientException, 
-																												     IOException, 
-																												     InterruptedException 
-	{
-		strFileName = m_oAwsS3ConfigProperties.getOrganizationLogosFolder() + strFileName;
-		return UploadFile(strFileName, oOrganizationImg);
-	}
-	
-	public static String UploadToCauseThumbnailsFolder (String strFileName, MultipartFile oCauseImg) throws AmazonServiceException, 
-																							AmazonClientException, 
-																							IOException, 
-																							InterruptedException
-	{
-	   strFileName = m_oAwsS3ConfigProperties.getCauseThumbnailsFolder() + strFileName;
-	   return UploadFile(strFileName, oCauseImg);
+		return UploadFile(strFileName, oStudentImg);
 	}
 	
 	public static String UploadFile (String strFileName, MultipartFile oImage) throws AmazonServiceException, 
@@ -72,12 +52,13 @@ public class AWSUtils
 																			 InterruptedException
 	{
 		String strUploadedFile = "";
-		InputStream oInputStream = oImage.getInputStream();
+		InputStream oInputStream = null;
+	    if(oImage != null)
+	       oInputStream = oImage.getInputStream();
 		try
 		{
 			AmazonS3 oS3Client = AmazonS3ClientBuilder.standard()
 			.withRegion(m_oAwsS3ConfigProperties.getClientRegion())
-			.withCredentials(DefaultAWSCredentialsProviderChain.getInstance())
 			.build();
 		
 			TransferManager oTranMan = TransferManagerBuilder.standard()
@@ -105,11 +86,15 @@ public class AWSUtils
 			
 			strUploadedFile = oS3Client.getUrl(m_oAwsS3ConfigProperties.getBucketName(), strFileName).toString();
 		}
+		catch (Exception oException)
+		{
+			oException.printStackTrace();
+		}
 		finally
 		{
 			if (oInputStream != null)
 			oInputStream.close();
 		}
-			return strUploadedFile;
+	   return strUploadedFile;
 	}	
 }

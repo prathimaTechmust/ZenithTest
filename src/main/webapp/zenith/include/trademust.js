@@ -916,6 +916,30 @@ function ajaxCall(oData, strURL, callback)
 	    });
 }
 
+function multipartAjaxCall(oData, strURL, callback)
+{
+	$.ajax({
+	    url: m_strLocationURL + strURL,
+	    data:oData ,
+	    enctype: 'multipart/form-data',
+	    type:"POST",
+	    async:false,
+	    processData: false,
+	    contentType: false,
+	    cache: false,	    
+	    success: function(oResponse){
+			fn = eval(callback);
+			fn(oResponse);
+		    },
+	    error:function(xhr, textStatus, errorThrown){
+	    	console.log(xhr );
+	    	console.log(textStatus);
+	    	console.log(errorThrown);
+	    	showError(xhr);
+	    	}
+	    });
+}
+
 function ajaxXMLCall(oData, strURL, callback)
 {
 	var strTenantName = document.cookie.split("=")[1];
