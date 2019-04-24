@@ -6,9 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.sql.Blob;
-import java.util.Iterator;
 import java.util.Properties;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -28,14 +26,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.ls.DOMImplementationLS;
 import org.w3c.dom.ls.LSSerializer;
 
-import com.techmust.clientmanagement.ContactData;
 import com.techmust.generic.data.AppProperties;
-import com.techmust.generic.dataprocessor.GenericIDataProcessor;
-import com.techmust.generic.email.AttachmentData;
-import com.techmust.generic.email.EMailMessage;
-import com.techmust.generic.email.EMailStatus;
-import com.techmust.generic.email.EmailMessageData;
-import com.techmust.generic.email.template.TemplateData;
 
 public class GenericUtil
 {
@@ -74,48 +65,6 @@ public class GenericUtil
 		return AppProperties.getProperty(strPropertyName);
 	}
 	
-	public static boolean sendEmail (String strEmailID, String strMessageSubject, String strContent, String strPlainText) throws Exception
-	{
-		String strReplyTo = getProperty("kMAILREPLAYTO");
-		boolean bSuccess = false;
-		try
-		{
-			bSuccess = sendMail (strReplyTo, strEmailID, strMessageSubject, strContent, strPlainText, "");
-		}
-		catch (Exception oException)
-		{
-			throw oException;
-		}
-		return bSuccess;
-	}
-	
-	public static boolean sendMail (String strReplyTo, String strEmailID, String strMessageSubject, String strContent, String strPlainText, String strAttachments) throws Exception
-	{
-		m_oLogger.info("sendEmail");
-		m_oLogger.debug("sendEmail - strEmailID [IN] : " +strEmailID);
-		m_oLogger.debug("sendEmail - strMessageSubject [IN] : " +strMessageSubject);
-		
-		if (strEmailID == null || strEmailID.isEmpty())
-		{
-			m_oLogger.warn("sendEmail: There are no mail recipients, cannot send mail");
-			return false;
-		}
-		EMailMessage oMail = new EMailMessage ();
-		boolean bSuccess = false;
-		try
-		{
-			String strName = getName (strReplyTo);
-			String strFrom = strName + "<"+getProperty("kMAILPROPERTYUSER")+">";
-			bSuccess = oMail.sendMail(strFrom, strReplyTo, strEmailID, strMessageSubject, strContent, strPlainText, strAttachments);
-		}
-		catch (Exception oException)
-		{
-			m_oLogger.error("sendEmail - Exception : " +oException);
-			throw oException;
-		}
-		m_oLogger.debug("sendEmail - bSuccess [OUT] : " +bSuccess);
-		return bSuccess;
-	}
 	
 	private static String getName(String strReplyTo)
     {
@@ -250,35 +199,7 @@ public class GenericUtil
 	    return strHTML;
 	}
 
-	public static boolean sendMail(String strReplyTo, String strEmailID, String strMessageSubject, String strContent, String strPlainText, EmailMessageData oEmailMessageData) throws Exception 
-	{
-		m_oLogger.info("sendEmail");
-		m_oLogger.debug("sendEmail - strEmailID [IN] : " +strEmailID);
-		m_oLogger.debug("sendEmail - strMessageSubject [IN] : " +strMessageSubject);
-		
-		if (strEmailID == null || strEmailID.isEmpty())
-		{
-			m_oLogger.warn("sendEmail: There are no mail recipients, cannot send mail");
-			return false;
-		}
-		EMailMessage oMail = new EMailMessage ();
-		boolean bSuccess = false;
-		try
-		{
-			String strName = getName (strReplyTo);
-			String strFrom = strName + "<"+getProperty("kMAILPROPERTYUSER")+">";
-			String strAttachments = buildAttachments (oEmailMessageData);
-			bSuccess = oMail.sendMail(strFrom, strReplyTo, strEmailID, strMessageSubject, strContent, strPlainText, strAttachments);
-			deleteAttachments (strAttachments);
-		}
-		catch (Exception oException)
-		{
-			m_oLogger.error("sendEmail - Exception : " +oException);
-			throw oException;
-		}
-		m_oLogger.debug("sendEmail - bSuccess [OUT] : " +bSuccess);
-		return bSuccess;
-	}
+
 
 	private static void deleteAttachments(String strAttachments) 
 	{
@@ -289,21 +210,6 @@ public class GenericUtil
 			File oAttachFile = new File(strAttachFolder + File.separator + arrAttachments[nIndex]);
 			oAttachFile.delete();
 		}
-	}
-
-	private static String buildAttachments(EmailMessageData oEmailMessageData) 
-	{
-		String strAttachments = "";
-		String strAttachFolder = GenericUtil.getProperty("kATTACMENT_FOLDER_PATH");
-		Iterator<AttachmentData> oAttachments =  oEmailMessageData.getM_oAttachment().iterator();
-		while(oAttachments.hasNext())
-		{
-			AttachmentData oAttachmentData = oAttachments.next();
-			File oAttachFile = new File(strAttachFolder + File.separator + oAttachmentData.getM_strFileName());
-			writeBlobToFile (oAttachmentData.getM_oAttachment(), oAttachFile);
-			strAttachments += strAttachments.length() > 0 ? "," + oAttachmentData.getM_strFileName() : oAttachmentData.getM_strFileName();
-		}
-		return strAttachments;
 	}
 	
 	public static boolean writeBlobToFile (Blob oBlob, File oFile)
@@ -400,21 +306,7 @@ public class GenericUtil
 		return oRootElement;
 	}
 	
-	public void sendCRMail (EmailMessageData oEmailMessageData) throws Exception
-	{
-		Iterator<ContactData> oContacts = oEmailMessageData.getM_oContact().iterator();
-		String strXsltpath = getCRMXSLT (oEmailMessageData.getM_oTemplateData());
-		while (oContacts.hasNext())
-		{
-			String strMessageFrom = GenericUtil.getProperty("kAPPLICATIONNAME");
-			ContactData oContactData = oContacts.next();
-			String strDestEmailId = oContactData.getM_strEmail();
-			String strMailXML = oContactData.buildMailXML (oEmailMessageData.getM_strSubject(),oEmailMessageData.getM_strContent());
-			String strHTMLContent = GenericUtil.buildHtml(strMailXML, strXsltpath);
-			GenericIDataProcessor.sendEmail(strMessageFrom, strDestEmailId, oEmailMessageData.getM_strSubject(), strHTMLContent, "", EMailStatus.kToSend, oEmailMessageData);
-		}
-		deleteTempXslt (strXsltpath);
-	}
+
 	
 	public void deleteTempXslt(String strXsltpath) 
 	{
@@ -422,29 +314,6 @@ public class GenericUtil
 		File oFile = new File (strXsltpath);
 		if (!strXsltpath.equalsIgnoreCase(strDefaultXSLTPath) && oFile.exists())
 			oFile.delete();
-	}
-
-	public String getCRMXSLT(TemplateData oTemplateData) throws Exception
-	{
-		String strXSLTPath = GenericUtil.getProperty("kXSLT_CRMail");
-		if (oTemplateData != null && oTemplateData.getM_nTemplateId () > 0)
-		{
-			oTemplateData = (TemplateData) GenericIDataProcessor.populateObject(oTemplateData);
-			String strFileName = oTemplateData.getM_strTemplateFileName();
-			String strExtension = strFileName.indexOf(".") >= 0 ? strFileName.substring(strFileName.indexOf(".")) : ".xslt";
-			strXSLTPath = GenericUtil.getProperty("kXSLT_FOLDER") + System.currentTimeMillis() + strExtension;
-			InputStream oInputStream = oTemplateData.getM_oTemplateFile().getBinaryStream();
-			OutputStream oOutputStream = new FileOutputStream(strXSLTPath);
-			byte[] nbuffer = new byte[4096];  
-			int nLength = 0;
-			while ((nLength = oInputStream.read(nbuffer)) != -1) 
-			{
-				oOutputStream.write(nbuffer, 0, nLength);
-			}
-			oOutputStream.flush();
-			oOutputStream.close();
-		}
-		return strXSLTPath;
 	}
 
 }

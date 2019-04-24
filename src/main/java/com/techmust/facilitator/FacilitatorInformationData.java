@@ -174,5 +174,4 @@ public class FacilitatorInformationData extends MasterData
 		}
 		return strItemInfoXML;		
 	}
-
 }

@@ -7,8 +7,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import org.apache.log4j.PropertyConfigurator;
 import com.techmust.generic.data.AppProperties;
-import com.techmust.generic.email.EMailDataProcessor;
-import com.techmust.inventory.initializer.InventoryManagementInitializer;
 import com.techmust.usermanagement.initializer.UserManagementInitializer;
 
 public class AutoSetTradeRpPropertiesServlet extends HttpServlet 

@@ -7,7 +7,6 @@ import java.util.HashMap;
 import org.apache.log4j.Logger;
 import com.techmust.generic.data.GenericData;
 import com.techmust.generic.dataprocessor.GenericIDataProcessor;
-import com.techmust.generic.email.EMailStatus;
 import com.techmust.generic.util.GenericUtil;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.MatchMode;
@@ -280,9 +279,7 @@ public class UserInformationDataProcessor <T extends IUserInformationData> exten
 		UserInformationResponse oUserInformationResponse = new UserInformationResponse ();
 		try 
 		{
-			if (oData.getM_buffImgUserPhoto () != null)
-				oData.setM_oUserPhoto (getBlob (oData.getM_buffImgUserPhoto ()));
-			else
+			if (oData.getM_buffImgUserPhoto () == null)
 			{
 				oUserInformationResponse = get (oData);
 				Blob oBlob = oUserInformationResponse.m_arrUserInformationData.get(0).getM_oUserPhoto ();

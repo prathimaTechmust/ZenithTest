@@ -12,9 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.techmust.generic.dataprocessor.GenericIDataProcessor;
 import com.techmust.generic.response.GenericResponse;
 import com.techmust.helper.TradeMustHelper;
-import com.techmust.inventory.items.ItemData;
-import com.techmust.inventory.items.ItemDataResponse;
-import com.techmust.usermanagement.userinfo.UserInformationData;
 
 @Controller
 public class FacilitatorInformationDataProcessor extends GenericIDataProcessor <FacilitatorInformationData>

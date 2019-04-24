@@ -6,7 +6,6 @@ import java.util.HashMap;
 import com.techmust.constants.Constants;
 import com.techmust.generic.data.GenericData;
 import com.techmust.generic.dataprocessor.GenericIDataProcessor;
-import com.techmust.generic.email.EMailStatus;
 import com.techmust.generic.response.GenericResponse;
 import com.techmust.generic.util.GenericUtil;
 import com.techmust.usermanagement.MessageConstants;
@@ -65,7 +64,6 @@ public class ActionManagerDataProcessor extends GenericIDataProcessor<ActionMana
 			else if (oUserInfoData != null && oUserInfoData.getM_nStatus () == UserStatus.kActive)
 			{
 				oActionManagerResponse.set (oUserInfoData);
-				createLog(oUserInfoData, "Login");
 			}
 			else if (oUserInfoData != null && oUserInfoData.getM_nStatus() == UserStatus.kInactive)
 			{
@@ -93,7 +91,6 @@ public class ActionManagerDataProcessor extends GenericIDataProcessor<ActionMana
 
 	public void logOut (UserInformationData oUserInfoData)
 	{
-		createLog(oUserInfoData, "Logout");
 	}
 	
 	@Override
