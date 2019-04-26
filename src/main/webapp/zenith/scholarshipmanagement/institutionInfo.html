@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+     <title>
+      Institution Information
+     </title>
+ </head>
+<body>
+<form class="trademust" id="institutionInfo_form_id" style="width:800px;">
+		<table class="trademust"  summary="">
+			<tr>
+				  <td class="formHeading" style="width:500px;">
+					Institution Information
+				  </td>
+			</tr>
+			<tr>
+				  <td class="trademust">
+				  <fieldset>
+                  <legend>
+				  Personal Details
+				  </legend>
+					<table  summary="">
+					<tr>
+					  <td class="fieldHeading">
+                                Institution Name
+                                <em>
+                                  *
+                                </em>
+                      </td>
+					  <td>
+                                <input 
+                                    type="text"
+                                    maxlength="30"
+                                    id="institutionInfo_input_institutionName"
+                                    data-options="required:true"
+                                    width="50px"
+                                    class="trademust easyui-validatebox"/>
+                      </td>                              
+					</tr>
+					<tr>
+							<td class="fieldHeading">
+                               Institution EMail
+                            </td>
+							<td>
+                                <input 
+                                    type="text"
+                                    id="institutionInfo_input_institutionemail" maxlength="40"
+                                    class="trademust easyui-validatebox"
+                                    data-options="required:true,validType:'email'"/>
+                            </td>
+					</tr>
+					<tr>
+						 <td class="fieldHeading">
+                                ContactPerson Name
+                         </td>                              
+                          <td>
+                                <input type="text" id="institutionInfo_input_contactpersonname"  maxlength="30"  class="trademust"/>
+                          </td>
+					</tr>
+					<tr>
+							<td class="fieldHeading">
+                                ContactPerson PhoneNumber
+                                <em>
+                                  *
+                                </em>
+                            </td>
+							<td>
+							<input 
+                                    type="tel"  maxlength="10"
+                                    id="institutionInfo_input_phoneNumber"
+									required
+                                    class="trademust easyui-validatebox"  data-options="validType:'minLength[10]'"
+                                    onkeyup="validateNumber (this)"/>
+							</td>                            
+					</tr>
+					<tr>
+							<td class="fieldHeading">
+                                ContactPerson EMail
+                            </td>
+							<td>
+                                <input 
+                                    type="text"
+                                    id="institutionInfo_input_contactpersonemail" maxlength="40"
+                                    class="trademust easyui-validatebox"
+                                    data-options="required:true,validType:'email'"/>
+                            </td>
+					</tr>
+					<tr>
+							<td class="fieldHeading">
+                                Institution Address
+                                <em>
+                                  *
+                                </em>
+							</td>
+							<td>
+                                <textarea 
+                                    id="institutionInfo_textarea_address"
+                                    rows="2"
+                                    cols="20"  
+                                    maxlength="200"
+                                    class="trademust easyui-validatebox"
+                                    data-options="required:true"></textarea>
+                            </td>                             
+					</tr>
+					<tr>
+					 		<td class="fieldHeading">
+                                City
+                            </td>
+                            <td>
+                            	<input
+                                 data-options="required:true"
+		                         class="easyui-validatebox trademust"
+		                         id="institutionInfo_input_cityName"  maxlength="70"
+		                         placeholder="City"
+		                         type="text"/>
+                            </td>
+							<td class="fieldHeading">
+                                State
+                            </td>
+							<td>
+							 <input
+                               data-options="required:true"
+		                       class="easyui-validatebox trademust"
+		                       id="institutionInfo_input_stateName"  maxlength="70"
+		                       placeholder="State"
+		                       type="text"/>
+                            </td>
+							<td class="fieldHeading">
+                                Pincode
+                            </td>
+                            <td>
+                              <input
+                              	  type="text"
+                              	  id="institutionInfo_input_pincode"  maxlength="70"
+                              	  class="easyui-validatebox trademust"
+                                  data-options="required:true"		                          
+		                          placeholder="Pincode"		                          
+		                          />
+                            </td>                      
+					 </tr>
+					</table>
+				  </td>
+			</tr>
+			<tr>
+					  <td align="right" colspan="2">
+						<hr>
+						<button 
+							id="institutionInfo_button_submit"
+							type="button"
+							class="trademust"
+							update="false"
+							onclick="institutionInfo_submit()">
+						  Create
+						</button>
+						<button id="institutionInfo_button_cancel" type="button" class="trademust" onclick="institutionInfo_cancel()">
+						  Cancel
+						</button>
+					  </td>
+          </tr>
+	   </table>
+</form>
+</body>
+</html>

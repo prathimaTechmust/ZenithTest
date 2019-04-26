@@ -39,9 +39,6 @@ public final class DBUtil
 		Map<String, String> arrsettings = new HashMap<>();
 		arrsettings.put(Constants.CONNECTION_DRIVER_CLASS, "com.mysql.cj.jdbc.Driver" );
 		arrsettings.put(Constants.CONNECTION_DIALECT, "org.hibernate.dialect.MySQL5InnoDBDialect");
-		arrsettings.put(Constants.CONNECTION_URL, strDBUrl);
-		arrsettings.put(Constants.CONNECTION_USERNAME, Constants.DBUSERNAME);
-		arrsettings.put(Constants.CONNECTION_PASSWORD, Constants.DBPASSWORD);
 		arrsettings.put(Constants.HBM2DDL, "create");
 		arrsettings.put(Constants.SHOW_SQL, "true");
 		return arrsettings;

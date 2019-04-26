@@ -1,9 +1,9 @@
-var listCoursestInfo_includeDataObjects = 
+var listCoursesInfo_includeDataObjects = 
 [
 	'widgets/scholarshipmanagement/CourseInformationData.js'
 ];
 
- includeDataObjects (listCoursestInfo_includeDataObjects, "listCourseInfo_loaded()");
+ includeDataObjects (listCoursesInfo_includeDataObjects, "listCourseInfo_loaded()");
 
 function listCourseInfo_memberData ()
 {
@@ -54,7 +54,7 @@ function listCourseInfo_createDataGrid ()
 				{
 					listCourseInfo_selectedRowData (rowData, rowIndex);
 				},
-				onSortColumn: function (strColumn, strOrder, oUserInformationData)
+				onSortColumn: function (strColumn, strOrder, oCourseInformationData)
 				{
 					m_oCourseInfoListMemberData.m_strSortColumn = strColumn;
 					m_oCourseInfoListMemberData.m_strSortOrder = strOrder;
@@ -74,7 +74,7 @@ function listCourseInfo_initDGPagination ()
 			onRefresh:function (nPageNumber, nPageSize)
 			{
 				m_oCourseInfoListMemberData.m_nPageNumber = nPageNumber;
-				listCourseInfo_list (m_oStudentInfoListMemberData.m_strSortColumn, m_oCourseInfoListMemberData.m_strSortOrder, nPageNumber, nPageSize);
+				listCourseInfo_list (m_oCourseInfoListMemberData.m_strSortColumn, m_oCourseInfoListMemberData.m_strSortOrder, nPageNumber, nPageSize);
 				document.getElementById("listCourseInfo_div_listDetail").innerHTML = "";
 			},
 			onSelectPage:function (nPageNumber, nPageSize)

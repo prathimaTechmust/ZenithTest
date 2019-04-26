@@ -1,0 +1,184 @@
+var listInstitutionsInfo_includeDataObjects = 
+[
+	'widgets/scholarshipmanagement/InstitutionInformationData.js'
+];
+
+ includeDataObjects (listInstitutionsInfo_includeDataObjects, "listInstitutionsInfo_loaded()");
+
+function listInstitutionsInfo_memberData ()
+{
+	this.m_nSelectedInstitutionId = -1;
+	this.m_nIndex = -1;
+	this.m_nPageNumber = 1;
+    this.m_nPageSize = 10;
+    this.m_strSortColumn = "m_strInstitutionName";
+    this.m_strSortOrder = "asc";
+    this.m_nInstitutionId = -1;
+}
+
+var m_oInstitutionsInfoListMemberData = new listInstitutionsInfo_memberData ();
+
+function listInstitutionsInfo_loaded ()
+{
+	loadPage ("scholarshipmanagement/listInstitutionsInfo.html", "workarea", "listInstitutionsInfo_init ()");
+}
+
+function listInstitutionsInfo_init ()
+{
+	listInstitutionsInfo_createDataGrid ();
+}
+
+function listInstitutionsInfo_createDataGrid ()
+{
+	initHorizontalSplitter("#listInstitutionsInfo_div_horizontalSplitter", "#listInstitutionsInfo_table_users");
+	$('#listInstitutionsInfo_table_users').datagrid
+	(
+		{
+			fit:true,
+			columns:
+			[[
+				{field:'m_strInstitutionName',title:'Institution Name',sortable:true,width:300},
+				{field:'m_strInstitutionEmailAddress',title:'InstitutionEmail Address',sortable:true,width:200},
+				{field:'m_strCity',title:'City',sortable:true,width:200},
+				{field:'Actions',title:'Action',width:80,align:'center',
+					formatter:function(value,row,index)
+		        	{
+		        		return listInstitutionsInfo_displayImages (row.m_nInstitutionId,index);
+		        	}
+	            },
+			]],				
+		}
+	);
+	$('#listInstitutionsInfo_table_users').datagrid
+	(
+			{
+				onSelect: function (rowIndex, rowData)
+				{
+					listInstitutionsInfo_selectedRowData (rowData, rowIndex);
+				},
+				onSortColumn: function (strColumn, strOrder, oInstitutionsInformationData)
+				{
+					m_oInstitutionsInfoListMemberData.m_strSortColumn = strColumn;
+					m_oInstitutionsInfoListMemberData.m_strSortOrder = strOrder;
+					listInstitutionsInfo_list (strColumn, strOrder, m_oInstitutionsInfoListMemberData.m_nPageNumber, m_oInstitutionsInfoListMemberData.m_nPageSize);
+				}
+			}
+	)	
+	listInstitutionsInfo_initDGPagination ();
+	listInstitutionsInfo_list (m_oInstitutionsInfoListMemberData.m_strSortColumn, m_oInstitutionsInfoListMemberData.m_strSortOrder, 1, 10);
+}
+
+function listInstitutionsInfo_initDGPagination ()
+{
+	$('#listInstitutionsInfo_table_users').datagrid('getPager').pagination
+	(
+		{ 
+			onRefresh:function (nPageNumber, nPageSize)
+			{
+				m_oInstitutionsInfoListMemberData.m_nPageNumber = nPageNumber;
+				listInstitutionsInfo_list (m_oInstitutionsInfoListMemberData.m_strSortColumn, m_oInstitutionsInfoListMemberData.m_strSortOrder, nPageNumber, nPageSize);
+				document.getElementById("listInstitutionsInfo_div_listDetail").innerHTML = "";
+			},
+			onSelectPage:function (nPageNumber, nPageSize)
+			{
+				m_oInstitutionsInfoListMemberData.m_nPageNumber = nPageNumber;
+				m_oInstitutionsInfoListMemberData.m_nPageSize = nPageSize;
+				listInstitutionsInfo_list (m_oInstitutionsInfoListMemberData.m_strSortColumn, m_oInstitutionsInfoListMemberData.m_strSortOrder, nPageNumber, nPageSize);
+				document.getElementById("listInstitutionsInfo_div_listDetail").innerHTML = "";
+			}
+		}
+	)
+}
+
+function listInstitutionsInfo_selectedRowData (oRowData, nIndex)
+{
+ 	assert.isObject(oRowData, "oRowData expected to be an Object.");
+	assert.isNumber(nIndex, "nIndex is expected to be of type number");
+	m_oInstitutionsInfoListMemberData.m_nIndex = nIndex;
+	document.getElementById("listInstitutionsInfo_div_listDetail").innerHTML = "";
+	var oInstitutionsInformationData = new InstitutionInformationData () ;
+	oInstitutionsInformationData.m_nInstitutionId = oRowData.m_nInstitutionId;
+	InstitutionInformationDataProcessor.getXML (oInstitutionsInformationData,listInstitutionsInfo_gotXML);
+}
+
+function listInstitutionsInfo_gotXML (strXMLData)
+{
+	populateXMLData (strXMLData, "scholarshipmanagement/institutionsInfoDetails.xslt", 'listInstitutionsInfo_div_listDetail');
+}
+
+function listInstitutionsInfo_list (strColumn, strOrder, nPageNumber, nPageSize)
+{
+ 	assert.isString(strColumn, "strColumn is expected to be of type string.");
+	assert.isString(strOrder, "strOrder is expected to be of type string.");
+	assert.isNumber(nPageNumber, "nPageNumber is expected to be of type number");
+	assert.isNumber(nPageSize, "nPageSize is expected to be of type number");
+	m_oInstitutionsInfoListMemberData.m_strSortColumn = strColumn;
+	m_oInstitutionsInfoListMemberData.m_strSortOrder = strOrder;
+	m_oInstitutionsInfoListMemberData.m_nPageNumber = nPageNumber;
+	m_oInstitutionsInfoListMemberData.m_nPageSize = nPageSize;
+	loadPage ("inventorymanagement/progressbar.html", "dialog", "listInstitutionsInfo_progressbarLoaded ()");
+}
+
+function listInstitutionsInfo_displayImages (nInstitutionId,index)
+{
+ 	assert.isNumber(nInstitutionId, "nInstitutionId expected to be a Number.");
+	assert.isNumber(index, "index expected to be a Number.");
+	var oImage = 	'<table align="center">'+
+						'<tr>'+
+							'<td> <img src="images/edit_database_24.png" width="20" align="center" id="editImageId" title="Edit" onClick="listInstitutionsInfo_edit('+nInstitutionId+')"/> </td>'+
+							'<td> <img src="images/delete.png" width="20" align="center" id="deleteImageId" title="Delete" onClick="listInstitutionsInfo_delete('+index+')"/> </td>'+
+						'</tr>'+
+					'</table>'
+	return oImage;
+}
+
+function listInstitutionsInfo_progressbarLoaded ()
+{
+	createPopup('dialog', '', '', true);
+	var oInstitutionsInformationData = new InstitutionInformationData () ;
+	InstitutionInformationDataProcessor.list(oInstitutionsInformationData, m_oInstitutionsInfoListMemberData.m_strSortColumn, m_oInstitutionsInfoListMemberData.m_strSortOrder, m_oInstitutionsInfoListMemberData.m_nPageNumber, m_oInstitutionsInfoListMemberData.m_nPageSize, listInstitutionsInfo_listed);
+}
+
+function listInstitutionsInfo_listed (oInstitutionsInfoResponse)
+{
+	clearGridData ("#listInstitutionsInfo_table_users");
+	for (var nIndex = 0; nIndex < oInstitutionsInfoResponse.m_arrInstitutionInformationData.length; nIndex++)
+		$('#listInstitutionsInfo_table_users').datagrid('appendRow',oInstitutionsInfoResponse.m_arrInstitutionInformationData[nIndex]);
+	$('#listInstitutionsInfo_table_users').datagrid('getPager').pagination ({total:oInstitutionsInfoResponse.m_nRowCount, pageNumber:oInstitutionsInfoResponse.m_nPageNumber});
+	HideDialog("dialog");
+}
+
+function listInstitutionsInfo_edit (nInstitutionId)
+{
+	assert.isNumber(nInstitutionId, "nInstitutionId expected to be a Number.");
+	m_oInstitutionsInfoListMemberData.m_nSelectedInstitutionId = nInstitutionId;
+	navigate ("actionInformation", "widgets/scholarshipmanagement/editInstitutionInfo.js");
+}
+
+function listInstitutionsInfo_delete (nIndex)
+{
+	assert.isNumber(nIndex, "nIndex expected to be a Number.");
+	assert.isOk(nIndex > -1, "nIndex must be a positive value.");	
+	var oListData = $("#listInstitutionsInfo_table_users").datagrid('getData');
+	var oData = oListData.rows[nIndex];
+	var oInstitutionsInformationData = new InstitutionInformationData () ;
+	oInstitutionsInformationData.m_nInstitutionId = oData.m_nInstitutionId;
+	InstitutionInformationDataProcessor.deleteData(oInstitutionsInformationData,institution_delete_Response);
+}
+
+function institution_delete_Response (oResponse)
+{
+	if(oResponse.m_bSuccess)
+	{
+		informUser ("institutiondeletedsuccessfully", "kSuccess");
+		document.getElementById("listInstitutionsInfo_div_listDetail").innerHTML = "";
+		listInstitutionsInfo_list (m_oInstitutionsInfoListMemberData.m_strSortColumn, m_oInstitutionsInfoListMemberData.m_strSortOrder, 1, 10);
+	}
+	else
+		informUser (oResponse.m_strError_Desc, "kError");
+}
+
+function listInstitutionsInfo_showAddPopup ()
+{
+	navigate ("newinstitution", "widgets/scholarshipmanagement/newInstitutionsInfo.js");
+}

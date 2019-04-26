@@ -26,9 +26,4 @@ public class Constants
 	public static final String STUDENTIMAGEFOLDER = "images/student/";
 	public static final String STUDENTIMAGEURL = "https://s3-ap-southeast-1.amazonaws.com/zenithfoundation/";
 	
-	//connection URL for organization
-	public static final String ORGANIZATION_CREATION_DB_URL = "jdbc:mysql://zenithdb.cdwear8cwwuw.ap-southeast-1.rds.amazonaws.com:3306/%s?useSSL=false&createDatabaseIfNotExist=TRUE";
-	public static final String DBUSERNAME = "zenith";
-	public static final String DBPASSWORD = "tmspl5629D!";
-	//public static final String ORGANIZATION_CREATION_CON_URL = "jdbc:mysql://kubera.ckevpqhd0yy7.ap-southeast-1.rds.amazonaws.com:3306/%s?useSSL=false";
 }

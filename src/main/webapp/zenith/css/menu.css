@@ -30,7 +30,7 @@
 {
   cursor: pointer;
   background: #000;
-  border-bottom: 1px solid #259BC2;
+  border-bottom: 1px solid #4ca973;
 }
 #cssmenu > ul > li:last-child 
 {
@@ -78,7 +78,7 @@
 {
   background: #efefef;
   display: block;
-  color: #0E486E;
+  color: #0E486E; 
   font-size: 12px;
   font-weight:bold;
   padding: 5px 5px;

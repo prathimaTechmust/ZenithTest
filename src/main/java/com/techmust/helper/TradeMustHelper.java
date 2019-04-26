@@ -11,13 +11,15 @@ import org.hibernate.Criteria;
 import com.techmust.facilitator.FacilitatorInformationData;
 import com.techmust.generic.data.GenericData;
 import com.techmust.scholarshipmanagement.course.CourseInformationData;
+import com.techmust.scholarshipmanagement.institution.InstitutionInformationData;
 import com.techmust.scholarshipmanagement.student.StudentInformationData;
 import com.techmust.usermanagement.action.ActionData;
 import com.techmust.usermanagement.actionarea.ActionAreaData;
 import com.techmust.usermanagement.role.RoleData;
 import com.techmust.usermanagement.userinfo.UserInformationData;
 
-public class TradeMustHelper extends GenericData {
+public class TradeMustHelper extends GenericData
+{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -25,6 +27,7 @@ public class TradeMustHelper extends GenericData {
 	private FacilitatorInformationData m_oFacilitatorInformationData;
 	private StudentInformationData m_oStudentInformationData;
 	private CourseInformationData m_oCourseInformationData;
+	private InstitutionInformationData m_oInstitutionInformationData;
 	private RoleData m_oRoleData;
 	private ActionAreaData m_oActionArea;
 	private ActionData m_oAction;	
@@ -43,6 +46,7 @@ public class TradeMustHelper extends GenericData {
 		m_oFacilitatorInformationData = new FacilitatorInformationData();
 		m_oStudentInformationData = new StudentInformationData();
 		m_oCourseInformationData = new CourseInformationData();
+		m_oInstitutionInformationData = new InstitutionInformationData();
 		m_oRoleData = new RoleData ();
 		m_oActionArea = new ActionAreaData ();
 		m_oAction = new ActionData ();
@@ -52,6 +56,16 @@ public class TradeMustHelper extends GenericData {
 		m_nPageSize = 10;
 	}	
 		
+	public InstitutionInformationData getM_oInstitutionInformationData()
+	{
+		return m_oInstitutionInformationData;
+	}
+
+	public void setM_oInstitutionInformationData(InstitutionInformationData m_oInstitutionInformationData)
+	{
+		this.m_oInstitutionInformationData = m_oInstitutionInformationData;
+	}
+
 	public CourseInformationData getM_oCourseInformationData()
 	{
 		return m_oCourseInformationData;
