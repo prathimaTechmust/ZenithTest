@@ -8,236 +8,207 @@
  </head>
 <body>
 <form class="trademust" id="studentInfo_form_id" style="width:800px;">
-		<table class="trademust"  summary="">
-			<tr>
-				  <td class="formHeading" style="width:500px;">
-					Student Information
-				  </td>
-			</tr>
-			<tr>
-				  <td class="trademust">
-				  <fieldset>
-                  <legend>
-				  Personal Details
-				  </legend>
-					<table  summary="">
-					<tr>
-					  <td class="fieldHeading">
-                                Student Name
-                                <em>
-                                  *
-                                </em>
-                      </td>
-					  <td>
-                                <input 
-                                    type="text"
-                                    maxlength="30"
-                                    id="studentInfo_input_studentName"
-                                    data-options="required:true"
-                                    width="50px"
-                                    class="trademust easyui-validatebox"/>
-                      </td>                              
-					</tr>
-					<tr>
-						<td class="fieldHeading">
-                                Gender
-                                <em>
-                                  *
-                                </em>
-                        </td>
-						<td>
-                                <input 
-                                    id="studentInfo_input_male"
-                                    name="studentInfo_input_gender"
-                                    type="radio"
-                                    value="M" 
-                                    checked
-                                    data-options="required:true"
-                                    class="easyui-validatebox"/>
-                                  Male
-                         </td>
-						 <td>
-							<input 
-                               id="studentInfo_input_female"
-                               name="studentInfo_input_gender"
-                               type="radio"
-                               value="F"
+        <table class="trademust"  summary="">
+            <tr>
+                  <td class="formHeading" style="width:500px;">
+                    Student Information
+                  </td>
+            </tr>
+            <tr>
+                  <td class="trademust">
+                  <fieldset>
+                  <legend> Personal Details </legend>          
+               <table>
+                    <tr>
+                      <td class="fieldHeading"> Student Name <em> * </em> </td>
+                      <td style = "padding-left = 20px;">
+                      
+                           <input 
+                               type="text"
+                               id="studentInfo_input_studentName"
                                data-options="required:true"
-                               class="easyui-validatebox"/>
-                              Female
-						 </td>
-						 <td>
-						 		<input 
-                                    id="studentInfo_input_others"
-                                    name="studentInfo_input_gender"
-                                    type="radio"
-                                    value="O"
-                                    data-options="required:true"
-                                    class="easyui-validatebox"/>
-                                 Others                              
-						 </td>
-					</tr>
-					<tr>
-						<td class="fieldHeading">
-									Father Name
-						</td>                              
+                               style = "width:300px;"
+                               class="trademust easyui-validatebox"/>
+                      </td>     
+                    </tr>
+                    <tr>
+                        <td class="fieldHeading"> Gender <em> * </em> </td>
                         <td>
-                                <input type="text" id="studentInfo_input_fathername"  maxlength="30"  class="trademust"/>
-                        </td>
-						 <td class="fieldHeading">
-                                Occupation
-                         </td>
-						 <td>
-                                <input type="text" id="studentInfo_input_fatheroccupation"  maxlength="30"  class="trademust"/>
-                         </td>                             
-					</tr>
-					<tr>
-						 <td class="fieldHeading">
-                                Mother Name
-                         </td>                              
-                          <td>
-                                <input type="text" id="studentInfo_input_mothername"  maxlength="30"  class="trademust"/>
-                          </td>
-						  <td class="fieldHeading">
-                                Occupation
-                          </td>
-                          <td>
-                                <input type="text" id="studentInfo_input_motheroccupation"  maxlength="30"  class="trademust"/>
-                          </td>
-					</tr>
-					<tr>
-						  <td class="fieldHeading">
-                              Family Income Per Annum(Rupees)
-                          </td>
-						  <td>
-                                <input type="text" id="studentInfo_input_income"  maxlength="30"  class="trademust"/>
-                          </td>
-					</tr>
-					<tr>
-							<td class="fieldHeading">
-                                Phone Number
-                                <em>
-                                  *
-                                </em>
-                            </td>
-							<td>
-							<input 
-                                    type="tel"  maxlength="10"
-                                    id="studentInfo_input_phoneNumber1"
-									required
-                                    class="trademust easyui-validatebox"  data-options="validType:'minLength[10]'"
-                                    onkeyup="validateNumber (this)"/>
-							</td>
-							<td class="fieldHeading">
-							Alternative Number
-							</td>
-							<td>
-                                <input 
-                                    type="tel"  maxlength="10"
-                                    id="studentInfo_input_phoneNumber2"
-									required
-                                    data-options="validType:'minLength[10]'"
-                                    onkeyup="validateNumber (this)"/>
-                            </td>                             
-					</tr>
-					<tr>
-							<td class="fieldHeading">
-                                UploadImage
-							</td>
-							<td>
-                                <input 
-                                	name="studentimage"
-                                    type="file"
-                                    accept="image/*" 
-                                    id="studentInfo_input_studentPhoto"
-                                    style="width:100%;"/>
-						  </td>
-					</tr>
-					<tr>
-							<td class="fieldHeading">
-                                E-Mail
-                            </td>
-							<td>
-                                <input 
-                                    type="text"
-                                    id="studentInfo_input_email" maxlength="40"
-                                    class="trademust easyui-validatebox"
-                                    data-options="required:true,validType:'email'"/>
-                            </td>
-					</tr>
-					<tr>
-							<td class="fieldHeading">
-                                Address
-                                <em>
-                                  *
-                                </em>
-							</td>
-							<td>
-                                <textarea 
-                                    id="studentInfo_textarea_address"
-                                    rows="2"
-                                    cols="20"  
-                                    maxlength="200"
-                                    class="trademust easyui-validatebox"
-                                    data-options="required:true"></textarea>
-                            </td>                             
-					</tr>
-					<tr>
-					 		<td class="fieldHeading">
-                                City
-                            </td>
-                            <td>
-                            	<input
+                            <input 
+                                id="studentInfo_input_male"
+                                name="studentInfo_input_gender"
+                                type="radio"
+                                value="M" 
+                                checked
+                                data-options="required:true"
+                                class="easyui-validatebox"/>
+                                Male
+                                                        
+                            <input 
+                                 id="studentInfo_input_female"
+                                 name="studentInfo_input_gender"
+                                 type="radio"
+                                 value="F"
                                  data-options="required:true"
-		                         class="easyui-validatebox trademust"
-		                         id="studentInfo_input_cityName"  maxlength="70"
-		                         placeholder="City"
-		                         type="text"/>
-                            </td>
-							<td class="fieldHeading">
-                                State
-                            </td>
-							<td>
-							 <input
-                               data-options="required:true"
-		                       class="easyui-validatebox trademust"
-		                       id="studentInfo_input_stateName"  maxlength="70"
-		                       placeholder="State"
-		                       type="text"/>
-                            </td>
-							<td class="fieldHeading">
-                                Pincode
-                            </td>
-                            <td>
-                              <input
-                              	  type="text"
-                              	  id="studentInfo_input_pincodeName"  maxlength="70"
-                              	  class="easyui-validatebox trademust"
-                                  data-options="required:true"		                          
-		                          placeholder="Pincode"		                          
-		                          />
-                            </td>                      
-					 </tr>
-					</table>
-				  </td>
-			</tr>
-			<tr>
-					  <td align="right" colspan="2">
-						<hr>
-						<button 
-							id="studentInfo_button_submit"
-							type="button"
-							class="trademust"
-							update="false"
-							onclick="studentInfo_submit()">
-						  Create
-						</button>
-						<button id="studentInfo_button_cancel" type="button" class="trademust" onclick="studentInfo_cancel()">
-						  Cancel
-						</button>
-					  </td>
+                                 class="easyui-validatebox"/>
+                                 Female
+                            
+                            <input 
+                              id="studentInfo_input_others"
+                              name="studentInfo_input_gender"
+                              type="radio"
+                              value="O"
+                              data-options="required:true"
+                              class="easyui-validatebox"/>
+                            Others
+                        </td>
+                    </tr>     
+                <tr>
+                    <td class="fieldHeading"> Father Name </td>                              
+                       <td>
+                            <input type="text" id="studentInfo_input_fathername"  class="trademust"/>
+                       </td>          
+                     <td style="padding-right: 15px"> </td>                                
+                     <td class="fieldHeading">Father Occupation </td>
+                     <td>
+                          <input type="text" id="studentInfo_input_fatheroccupation"  class="trademust"/>
+                     </td>                             
+                </tr>
+                    
+                <tr>
+                     <td class="fieldHeading"> Mother Name </td>                              
+                         <td>
+                               <input type="text" id="studentInfo_input_mothername"  class="trademust"/>
+                         </td>      
+                      <td  style="padding-right: 15px"> </td>                                   
+                      <td class="fieldHeading">Mother Occupation </td>
+                         <td>
+                               <input type="text" id="studentInfo_input_motheroccupation"  class="trademust"/>
+                         </td>
+                </tr>                  
+                <tr>
+                      <td class="fieldHeading"> Family Income Per Annum(Rupees)</td>
+                      <td>
+                           <input type="text" id="studentInfo_input_income"  class="trademust"/>
+                      </td>
+                </tr>             
+                 <tr>
+                      <td class="fieldHeading"> Phone Number<em> * </em></td>
+                      <td>
+                      <input 
+                              type="tel"  maxlength="10"
+                              id="studentInfo_input_phoneNumber1"
+                              required
+                              style="width: 200px;"
+                              class="trademust easyui-validatebox"  data-options="validType:'minLength[10]'"
+                              onkeyup="validateNumber (this)"/>
+                      </td>
+                      <td style="padding-right: 10px"> </td>
+                      <td class="fieldHeading"> Alternative Number </td>
+                      <td>
+                         <input 
+                             type="tel"  maxlength="10"
+                             id="studentInfo_input_phoneNumber2"
+                             required
+                             class="trademust"
+                             data-options="validType:'minLength[10]'"
+                             onkeyup="validateNumber (this)"/>
+                      </td>                             
+                </tr>
+                <tr>
+                     <td class="fieldHeading">Student photo</td>
+                     <td>
+                       <input 
+                           name="studentimage"
+                           type="file"
+                           accept="image/*" 
+                           id="studentInfo_input_studentPhoto"
+                           style="width:100%;"/>
+                    </td>
+                </tr>
+                <tr>
+                        <td class="fieldHeading">E-Mail <em> * </em></td>
+                        <td>
+                            <input 
+                                type="text"
+                                id="studentInfo_input_email" maxlength="40"
+                                class="trademust easyui-validatebox"
+                                data-options="required:true,validType:'email'"/>
+                        </td>
+                </tr>
+                <tr>
+                         <td class="fieldHeading">Address<em>* </em> </td>
+                         <td>
+                             <textarea 
+                                 id="studentInfo_textarea_address"
+                                 rows="2"
+                                 cols="20"  
+                                 maxlength="200"
+                                 class="trademust easyui-validatebox"
+                                 data-options="required:true"></textarea>
+                         </td>                             
+                </tr>
+                    </table>
+                 <table  cellpadding="3" cellspacing="5">
+                 <tr>
+                 <td class="fieldHeading" >
+                             City
+                             <em>*</em>
+                         </td>
+                         <td>
+                             <input
+                              data-options="required:true"
+                              class="easyui-validatebox trademust"
+                              id="studentInfo_input_cityName"  maxlength="70"
+                              placeholder="City"
+                              type="text"/>
+                         </td>
+                         <td class="fieldHeading" padding-left = "10px">
+                             State
+                             <em>*</em>
+                         </td>
+                         <td>
+                          <input
+                            data-options="required:true"
+                            class="easyui-validatebox trademust"
+                            id="studentInfo_input_stateName"  maxlength="70"
+                            placeholder="State"
+                            type="text"/>
+                         </td>
+                         <td class="fieldHeading">
+                             Pincode
+                             <em>*</em>
+                         </td>
+                         <td>
+                           <input
+                               type="text"
+                               id="studentInfo_input_pincodeName"  maxlength="70"
+                               class="easyui-validatebox trademust"
+                               data-options="required:true"                                  
+                               placeholder="Pincode"                                 
+                               />
+                         </td>                  
+                 </tr>                
+                 </table>
+                  </td>
+            </tr>
+            <tr>
+                      <td align="right" colspan="2">
+                        <hr>
+                        <button 
+                            id="studentInfo_button_submit"
+                            type="button"
+                            class="trademust"
+                            update="false"
+                            onclick="studentInfo_submit()">
+                          Create
+                        </button>
+                        <button id="studentInfo_button_cancel" type="button" class="trademust" onclick="studentInfo_cancel()">
+                          Cancel
+                        </button>
+                      </td>
           </tr>
-	   </table>
+       </table>
 </form>
 </body>
 </html>

@@ -57,11 +57,7 @@ public class ActionManagerDataProcessor extends GenericIDataProcessor<ActionMana
 		try
 		{
 			UserInformationData oUserInfoData = getUserInfoData (oData);
-			if(oUserInfoData != null && !IsAdminRole (oUserInfoData))
-			{
-				oActionManagerResponse.m_strError_Desc = MessageConstants.kMESSAGEINVALIDADMINUSER;
-			}
-			else if (oUserInfoData != null && oUserInfoData.getM_nStatus () == UserStatus.kActive)
+			if (oUserInfoData != null && oUserInfoData.getM_nStatus () == UserStatus.kActive)
 			{
 				oActionManagerResponse.set (oUserInfoData);
 			}

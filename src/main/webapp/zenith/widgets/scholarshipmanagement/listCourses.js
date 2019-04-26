@@ -36,8 +36,8 @@ function listCourseInfo_createDataGrid ()
 			fit:true,
 			columns:
 			[[
-				{field:'m_strShortCourseName',title:'ShortCourse Name',sortable:true,width:300},
-				{field:'m_strLongCourseName',title:'LongCourse Name',sortable:true,width:200},
+				{field:'m_strShortCourseName',title:'Short Course Name',sortable:true,width:300},
+				{field:'m_strLongCourseName',title:'Long Course Name',sortable:true,width:200},
 				{field:'Actions',title:'Action',width:80,align:'center',
 					formatter:function(value,row,index)
 		        	{

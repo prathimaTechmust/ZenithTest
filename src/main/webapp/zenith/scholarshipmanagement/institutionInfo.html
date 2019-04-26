@@ -18,30 +18,22 @@
 				  <td class="trademust">
 				  <fieldset>
                   <legend>
-				  Personal Details
+				  Institution Details
 				  </legend>
 					<table  summary="">
 					<tr>
-					  <td class="fieldHeading">
-                                Institution Name
-                                <em>
-                                  *
-                                </em>
-                      </td>
+					  <td class="fieldHeading"> Institution Name <em> * </em> </td>
 					  <td>
-                                <input 
-                                    type="text"
-                                    maxlength="30"
-                                    id="institutionInfo_input_institutionName"
-                                    data-options="required:true"
-                                    width="50px"
-                                    class="trademust easyui-validatebox"/>
+	                     <input 
+	                         type="text"
+	                         id="institutionInfo_input_institutionName"
+	                         data-options="required:true"
+	                         style="width:300px;"
+	                         class="trademust easyui-validatebox"/>
                       </td>                              
 					</tr>
 					<tr>
-							<td class="fieldHeading">
-                               Institution EMail
-                            </td>
+					<td class="fieldHeading"> Institution E-Mail <em>*</em> </td>
 							<td>
                                 <input 
                                     type="text"
@@ -52,31 +44,15 @@
 					</tr>
 					<tr>
 						 <td class="fieldHeading">
-                                ContactPerson Name
+                                Contact Person Name
                          </td>                              
                           <td>
                                 <input type="text" id="institutionInfo_input_contactpersonname"  maxlength="30"  class="trademust"/>
                           </td>
-					</tr>
+					</tr>					
 					<tr>
 							<td class="fieldHeading">
-                                ContactPerson PhoneNumber
-                                <em>
-                                  *
-                                </em>
-                            </td>
-							<td>
-							<input 
-                                    type="tel"  maxlength="10"
-                                    id="institutionInfo_input_phoneNumber"
-									required
-                                    class="trademust easyui-validatebox"  data-options="validType:'minLength[10]'"
-                                    onkeyup="validateNumber (this)"/>
-							</td>                            
-					</tr>
-					<tr>
-							<td class="fieldHeading">
-                                ContactPerson EMail
+                                Contact Person E-Mail <em>*</em>
                             </td>
 							<td>
                                 <input 
@@ -88,24 +64,39 @@
 					</tr>
 					<tr>
 							<td class="fieldHeading">
-                                Institution Address
+                                Contact Person Number
                                 <em>
                                   *
                                 </em>
+                            </td>
+							<td>
+							<input 
+                                    type="tel"  maxlength="10"
+                                    id="institutionInfo_input_phoneNumber"
+									required
+									style="width: 200px;"
+                                    class="trademust easyui-validatebox"  data-options="validType:'minLength[10]'"
+                                    onkeyup="validateNumber (this)"/>
+							</td>                            
+					</tr>
+					<tr>
+							<td class="fieldHeading">Institution Address<em> * </em>
 							</td>
 							<td>
                                 <textarea 
                                     id="institutionInfo_textarea_address"
                                     rows="2"
                                     cols="20"  
-                                    maxlength="200"
                                     class="trademust easyui-validatebox"
                                     data-options="required:true"></textarea>
                             </td>                             
 					</tr>
+					</table>
+					<table cellpadding="3" cellspacing="5">
 					<tr>
 					 		<td class="fieldHeading">
                                 City
+                                <em>*</em>
                             </td>
                             <td>
                             	<input
@@ -117,6 +108,7 @@
                             </td>
 							<td class="fieldHeading">
                                 State
+                                <em>*</em>
                             </td>
 							<td>
 							 <input
@@ -128,6 +120,7 @@
                             </td>
 							<td class="fieldHeading">
                                 Pincode
+                                <em>*</em>
                             </td>
                             <td>
                               <input
