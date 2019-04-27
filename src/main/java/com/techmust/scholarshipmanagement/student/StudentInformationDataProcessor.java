@@ -32,7 +32,9 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		StudentDataResponse oStudentDataResponse = new StudentDataResponse();
 		try
 		{
-			oStudentDataResponse.m_bSuccess = oStudentInformationData.saveObject();			
+			oStudentDataResponse.m_bSuccess = oStudentInformationData.saveObject();
+			oStudentDataResponse.m_arrStudentInformationData.add(oStudentInformationData);
+			
 		}
 		catch (Exception oException)
 		{
