@@ -1,4 +1,6 @@
 package com.techmust.scholarshipmanagement.student;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -52,8 +54,11 @@ public class StudentInformationData  extends MasterData
 	@Column(name = "gender")
 	private String m_strGender;
 	
+	@Column(name = "dateofbirth")
+	private Date m_dDateOfBirth;
+	
 	@Column(name = "familyincome")
-	private int m_nFamilyIncome;
+	private float m_nFamilyIncome;
 	
 	@Column(name = "email")
 	private String m_strEmailAddress;
@@ -63,6 +68,9 @@ public class StudentInformationData  extends MasterData
 	
 	@Column(name = "alternatenumber")
 	private String m_strAlternateNumber;
+	
+	@Column(name = "religion")
+	private String m_strReligion;
 	
 	@Column(name = "address")
 	private String m_strCurrentAddress;
@@ -84,23 +92,44 @@ public class StudentInformationData  extends MasterData
 	{
 		m_nStudentId = -1;
 		m_strStudentName = "";
+		m_dDateOfBirth = null; 
 		m_strFatherName = "";
 		m_strFatherOccupation = "";
 		m_strMotherName = "";
 		m_strMotherOccupation = "";
 		m_strGender = "";
-		m_nFamilyIncome = -1;
+		m_nFamilyIncome = 0;
 		m_strEmailAddress = "";
 		m_strPhoneNumber = "";
 		m_strAlternateNumber = "";
+		m_strReligion = "";
 		m_strCurrentAddress = "";
 		m_strCity = "";
 		m_strState = "";
 		m_nPincode = -1;
 		m_strStudentImageName = "";
 		
+	}		
+
+	public Date getM_dDateOfBirth()
+	{
+		return m_dDateOfBirth;
 	}
-	
+
+	public void setM_dDateOfBirth(Date m_dDateOfBirth)
+	{
+		this.m_dDateOfBirth = m_dDateOfBirth;
+	}
+
+	public String getM_strReligion()
+	{
+		return m_strReligion;
+	}
+
+	public void setM_strReligion(String m_strReligion)
+	{
+		this.m_strReligion = m_strReligion;
+	}
 
 	public String getM_strAlternateNumber()
 	{
@@ -180,14 +209,14 @@ public class StudentInformationData  extends MasterData
 	public void setM_strGender(String m_strGender) 
 	{
 		this.m_strGender = m_strGender;
-	}
+	}	
 
-	public int getM_nFamilyIncome() 
+	public float getM_nFamilyIncome()
 	{
 		return m_nFamilyIncome;
 	}
 
-	public void setM_nFamilyIncome(int m_nFamilyIncome) 
+	public void setM_nFamilyIncome(float m_nFamilyIncome)
 	{
 		this.m_nFamilyIncome = m_nFamilyIncome;
 	}
@@ -295,7 +324,8 @@ public class StudentInformationData  extends MasterData
 			Element oRootElement = createRootElement(oXmlDocument, "StudentInformationData");
 			addChild (oXmlDocument, oRootElement, "m_nStudentId", m_nStudentId);
 			addChild (oXmlDocument, oRootElement, "m_strStudentName", m_strStudentName);
-			addChild (oXmlDocument, oRootElement, "m_strGender", m_strGender);			
+			addChild (oXmlDocument, oRootElement, "m_strGender", m_strGender);	
+			addChild (oXmlDocument, oRootElement, "m_dDateOfBirth", m_dDateOfBirth != null ? m_dDateOfBirth.toString () : "");
 			addChild (oXmlDocument, oRootElement, "m_strFatherName", m_strFatherName);
 			addChild (oXmlDocument, oRootElement, "m_strMotherName", m_strMotherName);
 			addChild (oXmlDocument, oRootElement, "m_strFatherOccupation", m_strFatherOccupation);

@@ -22,7 +22,7 @@ public class InstitutionInformationDataProcessor extends GenericIDataProcessor<I
 	public GenericResponse create(@RequestBody InstitutionInformationData oInstitutionInformationData) throws Exception
 	{
 		m_oLogger.info ("create");
-		m_oLogger.debug ("create - oOrganization [IN] : " + oInstitutionInformationData);
+		m_oLogger.debug ("create - oInstitutionInformationData [IN] : " + oInstitutionInformationData);
 		InstitutionDataResponse oInstitutionDataResponse = new InstitutionDataResponse();
 		try
 		{

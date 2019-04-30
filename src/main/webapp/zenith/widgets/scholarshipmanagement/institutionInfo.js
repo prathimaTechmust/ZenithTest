@@ -7,9 +7,6 @@ var institutionInfo_includeDataObjects =
 
 function institutionInfo_memberData ()
 {
-	this.m_strNewPassword = "";
-	this.m_strPassword = "";
-	this.m_buffImage = null;
 	this.m_nInstitutionId = -1;
 }
 

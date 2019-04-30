@@ -1,6 +1,7 @@
 var studentInfo_includeDataObjects = 
 [
-	'widgets/scholarshipmanagement/StudentInformationData.js'
+	'widgets/scholarshipmanagement/StudentInformationData.js',
+	'widgets/scholarshipmanagement/InstitutionInformationData.js'
 ];
 
  includeDataObjects (studentInfo_includeDataObjects, "studentInfo_loaded()");
@@ -24,7 +25,30 @@ function studentInfo_new ()
 function studentInfo_init ()
 {
 	createPopup("dialog", "#studentInfo_button_submit", "#studentInfo_button_cancel", true);
+	$('#student_div_tabs').tabs ();
+	student_institutionsNamelist();
 }
+
+function student_institutionsNamelist ()
+{
+	var oInstitutionList = new InstitutionInformationData ();
+	InstitutionInformationDataProcessor.list(oInstitutionList,"m_strInstitutionName","asc", 0, 0,
+												function (oInstitutionResponse)
+												{
+													student_institutionsdropList("select_input_academic_name",oInstitutionResponse);
+												}			
+											);
+}
+
+function student_institutionsdropList(strInstitutionsDropdown,oInstitutionResponse)
+{
+	var dropdownOptions = new Array();
+	for (var nIndex = 0; nIndex < oInstitutionResponse.m_arrInstitutionInformationData.length; nIndex++)
+		dropdownOptions.push (CreateOption (oInstitutionResponse.m_arrInstitutionInformationData [nIndex].m_nInstitutionId,
+									   oInstitutionResponse.m_arrInstitutionInformationData [nIndex].m_strInstitutionName));
+	PopulateDD (strInstitutionsDropdown, dropdownOptions);
+}
+
 function studentInfo_submit ()
 {
 	if (studentInfo_validate())
@@ -70,6 +94,8 @@ function studentInfo_getFormData ()
 	oStudentInformationData.m_strAlternateNumber = $("#studentInfo_input_phoneNumber2").val();
 	oStudentInformationData.m_nFamilyIncome = $("#studentInfo_input_income").val();	
 	oStudentInformationData.m_strEmailAddress = $("#studentInfo_input_email").val();
+	oStudentInformationData.m_dDateOfBirth = $("#student_input_dateofbirth").val();
+	oStudentInformationData.m_strReligion = $("#studentInfo_input_religion").val();
 	oStudentInformationData.m_strCurrentAddress = $("#studentInfo_textarea_address").val();
 	oStudentInformationData.m_strCity = $("#studentInfo_input_cityName").val();
 	oStudentInformationData.m_strState= $("#studentInfo_input_stateName").val();
@@ -165,6 +191,7 @@ function studentInfo_gotData (oStudentInfoResponse)
 			radiobutton.checked = true;
 	 }
 	 $("#studentInfo_input_male").val(oStudentInfoData.m_strGender);
+	 $("#student_input_dateofbirth").val(oStudentInfoData.m_dDateOfBirth);
 	 $("#studentInfo_input_fathername").val(oStudentInfoData.m_strFatherName);
 	 $("#studentInfo_input_fatheroccupation").val(oStudentInfoData.m_strFatherOccupation);
 	 $("#studentInfo_input_mothername").val(oStudentInfoData.m_strMotherName);
@@ -172,6 +199,7 @@ function studentInfo_gotData (oStudentInfoResponse)
 	 $("#studentInfo_input_income").val(oStudentInfoData.m_nFamilyIncome);
 	 $("#studentInfo_input_phoneNumber1").val(oStudentInfoData.m_strPhoneNumber);
 	 $("#studentInfo_input_phoneNumber2").val(oStudentInfoData.m_strAlternateNumber);
+	 $("#studentInfo_input_religion").val(oStudentInfoData.m_strReligion);
 	 $("#studentInfo_input_email").val(oStudentInfoData.m_strEmailAddress);
 	 $("#studentInfo_textarea_address").val(oStudentInfoData.m_strCurrentAddress);
 	 $("#studentInfo_input_cityName").val(oStudentInfoData.m_strCity);

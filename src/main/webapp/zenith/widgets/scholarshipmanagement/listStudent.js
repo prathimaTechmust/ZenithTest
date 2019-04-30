@@ -57,7 +57,7 @@ function listStudentInfo_createDataGrid ()
 				{
 					listStudentInfo_selectedRowData (rowData, rowIndex);
 				},
-				onSortColumn: function (strColumn, strOrder, oUserInformationData)
+				onSortColumn: function (strColumn, strOrder, oStudentInformationData)
 				{
 					m_oStudentInfoListMemberData.m_strSortColumn = strColumn;
 					m_oStudentInfoListMemberData.m_strSortOrder = strOrder;
@@ -122,7 +122,7 @@ function listStudentInfo_list (strColumn, strOrder, nPageNumber, nPageSize)
 
 function listStudentInfo_displayImages (nStudentId,index)
 {
- 	assert.isNumber(nStudentId, "nUserId expected to be a Number.");
+ 	assert.isNumber(nStudentId, "nStudentId expected to be a Number.");
 	assert.isNumber(index, "index expected to be a Number.");
 	var oImage = 	'<table align="center">'+
 						'<tr>'+
@@ -151,7 +151,7 @@ function listStudentInfo_listed (oStudentInfoResponse)
 
 function listStudentInfo_edit (nStudentId)
 {
-	assert.isNumber(nStudentId, "nUserId expected to be a Number.");
+	assert.isNumber(nStudentId, "nStudentId expected to be a Number.");
 	m_oStudentInfoListMemberData.m_nSelectedStudentId = nStudentId;
 	navigate ("actionInformation", "widgets/scholarshipmanagement/editStudentInfo.js");
 }
@@ -181,7 +181,7 @@ function student_delete_Response (oResponse)
 
 function listStudentInfo_showAddPopup ()
 {
-	navigate ("newstudennt", "widgets/scholarshipmanagement/newStudentInfo.js");
+	navigate ("newstudent", "widgets/scholarshipmanagement/newStudentInfo.js");
 }
 
 function studentList_setPreview (m_strStudentImageUrl)

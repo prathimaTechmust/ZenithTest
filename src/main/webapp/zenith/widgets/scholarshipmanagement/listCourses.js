@@ -119,7 +119,7 @@ function listCourseInfo_list (strColumn, strOrder, nPageNumber, nPageSize)
 
 function listCourseInfo_displayImages (nCourseId,index)
 {
- 	assert.isNumber(nCourseId, "nUserId expected to be a Number.");
+ 	assert.isNumber(nCourseId, "nCourseId expected to be a Number.");
 	assert.isNumber(index, "index expected to be a Number.");
 	var oImage = 	'<table align="center">'+
 						'<tr>'+

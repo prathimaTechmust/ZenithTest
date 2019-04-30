@@ -7,9 +7,6 @@ var courseInfo_includeDataObjects =
 
 function courseInfo_memberData ()
 {
-	this.m_strNewPassword = "";
-	this.m_strPassword = "";
-	this.m_buffImage = null;
 	this.m_nCourseId = -1;
 }
 
