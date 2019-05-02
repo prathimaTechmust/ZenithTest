@@ -14,6 +14,12 @@
 						<td width="50%" valign="top">
 							<table class="trademust" cellSpacing="5px">
 								<tr>
+									<td class="xslt_fieldHeading">UID :</td>
+									<td class="xslt_fieldData" id="m_nUID">
+										<xsl:value-of select="StudentInformationData/m_nUID" />
+									</td>
+								</tr>
+								<tr>
 									<td class="xslt_fieldHeading">Student Name :</td>
 									<td class="xslt_fieldData" id="m_strStudentName">
 										<xsl:value-of select="StudentInformationData/m_strStudentName" />
@@ -32,8 +38,15 @@
 										Mother Name :
 									</td>
 									<td class="xslt_fieldData" id="m_strMotherName">
-										<xsl:value-of
-											select="StudentInformationData/m_strMotherName" />
+										<xsl:value-of select="StudentInformationData/m_strMotherName" />
+									</td>
+								</tr>
+								<tr>
+									<td class="xslt_fieldHeading">
+										Religion :
+									</td>
+									<td class="xslt_fieldData" id="m_strReligion">
+										<xsl:value-of select="StudentInformationData/m_strReligion" />
 									</td>
 								</tr>
 								<tr>
@@ -73,11 +86,9 @@
 						<td width="50%" valign="top">
 							<table class="xslt_trademust" cellSpacing="5px">
 								<tr>
-									<td class="xslt_fieldHeading">
-										Income Per Annum :
-									</td>
+									<td class="xslt_fieldHeading">Income Per Annum(₹):</td>
 									<td class="xslt_fieldData" id="m_nFamilyIncome">
-										<xsl:value-of select="StudentInformationData/m_nFamilyIncome" />
+										<xsl:value-of select= "format-number(StudentInformationData/m_nFamilyIncome, '##,##,##0')" />
 									</td>
 								</tr>
 								<tr>

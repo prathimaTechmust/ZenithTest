@@ -161,7 +161,9 @@ function listCourseInfo_delete (nIndex)
 	var oData = oListData.rows[nIndex];
 	var oCourseInformationData = new CourseInformationData () ;
 	oCourseInformationData.m_nCourseId = oData.m_nCourseId;
-	CourseInformationDataProcessor.deleteData(oCourseInformationData,course_delete_Response);
+	var bUserConfirm = getUserConfirmation("Are you sure do you want to delete?");
+	if(bUserConfirm)
+		CourseInformationDataProcessor.deleteData(oCourseInformationData,course_delete_Response);
 }
 
 function course_delete_Response (oResponse)

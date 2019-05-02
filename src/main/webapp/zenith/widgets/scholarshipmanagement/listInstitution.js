@@ -163,7 +163,9 @@ function listInstitutionsInfo_delete (nIndex)
 	var oData = oListData.rows[nIndex];
 	var oInstitutionsInformationData = new InstitutionInformationData () ;
 	oInstitutionsInformationData.m_nInstitutionId = oData.m_nInstitutionId;
-	InstitutionInformationDataProcessor.deleteData(oInstitutionsInformationData,institution_delete_Response);
+	var bUserConfirm = getUserConfirmation("Are you sure do you want to delete?");
+	if(bUserConfirm)
+		InstitutionInformationDataProcessor.deleteData(oInstitutionsInformationData,institution_delete_Response);
 }
 
 function institution_delete_Response (oResponse)

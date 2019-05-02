@@ -37,6 +37,7 @@ function listStudentInfo_createDataGrid ()
 			fit:true,
 			columns:
 			[[
+				{field:'m_nUID',title:'UID',sortable:true,width:200},
 				{field:'m_strStudentName',title:'Student Name',sortable:true,width:300},
 				{field:'m_strFatherName',title:'Father Name',sortable:true,width:200},
 				{field:'m_strPhoneNumber',title:'Phone Number',sortable:true,width:200},
@@ -164,7 +165,9 @@ function listStudentInfo_delete (nIndex)
 	var oData = oListData.rows[nIndex];
 	var oStudentInformationData = new StudentInformationData ();
 	oStudentInformationData.m_nStudentId = oData.m_nStudentId;
-	StudentInformationDataProcessor.deleteData(oStudentInformationData,student_delete_Response);
+	var bUserConfirm = getUserConfirmation("Are you sure do you want to delete?");
+	if(bUserConfirm)
+		StudentInformationDataProcessor.deleteData(oStudentInformationData,student_delete_Response);
 }
 
 function student_delete_Response (oResponse)

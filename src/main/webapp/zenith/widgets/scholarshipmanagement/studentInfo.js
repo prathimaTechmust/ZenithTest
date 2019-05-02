@@ -309,12 +309,12 @@ function studentInfo_gotData (oStudentInfoResponse)
 	 oStudentInfoData.m_nStudentId = oStudentInfoData.m_nStudentId;
 	 $("#studentInfo_input_studentUIDNumber").val(oStudentInfoData.m_nUID);
 	 $("#studentInfo_input_studentName").val(oStudentInfoData.m_strStudentName);
-	 if(oStudentInfoData.m_strGender == "M")
+	 if(oStudentInfoData.m_strGender == "Male")
 	 {
 		var radiobutton = document.getElementById("studentInfo_input_male");
 		radiobutton.checked = true;
 	 }
-	 else if(oStudentInfoData.m_strGender == "F")
+	 else if(oStudentInfoData.m_strGender == "Female")
 	 {
 		 var radiobutton = document.getElementById("studentInfo_input_female");
 			radiobutton.checked = true;
@@ -324,6 +324,7 @@ function studentInfo_gotData (oStudentInfoResponse)
 		 var radiobutton = document.getElementById("studentInfo_input_others");
 			radiobutton.checked = true;
 	 }
+	 $("#student_input_dateofbirth").val(oStudentInfoData.m_dDateOfBirth);
 	 $("#studentInfo_input_male").val(oStudentInfoData.m_strGender);
 	 $("#student_input_dateofbirth").val(oStudentInfoData.m_dDateOfBirth);
 	 $("#studentInfo_input_fathername").val(oStudentInfoData.m_strFatherName);

@@ -341,12 +341,14 @@ public class StudentInformationData  extends MasterData
 		{
 			Document oXmlDocument = createNewXMLDocument ();
 			Element oRootElement = createRootElement(oXmlDocument, "StudentInformationData");
+			addChild (oXmlDocument, oRootElement, "m_nUID", m_nUID);
 			addChild (oXmlDocument, oRootElement, "m_nStudentId", m_nStudentId);
 			addChild (oXmlDocument, oRootElement, "m_strStudentName", m_strStudentName);
 			addChild (oXmlDocument, oRootElement, "m_strGender", m_strGender);	
 			addChild (oXmlDocument, oRootElement, "m_dDateOfBirth", m_dDateOfBirth != null ? m_dDateOfBirth.toString () : "");
 			addChild (oXmlDocument, oRootElement, "m_strFatherName", m_strFatherName);
 			addChild (oXmlDocument, oRootElement, "m_strMotherName", m_strMotherName);
+			addChild (oXmlDocument, oRootElement, "m_strReligion", m_strReligion);
 			addChild (oXmlDocument, oRootElement, "m_strFatherOccupation", m_strFatherOccupation);
 			addChild (oXmlDocument, oRootElement, "m_strMotherOccupation", m_strMotherOccupation);			
 			addChild (oXmlDocument, oRootElement, "m_nFamilyIncome", m_nFamilyIncome);
