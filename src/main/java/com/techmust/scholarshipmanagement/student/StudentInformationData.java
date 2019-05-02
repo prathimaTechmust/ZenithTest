@@ -1,17 +1,10 @@
 package com.techmust.scholarshipmanagement.student;
 import java.util.Date;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -25,9 +18,6 @@ import org.w3c.dom.Element;
 import com.techmust.constants.Constants;
 import com.techmust.generic.data.GenericData;
 import com.techmust.generic.data.MasterData;
-import com.techmust.scholarshipmanagement.course.CourseInformationData;
-import com.techmust.scholarshipmanagement.institution.InstitutionInformationData;
-import com.techmust.utils.Utils;
 
 @Entity
 @Table(name = "student")
@@ -98,13 +88,13 @@ public class StudentInformationData  extends MasterData
 	@Column(name = "UID")
 	private long m_nUID;
 	
-	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	/*@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	@JoinTable(name = "studentinstitution",joinColumns = {@JoinColumn(name = "studentid")},inverseJoinColumns = {@JoinColumn(name = "institutionid")})
 	private Set<InstitutionInformationData> m_oInstitutionInformationData;
 	
 	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	@JoinTable(name = "studentcourse",joinColumns = {@JoinColumn(name = "studentid")},inverseJoinColumns = {@JoinColumn(name = "courseid")})
-	private Set<CourseInformationData> m_oCourseInformationData;
+	private Set<CourseInformationData> m_oCourseInformationData;*/
 	
 	public StudentInformationData()
 	{
@@ -129,26 +119,6 @@ public class StudentInformationData  extends MasterData
 		m_nUID = -1;
 		
 	}		
-
-	public Set<InstitutionInformationData> getM_oInstitutionInformationData()
-	{
-		return m_oInstitutionInformationData;
-	}
-
-	public void setM_oInstitutionInformationData(Set<InstitutionInformationData> m_oInstitutionInformationData)
-	{
-		this.m_oInstitutionInformationData = m_oInstitutionInformationData;
-	}
-
-	public Set<CourseInformationData> getM_oCourseInformationData()
-	{
-		return m_oCourseInformationData;
-	}
-
-	public void setM_oCourseInformationData(Set<CourseInformationData> m_oCourseInformationData)
-	{
-		this.m_oCourseInformationData = m_oCourseInformationData;
-	}
 
 	public long getM_nUID()
 	{
