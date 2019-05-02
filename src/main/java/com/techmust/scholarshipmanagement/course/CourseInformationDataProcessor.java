@@ -150,6 +150,33 @@ public class CourseInformationDataProcessor extends GenericIDataProcessor <Cours
 		m_oLogger.debug ("getXML - strXml [OUT] : " +strXml);
 		return strXml;
 	}
+	
+	@RequestMapping(value="/courseInfoGetSuggestions", method = RequestMethod.POST, headers = {"Content-type=application/json"})
+	@ResponseBody
+	public CourseDataResponse getCourseSuggestions(@RequestBody TradeMustHelper oData) throws Exception
+	{
+		return  getCoursesSuggestions(oData.getM_oCourseInformationData(),oData.getM_strColumn(),oData.getM_strOrderBy());
+	}	
+
+	public CourseDataResponse getCoursesSuggestions(CourseInformationData oCourseInformationData, String strColumn,String strOrderBy) throws Exception
+	{
+		m_oLogger.info ("getCoursesSuggestions");
+		m_oLogger.debug ("getCoursesSuggestions - oCourseInformationData [IN] : " + oCourseInformationData);
+		m_oLogger.debug ("getCoursesSuggestions - strColumn [IN] : " + strColumn);
+		m_oLogger.debug ("getCoursesSuggestions - strOrderBy [IN] : " + strOrderBy);
+		CourseDataResponse oCourseDataResponse = new CourseDataResponse();
+		try 
+		{
+			oCourseDataResponse.m_arrCourseInformationData = new ArrayList(oCourseInformationData.listCustomData(this));
+			
+		}
+		catch (Exception oException)
+		{
+			m_oLogger.error("getCoursesSuggestions - oException : " +oException);
+			throw oException;
+		}
+		return oCourseDataResponse;
+	}
 
 	@Override
 	public GenericResponse list(CourseInformationData oGenericData, HashMap<String, String> arrOrderBy)

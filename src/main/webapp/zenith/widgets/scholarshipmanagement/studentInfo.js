@@ -1,7 +1,8 @@
 var studentInfo_includeDataObjects = 
 [
 	'widgets/scholarshipmanagement/StudentInformationData.js',
-	'widgets/scholarshipmanagement/InstitutionInformationData.js'
+	'widgets/scholarshipmanagement/InstitutionInformationData.js',
+	'widgets/scholarshipmanagement/CourseInformationData.js'
 ];
 
  includeDataObjects (studentInfo_includeDataObjects, "studentInfo_loaded()");
@@ -26,27 +27,159 @@ function studentInfo_init ()
 {
 	createPopup("dialog", "#studentInfo_button_submit", "#studentInfo_button_cancel", true);
 	$('#student_div_tabs').tabs ();
-	student_institutionsNamelist();
+	student_institutionsNamelistCombox();
+	student_courseNamesListCombox();
+	student_coursefee ();
 }
 
-function student_institutionsNamelist ()
+function student_coursefee ()
 {
-	var oInstitutionList = new InstitutionInformationData ();
-	InstitutionInformationDataProcessor.list(oInstitutionList,"m_strInstitutionName","asc", 0, 0,
-												function (oInstitutionResponse)
-												{
-													student_institutionsdropList("select_input_academic_name",oInstitutionResponse);
-												}			
-											);
+	$(document).ready(function()
+			{
+			    substraction();
+			    $("#academicInfo_input_annualfee, #academicInfo_input_paidfee").on("keydown keyup", function()
+			    {
+			        substraction();
+		    	});
+			});
 }
 
-function student_institutionsdropList(strInstitutionsDropdown,oInstitutionResponse)
+function substraction ()
 {
-	var dropdownOptions = new Array();
-	for (var nIndex = 0; nIndex < oInstitutionResponse.m_arrInstitutionInformationData.length; nIndex++)
-		dropdownOptions.push (CreateOption (oInstitutionResponse.m_arrInstitutionInformationData [nIndex].m_nInstitutionId,
-									   oInstitutionResponse.m_arrInstitutionInformationData [nIndex].m_strInstitutionName));
-	PopulateDD (strInstitutionsDropdown, dropdownOptions);
+	var annualFee = document.getElementById('academicInfo_input_annualfee').value;
+    var paidFee = document.getElementById('academicInfo_input_paidfee').value;
+	var balance = annualFee - paidFee;
+	document.getElementById('academicInfo_input_balancefee').value = balance;
+}
+
+function student_courseNamesListCombox()
+{
+	$('#select_input_studentcourse').combobox
+	({
+		valueField:'m_nCourseId',
+	    textField:'m_strShortCourseName',
+	    selectOnNavigation: false,
+	    loader: getFilteredCourseData,
+		mode: 'remote',
+		formatter:function(row)
+    	{
+        	var opts = $(this).combobox('options');
+        	return decodeURIComponent(row[opts.textField]);
+    	},
+		onSelect:function(row)
+	    {
+			m_oStudentInfoMemberData.m_oCourseDataRow = row;
+    		course_setCourseName ();
+	    }
+	 });
+	var courseTextBox = $('#select_input_studentcourse').combobox('textbox');
+		courseTextBox.bind('keydown', function (e)
+		    {
+		      	course_handleKeyboardNavigation (e);
+		    });
+}
+
+function course_handleKeyboardNavigation(e)
+{
+	assert.isObject(e, "e expected to be an Object.");
+	if(e.keyCode == 13)
+		course_setCourseName();
+}
+
+function course_setCourseName ()
+{
+	var strCourseName = decodeURIComponent(m_oStudentInfoMemberData.m_oCourseDataRow[$('#select_input_studentcourse').combobox('options').textField])
+	$("#select_input_studentcourse").combobox('setText',strCourseName);
+}
+
+var getFilteredCourseData = function(param, success, error)
+{
+	assert.isObject(param, "param expected to be an Object.");
+	assert.isFunction(success, "success expected to be a Function.");
+	if(param.q != undefined && param.q.trim() != "")
+	{
+		var strQuery = param.q.trim();
+		var oCourseInformationData = new CourseInformationData ();
+		oCourseInformationData.m_strShortCourseName = strQuery;
+		CourseInformationDataProcessor.getCourseSuggesstions (oCourseInformationData, "", "", function(oCourseResponse)
+				{
+					var arrCourseInfo = new Array ();
+					for(var nIndex=0; nIndex< oCourseResponse.m_arrCourseInformationData.length; nIndex++)
+				    {
+						arrCourseInfo.push(oCourseResponse.m_arrCourseInformationData[nIndex]);
+						arrCourseInfo[nIndex].m_strShortCourseName = encodeURIComponent(oCourseResponse.m_arrCourseInformationData[nIndex].m_strShortCourseName);
+				    }
+					success(arrCourseInfo);
+				});
+	}
+	else
+		success(new Array ());
+}
+
+
+
+function student_institutionsNamelistCombox ()
+{
+	$('#select_input_academic_name').combobox
+	({
+		valueField:'m_nInstitutionId',
+	    textField:'m_strInstitutionName',
+	    selectOnNavigation: false,
+	    loader: getFilteredInstitutionData,
+		mode: 'remote',
+		formatter:function(row)
+    	{
+        	var opts = $(this).combobox('options');
+        	return decodeURIComponent(row[opts.textField]);
+    	},
+		onSelect:function(row)
+	    {
+			m_oStudentInfoMemberData.m_oInstitutionDataRow = row;
+    		institution_setInstitutionName ();
+	    }
+	 });
+	var institutionTextBox = $('#select_input_academic_name').combobox('textbox');
+		institutionTextBox.bind('keydown', function (e)
+		    {
+		      	institution_handleKeyboardNavigation (e);
+		    });
+}
+
+function institution_handleKeyboardNavigation (e)
+{
+	assert.isObject(e, "e expected to be an Object.");
+	if(e.keyCode == 13)
+		institution_setInstitutionName ();
+}
+
+function institution_setInstitutionName ()
+{
+	var strInstitutionName = decodeURIComponent(m_oStudentInfoMemberData.m_oInstitutionDataRow[$('#select_input_academic_name').combobox('options').textField])
+	$("#select_input_academic_name").combobox('setText',strInstitutionName);
+}
+
+var getFilteredInstitutionData = function(param, success, error)
+{
+	assert.isObject(param, "param expected to be an Object.");
+	assert.isFunction(success, "success expected to be a Function.");
+	if(param.q != undefined && param.q.trim() != "")
+	{
+		var strQuery = param.q.trim();
+		var oInstitutionInformationData = new InstitutionInformationData ();
+		oInstitutionInformationData.m_strInstitutionName = strQuery;
+		InstitutionInformationDataProcessor.getInstitutionSuggesstions (oInstitutionInformationData, "", "", function(oInstitutionResponse)
+				{
+					var arrInstitutionInfo = new Array ();
+					for(var nIndex=0; nIndex< oInstitutionResponse.m_arrInstitutionInformationData.length; nIndex++)
+				    {
+						arrInstitutionInfo.push(oInstitutionResponse.m_arrInstitutionInformationData[nIndex]);
+						arrInstitutionInfo[nIndex].m_strInstitutionName = encodeURIComponent(oInstitutionResponse.m_arrInstitutionInformationData[nIndex].m_strInstitutionName);
+				    }
+					success(arrInstitutionInfo);
+				});
+	}
+	else
+		success(new Array ());
 }
 
 function studentInfo_submit ()
@@ -78,7 +211,7 @@ function studentInfo_edit ()
 function studentInfo_getFormData ()
 {
 	var oStudentInformationData = new StudentInformationData ();
-	oStudentInformationData.m_nStudentId = m_oStudentInfoMemberData.m_nStudentId;
+	oStudentInformationData.m_nUID = $("#studentInfo_input_studentUIDNumber").val();
 	oStudentInformationData.m_strStudentName = $("#studentInfo_input_studentName").val();
 	var selectedvalue = $("input:radio[name=studentInfo_input_gender]:checked").val();
 	oStudentInformationData.m_strGender = selectedvalue;
@@ -174,6 +307,7 @@ function studentInfo_gotData (oStudentInfoResponse)
 	var oStudentInfoData = oStudentInfoResponse.m_arrStudentInformationData[0];
 	m_oStudentInfoMemberData.m_strImageName = oStudentInfoData.m_strStudentImageName;
 	 oStudentInfoData.m_nStudentId = oStudentInfoData.m_nStudentId;
+	 $("#studentInfo_input_studentUIDNumber").val(oStudentInfoData.m_nUID);
 	 $("#studentInfo_input_studentName").val(oStudentInfoData.m_strStudentName);
 	 if(oStudentInfoData.m_strGender == "M")
 	 {

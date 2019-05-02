@@ -29,7 +29,7 @@ public class CourseInformationData extends MasterData
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
+	@Column(name = "courseid")
 	private int m_nCourseId;
 	
 	@Column(name = "shortcoursename")

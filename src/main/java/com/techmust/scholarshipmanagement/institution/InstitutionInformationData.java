@@ -29,7 +29,7 @@ public class InstitutionInformationData extends MasterData
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
+	@Column(name = "institutionid")
 	private int m_nInstitutionId;
 	
 	@Column(name = "institutionname")

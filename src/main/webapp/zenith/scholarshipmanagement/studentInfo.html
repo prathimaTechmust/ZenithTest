@@ -23,7 +23,15 @@
 				    <table class="trademust">
 					 <tr bgcolor="#efefef">
                         <td >
-                          <table class="trademust">               
+                          <table class="trademust">
+                          	<tr>
+                          		<td class="fieldHeading"> UID Number <em> * </em> </td>
+                          		<td style = "padding-left = 20px;">                      
+				                    <input type="text" id="studentInfo_input_studentUIDNumber"
+					                        data-options="required:true" style = "width:300px;"
+					                        class="trademust easyui-validatebox"/>
+			                    </td>
+                          	</tr>               
 							<tr>
 								<td class="fieldHeading"> Student Name <em> * </em> </td>
 			                    <td style = "padding-left = 20px;">                      
@@ -92,7 +100,12 @@
 			                              <input type="text" id="studentInfo_input_motheroccupation"  class="trademust"/>
 		                         </td>
 							</tr>
-							
+							<tr>
+								<td class="fieldHeading"> Religion <em>*</em> </td>
+								<td>
+									<input type ="text" id = "studentInfo_input_religion" class = "trademust easyui-validatebox" data-options="required:true" style="width: 200px;"/>
+								</td> 
+							</tr>							
 							<tr>
 								<td class="fieldHeading"> Family Income Per Annum(Rupees)</td>
 			                     <td>
@@ -121,13 +134,7 @@
 			                           data-options="validType:'minLength[10]'"
 			                           onkeyup="validateNumber (this)"/>
 			                    </td>       
-							</tr>
-							<tr>
-								<td class="fieldHeading"> Religion <em>*</em> </td>
-								<td>
-									<input type ="text" id = "studentInfo_input_religion" class = "trademust easyui-validatebox" data-options="required:true" style="width: 200px;"/>
-								</td> 
-							</tr>
+							</tr>							
 			                <tr>
 			                    <td class="fieldHeading">Student photo</td>
 			                    <td>
@@ -199,13 +206,13 @@
                          	<tr>
 								<td class="fieldHeading">School/College/Institute</td>
 								<td>
-									<select id = "select_input_academic_name" class="trademust"></select>
+									<input type ="text" id = "select_input_academic_name" class = "easyui-combobox trademust" data-options="hasDownArrow:false,panelWidth: 0" style="width: 200px;"/>
 								</td>						
 							</tr>
 							<tr>
 								<td class="fieldHeading">Class/Course</td>
 								<td>
-									<select id = "select_input_studentcourse" class="trademust"></select>								
+									<input type ="text" id = "select_input_studentcourse" class = "easyui-combobox trademust" data-options="hasDownArrow:false,panelWidth: 0" style="width: 200px;"/>								
 								</td>
 							</tr>
 							<tr>

@@ -150,6 +150,32 @@ public class InstitutionInformationDataProcessor extends GenericIDataProcessor<I
 		m_oLogger.debug ("getXML - strXml [OUT] : " +strXml);
 		return strXml;
 	}
+	
+	@RequestMapping(value="/institutionInfoGetSuggestions", method = RequestMethod.POST, headers = {"Content-type=application/json"})
+	@ResponseBody
+	public InstitutionDataResponse getInstitutionSuggestions (@RequestBody TradeMustHelper oData) throws Exception
+	{
+		return getInstitutionsSuggestions(oData.getM_oInstitutionInformationData(),oData.getM_strColumn(),oData.getM_strOrderBy());
+	}
+
+	public InstitutionDataResponse getInstitutionsSuggestions(InstitutionInformationData oInstitutionInformationData,String strColumn, String strOrderBy) throws Exception
+	{
+		m_oLogger.info ("getInstitutionSuggestions");
+		m_oLogger.debug ("getInstitutionSuggestions - oInstitutionInformationData [IN] : " + oInstitutionInformationData);
+		m_oLogger.debug ("getInstitutionSuggestions - strColumn [IN] : " + strColumn);
+		m_oLogger.debug ("getInstitutionSuggestions - strOrderBy [IN] : " + strOrderBy);
+		InstitutionDataResponse oInstitutionDataResponse = new InstitutionDataResponse();
+		try 
+		{
+			oInstitutionDataResponse.m_arrInstitutionInformationData = new ArrayList(oInstitutionInformationData.listCustomData(this));
+		} 
+		catch (Exception oException)
+		{
+			m_oLogger.error("getInstitutionSuggestions - oException : " +oException);
+			throw oException;
+		}
+		return oInstitutionDataResponse;
+	}
 
 	@Override
 	public GenericResponse list(InstitutionInformationData oGenericData, HashMap<String, String> arrOrderBy)
