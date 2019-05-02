@@ -22,7 +22,7 @@ public class CourseInformationDataProcessor extends GenericIDataProcessor <Cours
 	public GenericResponse create(@RequestBody CourseInformationData oCourseInformationData) throws Exception
 	{
 		m_oLogger.info ("create");
-		m_oLogger.debug ("create - oOrganization [IN] : " + oCourseInformationData);
+		m_oLogger.debug ("create - oCourseInformationData [IN] : " + oCourseInformationData);
 		CourseDataResponse oCourseDataResponse = new CourseDataResponse();
 		try
 		{

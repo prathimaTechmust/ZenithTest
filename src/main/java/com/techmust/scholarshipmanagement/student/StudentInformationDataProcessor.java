@@ -28,7 +28,7 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 	public GenericResponse create(@RequestBody StudentInformationData oStudentInformationData) throws Exception
 	{
 		m_oLogger.info ("create");
-		m_oLogger.debug ("create - oOrganization [IN] : " + oStudentInformationData);
+		m_oLogger.debug ("create - oStudentInformationData [IN] : " + oStudentInformationData);
 		StudentDataResponse oStudentDataResponse = new StudentDataResponse();
 		try
 		{
