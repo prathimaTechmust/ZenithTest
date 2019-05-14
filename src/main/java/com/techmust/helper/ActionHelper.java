@@ -39,7 +39,7 @@ public class ActionHelper extends ActionDataProcessor
 	
 	@RequestMapping(value="/actionList", method = RequestMethod.POST, headers = {"Content-type=application/json"})
 	@ResponseBody
-	public ActionResponse list (@RequestBody TradeMustHelper oData) 
+	public ActionResponse list (@RequestBody ZenithHelper oData) 
 	{
 		HashMap<String, String> oOrderBy = new HashMap<String, String> ();
 		oOrderBy.put(oData.getM_strColumn(), oData.getM_strOrderBy());

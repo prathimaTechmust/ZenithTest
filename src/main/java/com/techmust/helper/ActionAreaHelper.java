@@ -33,7 +33,7 @@ public class ActionAreaHelper extends ActionAreaDataProcessor {
 	
 	@RequestMapping(value="/actionAreaList", method = RequestMethod.POST, headers = {"Content-type=application/json"})
 	@ResponseBody
-	public ActionAreaResponse list (@RequestBody TradeMustHelper oData) 
+	public ActionAreaResponse list (@RequestBody ZenithHelper oData) 
 	{
 		HashMap<String, String> oOrderBy = new HashMap<String, String> ();
 		oOrderBy.put(oData.getM_strColumn(), oData.getM_strOrderBy());

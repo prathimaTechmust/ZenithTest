@@ -38,7 +38,7 @@ public class UserInformationHelper extends UserInformationDataProcessor<IUserInf
 	
 	@RequestMapping(value="/userInfoList", method = RequestMethod.POST, headers = {"Content-type=application/json"})
 	@ResponseBody
-	public GenericResponse list(@RequestBody TradeMustHelper oData) throws Exception 
+	public GenericResponse list(@RequestBody ZenithHelper oData) throws Exception 
 	{
 		HashMap<String, String> oOrderBy = new HashMap<String, String> ();
 		oOrderBy.put(oData.getM_strColumn(), oData.getM_strOrderBy());
@@ -80,7 +80,7 @@ public class UserInformationHelper extends UserInformationDataProcessor<IUserInf
 	
 	@RequestMapping(value="/userInfoGetUserSuggestions", method = RequestMethod.POST, headers = {"Content-type=application/json"})
 	@ResponseBody
-	public UserInformationResponse getUserSuggesstions (@RequestBody TradeMustHelper oData) throws Exception 
+	public UserInformationResponse getUserSuggesstions (@RequestBody ZenithHelper oData) throws Exception 
 	{
 		UserInformationResponse oUserInformationResponse = super.getUserSuggesstions(oData.getM_oUserData(), oData.getM_strColumn (), oData.getM_strOrderBy());
 		return oUserInformationResponse;

@@ -25,7 +25,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-
+import org.hibernate.exception.ConstraintViolationException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -105,6 +105,12 @@ public abstract class GenericData implements IGenericData, Serializable
 	//		oSession.flush();  // commented this line on 1/10/2019 ny Madhusudhan as this was causing javax.persistence.TransactionRequiredException: no transaction is in progress
  */
 		} 
+		catch (ConstraintViolationException oException)
+		{
+			m_oLogger.error("deleteObject - oException : " +oException);
+			String strConstrainName = oException.getConstraintName();
+			strConstrainName = strConstrainName;
+		}
 		catch (Exception oException) 
 		{
 			m_oLogger.error("deleteObject - oException : " +oException);
@@ -269,7 +275,7 @@ public abstract class GenericData implements IGenericData, Serializable
 			oEntityManager.persist( this );
 			oEntityManager.getTransaction( ).commit( );
 			bIsSaved = true;
-			notifyEventListeners(ITradeMustEventListener.kNew);
+			notifyEventListeners(ITradeMustEventListener.kNew);		
 		} 
 		catch (Exception oException) 
 		{

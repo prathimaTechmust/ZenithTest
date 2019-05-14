@@ -36,7 +36,7 @@ function userInfo_init ()
 {
 	createPopup("dialog", "#userInfo_button_submit", "#userInfo_button_cancel", true);
 //	$( "#userInfo_input_dateOfBirth" ).datebox({ required: true });
-	$( "#userInfo_input_dateOfBirth" ).datepicker({minDate:"-90y", maxDate: new Date()});
+	//$( "#userInfo_input_dateOfBirth" ).datepicker({minDate:"-90y", maxDate: new Date()});
 	userInfo_populateRoleNameList();
 }
 
@@ -82,7 +82,7 @@ function userInfo_gotData (oUserInfoResponse)
 	$("#userInfo_input_userName").val(oUserInfoData.m_strUserName);
 //	$( "#userInfo_input_dateOfBirth" ).datebox('setValue', FormatDateToSet (oUserInfoData.m_strDOB));
 	$('#userInfo_input_dateOfBirth').datepicker('setDate', FormatDateToSet (oUserInfoData.m_strDOB));
-	if(oUserInfoData.m_strGender =='F')
+	if(oUserInfoData.m_strGender =='Female')
 	{
 		$("#userInfo_input_female").prop("checked", true);
 	}

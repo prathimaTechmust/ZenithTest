@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.techmust.generic.data.GenericData;
 import com.techmust.generic.dataprocessor.GenericIDataProcessor;
 import com.techmust.generic.response.GenericResponse;
-import com.techmust.helper.TradeMustHelper;
+import com.techmust.helper.ZenithHelper;
 
 @Controller
 public class InstitutionInformationDataProcessor extends GenericIDataProcessor<InstitutionInformationData>
@@ -81,7 +83,7 @@ public class InstitutionInformationDataProcessor extends GenericIDataProcessor<I
 
 	@RequestMapping(value="/institutionInfoList", method = RequestMethod.POST, headers = {"Content-type=application/json"})
 	@ResponseBody
-	public GenericResponse list(@RequestBody TradeMustHelper oData)throws Exception
+	public GenericResponse list(@RequestBody ZenithHelper oData)throws Exception
 	{
 		HashMap<String, String> oOrderBy = new HashMap<String, String> ();
 		oOrderBy.put(oData.getM_strColumn(), oData.getM_strOrderBy());
@@ -153,7 +155,7 @@ public class InstitutionInformationDataProcessor extends GenericIDataProcessor<I
 	
 	@RequestMapping(value="/institutionInfoGetSuggestions", method = RequestMethod.POST, headers = {"Content-type=application/json"})
 	@ResponseBody
-	public InstitutionDataResponse getInstitutionSuggestions (@RequestBody TradeMustHelper oData) throws Exception
+	public InstitutionDataResponse getInstitutionSuggestions (@RequestBody ZenithHelper oData) throws Exception
 	{
 		return getInstitutionsSuggestions(oData.getM_oInstitutionInformationData(),oData.getM_strColumn(),oData.getM_strOrderBy());
 	}

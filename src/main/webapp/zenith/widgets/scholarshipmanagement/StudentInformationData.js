@@ -18,6 +18,8 @@ function StudentInformationData ()
 	this.m_strCity = "";
 	this.m_strState = "";
 	this.m_nPincode = -1;
-	this.m_nUID = -1;
+	this.m_nUID = -1;	
+	this.m_arrAcademicDetails = new Array();
+	this.m_arrScholarshipDetails = new Array();
 }
 dataObjectLoaded ();

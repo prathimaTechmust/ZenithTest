@@ -1,10 +1,15 @@
 package com.techmust.scholarshipmanagement.institution;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -14,11 +19,14 @@ import javax.persistence.criteria.Root;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.techmust.generic.data.GenericData;
 import com.techmust.generic.data.MasterData;
+import com.techmust.scholarshipmanagement.student.StudentInformationData;
 
 @Entity
 @Table(name = "institutions")
+@JsonIgnoreProperties(value = {"m_oStudentData"})
 public class InstitutionInformationData extends MasterData
 {
 
@@ -57,8 +65,8 @@ public class InstitutionInformationData extends MasterData
 	private String m_strState;
 	
 	@Column(name = "pincode")
-	private int m_nPincode;
-
+	private int m_nPincode;		
+	
 	public InstitutionInformationData()
 	{
 		m_nInstitutionId = -1;
@@ -70,8 +78,8 @@ public class InstitutionInformationData extends MasterData
 		m_strPhoneNumber = "";
 		m_strCity = "";
 		m_strState = "";
-		m_nPincode = -1;
-	}
+		m_nPincode = -1;		
+	}	
 
 	public int getM_nInstitutionId()
 	{

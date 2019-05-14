@@ -42,7 +42,7 @@ public class RoleHelper extends RoleDataProcessor{
 	
 	@RequestMapping(value="/roleList", method = RequestMethod.POST, headers = {"Content-type=application/json"})
 	@ResponseBody
-	public RoleResponse list (@RequestBody TradeMustHelper oData) 
+	public RoleResponse list (@RequestBody ZenithHelper oData) 
 	{
 		HashMap<String, String> oOrderBy = new HashMap<String, String> ();
 		oOrderBy.put(oData.getM_strColumn(), oData.getM_strOrderBy());

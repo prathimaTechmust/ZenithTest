@@ -1,6 +1,8 @@
 var listStudentInfo_includeDataObjects = 
 [
-	'widgets/scholarshipmanagement/StudentInformationData.js'
+	'widgets/scholarshipmanagement/StudentInformationData.js',
+	'widgets/scholarshipmanagement/InstitutionInformationData.js',
+	'widgets/scholarshipmanagement/CourseInformationData.js'
 ];
 
  includeDataObjects (listStudentInfo_includeDataObjects, "listStudentInfo_loaded()");
@@ -185,6 +187,11 @@ function student_delete_Response (oResponse)
 function listStudentInfo_showAddPopup ()
 {
 	navigate ("newstudent", "widgets/scholarshipmanagement/newStudentInfo.js");
+}
+
+function listOldStudentInfo_showAddPopup ()
+{
+	navigate ("oldstudent", "widgets/scholarshipmanagement/oldStudentInfo.js");
 }
 
 function studentList_setPreview (m_strStudentImageUrl)

@@ -29,7 +29,8 @@
                           		<td style = "padding-left = 20px;">                      
 				                    <input type="text" id="studentInfo_input_studentUIDNumber"
 					                        data-options="required:true" style = "width:200px;"
-					                        class="trademust easyui-validatebox"/>
+					                        class="trademust easyui-validatebox"
+					                        onchange = "searchStudentUID ()"/>
 			                    </td>
                           	</tr>               
 							<tr>
@@ -63,7 +64,7 @@
 				                             Female
 				                        
 				                        <input 
-				                          id="studentInfo_input_others"
+				                          id="studentInfo_input_other"
 				                          name="studentInfo_input_gender"
 				                          type="radio"
 				                          value="Other"
@@ -206,25 +207,25 @@
                          	<tr>
 								<td class="fieldHeading">School/College/Institute</td>
 								<td>
-									<input type ="text" id = "select_input_academic_name" class = "easyui-combobox trademust" data-options="hasDownArrow:false,panelWidth: 0" style="width: 200px;"/>
+									<input type ="text" id = "select_input_academic_name" class = "easyui-combobox trademust" data-options="hasDownArrow:false,panelWidth: 0,required:true" style="width: 200px;"/>
 								</td>						
 							</tr>
 							<tr>
 								<td class="fieldHeading">Class/Course</td>
 								<td>
-									<input type ="text" id = "select_input_studentcourse" class = "easyui-combobox trademust" data-options="hasDownArrow:false,panelWidth: 0" style="width: 200px;"/>								
+									<input type ="text" id = "select_input_studentcourse" class = "easyui-combobox trademust" data-options="hasDownArrow:false,panelWidth: 0,required:true" style="width: 200px;"/>								
 								</td>
 							</tr>
 							<tr>
 								<td class="fieldHeading" > Annual Fee(Rs)</td>
 		                         <td>
-		                             <input  type="text" id="academicInfo_input_annualfee" class="trademust"/>
+		                             <input  type="text" id="academicInfo_input_annualfee" class="trademust" onkeypress="validateAnnualField()"/>
 		                         </td>
 		                         <td style="padding-right: 10px"> </td>
 		                         <td class="fieldHeading" padding-left = "10px"> Paid(Rs) </td>
 		                         <td style="padding-right: 10px"> </td>
 		                         <td>
-		                             <input  type="text" id="academicInfo_input_paidfee" class="trademust"/>
+		                             <input  type="text" id="academicInfo_input_paidfee" class="trademust" onkeypress="validatePaidField()"/>
 		                         </td>
 		                         <td style="padding-right: 10px"> </td>
 		                         <td class="fieldHeading"> Balance(Rs)</td>
@@ -249,27 +250,32 @@
 								<td class="fieldHeading">Organization1</td>
 								<td style="padding-right: 10px"> </td>
 								<td>
-		                             <input  type="text" id="scholarshipInfo_input_organization1" class="trademust"/>
+		                             <input  type="text" id="scholarshipInfo_input_organization0" class="trademust"/>
 		                         </td>
 		                          <td style="padding-right: 10px"> </td>
 		                         <td class="fieldHeading">Amount(Rs)</td>
 		                         <td style="padding-right: 10px"> </td>
 		                         <td>
-		                             <input  type="text" id="scholarshipInfo_input_organization1amount" class="trademust"/>
+		                             <input  type="text" id="scholarshipInfo_input_organizationamount0" class="trademust" onkeypress="validateOrganizationAmount1()"/>
 		                         </td>					
 							</tr>
 							<tr>
 								<td class="fieldHeading">Organization2</td>
 								<td style="padding-right: 10px"> </td>
 								<td>
-		                             <input  type="text" id="scholarshipInfo_input_organization2" class="trademust"/>
+		                             <input  type="text" id="scholarshipInfo_input_organization1" class="trademust"/>
 		                         </td>
 		                          <td style="padding-right: 10px"> </td>
 		                         <td class="fieldHeading">Amount(Rs)</td>
 		                         <td style="padding-right: 10px"> </td>
 		                         <td>
-		                             <input  type="text" id="scholarshipInfo_input_organization2amount" class="trademust"/>
+		                             <input  type="text" id="scholarshipInfo_input_organizationamount1" class="trademust" onkeypress="validateOrganizationAmount2()"/>
 		                         </td>
+							</tr>
+							<tr>
+								<td class="fieldHeading">Status</td>
+								<td style="padding-right: 10px"> </td>
+														
 							</tr>								 		                        
                         </table>                    
 		               </td>

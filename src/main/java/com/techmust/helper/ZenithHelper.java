@@ -18,7 +18,7 @@ import com.techmust.usermanagement.actionarea.ActionAreaData;
 import com.techmust.usermanagement.role.RoleData;
 import com.techmust.usermanagement.userinfo.UserInformationData;
 
-public class TradeMustHelper extends GenericData
+public class ZenithHelper extends GenericData
 {
 
 	private static final long serialVersionUID = 1L;
@@ -40,7 +40,7 @@ public class TradeMustHelper extends GenericData
 	private String m_strToDate;
 	private boolean m_bIncludeZeroMovement;
 	
-	public TradeMustHelper ()
+	public ZenithHelper ()
 	{
 		m_oUserData = new UserInformationData ();
 		m_oFacilitatorInformationData = new FacilitatorInformationData();

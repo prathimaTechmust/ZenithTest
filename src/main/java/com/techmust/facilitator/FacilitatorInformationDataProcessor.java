@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.techmust.generic.dataprocessor.GenericIDataProcessor;
 import com.techmust.generic.response.GenericResponse;
-import com.techmust.helper.TradeMustHelper;
+import com.techmust.helper.ZenithHelper;
 
 @Controller
 public class FacilitatorInformationDataProcessor extends GenericIDataProcessor <FacilitatorInformationData>
@@ -82,7 +82,7 @@ public class FacilitatorInformationDataProcessor extends GenericIDataProcessor <
 
 	@RequestMapping(value="/facilitatorInfoList", method = RequestMethod.POST, headers = {"Content-type=application/json"})
 	@ResponseBody
-	public GenericResponse list(@RequestBody TradeMustHelper oData)throws Exception
+	public GenericResponse list(@RequestBody ZenithHelper oData)throws Exception
 	{
 		HashMap<String, String> oOrderBy = new HashMap<String, String> ();
 		oOrderBy.put(oData.getM_strColumn(), oData.getM_strOrderBy());

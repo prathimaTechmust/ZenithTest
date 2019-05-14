@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.techmust.generic.dataprocessor.GenericIDataProcessor;
 import com.techmust.generic.response.GenericResponse;
-import com.techmust.helper.TradeMustHelper;
+import com.techmust.helper.ZenithHelper;
 
 @Controller
 public class CourseInformationDataProcessor extends GenericIDataProcessor <CourseInformationData>
@@ -81,7 +81,7 @@ public class CourseInformationDataProcessor extends GenericIDataProcessor <Cours
 
 	@RequestMapping(value="/courseInfoList", method = RequestMethod.POST, headers = {"Content-type=application/json"})
 	@ResponseBody
-	public GenericResponse list(@RequestBody TradeMustHelper oData)throws Exception
+	public GenericResponse list(@RequestBody ZenithHelper oData)throws Exception
 	{
 		HashMap<String, String> oOrderBy = new HashMap<String, String> ();
 		oOrderBy.put(oData.getM_strColumn(), oData.getM_strOrderBy());
@@ -153,7 +153,7 @@ public class CourseInformationDataProcessor extends GenericIDataProcessor <Cours
 	
 	@RequestMapping(value="/courseInfoGetSuggestions", method = RequestMethod.POST, headers = {"Content-type=application/json"})
 	@ResponseBody
-	public CourseDataResponse getCourseSuggestions(@RequestBody TradeMustHelper oData) throws Exception
+	public CourseDataResponse getCourseSuggestions(@RequestBody ZenithHelper oData) throws Exception
 	{
 		return  getCoursesSuggestions(oData.getM_oCourseInformationData(),oData.getM_strColumn(),oData.getM_strOrderBy());
 	}	

@@ -12,23 +12,20 @@ var StudentInformationDataProcessor = (function __StudentInformationDataProcesso
 		
 	}
 	
+	function getStudentUID(oStudentData,callback)
+	{
+		
+		ajaxCall(oStudentData, "/studentInfoGetUIDData", callback);
+	}
+	
 	function setImagetoS3bucket(oStudentData,callback)
 	{
 		multipartAjaxCall(oStudentData, "/createStudentImageData", callback);   
 	}
 	
 	function list(oStudentData, strSortColumn, strSortOrder, nPageNo, nPageSize, callback)
-	{
-		var oTradeMustHelper = new TradeMustHelper ();
-		 var oTradeMustHelper = {
-				 m_oStudentData:oStudentData,
-				 m_strColumn:strSortColumn, 
-				 m_strOrderBy:strSortOrder,
-				 m_nPageNo:nPageNo,
-				 m_nPageSize:nPageSize
-		} 
-		 ajaxCall(oStudentData, "/studentInfoList", callback);
-		 
+	{		
+		 ajaxCall(oStudentData, "/studentInfoList", callback);		 
 	}
 	
 	function update (oStudentData,callback)
@@ -57,14 +54,7 @@ var StudentInformationDataProcessor = (function __StudentInformationDataProcesso
 	
 	function getStudentSuggesstions (oStudentData, strSortColumn, strSortOrder, callback)
 	{
-		var oTradeMustHelper = new TradeMustHelper ();
-		 var oTradeMustHelper = {
-				 m_oStudentData:oStudentData,
-				 m_strColumn:strSortColumn, 
-				 m_strOrderBy:strSortOrder
-		} 
-		 ajaxCall(oTradeMustHelper, "/studentInfoGetSuggestions", callback);
-		
+		ajaxCall(oTradeMustHelper, "/studentInfoGetSuggestions", callback);		
 	}
 	
 	return { 
@@ -76,6 +66,7 @@ var StudentInformationDataProcessor = (function __StudentInformationDataProcesso
 		getImagePreview : getImagePreview,
 		getXML : getXML,
 		getStudentSuggesstions :getStudentSuggesstions,
-		setImagetoS3bucket :setImagetoS3bucket
+		setImagetoS3bucket :setImagetoS3bucket,
+		getStudentUID :getStudentUID
 	};
 })();

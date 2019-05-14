@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.techmust.constants.Constants;
 import com.techmust.generic.dataprocessor.GenericIDataProcessor;
 import com.techmust.generic.response.GenericResponse;
-import com.techmust.helper.TradeMustHelper;
+import com.techmust.helper.ZenithHelper;
 import com.techmust.utils.AWSUtils;
 
 @Controller
@@ -99,10 +99,32 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		}
 		return oStudentDataResponse;
 	}
+	
+	@RequestMapping(value="/studentInfoGetUIDData", method = RequestMethod.POST, headers = {"Content-type=application/json"})
+	@ResponseBody
+	public GenericResponse getStudentUIDData(@RequestBody StudentInformationData oStudentInformationData) throws Exception
+	{
+		m_oLogger.info("getStudentUID");
+		m_oLogger.debug("getStudentUID - oStudentInformationData [IN] :" + oStudentInformationData.getM_nUID());
+		StudentDataResponse oStudentDataResponse = new StudentDataResponse();
+		try
+		{
+			oStudentInformationData = (StudentInformationData) populateObject (oStudentInformationData);
+			oStudentDataResponse.m_arrStudentInformationData.add (oStudentInformationData);	
+			if(oStudentInformationData != null)
+				oStudentDataResponse.m_bSuccess = true;
+		}
+		catch (Exception oException) 
+		{
+			m_oLogger.error ("getStudentUID - oException : "  + oException);
+			throw oException;
+		}
+		return oStudentDataResponse;
+	}
 
 	@RequestMapping(value="/studentInfoList", method = RequestMethod.POST, headers = {"Content-type=application/json"})
 	@ResponseBody
-	public GenericResponse list(@RequestBody TradeMustHelper oData)throws Exception
+	public GenericResponse list(@RequestBody ZenithHelper oData)throws Exception
 	{
 		HashMap<String, String> oOrderBy = new HashMap<String, String> ();
 		oOrderBy.put(oData.getM_strColumn(), oData.getM_strOrderBy());

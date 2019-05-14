@@ -37,14 +37,15 @@ public class CourseInformationData extends MasterData
 	
 	@Column(name = "longcoursename")
 	private String m_strLongCourseName;
-
+	
 	
 	public CourseInformationData()
 	{
 		m_nCourseId = -1;
 		m_strShortCourseName = "";
 		m_strLongCourseName  = "";
-	}
+	
+	}	
 
 	public int getM_nCourseId()
 	{

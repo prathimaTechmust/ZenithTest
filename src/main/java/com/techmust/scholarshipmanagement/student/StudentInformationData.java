@@ -1,11 +1,19 @@
 package com.techmust.scholarshipmanagement.student;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -15,9 +23,12 @@ import org.apache.commons.io.FilenameUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.techmust.constants.Constants;
 import com.techmust.generic.data.GenericData;
 import com.techmust.generic.data.MasterData;
+import com.techmust.scholarshipmanagement.academicdetails.AcademicDetails;
+import com.techmust.scholarshipmanagement.academicdetails.ScholarshipDetails;
 
 @Entity
 @Table(name = "student")
@@ -88,13 +99,19 @@ public class StudentInformationData  extends MasterData
 	@Column(name = "UID")
 	private long m_nUID;
 	
-	/*@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-	@JoinTable(name = "studentinstitution",joinColumns = {@JoinColumn(name = "studentid")},inverseJoinColumns = {@JoinColumn(name = "institutionid")})
-	private Set<InstitutionInformationData> m_oInstitutionInformationData;
+	@JsonManagedReference
+	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "m_oStudentInformationData")
+	private Set<AcademicDetails> m_oAcademicDetails;
 	
-	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-	@JoinTable(name = "studentcourse",joinColumns = {@JoinColumn(name = "studentid")},inverseJoinColumns = {@JoinColumn(name = "courseid")})
-	private Set<CourseInformationData> m_oCourseInformationData;*/
+	@JsonManagedReference
+	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "m_oStudentInformationData")
+	private Set<ScholarshipDetails> m_oScholarshipDetails;
+	
+	@Transient
+	public AcademicDetails[] m_arrAcademicDetails;
+	
+	@Transient
+	public ScholarshipDetails[] m_arrScholarshipDetails;
 	
 	public StudentInformationData()
 	{
@@ -117,8 +134,51 @@ public class StudentInformationData  extends MasterData
 		m_nPincode = -1;
 		m_strStudentImageName = "";
 		m_nUID = -1;
-		
-	}		
+		m_oAcademicDetails = new HashSet<AcademicDetails> ();
+		m_oScholarshipDetails = new HashSet<ScholarshipDetails> ();
+				
+	}
+	
+
+	public Set<AcademicDetails> getM_oAcademicDetails()
+	{
+		return m_oAcademicDetails;
+	}
+
+	public void setM_oAcademicDetails(Set<AcademicDetails> m_oAcademicDetails) 
+	{
+		this.m_oAcademicDetails = m_oAcademicDetails;
+	}
+
+	public Set<ScholarshipDetails> getM_oScholarshipDetails()
+	{
+		return m_oScholarshipDetails;
+	}
+
+	public void setM_oScholarshipDetails(Set<ScholarshipDetails> m_oScholarshipDetails)
+	{
+		this.m_oScholarshipDetails = m_oScholarshipDetails;
+	}
+
+	public AcademicDetails[] getM_arrAcademicDetails()
+	{
+		return m_arrAcademicDetails;
+	}
+
+	public void setM_arrAcademicDetails(AcademicDetails[] m_arrAcademicDetails)
+	{
+		this.m_arrAcademicDetails = m_arrAcademicDetails;
+	}
+
+	public ScholarshipDetails[] getM_arrScholarshipDetails()
+	{
+		return m_arrScholarshipDetails;
+	}
+
+	public void setM_arrScholarshipDetails(ScholarshipDetails[] m_arrScholarshipDetails)
+	{
+		this.m_arrScholarshipDetails = m_arrScholarshipDetails;
+	}
 
 	public long getM_nUID()
 	{
@@ -316,6 +376,8 @@ public class StudentInformationData  extends MasterData
 		Predicate oConjunct = oCriteriaBuilder.conjunction();
 		if (getM_nStudentId() > 0)
 			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_nStudentId"), m_nStudentId));
+		if(getM_nUID() > 0)
+			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_nUID"), m_nUID));
 		return oConjunct;
 	}
 	
@@ -329,6 +391,8 @@ public class StudentInformationData  extends MasterData
 		{
 			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_strStudentName"), m_strStudentName));
 		}
+		if(getM_nUID() > 0)
+			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_nUID"), m_nUID));			
 		return oConjunct;
 	}
 	
