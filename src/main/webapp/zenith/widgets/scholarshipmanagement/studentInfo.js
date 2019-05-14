@@ -48,6 +48,7 @@ function studentInfo_init ()
 	student_institutionsNamelistCombox();
 	student_courseNamesListCombox();
 	student_coursefee ();
+	scholarshipStatusDropdownlistValues ();
 }
 
 function student_coursefee ()
@@ -104,6 +105,16 @@ function validatePaidField ()
 		   bIsValid = false;
 	   }
 	 return bIsValid;		 		
+}
+
+function scholarshipStatusDropdownlistValues ()
+{
+	var createOptions = new Array("Application Approved","Scholarship Approved","Dispersed");
+	var selectValues = document.getElementById("select_student_scholarship_status");	
+	for(var nIndex = 0; nIndex < createOptions.length; ++nIndex)
+	{
+		selectValues[selectValues.length] = new Option(createOptions[nIndex],createOptions[nIndex]);
+	}	
 }
 
 function validateUIDField ()
