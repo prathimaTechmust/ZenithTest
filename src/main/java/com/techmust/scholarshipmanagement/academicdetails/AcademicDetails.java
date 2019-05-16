@@ -11,6 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.techmust.generic.data.MasterData;
 import com.techmust.scholarshipmanagement.student.StudentInformationData;
@@ -144,5 +147,29 @@ public class AcademicDetails extends MasterData
 	{
 		this.m_dDate = m_dDate;
 	}	
+	
+	@Override
+	public String generateXML() 
+	{
+		String strAcademicDetails = "";
+		m_oLogger.info ("generateXML");
+		try
+		{
+			Document oXmlDocument = createNewXMLDocument ();
+			Element oRootElement = createRootElement (oXmlDocument, "AcademicDetails");
+			addChild (oXmlDocument, oRootElement, "m_nAcademicId", m_oStudentInformationData.getM_nStudentId());
+			addChild (oXmlDocument, oRootElement, "m_strInstitutionName", m_strInstitutionName);
+			addChild (oXmlDocument, oRootElement, "m_strCourseName", m_strCourseName);
+			addChild (oXmlDocument, oRootElement, "m_fAnnualFee", m_fAnnualFee);
+			addChild (oXmlDocument, oRootElement, "m_fPaidFee", m_fPaidFee);
+			addChild (oXmlDocument, oRootElement, "m_fBalanceFee", m_fBalanceFee);
+			strAcademicDetails = getXmlString (oXmlDocument);
+		} 
+		catch (Exception oException)
+		{
+			m_oLogger.error ("generateXML - oException : " + oException);
+		}		
+		return strAcademicDetails;		
+	}
 
 }

@@ -4,13 +4,15 @@ import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.techmust.generic.data.MasterData;
@@ -104,4 +106,24 @@ public class ScholarshipDetails extends MasterData
 		this.m_dDate = m_dDate;
 	}
 	
+	@Override
+	public String generateXML() 
+	{
+		String strScholarshipDetails = "";
+		m_oLogger.info ("generateXML");
+		try
+		{
+			Document oXmlDocument = createNewXMLDocument ();
+			Element oRootElement = createRootElement (oXmlDocument, "ScholarshipDetails");
+			addChild (oXmlDocument, oRootElement, "m_nScholarshipId", m_oStudentInformationData.getM_nStudentId());
+			addChild (oXmlDocument, oRootElement, "m_strOrganizationName", m_strOrganizationName);
+			addChild (oXmlDocument, oRootElement, "m_fAmount", m_fAmount);			
+			strScholarshipDetails = getXmlString (oXmlDocument);
+		} 
+		catch (Exception oException)
+		{
+			m_oLogger.error ("generateXML - oException : " + oException);
+		}		
+		return strScholarshipDetails;		
+	}
 }

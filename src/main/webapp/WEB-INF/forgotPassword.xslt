@@ -13,11 +13,11 @@
 			</head>
 			<body>
 				<p>Dear Sir/Madam </p>
-				<p>Your TradeMust online password has been reset.</p>
+				<p>Your Zenith online password has been reset.</p>
 				<p> Your new password is <b>"<xsl:value-of select="ForgotPasswordData/m_strPassword"/>"</b></p>
 				<p><b>We strongly recommend you to change your password after you login.</b></p>
 				<p>Thank you</p>
-					TradeMust 
+					Zenith Foundation
 			</body>
 		</html>
 	</xsl:template>

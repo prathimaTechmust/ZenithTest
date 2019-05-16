@@ -12,7 +12,7 @@ var ActionAreaDataProcessor = (function __ActionAreaDataProcessor ()
 	
 	function list(oActionAreaData, strSortColumn, strSortOrder, nPageNo, nPageSize, callback)
 	{
-		var oTradeMustHelper = new TradeMustHelper ();
+		var oZenithHelper = new ZenithHelper ();
 		 var oTradeMustHelper = {
 				 m_oActionArea:oActionAreaData,
 				 m_strColumn:strSortColumn, 
@@ -20,7 +20,7 @@ var ActionAreaDataProcessor = (function __ActionAreaDataProcessor ()
 				 m_nPageNo:nPageNo,
 				 m_nPageSize:nPageSize
 		} 
-		 ajaxCall(oTradeMustHelper,"/actionAreaList",callback);
+		 ajaxCall(oZenithHelper,"/actionAreaList",callback);
 	}
 	
 	function update (oActionAreaData, callback)

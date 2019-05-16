@@ -13,17 +13,8 @@ var FacilitatorInformationDataProcessor = (function __FacilitatorInformationData
 	}
 	
 	function list(oFacilitatorData, strSortColumn, strSortOrder, nPageNo, nPageSize, callback)
-	{
-		var oTradeMustHelper = new TradeMustHelper ();
-		 var oTradeMustHelper = {
-				 m_oFacilitatorData:oFacilitatorData,
-				 m_strColumn:strSortColumn, 
-				 m_strOrderBy:strSortOrder,
-				 m_nPageNo:nPageNo,
-				 m_nPageSize:nPageSize
-		} 
-		 ajaxCall(oFacilitatorData, "/facilitatorInfoList", callback);
-		 
+	{		
+		 ajaxCall(oFacilitatorData, "/facilitatorInfoList", callback);		 
 	}
 	
 	function update (oFacilitatorData,callback)
@@ -51,15 +42,8 @@ var FacilitatorInformationDataProcessor = (function __FacilitatorInformationData
 	}
 	
 	function getFacilitatorSuggesstions (oFacilitatorData, strSortColumn, strSortOrder, callback)
-	{
-		var oTradeMustHelper = new TradeMustHelper ();
-		 var oTradeMustHelper = {
-				 m_oFacilitatorData:oFacilitatorData,
-				 m_strColumn:strSortColumn, 
-				 m_strOrderBy:strSortOrder
-		} 
-		 ajaxCall(oTradeMustHelper, "/facilitatorInfoGetFacilitatorSuggestions", callback);
-		
+	{		
+		 ajaxCall(oTradeMustHelper, "/facilitatorInfoGetFacilitatorSuggestions", callback);		
 	}
 	
 	return { 

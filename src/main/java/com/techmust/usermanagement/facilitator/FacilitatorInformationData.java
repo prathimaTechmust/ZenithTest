@@ -1,4 +1,4 @@
-package com.techmust.facilitator;
+package com.techmust.usermanagement.facilitator;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

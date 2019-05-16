@@ -8,13 +8,13 @@ import javax.persistence.criteria.Root;
 
 import org.hibernate.Criteria;
 
-import com.techmust.facilitator.FacilitatorInformationData;
 import com.techmust.generic.data.GenericData;
 import com.techmust.scholarshipmanagement.course.CourseInformationData;
 import com.techmust.scholarshipmanagement.institution.InstitutionInformationData;
 import com.techmust.scholarshipmanagement.student.StudentInformationData;
 import com.techmust.usermanagement.action.ActionData;
 import com.techmust.usermanagement.actionarea.ActionAreaData;
+import com.techmust.usermanagement.facilitator.FacilitatorInformationData;
 import com.techmust.usermanagement.role.RoleData;
 import com.techmust.usermanagement.userinfo.UserInformationData;
 
@@ -184,39 +184,46 @@ public class ZenithHelper extends GenericData
 	}
 
 	@Override
-	public GenericData getInstanceData(String arg0, UserInformationData arg1)
-			throws Exception {
+	public GenericData getInstanceData(String arg0, UserInformationData arg1)throws Exception 
+	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	protected Criteria listCriteria(Criteria arg0, String arg1, String arg2) {
+	protected Criteria listCriteria(Criteria arg0, String arg1, String arg2)
+	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public String getM_strFromDate() {
+	public String getM_strFromDate()
+	{
 		return m_strFromDate;
 	}
 
-	public void setM_strFromDate(String fromDate) {
+	public void setM_strFromDate(String fromDate)
+	{
 		m_strFromDate = fromDate;
 	}
 
-	public String getM_strToDate() {
+	public String getM_strToDate() 
+	{
 		return m_strToDate;
 	}
 
-	public void setM_strToDate(String toDate) {
+	public void setM_strToDate(String toDate) 
+	{
 		m_strToDate = toDate;
 	}
 
-	public boolean isM_bIncludeZeroMovement() {
+	public boolean isM_bIncludeZeroMovement() 
+	{
 		return m_bIncludeZeroMovement;
 	}
 
-	public void setM_bIncludeZeroMovement(boolean includeZeroMovement) {
+	public void setM_bIncludeZeroMovement(boolean includeZeroMovement)
+	{
 		m_bIncludeZeroMovement = includeZeroMovement;
 	}
 	
@@ -245,7 +252,8 @@ public class ZenithHelper extends GenericData
 	}
 
 	@Override
-	public EntityManager _getEntityManager() {
+	public EntityManager _getEntityManager()
+	{
 		// TODO Auto-generated method stub
 		return null;
 	}

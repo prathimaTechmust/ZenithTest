@@ -179,8 +179,8 @@ public class CourseInformationDataProcessor extends GenericIDataProcessor <Cours
 	}
 
 	@Override
-	public GenericResponse list(CourseInformationData oGenericData, HashMap<String, String> arrOrderBy)
-			throws Exception {
+	public GenericResponse list(CourseInformationData oGenericData, HashMap<String, String> arrOrderBy)throws Exception
+	{
 		// TODO Auto-generated method stub
 		return null;
 	}

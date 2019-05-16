@@ -19,15 +19,15 @@ var RoleDataProcessor = (function __RoleDataProcessor ()
 	
 	function list(oRoleData, strSortColumn, strSortOrder, nPageNo, nPageSize, callback)
 	{
-		var oTradeMustHelper = new TradeMustHelper ();
-		 var oTradeMustHelper = {
+		var oZenithHelper = new ZenithHelper ();
+		 var oZenithHelper = {
 				 m_oRoleData:oRoleData,
 				 m_strColumn:strSortColumn, 
 				 m_strOrderBy:strSortOrder,
 				 m_nPageNo:nPageNo,
 				 m_nPageSize:nPageSize
 		} 
-		 ajaxCall(oTradeMustHelper,"/roleList",callback);
+		 ajaxCall(oZenithHelper,"/roleList",callback);
 		 
 	}
 	

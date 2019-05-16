@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.techmust.generic.data.GenericData;
 import com.techmust.generic.dataprocessor.GenericIDataProcessor;
 import com.techmust.generic.response.GenericResponse;
 import com.techmust.helper.ZenithHelper;
@@ -180,8 +179,8 @@ public class InstitutionInformationDataProcessor extends GenericIDataProcessor<I
 	}
 
 	@Override
-	public GenericResponse list(InstitutionInformationData oGenericData, HashMap<String, String> arrOrderBy)
-			throws Exception {
+	public GenericResponse list(InstitutionInformationData oGenericData, HashMap<String, String> arrOrderBy)throws Exception
+	{
 		// TODO Auto-generated method stub
 		return null;
 	}

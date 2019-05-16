@@ -10,7 +10,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -22,6 +21,7 @@ import javax.persistence.criteria.Root;
 import org.apache.commons.io.FilenameUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.techmust.constants.Constants;
@@ -405,6 +405,12 @@ public class StudentInformationData  extends MasterData
 		{
 			Document oXmlDocument = createNewXMLDocument ();
 			Element oRootElement = createRootElement(oXmlDocument, "StudentInformationData");
+			Document oAcademicDetalsXmlDoc = getXmlDocument ("<m_oAcademicDetails>"+buildAcademicDetails (m_oAcademicDetails)+"</m_oAcademicDetails>");
+			Node oAcademicNode = oXmlDocument.importNode(oAcademicDetalsXmlDoc.getFirstChild(), true);
+			oRootElement.appendChild(oAcademicNode);
+			Document oScholarshipDetalsXmlDoc = getXmlDocument ("<m_oScholarshipDetails>"+buildScholarshipDetails (m_oScholarshipDetails)+"</m_oScholarshipDetails>");
+			Node oScholarshipNode = oXmlDocument.importNode(oScholarshipDetalsXmlDoc.getFirstChild(), true);
+			oRootElement.appendChild(oScholarshipNode);
 			addChild (oXmlDocument, oRootElement, "m_nUID", m_nUID);
 			addChild (oXmlDocument, oRootElement, "m_nStudentId", m_nStudentId);
 			addChild (oXmlDocument, oRootElement, "m_strStudentName", m_strStudentName);
@@ -423,7 +429,7 @@ public class StudentInformationData  extends MasterData
 			addChild (oXmlDocument, oRootElement, "m_strCity", m_strCity);
 			addChild (oXmlDocument, oRootElement, "m_strState", m_strState);
 			addChild (oXmlDocument, oRootElement, "m_nPincode", m_nPincode);
-			addChild (oXmlDocument, oRootElement, "m_strStudentImageName", m_strStudentImageName);
+			addChild (oXmlDocument, oRootElement, "m_strStudentImageName", m_strStudentImageName);					
 			addChild (oXmlDocument, oRootElement, "m_strStudentImageUrl", getStudentImageURL(m_nStudentId,m_strStudentImageName));
 			strItemInfoXML = getXmlString (oXmlDocument);
 		}
@@ -433,6 +439,32 @@ public class StudentInformationData  extends MasterData
 		}
 		return strItemInfoXML;		
 	}
+
+	private String buildScholarshipDetails(Set<ScholarshipDetails> oScholarshipDetails)
+	{
+		String strXML = "";
+		Object [] arrScholarshipcDetails = oScholarshipDetails.toArray ();
+		for (int nIndex = 0; nIndex < arrScholarshipcDetails.length; nIndex ++)
+		{
+			ScholarshipDetails oScholarshipData = (ScholarshipDetails) arrScholarshipcDetails [nIndex];
+			strXML += oScholarshipData.generateXML ();
+		}		
+		return strXML;
+	}
+
+
+	private String buildAcademicDetails(Set<AcademicDetails> oAcademicDetails)
+	{
+		String strXML = "";
+		Object [] arrAcademicDetails = oAcademicDetails.toArray ();
+		for (int nIndex = 0; nIndex < arrAcademicDetails.length; nIndex ++)
+		{
+			AcademicDetails oAcademicData = (AcademicDetails) arrAcademicDetails [nIndex];
+			strXML += oAcademicData.generateXML ();
+		}		
+		return strXML;
+	}
+
 
 	private static String getStudentImageURL(int nStudentId, String strStudentImageName)
 	{

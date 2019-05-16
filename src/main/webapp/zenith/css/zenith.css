@@ -358,8 +358,25 @@ td.xslt_fieldHeader
 	width:100%
 }
 
+td.xslt_zenithFiledHeader
+{
+	font-size: 13px;
+	font-weight:bold;
+	text-decoration:underline;
+	line-height: 150%;
+}
+
 td.xslt_fieldHeading
 {
+	text-align: right;
+	width:150px;
+	border:none;
+	vertical-align:top;
+}
+
+td.xslt_organizationDetails
+{	
+	font-weight:bold;
 	text-align: right;
 	width:150px;
 	border:none;

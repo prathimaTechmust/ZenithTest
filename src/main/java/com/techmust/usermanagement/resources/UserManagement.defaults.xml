@@ -56,7 +56,7 @@
         </Action>
         <Action>
            <ActionName>Facilitators</ActionName>
-           <Target>navigate('ActionList','widgets/usermanagement/userinfo/listFacilitatorInfo.js')</Target>
+           <Target>navigate('ActionList','widgets/usermanagement/facilitator/listFacilitatorInfo.js')</Target>
            <SequenceId>90</SequenceId>
         </Action>
          <Action>
@@ -70,18 +70,23 @@
 		<Actions>
 				<Action>
 				<ActionName>Student List</ActionName>
-				<Target>navigate ('Studentlist','widgets/scholarshipmanagement/listStudent.js')</Target>
+				<Target>navigate ('Studentlist','widgets/scholarshipmanagement/studentlist/listStudent.js')</Target>
 				<SequenceId>10</SequenceId>
 			</Action>
 			<Action>
 				<ActionName>Institution List</ActionName>
-				<Target>navigate ('listinstitution','widgets/scholarshipmanagement/listInstitution.js')</Target>
+				<Target>navigate ('listinstitution','widgets/scholarshipmanagement/institutionslist/listInstitution.js')</Target>
 				<SequenceId>20</SequenceId>
 			</Action>
 			<Action>
 				<ActionName>Course List</ActionName>
-				<Target>navigate ('courselist','widgets/scholarshipmanagement/listCourses.js')</Target>
+				<Target>navigate ('courselist','widgets/scholarshipmanagement/courselist/listCourses.js')</Target>
 				<SequenceId>30</SequenceId>
+			</Action>
+			<Action>
+				<ActionName>Scholarship List</ActionName>
+				<Target>navigate ('scholarshiplist','widgets/scholarshipmanagement/scholarshiplist/scholarshiplist.js')</Target>
+				<SequenceId>40</SequenceId>
 			</Action>
 		</Actions> 
 	</ActionArea>

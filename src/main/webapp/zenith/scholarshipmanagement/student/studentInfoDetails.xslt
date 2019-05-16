@@ -154,6 +154,87 @@
 							</table>
 						</td>
 					</tr>
+					<!-- <tr>
+			 						 						 			
+											
+						
+					</tr> -->
+					<tr>
+						<td width="50%" valign="top">
+							<table class="xslt_trademust" cellSpacing="5px">
+								<tr>
+									<td class = "xslt_zenithFiledHeader">Academic Details</td>								
+								</tr>
+								<tr>
+									<td class="xslt_fieldHeading">
+										Academic Name:									
+									</td>
+									<td class="xslt_fieldData" id="m_strInstitutionName">
+										<xsl:value-of select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_strInstitutionName"/>
+									</td>
+								</tr>
+								<tr>
+									<td class="xslt_fieldHeading">
+										Course Name:									
+									</td>
+									<td class="xslt_fieldData" id="m_strCourseName">
+										<xsl:value-of select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_strCourseName"/>
+									</td>
+								</tr>
+								<tr>
+									<td class="xslt_fieldHeading">
+										Annual Fee(₹):									
+									</td>
+									<td class="xslt_fieldData" id="m_strCourseName">
+										<xsl:value-of select="format-number(StudentInformationData/m_oAcademicDetails/AcademicDetails/m_fAnnualFee, '##,##,##0')"/>
+									</td>
+								</tr>
+								<tr>
+									<td class="xslt_fieldHeading">
+										Paid Fee(₹):									
+									</td>
+									<td class="xslt_fieldData" id="m_strCourseName">
+										<xsl:value-of select="format-number(StudentInformationData/m_oAcademicDetails/AcademicDetails/m_fPaidFee, '##,##,##0')"/>
+									</td>
+								</tr>
+								<tr>
+									<td class="xslt_fieldHeading">
+										Balance Fee(₹):									
+									</td>
+									<td class="xslt_fieldData" id="m_strCourseName">
+										<xsl:value-of select="format-number(StudentInformationData/m_oAcademicDetails/AcademicDetails/m_fBalanceFee, '##,##,##0')"/>
+									</td>
+								</tr>
+							</table>
+						</td>
+						<td width="50%" valign="top">
+							<table class="xslt_trademust" cellSpacing="5px">
+								<tr>
+									<td class = "xslt_zenithFiledHeader">Scolarship Details</td>	
+								</tr>
+								<tr>
+									<td class="xslt_fieldHeading">
+										Organization Name
+									</td>
+									<td class="xslt_fieldHeading">
+										Amount(₹)
+									</td>
+								</tr>																
+								<tr>
+									<xsl:for-each select="StudentInformationData/m_oScholarshipDetails/ScholarshipDetails">
+										<tr>
+											<td class="xslt_organizationDetails">
+												<xsl:value-of select="m_strOrganizationName" />
+											</td>
+											<td class="xslt_organizationDetails">
+												<xsl:value-of select="format-number(m_fAmount, '##,##,##0')"/>
+											</td>
+										</tr>									
+									</xsl:for-each>									
+								</tr>
+							</table>
+						</td>
+					</tr>
 				</table>
 			</body>
 		</html>

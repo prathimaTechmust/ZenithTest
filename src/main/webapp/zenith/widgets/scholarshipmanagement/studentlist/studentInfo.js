@@ -1,10 +1,10 @@
 var studentInfo_includeDataObjects = 
 [
-	'widgets/scholarshipmanagement/StudentInformationData.js',
-	'widgets/scholarshipmanagement/InstitutionInformationData.js',
-	'widgets/scholarshipmanagement/CourseInformationData.js',
-	'widgets/scholarshipmanagement/AcademicDetails.js',
-	'widgets/scholarshipmanagement/ScholarshipDetails.js'
+	'widgets/scholarshipmanagement/studentlist/StudentInformationData.js',
+	'widgets/scholarshipmanagement/institutionslist/InstitutionInformationData.js',
+	'widgets/scholarshipmanagement/courselist/CourseInformationData.js',
+	'widgets/scholarshipmanagement/scholarshipdetails/ScholarshipDetails.js',
+	'widgets/scholarshipmanagement/academicdetails/AcademicDetails.js'
 ];
 
  includeDataObjects (studentInfo_includeDataObjects, "studentInfo_loaded()");
@@ -463,7 +463,7 @@ function studentInfo_created (oStudentInfoResponse)
 	HideDialog ("ProcessDialog");
 	if (oStudentInfoResponse.m_bSuccess)
 	{
-		studentInfo_displayInfo("studentcreatedsuccessfully", "kSuccess");
+		studentInfo_displayInfo("student created successfully", "kSuccess");
 		try
 		{
 			var oForm = $('#studentInfo_form_id')[0];
@@ -474,7 +474,7 @@ function studentInfo_created (oStudentInfoResponse)
 		catch(oException){}
 	}
 	else
-		studentInfo_displayInfo("studentcreationcreationfailed", "kError");
+		studentInfo_displayInfo("student creation failed", "kError");
 }
 
 function studentInfo_updated (oStudentInfoResponse)
@@ -482,7 +482,7 @@ function studentInfo_updated (oStudentInfoResponse)
 	HideDialog ("ProcessDialog");
 	if(oStudentInfoResponse.m_bSuccess)
 	{
-		studentInfo_displayInfo ("studentupdatedsuccessfully");
+		studentInfo_displayInfo ("student updated successfully");
 		try
 		{
 			var oForm = $('#studentInfo_form_id')[0];
@@ -521,7 +521,7 @@ function studentInfo_displayInfo (strMessage)
 {
 	HideDialog ("dialog");
 	informUser(strMessage, "kSuccess");
-	navigate("studentList", "widgets/scholarshipmanagement/listStudent.js")
+	navigate("studentList", "widgets/scholarshipmanagement/studentlist/listStudent.js")
 }
 
 function studentInfo_gotData (oStudentInfoResponse)
@@ -602,7 +602,7 @@ function studentInfo_gotStudentUIDData (oStudentUIDResponse)
 	if(oStudentUIDResponse.m_bSuccess)
 	{
 		m_oStudentInfoMemberData.m_arrStudentUIDData = oStudentUIDResponse.m_arrStudentInformationData[0];
-		loadPage ("scholarshipmanagement/studentInfo.html", "dialog", "studentUIDInfo_gotData()");
+		loadPage ("scholarshipmanagement/student/studentInfo.html", "dialog", "studentUIDInfo_gotData()");
 	}
 	else
 	{

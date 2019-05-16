@@ -12,7 +12,7 @@ var ActionDataProcessor = (function __ActionDataProcessor ()
 	
 	function list(oActionData, strSortColumn, strSortOrder, nPageNo, nPageSize, callback)
 	{
-		var oTradeMustHelper = new TradeMustHelper ();
+		var oZenithHelper = new ZenithHelper ();
 		 var oTradeMustHelper = {
 				 m_oAction:oActionData,
 				 m_strColumn:strSortColumn, 
@@ -20,7 +20,7 @@ var ActionDataProcessor = (function __ActionDataProcessor ()
 				 m_nPageNo:nPageNo,
 				 m_nPageSize:nPageSize
 		} 
-		 ajaxCall(oTradeMustHelper,"/actionList",callback);
+		 ajaxCall(oZenithHelper,"/actionList",callback);
 	}
 	
 	function update (oActionData, callback)

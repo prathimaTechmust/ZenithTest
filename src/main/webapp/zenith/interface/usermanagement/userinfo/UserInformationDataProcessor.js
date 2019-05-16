@@ -14,15 +14,15 @@ var UserInformationDataProcessor = (function __UserInformationDataProcessor ()
 	
 	function list(oUserData, strSortColumn, strSortOrder, nPageNo, nPageSize, callback)
 	{
-		var oTradeMustHelper = new TradeMustHelper ();
-		 var oTradeMustHelper = {
+		var oZenithHelper = new ZenithHelper ();
+		 var oZenithHelper = {
 				 m_oUserData:oUserData,
 				 m_strColumn:strSortColumn, 
 				 m_strOrderBy:strSortOrder,
 				 m_nPageNo:nPageNo,
 				 m_nPageSize:nPageSize
 		} 
-		 ajaxCall(oTradeMustHelper, "/userInfoList", callback);
+		 ajaxCall(oZenithHelper, "/userInfoList", callback);
 		 
 	}
 	
@@ -52,13 +52,13 @@ var UserInformationDataProcessor = (function __UserInformationDataProcessor ()
 	
 	function getUserSuggesstions (oUserData, strSortColumn, strSortOrder, callback)
 	{
-		var oTradeMustHelper = new TradeMustHelper ();
-		 var oTradeMustHelper = {
+		var oZenithHelper = new ZenithHelper ();
+		 var oZenithHelper = {
 				 m_oUserData:oUserData,
 				 m_strColumn:strSortColumn, 
 				 m_strOrderBy:strSortOrder
 		} 
-		 ajaxCall(oTradeMustHelper, "/userInfoGetUserSuggestions", callback);
+		 ajaxCall(oZenithHelper, "/userInfoGetUserSuggestions", callback);
 		
 	}
 	

@@ -1,4 +1,4 @@
-function TradeMustHelper ()
+function ZenithHelper ()
 {
 	this.m_strColumn = "";
 	this.m_strOrderBy = "";

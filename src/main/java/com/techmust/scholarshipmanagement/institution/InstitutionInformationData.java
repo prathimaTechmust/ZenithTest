@@ -1,15 +1,10 @@
 package com.techmust.scholarshipmanagement.institution;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -22,7 +17,6 @@ import org.w3c.dom.Element;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.techmust.generic.data.GenericData;
 import com.techmust.generic.data.MasterData;
-import com.techmust.scholarshipmanagement.student.StudentInformationData;
 
 @Entity
 @Table(name = "institutions")

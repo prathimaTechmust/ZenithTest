@@ -1,4 +1,4 @@
-package com.techmust.facilitator;
+package com.techmust.usermanagement.facilitator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
