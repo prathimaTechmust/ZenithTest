@@ -92,7 +92,7 @@ public class MasterDatabaseConfig
 		// Set the master data source
 		oEntityManagerFactoryBean.setDataSource(createMasterDataSource());
 		// The master tenant entity and repository need to be scanned
-		oEntityManagerFactoryBean.setPackagesToScan("com.techmust.master", "com.techmust.utils", "com.techmust.model", "com.techmust.generic.util", "com.techmust.usermanagement", "com.techmust.facilitator","com.techmust.scholarshipmanagement");
+		oEntityManagerFactoryBean.setPackagesToScan("com.techmust.master", "com.techmust.utils", "com.techmust.model", "com.techmust.generic.util", "com.techmust.usermanagement","com.techmust.scholarshipmanagement");
 		// Setting a name for the persistence unit as Spring sets it as
 		// 'default' if not defined
 		oEntityManagerFactoryBean.setPersistenceUnitName("masterdb-persistence-unit");
