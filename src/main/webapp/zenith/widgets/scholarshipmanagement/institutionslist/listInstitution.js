@@ -30,8 +30,8 @@ function listInstitutionsInfo_init ()
 
 function listInstitutionsInfo_createDataGrid ()
 {
-	initHorizontalSplitter("#listInstitutionsInfo_div_horizontalSplitter", "#listInstitutionsInfo_table_users");
-	$('#listInstitutionsInfo_table_users').datagrid
+	initHorizontalSplitter("#listInstitutionsInfo_div_horizontalSplitter", "#listInstitutionsInfo_table_institutions");
+	$('#listInstitutionsInfo_table_institutions').datagrid
 	(
 		{
 			fit:true,
@@ -49,7 +49,7 @@ function listInstitutionsInfo_createDataGrid ()
 			]],				
 		}
 	);
-	$('#listInstitutionsInfo_table_users').datagrid
+	$('#listInstitutionsInfo_table_institutions').datagrid
 	(
 			{
 				onSelect: function (rowIndex, rowData)
@@ -70,7 +70,7 @@ function listInstitutionsInfo_createDataGrid ()
 
 function listInstitutionsInfo_initDGPagination ()
 {
-	$('#listInstitutionsInfo_table_users').datagrid('getPager').pagination
+	$('#listInstitutionsInfo_table_institutions').datagrid('getPager').pagination
 	(
 		{ 
 			onRefresh:function (nPageNumber, nPageSize)
@@ -141,10 +141,10 @@ function listInstitutionsInfo_progressbarLoaded ()
 
 function listInstitutionsInfo_listed (oInstitutionsInfoResponse)
 {
-	clearGridData ("#listInstitutionsInfo_table_users");
+	clearGridData ("#listInstitutionsInfo_table_institutions");
 	for (var nIndex = 0; nIndex < oInstitutionsInfoResponse.m_arrInstitutionInformationData.length; nIndex++)
-		$('#listInstitutionsInfo_table_users').datagrid('appendRow',oInstitutionsInfoResponse.m_arrInstitutionInformationData[nIndex]);
-	$('#listInstitutionsInfo_table_users').datagrid('getPager').pagination ({total:oInstitutionsInfoResponse.m_nRowCount, pageNumber:oInstitutionsInfoResponse.m_nPageNumber});
+		$('#listInstitutionsInfo_table_institutions').datagrid('appendRow',oInstitutionsInfoResponse.m_arrInstitutionInformationData[nIndex]);
+	$('#listInstitutionsInfo_table_institutions').datagrid('getPager').pagination ({total:oInstitutionsInfoResponse.m_nRowCount, pageNumber:oInstitutionsInfoResponse.m_nPageNumber});
 	HideDialog("dialog");
 }
 
@@ -159,7 +159,7 @@ function listInstitutionsInfo_delete (nIndex)
 {
 	assert.isNumber(nIndex, "nIndex expected to be a Number.");
 	assert.isOk(nIndex > -1, "nIndex must be a positive value.");	
-	var oListData = $("#listInstitutionsInfo_table_users").datagrid('getData');
+	var oListData = $("#listInstitutionsInfo_table_institutions").datagrid('getData');
 	var oData = oListData.rows[nIndex];
 	var oInstitutionsInformationData = new InstitutionInformationData () ;
 	oInstitutionsInformationData.m_nInstitutionId = oData.m_nInstitutionId;

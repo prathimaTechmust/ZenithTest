@@ -21,7 +21,7 @@
 				</p>
 				<p>Thank you</p>
 				<p>
-					TradeRp team
+					ZENITH FOUNDATION Team
 				</p>
 			</body>
 		</html>

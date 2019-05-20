@@ -415,7 +415,7 @@ public class StudentInformationData  extends MasterData
 			addChild (oXmlDocument, oRootElement, "m_nStudentId", m_nStudentId);
 			addChild (oXmlDocument, oRootElement, "m_strStudentName", m_strStudentName);
 			addChild (oXmlDocument, oRootElement, "m_strGender", m_strGender);	
-			addChild (oXmlDocument, oRootElement, "m_dDateOfBirth", m_dDateOfBirth != null ? m_dDateOfBirth.toString () : "");
+			addChild (oXmlDocument, oRootElement, "m_dDateOfBirth", m_dDateOfBirth != null ? getStudentDOB(m_dDateOfBirth.toString ()) : "");
 			addChild (oXmlDocument, oRootElement, "m_strFatherName", m_strFatherName);
 			addChild (oXmlDocument, oRootElement, "m_strMotherName", m_strMotherName);
 			addChild (oXmlDocument, oRootElement, "m_strReligion", m_strReligion);
@@ -438,6 +438,11 @@ public class StudentInformationData  extends MasterData
 			m_oLogger.error("generateXML - oException : " + oException);
 		}
 		return strItemInfoXML;		
+	}
+
+	private String getStudentDOB(String strStudentDOB)
+	{		
+		return strStudentDOB.substring(0, 10);
 	}
 
 	private String buildScholarshipDetails(Set<ScholarshipDetails> oScholarshipDetails)

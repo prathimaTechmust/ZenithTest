@@ -97,8 +97,8 @@ function login_gotData (oActionManagerResponse)
 		m_oLoginMemberData.m_strLoginId = oActionManagerResponse.m_strLoginId;
 		m_oLoginMemberData.m_nUserId = oActionManagerResponse.m_nUserId;
 		m_oLoginMemberData.m_nUID = oActionManagerResponse.m_nUID;
-		m_oTrademustMemberData.m_nUserId = oActionManagerResponse.m_nUserId;
-		m_oTrademustMemberData.m_nUID = oActionManagerResponse.m_nUID;
+		m_oZenithMemberData.m_nUserId = oActionManagerResponse.m_nUserId;
+		m_oZenithMemberData.m_nUID = oActionManagerResponse.m_nUID;
 		index_div_login.style.visibility = "visible";
 		initMenu();
         HideDialog("dialog");
@@ -114,14 +114,14 @@ function login_gotData (oActionManagerResponse)
 	else
 	{
 		informUser (oActionManagerResponse.m_strError_Desc, "kAlert");
-		if(m_oTrademustMemberData.m_nUserId > 0)
+		if(m_oZenithMemberData.m_nUserId > 0)
 			logout ();
 	}
 }
 
 function login_showLogo ()
 {
-	var OffsetHeight = getStyleHeight ("TrademustLogo") + getStyleHeight ("footer") + 10
+	var OffsetHeight = getStyleHeight ("ZenithLogo") + getStyleHeight ("footer") + 10
 	$("#logo_div_backgroundImage").jqxPanel({ width: '100%', height: this.innerHeight - OffsetHeight, autoUpdate: true, scrollBarSize:10});
 	$(window).unbind ('resize');
     $(window).resize(function(){$("#logo_div_backgroundImage").jqxPanel({height: this.innerHeight - OffsetHeight})});

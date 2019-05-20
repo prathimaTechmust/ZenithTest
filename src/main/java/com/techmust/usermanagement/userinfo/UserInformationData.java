@@ -2,6 +2,7 @@ package com.techmust.usermanagement.userinfo;
 
 import java.awt.image.BufferedImage;
 import java.sql.Blob;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -28,6 +29,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.validation.constraints.Size;
 
+import org.apache.commons.io.FilenameUtils;
 import org.hibernate.Criteria;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.collection.internal.PersistentSet;
@@ -39,6 +41,7 @@ import org.w3c.dom.Node;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
+import com.techmust.constants.Constants;
 import com.techmust.generic.data.GenericData;
 import com.techmust.generic.data.MasterData;
 import com.techmust.usermanagement.action.ActionData;
@@ -51,59 +54,80 @@ import com.techmust.usermanagement.role.RoleData;
 public class UserInformationData extends MasterData implements IUserInformationData
 {
 	private static final long serialVersionUID = 1L;
-	@Column(name = "AF05_LOGIN_ID")
-	@Size(max = 128)
-	protected String m_strLoginId;
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "AF05_USER_ID")
-	protected int m_nUserId;
-	@Column(name = "AF05_PASSWORD")
-	@Size(max = 128)
-	protected String m_strPassword;
-	@Transient
-	protected String m_strNewPassword;
+	protected int m_nUserId;	
+	
 	@Column(name = "AF05_USER_NAME")
 	@Size(max = 128)
 	protected String m_strUserName;
+	
 	@Column (name = "AF05_DOB")
-	protected Date m_dDOB;
-	@Transient
-	protected String m_strDOB;
+	protected Date m_dDOB;	
+	
 	@Column(name = "AF05_GENDER")
-	protected String m_strGender;
-	@Transient
-	protected BufferedImage m_buffImgUserPhoto;
-	@Column(name = "AF05_USER_PHOTO")
-	@Lob
-	protected Blob m_oUserPhoto;
-	@ManyToOne
-	@JoinColumn(name = "AF05_USER_ROLE")
-	protected RoleData m_oRole;
+	protected String m_strGender;	
+	
+	@Column(name = "AF05_USER_PHOTO_FILENAME")
+	protected String m_strUserPhotoFileName;
+	
 	@Column(name = "AF05_EMPLOYEE_ID")
-	protected String m_strEmployeeId;
+	protected String m_strEmployeeId;	
+	
+	@Column(name = "AF05_LOGIN_ID")
+	@Size(max = 128)
+	protected String m_strLoginId;
+	
+	@Column(name = "AF05_PASSWORD")
+	@Size(max = 128)
+	protected String m_strPassword;	
+	
 	@Column(name = "AF05_ADDRESS")
 	protected String m_strAddress;
+	
 	@Column(name = "AF05_PHONE_NUM")
 	protected String m_strPhoneNumber;
+	
 	@Column(name = "AF05_EMAIL_ADDRESS")
 	protected String m_strEmailAddress;
+	
 	@Column(name = "AF05_STATUS")
 	@Enumerated(EnumType.ORDINAL) 
 	protected UserStatus m_nStatus;
-	@Column(name = "AF05_USER_PHOTO_FILENAME")
-	protected String m_strUserPhotoFileName;
+	
+	@Column(name = "AF05_USER_PHOTO")
+	@Lob
+	protected Blob m_oUserPhoto;	
+	
 	@Basic
 	@Temporal(TemporalType.TIME)
 	@Column(name = "AF05_CREATION_DATE")
 	protected Date m_dCreationDate;
+	
 	@Basic
 	@Temporal(TemporalType.TIME)
 	@Column(name = "AFO5_UPDATION_DATE")
 	protected Date m_dUpdationDate;
+	
 	@Column(name = "AFO5_UID")
 	@ColumnDefault("-1")
 	protected long m_nUID;
+	
+	@ManyToOne
+	@JoinColumn(name = "AF05_USER_ROLE")
+	protected RoleData m_oRole;
+	
+	@Transient
+	protected String m_strNewPassword;
+	
+	@Transient
+	protected String m_strDOB;
+	
+	@Transient
+	protected BufferedImage m_buffImgUserPhoto;
+	
 	
 	
 	public UserInformationData () 
@@ -378,7 +402,7 @@ public class UserInformationData extends MasterData implements IUserInformationD
 			addChild (oXmlDocument, oRootElement, "m_strPassword", m_strPassword);
 			addChild (oXmlDocument, oRootElement, "m_strNewPassword", m_strNewPassword);
 			addChild (oXmlDocument, oRootElement, "m_strUserName", m_strUserName);
-			addChild (oXmlDocument, oRootElement, "m_dDOB", m_dDOB != null ? m_dDOB.toString () : "");
+			addChild (oXmlDocument, oRootElement, "m_dDOB", m_dDOB != null ? getDate(m_dDOB.toString()) : "");
 			addChild (oXmlDocument, oRootElement, "m_strGender", m_strGender);
 			Document oRoleXmlDocument = getXmlDocument("<m_oRole>"+m_oRole.generateXML()+"</m_oRole>");
 			Node oRoleDataNode = oXmlDocument.importNode (oRoleXmlDocument.getFirstChild(), true);
@@ -390,6 +414,7 @@ public class UserInformationData extends MasterData implements IUserInformationD
 			addChild (oXmlDocument, oRootElement, "m_nStatus", m_nStatus.toString ());
 			addChild (oXmlDocument, oRootElement, "m_strUserPhotoFileName",m_strUserPhotoFileName);
 			addChild (oXmlDocument, oRootElement, "m_nUID", m_nUID);
+			addChild (oXmlDocument, oRootElement, "m_strUserImageUrl", getUserImageURL(m_nUserId,m_strUserPhotoFileName));
 			strUserInfoXML = getXmlString (oXmlDocument);
 		}
 		catch (Exception oException) 
@@ -400,6 +425,18 @@ public class UserInformationData extends MasterData implements IUserInformationD
 	    return strUserInfoXML;
     }
 	
+	private String getDate(String srtUserDOB)
+	{
+		return  srtUserDOB.substring(0, 10);			 
+	}
+
+	private String getUserImageURL(int nUserId, String strUserPhotoFileName) 
+	{	
+		String strFileExtension = FilenameUtils.getExtension(strUserPhotoFileName);
+		String strUserImageUrl = Constants.USERIMAGEURL + Constants.USERIMAGEFOLDER+ nUserId + "." + strFileExtension;
+		return strUserImageUrl;		
+	}
+
 	public String generateForgotPasswordXML (String strPassword)
 	{
 		m_oLogger.info ("generateForgotPasswordXML");
@@ -465,8 +502,8 @@ public class UserInformationData extends MasterData implements IUserInformationD
 	}
 
 	@Override
-	public GenericData getInstanceData(String strXML,
-			UserInformationData oCredentials) {
+	public GenericData getInstanceData(String strXML,UserInformationData oCredentials)
+	{
 		// TODO Auto-generated method stub
 		return null;
 	}

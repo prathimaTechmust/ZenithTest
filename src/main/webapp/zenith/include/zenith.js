@@ -1,4 +1,4 @@
-function trademust_MemberData ()
+function zenith_MemberData ()
 {
 	var m_nUserId = -1;
 	var m_nUID = -1;
@@ -12,16 +12,16 @@ function trademust_MemberData ()
 
 var m_strLocationURL = window.location.origin;
 
-var m_oTrademustMemberData = new trademust_MemberData ();
+var m_oZenithMemberData = new zenith_MemberData ();
 
 var m_oPagesLookup = {};
 
-var trademust_includeDataObjects = 
+var zenith_includeDataObjects = 
 [
 	'widgets/usermanagement/userinfo/UserInformationData.js'
 ];
 
-includeDataObjects (trademust_includeDataObjects, "");
+includeDataObjects (zenith_includeDataObjects, "");
 
 function navigate (tabName, pageName)
 {
@@ -268,19 +268,19 @@ function initMenu ()
 
 function includeDataObjects (arrObjects, callBack)
 {
-	m_oTrademustMemberData.m_arrObjects = arrObjects;
-	m_oTrademustMemberData.m_nIncludeIndex = 0;
-	m_oTrademustMemberData.m_strIncludeCallback = callBack;
+	m_oZenithMemberData.m_arrObjects = arrObjects;
+	m_oZenithMemberData.m_nIncludeIndex = 0;
+	m_oZenithMemberData.m_strIncludeCallback = callBack;
 	navigate ('', arrObjects[0]);
 }
 
 function dataObjectLoaded ()
 {
-	m_oTrademustMemberData.m_nIncludeIndex++;
-	if (m_oTrademustMemberData.m_nIncludeIndex >= m_oTrademustMemberData.m_arrObjects.length)
-		eval (m_oTrademustMemberData.m_strIncludeCallback);
+	m_oZenithMemberData.m_nIncludeIndex++;
+	if (m_oZenithMemberData.m_nIncludeIndex >= m_oZenithMemberData.m_arrObjects.length)
+		eval (m_oZenithMemberData.m_strIncludeCallback);
 	else
-		navigate ('', m_oTrademustMemberData.m_arrObjects[m_oTrademustMemberData.m_nIncludeIndex]);
+		navigate ('', m_oZenithMemberData.m_arrObjects[m_oZenithMemberData.m_nIncludeIndex]);
 }
 
 function getImageName(oImagePath) 
@@ -298,11 +298,11 @@ function getImageName(oImagePath)
 function logout ()
 {
 	var oUserinformationData = new UserInformationData ();
-	oUserinformationData.m_nUserId = m_oTrademustMemberData.m_nUserId;
+	oUserinformationData.m_nUserId = m_oZenithMemberData.m_nUserId;
 	ActionManagerDataProcessor.logOut (oUserinformationData);
 	document.cookie ="trademustUserId=";
 	document.cookie ="trademustPassword=";
-	m_oTrademustMemberData.m_nUserId = -1;
+	m_oZenithMemberData.m_nUserId = -1;
 	index_div_login.style.visibility = "hidden";
 	index_div_userName.textContent = "";
 	window.location.href = window.location.href.split("?")[0];
@@ -666,8 +666,8 @@ var getUserList = function(param, success, error)
 		var strQuery = param.q.trim();
 		var oUserInformationData = new UserInformationData ();
 		oUserInformationData.m_strUserName = strQuery;
-		oUserInformationData.m_nUserId = m_oTrademustMemberData.m_nUserId;
-		oUserInformationData.m_nUID = m_oTrademustMemberData.m_nUID;
+		oUserInformationData.m_nUserId = m_oZenithMemberData.m_nUserId;
+		oUserInformationData.m_nUID = m_oZenithMemberData.m_nUID;
 		UserInformationDataProcessor.getUserSuggesstions(oUserInformationData, "", "", function(oResponse)
 				{
 					var arrUserData = new Array();
@@ -706,8 +706,8 @@ var getArticleNumberList = function(param, success, error)
 		var strQuery = param.q.trim();
 		var oItemData = new ItemData ();
 		oItemData.m_strArticleNumber = strQuery;
-		oItemData.m_oUserCredentialsData.m_nUserId = m_oTrademustMemberData.m_nUserId;
-		oItemData.m_oUserCredentialsData.m_nUID = m_oTrademustMemberData.m_nUID;
+		oItemData.m_oUserCredentialsData.m_nUserId = m_oZenithMemberData.m_nUserId;
+		oItemData.m_oUserCredentialsData.m_nUID = m_oZenithMemberData.m_nUID;
 		ItemDataProcessor.getArticleSuggesstions(oItemData, "", "", function(oItemDataResponse)
 				{
 					var arrItemData = new Array();
@@ -760,7 +760,7 @@ function logoutOnlineUser ()
 	document.cookie ="OnlineUser=";
 	document.cookie ="OnlineUserId=";
 	document.cookie ="OnlineUserPassword=";
-	m_oTrademustMemberData.m_nUserId = -1;
+	m_oZenithMemberData.m_nUserId = -1;
 	document.getElementById("index_td_userName").innerHTML = onlineApp_showSignIn ();
 	document.getElementById("index_div_rightMenuBar").innerHTML = "";
 	$('#verticalSplitter').jqxSplitter({
@@ -831,7 +831,7 @@ function initPanelWithoutSplitter (strPanelId, strDataGridId)
 
 function getOffsetHeight ()
 {
-	return getStyleHeight ("TrademustLogo") + getStyleHeight ("footer") + 25;
+	return getStyleHeight ("ZenithLogo") + getStyleHeight ("footer") + 25;
 }
 
 function initSplitter (strSplitterId)

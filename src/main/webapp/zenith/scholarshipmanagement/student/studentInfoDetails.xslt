@@ -6,13 +6,13 @@
 	<xsl:template match="/">
 		<html>
 			<body>
-				<table class="trademust">
+				<table class="zenith">
 					<tr>
 			 			<td class="xslt_fieldHeader" colspan="2">Student Information Details</td>
 					</tr>
 					<tr>
 						<td width="50%" valign="top">
-							<table class="trademust" cellSpacing="5px">
+							<table class="zenith" cellSpacing="5px">
 								<tr>
 									<td class="xslt_fieldHeading">UID :</td>
 									<td class="xslt_fieldData" id="m_nUID">
@@ -71,6 +71,14 @@
 									</td>
 									<td class="xslt_fieldData" id="m_strEmailAddress">
 										<xsl:value-of select="StudentInformationData/m_strEmailAddress" />
+									</td>
+								</tr>
+								<tr>
+									<td class="xslt_fieldHeading">
+										Student DateofBirth:
+									</td>
+									<td class="xslt_fieldData" id="m_dDateOfBirth">
+										<xsl:value-of select="StudentInformationData/m_dDateOfBirth" />
 									</td>
 								</tr>
 								<tr>
@@ -141,10 +149,10 @@
 								</tr>
 							</table>
 						</td>
-						<td class="trademust" align="left" style="vertical-align:top;width:15%">
-							<table class="trademust">
+						<td class="zenith" align="left" style="vertical-align:top;width:15%">
+							<table class="zenith">
 								<tr>
-									<td class="trademust" align="center">
+									<td class="zenith" align="center">
 										<a href="javascript:studentList_setPreview ('{StudentInformationData/m_strStudentImageUrl}');">
 											<img src="{StudentInformationData/m_strStudentImageUrl}" id = "imagePreview_img_student" class="studentDetailImage"/>
 										</a>
@@ -163,7 +171,7 @@
 						<td width="50%" valign="top">
 							<table class="xslt_trademust" cellSpacing="5px">
 								<tr>
-									<td class = "xslt_zenithFiledHeader">Academic Details</td>								
+									<td class = "xslt_zenithFieldHeader">Academic Details</td>								
 								</tr>
 								<tr>
 									<td class="xslt_fieldHeading">
@@ -185,7 +193,7 @@
 									<td class="xslt_fieldHeading">
 										Annual Fee(₹):									
 									</td>
-									<td class="xslt_fieldData" id="m_strCourseName">
+									<td class="xslt_fieldData" id="m_fAnnualFee">
 										<xsl:value-of select="format-number(StudentInformationData/m_oAcademicDetails/AcademicDetails/m_fAnnualFee, '##,##,##0')"/>
 									</td>
 								</tr>
@@ -193,7 +201,7 @@
 									<td class="xslt_fieldHeading">
 										Paid Fee(₹):									
 									</td>
-									<td class="xslt_fieldData" id="m_strCourseName">
+									<td class="xslt_fieldData" id="m_fPaidFee">
 										<xsl:value-of select="format-number(StudentInformationData/m_oAcademicDetails/AcademicDetails/m_fPaidFee, '##,##,##0')"/>
 									</td>
 								</tr>
@@ -201,7 +209,7 @@
 									<td class="xslt_fieldHeading">
 										Balance Fee(₹):									
 									</td>
-									<td class="xslt_fieldData" id="m_strCourseName">
+									<td class="xslt_fieldData" id="m_fBalanceFee">
 										<xsl:value-of select="format-number(StudentInformationData/m_oAcademicDetails/AcademicDetails/m_fBalanceFee, '##,##,##0')"/>
 									</td>
 								</tr>
@@ -210,7 +218,7 @@
 						<td width="50%" valign="top">
 							<table class="xslt_trademust" cellSpacing="5px">
 								<tr>
-									<td class = "xslt_zenithFiledHeader">Scolarship Details</td>	
+									<td class = "xslt_zenithFieldHeader">Scolarship Details</td>	
 								</tr>
 								<tr>
 									<td class="xslt_fieldHeading">

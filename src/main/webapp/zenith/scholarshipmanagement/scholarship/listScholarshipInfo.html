@@ -7,66 +7,20 @@
     </title>
   </head>
   <body>
-    <form class="trademust" id="scholarshipListInfo_form_id">
-      <table class="trademust" id="scholarshipListInfo_table_filter" summary="">
-        <tr>
-          <td class="trademust">
-            <div class="trademust" id="scholarshipListInfo_div_dataGridToolbar">
-              <table class="trademust" cellpadding="2" cellspacing="2" summary="">
-                <tr>
-                  <td class="trademust" style="width:15%">
-                    <button 
-                        id="scholarshipListInfo_button_add"
-                        class="trademust addButton"
-                        type="button"
-                        style="visibility: initial;"
-                        onclick="scholarshipListInfo_showAddPopup ()">
-                      New Student
-                    </button>
-                  </td>
-                  <td class="trademust" style="width:15%">
-                  	<button id="scholarshipListInfo_button_old" class="trademust addButton" type="button" style="visibility: initial;" onclick="listOldStudentInfo_showAddPopup ()">
-                  	Old Student
-                  	</button>
-                  </td>
-                  <td class="trademust" style="width:20%">
-                    <input 
-                        class="filterTextBox"
-                        id="filterStudentInfo_input_studentName"
-                        onkeypress="handleFilter('scholarshipListInfo_filter()','')"
-                        placeholder="Student Name"/>
-                  </td>
-                  <td class="trademust" style="width:20%">
-                     <input 
-                        class="filterTextBox"
-                        id="filterStudentInfo_input_phonenumber"
-                        onkeypress="handleFilter('scholarshipListInfo_filter()','')"
-                        placeholder="Phone Number"/>
-                  </td>
-                  <td class="trademust" style="width:20%">
-                    <input 
-                        class="filterTextBox"
-                        id="filterStudentInfo_input_city"
-                        onkeypress="handleFilter('scholarshipListInfo_filter()','')"
-                        placeholder="City"/>
-                  </td>
-                  <td class="trademust" style="width:5%">
-                    <button class="trademust filterButton" type="button" onclick="scholarshipListInfo_filter ()">
-                      Filter
-                    </button>
-                  </td>
-                  <td class="trademust" style="width:5%">
-                    <button class="trademust importButton" type="button" onclick="scholarshipListInfo_import ()">
-                      Import
-                    </button>
-                  </td>
+    <form class="zenith" id="scholarshipListInfo_form_id">
+      <table class="zenith" id="scholarshipListInfo_table_filter" summary="">
+       <!--  <tr>
+          <td class="zenith">
+            <div class="zenith" id="scholarshipListInfo_div_dataGridToolbar">
+              <table class="zenith" cellpadding="2" cellspacing="2" summary="">
+                <tr>                  
                 </tr>
               </table>
             </div>
           </td>
-        </tr>
+        </tr> -->
         <tr>
-          <td class="trademust">
+          <td class="zenith">
             <div id="scholarshipListInfo_div_horizontalSplitter" style="z-index: 0">
               <div id="scholarshipListInfo_div_dataGrid">
                 <table 

@@ -14,6 +14,7 @@ function listUserInfo_memberData ()
     this.m_nPageSize =10;
     this.m_strSortColumn = "m_strUserName";
     this.m_strSortOrder = "asc";
+    this.m_strUserPhotoName = "";
 }
 
 var m_oUserInfoListMemberData = new listUserInfo_memberData ();
@@ -227,7 +228,25 @@ function listUserInfo_deleted (oUserInfoResponse)
 	}
 }
 
+function userImage_setPreview (m_strUserImageUrl)
+{
+	m_oUserInfoListMemberData.m_strUserPhotoName = m_strUserImageUrl;
+	loadPage ("usermanagement/userinfo/userImagePreview.html", "dialog", "user_showImagePreview ()");
+}
+
+function user_showImagePreview ()
+{
+	createPopup ('dialog', '', '', true);
+	document.getElementById('dialog').style.position = "fixed";
+	$(".imagePreview").attr('src', m_oUserInfoListMemberData.m_strUserPhotoName);
+}
+
 function listUserInfo_showAddPopup ()
 {
 	navigate ("newuser", "widgets/usermanagement/userinfo/newUserInfo.js");
+}
+
+function userList_cancelImagePreview ()
+{
+	HideDialog ("dialog");
 }

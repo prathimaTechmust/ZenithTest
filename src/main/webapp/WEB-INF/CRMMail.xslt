@@ -21,7 +21,7 @@
 				</p>
 				<p>Thank you</p>
 				<p>
-					TRADEMUST
+					ZENITH FOUNDATION
 				</p>
 			</body>
 		</html>

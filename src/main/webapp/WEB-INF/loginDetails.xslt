@@ -11,7 +11,7 @@
 				<title>Login Details</title>
 			</head>
 			<body>
-				<img href="http://www.trademust.com:8080/traderp/online" src="http://www.trademust.com:8080/traderp/images/TrademustLogo.jpg"  title="Logo" />
+				<img href="http://www.trademust.com:8080/traderp/online" src="images/zenithLogo.png"  title="Logo" />
 				<br/>
 				<p>Dear Sir/Madam </p>
 				<p>Your login details are </p>
@@ -19,7 +19,7 @@
 				<p>Password - "<xsl:value-of select="LoginDetails/m_strPassword"/>"</p>
 				<br/>
 				<p>Thank you</p>
-				TradeMust
+				Zenith Foundation
 				<p>
 					<a href="http://www.trademust.com:8080/traderp/online">Click here</a>
 					to login

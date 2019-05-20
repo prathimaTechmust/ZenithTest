@@ -11,6 +11,7 @@ function userInfo_memberData ()
 	this.m_strNewPassword = "";
 	this.m_strPassword = "";
 	this.m_buffImage = null;
+	this.m_strUserImageName = "";	
 }
 
 var m_oUserInfoMemberData = new userInfo_memberData ();
@@ -36,7 +37,7 @@ function userInfo_init ()
 {
 	createPopup("dialog", "#userInfo_button_submit", "#userInfo_button_cancel", true);
 //	$( "#userInfo_input_dateOfBirth" ).datebox({ required: true });
-	//$( "#userInfo_input_dateOfBirth" ).datepicker({minDate:"-90y", maxDate: new Date()});
+//	$( "#userInfo_input_dateOfBirth" ).datepicker({minDate:"-90y", maxDate: new Date()});
 	userInfo_populateRoleNameList();
 }
 
@@ -79,9 +80,8 @@ function userInfo_appendElements ()
 function userInfo_gotData (oUserInfoResponse)
 {	
 	var oUserInfoData = oUserInfoResponse.m_arrUserInformationData[0];
+	m_oUserInfoMemberData.m_strUserImageName = oUserInfoData.m_strUserPhotoFileName;
 	$("#userInfo_input_userName").val(oUserInfoData.m_strUserName);
-//	$( "#userInfo_input_dateOfBirth" ).datebox('setValue', FormatDateToSet (oUserInfoData.m_strDOB));
-	$('#userInfo_input_dateOfBirth').datepicker('setDate', FormatDateToSet (oUserInfoData.m_strDOB));
 	if(oUserInfoData.m_strGender =='Female')
 	{
 		$("#userInfo_input_female").prop("checked", true);
@@ -90,6 +90,7 @@ function userInfo_gotData (oUserInfoResponse)
 	{
 		$("#userInfo_input_male").prop("checked", true);
 	}
+	 document.getElementById("userInfo_input_dateOfBirth").value = userDateofBirth(oUserInfoData.m_dDOB);
 	$("#userInfo_img_userPhoto").attr('src', oUserInfoData.m_buffImgUserPhoto);
 	$("#userInfo_img_userPhoto").attr('width','85px');
 	$("#userInfo_img_userPhoto").attr('width','85px');
@@ -108,6 +109,14 @@ function userInfo_gotData (oUserInfoResponse)
 		$("#userInfo_input_checkActive").prop("checked",true);
 	initFormValidateBoxes ("userInfo_form_id");
 	document.getElementById("userInfo_input_gender");
+}
+
+function userDateofBirth (strUserDOB)
+{
+	var strUserDateOfBirth = "/Date("+strUserDOB+")/";
+	var date = new Date(parseFloat(strUserDateOfBirth.substr(6)));	
+	var strDate = date.getFullYear() + "-" +("0" + (date.getMonth() + 1)).slice(-2) + "-" +date.getDate();	
+	return strDate;
 }
 
 function userInfo_submit ()
@@ -133,19 +142,43 @@ function userInfo_validate ()
 
 function userInfo_getFormData ()
 {
-	var m_chkGender = $('[name=userInfo_input_gender]:checked').val();
+	/*var m_chkGender = $('[name=userInfo_input_gender]:checked').val();
 	var oUserInformationData = new UserInformationData ();
 	oUserInformationData.m_strLoginId = $("#userInfo_input_loginId").val();
 	oUserInformationData.m_strPassword = CryptoJS.SHA3($("#userInfo_input_password").val()).toString();
 	oUserInformationData.m_strUserName = $("#userInfo_input_userName").val();
 //	var m_strDate = $('#userInfo_input_dateOfBirth').datebox('getValue');
 	var m_strDate = $('#userInfo_input_dateOfBirth').val();
-	oUserInformationData.m_strDOB = FormatDate (m_strDate);
+	oUserInformationData.m_strDOB =m_strDate;
+	//oUserInformationData.m_strDOB = FormatDate (m_strDate);
 	oUserInformationData.m_strGender = m_chkGender;
     oUserInformationData.m_buffImgUserPhoto = m_oUserInfoMemberData.m_buffImage;
 	oUserInformationData.m_oRole = new RoleData ();
 	oUserInformationData.m_oRole.m_nRoleId = $("#userInfo_select_roleName").val();
 	oUserInformationData.m_strEmployeeId = $("#userInfo_input_employeeId").val();
+	oUserInformationData.m_strAddress = $("#userInfo_textarea_address").val();
+	oUserInformationData.m_strPhoneNumber = $("#userInfo_input_phoneNumber").val();
+	oUserInformationData.m_strEmailAddress = $("#userInfo_input_email").val();
+	oUserInformationData.m_nStatus = "kActive";
+	return oUserInformationData;*/
+	
+	// Get User Form Values
+	var oUserInformationData = new UserInformationData ();
+	oUserInformationData.m_strUserName = $("#userInfo_input_userName").val();
+	oUserInformationData.m_dDOB = $('#userInfo_input_dateOfBirth').val();
+	if(document.getElementById("userInfo_input_male").checked)
+		oUserInformationData.m_strGender = document.getElementById("userInfo_input_male").value;
+	 else if(document.getElementById("userInfo_input_female").checked)
+		 oUserInformationData.m_strGender = document.getElementById("userInfo_input_female").value;
+	if($("#userInfo_input_userPhoto").val() == '')
+		oUserInformationData.m_strUserPhotoFileName = m_oUserInfoMemberData.m_strUserImageName;			
+	else
+	oUserInformationData.m_strUserPhotoFileName = $("#userInfo_input_userPhoto").val().replace(/.*(\/|\\)/, '');
+	oUserInformationData.m_oRole = new RoleData ();
+	oUserInformationData.m_oRole.m_nRoleId = $("#userInfo_select_roleName").val();
+	oUserInformationData.m_strEmployeeId = $("#userInfo_input_employeeId").val();
+	oUserInformationData.m_strLoginId = $("#userInfo_input_loginId").val();
+	oUserInformationData.m_strPassword = CryptoJS.SHA3($("#userInfo_input_password").val()).toString();
 	oUserInformationData.m_strAddress = $("#userInfo_textarea_address").val();
 	oUserInformationData.m_strPhoneNumber = $("#userInfo_input_phoneNumber").val();
 	oUserInformationData.m_strEmailAddress = $("#userInfo_input_email").val();
@@ -157,7 +190,19 @@ function userInfo_created (oUserInfoResponse)
 {
 	HideDialog ("ProcessDialog");
 	if(oUserInfoResponse.m_bSuccess && oUserInfoResponse.m_strError_Desc != "kLoginIdExist")
+	{
 		userInfo_displayInfo ("usermessage_userinfo_usercreatedsuccessfully");
+		try
+		{
+			var oForm = $('#userInfo_form_id')[0];
+			var oFormData = new FormData (oForm);
+			oFormData.append('userId',oUserInfoResponse.m_arrUserInformationData[0].m_nUserId);
+			UserInformationDataProcessor.setImagetoS3bucket (oFormData, user_image_created);
+		}
+		catch(oException)
+		{}
+		
+	}		
 	else
 		userInfo_displayErrorInfo ("usermessage_userinfo_loginidalreadyexists");
 }
@@ -171,13 +216,41 @@ function userInfo_updateUserInfo (oUserInformationData)
 	UserInformationDataProcessor.update(oUserInformationData, userInfo_updated);
 }
 
+function user_image_created ()
+{
+	HideDialog ("secondDialog");
+}
+
 function userInfo_updated (oUserInfoResponse)
 {
 	HideDialog ("ProcessDialog");
 	if(oUserInfoResponse.m_bSuccess)
+	{
 		userInfo_displayInfo ("usermessage_userinfo_userupdatedsuccessfully")
+		try
+		{
+			var oForm = $('#userInfo_form_id')[0];
+			var oFormData = new FormData (oForm);
+			var strImageName = oFormData.get("userImage");
+			if(strImageName == "")
+			{
+				user_details_updated();
+			}
+			else if(oUserInfoResponse.m_arrUserInformationData[0].m_strUserPhotoFileName == "" || m_oUserInfoMemberData.m_strUserImageName != strImageName)
+			{
+				oFormData.append('userId',oUserInfoResponse.m_arrUserInformationData[0].m_nUserId);				
+				UserInformationDataProcessor.setImagetoS3bucket (oFormData, user_details_updated);
+			}			
+		}
+		catch(oException){}
+	}		
 	else if(oUserInfoResponse.m_nErrorID)
 		userInfo_displayErrorInfo ("usermessage_userinfo_loginidalreadyexistspleaseenteranewloginid")
+}
+
+function user_details_updated ()
+{
+	HideDialog ("secondDialog");
 }
 
 function userInfo_displayInfo (strMessage)
@@ -197,8 +270,8 @@ function userInfo_loadImagePreview ()
 {
 	var oUserInformationData = new UserInformationData ();
 	oUserInformationData.m_buffImgUserPhoto = $("#userInfo_input_userPhoto").val();  
-	oUserInformationData.m_nUID = m_oTrademustMemberData.m_nUID ;
-	oUserInformationData.m_nUserId = m_oTrademustMemberData.m_nUserId;
+	oUserInformationData.m_nUID = m_oZenithMemberData.m_nUID ;
+	oUserInformationData.m_nUserId = m_oZenithMemberData.m_nUserId;
 	m_oUserInfoMemberData.m_buffImage = oUserInformationData.m_buffImgUserPhoto;
 	validateImageFile($("#userInfo_input_userPhoto")[0].files, "#userInfo_input_userPhoto");
 	UserInformationDataProcessor.getImagePreview(oUserInformationData, gotImagePreviewData);

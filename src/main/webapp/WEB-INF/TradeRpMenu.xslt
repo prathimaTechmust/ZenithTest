@@ -6,7 +6,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <xsl:template match="/">
     <html>
       <body>
-		<table class="trademust">
+		<table class="zenith">
 			<div id='cssmenu' onload="removeActiveClass()">
 				<ul>
 					<xsl:for-each select="root/ActionArea">

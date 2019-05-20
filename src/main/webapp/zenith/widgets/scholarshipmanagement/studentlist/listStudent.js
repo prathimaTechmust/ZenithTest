@@ -32,8 +32,8 @@ function listStudentInfo_init ()
 
 function listStudentInfo_createDataGrid ()
 {
-	initHorizontalSplitter("#listStudentInfo_div_horizontalSplitter", "#listStudentInfo_table_users");
-	$('#listStudentInfo_table_users').datagrid
+	initHorizontalSplitter("#listStudentInfo_div_horizontalSplitter", "#listStudentInfo_table_students");
+	$('#listStudentInfo_table_students').datagrid
 	(
 		{
 			fit:true,
@@ -53,7 +53,7 @@ function listStudentInfo_createDataGrid ()
 			]],				
 		}
 	);
-	$('#listStudentInfo_table_users').datagrid
+	$('#listStudentInfo_table_students').datagrid
 	(
 			{
 				onSelect: function (rowIndex, rowData)
@@ -74,7 +74,7 @@ function listStudentInfo_createDataGrid ()
 
 function listStudentInfo_initDGPagination ()
 {
-	$('#listStudentInfo_table_users').datagrid('getPager').pagination
+	$('#listStudentInfo_table_students').datagrid('getPager').pagination
 	(
 		{ 
 			onRefresh:function (nPageNumber, nPageSize)
@@ -145,10 +145,10 @@ function listStudentInfo_progressbarLoaded ()
 
 function listStudentInfo_listed (oStudentInfoResponse)
 {
-	clearGridData ("#listStudentInfo_table_users");
+	clearGridData ("#listStudentInfo_table_students");
 	for (var nIndex = 0; nIndex < oStudentInfoResponse.m_arrStudentInformationData.length; nIndex++)
-		$('#listStudentInfo_table_users').datagrid('appendRow',oStudentInfoResponse.m_arrStudentInformationData[nIndex]);
-	$('#listStudentInfo_table_users').datagrid('getPager').pagination ({total:oStudentInfoResponse.m_nRowCount, pageNumber:oStudentInfoResponse.m_nPageNumber});
+		$('#listStudentInfo_table_students').datagrid('appendRow',oStudentInfoResponse.m_arrStudentInformationData[nIndex]);
+	$('#listStudentInfo_table_students').datagrid('getPager').pagination ({total:oStudentInfoResponse.m_nRowCount, pageNumber:oStudentInfoResponse.m_nPageNumber});
 	HideDialog("dialog");
 }
 
@@ -163,7 +163,7 @@ function listStudentInfo_delete (nIndex)
 {
 	assert.isNumber(nIndex, "nIndex expected to be a Number.");
 	assert.isOk(nIndex > -1, "nIndex must be a positive value.");	
-	var oListData = $("#listStudentInfo_table_users").datagrid('getData');
+	var oListData = $("#listStudentInfo_table_students").datagrid('getData');
 	var oData = oListData.rows[nIndex];
 	var oStudentInformationData = new StudentInformationData ();
 	oStudentInformationData.m_nStudentId = oData.m_nStudentId;

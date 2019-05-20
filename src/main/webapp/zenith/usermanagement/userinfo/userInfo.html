@@ -7,26 +7,26 @@
     </title>
   </head>
   <body>
-    <form class="trademust" id="userInfo_form_id" style="width:500px;">
-      <table class="trademust" summary="">
+    <form class="zenith" id="userInfo_form_id" style="width:500px;">
+      <table class="zenith" summary="">
         <tr>
           <td class="formHeading" style="width:500px;">
             User Information
           </td>
         </tr>
         <tr>
-          <td class="trademust">
-            <table class="trademust" summary="">
+          <td class="zenith">
+            <table class="zenith" summary="">
               <tr>
                 <td style="width:50%;" valign="top">
-                  <table class="trademust" summary="">
+                  <table class="zenith" summary="">
                     <tr>
-                      <td class="trademust">
+                      <td class="zenith">
                         <fieldset>
                           <legend>
                             Personal Details
                           </legend>
-                          <table class="trademust" cellpadding="3" cellspacing="3" summary="">
+                          <table class="zenith" cellpadding="3" cellspacing="3" summary="">
                             <tr>
                               <td class="fieldHeading">
                                 User Name
@@ -42,7 +42,7 @@
                                     maxlength="30"
                                     id="userInfo_input_userName"
                                     data-options="required:true"
-                                    class="trademust easyui-validatebox"/>
+                                    class="zenith easyui-validatebox"/>
                               </td>
                             </tr>
                             <tr>
@@ -53,7 +53,7 @@
                             <tr>
                               <td>
                                 <!-- <input id="userInfo_input_dateOfBirth" class="easyui-datebox" style="width:200px"/> -->
-                                <input type="date" id="userInfo_input_dateOfBirth" placeholder = "MM/DD/YYYY"   data-options="required:true" class="trademust easyui-validatebox" style="width:200px"/>
+                                <input type="date" id="userInfo_input_dateOfBirth" data-options="required:true" class="zenith easyui-validatebox" style="width:200px"/>
                               </td>
                             </tr>
                             <tr>
@@ -94,6 +94,7 @@
                               <td>
                                 <input 
                                     type="file"
+                                    name="userImage"
                                     accept="image/*" 
                                     id="userInfo_input_userPhoto"
                                     class=""
@@ -113,7 +114,7 @@
                             </tr>
                             <tr>
                               <td class="fieldData">
-                                <select id="userInfo_select_roleName" name="userInfo_select_roleName" class="trademust">
+                                <select id="userInfo_select_roleName" name="userInfo_select_roleName" class="zenith">
                                 </select>
                               </td>
                             </tr>
@@ -124,7 +125,7 @@
                             </tr>
                             <tr>
                               <td class="fieldData">
-                                <input type="text" id="userInfo_input_employeeId"  maxlength="30"  class="trademust"/>
+                                <input type="text" id="userInfo_input_employeeId"  maxlength="30"  class="zenith"/>
                               </td>
                             </tr>
                           </table>
@@ -133,15 +134,15 @@
                     </tr>
                   </table>
                 </td>
-                <td class="trademust" style="width:50%; vertical-align:top;">
-                  <table summary="" class="trademust">
+                <td class="zenith" style="width:50%; vertical-align:top;">
+                  <table summary="" class="zenith">
                     <tr>
-                      <td class="trademust">
+                      <td class="zenith">
                         <fieldset>
                           <legend>
                             Login Details
                           </legend>
-                          <table class="trademust" summary="">
+                          <table class="zenith" summary="">
                             <tr>
                               <td class="fieldHeading">
                                 Login Id
@@ -157,7 +158,7 @@
                                     minlength = "3" maxlength="30" 
                                     id="userInfo_input_loginId"
                                     data-options="required:true"
-                                    class="trademust easyui-validatebox"/>
+                                    class="zenith easyui-validatebox"/>
                               </td>
                             </tr>
                             <tr>
@@ -174,7 +175,7 @@
                                     type="password"
                                     maxlength="30" 
                                     id="userInfo_input_password"
-                                    class="trademust easyui-validatebox"
+                                    class="zenith easyui-validatebox"
                                    data-options="required:true, validType:'minLength[6]'"/>
                               </td>
                             </tr>
@@ -198,7 +199,7 @@
                                 <input 
                                     type="password"
                                     id="userInfo_input_confirmPassword"
-                                    class="trademust easyui-validatebox"
+                                    class="zenith easyui-validatebox"
                                     required="required"
                                     validType="equals['#userInfo_input_password']"/>
                               </td>
@@ -221,7 +222,7 @@
                           <legend>
                             Contact Details
                           </legend>
-                          <table class="trademust" summary="">
+                          <table class="zenith" summary="">
                             <tr>
                               <td class="fieldHeading">
                                 Address
@@ -237,7 +238,7 @@
                                     rows="2"
                                     cols="20"  
                                     maxlength="200"
-                                    class="trademust easyui-validatebox"
+                                    class="zenith easyui-validatebox"
                                     data-options="required:true"></textarea>
                               </td>
                             </tr>
@@ -255,7 +256,7 @@
                                     type="tel"  maxlength="10"
                                     id="userInfo_input_phoneNumber"
 									required
-                                    class="trademust easyui-validatebox"  data-options="validType:'minLength[10]'"
+                                    class="zenith easyui-validatebox"  data-options="validType:'minLength[10]'"
                                     onkeyup="validateNumber (this)">
                               </td>
                             </tr>
@@ -269,7 +270,7 @@
                                 <input 
                                     type="text"
                                     id="userInfo_input_email" maxlength="40"
-                                    class="trademust easyui-validatebox"
+                                    class="zenith easyui-validatebox"
                                     data-options="required:true,validType:'email'"/>
                               </td>
                             </tr>
@@ -289,12 +290,12 @@
             <button 
                 id="userInfo_button_submit"
                 type="button"
-                class="trademust"
+                class="zenith"
                 update="false"
                 onclick="userInfo_submit()">
               Create
             </button>
-            <button id="userInfo_button_cancel" type="button" class="trademust" onclick="userInfo_cancel()">
+            <button id="userInfo_button_cancel" type="button" class="zenith" onclick="userInfo_cancel()">
               Cancel
             </button>
           </td>

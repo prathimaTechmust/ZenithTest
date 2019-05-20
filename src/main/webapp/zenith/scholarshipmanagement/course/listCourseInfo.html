@@ -7,31 +7,31 @@
     </title>
   </head>
   <body>
-    <form class="trademust" id="listCourseInfo_form_id">
-      <table class="trademust" id="listCourseInfo_table_filter" summary="">
+    <form class="zenith" id="listCourseInfo_form_id">
+      <table class="zenith" id="listCourseInfo_table_filter" summary="">
         <tr>
-          <td class="trademust">
-            <div class="trademust" id="listCourseInfo_div_dataGridToolbar">
-              <table class="trademust" cellpadding="2" cellspacing="2" summary="">
+          <td class="zenith">
+            <div class="zenith" id="listCourseInfo_div_dataGridToolbar">
+              <table class="zenith" cellpadding="2" cellspacing="2" summary="">
                 <tr>
-                  <td class="trademust" style="width:15%">
+                  <td class="zenith" style="width:15%">
                     <button 
                         id="listCourseInfo_button_add"
-                        class="trademust addButton"
+                        class="zenith addButton"
                         type="button"
                         style="visibility: initial;"
                         onclick="listCourseInfo_showAddPopup ()">
                       New Course
                     </button>
                   </td>
-                  <td class="trademust" style="width:25%">
+                  <td class="zenith" style="width:25%">
                     <input 
                         class="filterTextBox"
                         id="filterCourseInfo_input_shortcourseName"
                         onkeypress="handleFilter('listCourseInfo_filter()','')"
                         placeholder="Short Course Name"/>
                   </td>
-                  <td class="trademust" style="width:25%">
+                  <td class="zenith" style="width:25%">
                      <input 
                         class="filterTextBox"
                         id="filterCourseInfo_input_longcourseName"
@@ -39,12 +39,12 @@
                         placeholder="Long Course Name"/>
                   </td>                  
                   <td style="width:2.5%">
-                    <button class="trademust filterButton" type="button" onclick="listCourseInfo_filter ()">
+                    <button class="zenith filterButton" type="button" onclick="listCourseInfo_filter ()">
                       Filter
                     </button>
                   </td>
                   <td style="width:2.5%">
-                    <button class="trademust importButton" type="button" onclick="listCourseInfo_import ()">
+                    <button class="zenith importButton" type="button" onclick="listCourseInfo_import ()">
                       Import
                     </button>
                   </td>
@@ -54,11 +54,11 @@
           </td>
         </tr>
         <tr>
-          <td class="trademust">
+          <td class="zenith">
             <div id="listCourseInfo_div_horizontalSplitter" style="z-index: 0">
               <div id="listCourseInfo_div_dataGrid">
                 <table 
-                    id="listCourseInfo_table_users"
+                    id="listCourseInfo_table_courses"
                     class="easyui-datagrid"
                     title="Course Information List"
                     data-options="striped:true, pagination:true, pagesize:15, rownumbers:true, fitColumns:true, remoteSort:false, singleSelect:true, toolbar:'#listCourseInfo_div_dataGridToolbar'">

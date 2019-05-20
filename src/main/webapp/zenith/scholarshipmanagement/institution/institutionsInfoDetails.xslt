@@ -6,13 +6,13 @@
 	<xsl:template match="/">
 		<html>
 			<body>
-				<table class="trademust">
+				<table class="zenith">
 					<tr>
 			 			<td class="xslt_fieldHeader" colspan="2">Institution Information Details</td>
 					</tr>
 					<tr>
 						<td width="50%" valign="top">
-							<table class="trademust" cellSpacing="5px">
+							<table class="zenith" cellSpacing="5px">
 								<tr>
 									<td class="xslt_fieldHeading">Institution Name :</td>
 									<td class="xslt_fieldData" id="m_strInstitutionName">
@@ -34,6 +34,15 @@
 									<td class="xslt_fieldData" id="m_strContactPersonName">
 										<xsl:value-of
 											select="InstitutionInformationData/m_strContactPersonName" />
+									</td>
+								</tr>
+								<tr>
+									<td class="xslt_fieldHeading">
+										Contact Person Number :
+									</td>
+									<td class="xslt_fieldData" id="m_strPhoneNumber">
+										<xsl:value-of
+											select="InstitutionInformationData/m_strPhoneNumber" />
 									</td>
 								</tr>
 								<tr>

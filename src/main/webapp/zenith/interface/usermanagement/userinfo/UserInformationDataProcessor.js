@@ -12,6 +12,12 @@ var UserInformationDataProcessor = (function __UserInformationDataProcessor ()
 		
 	}
 	
+	function setImagetoS3bucket(oUserData,callback)
+	{
+		
+		multipartAjaxCall(oUserData,"/userImageCreate",callback);
+	}
+	
 	function list(oUserData, strSortColumn, strSortOrder, nPageNo, nPageSize, callback)
 	{
 		var oZenithHelper = new ZenithHelper ();
@@ -70,6 +76,7 @@ var UserInformationDataProcessor = (function __UserInformationDataProcessor ()
 		deleteData : deleteData, 
 		getImagePreview : getImagePreview,
 		getXML : getXML,
-		getUserSuggesstions :getUserSuggesstions
+		getUserSuggesstions :getUserSuggesstions,
+		setImagetoS3bucket :setImagetoS3bucket
 	};
 })();

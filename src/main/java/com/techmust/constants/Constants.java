@@ -25,5 +25,7 @@ public class Constants
 	public static final String BUCKETNAME = "zenithfoundation";
 	public static final String STUDENTIMAGEFOLDER = "images/student/";
 	public static final String STUDENTIMAGEURL = "https://s3-ap-southeast-1.amazonaws.com/zenithfoundation/";
+	public static final String USERIMAGEFOLDER = "images/user/";
+	public static final String USERIMAGEURL = "https://s3-ap-southeast-1.amazonaws.com/zenithfoundation/";
 	
 }

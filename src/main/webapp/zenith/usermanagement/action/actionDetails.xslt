@@ -5,11 +5,11 @@
   <xsl:template match="/">
     <html>
       <body>
-		<table class="trademust">
+		<table class="zenith">
 			<tr>
-				<td class="trademust">
+				<td class="zenith">
 					<div>
-						<table class="trademust">
+						<table class="zenith">
 							<tr>
 								<td class="xslt_fieldHeader" colspan="2">Action Details
 								</td>
@@ -19,7 +19,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="trademust">
+				<td class="zenith">
 					<table>
 						<tr>
 							<td class="xslt_fieldHeading">

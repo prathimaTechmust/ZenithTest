@@ -1,8 +1,8 @@
 function UserInformationData ()
 {
-//	this.m_strLoginId = "";
-	this.m_nUserId = -1;
+//	this.m_strLoginId = "";	
 //	this.m_strPassword = "";
+	this.m_nUserId = -1;
 	this.m_strUserName = "";
 	this.m_dDOB = "";
 	this.m_strDOB = "";
@@ -13,5 +13,6 @@ function UserInformationData ()
 	this.m_strEmailAddress = "";
 	this.m_nStatus = "kInactive";
 	this.m_oUserPhoto = null;
+	this.m_strUserPhotoFileName = "";
 }
 dataObjectLoaded ();

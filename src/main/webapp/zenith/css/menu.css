@@ -30,7 +30,7 @@
 {
   cursor: pointer;
   background: #000;
-  border-bottom: 1px solid #4ca973;
+  border-bottom: 1px solid #0E486E;
 }
 #cssmenu > ul > li:last-child 
 {
@@ -42,7 +42,7 @@
   font-weight:bold;
   display: block;
   color: #fff;
-  background-color: #4ca973;
+  background-color: #0E486E;
 }
 #cssmenu > ul > li > a:hover 
 {

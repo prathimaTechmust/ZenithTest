@@ -40,7 +40,7 @@ public class UserInformationDataProcessor <T extends IUserInformationData> exten
 			{
 				strPassword = oData.getM_strPassword ();
 				oData.setM_strPassword (strPassword);
-				oData.setM_dDOB (getDBCompatibleDateFormat (oData.getM_strDOB ()));
+//				oData.setM_dDOB (getDBCompatibleDateFormat (oData.getM_strDOB ()));
 //				oData.setM_oUserPhoto (getBlob (oData.getM_buffImgUserPhoto ()));
 				oUserInformationResponse.m_bSuccess = oData.saveObject ();
 				oUserInformationResponse.m_arrUserInformationData.add((UserInformationData)oData);
@@ -171,7 +171,7 @@ public class UserInformationDataProcessor <T extends IUserInformationData> exten
 		{
 			if (!oData.getM_strNewPassword ().isEmpty ())
 				oData.setM_strPassword (oData.getM_strNewPassword ());
-			oData.setM_dDOB (getDBCompatibleDateFormat (oData.getM_strDOB ()));
+//			oData.setM_dDOB (getDBCompatibleDateFormat (oData.getM_strDOB ()));
 			setUserPhoto (oData);
 			oUserInformationResponse.m_bSuccess = oData.updateObject ();
 		} 

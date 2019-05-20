@@ -6,13 +6,13 @@
 	<xsl:template match="/">
 		<html>
 			<body>
-				<table class="trademust">
+				<table class="zenith">
 					<tr>
 			 			<td class="xslt_fieldHeader" colspan="2">Facilitator Information Details</td>
 					</tr>
 					<tr>
 						<td width="50%" valign="top">
-							<table class="trademust" cellSpacing="5px">
+							<table class="zenith" cellSpacing="5px">
 								<tr>
 									<td class="xslt_fieldHeading">Facilitator Name :</td>
 									<td class="xslt_fieldData" id="m_strFacilitatorName">

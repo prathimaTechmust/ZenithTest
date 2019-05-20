@@ -7,56 +7,56 @@
     </title>
   </head>
   <body>
-    <form class="trademust" id="listStudentInfo_form_id">
-      <table class="trademust" id="listStudentInfo_table_filter" summary="">
+    <form class="zenith" id="listStudentInfo_form_id">
+      <table class="zenith" id="listStudentInfo_table_filter" summary="">
         <tr>
-          <td class="trademust">
-            <div class="trademust" id="listStudentInfo_div_dataGridToolbar">
-              <table class="trademust" cellpadding="2" cellspacing="2" summary="">
+          <td class="zenith">
+            <div class="zenith" id="listStudentInfo_div_dataGridToolbar">
+              <table class="zenith" cellpadding="2" cellspacing="2" summary="">
                 <tr>
-                  <td class="trademust" style="width:15%">
+                  <td class="zenith" style="width:15%">
                     <button 
                         id="listStudentInfo_button_add"
-                        class="trademust addButton"
+                        class="zenith addButton"
                         type="button"
                         style="visibility: initial;"
                         onclick="listStudentInfo_showAddPopup ()">
                       New Student
                     </button>
                   </td>
-                  <td class="trademust" style="width:15%">
-                  	<button id="listStudentInfo_button_old" class="trademust addButton" type="button" style="visibility: initial;" onclick="listOldStudentInfo_showAddPopup ()">
+                  <td class="zenith" style="width:15%">
+                  	<button id="listStudentInfo_button_old" class="zenith addButton" type="button" style="visibility: initial;" onclick="listOldStudentInfo_showAddPopup ()">
                   	Old Student
                   	</button>
                   </td>
-                  <td class="trademust" style="width:20%">
+                  <td class="zenith" style="width:20%">
                     <input 
                         class="filterTextBox"
                         id="filterStudentInfo_input_studentName"
                         onkeypress="handleFilter('listStudentInfo_filter()','')"
                         placeholder="Student Name"/>
                   </td>
-                  <td class="trademust" style="width:20%">
+                  <td class="zenith" style="width:20%">
                      <input 
                         class="filterTextBox"
                         id="filterStudentInfo_input_phonenumber"
                         onkeypress="handleFilter('listStudentInfo_filter()','')"
                         placeholder="Phone Number"/>
                   </td>
-                  <td class="trademust" style="width:20%">
+                  <td class="zenith" style="width:20%">
                     <input 
                         class="filterTextBox"
                         id="filterStudentInfo_input_city"
                         onkeypress="handleFilter('listStudentInfo_filter()','')"
                         placeholder="City"/>
                   </td>
-                  <td class="trademust" style="width:5%">
-                    <button class="trademust filterButton" type="button" onclick="listStudentInfo_filter ()">
+                  <td class="zenith" style="width:5%">
+                    <button class="zenith filterButton" type="button" onclick="listStudentInfo_filter ()">
                       Filter
                     </button>
                   </td>
-                  <td class="trademust" style="width:5%">
-                    <button class="trademust importButton" type="button" onclick="listStudentInfo_import ()">
+                  <td class="zenith" style="width:5%">
+                    <button class="zenith importButton" type="button" onclick="listStudentInfo_import ()">
                       Import
                     </button>
                   </td>
@@ -66,11 +66,11 @@
           </td>
         </tr>
         <tr>
-          <td class="trademust">
+          <td class="zenith">
             <div id="listStudentInfo_div_horizontalSplitter" style="z-index: 0">
               <div id="listStudentInfo_div_dataGrid">
                 <table 
-                    id="listStudentInfo_table_users"
+                    id="listStudentInfo_table_students"
                     class="easyui-datagrid"
                     title="Student Information List"
                     data-options="striped:true, pagination:true, pagesize:15, rownumbers:true, fitColumns:true, remoteSort:false, singleSelect:true, toolbar:'#listStudentInfo_div_dataGridToolbar'">

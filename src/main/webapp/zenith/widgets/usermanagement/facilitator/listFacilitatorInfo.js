@@ -30,8 +30,8 @@ function listFacilitatorInfo_init ()
 
 function listFacilitatorInfo_createDataGrid ()
 {
-	initHorizontalSplitter("#listFacilitatorInfo_div_horizontalSplitter", "#listFacilitatorInfo_table_users");
-	$('#listFacilitatorInfo_table_users').datagrid
+	initHorizontalSplitter("#listFacilitatorInfo_div_horizontalSplitter", "#listFacilitatorInfo_table_facilitators");
+	$('#listFacilitatorInfo_table_facilitators').datagrid
 	(
 		{
 			fit:true,
@@ -50,7 +50,7 @@ function listFacilitatorInfo_createDataGrid ()
 			]],				
 		}
 	);
-	$('#listFacilitatorInfo_table_users').datagrid
+	$('#listFacilitatorInfo_table_facilitators').datagrid
 	(
 			{
 				onSelect: function (rowIndex, rowData)
@@ -73,7 +73,7 @@ function listFacilitatorInfo_createDataGrid ()
 
 function listFacilitatorInfo_initDGPagination ()
 {
-	$('#listFacilitatorInfo_table_users').datagrid('getPager').pagination
+	$('#listFacilitatorInfo_table_facilitators').datagrid('getPager').pagination
 	(
 		{ 
 			onRefresh:function (nPageNumber, nPageSize)
@@ -144,10 +144,10 @@ function listFacilitatorInfo_progressbarLoaded ()
 
 function listFacilitatorInfo_listed (oFacilitatorInfoResponse)
 {
-	clearGridData ("#listFacilitatorInfo_table_users");
+	clearGridData ("#listFacilitatorInfo_table_facilitators");
 	for (var nIndex = 0; nIndex < oFacilitatorInfoResponse.m_arrFacilitatorInformationData.length; nIndex++)
-		$('#listFacilitatorInfo_table_users').datagrid('appendRow',oFacilitatorInfoResponse.m_arrFacilitatorInformationData[nIndex]);
-	$('#listFacilitatorInfo_table_users').datagrid('getPager').pagination ({total:oFacilitatorInfoResponse.m_nRowCount, pageNumber:oFacilitatorInfoResponse.m_nPageNumber});
+		$('#listFacilitatorInfo_table_facilitators').datagrid('appendRow',oFacilitatorInfoResponse.m_arrFacilitatorInformationData[nIndex]);
+	$('#listFacilitatorInfo_table_facilitators').datagrid('getPager').pagination ({total:oFacilitatorInfoResponse.m_nRowCount, pageNumber:oFacilitatorInfoResponse.m_nPageNumber});
 	HideDialog("dialog");
 }
 
@@ -162,7 +162,7 @@ function listFacilitatorInfo_delete (nIndex)
 {
 	assert.isNumber(nIndex, "nIndex expected to be a Number.");
 	assert.isOk(nIndex > -1, "nIndex must be a positive value.");	
-	var oListData = $("#listFacilitatorInfo_table_users").datagrid('getData');
+	var oListData = $("#listFacilitatorInfo_table_facilitators").datagrid('getData');
 	var oData = oListData.rows[nIndex];
 	var oFacililtatorInformationData = new FacilitatorInformationData ();
 	oFacililtatorInformationData.m_nFacilitatorId = oData.m_nFacilitatorId;

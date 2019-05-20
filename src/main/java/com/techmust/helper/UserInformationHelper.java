@@ -1,20 +1,29 @@
 package com.techmust.helper;
 
+import java.io.IOException;
 import java.util.HashMap;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.amazonaws.AmazonClientException;
+import com.amazonaws.AmazonServiceException;
+import com.techmust.constants.Constants;
 import com.techmust.generic.data.GenericData;
 import com.techmust.generic.response.GenericResponse;
+import com.techmust.scholarshipmanagement.student.StudentDataResponse;
 import com.techmust.usermanagement.userinfo.IUserInformationData;
 import com.techmust.usermanagement.userinfo.UserInformationData;
 import com.techmust.usermanagement.userinfo.UserInformationDataProcessor;
 import com.techmust.usermanagement.userinfo.UserInformationResponse;
+import com.techmust.utils.AWSUtils;
 
 @Controller
 public class UserInformationHelper extends UserInformationDataProcessor<IUserInformationData> {
@@ -51,6 +60,7 @@ public class UserInformationHelper extends UserInformationDataProcessor<IUserInf
 	public UserInformationResponse update (@RequestBody UserInformationData oData) throws Exception 
 	{
 		UserInformationResponse oUserInformationResponse = super.update(oData);
+		oUserInformationResponse.m_arrUserInformationData.add(oData);
 		return oUserInformationResponse;
 	}
 	
@@ -60,6 +70,18 @@ public class UserInformationHelper extends UserInformationDataProcessor<IUserInf
 	{
 		UserInformationResponse oUserInformationResponse = super.deleteData(oData);
 		return oUserInformationResponse;
+	}
+	
+	@RequestMapping(value = "/userImageCreate",method = RequestMethod.POST)
+	@ResponseBody
+	public GenericResponse userImageToS3Bucket(@RequestParam("userImage") MultipartFile oMultipartFile,@RequestParam("userId") String strUserId) throws Exception
+	{
+		UserInformationResponse oUserInformationResponse = new UserInformationResponse();
+        String strFileName = oMultipartFile.getOriginalFilename();
+        String strNewName = strUserId + "." + FilenameUtils.getExtension(strFileName);
+		String strPath = Constants.USERIMAGEFOLDER + strNewName;
+	    AWSUtils.UploadToUserImagesFolder(strPath, oMultipartFile);		
+		return oUserInformationResponse; 
 	}
 	
 	@RequestMapping(value="/userInfoGetImagePreview", method = RequestMethod.POST, headers = {"Content-type=application/json"})

@@ -46,6 +46,11 @@ public class AWSUtils
 		return UploadFile(strFileName, oStudentImg);
 	}
 	
+	public static String UploadToUserImagesFolder(String strUserImageName,MultipartFile oUserImage)throws AmazonServiceException, AmazonClientException,IOException,InterruptedException
+	{
+		return UploadFile(strUserImageName,oUserImage);
+	}	
+	
 	public static String UploadFile (String strFileName, MultipartFile oImage) throws AmazonServiceException, 
 																			 AmazonClientException, 
 																			 IOException, 

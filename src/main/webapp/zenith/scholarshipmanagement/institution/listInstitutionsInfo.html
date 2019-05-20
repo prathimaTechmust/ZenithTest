@@ -7,51 +7,51 @@
     </title>
   </head>
   <body>
-    <form class="trademust" id="listInstitutionsInfo_form_id">
-      <table class="trademust" id="listInstitutionsInfo_table_filter" summary="">
+    <form class="zenith" id="listInstitutionsInfo_form_id">
+      <table class="zenith" id="listInstitutionsInfo_table_filter" summary="">
         <tr>
-          <td class="trademust">
-            <div class="trademust" id="listInstitutionsInfo_div_dataGridToolbar">
-              <table class="trademust" cellpadding="2" cellspacing="2" summary="">
+          <td class="zenith">
+            <div class="zenith" id="listInstitutionsInfo_div_dataGridToolbar">
+              <table class="zenith" cellpadding="2" cellspacing="2" summary="">
                 <tr>
-                  <td class="trademust" style="width:15%">
+                  <td class="zenith" style="width:15%">
                     <button 
                         id="listInstitutionsInfo_button_add"
-                        class="trademust addButton"
+                        class="zenith addButton"
                         type="button"
                         style="visibility: initial;"
                         onclick="listInstitutionsInfo_showAddPopup ()">
                       New Institution
                     </button>
                   </td>
-                  <td class="trademust" style="width:25%">
+                  <td class="zenith" style="width:25%">
                     <input 
                         class="filterTextBox"
                         id="filterInstitutionsInfo_input_institutionName"
                         onkeypress="handleFilter('listInstitutionsInfo_filter()','')"
                         placeholder="Institution Name"/>
                   </td>
-                  <td class="trademust" style="width:25%">
+                  <td class="zenith" style="width:25%">
                      <input 
                         class="filterTextBox"
                         id="filterInstitutionsInfo_input_phonenumber"
                         onkeypress="handleFilter('listInstitutionsInfo_filter()','')"
                         placeholder="Phone Number"/>
                   </td>
-                  <td class="trademust" style="width:25%">
+                  <td class="zenith" style="width:25%">
                     <input 
                         class="filterTextBox"
                         id="filterInstitutionsInfo_input_city"
                         onkeypress="handleFilter('listInstitutionsInfo_filter()','')"
                         placeholder="City"/>
                   </td>
-                  <td class="trademust" style="width:5%">
-                    <button class="trademust filterButton" type="button" onclick="listInstitutionsInfo_filter ()">
+                  <td class="zenith" style="width:5%">
+                    <button class="zenith filterButton" type="button" onclick="listInstitutionsInfo_filter ()">
                       Filter
                     </button>
                   </td>
-                  <td class="trademust" style="width:5%">
-                    <button class="trademust importButton" type="button" onclick="listInstitutionsInfo_import ()">
+                  <td class="zenith" style="width:5%">
+                    <button class="zenith importButton" type="button" onclick="listInstitutionsInfo_import ()">
                       Import
                     </button>
                   </td>
@@ -61,11 +61,11 @@
           </td>
         </tr>
         <tr>
-          <td class="trademust">
+          <td class="zenith">
             <div id="listInstitutionsInfo_div_horizontalSplitter" style="z-index: 0">
               <div id="listInstitutionsInfo_div_dataGrid">
                 <table 
-                    id="listInstitutionsInfo_table_users"
+                    id="listInstitutionsInfo_table_institutions"
                     class="easyui-datagrid"
                     title="Institutions Information List"
                     data-options="striped:true, pagination:true, pagesize:15, rownumbers:true, fitColumns:true, remoteSort:false, singleSelect:true, toolbar:'#listInstitutionsInfo_div_dataGridToolbar'">

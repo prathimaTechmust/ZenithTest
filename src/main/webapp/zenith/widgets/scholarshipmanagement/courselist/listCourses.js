@@ -29,8 +29,8 @@ function listCourseInfo_init ()
 
 function listCourseInfo_createDataGrid ()
 {
-	initHorizontalSplitter("#listCourseInfo_div_horizontalSplitter", "#listCourseInfo_table_users");
-	$('#listCourseInfo_table_users').datagrid
+	initHorizontalSplitter("#listCourseInfo_div_horizontalSplitter", "#listCourseInfo_table_courses");
+	$('#listCourseInfo_table_courses').datagrid
 	(
 		{
 			fit:true,
@@ -47,7 +47,7 @@ function listCourseInfo_createDataGrid ()
 			]],				
 		}
 	);
-	$('#listCourseInfo_table_users').datagrid
+	$('#listCourseInfo_table_courses').datagrid
 	(
 			{
 				onSelect: function (rowIndex, rowData)
@@ -68,7 +68,7 @@ function listCourseInfo_createDataGrid ()
 
 function listCourseInfo_initDGPagination ()
 {
-	$('#listCourseInfo_table_users').datagrid('getPager').pagination
+	$('#listCourseInfo_table_courses').datagrid('getPager').pagination
 	(
 		{ 
 			onRefresh:function (nPageNumber, nPageSize)
@@ -139,10 +139,10 @@ function listCourseInfo_progressbarLoaded ()
 
 function listCourseInfo_listed (oCourseInfoResponse)
 {
-	clearGridData ("#listCourseInfo_table_users");
+	clearGridData ("#listCourseInfo_table_courses");
 	for (var nIndex = 0; nIndex < oCourseInfoResponse.m_arrCourseInformationData.length; nIndex++)
-		$('#listCourseInfo_table_users').datagrid('appendRow',oCourseInfoResponse.m_arrCourseInformationData[nIndex]);
-	$('#listCourseInfo_table_users').datagrid('getPager').pagination ({total:oCourseInfoResponse.m_nRowCount, pageNumber:oCourseInfoResponse.m_nPageNumber});
+		$('#listCourseInfo_table_courses').datagrid('appendRow',oCourseInfoResponse.m_arrCourseInformationData[nIndex]);
+	$('#listCourseInfo_table_courses').datagrid('getPager').pagination ({total:oCourseInfoResponse.m_nRowCount, pageNumber:oCourseInfoResponse.m_nPageNumber});
 	HideDialog("dialog");
 }
 
@@ -157,7 +157,7 @@ function listCourseInfo_delete (nIndex)
 {
 	assert.isNumber(nIndex, "nIndex expected to be a Number.");
 	assert.isOk(nIndex > -1, "nIndex must be a positive value.");	
-	var oListData = $("#listCourseInfo_table_users").datagrid('getData');
+	var oListData = $("#listCourseInfo_table_courses").datagrid('getData');
 	var oData = oListData.rows[nIndex];
 	var oCourseInformationData = new CourseInformationData () ;
 	oCourseInformationData.m_nCourseId = oData.m_nCourseId;

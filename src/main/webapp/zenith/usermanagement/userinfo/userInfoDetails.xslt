@@ -6,13 +6,13 @@
 	<xsl:template match="/">
 		<html>
 			<body>
-				<table class="trademust">
+				<table class="zenith">
 					<tr>
 			 			<td class="xslt_fieldHeader" colspan="2">User Information Details</td>
 					</tr>
 					<tr>
 						<td width="50%" valign="top">
-							<table class="trademust" cellSpacing="5px">
+							<table class="zenith" cellSpacing="5px">
 								<tr>
 									<td class="xslt_fieldHeading">User Name :</td>
 									<td class="xslt_fieldData" id="m_strUserName">
@@ -65,7 +65,7 @@
 										Date Of Birth :
 									</td>
 									<td class="xslt_fieldData" id="m_dDOB">
-										<xsl:value-of select="UserInformationData/m_dDOB" />
+										<xsl:value-of select="UserInformationData/m_dDOB"/>
 									</td>
 								</tr>
 							</table>
@@ -86,6 +86,18 @@
 									</td>
 									<td class="xslt_fieldData" id="m_strPhoneNumber">
 										<xsl:value-of select="UserInformationData/m_strPhoneNumber" />
+									</td>
+								</tr>
+							</table>
+						</td>
+						<td class="zenith" align="left" style="vertical-align:top;width:15%">
+							<table class="zenith">
+								<tr>
+									<td class="zenith" align="center">
+										<a href="javascript:userImage_setPreview ('{UserInformationData/m_strUserImageUrl}');">
+											<img src="{UserInformationData/m_strUserImageUrl}" id = "imagePreview_img_user" class="userDetailImage"/>
+										</a>
+										<br />
 									</td>
 								</tr>
 							</table>
