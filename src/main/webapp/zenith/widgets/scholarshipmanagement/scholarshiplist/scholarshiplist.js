@@ -41,16 +41,25 @@ function listScholarshipInfo_createDataGrid ()
 			[[
 				{field:'m_nUID',title:'UID',sortable:true,width:200},
 				{field:'m_strStudentName',title:'Student Name',sortable:true,width:300},
-				{field:'{m_oAcademicDetails/m_strCourseName}',title:'Course Name',sortable:true,width:200},
-				{field:'m_oAcademicDetails.m_fAnnualFee',title:'Total Fee',sortable:true,width:200},
-				{field:'m_oAcademicDetails.m_fPaidFee',title:'Paid Fee',sortable:true,width:200},
-				{field:'m_strScholarshipRequired',title:'Scholarship Required',sortable:true,width:200},
-				{field:'Actions',title:'Action',width:80,align:'center',
+				{field:'m_strCourseName',title:'Course Name',sortable:true,width:200,
 					formatter:function(value,row,index)
-		        	{
-		        		return listScholarshipInfo_displayImages (row.m_nStudentId,index);
-		        	}
-	            },
+					{
+						return row.m_oAcademicDetails[0].m_strCourseName;
+					}
+				},
+				{field:'m_fAnnualFee',title:'Total Fee',sortable:true,width:200,
+					formatter:function(value,row,index)
+					{
+						return row.m_oAcademicDetails[0].m_fAnnualFee;
+					}
+				},
+				{field:'m_fPaidFee',title:'Paid Fee',sortable:true,width:200,
+					formatter:function(value,row,index)
+					{
+						return row.m_oAcademicDetails[0].m_fPaidFee;
+					}
+				},
+				{field:'m_strScholarshipRequired',title:'Scholarship Required',sortable:true,width:200},				
 			]],				
 		}
 	);
@@ -138,31 +147,4 @@ function listScholarshipInfo_listed (oStudentScholarshipInfoResponse)
 		$('#scholarshipListInfo_table').datagrid('appendRow',oStudentScholarshipInfoResponse.m_arrStudentInformationData[nIndex]);
 	$('#scholarshipListInfo_table').datagrid('getPager').pagination ({total:oStudentScholarshipInfoResponse.m_nRowCount, pageNumber:oStudentScholarshipInfoResponse.m_nPageNumber});
 	HideDialog("dialog");
-}
-
-function listScholarshipInfo_displayImages(nStudentId,index)
-{
-	assert.isNumber(nStudentId, "nStudentId expected to be a Number.");
-	assert.isNumber(index, "index expected to be a Number.");
-	var oImage = 	'<table align="center">'+
-						'<tr>'+
-							'<td> <img src="images/edit_database_24.png" width="20" align="center" id="editImageId" title="Edit" onClick="listScholarshipInfo_edit('+nStudentId+')"/> </td>'+
-							'<td> <img src="images/delete.png" width="20" align="center" id="deleteImageId" title="Delete" onClick="listScholarshipInfo_delete('+index+')"/> </td>'+
-						'</tr>'+
-					'</table>'
-	return oImage;
-	
-}
-
-function listScholarshipInfo_delete (nIndex)
-{
-	assert.isNumber(nIndex, "nIndex expected to be a Number.");
-	assert.isOk(nIndex > -1, "nIndex must be a positive value.");	
-	var oListData = $("#scholarshipListInfo_table").datagrid('getData');
-	var oData = oListData.rows[nIndex];
-	var oStudentInformationData = new StudentInformationData ();
-	oStudentInformationData.m_nStudentId = oData.m_nStudentId;
-	var bUserConfirm = getUserConfirmation("Are you sure do you want to delete?");
-	if(bUserConfirm)
-		StudentInformationDataProcessor.deleteData(oStudentInformationData,student_delete_Response);
 }

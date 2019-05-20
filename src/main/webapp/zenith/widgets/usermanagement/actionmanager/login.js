@@ -23,8 +23,8 @@ function login_loaded ()
 {
 	var oInCookies = document.cookie.split(";");
 	m_oLoginMemberData.m_oActionManagerData = new ActionManagerData ();
-	m_oLoginMemberData.m_oActionManagerData.m_strUserName = login_getCookieByName(oInCookies, "trademustUserId");
-	m_oLoginMemberData.m_oActionManagerData.m_strPassword = login_getCookieByName(oInCookies, " trademustPassword");
+	m_oLoginMemberData.m_oActionManagerData.m_strUserName = login_getCookieByName(oInCookies, "zenithUserId");
+	m_oLoginMemberData.m_oActionManagerData.m_strPassword = login_getCookieByName(oInCookies, "zenithPassword");
 	if (m_oLoginMemberData.m_oActionManagerData != null && m_oLoginMemberData.m_oActionManagerData.m_strUserName == "")
 		loadPage ("usermanagement/actionmanager/login.html", "dialog", "init_popUp ()");
 	else
@@ -90,8 +90,8 @@ function login_gotData (oActionManagerResponse)
 	           { size: "15%", min: "5%", collapsible: true},
 	           { size: '85%', min: "70%", collapsible: false}]
 	    });
-		document.cookie ="trademustUserId="+m_oLoginMemberData.m_oActionManagerData.m_strUserName;
-		document.cookie ="trademustPassword="+m_oLoginMemberData.m_oActionManagerData.m_strPassword;
+		document.cookie ="zenithUserId="+m_oLoginMemberData.m_oActionManagerData.m_strUserName;
+		document.cookie ="zenithPassword="+m_oLoginMemberData.m_oActionManagerData.m_strPassword;
 		document.getElementById ("menubar").innerHTML = oActionManagerResponse.m_strMenuHTML;
 		document.getElementById("index_div_userName").innerHTML = oActionManagerResponse.m_strUser;
 		m_oLoginMemberData.m_strLoginId = oActionManagerResponse.m_strLoginId;

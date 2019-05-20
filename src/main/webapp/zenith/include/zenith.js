@@ -300,8 +300,8 @@ function logout ()
 	var oUserinformationData = new UserInformationData ();
 	oUserinformationData.m_nUserId = m_oZenithMemberData.m_nUserId;
 	ActionManagerDataProcessor.logOut (oUserinformationData);
-	document.cookie ="trademustUserId=";
-	document.cookie ="trademustPassword=";
+	document.cookie ="zenithUserId=";
+	document.cookie ="zenithPassword=";
 	m_oZenithMemberData.m_nUserId = -1;
 	index_div_login.style.visibility = "hidden";
 	index_div_userName.textContent = "";
