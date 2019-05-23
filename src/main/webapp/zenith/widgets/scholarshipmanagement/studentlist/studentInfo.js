@@ -25,7 +25,8 @@ function studentInfo_memberData ()
 	this.m_nAcademicId = -1;
 	this.m_nSholarshipId = -1;
 	this.m_arrScholarshipDetails = new Array ();
-	this.m_nRowCount = -1; 
+	this.m_nRowOrgCount = -1; 
+	this.m_nRowOrgAmountCount = -1;
 	this.m_nOrgId = 1;
 	this.m_nOrgAmount = 1;
 }
@@ -76,9 +77,9 @@ function substraction ()
 
 function scholarship_addNewOrganization ()
 {	
-	if(m_oStudentInfoMemberData.m_nRowCount != -1)
+	if(m_oStudentInfoMemberData.m_nRowOrgCount != -1)
 	{
-		$("#scholarship_Organization").append('<tr><td class="fieldHeading">Organization</td><td style="padding-right: 10px"> </td><td><input  type="text" id="scholarshipInfo_input_organization'+(m_oStudentInfoMemberData.m_nRowCount++)+'" class="zenith"/></td><td style="padding-right: 10px"> </td><td class="fieldHeading">Amount(Rs)</td><td style="padding-right: 10px"> </td><td><input  type="text" id="scholarshipInfo_input_organizationamount'+(--m_oStudentInfoMemberData.m_nRowCount)+'" class="zenith" onkeyup="validateNumber(this)"/></td></tr>');
+		$("#scholarship_Organization").append('<tr><td class="fieldHeading">Organization</td><td style="padding-right: 10px"> </td><td><input  type="text" id="scholarshipInfo_input_organization'+(m_oStudentInfoMemberData.m_nRowOrgCount++)+'" class="zenith"/></td><td style="padding-right: 10px"> </td><td class="fieldHeading">Amount(Rs)</td><td style="padding-right: 10px"> </td><td><input  type="text" id="scholarshipInfo_input_organizationamount'+(m_oStudentInfoMemberData.m_nRowOrgAmountCount++)+'" class="zenith" onkeyup="validateNumber(this)"/></td></tr>');
 	    $("#scholarship_Organization").on('click','.remCF',function(){
 	        $(this).parent().parent().remove();	        
 	        
@@ -96,9 +97,7 @@ function scholarship_removeOrganizationrow()
     {
         $(this).parent().parent().remove();	        
     }); 
-    var scholarshiprows = document.getElementById("scholarship_Organization");
-    /*m_oStudentInfoMemberData.m_nOrgId = m_oStudentInfoMemberData.m_nOrgId;
-    m_oStudentInfoMemberData.m_nOrgAmount = m_oStudentInfoMemberData.m_nOrgAmount;*/
+    var scholarshiprows = document.getElementById("scholarship_Organization");    
 }
 
 function scholarship_columnCount ()
@@ -490,7 +489,8 @@ function studentInfo_gotData (oStudentInfoResponse)
 	m_oStudentInfoMemberData.m_studentDateofBirth = oStudentInfoData.m_dDateOfBirth;
 	m_oStudentInfoMemberData.m_nAcademicId = oStudentInfoData.m_oAcademicDetails[0].m_nAcademicId;
 	m_oStudentInfoMemberData.m_arrScholarshipDetails = 	oStudentInfoData.m_oScholarshipDetails;
-	m_oStudentInfoMemberData.m_nRowCount = oStudentInfoData.m_oScholarshipDetails.length;
+	m_oStudentInfoMemberData.m_nRowOrgCount = oStudentInfoData.m_oScholarshipDetails.length;
+	m_oStudentInfoMemberData.m_nRowOrgAmountCount = oStudentInfoData.m_oScholarshipDetails.length;
 	m_oStudentInfoMemberData.m_nStudentId = oStudentInfoData.m_nStudentId;
 	 $("#studentInfo_input_studentUIDNumber").val(oStudentInfoData.m_nUID);
 	 $("#studentInfo_input_studentAadharNumber").val(oStudentInfoData.m_nStudentAadharNumber);
