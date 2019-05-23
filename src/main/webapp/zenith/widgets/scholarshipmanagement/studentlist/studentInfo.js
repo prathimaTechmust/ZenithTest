@@ -593,7 +593,9 @@ function studentInfo_setStudentUIDData (oStudentSetUIDResponse)
 		m_oStudentInfoMemberData.m_strImageName = oStudentUID.m_strStudentImageName;
 		m_oStudentInfoMemberData.m_studentDateofBirth = oStudentUID.m_dDateOfBirth;		
 		m_oStudentInfoMemberData.m_nAcademicId = oStudentUID.m_oAcademicDetails[0].m_nAcademicId;
-		m_oStudentInfoMemberData.m_arrScholarshipDetails = 	oStudentUID.m_oScholarshipDetails;		
+		m_oStudentInfoMemberData.m_arrScholarshipDetails = 	oStudentUID.m_oScholarshipDetails;
+		m_oStudentInfoMemberData.m_nRowOrgCount = oStudentUID.m_oScholarshipDetails.length;
+		m_oStudentInfoMemberData.m_nRowOrgAmountCount = oStudentUID.m_oScholarshipDetails.length;
 		m_oStudentInfoMemberData.m_nStudentId = oStudentUID.m_nStudentId;
 		$("#studentInfo_input_studentUIDNumber").val(oStudentUID.m_nUID);
 		$("#studentInfo_input_studentAadharNumber").val(oStudentUID.m_nStudentAadharNumber);
@@ -665,7 +667,8 @@ function studentUIDInfo_gotData ()
 	m_oStudentInfoMemberData.m_studentDateofBirth = oStudentUID.m_dDateOfBirth;	
 	m_oStudentInfoMemberData.m_nAcademicId = oStudentUID.m_oAcademicDetails[0].m_nAcademicId;
 	m_oStudentInfoMemberData.m_arrScholarshipDetails = 	oStudentUID.m_oScholarshipDetails;
-	
+	m_oStudentInfoMemberData.m_nRowOrgCount = oStudentUID.m_oScholarshipDetails.length;
+	m_oStudentInfoMemberData.m_nRowOrgAmountCount = oStudentUID.m_oScholarshipDetails.length;	
 	$("#studentInfo_input_studentUIDNumber").val(oStudentUID.m_nUID);
 	$("#studentInfo_input_studentAadharNumber").val(oStudentUID.m_nStudentAadharNumber);
 	$("#studentInfo_input_studentName").val(oStudentUID.m_strStudentName);
