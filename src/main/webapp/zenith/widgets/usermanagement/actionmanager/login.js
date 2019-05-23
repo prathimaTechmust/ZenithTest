@@ -24,7 +24,7 @@ function login_loaded ()
 	var oInCookies = document.cookie.split(";");
 	m_oLoginMemberData.m_oActionManagerData = new ActionManagerData ();
 	m_oLoginMemberData.m_oActionManagerData.m_strUserName = login_getCookieByName(oInCookies, "zenithUserId");
-	m_oLoginMemberData.m_oActionManagerData.m_strPassword = login_getCookieByName(oInCookies, "zenithPassword");
+	m_oLoginMemberData.m_oActionManagerData.m_strPassword = login_getCookieByName(oInCookies, " zenithPassword");
 	if (m_oLoginMemberData.m_oActionManagerData != null && m_oLoginMemberData.m_oActionManagerData.m_strUserName == "")
 		loadPage ("usermanagement/actionmanager/login.html", "dialog", "init_popUp ()");
 	else

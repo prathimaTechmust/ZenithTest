@@ -20,6 +20,12 @@
 									</td>
 								</tr>
 								<tr>
+									<td class="xslt_fieldHeading">Student Aadhar Number :</td>
+									<td class="xslt_fieldData" id="m_nStudentAadharNumber">
+										<xsl:value-of select="StudentInformationData/m_nStudentAadharNumber" />
+									</td>
+								</tr>
+								<tr>
 									<td class="xslt_fieldHeading">Student Name :</td>
 									<td class="xslt_fieldData" id="m_strStudentName">
 										<xsl:value-of select="StudentInformationData/m_strStudentName" />
@@ -109,10 +115,26 @@
 								</tr>
 								<tr>
 									<td class="xslt_fieldHeading">
+										Father Aadhar Number :
+									</td>
+									<td class="xslt_fieldData" id="m_nFatherAadharNumber">
+										<xsl:value-of select="StudentInformationData/m_nFatherAadharNumber" />
+									</td>
+								</tr>
+								<tr>
+									<td class="xslt_fieldHeading">
 										Mother Occupation :
 									</td>
 									<td class="xslt_fieldData" id="m_strMotherOccupation">
 										<xsl:value-of select="StudentInformationData/m_strMotherOccupation" />
+									</td>
+								</tr>
+								<tr>
+									<td class="xslt_fieldHeading">
+										Mother Aadhar Number :
+									</td>
+									<td class="xslt_fieldData" id="m_nMotherAadharNumber">
+										<xsl:value-of select="StudentInformationData/m_nMotherAadharNumber" />
 									</td>
 								</tr>
 								<tr>

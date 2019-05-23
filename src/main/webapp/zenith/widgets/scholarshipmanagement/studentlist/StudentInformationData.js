@@ -1,12 +1,15 @@
 function StudentInformationData ()
 {
 	this.m_nStudentId = -1;
+	this.m_nStudentAadharNumber = -1;
 	this.m_strStudentName = "";
 	this.m_dDateOfBirth = "";
 	this.m_strFatherName = "";
 	this.m_strMotherName = "";
 	this.m_strFatherOccupation = "";
 	this.m_strMotherOccupation = "";
+	this.m_nFatherAadharNumber = -1;
+	this.m_nMotherAadharNumber = -1;
 	this.m_strGender = "";
 	this.m_strCurrentAddress = "";
 	this.m_nFamilyIncome = 0;

@@ -378,7 +378,8 @@ function validateNumber (data)
 	  var invalidChars = /[^0-9]/gi
 	  if(invalidChars.test(data.value)) 
 	  {
-		  data.value = data.value.replace(invalidChars,"");
+		  alert('Please Enter Numbers Only');
+		  data.value = data.value.replace(invalidChars,"");		  
 	  }
 }
 

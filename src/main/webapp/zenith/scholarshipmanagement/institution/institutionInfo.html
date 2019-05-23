@@ -8,49 +8,49 @@
  </head>
 <body>
 <form class="zenith" id="institutionInfo_form_id" style="width:800px;">
-		<table class="zenith"  summary="">
-			<tr>
-				  <td class="formHeading" style="width:500px;">
-					Institution Information
-				  </td>
-			</tr>
-			<tr>
-				  <td class="zenith">
-				  <fieldset>
-                  <legend>
-				  Institution Details
-				  </legend>
-					<table  summary="">
-					<tr>
-					  <td class="fieldHeading"> Institution Name <em> * </em> </td>
-					  <td>
-	                     <input 
-	                         type="text"
-	                         id="institutionInfo_input_institutionName"
-	                         data-options="required:true"
-	                         style="width:300px;"
-	                         class="zenith easyui-validatebox"/>
-                      </td>                              
-					</tr>
-					<tr>
-					<td class="fieldHeading"> Institution E-Mail <em>*</em> </td>
-							<td>
+	<table class="zenith"  summary="">
+		<tr>
+		  <td class="formHeading" style="width:500px;">
+			Institution Information
+		  </td>
+		</tr>
+		<tr>
+			<td class="zenith">
+				 <fieldset>
+				 	<legend>
+				  		Institution Details
+				    </legend>
+				    	<table  summary="">
+				    		<tr>
+							  <td class="fieldHeading"> Institution Name <em> * </em> </td>
+							  <td>
+			                     <input 
+			                         type="text"
+			                         id="institutionInfo_input_institutionName"
+			                         data-options="required:true"
+			                         style="width:300px;"
+			                         class="zenith easyui-validatebox"/>
+		                      </td>                              
+						   </tr>
+						   <tr>
+							 <td class="fieldHeading"> Institution E-Mail <em>*</em> </td>
+							 <td>
                                 <input 
                                     type="text"
                                     id="institutionInfo_input_institutionemail" maxlength="40"
                                     class="zenith easyui-validatebox"
                                     data-options="required:true,validType:'email'"/>
-                            </td>
-					</tr>
-					<tr>
-						 <td class="fieldHeading">
-                                Contact Person Name
-                         </td>                              
-                          <td>
+                             </td>
+						  </tr>
+						  <tr>
+							 <td class="fieldHeading">
+	                                Contact Person Name
+	                         </td>                              
+	                          <td>
                                 <input type="text" id="institutionInfo_input_contactpersonname"  maxlength="30"  class="zenith"/>
-                          </td>
-					</tr>					
-					<tr>
+	                          </td>
+						 </tr>
+						 <tr>
 							<td class="fieldHeading">
                                 Contact Person E-Mail <em>*</em>
                             </td>
@@ -61,8 +61,8 @@
                                     class="zenith easyui-validatebox"
                                     data-options="required:true,validType:'email'"/>
                             </td>
-					</tr>
-					<tr>
+						</tr>
+						<tr>
 							<td class="fieldHeading">
                                 Contact Person Number
                                 <em>
@@ -78,8 +78,8 @@
                                     class="zenith easyui-validatebox"  data-options="validType:'minLength[10]'"
                                     onkeyup="validateNumber (this)"/>
 							</td>                            
-					</tr>
-					<tr>
+						</tr>	
+						<tr>
 							<td class="fieldHeading">Institution Address<em> * </em>
 							</td>
 							<td>
@@ -90,68 +90,87 @@
                                     class="zenith easyui-validatebox"
                                     data-options="required:true"></textarea>
                             </td>                             
-					</tr>
-					</table>
-					<table cellpadding="3" cellspacing="5">
-					<tr>
-					 		<td class="fieldHeading">
-                                City
-                                <em>*</em>
-                            </td>
-                            <td>
-                            	<input
-                                 data-options="required:true"
-		                         class="easyui-validatebox zenith"
-		                         id="institutionInfo_input_cityName"  maxlength="70"
-		                         placeholder="City"
-		                         type="text"/>
-                            </td>
-							<td class="fieldHeading">
-                                State
-                                <em>*</em>
-                            </td>
+						</tr>			    	
+				    	</table>
+				    	<table cellpadding="3" cellspacing="5">
+							<tr>
+						 		<td class="fieldHeading">
+	                                City
+	                                <em>*</em>
+	                            </td>
+	                            <td>
+	                            	<input
+	                                 data-options="required:true"
+			                         class="easyui-validatebox zenith"
+			                         id="institutionInfo_input_cityName"  maxlength="70"
+			                         placeholder="City"
+			                         type="text"/>
+	                            </td>
+								<td class="fieldHeading">
+	                                State
+	                                <em>*</em>
+	                            </td>
+								<td>
+								 <input
+	                               data-options="required:true"
+			                       class="easyui-validatebox zenith"
+			                       id="institutionInfo_input_stateName"  maxlength="70"
+			                       placeholder="State"
+			                       type="text"/>
+	                            </td>
+								<td class="fieldHeading">
+	                                Pincode
+	                                <em>*</em>
+	                            </td>
+	                            <td>
+	                              <input
+	                              	  type="text"
+	                              	  id="institutionInfo_input_pincode"  maxlength="70"
+	                              	  class="easyui-validatebox zenith"
+	                                  data-options="required:true"		                          
+			                          placeholder="Pincode"		                          
+			                          />
+	                            </td>                      
+							 </tr>					 			 
+					 </table>
+					 <table>
+						<tr>					
 							<td>
-							 <input
-                               data-options="required:true"
-		                       class="easyui-validatebox zenith"
-		                       id="institutionInfo_input_stateName"  maxlength="70"
-		                       placeholder="State"
-		                       type="text"/>
-                            </td>
+								<input  type="checkbox" id="academicInfo_input_checkbox" value="false"/>
+							</td>
 							<td class="fieldHeading">
-                                Pincode
-                                <em>*</em>
-                            </td>
-                            <td>
-                              <input
-                              	  type="text"
-                              	  id="institutionInfo_input_pincode"  maxlength="70"
-                              	  class="easyui-validatebox zenith"
-                                  data-options="required:true"		                          
-		                          placeholder="Pincode"		                          
-		                          />
-                            </td>                      
-					 </tr>
+								issue check in the favour of student
+							</td>																				
+						</tr>	
 					</table>
-				  </td>
+				</td>
 			</tr>
-			<tr>
-					  <td align="right" colspan="2">
-						<hr>
-						<button 
-							id="institutionInfo_button_submit"
-							type="button"
-							class="zenith"
-							update="false"
-							onclick="institutionInfo_submit()">
-						  Create
-						</button>
-						<button id="institutionInfo_button_cancel" type="button" class="zenith" onclick="institutionInfo_cancel()">
-						  Cancel
-						</button>
-					  </td>
+		<tr>
+			  <td align="right" colspan="2">
+				<hr>
+				<button 
+					id="institutionInfo_button_submit"
+					type="button"
+					class="zenith"
+					update="false"
+					onclick="institutionInfo_submit()">
+				  Create
+				</button>
+				<button id="institutionInfo_button_cancel" type="button" class="zenith" onclick="institutionInfo_cancel()">
+				  Cancel
+				</button>
+			  </td>
           </tr>
-	   </table>
+	</table>		
 </form>
 </body>
-</html>
+</html>         
+					
+					
+					
+										
+					
+					
+					
+					
+		

@@ -27,12 +27,21 @@
                           	<tr>
                           		<td class="fieldHeading"> UID Number <em> * </em> </td>
                           		<td style = "padding-left = 20px;">                      
-				                    <input type="text" id="studentInfo_input_studentUIDNumber"
+				                    <input type="text" id="studentInfo_input_studentUIDNumber" maxlength="4"
 					                        data-options="required:true" style = "width:200px;"
 					                        class="zenith easyui-validatebox"
 					                        onchange = "searchStudentUID ()"/>
 			                    </td>
-                          	</tr>               
+                          	</tr>  
+                          	<tr>
+                          		<td class="fieldHeading"> Student Aadhar Number <em> * </em> </td>
+                          		<td style = "padding-left = 20px;">                      
+				                    <input type="text" id="studentInfo_input_studentAadharNumber" maxlength="12"
+					                        data-options="required:true" style = "width:200px;"
+					                        class="zenith easyui-validatebox"
+					                        onkeyup="validateNumber (this)"/>
+			                    </td>
+                          	</tr>             
 							<tr>
 								<td class="fieldHeading"> Student Name <em> * </em> </td>
 			                    <td style = "padding-left = 20px;">                      
@@ -91,6 +100,15 @@
 			                         </td>
 							</tr>
 							<tr>
+                          		<td class="fieldHeading">Father Aadhar Number <em> * </em> </td>
+                          		<td style = "padding-left = 20px;">                      
+				                    <input type="text" id="studentInfo_input_fatherAadharNumber" maxlength="12"
+					                        data-options="required:true" style = "width:200px;"
+					                        class="zenith easyui-validatebox"
+					                        onkeyup="validateNumber (this)"/>
+			                    </td>
+                          	</tr>     
+							<tr>
 								<td class="fieldHeading"> Mother Name </td>                              
 			                        <td>
 			                              <input type="text" id="studentInfo_input_mothername"  class="zenith"/>
@@ -102,6 +120,15 @@
 		                         </td>
 							</tr>
 							<tr>
+                          		<td class="fieldHeading">Mother Aadhar Number <em> * </em> </td>
+                          		<td style = "padding-left = 20px;">                      
+				                    <input type="text" id="studentInfo_input_motherAadharNumber" maxlength="12"
+					                        data-options="required:true" style = "width:200px;"
+					                        class="zenith easyui-validatebox"
+					                        onkeyup="validateNumber (this)"/>
+			                    </td>
+                          	</tr>  
+							<tr>
 								<td class="fieldHeading"> Religion <em>*</em> </td>
 								<td>
 									<input type ="text" id = "studentInfo_input_religion" class = "zenith easyui-validatebox" data-options="required:true" style="width: 200px;"/>
@@ -110,7 +137,7 @@
 							<tr>
 								<td class="fieldHeading"> Family Income Per Annum(Rupees)</td>
 			                     <td>
-			                          <input type="text" id="studentInfo_input_income"  class="zenith"/>
+			                          <input type="text" id="studentInfo_input_income"  class="zenith" onkeyup="validateNumber (this)"/>
 			                     </td>
 							</tr>
 							<tr>
@@ -219,13 +246,13 @@
 							<tr>
 								<td class="fieldHeading" > Annual Fee(Rs)</td>
 		                         <td>
-		                             <input  type="text" id="academicInfo_input_annualfee" class="zenith" onkeypress="validateAnnualField()"/>
+		                             <input  type="text" id="academicInfo_input_annualfee" class="zenith" onkeyup="validateNumber (this)"/>
 		                         </td>
 		                         <td style="padding-right: 10px"> </td>
 		                         <td class="fieldHeading" padding-left = "10px"> Paid(Rs) </td>
 		                         <td style="padding-right: 10px"> </td>
 		                         <td>
-		                             <input  type="text" id="academicInfo_input_paidfee" class="zenith" onkeypress="validatePaidField()"/>
+		                             <input  type="text" id="academicInfo_input_paidfee" class="zenith" onkeyup="validateNumber (this)"/>
 		                         </td>
 		                         <td style="padding-right: 10px"> </td>
 		                         <td class="fieldHeading"> Balance(Rs)</td>
@@ -233,7 +260,7 @@
 		                          <td>
 		                             <input  type="text" id="academicInfo_input_balancefee" class="zenith" readonly="readonly"/>
 		                         </td>                 
-							</tr>	 		                        
+							</tr>								 		                        
                         </table>                    
 		               </td>
                     </tr>                    
@@ -245,9 +272,9 @@
                     <table class="zenith">
 					 <tr bgcolor="#efefef">
                         <td >
-                        <table class="zenith">
+                        <table class="zenith" id="scholarship_Organization">
                           	<tr>
-								<td class="fieldHeading">Organization1</td>
+								<td class="fieldHeading">Organization</td>
 								<td style="padding-right: 10px"> </td>
 								<td>
 		                             <input  type="text" id="scholarshipInfo_input_organization0" class="zenith"/>
@@ -256,31 +283,20 @@
 		                         <td class="fieldHeading">Amount(Rs)</td>
 		                         <td style="padding-right: 10px"> </td>
 		                         <td>
-		                             <input  type="text" id="scholarshipInfo_input_organizationamount0" class="zenith" onkeypress="validateOrganizationAmount1()"/>
-		                         </td>					
-							</tr>
-							<tr>
-								<td class="fieldHeading">Organization2</td>
-								<td style="padding-right: 10px"> </td>
-								<td>
-		                             <input  type="text" id="scholarshipInfo_input_organization1" class="zenith"/>
+		                             <input  type="text" id="scholarshipInfo_input_organizationamount0" class="zenith" onkeyup="validateNumber (this)"/>
 		                         </td>
-		                          <td style="padding-right: 10px"> </td>
-		                         <td class="fieldHeading">Amount(Rs)</td>
-		                         <td style="padding-right: 10px"> </td>
-		                         <td>
-		                             <input  type="text" id="scholarshipInfo_input_organizationamount1" class="zenith" onkeypress="validateOrganizationAmount2()"/>
-		                         </td>
-							</tr>
-							<tr>
-								<td class="fieldHeading">Status</td>
-								<td style="padding-right: 10px"> </td>
-								<td>
-									<select id="select_student_scholarship_status" name="student_select_scholarship_status" class="zenith">
-									<option>Select Application Status</option>
-									</select>
-								</td>						
-							</tr>								 		                        
+		                         <td style="padding-right: 10px"> </td>		                         
+	                             <td>
+	                             <img 
+	                                 id="scholarship_addOrganization"
+	                                 alt=""
+	                                 align="right"
+	                                 src="images/add.PNG"
+	                                 title="New Organization"
+	                                 style="visibility: visible;"
+	                                 onclick="scholarship_addNewOrganization ();"/>
+	                            </td>					
+							</tr>																 		                        
                         </table>                    
 		               </td>
                     </tr>                    

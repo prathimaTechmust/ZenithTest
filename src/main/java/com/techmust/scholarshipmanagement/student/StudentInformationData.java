@@ -99,6 +99,15 @@ public class StudentInformationData  extends MasterData
 	@Column(name = "UID")
 	private long m_nUID;
 	
+	@Column(name = "studentaadhar")
+	private long m_nStudentAadharNumber;
+	
+	@Column(name = "fatheraadhar")
+	private long m_nFatherAadharNumber;
+	
+	@Column(name = "motheraadhar")
+	private long m_nMotherAadharNumber;
+	
 	@JsonManagedReference
 	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "m_oStudentInformationData")
 	private Set<AcademicDetails> m_oAcademicDetails;
@@ -117,11 +126,14 @@ public class StudentInformationData  extends MasterData
 	{
 		m_nStudentId = -1;
 		m_strStudentName = "";
+		m_nStudentAadharNumber = -1;
 		m_dDateOfBirth = null; 
 		m_strFatherName = "";
 		m_strFatherOccupation = "";
+		m_nFatherAadharNumber = -1;
 		m_strMotherName = "";
 		m_strMotherOccupation = "";
+		m_nMotherAadharNumber = -1;
 		m_strGender = "";
 		m_nFamilyIncome = 0;
 		m_strEmailAddress = "";
@@ -139,15 +151,44 @@ public class StudentInformationData  extends MasterData
 				
 	}
 	
+	public long getM_nStudentAadharNumber()
+	{
+		return m_nStudentAadharNumber;
+	}
+	
+	public void setM_nStudentAadharNumber(long nStudentAadharNumber)
+	{
+		this.m_nStudentAadharNumber = nStudentAadharNumber;
+	}
+
+	public long getM_nFatherAadharNumber()
+	{
+		return m_nFatherAadharNumber;
+	}
+	
+	public void setM_nFatherAadharNumber(long nFatherAadharNumber)
+	{
+		this.m_nFatherAadharNumber = nFatherAadharNumber;
+	}
+	
+	public long getM_nMotherAadharNumber() 
+	{
+		return m_nMotherAadharNumber;
+	}
+
+	public void setM_nMotherAadharNumber(long nMotherAadharNumber)
+	{
+		this.m_nMotherAadharNumber = nMotherAadharNumber;
+	}
 
 	public Set<AcademicDetails> getM_oAcademicDetails()
 	{
 		return m_oAcademicDetails;
 	}
 
-	public void setM_oAcademicDetails(Set<AcademicDetails> m_oAcademicDetails) 
+	public void setM_oAcademicDetails(Set<AcademicDetails> oAcademicDetails) 
 	{
-		this.m_oAcademicDetails = m_oAcademicDetails;
+		this.m_oAcademicDetails = oAcademicDetails;
 	}
 
 	public Set<ScholarshipDetails> getM_oScholarshipDetails()
@@ -155,9 +196,9 @@ public class StudentInformationData  extends MasterData
 		return m_oScholarshipDetails;
 	}
 
-	public void setM_oScholarshipDetails(Set<ScholarshipDetails> m_oScholarshipDetails)
+	public void setM_oScholarshipDetails(Set<ScholarshipDetails> oScholarshipDetails)
 	{
-		this.m_oScholarshipDetails = m_oScholarshipDetails;
+		this.m_oScholarshipDetails = oScholarshipDetails;
 	}
 
 	public AcademicDetails[] getM_arrAcademicDetails()
@@ -165,9 +206,9 @@ public class StudentInformationData  extends MasterData
 		return m_arrAcademicDetails;
 	}
 
-	public void setM_arrAcademicDetails(AcademicDetails[] m_arrAcademicDetails)
+	public void setM_arrAcademicDetails(AcademicDetails[] arrAcademicDetails)
 	{
-		this.m_arrAcademicDetails = m_arrAcademicDetails;
+		this.m_arrAcademicDetails = arrAcademicDetails;
 	}
 
 	public ScholarshipDetails[] getM_arrScholarshipDetails()
@@ -175,9 +216,9 @@ public class StudentInformationData  extends MasterData
 		return m_arrScholarshipDetails;
 	}
 
-	public void setM_arrScholarshipDetails(ScholarshipDetails[] m_arrScholarshipDetails)
+	public void setM_arrScholarshipDetails(ScholarshipDetails[] arrScholarshipDetails)
 	{
-		this.m_arrScholarshipDetails = m_arrScholarshipDetails;
+		this.m_arrScholarshipDetails = arrScholarshipDetails;
 	}
 
 	public long getM_nUID()
@@ -185,9 +226,9 @@ public class StudentInformationData  extends MasterData
 		return m_nUID;
 	}
 
-	public void setM_nUID(long m_nUID)
+	public void setM_nUID(long nUID)
 	{
-		this.m_nUID = m_nUID;
+		this.m_nUID = nUID;
 	}
 
 	public Date getM_dDateOfBirth()
@@ -195,9 +236,9 @@ public class StudentInformationData  extends MasterData
 		return m_dDateOfBirth;
 	}
 
-	public void setM_dDateOfBirth(Date m_dDateOfBirth)
+	public void setM_dDateOfBirth(Date dDateOfBirth)
 	{
-		this.m_dDateOfBirth = m_dDateOfBirth;
+		this.m_dDateOfBirth = dDateOfBirth;
 	}
 
 	public String getM_strReligion()
@@ -205,9 +246,9 @@ public class StudentInformationData  extends MasterData
 		return m_strReligion;
 	}
 
-	public void setM_strReligion(String m_strReligion)
+	public void setM_strReligion(String strReligion)
 	{
-		this.m_strReligion = m_strReligion;
+		this.m_strReligion = strReligion;
 	}
 
 	public String getM_strAlternateNumber()
@@ -215,9 +256,9 @@ public class StudentInformationData  extends MasterData
 		return m_strAlternateNumber;
 	}
 
-	public void setM_strAlternateNumber(String m_strAlternateNumber)
+	public void setM_strAlternateNumber(String strAlternateNumber)
 	{
-		this.m_strAlternateNumber = m_strAlternateNumber;
+		this.m_strAlternateNumber = strAlternateNumber;
 	}
 
 	public int getM_nStudentId()
@@ -225,9 +266,9 @@ public class StudentInformationData  extends MasterData
 		return m_nStudentId;
 	}
 
-	public void setM_nStudentId(int m_nStudentId) 
+	public void setM_nStudentId(int nStudentId) 
 	{
-		this.m_nStudentId = m_nStudentId;
+		this.m_nStudentId = nStudentId;
 	}
 
 	public String getM_strStudentName() 
@@ -235,9 +276,9 @@ public class StudentInformationData  extends MasterData
 		return m_strStudentName;
 	}
 
-	public void setM_strStudentName(String m_strStudentName) 
+	public void setM_strStudentName(String strStudentName) 
 	{
-		this.m_strStudentName = m_strStudentName;
+		this.m_strStudentName = strStudentName;
 	}
 
 	public String getM_strFatherName() 
@@ -245,9 +286,9 @@ public class StudentInformationData  extends MasterData
 		return m_strFatherName;
 	}
 
-	public void setM_strFatherName(String m_strFatherName) 
+	public void setM_strFatherName(String strFatherName) 
 	{
-		this.m_strFatherName = m_strFatherName;
+		this.m_strFatherName = strFatherName;
 	}
 
 	public String getM_strFatherOccupation()
@@ -255,9 +296,9 @@ public class StudentInformationData  extends MasterData
 		return m_strFatherOccupation;
 	}
 
-	public void setM_strFatherOccupation(String m_strFatherOccupation)
+	public void setM_strFatherOccupation(String strFatherOccupation)
 	{
-		this.m_strFatherOccupation = m_strFatherOccupation;
+		this.m_strFatherOccupation = strFatherOccupation;
 	}
 
 	public String getM_strMotherName() 
@@ -265,9 +306,9 @@ public class StudentInformationData  extends MasterData
 		return m_strMotherName;
 	}
 
-	public void setM_strMotherName(String m_strMotherName)
+	public void setM_strMotherName(String strMotherName)
 	{
-		this.m_strMotherName = m_strMotherName;
+		this.m_strMotherName = strMotherName;
 	}
 
 	public String getM_strMotherOccupation() 
@@ -275,9 +316,9 @@ public class StudentInformationData  extends MasterData
 		return m_strMotherOccupation;
 	}
 
-	public void setM_strMotherOccupation(String m_strMotherOccupation) 
+	public void setM_strMotherOccupation(String strMotherOccupation) 
 	{
-		this.m_strMotherOccupation = m_strMotherOccupation;
+		this.m_strMotherOccupation = strMotherOccupation;
 	}
 
 	public String getM_strGender() 
@@ -285,9 +326,9 @@ public class StudentInformationData  extends MasterData
 		return m_strGender;
 	}
 
-	public void setM_strGender(String m_strGender) 
+	public void setM_strGender(String strGender) 
 	{
-		this.m_strGender = m_strGender;
+		this.m_strGender = strGender;
 	}	
 
 	public float getM_nFamilyIncome()
@@ -295,9 +336,9 @@ public class StudentInformationData  extends MasterData
 		return m_nFamilyIncome;
 	}
 
-	public void setM_nFamilyIncome(float m_nFamilyIncome)
+	public void setM_nFamilyIncome(float nFamilyIncome)
 	{
-		this.m_nFamilyIncome = m_nFamilyIncome;
+		this.m_nFamilyIncome = nFamilyIncome;
 	}
 
 	public String getM_strEmailAddress() 
@@ -305,9 +346,9 @@ public class StudentInformationData  extends MasterData
 		return m_strEmailAddress;
 	}
 
-	public void setM_strEmailAddress(String m_strEmailAddress) 
+	public void setM_strEmailAddress(String strEmailAddress) 
 	{
-		this.m_strEmailAddress = m_strEmailAddress;
+		this.m_strEmailAddress = strEmailAddress;
 	}
 
 	public String getM_strPhoneNumber()
@@ -315,9 +356,9 @@ public class StudentInformationData  extends MasterData
 		return m_strPhoneNumber;
 	}
 
-	public void setM_strPhoneNumber(String m_strPhoneNumber) 
+	public void setM_strPhoneNumber(String strPhoneNumber) 
 	{
-		this.m_strPhoneNumber = m_strPhoneNumber;
+		this.m_strPhoneNumber = strPhoneNumber;
 	}
 
 	public String getM_strCurrentAddress() 
@@ -325,9 +366,9 @@ public class StudentInformationData  extends MasterData
 		return m_strCurrentAddress;
 	}
 
-	public void setM_strCurrentAddress(String m_strCurrentAddress)
+	public void setM_strCurrentAddress(String strCurrentAddress)
 	{
-		this.m_strCurrentAddress = m_strCurrentAddress;
+		this.m_strCurrentAddress = strCurrentAddress;
 	}
 
 	public String getM_strCity() 
@@ -335,9 +376,9 @@ public class StudentInformationData  extends MasterData
 		return m_strCity;
 	}
 
-	public void setM_strCity(String m_strCity)
+	public void setM_strCity(String strCity)
 	{
-		this.m_strCity = m_strCity;
+		this.m_strCity = strCity;
 	}
 
 	public String getM_strState()
@@ -345,9 +386,9 @@ public class StudentInformationData  extends MasterData
 		return m_strState;
 	}
 
-	public void setM_strState(String m_strState)
+	public void setM_strState(String strState)
 	{
-		this.m_strState = m_strState;
+		this.m_strState = strState;
 	}
 
 	public int getM_nPincode() 
@@ -355,9 +396,9 @@ public class StudentInformationData  extends MasterData
 		return m_nPincode;
 	}
 
-	public void setM_nPincode(int m_nPincode) 
+	public void setM_nPincode(int nPincode) 
 	{
-		this.m_nPincode = m_nPincode;
+		this.m_nPincode = nPincode;
 	}
 
 	public String getM_strStudentImageName() 
@@ -365,9 +406,9 @@ public class StudentInformationData  extends MasterData
 		return m_strStudentImageName;
 	}
 
-	public void setM_strStudentImageName(String m_strStudentImageName)
+	public void setM_strStudentImageName(String strStudentImageName)
 	{
-		this.m_strStudentImageName = m_strStudentImageName;
+		this.m_strStudentImageName = strStudentImageName;
 	}
 	
 	@Override
@@ -412,6 +453,7 @@ public class StudentInformationData  extends MasterData
 			Node oScholarshipNode = oXmlDocument.importNode(oScholarshipDetalsXmlDoc.getFirstChild(), true);
 			oRootElement.appendChild(oScholarshipNode);
 			addChild (oXmlDocument, oRootElement, "m_nUID", m_nUID);
+			addChild (oXmlDocument, oRootElement, "m_nStudentAadharNumber", m_nStudentAadharNumber);
 			addChild (oXmlDocument, oRootElement, "m_nStudentId", m_nStudentId);
 			addChild (oXmlDocument, oRootElement, "m_strStudentName", m_strStudentName);
 			addChild (oXmlDocument, oRootElement, "m_strGender", m_strGender);	
@@ -420,7 +462,9 @@ public class StudentInformationData  extends MasterData
 			addChild (oXmlDocument, oRootElement, "m_strMotherName", m_strMotherName);
 			addChild (oXmlDocument, oRootElement, "m_strReligion", m_strReligion);
 			addChild (oXmlDocument, oRootElement, "m_strFatherOccupation", m_strFatherOccupation);
-			addChild (oXmlDocument, oRootElement, "m_strMotherOccupation", m_strMotherOccupation);			
+			addChild (oXmlDocument, oRootElement, "m_nFatherAadharNumber", m_nFatherAadharNumber);
+			addChild (oXmlDocument, oRootElement, "m_strMotherOccupation", m_strMotherOccupation);
+			addChild (oXmlDocument, oRootElement, "m_nMotherAadharNumber", m_nMotherAadharNumber);
 			addChild (oXmlDocument, oRootElement, "m_nFamilyIncome", m_nFamilyIncome);
 			addChild (oXmlDocument, oRootElement, "m_strEmailAddress", m_strEmailAddress);
 			addChild (oXmlDocument, oRootElement, "m_strPhoneNumber", m_strPhoneNumber);
