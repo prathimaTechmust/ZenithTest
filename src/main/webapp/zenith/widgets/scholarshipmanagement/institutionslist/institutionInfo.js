@@ -61,6 +61,9 @@ function institutionInfo_getFormData ()
 	oInstitutionInformationData.m_strCity = $("#institutionInfo_input_cityName").val();
 	oInstitutionInformationData.m_strState = $("#institutionInfo_input_stateName").val();
 	oInstitutionInformationData.m_nPincode = $("#institutionInfo_input_pincode").val();	
+	if($("#academicInfo_input_checkbox").is(':checked'))    
+		oInstitutionInformationData.m_bCheckedIssue = true;
+    
 	return oInstitutionInformationData;
 }
 
@@ -110,6 +113,8 @@ function institutionInfo_gotData (oInstitutionInfoResponse)
 	 $("#institutionInfo_input_cityName").val(oInstitutionInfoData.m_strCity);
 	 $("#institutionInfo_input_stateName").val(oInstitutionInfoData.m_strState);
 	 $("#institutionInfo_input_pincode").val(oInstitutionInfoData.m_nPincode);
+	 if(oInstitutionInfoData.m_bCheckedIssue == true)
+		 document.getElementById("academicInfo_input_checkbox").checked = true;;
 	 initFormValidateBoxes ("institutionInfo_form_id");	
 }
 

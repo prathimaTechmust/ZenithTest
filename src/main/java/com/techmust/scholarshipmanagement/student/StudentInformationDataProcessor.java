@@ -2,6 +2,9 @@ package com.techmust.scholarshipmanagement.student;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
+
+import javax.persistence.EntityManager;
 
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.stereotype.Controller;
@@ -16,10 +19,11 @@ import com.techmust.constants.Constants;
 import com.techmust.generic.dataprocessor.GenericIDataProcessor;
 import com.techmust.generic.response.GenericResponse;
 import com.techmust.helper.ZenithHelper;
+import com.techmust.scholarshipmanagement.academicdetails.AcademicDetails;
 import com.techmust.utils.AWSUtils;
 
 @Controller
-public class StudentInformationDataProcessor extends GenericIDataProcessor <StudentInformationData>
+public class StudentInformationDataProcessor extends GenericIDataProcessor <StudentInformationData> 
 {
 
 	@Override
@@ -149,7 +153,6 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		return oStudentDataResponse;
 	}
 
-
 	@Override
 	@RequestMapping(value="/studentInfoUpdate", method = RequestMethod.POST, headers = {"Content-type=application/json"})
 	@ResponseBody
@@ -181,8 +184,9 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		m_oLogger.debug ("getXML - oStudentInformationData [IN] : " +oStudentInformationData);
 		String strXml = "";
 		try 
-		{	
-			oStudentInformationData = (StudentInformationData) populateObject (oStudentInformationData);
+		{
+			oStudentInformationData = oStudentInformationData.getStudentDetails (oStudentInformationData);
+			//oStudentInformationData = (StudentInformationData) populateObject (oStudentInformationData);
 			strXml = oStudentInformationData != null ? oStudentInformationData.generateXML ():"";
 		}
 		catch (Exception oException)
@@ -192,6 +196,29 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		}
 		m_oLogger.debug ("getXML - strXml [OUT] : " +strXml);
 		return strXml;
+	}
+
+	@RequestMapping(value="/isAadharnumberExist", method = RequestMethod.POST, headers = {"Content-type=application/json"})
+	@ResponseBody
+	public GenericResponse getAadharNumber(@RequestBody StudentInformationData oStudentInformationData) throws Exception
+	{
+		m_oLogger.info("getAadharNumber");
+		m_oLogger.debug("getAadharNumber - oStudentInformationData [IN] :" + oStudentInformationData.getM_nFatherAadharNumber());
+		StudentDataResponse oStudentDataResponse = new StudentDataResponse();
+		try
+		{
+			oStudentInformationData = (StudentInformationData) populateObject (oStudentInformationData);
+			oStudentDataResponse.m_arrStudentInformationData.add (oStudentInformationData);	
+			if(oStudentInformationData != null)
+				oStudentDataResponse.m_bSuccess = true;
+		}
+		catch (Exception oException) 
+		{
+			m_oLogger.error ("getStudentUID - oException : "  + oException);
+			throw oException;
+		}
+		return oStudentDataResponse;
+		
 	}
 
 	@Override

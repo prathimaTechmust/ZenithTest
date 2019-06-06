@@ -61,6 +61,9 @@ public class InstitutionInformationData extends MasterData
 	@Column(name = "pincode")
 	private int m_nPincode;		
 	
+	@Column(name = "issue")
+	private boolean m_bCheckedIssue;
+	
 	public InstitutionInformationData()
 	{
 		m_nInstitutionId = -1;
@@ -72,9 +75,20 @@ public class InstitutionInformationData extends MasterData
 		m_strPhoneNumber = "";
 		m_strCity = "";
 		m_strState = "";
-		m_nPincode = -1;		
-	}	
+		m_nPincode = -1;	
+		m_bCheckedIssue = false;
+	}
+	
+	public boolean isM_bCheckedIssue()
+	{
+		return m_bCheckedIssue;
+	}
 
+	public void setM_bCheckedIssue(boolean bCheckedIssue)
+	{
+		this.m_bCheckedIssue = bCheckedIssue;
+	}
+	
 	public int getM_nInstitutionId()
 	{
 		return m_nInstitutionId;
@@ -201,7 +215,7 @@ public class InstitutionInformationData extends MasterData
 	public String generateXML()
 	{
 		m_oLogger.info ("generateXML");
-		String strItemInfoXML ="";
+		String strInstitutionInfoXML ="";
 		try
 		{
 			Document oXmlDocument = createNewXMLDocument ();
@@ -216,12 +230,12 @@ public class InstitutionInformationData extends MasterData
 			addChild (oXmlDocument, oRootElement, "m_strCity", m_strCity);
 			addChild (oXmlDocument, oRootElement, "m_strState", m_strState);
 			addChild (oXmlDocument, oRootElement, "m_nPincode", m_nPincode);
-			strItemInfoXML = getXmlString (oXmlDocument);
+			strInstitutionInfoXML = getXmlString (oXmlDocument);
 		}
 		catch (Exception oException) 
 		{
 			m_oLogger.error("generateXML - oException : " + oException);
 		}
-		return strItemInfoXML;		
+		return strInstitutionInfoXML;		
 	}
 }

@@ -43,7 +43,7 @@ var FacilitatorInformationDataProcessor = (function __FacilitatorInformationData
 	
 	function getFacilitatorSuggesstions (oFacilitatorData, strSortColumn, strSortOrder, callback)
 	{		
-		 ajaxCall(oTradeMustHelper, "/facilitatorInfoGetFacilitatorSuggestions", callback);		
+		 ajaxCall(oFacilitatorData, "/facilitatorInfoGetFacilitatorSuggestions", callback);		
 	}
 	
 	return { 

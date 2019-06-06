@@ -161,7 +161,15 @@ input.filterTextBox
 	line-height: 100%;
 	color: #000;
 }
-	
+
+select.filterYear
+{	
+	width: 99%;
+	background-color: #fff;
+	line-height: 100%;
+	color: #000;
+}	
+
 textarea.zenith
 {
 	width: 99%;

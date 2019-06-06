@@ -99,7 +99,7 @@ public class CourseInformationData extends MasterData
 	public String generateXML()
 	{
 		m_oLogger.info ("generateXML");
-		String strItemInfoXML ="";
+		String strCourseInfoXML ="";
 		try
 		{
 			Document oXmlDocument = createNewXMLDocument ();
@@ -107,13 +107,13 @@ public class CourseInformationData extends MasterData
 			addChild (oXmlDocument, oRootElement, "m_nCourseId", m_nCourseId);
 			addChild (oXmlDocument, oRootElement, "m_strShortCourseName", m_strShortCourseName);
 			addChild (oXmlDocument, oRootElement, "m_strLongCourseName", m_strLongCourseName);			
-			strItemInfoXML = getXmlString (oXmlDocument);
+			strCourseInfoXML = getXmlString (oXmlDocument);
 		}
 		catch (Exception oException) 
 		{
 			m_oLogger.error("generateXML - oException : " + oException);
 		}
-		return strItemInfoXML;		
+		return strCourseInfoXML;		
 	}
 	
 

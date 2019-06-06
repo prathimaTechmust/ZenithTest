@@ -9,6 +9,7 @@ import javax.persistence.criteria.Root;
 import org.hibernate.Criteria;
 
 import com.techmust.generic.data.GenericData;
+import com.techmust.scholarshipmanagement.academicdetails.AcademicYear;
 import com.techmust.scholarshipmanagement.course.CourseInformationData;
 import com.techmust.scholarshipmanagement.institution.InstitutionInformationData;
 import com.techmust.scholarshipmanagement.student.StudentInformationData;
@@ -28,6 +29,7 @@ public class ZenithHelper extends GenericData
 	private StudentInformationData m_oStudentInformationData;
 	private CourseInformationData m_oCourseInformationData;
 	private InstitutionInformationData m_oInstitutionInformationData;
+	private AcademicYear m_oAcademicYear;
 	private RoleData m_oRoleData;
 	private ActionAreaData m_oActionArea;
 	private ActionData m_oAction;	
@@ -39,6 +41,7 @@ public class ZenithHelper extends GenericData
 	private String m_strFromDate;
 	private String m_strToDate;
 	private boolean m_bIncludeZeroMovement;
+	public boolean m_bsuccess;
 	
 	public ZenithHelper ()
 	{
@@ -47,6 +50,7 @@ public class ZenithHelper extends GenericData
 		m_oStudentInformationData = new StudentInformationData();
 		m_oCourseInformationData = new CourseInformationData();
 		m_oInstitutionInformationData = new InstitutionInformationData();
+		m_oAcademicYear = new AcademicYear();
 		m_oRoleData = new RoleData ();
 		m_oActionArea = new ActionAreaData ();
 		m_oAction = new ActionData ();
@@ -54,8 +58,28 @@ public class ZenithHelper extends GenericData
 		m_strOrderBy = "";
 		m_nPageNo = 0;
 		m_nPageSize = 10;
-	}	
+	}
 		
+	public boolean isM_bsuccess()
+	{
+		return m_bsuccess;
+	}
+
+	public void setM_bsuccess(boolean bsuccess)
+	{
+		this.m_bsuccess = bsuccess;
+	}
+
+	public AcademicYear getM_oAcademicYear() 
+	{
+		return m_oAcademicYear;
+	}
+
+	public void setM_oAcademicYear(AcademicYear oAcademicYear)
+	{
+		this.m_oAcademicYear = oAcademicYear;
+	}
+	
 	public InstitutionInformationData getM_oInstitutionInformationData()
 	{
 		return m_oInstitutionInformationData;

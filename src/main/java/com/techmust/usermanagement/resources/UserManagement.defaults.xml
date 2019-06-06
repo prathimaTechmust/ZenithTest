@@ -68,27 +68,32 @@
    </ActionArea>
    <ActionArea name = "Scholarship Management"  SequenceId="20">
 		<Actions>
-				<Action>
+		    <Action>
+				<ActionName>Academic Year List</ActionName>
+				<Target>navigate ('AcademicYearList','widgets/scholarshipmanagement/academicyear/newAcademicYear.js')</Target>
+				<SequenceId>10</SequenceId>
+			</Action>
+			<Action>
 				<ActionName>Student List</ActionName>
 				<Target>navigate ('Studentlist','widgets/scholarshipmanagement/studentlist/listStudent.js')</Target>
-				<SequenceId>10</SequenceId>
+				<SequenceId>20</SequenceId>
 			</Action>
 			<Action>
 				<ActionName>Institution List</ActionName>
 				<Target>navigate ('listinstitution','widgets/scholarshipmanagement/institutionslist/listInstitution.js')</Target>
-				<SequenceId>20</SequenceId>
+				<SequenceId>30</SequenceId>
 			</Action>
 			<Action>
 				<ActionName>Course List</ActionName>
 				<Target>navigate ('courselist','widgets/scholarshipmanagement/courselist/listCourses.js')</Target>
-				<SequenceId>30</SequenceId>
+				<SequenceId>40</SequenceId>
 			</Action>
 			<Action>
 				<ActionName>Scholarship List</ActionName>
 				<Target>navigate ('scholarshiplist','widgets/scholarshipmanagement/scholarshiplist/scholarshiplist.js')</Target>
-				<SequenceId>40</SequenceId>
-			</Action>
+				<SequenceId>50</SequenceId>
+			</Action>			
 		</Actions> 
-	</ActionArea>
+	</ActionArea>	
 </root>  
 </UserManagementDefaults>

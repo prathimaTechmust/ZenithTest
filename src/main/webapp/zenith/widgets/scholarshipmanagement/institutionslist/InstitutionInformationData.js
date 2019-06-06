@@ -10,5 +10,6 @@ function InstitutionInformationData ()
 	this.m_strContactPersonName= "";
 	this.m_strContactPersonEmail = "";
 	this.m_strPhoneNumber = "";
+	this.m_bCheckedIssue = false;
 }
 dataObjectLoaded ();

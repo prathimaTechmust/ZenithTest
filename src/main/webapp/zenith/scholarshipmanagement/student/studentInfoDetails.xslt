@@ -18,7 +18,7 @@
 									<td class="xslt_fieldData" id="m_nUID">
 										<xsl:value-of select="StudentInformationData/m_nUID" />
 									</td>
-								</tr>
+								</tr>								
 								<tr>
 									<td class="xslt_fieldHeading">Student Aadhar Number :</td>
 									<td class="xslt_fieldData" id="m_nStudentAadharNumber">
@@ -99,6 +99,20 @@
 						</td>
 						<td width="50%" valign="top">
 							<table class="xslt_trademust" cellSpacing="5px">
+								<tr>
+									<td class ="xslt_fieldHeading">
+										Facilitator Name:
+									</td>
+									<td class ="xslt_fieldData" id = "m_strFacilitatorName">
+										<xsl:value-of select="StudentInformationData/m_oFacilitatorInformationData/FacilitatorInformationData/m_strFacilitatorName"/>
+									</td>
+								</tr>
+								<tr>
+									<td class="xslt_fieldHeading">Parental Status:</td>
+									<td class="xslt_fieldData" id="m_strParentalStatus">
+										<xsl:value-of select= "StudentInformationData/m_strParentalStatus" />
+									</td>
+								</tr>
 								<tr>
 									<td class="xslt_fieldHeading">Income Per Annum(₹):</td>
 									<td class="xslt_fieldData" id="m_nFamilyIncome">
@@ -200,7 +214,7 @@
 										Academic Name:									
 									</td>
 									<td class="xslt_fieldData" id="m_strInstitutionName">
-										<xsl:value-of select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_strInstitutionName"/>
+										<xsl:value-of select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oInstitutionInformationData/InstitutionInformationData/m_strInstitutionName"/>
 									</td>
 								</tr>
 								<tr>
@@ -208,7 +222,23 @@
 										Course Name:									
 									</td>
 									<td class="xslt_fieldData" id="m_strCourseName">
-										<xsl:value-of select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_strCourseName"/>
+										<xsl:value-of select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oCourseInformationData/CourseInformationData/m_strShortCourseName"/>
+									</td>
+								</tr>
+								<tr>
+									<td class="xslt_fieldHeading">
+										Specialization:									
+									</td>
+									<td class="xslt_fieldData" id="m_strSpecialization">
+										<xsl:value-of select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_strSpecialization"/>
+									</td>
+								</tr>
+								<tr>
+									<td class="xslt_fieldHeading">
+										Score:									
+									</td>
+									<td class="xslt_fieldData" id="m_strStudentScore">
+										<xsl:value-of select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_strStudentScore"/>
 									</td>
 								</tr>
 								<tr>
@@ -226,15 +256,7 @@
 									<td class="xslt_fieldData" id="m_fPaidFee">
 										<xsl:value-of select="format-number(StudentInformationData/m_oAcademicDetails/AcademicDetails/m_fPaidFee, '##,##,##0')"/>
 									</td>
-								</tr>
-								<tr>
-									<td class="xslt_fieldHeading">
-										Balance Fee(₹):									
-									</td>
-									<td class="xslt_fieldData" id="m_fBalanceFee">
-										<xsl:value-of select="format-number(StudentInformationData/m_oAcademicDetails/AcademicDetails/m_fBalanceFee, '##,##,##0')"/>
-									</td>
-								</tr>
+								</tr>								
 							</table>
 						</td>
 						<td width="50%" valign="top">
@@ -251,14 +273,14 @@
 									</td>
 								</tr>																
 								<tr>
-									<xsl:for-each select="StudentInformationData/m_oScholarshipDetails/ScholarshipDetails">
+									<xsl:for-each select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oScholarshipDetails/ScholarshipDetails">
 										<tr>
 											<td class="xslt_organizationDetails">
 												<xsl:value-of select="m_strOrganizationName" />
 											</td>
 											<td class="xslt_organizationDetails">
 												<xsl:value-of select="format-number(m_fAmount, '##,##,##0')"/>
-											</td>
+											</td>											
 										</tr>									
 									</xsl:for-each>									
 								</tr>

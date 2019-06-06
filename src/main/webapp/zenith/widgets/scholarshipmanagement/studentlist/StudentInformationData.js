@@ -10,6 +10,7 @@ function StudentInformationData ()
 	this.m_strMotherOccupation = "";
 	this.m_nFatherAadharNumber = -1;
 	this.m_nMotherAadharNumber = -1;
+	this.m_strParentalStatus = "";
 	this.m_strGender = "";
 	this.m_strCurrentAddress = "";
 	this.m_nFamilyIncome = 0;
@@ -22,7 +23,7 @@ function StudentInformationData ()
 	this.m_strState = "";
 	this.m_nPincode = -1;
 	this.m_nUID = -1;	
-	this.m_arrAcademicDetails = new Array();
-	this.m_arrScholarshipDetails = new Array();
+	this.m_strAcademicYear = "";
+	this.m_arrAcademicDetails = new Array();	
 }
 dataObjectLoaded ();

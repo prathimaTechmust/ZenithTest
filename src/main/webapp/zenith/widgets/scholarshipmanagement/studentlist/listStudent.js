@@ -28,6 +28,17 @@ function listStudentInfo_loaded ()
 function listStudentInfo_init ()
 {
 	listStudentInfo_createDataGrid ();
+	academicyear();
+}
+
+function academicyear ()
+{	
+		  var oDate = new Date();
+		  var ocurrentAcademicYear = oDate.getFullYear();
+		  var selectyear = document.getElementById("selectacademicyearwiseStudents");
+		  var option = document.createElement('option');
+		  option.text = option.value = ocurrentAcademicYear +"-"+(++ocurrentAcademicYear);
+		  selectyear.add(option,0);		
 }
 
 function listStudentInfo_createDataGrid ()
@@ -102,6 +113,7 @@ function listStudentInfo_selectedRowData (oRowData, nIndex)
 	document.getElementById("listStudentInfo_div_listDetail").innerHTML = "";
 	var oStudentInformationData = new StudentInformationData () ;
 	oStudentInformationData.m_nStudentId = oRowData.m_nStudentId;
+	oStudentInformationData.m_strAcademicYear = $("#selectacademicyearwiseStudents").val();
 	StudentInformationDataProcessor.getXML (oStudentInformationData,listStudentInfo_gotXML);
 }
 

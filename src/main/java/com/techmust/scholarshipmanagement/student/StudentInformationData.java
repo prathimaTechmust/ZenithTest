@@ -10,7 +10,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -19,6 +21,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.apache.commons.io.FilenameUtils;
+import org.hibernate.Criteria;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -28,7 +31,9 @@ import com.techmust.constants.Constants;
 import com.techmust.generic.data.GenericData;
 import com.techmust.generic.data.MasterData;
 import com.techmust.scholarshipmanagement.academicdetails.AcademicDetails;
-import com.techmust.scholarshipmanagement.academicdetails.ScholarshipDetails;
+import com.techmust.scholarshipmanagement.academicdetails.AcademicYear;
+import com.techmust.scholarshipmanagement.scholarshipdetails.ScholarshipDetails;
+import com.techmust.usermanagement.facilitator.FacilitatorInformationData;
 
 @Entity
 @Table(name = "student")
@@ -108,19 +113,23 @@ public class StudentInformationData  extends MasterData
 	@Column(name = "motheraadhar")
 	private long m_nMotherAadharNumber;
 	
+	@Column(name = "parentalstatus")
+	private String m_strParentalStatus;	
+	
+	@Transient	
+	private String m_strAcademicYear;
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "facilitatorid")
+	private FacilitatorInformationData m_oFacilitatorInformationData;
+	
 	@JsonManagedReference
 	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "m_oStudentInformationData")
 	private Set<AcademicDetails> m_oAcademicDetails;
 	
-	@JsonManagedReference
-	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "m_oStudentInformationData")
-	private Set<ScholarshipDetails> m_oScholarshipDetails;
-	
 	@Transient
 	public AcademicDetails[] m_arrAcademicDetails;
 	
-	@Transient
-	public ScholarshipDetails[] m_arrScholarshipDetails;
 	
 	public StudentInformationData()
 	{
@@ -139,6 +148,7 @@ public class StudentInformationData  extends MasterData
 		m_strEmailAddress = "";
 		m_strPhoneNumber = "";
 		m_strAlternateNumber = "";
+		m_strParentalStatus = "";
 		m_strReligion = "";
 		m_strCurrentAddress = "";
 		m_strCity = "";
@@ -146,11 +156,40 @@ public class StudentInformationData  extends MasterData
 		m_nPincode = -1;
 		m_strStudentImageName = "";
 		m_nUID = -1;
-		m_oAcademicDetails = new HashSet<AcademicDetails> ();
-		m_oScholarshipDetails = new HashSet<ScholarshipDetails> ();
-				
-	}
+		m_oAcademicDetails = new HashSet<AcademicDetails> ();	
+		m_oFacilitatorInformationData = new FacilitatorInformationData();
+	}	
 	
+	public String getM_strAcademicYear()
+	{
+		return m_strAcademicYear;
+	}
+
+	public void setM_strAcademicYear(String m_strAcademicYear)
+	{
+		this.m_strAcademicYear = m_strAcademicYear;
+	}
+
+	public FacilitatorInformationData getM_oFacilitatorInformationData()
+	{
+		return m_oFacilitatorInformationData;
+	}
+
+	public void setM_oFacilitatorInformationData(FacilitatorInformationData m_oFacilitatorInformationData)
+	{
+		this.m_oFacilitatorInformationData = m_oFacilitatorInformationData;
+	}
+
+	public String getM_strParentalStatus()
+	{
+		return m_strParentalStatus;
+	}
+
+	public void setM_strParentalStatus(String strParentalStatus)
+	{
+		this.m_strParentalStatus = strParentalStatus;
+	}
+
 	public long getM_nStudentAadharNumber()
 	{
 		return m_nStudentAadharNumber;
@@ -189,17 +228,7 @@ public class StudentInformationData  extends MasterData
 	public void setM_oAcademicDetails(Set<AcademicDetails> oAcademicDetails) 
 	{
 		this.m_oAcademicDetails = oAcademicDetails;
-	}
-
-	public Set<ScholarshipDetails> getM_oScholarshipDetails()
-	{
-		return m_oScholarshipDetails;
-	}
-
-	public void setM_oScholarshipDetails(Set<ScholarshipDetails> oScholarshipDetails)
-	{
-		this.m_oScholarshipDetails = oScholarshipDetails;
-	}
+	}	
 
 	public AcademicDetails[] getM_arrAcademicDetails()
 	{
@@ -209,17 +238,7 @@ public class StudentInformationData  extends MasterData
 	public void setM_arrAcademicDetails(AcademicDetails[] arrAcademicDetails)
 	{
 		this.m_arrAcademicDetails = arrAcademicDetails;
-	}
-
-	public ScholarshipDetails[] getM_arrScholarshipDetails()
-	{
-		return m_arrScholarshipDetails;
-	}
-
-	public void setM_arrScholarshipDetails(ScholarshipDetails[] arrScholarshipDetails)
-	{
-		this.m_arrScholarshipDetails = arrScholarshipDetails;
-	}
+	}	
 
 	public long getM_nUID()
 	{
@@ -416,9 +435,15 @@ public class StudentInformationData  extends MasterData
 	{
 		Predicate oConjunct = oCriteriaBuilder.conjunction();
 		if (getM_nStudentId() > 0)
+		{
 			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_nStudentId"), m_nStudentId));
+		}			
 		if(getM_nUID() > 0)
 			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_nUID"), m_nUID));
+		if(getM_nFatherAadharNumber()>0)
+			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_nFatherAadharNumber"), m_nFatherAadharNumber));
+		if(getM_nMotherAadharNumber() > 0)
+			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_nMotherAadharNumber"), m_nMotherAadharNumber));		
 		return oConjunct;
 	}
 	
@@ -427,13 +452,19 @@ public class StudentInformationData  extends MasterData
 	{
 		Predicate oConjunct = oCriteriaBuilder.conjunction();
 		if (getM_nStudentId() > 0)
+		{
 			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_nStudentId"), m_nStudentId));
+		}			
 		if (!m_strStudentName.isEmpty())
 		{
 			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_strStudentName"), m_strStudentName));
 		}
 		if(getM_nUID() > 0)
-			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_nUID"), m_nUID));			
+			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_nUID"), m_nUID));	
+		if(getM_nFatherAadharNumber()>0)
+			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_nFatherAadharNumber"), m_nFatherAadharNumber));
+		if(getM_nMotherAadharNumber() > 0)
+			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_nMotherAadharNumber"), m_nMotherAadharNumber));		
 		return oConjunct;
 	}
 	
@@ -441,7 +472,7 @@ public class StudentInformationData  extends MasterData
 	public String generateXML()
 	{
 		m_oLogger.info ("generateXML");
-		String strItemInfoXML ="";
+		String strStudentInfoXML ="";
 		try
 		{
 			Document oXmlDocument = createNewXMLDocument ();
@@ -449,9 +480,10 @@ public class StudentInformationData  extends MasterData
 			Document oAcademicDetalsXmlDoc = getXmlDocument ("<m_oAcademicDetails>"+buildAcademicDetails (m_oAcademicDetails)+"</m_oAcademicDetails>");
 			Node oAcademicNode = oXmlDocument.importNode(oAcademicDetalsXmlDoc.getFirstChild(), true);
 			oRootElement.appendChild(oAcademicNode);
-			Document oScholarshipDetalsXmlDoc = getXmlDocument ("<m_oScholarshipDetails>"+buildScholarshipDetails (m_oScholarshipDetails)+"</m_oScholarshipDetails>");
-			Node oScholarshipNode = oXmlDocument.importNode(oScholarshipDetalsXmlDoc.getFirstChild(), true);
-			oRootElement.appendChild(oScholarshipNode);
+			Document oFacilitatorInformationDataXmlDoc = getXmlDocument ("<m_oFacilitatorInformationData>"+buildFacilitatorInformationDetails (m_oFacilitatorInformationData)+"</m_oFacilitatorInformationData>");
+			Node oFacilitatorInformationDataNode = oXmlDocument.importNode(oFacilitatorInformationDataXmlDoc.getFirstChild(), true);
+			oRootElement.appendChild(oFacilitatorInformationDataNode);
+			
 			addChild (oXmlDocument, oRootElement, "m_nUID", m_nUID);
 			addChild (oXmlDocument, oRootElement, "m_nStudentAadharNumber", m_nStudentAadharNumber);
 			addChild (oXmlDocument, oRootElement, "m_nStudentId", m_nStudentId);
@@ -461,6 +493,7 @@ public class StudentInformationData  extends MasterData
 			addChild (oXmlDocument, oRootElement, "m_strFatherName", m_strFatherName);
 			addChild (oXmlDocument, oRootElement, "m_strMotherName", m_strMotherName);
 			addChild (oXmlDocument, oRootElement, "m_strReligion", m_strReligion);
+			addChild (oXmlDocument, oRootElement, "m_strParentalStatus", m_strParentalStatus);
 			addChild (oXmlDocument, oRootElement, "m_strFatherOccupation", m_strFatherOccupation);
 			addChild (oXmlDocument, oRootElement, "m_nFatherAadharNumber", m_nFatherAadharNumber);
 			addChild (oXmlDocument, oRootElement, "m_strMotherOccupation", m_strMotherOccupation);
@@ -475,32 +508,25 @@ public class StudentInformationData  extends MasterData
 			addChild (oXmlDocument, oRootElement, "m_nPincode", m_nPincode);
 			addChild (oXmlDocument, oRootElement, "m_strStudentImageName", m_strStudentImageName);					
 			addChild (oXmlDocument, oRootElement, "m_strStudentImageUrl", getStudentImageURL(m_nStudentId,m_strStudentImageName));
-			strItemInfoXML = getXmlString (oXmlDocument);
+			strStudentInfoXML = getXmlString (oXmlDocument);
 		}
 		catch (Exception oException) 
 		{
 			m_oLogger.error("generateXML - oException : " + oException);
 		}
-		return strItemInfoXML;		
+		return strStudentInfoXML;		
+	}	
+
+	private String buildFacilitatorInformationDetails(FacilitatorInformationData oFacilitatorInformationData)
+	{
+		
+		return oFacilitatorInformationData.generateXML();
 	}
 
 	private String getStudentDOB(String strStudentDOB)
 	{		
 		return strStudentDOB.substring(0, 10);
-	}
-
-	private String buildScholarshipDetails(Set<ScholarshipDetails> oScholarshipDetails)
-	{
-		String strXML = "";
-		Object [] arrScholarshipcDetails = oScholarshipDetails.toArray ();
-		for (int nIndex = 0; nIndex < arrScholarshipcDetails.length; nIndex ++)
-		{
-			ScholarshipDetails oScholarshipData = (ScholarshipDetails) arrScholarshipcDetails [nIndex];
-			strXML += oScholarshipData.generateXML ();
-		}		
-		return strXML;
-	}
-
+	}	
 
 	private String buildAcademicDetails(Set<AcademicDetails> oAcademicDetails)
 	{

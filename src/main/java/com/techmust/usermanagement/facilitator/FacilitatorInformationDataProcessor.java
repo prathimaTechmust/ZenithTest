@@ -59,7 +59,7 @@ public class FacilitatorInformationDataProcessor extends GenericIDataProcessor <
 	}
 
 	@Override
-	@RequestMapping(value="//facilitatorInfoGet", method = RequestMethod.POST, headers = {"Content-type=application/json"})
+	@RequestMapping(value="/facilitatorInfoGet", method = RequestMethod.POST, headers = {"Content-type=application/json"})
 	@ResponseBody
 	public GenericResponse get(@RequestBody FacilitatorInformationData oFacilitatorInformationData) throws Exception 
 	{
@@ -149,11 +149,38 @@ public class FacilitatorInformationDataProcessor extends GenericIDataProcessor <
 		}
 		m_oLogger.debug ("getXML - strXml [OUT] : " +strXml);
 		return strXml;
+	}	
+	
+	@RequestMapping(value="/facilitatorInfoGetFacilitatorSuggestions", method = RequestMethod.POST, headers = {"Content-type=application/json"})
+	@ResponseBody
+	public FacilitatorDataResponse getInstitutionSuggestions (@RequestBody ZenithHelper oData) throws Exception
+	{
+		return getFacilitatorSuggestions(oData.getM_oFacilitatorInformationData(),oData.getM_strColumn(),oData.getM_strOrderBy());
+	}
+	
+
+	public FacilitatorDataResponse getFacilitatorSuggestions(FacilitatorInformationData oFacilitatorInformationData,String strColumn, String strOrderBy) throws Exception
+	{
+		m_oLogger.info ("getFacilitatorSuggestions");
+		m_oLogger.debug ("getFacilitatorSuggestions - FacilitatorInformationData [IN] : " + oFacilitatorInformationData);
+		m_oLogger.debug ("getFacilitatorSuggestions - strColumn [IN] : " + strColumn);
+		m_oLogger.debug ("getFacilitatorSuggestions - strOrderBy [IN] : " + strOrderBy);
+		FacilitatorDataResponse oFacilitatorDataResponse = new FacilitatorDataResponse();
+		try 
+		{
+			oFacilitatorDataResponse.m_arrFacilitatorInformationData = new ArrayList(oFacilitatorInformationData.listCustomData(this));
+		} 
+		catch (Exception oException)
+		{
+			m_oLogger.error("getFacilitatorSuggestions - oException : " +oException);
+			throw oException;
+		}
+		return oFacilitatorDataResponse;
 	}
 
 	@Override
-	public GenericResponse list(FacilitatorInformationData oGenericData, HashMap<String, String> arrOrderBy)
-			throws Exception {
+	public GenericResponse list(FacilitatorInformationData oGenericData, HashMap<String, String> arrOrderBy)throws Exception 
+	{
 		// TODO Auto-generated method stub
 		return null;
 	}

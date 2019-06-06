@@ -5,7 +5,9 @@ import java.io.ByteArrayInputStream;
 import java.io.Serializable;
 import java.sql.Blob;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +37,9 @@ import com.techmust.generic.dataprocessor.GenericIDataProcessor;
 import com.techmust.generic.listener.ITradeMustEventListener;
 import com.techmust.generic.util.GenericUtil;
 import com.techmust.generic.util.HibernateUtil;
+import com.techmust.scholarshipmanagement.academicdetails.AcademicDetails;
+import com.techmust.scholarshipmanagement.academicdetails.AcademicYear;
+import com.techmust.scholarshipmanagement.student.StudentInformationData;
 import com.techmust.usermanagement.userinfo.UserInformationData;
 
 public abstract class GenericData implements IGenericData, Serializable
@@ -547,5 +552,37 @@ public abstract class GenericData implements IGenericData, Serializable
 				arrOrder.add(oOrder);
 		}
 		return arrOrder;
+	}
+	
+	public  StudentInformationData  getStudentDetails (StudentInformationData oStudentData)
+	{
+		EntityManager oEntityManager = _getEntityManager();
+		StudentInformationData oStudentInformationData = null;
+		if(oStudentData.getM_nStudentId() > 0)
+		{
+			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
+	        CriteriaQuery<StudentInformationData> oCriteriaQuery = oCriteriaBuilder.createQuery(StudentInformationData.class);
+	        Root<StudentInformationData> oStudentInformationRoot = oCriteriaQuery.from(StudentInformationData.class);    
+	        oCriteriaQuery.select(oStudentInformationRoot);
+	        oCriteriaQuery.where(oCriteriaBuilder.equal(oStudentInformationRoot.get("m_nStudentId"), oStudentData.getM_nStudentId()));
+	        oStudentInformationData = oEntityManager.createQuery(oCriteriaQuery).getSingleResult();
+	        oStudentInformationData.setM_oAcademicDetails(getAcademicDetails(oStudentData.getM_strAcademicYear()));
+		}
+		return oStudentInformationData;
+	}
+
+
+	public Set<AcademicDetails> getAcademicDetails(String strAcademicYear) 
+	{
+		EntityManager oEntityManager = _getEntityManager();
+		ArrayList<AcademicDetails> oAcademicDetails = null;		
+		CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
+        CriteriaQuery<AcademicDetails> oCriteriaQuery = oCriteriaBuilder.createQuery(AcademicDetails.class);
+        Root<AcademicDetails> oAcademicDetailsRoot = oCriteriaQuery.from(AcademicDetails.class);   
+        oCriteriaQuery.select(oAcademicDetailsRoot);
+        oCriteriaQuery.where(oCriteriaBuilder.equal(oAcademicDetailsRoot.get("m_strAcademicYear"), strAcademicYear));	        				
+        oAcademicDetails =  (ArrayList<AcademicDetails>) oEntityManager.createQuery(oCriteriaQuery).getResultList();
+        Set<AcademicDetails> arrAcademicDetails = new HashSet<AcademicDetails>(oAcademicDetails);
+		return arrAcademicDetails;
 	}
 }

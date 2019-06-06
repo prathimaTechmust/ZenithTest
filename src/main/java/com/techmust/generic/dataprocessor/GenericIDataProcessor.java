@@ -26,6 +26,8 @@ import com.techmust.generic.data.GenericData;
 import com.techmust.generic.data.IGenericData;
 import com.techmust.generic.response.GenericResponse;
 import com.techmust.generic.util.HibernateUtil;
+import com.techmust.scholarshipmanagement.academicdetails.AcademicYear;
+import com.techmust.scholarshipmanagement.student.StudentInformationData;
 import com.techmust.usermanagement.userinfo.UserInformationData;
 
 public abstract class GenericIDataProcessor<T extends IGenericData> 
@@ -39,6 +41,7 @@ public abstract class GenericIDataProcessor<T extends IGenericData>
 	public abstract GenericResponse list (T oGenericData, HashMap<String, String> arrOrderBy) throws Exception;
 	public abstract GenericResponse update (T oGenericData) throws Exception;
 	public abstract String getXML (T oGenericData) throws Exception;
+	
 	
 
 	public static String getClientCompatibleFormat (Date oDateTime)
@@ -233,5 +236,4 @@ public abstract class GenericIDataProcessor<T extends IGenericData>
 		m_oLogger.debug ("encryptPassword - strEncryptedPassword [OUT] : " +strEncryptedPassword);
 		return strEncryptedPassword;
 	}
-	
 }

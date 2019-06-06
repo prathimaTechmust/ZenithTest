@@ -28,7 +28,7 @@ public class FacilitatorInformationData extends MasterData
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
+	@Column(name = "facilitatorid")
 	private int m_nFacilitatorId;
 	
 	@Column(name = "facilitatorname")
@@ -41,13 +41,7 @@ public class FacilitatorInformationData extends MasterData
 	private String m_strEmail;
 	
 	@Column(name = "city")
-	private String m_strCity;
-	
-	@Column(name = "createdby")
-	private int m_nCreatedBy;
-	
-	@Column(name = "modifiedby")
-    private int m_nModifiedBy;
+	private String m_strCity;	
 	
 	public FacilitatorInformationData()
 	{
@@ -56,29 +50,8 @@ public class FacilitatorInformationData extends MasterData
 		m_strPhoneNumber = "";
 		m_strEmail = "";
 		m_strCity = "";
-		m_nCreatedBy =-1;
-		m_nModifiedBy = -1;
+		
 	}	
-
-	public int getM_nCreatedBy()
-	{
-		return m_nCreatedBy;
-	}
-
-	public void setM_nCreatedBy(int m_nCreatedBy) 
-	{
-		this.m_nCreatedBy = m_nCreatedBy;
-	}
-
-	public int getM_nModifiedBy()
-	{
-		return m_nModifiedBy;
-	}
-
-	public void setM_nModifiedBy(int m_nModifiedBy) 
-	{
-		this.m_nModifiedBy = m_nModifiedBy;
-	}
 
 	public int getM_nFacilitatorId() 
 	{
@@ -156,7 +129,7 @@ public class FacilitatorInformationData extends MasterData
 	public String generateXML()
 	{
 		m_oLogger.info ("generateXML");
-		String strItemInfoXML ="";
+		String strFacilitatorInfoXML ="";
 		try
 		{
 			Document oXmlDocument = createNewXMLDocument ();
@@ -166,12 +139,12 @@ public class FacilitatorInformationData extends MasterData
 			addChild (oXmlDocument, oRootElement, "m_strPhoneNumber", m_strPhoneNumber);
 			addChild (oXmlDocument, oRootElement, "m_strEmail", m_strEmail);
 			addChild (oXmlDocument, oRootElement, "m_strCity", m_strCity);
-			strItemInfoXML = getXmlString (oXmlDocument);
+			strFacilitatorInfoXML = getXmlString (oXmlDocument);
 		}
 		catch (Exception oException) 
 		{
 			m_oLogger.error("generateXML - oException : " + oException);
 		}
-		return strItemInfoXML;		
+		return strFacilitatorInfoXML;		
 	}
 }

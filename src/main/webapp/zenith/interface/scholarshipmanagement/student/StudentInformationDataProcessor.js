@@ -54,7 +54,12 @@ var StudentInformationDataProcessor = (function __StudentInformationDataProcesso
 	
 	function getStudentSuggesstions (oStudentData, strSortColumn, strSortOrder, callback)
 	{
-		ajaxCall(oTradeMustHelper, "/studentInfoGetSuggestions", callback);		
+		ajaxCall(oStudentData, "/studentInfoGetSuggestions", callback);		
+	}
+	
+	function checkAadharExist (oStudentData,callback)
+	{
+		ajaxCall(oStudentData, "/isAadharnumberExist", callback);
 	}
 	
 	return { 
@@ -67,6 +72,7 @@ var StudentInformationDataProcessor = (function __StudentInformationDataProcesso
 		getXML : getXML,
 		getStudentSuggesstions :getStudentSuggesstions,
 		setImagetoS3bucket :setImagetoS3bucket,
-		getStudentUID :getStudentUID
+		getStudentUID :getStudentUID,
+		checkAadharExist:checkAadharExist
 	};
 })();

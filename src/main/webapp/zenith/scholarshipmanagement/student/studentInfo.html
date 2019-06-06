@@ -18,7 +18,6 @@
             <tr>
              <td class="zenith">
 				<div id="student_div_tabs" class="easyui-tabs" data-options="tabWidth:125,tabHeight:30">
-				
 				<div title="<span class = 'tt-inner'>Personal Details</span>" style="padding: 10px">
 				    <table class="zenith">
 					 <tr bgcolor="#efefef">
@@ -31,8 +30,23 @@
 					                        data-options="required:true" style = "width:200px;"
 					                        class="zenith easyui-validatebox"
 					                        onchange = "searchStudentUID ()"/>
+			                    </td>			                    
+                          	</tr> 
+                          	<tr>
+                          		<td class="fieldHeading"> Facilitator Name <em> * </em> </td>
+                          		<td style = "padding-left = 20px;">                      
+				                    <input type="text" id="selectStudentInfo_input_studentfacilitator" class = "easyui-combobox zenith" data-options="hasDownArrow:false,panelWidth: 0,required:true"
+					                        style = "width:200px;"/>					                        
 			                    </td>
-                          	</tr>  
+                          	</tr> 
+                          	<tr>
+								<td class="fieldHeading"> Student Name <em> * </em> </td>
+			                    <td style = "padding-left = 20px;">                      
+				                    <input type="text" id="studentInfo_input_studentName"
+				                        data-options="required:true" style = "width:300px;"
+				                        class="zenith easyui-validatebox"/>
+			                    </td>   
+							</tr>  
                           	<tr>
                           		<td class="fieldHeading"> Student Aadhar Number <em> * </em> </td>
                           		<td style = "padding-left = 20px;">                      
@@ -41,15 +55,7 @@
 					                        class="zenith easyui-validatebox"
 					                        onkeyup="validateNumber (this)"/>
 			                    </td>
-                          	</tr>             
-							<tr>
-								<td class="fieldHeading"> Student Name <em> * </em> </td>
-			                    <td style = "padding-left = 20px;">                      
-				                    <input type="text" id="studentInfo_input_studentName"
-				                        data-options="required:true" style = "width:300px;"
-				                        class="zenith easyui-validatebox"/>
-			                    </td>   
-							</tr>
+                          	</tr>			
 							<tr>
 								<td class="fieldHeading"> Gender <em> * </em> </td>
 				                    <td>
@@ -102,10 +108,7 @@
 							<tr>
                           		<td class="fieldHeading">Father Aadhar Number <em> * </em> </td>
                           		<td style = "padding-left = 20px;">                      
-				                    <input type="text" id="studentInfo_input_fatherAadharNumber" maxlength="12"
-					                        data-options="required:true" style = "width:200px;"
-					                        class="zenith easyui-validatebox"
-					                        onkeyup="validateNumber (this)"/>
+				                    <input type="text" id="studentInfo_input_fatherAadharNumber" maxlength="12" data-options="required:true" style = "width:200px;" class="zenith easyui-validatebox" keyup="validateNumber (this)" onchange="fatherAadharValidate();"/>
 			                    </td>
                           	</tr>     
 							<tr>
@@ -122,16 +125,27 @@
 							<tr>
                           		<td class="fieldHeading">Mother Aadhar Number <em> * </em> </td>
                           		<td style = "padding-left = 20px;">                      
-				                    <input type="text" id="studentInfo_input_motherAadharNumber" maxlength="12"
-					                        data-options="required:true" style = "width:200px;"
-					                        class="zenith easyui-validatebox"
-					                        onkeyup="validateNumber (this)"/>
+				                    <input type="text" id="studentInfo_input_motherAadharNumber" maxlength="12" data-options="required:true" style = "width:200px;" class="zenith easyui-validatebox" onkeyup="validateNumber (this)" onchange="motherAadharValidate();"/>
 			                    </td>
-                          	</tr>  
+                          	</tr>
+                          	<tr>
+								<td class="fieldHeading">Parental Status <em>*</em></td>
+								<td>
+								<select id ="select_input_studentParentalStatus" class ="zenith easyui-validatebox" data-options="required:true" style="width:200px;" required>
+										<option>
+											Select Parental Status
+										</option>
+									</select>
+								</td>
+							</tr>  
 							<tr>
 								<td class="fieldHeading"> Religion <em>*</em> </td>
 								<td>
-									<input type ="text" id = "studentInfo_input_religion" class = "zenith easyui-validatebox" data-options="required:true" style="width: 200px;"/>
+									<select id ="studentInfo_input_religion" class ="zenith easyui-validatebox" data-options="required:true" style="width:200px;" required>
+										<option>
+											Select Religion
+										</option>
+									</select>
 								</td> 
 							</tr>							
 							<tr>
@@ -156,8 +170,7 @@
 			                    <td>
 			                       <input 
 			                           type="tel"  maxlength="10"
-			                           id="studentInfo_input_phoneNumber2"
-			                           required
+			                           id="studentInfo_input_phoneNumber2"			                           
 			                           class="zenith"
 			                           data-options="validType:'minLength[10]'"
 			                           onkeyup="validateNumber (this)"/>
@@ -234,14 +247,36 @@
                          	<tr>
 								<td class="fieldHeading">School/College/Institute</td>
 								<td>
-									<input type ="text" id = "select_input_academic_name" class = "easyui-combobox zenith" data-options="hasDownArrow:false,panelWidth: 0,required:true" style="width: 200px;"/>
-								</td>						
-							</tr>
+									<input type ="text" id = "select_input_academic_name" class = "easyui-combobox zenith" data-options="hasDownArrow:false,panelWidth: 0,required:true" style="width:200px;"/>
+								</td>
+								<td style="padding-right: 16px"> </td>  
+			                    <td class="fieldHeading">Academic Year<em>*</em> </td>
+			                    <td>
+			                    	<select id = "select_student_academicyear" name="select_student_academicyear"  class="zenith validate_box">
+			                    	</select>			                    
+			                    </td>						
+							</tr>								
 							<tr>
 								<td class="fieldHeading">Class/Course</td>
 								<td>
-									<input type ="text" id = "select_input_studentcourse" class = "easyui-combobox zenith" data-options="hasDownArrow:false,panelWidth: 0,required:true" style="width: 200px;"/>								
+									<input type ="text" id = "select_input_studentcourse" class = "easyui-combobox zenith" data-options="hasDownArrow:false,panelWidth: 0,required:true" style="width:200px;"/>								
 								</td>
+							</tr>
+							<tr>
+								<td class="fieldHeading">Specialization</td>
+								<td>
+									<input type ="text" id = "select_input_studentSpecialization" class = "zenith" style="width:200px;"/>								
+								</td>
+							</tr>
+							<tr>
+								<td class="fieldHeading"> Score <em>*</em> </td>
+								<td>
+									<select id ="studentInfo_input_studentScore" class ="zenith easyui-validatebox" data-options="required:true" style="width:200px;" required>
+										<option>
+											Select Score
+										</option>
+									</select>
+								</td> 
 							</tr>
 							<tr>
 								<td class="fieldHeading" > Annual Fee(Rs)</td>
@@ -249,8 +284,8 @@
 		                             <input  type="text" id="academicInfo_input_annualfee" class="zenith" onkeyup="validateNumber (this)"/>
 		                         </td>
 		                         <td style="padding-right: 10px"> </td>
-		                         <td class="fieldHeading" padding-left = "10px"> Paid(Rs) </td>
-		                         <td style="padding-right: 10px"> </td>
+		                         <td class="fieldHeading" padding-left = "5px"> Paid(Rs) </td>
+		                         <!-- <td style="padding-right: 10px"> </td> -->
 		                         <td>
 		                             <input  type="text" id="academicInfo_input_paidfee" class="zenith" onkeyup="validateNumber (this)"/>
 		                         </td>
@@ -285,13 +320,14 @@
 		                         <td>
 		                             <input  type="text" id="scholarshipInfo_input_organizationamount0" class="zenith" onkeyup="validateNumber (this)"/>
 		                         </td>
-		                         <td style="padding-right: 10px"> </td>		                         
+		                         <td style="padding-right: 15px"> </td>		                         
 	                             <td>
 	                             <img 
 	                                 id="scholarship_addOrganization"
 	                                 alt=""
-	                                 align="right"
+	                                 align="center"
 	                                 src="images/add.PNG"
+	                                 width="20"
 	                                 title="New Organization"
 	                                 style="visibility: visible;"
 	                                 onclick="scholarship_addNewOrganization ();"/>
