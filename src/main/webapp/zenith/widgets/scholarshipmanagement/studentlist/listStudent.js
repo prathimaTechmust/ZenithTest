@@ -2,7 +2,8 @@ var listStudentInfo_includeDataObjects =
 [
 	'widgets/scholarshipmanagement/studentlist/StudentInformationData.js',
 	'widgets/scholarshipmanagement/institutionslist/InstitutionInformationData.js',
-	'widgets/scholarshipmanagement/courselist/CourseInformationData.js'
+	'widgets/scholarshipmanagement/courselist/CourseInformationData.js',
+	'widgets/scholarshipmanagement/academicyear/AcademicYear.js'
 ];
 
  includeDataObjects (listStudentInfo_includeDataObjects, "listStudentInfo_loaded()");
@@ -32,6 +33,27 @@ function listStudentInfo_init ()
 }
 
 function academicyear ()
+{
+	var oAcademicYear = new AcademicYear();
+	AcademicYearProcessor.list(oAcademicYear,"m_strAcademicYear","asc",0,0,academicyearResponse);	
+}
+
+function academicyearResponse(oYearResponse)
+{
+	populateYear("selectacademicyearwiseStudents",oYearResponse);
+}
+
+function populateYear(academicyear,oYearResponse)
+{
+	var arrAcademicYears = new Array();
+	for(var nIndex = 0; nIndex < oYearResponse.m_arrAcademicYear.length; nIndex++)
+	{
+		arrAcademicYears.push(CreateOption(oYearResponse.m_arrAcademicYear[nIndex].m_strAcademicYear,oYearResponse.m_arrAcademicYear[nIndex].m_strAcademicYear));		
+	}
+	PopulateDD(academicyear,arrAcademicYears);	
+}
+
+/*function academicyear ()
 {	
 		  var oDate = new Date();
 		  var ocurrentAcademicYear = oDate.getFullYear();
@@ -39,7 +61,7 @@ function academicyear ()
 		  var option = document.createElement('option');
 		  option.text = option.value = ocurrentAcademicYear +"-"+(++ocurrentAcademicYear);
 		  selectyear.add(option,0);		
-}
+}*/
 
 function listStudentInfo_createDataGrid ()
 {

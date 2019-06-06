@@ -79,7 +79,7 @@ function academicyear_update (oAcademicyearResponse)
 
 function addNewAcademicYear()
 {	
-	if(m_oAcademicyearInfoMemberData.m_AcademicYearRowCount > 1)
+	if(m_oAcademicyearInfoMemberData.m_AcademicYearRowCount > 0)
 	{
 		$("#academicyeartableid").append('<tr><td><input  type="text" id="academicyearInfo_input'+(m_oAcademicyearInfoMemberData.m_AcademicYearRowCount++)+'" class="zenith"/></td><td style="padding-right: 10px"> </td><td style="padding-right: 10px"> </td></tr>');
 	}
