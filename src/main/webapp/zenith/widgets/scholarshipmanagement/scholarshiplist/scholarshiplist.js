@@ -41,10 +41,10 @@ function listScholarshipInfo_createDataGrid ()
 			[[
 				{field:'m_nUID',title:'UID',sortable:true,width:200},
 				{field:'m_strStudentName',title:'Student Name',sortable:true,width:300},
-				{field:'m_strCourseName',title:'Course Name',sortable:true,width:200,
+				{field:'m_strShortCourseName',title:'Course Name',sortable:true,width:200,
 					formatter:function(value,row,index)
 					{
-						return row.m_oAcademicDetails[0].m_strCourseName;
+						return row.m_oAcademicDetails[0].m_oCourseInformationData.m_strShortCourseName;
 					}
 				},
 				{field:'m_fAnnualFee',title:'Total Fee',sortable:true,width:200,
