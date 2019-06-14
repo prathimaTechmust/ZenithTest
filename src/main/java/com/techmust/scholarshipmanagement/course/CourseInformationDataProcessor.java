@@ -46,8 +46,15 @@ public class CourseInformationDataProcessor extends GenericIDataProcessor <Cours
 		CourseDataResponse oCourseDataResponse = new CourseDataResponse();
 		try
 		{
-			oCourseInformationData = (CourseInformationData) populateObject (oCourseInformationData);
-			oCourseDataResponse.m_bSuccess = oCourseInformationData.deleteObject();
+			//oCourseInformationData = (CourseInformationData) populateObject (oCourseInformationData);
+			oCourseDataResponse.m_bSuccess = oCourseInformationData.doesCourseHaveAcademic(oCourseInformationData.getM_nCourseId());
+			if(oCourseDataResponse.m_bSuccess == true)
+			{
+				oCourseDataResponse.m_strError_Desc = "Students are part of this course";
+				oCourseDataResponse.m_bSuccess = false;
+			}				
+			else
+				oCourseDataResponse.m_bSuccess = oCourseInformationData.deleteObject();
 		}
 		catch (Exception oException)
 		{

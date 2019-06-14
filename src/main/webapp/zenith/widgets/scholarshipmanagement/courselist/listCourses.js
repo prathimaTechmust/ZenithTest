@@ -170,9 +170,9 @@ function course_delete_Response (oResponse)
 {
 	if(oResponse.m_bSuccess)
 	{
-		informUser ("course deleted successfully", "kSuccess");
+		informUser ("course deleted successfully", "kSuccess");		
 		document.getElementById("listCourseInfo_div_listDetail").innerHTML = "";
-		listCourseInfo_list (m_oCourseInfoListMemberData.m_strSortColumn, m_oCourseInfoListMemberData.m_strSortOrder, 1, 10);
+		navigate("courselist","widgets/scholarshipmanagement/courselist/listCourses.js");
 	}
 	else
 		informUser (oResponse.m_strError_Desc, "kError");

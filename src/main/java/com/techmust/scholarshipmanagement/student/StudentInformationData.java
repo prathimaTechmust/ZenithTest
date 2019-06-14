@@ -21,7 +21,6 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.apache.commons.io.FilenameUtils;
-import org.hibernate.Criteria;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -31,8 +30,7 @@ import com.techmust.constants.Constants;
 import com.techmust.generic.data.GenericData;
 import com.techmust.generic.data.MasterData;
 import com.techmust.scholarshipmanagement.academicdetails.AcademicDetails;
-import com.techmust.scholarshipmanagement.academicdetails.AcademicYear;
-import com.techmust.scholarshipmanagement.scholarshipdetails.ScholarshipDetails;
+import com.techmust.scholarshipmanagement.scholarshipdetails.zenithscholarshipstatus.ZenithScholarshipDetails;
 import com.techmust.usermanagement.facilitator.FacilitatorInformationData;
 
 @Entity
@@ -119,6 +117,9 @@ public class StudentInformationData  extends MasterData
 	@Transient	
 	private String m_strAcademicYear;
 	
+	@Transient
+	private String m_strStatus;
+	
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "facilitatorid")
 	private FacilitatorInformationData m_oFacilitatorInformationData;
@@ -127,9 +128,12 @@ public class StudentInformationData  extends MasterData
 	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "m_oStudentInformationData")
 	private Set<AcademicDetails> m_oAcademicDetails;
 	
+	@JsonManagedReference
+	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "m_oStudentInformationData")
+	private Set<ZenithScholarshipDetails> m_oZenithScholarshipDetails ;
+	
 	@Transient
 	public AcademicDetails[] m_arrAcademicDetails;
-	
 	
 	public StudentInformationData()
 	{
@@ -158,8 +162,19 @@ public class StudentInformationData  extends MasterData
 		m_nUID = -1;
 		m_oAcademicDetails = new HashSet<AcademicDetails> ();	
 		m_oFacilitatorInformationData = new FacilitatorInformationData();
+		m_oZenithScholarshipDetails = new HashSet<ZenithScholarshipDetails>();
 	}	
 	
+	public String getM_strStatus()
+	{
+		return m_strStatus;
+	}
+
+	public void setM_strStatus(String m_strStatus)
+	{
+		this.m_strStatus = m_strStatus;
+	}
+
 	public String getM_strAcademicYear()
 	{
 		return m_strAcademicYear;
@@ -430,6 +445,16 @@ public class StudentInformationData  extends MasterData
 		this.m_strStudentImageName = strStudentImageName;
 	}
 	
+	public Set<ZenithScholarshipDetails> getM_oZenithScholarshipDetails()
+	{
+		return m_oZenithScholarshipDetails;
+	}
+
+	public void setM_oZenithScholarshipDetails(Set<ZenithScholarshipDetails> m_oZenithScholarshipDetails) 
+	{
+		this.m_oZenithScholarshipDetails = m_oZenithScholarshipDetails;
+	}
+
 	@Override
 	protected Predicate listCriteria(CriteriaBuilder oCriteriaBuilder, Root<GenericData> oRootObject) 
 	{

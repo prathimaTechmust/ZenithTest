@@ -220,7 +220,28 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		return oStudentDataResponse;
 		
 	}
-
+	
+	@RequestMapping(value = "/studentVerifiedInfoList",method = RequestMethod.POST,headers = {"Content-type=application/json"})
+	@ResponseBody
+	public GenericResponse getToBeStudentsVerified(@RequestBody StudentInformationData oStudentInformationData)
+	{
+		m_oLogger.info ("verifiedstudentlist");
+		m_oLogger.debug ("verifiedstudentlist - oStudentInformationData [IN] : " + oStudentInformationData);
+		StudentDataResponse oStudentDataResponse = new StudentDataResponse();
+		try
+		{
+			oStudentDataResponse.m_arrStudentInformationData = new ArrayList(oStudentInformationData.getStatusStudentsList(oStudentInformationData));
+			oStudentDataResponse.m_nRowCount = oStudentDataResponse.m_arrStudentInformationData.size();
+		}
+		catch (Exception oException)
+		{
+			m_oLogger.error ("verifiedstudentlist - oException : "  + oException);
+			throw oException;
+		}
+		return oStudentDataResponse;
+		
+	}
+	
 	@Override
 	public GenericResponse list(StudentInformationData oGenericData, HashMap<String, String> arrOrderBy)
 			throws Exception {

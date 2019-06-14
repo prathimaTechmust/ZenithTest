@@ -174,7 +174,7 @@ function institution_delete_Response (oResponse)
 	{
 		informUser ("institution deleted successfully", "kSuccess");
 		document.getElementById("listInstitutionsInfo_div_listDetail").innerHTML = "";
-		listInstitutionsInfo_list (m_oInstitutionsInfoListMemberData.m_strSortColumn, m_oInstitutionsInfoListMemberData.m_strSortOrder, 1, 10);
+		navigate("institutionlist","widgets/scholarshipmanagement/institutionslist/listInstitution.js");
 	}
 	else
 		informUser (oResponse.m_strError_Desc, "kError");

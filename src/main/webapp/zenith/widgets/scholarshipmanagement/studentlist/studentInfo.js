@@ -6,7 +6,8 @@ var studentInfo_includeDataObjects =
 	'widgets/scholarshipmanagement/scholarshipdetails/ScholarshipDetails.js',
 	'widgets/scholarshipmanagement/academicdetails/AcademicDetails.js',
 	'widgets/usermanagement/facilitator/FacilitatorInformationData.js',
-	'widgets/scholarshipmanagement/academicyear/AcademicYear.js'
+	'widgets/scholarshipmanagement/academicyear/AcademicYear.js',
+	'widgets/scholarshipmanagement/zenithscholarship/ZenithScholarshipDetails.js'
 ];
 
  includeDataObjects (studentInfo_includeDataObjects, "studentInfo_loaded()");
@@ -474,6 +475,8 @@ function studentInfo_getFormData ()
 	oStudentInformationData.m_strCity = $("#studentInfo_input_cityName").val();
 	oStudentInformationData.m_strState= $("#studentInfo_input_stateName").val();
 	oStudentInformationData.m_nPincode = $("#studentInfo_input_pincodeName").val();
+	if(m_oStudentInfoMemberData.m_strAcademicYear != $("#select_student_academicyear").val())
+		oStudentInformationData.m_oZenithScholarshipDetails = getZenithstatus();
 	      /*Academic details*/
 	oStudentInformationData.m_oAcademicDetails = getAcademicDetails ();			
 	
@@ -501,9 +504,17 @@ function getAcademicDetails ()
 	if(scholarshipdetails.length == 0)
 		oAcademicDetails.m_oScholarshipDetails = getNewScholarshipDetails ();
 	else if(scholarshipdetails.length >= 1)
-		oAcademicDetails.m_oScholarshipDetails = getAddScolarshipDetails ();
+		oAcademicDetails.m_oScholarshipDetails = getAddScolarshipDetails ();	
 	oArrAcademicDetails.push(oAcademicDetails);	
 	return oArrAcademicDetails;
+}
+
+function getZenithstatus()
+{
+	var oArrScholarshipStatus = new Array();
+	var oZenithSholarshipstatus = new ZenithScholarshipDetails ();
+	oArrScholarshipStatus.push(oZenithSholarshipstatus);
+	return oArrScholarshipStatus;
 }
 
 function getNewScholarshipDetails ()

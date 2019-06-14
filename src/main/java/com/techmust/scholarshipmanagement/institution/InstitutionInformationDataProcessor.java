@@ -47,8 +47,15 @@ public class InstitutionInformationDataProcessor extends GenericIDataProcessor<I
 		InstitutionDataResponse oInstitutionDataResponse = new InstitutionDataResponse();
 		try
 		{
-			oInstitutionInformationData = (InstitutionInformationData) populateObject (oInstitutionInformationData);
-			oInstitutionDataResponse.m_bSuccess = oInstitutionInformationData.deleteObject();
+			//oInstitutionInformationData = (InstitutionInformationData) populateObject (oInstitutionInformationData);
+			oInstitutionDataResponse.m_bSuccess = oInstitutionInformationData.doesInstitutionHaveAcademic(oInstitutionInformationData.getM_nInstitutionId());
+			if(oInstitutionDataResponse.m_bSuccess == true)
+			{
+				oInstitutionDataResponse.m_strError_Desc = "Students are part of in this Institution";
+				oInstitutionDataResponse.m_bSuccess = false;
+			}				
+			else
+				oInstitutionDataResponse.m_bSuccess = oInstitutionInformationData.deleteObject();
 		}
 		catch (Exception oException)
 		{

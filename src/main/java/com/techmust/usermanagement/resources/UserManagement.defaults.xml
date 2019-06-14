@@ -92,8 +92,41 @@
 				<ActionName>Scholarship List</ActionName>
 				<Target>navigate ('scholarshiplist','widgets/scholarshipmanagement/scholarshiplist/scholarshiplist.js')</Target>
 				<SequenceId>50</SequenceId>
-			</Action>			
+			</Action>						
 		</Actions> 
+	</ActionArea>
+	<ActionArea name = "Application Status"  SequenceId="30">
+		<Actions>
+		    <Action>
+				<ActionName>To Be Verified</ActionName>
+				<Target>navigate ('verified','widgets/applicationstatus/verified/verifiedlist.js')</Target>
+				<SequenceId>10</SequenceId>
+			</Action>
+			<Action>
+				<ActionName>To Be Approval</ActionName>
+				<Target>navigate ('approval','widgets/applicationstatus/approval/approvallist.js')</Target>
+				<SequenceId>20</SequenceId>
+			</Action>
+			<Action>
+				<ActionName>Disspersed</ActionName>
+				<Target>navigate ('disspersed','widgets/applicationstatus/disspersed/disspersedlist.js')</Target>
+				<SequenceId>30</SequenceId>
+			</Action>									
+		</Actions> 
+	</ActionArea>	
+	<ActionArea name="Scholarship Details" SequenceId="40">
+		<Actions>
+			<Action>
+				<ActionName>Accounts</ActionName>
+				<SequenceId>10</SequenceId>
+				<Target>navigate ('sholarshipaccounts','widgets/scholarshipmanagement/scholarshipdetails/scholarshipaccountdetails.js')</Target>
+			</Action>
+			<Action>
+				<ActionName>Issuse of Check</ActionName>
+				<SequenceId>20</SequenceId>
+				<Target>navigate ('sholarshipchecks','widgets/scholarshipmanagement/scholarshipdetails/scholarshipcheckdetails.js')</Target>
+			</Action>
+		</Actions>
 	</ActionArea>	
 </root>  
 </UserManagementDefaults>

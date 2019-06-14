@@ -24,6 +24,7 @@ function StudentInformationData ()
 	this.m_nPincode = -1;
 	this.m_nUID = -1;	
 	this.m_strAcademicYear = "";
+	this.m_strStatus = "";
 	this.m_arrAcademicDetails = new Array();	
 }
 dataObjectLoaded ();

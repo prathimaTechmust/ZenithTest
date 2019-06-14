@@ -35,9 +35,6 @@ import com.techmust.scholarshipmanagement.student.StudentInformationData;
 public class AcademicDetails extends MasterData
 {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -78,10 +75,10 @@ public class AcademicDetails extends MasterData
 	
 	@JsonManagedReference
 	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "m_oAcademicDetails")
-	private Set<ScholarshipDetails> m_oScholarshipDetails;	
+	private Set<ScholarshipDetails> m_oScholarshipDetails;
 
 	@Transient
-	public ScholarshipDetails[] m_arrScholarshipDetails;
+	public ScholarshipDetails[] m_arrScholarshipDetails;	
 	
 	public AcademicDetails()
 	{
@@ -96,8 +93,8 @@ public class AcademicDetails extends MasterData
 		m_oInstitutionInformationData = new InstitutionInformationData();
 		m_oCourseInformationData = new CourseInformationData();	
 		m_oScholarshipDetails = new HashSet<ScholarshipDetails> ();	
-	}	
-	
+	}
+
 	public String getM_strAcademicYear() 
 	{
 		return m_strAcademicYear;

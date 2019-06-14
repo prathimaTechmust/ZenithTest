@@ -212,7 +212,7 @@ function student_delete_Response (oResponse)
 	{
 		informUser ("student deleted successfully", "kSuccess");
 		document.getElementById("listStudentInfo_div_listDetail").innerHTML = "";
-		listStudentInfo_list (m_oStudentInfoListMemberData.m_strSortColumn, m_oStudentInfoListMemberData.m_strSortOrder, 1, 10);
+		navigate("studentlist","widgets/scholarshipmanagement/studentlist/listStudent.js");
 	}
 	else
 		informUser (oResponse.m_strError_Desc, "kError");

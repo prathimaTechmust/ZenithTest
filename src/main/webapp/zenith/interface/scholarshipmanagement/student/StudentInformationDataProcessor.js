@@ -62,6 +62,11 @@ var StudentInformationDataProcessor = (function __StudentInformationDataProcesso
 		ajaxCall(oStudentData, "/isAadharnumberExist", callback);
 	}
 	
+	function getStudentStatuslist(oStudentData,callback)
+	{
+		ajaxCall(oStudentData,"/studentVerifiedInfoList",callback);
+	}
+	
 	return { 
 		create : create,
 		get : get,
@@ -73,6 +78,7 @@ var StudentInformationDataProcessor = (function __StudentInformationDataProcesso
 		getStudentSuggesstions :getStudentSuggesstions,
 		setImagetoS3bucket :setImagetoS3bucket,
 		getStudentUID :getStudentUID,
-		checkAadharExist:checkAadharExist
+		checkAadharExist:checkAadharExist,
+		getStudentStatuslist : getStudentStatuslist
 	};
 })();
