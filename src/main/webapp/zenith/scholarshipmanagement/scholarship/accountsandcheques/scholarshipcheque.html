@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+     <title>
+      Issue of Cheque
+     </title>
+ </head>
+<body>
+<form class="zenith" id="accountInfo_form_id" style="width:450px;">
+	<table class = "zenith" summary = "">		
+		<tr>
+			<td class="formHeading" style="width:500px;">Cheque Information</td>		
+		</tr>
+		<tr>
+			<td class="zenith">
+				<fieldset>
+					<legend>
+						Cheque Details
+					</legend>
+						<table cellspacing="10px" summary="">
+							<tr>
+	             				<td class="zenith">
+									<table class="zenith" width="100%">
+				                   		<tr>
+				                   			<td class="fieldHeading"> UID Number</td>
+				                    		<td style = "padding-left = 20px;">                      
+						                  		<input type="text" id="student_input_studentUIDNumber" maxlength="4"  style = "width:150px;" class="zenith" onchange = "searchStudentUID ()"/>
+							                </td>			                    
+				                    	</tr>				                    	
+				                    	<tr>
+				                    		<td class="fieldHeading">Student Name</td>
+				                    		<td style = "padding-left = 20px;">                      
+						                  		<input type="text" id="studentInfo_inputStudentName" class="zenith"  style = "width:200px;"/>
+							                </td>
+				                    	</tr> 
+				                    	<tr>
+				                    		<td class="fieldHeading">Payment Type</td>
+				                    		<td>
+				                    			<input type="radio" id="select_radio_Cheque" name="select_radio_Cheque" value="Cheque"/>Cheque                    		
+				                    			<input type="radio" id="select_radio_DD" name="select_radio_DD" value="DD" style="margin-left: 25px;"/>DD
+				                    		</td>
+				                    	</tr>
+				                    	<tr>
+				                    		<td class="fieldHeading">Receiver name</td>
+				                    		<td style = "padding-left = 20px;">                      
+						                  		<input type="text" id="chequeInfo_inputReceiver name" class="zenith"  style = "width:200px;"/>
+							                </td>
+				                    	</tr>
+				                    	<tr>
+				                    		<td class="fieldHeading">Receiver Contact Number</td>
+				                    		<td style = "padding-left = 20px;">                      
+						                  		<input type="text" id="chequeInfo_inputReceiver name" class="zenith"  style = "width:200px;"/>
+							                </td>
+				                    	</tr>				                    	   
+								   </table>
+					             </td>
+	            		   </tr>						
+				     </table>
+			</fieldset>
+		  </td>
+		</tr>		
+		<tr>			
+           <td align="right" colspan="2">
+             <hr>
+             <button id="chequeInfo_button_submit" type="button" class="zenith" update="false" onclick="chequeInfo_submit()">
+               Create
+             </button>
+             <button id="chequeInfo_button_cancel" type="button" class="zenith" onclick="chequeInfo_cancel()">
+               Cancel
+             </button>
+           </td>        	
+		</tr>			
+	</table>
+</form>
+</body>
+</html>
+
+
+
+
+
+
+
