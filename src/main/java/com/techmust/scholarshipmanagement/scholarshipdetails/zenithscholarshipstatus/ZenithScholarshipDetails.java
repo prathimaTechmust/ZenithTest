@@ -35,6 +35,9 @@ public class ZenithScholarshipDetails extends MasterData
 	@JoinColumn(name = "studentid")
 	private StudentInformationData m_oStudentInformationData;
 	
+	@Column(name = "approvedamount")
+	private float m_fApprovedAmount;
+	
 	@Transient
 	private int m_nStudentId;
 	
@@ -43,8 +46,19 @@ public class ZenithScholarshipDetails extends MasterData
 		m_nZenithScholarshipId = -1;
 		m_strStatus = "";
 		m_oStudentInformationData = new StudentInformationData();
-	}	
+		m_fApprovedAmount = 0;
+	}		
 	
+	public float getM_fApprovedAmount() 
+	{
+		return m_fApprovedAmount;
+	}
+
+	public void setM_fApprovedAmount(float fApprovedAmount) 
+	{
+		this.m_fApprovedAmount = fApprovedAmount;
+	}
+
 	public int getM_nStudentId()
 	{
 		return m_nStudentId;

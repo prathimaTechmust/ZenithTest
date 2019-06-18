@@ -15,6 +15,8 @@ function verifiedStudentList_Info_MemberData ()
     this.m_strSortColumn = "m_strStudentName";
     this.m_strSortOrder = "asc";
     this.m_strapplicationStatus= "pending";
+    this.m_nStudentId = -1;
+    this.m_arrStudent = new Array();
 }
 
 var m_overifiedStudentList_Info_MemberData = new verifiedStudentList_Info_MemberData();
@@ -60,17 +62,17 @@ function verifiedStudentListInfo_createDataGrid ()
 			fit:true,
 			columns:
 			[[
-				{field:'m_nUID',title:'UID',sortable:true,width:200},
+				{field:'m_nUID',title:'UID',sortable:true,width:150},
 				{field:'m_strStudentName',title:'Student Name',sortable:true,width:300},
-				{field:'m_strFatherName',title:'Father Name',sortable:true,width:200},
+				{field:'m_strFatherName',title:'Father Name',sortable:true,width:300},
 				{field:'m_strPhoneNumber',title:'Phone Number',sortable:true,width:200},
 				{field:'m_strCity',title:'City',sortable:true,width:200},
-				{field:'Actions',title:'Action',width:80,align:'center',
+				/*{field:'Actions',title:'Action',width:80,align:'center',
 					formatter:function(value,row,index)
 		        	{
 		        		return verifiedListInfo_displayImages (row.m_nStudentId);
 		        	}
-	            },
+	            },*/
 			]],				
 		}
 	);
@@ -125,12 +127,13 @@ function verifiedStudentlistInfo_selectedRowData (oRowData, nIndex)
 	var oStudentInformationData = new StudentInformationData () ;
 	oStudentInformationData.m_nStudentId = oRowData.m_nStudentId;
 	oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+	m_overifiedStudentList_Info_MemberData.m_nStudentId = oRowData.m_nStudentId;
 	StudentInformationDataProcessor.getXML (oStudentInformationData,verifiedStudentListInfo_gotXML);	
 }
 
 function verifiedStudentListInfo_gotXML (strXMLData)
 {
-	populateXMLData (strXMLData, "scholarshipmanagement/student/studentInfoDetails.xslt", 'listVerifiedStudents_div_listDetail');
+	populateXMLData (strXMLData, "applicationstatus/verified/studentInfoVerified.xslt", 'listVerifiedStudents_div_listDetail');
 }
 
 function verifiedStudentListInfo_list (strColumn,strOrder,nPageNumber,nPageSize)
@@ -146,7 +149,7 @@ function verifiedStudentListInfo_list (strColumn,strOrder,nPageNumber,nPageSize)
 	loadPage ("inventorymanagement/progressbar.html", "dialog", "verifiedStudentListInfo_progressbarLoaded ()");
 }
 
-function verifiedListInfo_displayImages (nStudentId)
+/*function verifiedListInfo_displayImages (nStudentId)
 {
 	assert.isNumber(nStudentId, "nStudentId expected to be a Number.");
 	var oImage = 	'<table align="center">'+
@@ -155,13 +158,13 @@ function verifiedListInfo_displayImages (nStudentId)
 						'</tr>'+
 					'</table>'
 	return oImage;	
-}
+}*/
 
-function verifyStudentInfo_Student(nStudentId)
+function verifyStudentInfo_Student()
 {
 	createPopup('dialog', '', '', true);	
 	var oZenith = new ZenithScholarshipDetails ();
-	oZenith.m_nStudentId = nStudentId;
+	oZenith.m_nStudentId = m_overifiedStudentList_Info_MemberData.m_nStudentId;
 	ZenithStudentInformationDataProcessor.verifiedStatusUpdate(oZenith,studentverifiedResponse);
 }
 
@@ -176,6 +179,28 @@ function studentverifiedResponse (oResponse)
 	else
 		informUser ("student verification Failed", "kError");
 	
+}
+
+function searchStudentUID()
+{
+	var oStudentInformationData = new StudentInformationData ();
+	oStudentInformationData.m_nUID = $("#StudentInfo_input_uid").val();
+	StudentInformationDataProcessor.getStudentUID(oStudentInformationData,studentUIDResponse);
+}
+
+function studentUIDResponse(oStudentUIDResponse)
+{
+	if(oStudentUIDResponse.m_bSuccess)
+	{
+		document.getElementById("listVerifiedStudents_div_listDetail").innerHTML = "";
+		var oStudentInformationData = new StudentInformationData () ;
+		oStudentInformationData.m_nStudentId = m_overifiedStudentList_Info_MemberData.m_nStudentId = oStudentUIDResponse.m_arrStudentInformationData[0].m_nStudentId;
+		oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+		StudentInformationDataProcessor.getXML (oStudentInformationData,verifiedStudentListInfo_gotXML);
+		document.getElementById("StudentInfo_input_uid").value = "";
+	}
+	else
+		alert("Student UID Does not exist");	
 }
 
 function verifiedStudentListInfo_progressbarLoaded ()

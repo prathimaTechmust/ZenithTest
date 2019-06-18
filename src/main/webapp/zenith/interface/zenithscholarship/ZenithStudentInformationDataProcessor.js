@@ -6,14 +6,20 @@ var ZenithStudentInformationDataProcessor = (function __ZenithStudentInformation
 		ajaxCall(oVerifiedData, "/studentStatusInfoUpdate", callback);
 	}
 	
-	function approvedStatusUpdate(oVerifiedData,callback)
+	function approvedStatusUpdate(oApprovedData,callback)
 	{
-		ajaxCall(oVerifiedData, "/studentApprovedStatusInfoUpdate", callback);
+		ajaxCall(oApprovedData, "/studentApprovedStatusInfoUpdate", callback);
 	}
 	
+	function rejectStatusUpdate(oRecjectedData,callback)
+	{
+		
+		ajaxCall(oRecjectedData,"/studentRejectedStatusUpdate",callback);
+	}
 	
 	return { 		
 		verifiedStatusUpdate:verifiedStatusUpdate,		
-		approvedStatusUpdate :approvedStatusUpdate
+		approvedStatusUpdate :approvedStatusUpdate,
+		rejectStatusUpdate :rejectStatusUpdate
 	};
 })();

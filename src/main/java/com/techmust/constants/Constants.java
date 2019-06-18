@@ -27,5 +27,8 @@ public class Constants
 	public static final String STUDENTIMAGEURL = "https://s3-ap-southeast-1.amazonaws.com/zenithfoundation/";
 	public static final String USERIMAGEFOLDER = "images/user/";
 	public static final String USERIMAGEURL = "https://s3-ap-southeast-1.amazonaws.com/zenithfoundation/";
+	public static final String STUDENTVERIFIED = "verified";
+	public static final String STUDENTAPPROVED = "approved";
+	public static final String STUDENTREJECTED = "rejected";
 	
 }

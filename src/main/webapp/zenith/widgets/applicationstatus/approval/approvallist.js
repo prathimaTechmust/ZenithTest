@@ -15,6 +15,7 @@ function approvalStudentList_Info_MemberData ()
     this.m_strSortColumn = "m_strStudentName";
     this.m_strSortOrder = "asc";
     this.m_strapplicationStatus= "verified";
+    this.m_nStudentId = -1;
 }
 
 var m_oapprovalStudentList_Info_MemberData = new approvalStudentList_Info_MemberData();
@@ -28,6 +29,7 @@ function approvalStudentInfo_init ()
 {
 	approvalStudentListInfo_createDataGrid ();
 	dropdownacademicyear();
+	$("#zenithInfo_approvedamount").focus();
 }
 
 function dropdownacademicyear ()
@@ -60,17 +62,17 @@ function approvalStudentListInfo_createDataGrid ()
 			fit:true,
 			columns:
 			[[
-				{field:'m_nUID',title:'UID',sortable:true,width:200},
+				{field:'m_nUID',title:'UID',sortable:true,width:150},
 				{field:'m_strStudentName',title:'Student Name',sortable:true,width:300},
-				{field:'m_strFatherName',title:'Father Name',sortable:true,width:200},
+				{field:'m_strFatherName',title:'Father Name',sortable:true,width:300},
 				{field:'m_strPhoneNumber',title:'Phone Number',sortable:true,width:200},
 				{field:'m_strCity',title:'City',sortable:true,width:200},
-				{field:'Actions',title:'Action',width:80,align:'center',
+				/*{field:'Actions',title:'Action',width:80,align:'center',
 					formatter:function(value,row,index)
 		        	{
 		        		return approvalListInfo_displayImages (row.m_nStudentId,index);
 		        	}
-	            },
+	            },*/
 			]],				
 		}
 	);
@@ -125,12 +127,13 @@ function approvalStudentlistInfo_selectedRowData (oRowData, nIndex)
 	var oStudentInformationData = new StudentInformationData () ;
 	oStudentInformationData.m_nStudentId = oRowData.m_nStudentId;
 	oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+	m_oapprovalStudentList_Info_MemberData.m_nStudentId = oRowData.m_nStudentId;
 	StudentInformationDataProcessor.getXML (oStudentInformationData,approvalStudentListInfo_gotXML);	
 }
 
 function approvalStudentListInfo_gotXML (strXMLData)
 {
-	populateXMLData (strXMLData, "scholarshipmanagement/student/studentInfoDetails.xslt", 'listApprovalStudents_div_listDetail');
+	populateXMLData (strXMLData, "applicationstatus/approval/studentInfoApproved.xslt", 'listApprovalStudents_div_listDetail');
 }
 
 function approvalStudentListInfo_list (strColumn,strOrder,nPageNumber,nPageSize)
@@ -146,7 +149,7 @@ function approvalStudentListInfo_list (strColumn,strOrder,nPageNumber,nPageSize)
 	loadPage ("inventorymanagement/progressbar.html", "dialog", "approvalStudentListInfo_progressbarLoaded ()");
 }
 
-function approvalListInfo_displayImages (nStudentId,index)
+/*function approvalListInfo_displayImages (nStudentId,index)
 {
 	assert.isNumber(nStudentId, "nStudentId expected to be a Number.");
 	assert.isNumber(index, "index expected to be a Number.");
@@ -156,14 +159,64 @@ function approvalListInfo_displayImages (nStudentId,index)
 						'</tr>'+
 					'</table>'
 	return oImage;	
-}
+}*/
 
-function approveStudentInfo_Student(nStudentId)
+function approveStudentInfo_Student()
 {
 	createPopup('dialog', '', '', true);	
 	var oZenith = new ZenithScholarshipDetails ();
-	oZenith.m_nStudentId = nStudentId;
-	ZenithStudentInformationDataProcessor.approvedStatusUpdate(oZenith,studentapprovalResponse);
+	if($("#zenithInfo_approvedamount").val() != 0)
+	{
+		oZenith.m_fApprovedAmount = $("#zenithInfo_approvedamount").val();
+		oZenith.m_nStudentId = m_oapprovalStudentList_Info_MemberData.m_nStudentId;
+		ZenithStudentInformationDataProcessor.approvedStatusUpdate(oZenith,studentapprovalResponse);
+	}
+	else
+	{
+		alert("Please Enter Valid Amount");
+		approvalStudentInfo_init ();		
+	}	
+}
+
+function recjectStudentInfo_Student ()
+{
+		var oZenith = new ZenithScholarshipDetails ();		
+		oZenith.m_nStudentId = m_oapprovalStudentList_Info_MemberData.m_nStudentId;
+		ZenithStudentInformationDataProcessor.rejectStatusUpdate(oZenith,studentrejectResponse);		
+}
+
+function studentrejectResponse (oResponse)
+{
+	if(oResponse.m_bSuccess)
+	{
+		informUser ("student rejected successfully", "kSuccess");
+		document.getElementById("listApprovalStudents_div_listDetail").innerHTML = "";		
+		navigate("approvedlist","widgets/applicationstatus/approval/approvallist.js");
+	}
+	else
+		informUser ("student reject Failed", "kError");
+}
+
+function searchStudentUID ()
+{
+	var oStudentInformationData = new StudentInformationData ();
+	oStudentInformationData.m_nUID = $("#StudentInfo_input_uid").val();
+	StudentInformationDataProcessor.getStudentUID(oStudentInformationData,studentUIDResponse);
+}
+
+function studentUIDResponse (oStudentUIDResponse)
+{
+	if(oStudentUIDResponse.m_bSuccess)
+	{
+		document.getElementById("listApprovalStudents_div_listDetail").innerHTML = "";
+		var oStudentInformationData = new StudentInformationData () ;
+		oStudentInformationData.m_nStudentId = m_oapprovalStudentList_Info_MemberData.m_nStudentId = oStudentUIDResponse.m_arrStudentInformationData[0].m_nStudentId;
+		oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+		StudentInformationDataProcessor.getXML (oStudentInformationData,approvalStudentListInfo_gotXML);
+		document.getElementById("StudentInfo_input_uid").value = "";
+	}
+	else
+		alert("Student UID Does not exist");
 }
 
 function studentapprovalResponse (oResponse)
@@ -171,15 +224,11 @@ function studentapprovalResponse (oResponse)
 	if(oResponse.m_bSuccess)
 	{
 		informUser ("student approved successfully", "kSuccess");
-		document.getElementById("listApprovalStudents_div_listDetail").innerHTML = "";
-		/*var oStudentInformationData = new StudentInformationData ();
-		oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
-		oStudentInformationData.m_strStatus = m_oapprovalStudentList_Info_MemberData.m_strapplicationStatus;
-		StudentInformationDataProcessor.getStudentStatuslist(oStudentInformationData,approvalStudentListInfo_listed);*/
-		navigate("approvallist","widgets/applicationstatus/approval/approvallist.js");
+		document.getElementById("listApprovalStudents_div_listDetail").innerHTML = "";		
+		navigate("approvedlist","widgets/applicationstatus/approval/approvallist.js");
 	}
 	else
-		informUser ("student approval Failed", "kError");
+		informUser ("student approved Failed", "kError");
 	
 }
 

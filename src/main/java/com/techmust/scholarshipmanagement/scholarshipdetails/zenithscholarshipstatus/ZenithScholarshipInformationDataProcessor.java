@@ -82,6 +82,26 @@ public class ZenithScholarshipInformationDataProcessor extends GenericIDataProce
 		}
 		return oZenithScholarshipDetailsDataResponse;
 	}
+	
+	@RequestMapping(value="/studentRejectedStatusUpdate",method = RequestMethod.POST, headers = {"Content-type=application/json"})
+	@ResponseBody
+	public GenericResponse rejectedStatusUpdate(@RequestBody ZenithScholarshipDetails oZenithScholarshipDetails) throws Exception
+	{
+		m_oLogger.info("applicationRejectedStatus");
+		m_oLogger.debug("applicationRejectedStatus - ZenithScholarshipDetails [IN] : " + oZenithScholarshipDetails);
+		ZenithScholarshipDetailsDataResponse oDataResponse = new ZenithScholarshipDetailsDataResponse();
+		try 
+		{
+			oDataResponse.m_bSuccess = oZenithScholarshipDetails.updateStudentApplicationRejectedStatus(oZenithScholarshipDetails);
+		} 
+		catch (Exception oException)
+		{
+			m_oLogger.error("applicationRejectedStatus- oException"+oException);
+			throw oException;
+		}
+				
+		return oDataResponse;		
+	}
 
 	@Override
 	public String getXML(ZenithScholarshipDetails oGenericData) throws Exception
