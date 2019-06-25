@@ -64,7 +64,7 @@ var StudentInformationDataProcessor = (function __StudentInformationDataProcesso
 	
 	function getStudentStatuslist(oStudentData,callback)
 	{
-		ajaxCall(oStudentData,"/studentVerifiedInfoList",callback);
+		ajaxCall(oStudentData,"/studentStatusInfoList",callback);
 	}
 	
 	return { 

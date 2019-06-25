@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+     <title>
+      Account Information
+     </title>
+ </head>
+<body>
+<form class="zenith" id="accountInfo_form_id" style="width:450px;">
+	<table class = "zenith" summary = "">		
+		<tr>
+			<td class="formHeading" style="width:500px;">Prepare Cheque Information</td>		
+		</tr>
+		<tr>
+			<td class="zenith">
+				<fieldset>
+					<legend>
+						Cheque Details
+					</legend>
+						<table cellspacing="10px" summary="">
+							<tr>
+	             				<td class="zenith">
+									<table class="zenith" width="100%" id = "preapreCheque">
+				                   		<tr>
+				                   			<td class="fieldHeading"> UID Number</td>
+				                    		<td style = "padding-left = 20px;">                      
+						                  		<input type="text" id="student_input_studentUIDNumber" maxlength="4" data-options="required:true" style = "width:150px;" class="zenith" onchange = "searchStudentUID ()" onkeyup="validateNumber(this)" readonly="readonly"/>
+							                </td>			                    
+				                    	</tr>
+				                    	<tr>
+				                    		<td class="fieldHeading">Application Type <em>*</em></td>
+				                    		<td>
+				                    			<input type="radio" id="selectapplication_fresh" name="selectapplicationtype" value="Fresh" data-options="required:true"/>Fresh                   		
+				                    			<input type="radio" id="selectapplication_reissue" name="selectapplicationtype" value="Fresh" data-options="required:true" style="margin-left: 25px;"/>Re-Issue				                           
+				                    		</td>                    		
+				                    	</tr>
+				                    	<tr>
+				                    		<td class="fieldHeading">Student Name <em>*</em></td>
+				                    		<td style = "padding-left = 20px;">                      
+						                  		<input type="text" id="studentInfo_inputStudentName" class="zenith easyui-validatebox" data-options="required:true" style = "width:200px;" readonly="readonly"/>
+							                </td>
+				                    	</tr>
+				                    	<tr>
+				                    		<td class="fieldHeading">Academic Year <em>*</em></td>
+				                    		<td style = "padding-left = 20px;">                      
+						                  		<select id="selectAcademicYear" class ="zenith easyui-validatebox" data-options="required:true" style="width:200px;" required></select>
+							                </td>
+				                    	</tr> 
+				                    	<tr>
+				                    		<td class="fieldHeading">Payment Type <em>*</em></td>
+				                    		<td>
+				                    			<input type="radio" id="select_radio_Cheque" name="select_radio" value="Cheque" data-options="required:true" checked="checked" onclick="addChequeLabel ()"/>Cheque                    		
+				                    			<input type="radio" id="select_radio_DD" name="select_radio" value="DD" data-options="required:true" style="margin-left: 25px;" onclick="addDDLabel ()"/>DD
+				                    		</td>
+				                    	</tr>
+				                    	<tr>
+				                    		<td class="fieldHeading" id="cheque_dd">Cheque Number<em>*</em></td>
+				                    		<td style = "padding-left = 20px;">                      
+						                  		<input type="text" id="chequeddInfo_input_ChequeDDNumber" class="zenith easyui-validatebox" maxlength="6" data-options="required:true" style = "width:200px;" onkeyup="validateNumber(this)"/>
+							                </td>
+				                    	</tr>				                    	
+				                    	<tr>
+				                    		<td class="fieldHeading">Account Payee Name<em>*</em></td>
+				                    		<td style = "padding-left = 20px;">                      
+						                  		<input type="text" id="accountInfo_input_AccountPayeeName" class="zenith easyui-validatebox" data-options="required:true" style = "width:200px;"/>
+							                </td>
+				                    	</tr>
+				                    	<tr>
+				                    		<td class="fieldHeading">Sanctioned Amount<em>*</em></td>
+				                    		<td style = "padding-left = 20px;">                      
+						                  		<input type="text" id="accountInfo_input_SanctionedAmount" class="zenith easyui-validatebox" data-options="required:true" style = "width:200px;" onkeyup="validateNumber(this)"/>
+							                </td>
+				                    	</tr>
+				                    	<tr>
+				                    		<td class="fieldHeading">Sanctioned Date<em>*</em></td>
+				                    		<td style = "padding-left = 20px;">                      
+						                  		<input type="date" id="accountInfo_input_SanctionedDate" name = "accountInfo_input_SanctionedDate" class="zenith easyui-validatebox" data-options="required:true" style = "width:200px;"/>
+							                </td>
+				                    	</tr>        
+								   </table>
+					             </td>
+	            		   </tr>						
+				     </table>
+			</fieldset>
+		  </td>
+		</tr>		
+		<tr>			
+           <td align="right" colspan="2">
+             <hr>
+             <button id="accountInfo_button_submit" type="button" class="zenith" update="false" onclick="accountInfo_submit()">
+               Prepare
+             </button>
+             <button id="accountInfo_button_cancel" type="button" class="zenith" onclick="accountInfo_cancel()">
+               Cancel
+             </button>
+           </td>        	
+		</tr>			
+	</table>
+</form>
+</body>
+</html>
+
+
+
+
+
+
+

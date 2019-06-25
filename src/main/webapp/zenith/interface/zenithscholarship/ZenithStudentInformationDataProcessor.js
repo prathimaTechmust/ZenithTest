@@ -17,9 +17,15 @@ var ZenithStudentInformationDataProcessor = (function __ZenithStudentInformation
 		ajaxCall(oRecjectedData,"/studentRejectedStatusUpdate",callback);
 	}
 	
+	function issueCheque(oChequeData,callback)
+	{
+		ajaxCall(oChequeData,"/studentIssueCheque",callback);
+	}
+	
 	return { 		
 		verifiedStatusUpdate:verifiedStatusUpdate,		
 		approvedStatusUpdate :approvedStatusUpdate,
-		rejectStatusUpdate :rejectStatusUpdate
+		rejectStatusUpdate :rejectStatusUpdate,
+		issueCheque:issueCheque
 	};
 })();

@@ -787,6 +787,80 @@ public abstract class GenericData implements IGenericData, Serializable
 			m_oLogger.error("updateRejectStatus - oException" + oException);
 			throw oException;
 		}
+		finally
+		{
+			oEntityManager.close();
+			HibernateUtil.removeConnection();
+		}
 		return bIsUpdate;		
+	}
+	
+	public boolean disburseCheque (ZenithScholarshipDetails oZenithScholarshipDetails) throws Exception
+	{
+		boolean bIsChequeIssue = false;
+		EntityManager oEntityManager = _getEntityManager();
+		try
+		{
+			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
+			CriteriaQuery<ZenithScholarshipDetails> oCriteriaQuery = oCriteriaBuilder.createQuery(ZenithScholarshipDetails.class);
+			Root<ZenithScholarshipDetails> oZenithRoot = oCriteriaQuery.from(ZenithScholarshipDetails.class);
+			oCriteriaQuery.select(oZenithRoot);
+			oCriteriaQuery.where(oCriteriaBuilder.equal(oZenithRoot.get("m_oStudentInformationData"),oZenithScholarshipDetails.getM_nStudentId()));
+			List<ZenithScholarshipDetails> list = oEntityManager.createQuery(oCriteriaQuery).getResultList();
+			if(list.size() > 0)
+			{
+				ZenithScholarshipDetails oDetails = list.get(0);
+				oDetails.setM_strReceiverName(oZenithScholarshipDetails.getM_strReceiverName());
+				oDetails.setM_strReceiverContactNumber(oZenithScholarshipDetails.getM_strReceiverContactNumber());				
+				oDetails.setM_dChequeIssueDate(oZenithScholarshipDetails.getM_dChequeIssueDate());
+				oDetails.setM_strStatus(Constants.CHEQUEDISBURSED);
+				bIsChequeIssue = oDetails.updateObject();
+			}
+		}
+		catch (Exception oException)
+		{
+			m_oLogger.error("IssueCheque - oException"+oException);
+			throw oException;
+		}
+		finally 
+		{
+			oEntityManager.close();
+			HibernateUtil.removeConnection();
+		}
+		return bIsChequeIssue;		
+	}
+	
+	public boolean applicationStatusUpdate(ZenithScholarshipDetails oZenithScholarshipDetails) throws Exception
+	{
+		boolean bIsStatusUpdate = false;
+		EntityManager oEntityManager = _getEntityManager();
+		try
+		{
+			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
+			CriteriaQuery<ZenithScholarshipDetails> oCriteriaQuery = oCriteriaBuilder.createQuery(ZenithScholarshipDetails.class);
+			Root<ZenithScholarshipDetails> oZenithRoot = oCriteriaQuery.from(ZenithScholarshipDetails.class);
+			oCriteriaQuery.select(oZenithRoot);
+			oCriteriaQuery.where(oCriteriaBuilder.equal(oZenithRoot.get("m_oStudentInformationData"),oZenithScholarshipDetails.getM_nStudentId()));
+			List<ZenithScholarshipDetails> list = oEntityManager.createQuery(oCriteriaQuery).getResultList();
+			if(list.size() > 0)
+			{
+
+				ZenithScholarshipDetails oDetails = list.get(0);
+				oDetails.setM_strStatus(Constants.CHEQUEPREPARED);
+				bIsStatusUpdate = oDetails.updateObject();
+			}
+		}
+		catch (Exception oException)
+		{
+			m_oLogger.error("chequeprepared - oException"+oException);
+			throw oException;
+		}
+		finally
+		{
+			oEntityManager.close();
+			HibernateUtil.removeConnection();
+		}
+		return bIsStatusUpdate;
+		
 	}
 }

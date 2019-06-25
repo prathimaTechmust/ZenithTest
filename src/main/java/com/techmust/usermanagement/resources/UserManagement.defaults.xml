@@ -104,29 +104,21 @@
 			</Action>
 			<Action>
 				<ActionName>To Be Approved</ActionName>
-				<Target>navigate ('approval','widgets/applicationstatus/approval/approvallist.js')</Target>
+				<Target>navigate ('approve','widgets/applicationstatus/approve/approvelist.js')</Target>
 				<SequenceId>20</SequenceId>
-			</Action>
+			</Action>			
 			<Action>
-				<ActionName>Issuse of Check</ActionName>
+				<ActionName>Prepare Cheque</ActionName>
 				<SequenceId>30</SequenceId>
-				<Target>navigate ('sholarshipchecks','widgets/scholarshipmanagement/scholarshipdetails/scholarshipcheques/scholarshipchequedetails.js')</Target>
+				<Target>navigate ('preparecheque','widgets/applicationstatus/preparecheque/prepareChequelist.js')</Target>
 			</Action>
 			<Action>
-				<ActionName>Disbursed</ActionName>
-				<Target>navigate ('disspersed','widgets/applicationstatus/disspersed/disspersedlist.js')</Target>
+				<ActionName>Disburse of Cheque</ActionName>
+				<Target>navigate ('disspersed','widgets/applicationstatus/disbursecheque/disbursechequelist.js')</Target>
 				<SequenceId>40</SequenceId>
 			</Action>									
 		</Actions> 
-	</ActionArea>	
-	<ActionArea name="Scholarship Details" SequenceId="40">
-		<Actions>
-			<Action>
-				<ActionName>Accounts</ActionName>
-				<SequenceId>10</SequenceId>
-				<Target>navigate ('sholarshipaccounts','widgets/scholarshipmanagement/scholarshipdetails/scholarshipaccountdetails.js')</Target>
-			</Action>			
-		</Actions>
-	</ActionArea>	
+	</ActionArea>
+		
 </root>  
 </UserManagementDefaults>

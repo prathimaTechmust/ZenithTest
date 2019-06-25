@@ -20,5 +20,7 @@ public interface IGenericData
 	boolean doesCourseHaveAcademic(int nCourseId);
 	boolean doesInstitutionHaveAcademic(int nInstitutionId);
 	boolean updateStudentApplicationRejectedStatus(ZenithScholarshipDetails oZenithScholarshipDetails) throws Exception;
+	boolean disburseCheque (ZenithScholarshipDetails oZenithScholarshipDetails) throws Exception;
+	boolean applicationStatusUpdate(ZenithScholarshipDetails oZenithScholarshipDetails) throws Exception;
 	
 }

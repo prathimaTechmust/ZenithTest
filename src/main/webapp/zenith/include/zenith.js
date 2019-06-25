@@ -8,6 +8,7 @@ function zenith_MemberData ()
 	var m_nOnlineUserId = -1;
 	var m_arrObjects = [];
 	var m_strTenantName = "";
+	var m_strImageUrl = "";
 }
 
 var m_strLocationURL = window.location.origin;
@@ -60,6 +61,24 @@ $.extend($.fn.validatebox.defaults.rules, {
         message: 'Please enter at least {0} characters.'
     }
 });
+
+function studentList_setPreview (m_strStudentImageUrl)
+{
+	m_oZenithMemberData.m_strImageUrl = m_strStudentImageUrl;
+	loadPage ("scholarshipmanagement/student/studentImagePreview.html", "dialog", "studentList_showImagePreview ()");
+}
+
+function studentList_showImagePreview ()
+{
+	createPopup ('dialog', '', '', true);
+	document.getElementById('dialog').style.position = "fixed";
+	$(".imagePreview").attr('src', m_oZenithMemberData.m_strImageUrl);
+}
+
+function studentList_cancelImagePreview ()
+{
+	HideDialog ("dialog");
+}
 
 function isUrlValid(fieldId) {
 	var url = $("#"+fieldId).val();

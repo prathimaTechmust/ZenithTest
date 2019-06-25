@@ -12,6 +12,7 @@ import com.techmust.generic.data.GenericData;
 import com.techmust.scholarshipmanagement.academicdetails.AcademicYear;
 import com.techmust.scholarshipmanagement.course.CourseInformationData;
 import com.techmust.scholarshipmanagement.institution.InstitutionInformationData;
+import com.techmust.scholarshipmanagement.sholarshipaccounts.StudentScholarshipAccount;
 import com.techmust.scholarshipmanagement.student.StudentInformationData;
 import com.techmust.usermanagement.action.ActionData;
 import com.techmust.usermanagement.actionarea.ActionAreaData;
@@ -25,6 +26,7 @@ public class ZenithHelper extends GenericData
 	private static final long serialVersionUID = 1L;
 	
 	private UserInformationData m_oUserData;
+	private StudentScholarshipAccount m_oStudentScholarshipAccount;
 	private FacilitatorInformationData m_oFacilitatorInformationData;
 	private StudentInformationData m_oStudentInformationData;
 	private CourseInformationData m_oCourseInformationData;
@@ -50,6 +52,7 @@ public class ZenithHelper extends GenericData
 		m_oStudentInformationData = new StudentInformationData();
 		m_oCourseInformationData = new CourseInformationData();
 		m_oInstitutionInformationData = new InstitutionInformationData();
+		m_oStudentScholarshipAccount = new StudentScholarshipAccount();
 		m_oAcademicYear = new AcademicYear();
 		m_oRoleData = new RoleData ();
 		m_oActionArea = new ActionAreaData ();
@@ -58,8 +61,18 @@ public class ZenithHelper extends GenericData
 		m_strOrderBy = "";
 		m_nPageNo = 0;
 		m_nPageSize = 10;
+	}	
+	
+	public StudentScholarshipAccount getM_oStudentScholarshipAccount()
+	{
+		return m_oStudentScholarshipAccount;
 	}
-		
+
+	public void setM_oStudentScholarshipAccount(StudentScholarshipAccount oStudentScholarshipAccount)
+	{
+		this.m_oStudentScholarshipAccount = oStudentScholarshipAccount;
+	}
+
 	public boolean isM_bsuccess()
 	{
 		return m_bsuccess;

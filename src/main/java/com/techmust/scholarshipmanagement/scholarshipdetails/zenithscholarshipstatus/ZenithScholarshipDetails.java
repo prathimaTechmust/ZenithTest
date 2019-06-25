@@ -1,5 +1,7 @@
 package com.techmust.scholarshipmanagement.scholarshipdetails.zenithscholarshipstatus;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -30,6 +33,15 @@ public class ZenithScholarshipDetails extends MasterData
 	@Column(name = "status")
 	private String m_strStatus;	
 	
+	@Column(name = "receivername")
+	private String m_strReceiverName;
+	
+	@Column(name = "receivercontactnumber")
+	private String m_strReceiverContactNumber;
+	
+	@Column(name = "issuedate")
+	private Date m_dChequeIssueDate;
+	
 	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "studentid")
@@ -47,8 +59,43 @@ public class ZenithScholarshipDetails extends MasterData
 		m_strStatus = "";
 		m_oStudentInformationData = new StudentInformationData();
 		m_fApprovedAmount = 0;
-	}		
-	
+		m_strReceiverName = "";
+		m_strReceiverContactNumber = "";
+		m_dChequeIssueDate = null;
+		
+	}	
+
+	public Date getM_dChequeIssueDate()
+	{
+		return m_dChequeIssueDate;
+	}
+
+	public void setM_dChequeIssueDate(Date dChequeIssueDate)
+	{
+		this.m_dChequeIssueDate = dChequeIssueDate;
+	}
+
+	public String getM_strReceiverName()
+	{
+		return m_strReceiverName;
+	}
+
+	public void setM_strReceiverName(String strReceiverName)
+	{
+		this.m_strReceiverName = strReceiverName;
+	}
+
+
+	public String getM_strReceiverContactNumber()
+	{
+		return m_strReceiverContactNumber;
+	}
+
+	public void setM_strReceiverContactNumber(String strReceiverContactNumber)
+	{
+		this.m_strReceiverContactNumber = strReceiverContactNumber;
+	}
+
 	public float getM_fApprovedAmount() 
 	{
 		return m_fApprovedAmount;

@@ -28,6 +28,7 @@ import com.techmust.generic.data.MasterData;
 import com.techmust.scholarshipmanagement.course.CourseInformationData;
 import com.techmust.scholarshipmanagement.institution.InstitutionInformationData;
 import com.techmust.scholarshipmanagement.scholarshipdetails.ScholarshipDetails;
+import com.techmust.scholarshipmanagement.sholarshipaccounts.StudentScholarshipAccount;
 import com.techmust.scholarshipmanagement.student.StudentInformationData;
 
 @Entity
@@ -76,6 +77,10 @@ public class AcademicDetails extends MasterData
 	@JsonManagedReference
 	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "m_oAcademicDetails")
 	private Set<ScholarshipDetails> m_oScholarshipDetails;
+	
+	@JsonManagedReference
+	@OneToMany(fetch = FetchType.EAGER,mappedBy = "m_oAcademicDetails")
+	private Set<StudentScholarshipAccount> m_oStudentScholarshipAccount;
 
 	@Transient
 	public ScholarshipDetails[] m_arrScholarshipDetails;	
@@ -93,6 +98,17 @@ public class AcademicDetails extends MasterData
 		m_oInstitutionInformationData = new InstitutionInformationData();
 		m_oCourseInformationData = new CourseInformationData();	
 		m_oScholarshipDetails = new HashSet<ScholarshipDetails> ();	
+		m_oStudentScholarshipAccount = new HashSet<StudentScholarshipAccount> ();
+	}	
+	
+	public Set<StudentScholarshipAccount> getM_oStudentScholarshipAccount()
+	{
+		return m_oStudentScholarshipAccount;
+	}
+
+	public void setM_oStudentScholarshipAccount(Set<StudentScholarshipAccount> oStudentScholarshipAccount)
+	{
+		this.m_oStudentScholarshipAccount = oStudentScholarshipAccount;
 	}
 
 	public String getM_strAcademicYear() 
@@ -224,15 +240,23 @@ public class AcademicDetails extends MasterData
 		{
 			Document oXmlDocument = createNewXMLDocument ();
 			Element oRootElement = createRootElement (oXmlDocument, "AcademicDetails");
+			/* Institution ChildNode*/
 			Document oInstitutionDetalsXmlDoc = getXmlDocument ("<m_oInstitutionInformationData>"+buildInstitutionDetails (m_oInstitutionInformationData)+"</m_oInstitutionInformationData>");
 			Node oInstitutionNode = oXmlDocument.importNode(oInstitutionDetalsXmlDoc.getFirstChild(), true);
 			oRootElement.appendChild(oInstitutionNode);
+			/*Course ChildNode*/
 			Document oCourseDetalsXmlDoc = getXmlDocument ("<m_oCourseInformationData>"+buildCourseDetails (m_oCourseInformationData)+"</m_oCourseInformationData>");
 			Node oCourseNode = oXmlDocument.importNode(oCourseDetalsXmlDoc.getFirstChild(), true);
+			oRootElement.appendChild(oCourseNode);
+			/*Scholarship Child Node*/
 			Document oScholarshipDetalsXmlDoc = getXmlDocument ("<m_oScholarshipDetails>"+buildScholarshipDetails (m_oScholarshipDetails)+"</m_oScholarshipDetails>");
 			Node oScholarshipNode = oXmlDocument.importNode(oScholarshipDetalsXmlDoc.getFirstChild(), true);
 			oRootElement.appendChild(oScholarshipNode);
-			oRootElement.appendChild(oCourseNode);
+			/*Student ChildNode
+			Document oStudentDetalsXmlDoc = getXmlDocument ("<m_oStudentInformationData>"+buildStudentDetails (m_oStudentInformationData)+"</m_oStudentInformationData>");
+			Node oStudentNode = oXmlDocument.importNode(oStudentDetalsXmlDoc.getFirstChild(), true);
+			oRootElement.appendChild(oStudentNode);*/
+			
 			addChild (oXmlDocument, oRootElement, "m_nAcademicId", m_oStudentInformationData.getM_nStudentId());			
 			addChild (oXmlDocument, oRootElement, "m_strSpecialization", m_strSpecialization);
 			addChild (oXmlDocument, oRootElement, "m_strStudentScore", m_strStudentScore);
@@ -247,6 +271,11 @@ public class AcademicDetails extends MasterData
 		return strAcademicDetails;		
 	}
 	
+	/*private String buildStudentDetails(StudentInformationData oStudentInformationData)
+	{		
+		return oStudentInformationData.generateXML();
+	}*/
+
 	private String buildScholarshipDetails(Set<ScholarshipDetails> oScholarshipDetails)
 	{
 		String strXML = "";

@@ -10,7 +10,7 @@
 					<tr>
 			 			<td class="xslt_fieldHeader" colspan="2">Student Information Details</td>
 			 			<td>																																															
-							<button type="button" width="20" align="center" class = "zenith addButton" style="width:100px;" id="verifyStudent" title="Verify" onClick="verifyStudentInfo_Student()">Verify</button>
+							<button type="button" width="20" align="center" class = "zenith addButton" style="width:150px;" id="disburseCheque" title="Disburse" onClick="disburseStudent_Cheque()">Disburse of Cheque</button>
 						</td>
 					</tr>
 					<tr>
@@ -283,14 +283,7 @@
 									</xsl:for-each>									
 								</tr>
 							</table>
-						</td>
-						<td width="50%" valign="bottom">
-							<table class="xslt_trademust" cellSpacing="5px">
-								<tr>
-									
-								</tr>
-							</table>						
-						</td>
+						</td>						
 					</tr>
 				</table>
 			</body>

@@ -512,7 +512,7 @@ function getAcademicDetails ()
 function getZenithstatus()
 {
 	var oArrScholarshipStatus = new Array();
-	var oZenithSholarshipstatus = new ZenithScholarshipDetails ();
+	var oZenithSholarshipstatus = new ZenithScholarshipDetails ();	
 	oArrScholarshipStatus.push(oZenithSholarshipstatus);
 	return oArrScholarshipStatus;
 }

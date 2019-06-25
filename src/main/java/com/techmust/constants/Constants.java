@@ -30,5 +30,7 @@ public class Constants
 	public static final String STUDENTVERIFIED = "verified";
 	public static final String STUDENTAPPROVED = "approved";
 	public static final String STUDENTREJECTED = "rejected";
+	public static final String CHEQUEPREPARED = "cheque prepared";
+	public static final String CHEQUEDISBURSED = "cheque disbursed";
 	
 }

@@ -72,7 +72,7 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 	@RequestMapping(value="/createStudentImageData", method = RequestMethod.POST)
 	@ResponseBody
 	public GenericResponse createStudentImagetoS3bucket(@RequestParam("studentimage") MultipartFile oMultipartFile, @RequestParam("studentId") String strStudentId ) throws Exception
-   {
+    {
 		
 		StudentDataResponse oStudentDataResponse = new StudentDataResponse();
         String strFileName = oMultipartFile.getOriginalFilename();
@@ -80,7 +80,7 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		String strPath = Constants.STUDENTIMAGEFOLDER + strNewName;
 	    AWSUtils.UploadToStudentImagesFolder(strPath, oMultipartFile);		
 		return oStudentDataResponse; 
-   }
+    }
 
 	@Override
 	@RequestMapping(value="/studentInfoGet", method = RequestMethod.POST, headers = {"Content-type=application/json"})
@@ -221,12 +221,12 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		
 	}
 	
-	@RequestMapping(value = "/studentVerifiedInfoList",method = RequestMethod.POST,headers = {"Content-type=application/json"})
+	@RequestMapping(value = "/studentStatusInfoList",method = RequestMethod.POST,headers = {"Content-type=application/json"})
 	@ResponseBody
-	public GenericResponse getToBeStudentsVerified(@RequestBody StudentInformationData oStudentInformationData)
+	public GenericResponse getStatusStudentsList(@RequestBody StudentInformationData oStudentInformationData)
 	{
-		m_oLogger.info ("verifiedstudentlist");
-		m_oLogger.debug ("verifiedstudentlist - oStudentInformationData [IN] : " + oStudentInformationData);
+		m_oLogger.info ("studentStatuslist");
+		m_oLogger.debug ("studentStatuslist - oStudentInformationData [IN] : " + oStudentInformationData);
 		StudentDataResponse oStudentDataResponse = new StudentDataResponse();
 		try
 		{
@@ -235,14 +235,14 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		}
 		catch (Exception oException)
 		{
-			m_oLogger.error ("verifiedstudentlist - oException : "  + oException);
+			m_oLogger.error ("studentStatuslist - oException : "  + oException);
 			throw oException;
 		}
 		return oStudentDataResponse;
 		
 	}
 	
-	@Override
+	@Override	
 	public GenericResponse list(StudentInformationData oGenericData, HashMap<String, String> arrOrderBy)
 			throws Exception {
 		// TODO Auto-generated method stub

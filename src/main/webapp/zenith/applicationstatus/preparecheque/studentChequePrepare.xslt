@@ -9,6 +9,9 @@
 				<table class="zenith">
 					<tr>
 			 			<td class="xslt_fieldHeader" colspan="2">Student Information Details</td>
+			 			<td>																																															
+							<button type="button" width="20" align="center" class = "zenith addButton" style="width:130px;" id="verifyStudent" title="Prepare Cheque" onClick="prepareCheque()">Prepare Cheque</button>
+						</td>
 					</tr>
 					<tr>
 						<td width="50%" valign="top">
@@ -98,7 +101,7 @@
 							</table>
 						</td>
 						<td width="50%" valign="top">
-							<table class="xslt_zenith" cellSpacing="5px">
+							<table class="xslt_trademust" cellSpacing="5px">
 								<tr>
 									<td class ="xslt_fieldHeading">
 										Facilitator Name:
@@ -198,14 +201,9 @@
 							</table>
 						</td>
 					</tr>					
-					<!-- <tr>
-						
-					</tr> -->
 					<tr>
-						<table>
-							<tr>
-								<td width="50%" valign="top">
-							<table class="xslt_zenith" cellSpacing="5px">
+						<td width="50%" valign="top">
+							<table class="xslt_trademust" cellSpacing="5px">
 								<tr>
 									<td class = "xslt_zenithFieldHeader">Academic Details</td>								
 								</tr>
@@ -259,8 +257,8 @@
 								</tr>								
 							</table>
 						</td>
-						<td width="32%" valign="top">
-							<table class="xslt_zenith" cellSpacing="5px">
+						<td width="50%" valign="top">
+							<table class="xslt_trademust" cellSpacing="5px">
 								<tr>
 									<td class = "xslt_zenithFieldHeader">Scolarship Details</td>	
 								</tr>
@@ -286,30 +284,13 @@
 								</tr>
 							</table>
 						</td>
-						<td width="25%" valign="top">
-							<fieldset>
-		 						<legend>
-		 							Approve Amount
-		 						</legend>
-		 							<table class ="xslt_zenith" cellspacing="5px">
-			 							<tr>
-											<td text-align="center" style = "width:80px">Amount(₹)<em>*</em></td>
-			 								<td>
-												<input type = "text" id ="zenithInfo_approvedamount" class="zenith easyui-validatebox" data-options="required:true" style="margin-left: 5px" onkeyup ="validateNumber(this)"/>
-											</td>
-			 							</tr> 
-			 							<tr>
-			 								<td align = "right" colspan = "2">
-			 									<hr/>																																															
-												<button type="button" style= "margin-right:10px" class = "zenith" id="approveStudent" title="Approve" onClick="approveStudentInfo_Student()">Approve</button>
-												<button type="button" class = "zenith" id="rejectStudent" title="Reject" onClick="recjectStudentInfo_Student()">Reject</button>
-											</td>			 							
-			 							</tr>							
-		 							</table>
-		 					</fieldset>													
+						<td width="50%" valign="bottom">
+							<table class="xslt_trademust" cellSpacing="5px">
+								<tr>
+									
+								</tr>
+							</table>						
 						</td>
-							</tr>
-						</table>						
 					</tr>
 				</table>
 			</body>

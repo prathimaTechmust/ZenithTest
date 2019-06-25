@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+     <title>
+      Issue of Cheque
+     </title>
+ </head>
+<body>
+<form class="zenith" id="disburseStudentChequeInfo_form_id" style="width:450px;">
+	<table class = "zenith" summary = "">		
+		<tr>
+			<td class="formHeading" style="width:500px;">Disburse Cheque Information</td>		
+		</tr>
+		<tr>
+			<td class="zenith">
+				<fieldset>
+					<legend>
+						 Details
+					</legend>
+						<table cellspacing="10px" summary="">
+							<tr>
+	             				<td class="zenith">
+									<table class="zenith" width="100%">
+				                   		<tr>
+				                   			<td class="fieldHeading"> UID Number</td>
+				                    		<td style = "padding-left = 20px;">                      
+						                  		<input type="text" id="student_input_studentUIDNumber" maxlength="4"  style = "width:150px;" class="zenith" readonly="readonly"/>
+							                </td>			                    
+				                    	</tr>				                    	
+				                    	<tr>
+				                    		<td class="fieldHeading">Student Name</td>
+				                    		<td style = "padding-left = 20px;">                      
+						                  		<input type="text" id="studentInfo_inputStudentName" class="zenith"  style = "width:200px;" readonly="readonly"/>
+							                </td>
+				                    	</tr> 
+				                    	<tr>
+				                    		<td class="fieldHeading">Cheque/DD Number</td>
+				                    		<td>
+				                    			<input type="text" id="studentInfo_inputStudentcheque_dd" class="zenith"  style = "width:200px;" readonly="readonly"/>
+				                    		</td>
+				                    	</tr>
+				                    	<tr>
+				                    		<td class="fieldHeading">Receiver Name<em>*</em></td>
+				                    		<td style = "padding-left = 20px;">                      
+						                  		<input type="text" id="chequeInfo_inputReceivername" class="zenith easyui-validatebox" data-options="required:true" style = "width:200px;"/>
+							                </td>
+				                    	</tr>
+				                    	<tr>
+				                    		<td class="fieldHeading">Receiver Contact Number<em>*</em></td>
+				                    		<td style = "padding-left = 20px;">                      
+						                  		<input type="text" id="chequeInfo_inputReceiverContactNumber" class="zenith easyui-validatebox"  maxlength="10" data-options="required:true" onkeyup="validateNumber (this)" style = "width:200px;"/>
+							                </td>
+				                    	</tr>
+				                    	<tr>
+				                    		<td class="fieldHeading">Issue Date<em>*</em></td>
+				                    		<td style = "padding-left = 20px;">                      
+						                  		<input type="date" id="chequeInfo_input_IssueDate" name = "chequeInfo_input_IssueDate" class="zenith easyui-validatebox" data-options="required:true" style = "width:200px;"/>
+							                </td>
+				                    	</tr> 				                    	   
+								   </table>
+					             </td>
+	            		   </tr>						
+				     </table>
+			</fieldset>
+		  </td>
+		</tr>		
+		<tr>			
+           <td align="right" colspan="2">
+             <hr>
+             <button id="chequeInfo_button_submit" type="button" class="zenith" update="false" onclick="disburseChequeInfo_submit()">
+               Disburse
+             </button>
+             <button id="chequeInfo_button_cancel" type="button" class="zenith" onclick="disburseChequeInfo_cancel()">
+               Cancel
+             </button>
+           </td>        	
+		</tr>			
+	</table>
+</form>
+</body>
+</html>
+
+
+
+
+
+
+

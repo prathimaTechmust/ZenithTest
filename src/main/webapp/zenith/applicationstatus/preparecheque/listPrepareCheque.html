@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>
+     Prepare Cheque Information List
+    </title>
+  </head>
+  <body>
+    <form class="zenith" id="listPrepareChequeInfo_form_id">
+      <table class="zenith" id="listPrepareCheque_table_filter" summary="">
+        <tr>
+          <td class="zenith">
+            <div class="zenith" id="listPrepareCheque_div_dataGridToolbar">
+              <table class="zenith" cellpadding="2" cellspacing="2" summary="">
+                <tr>
+                  <td style="width:100px">
+                   <select id="selectapprovedstudentsacademicyear" class="zenith"></select>
+                  </td>
+                  <td style="width:200px">
+                    <input class="zenith" id="StudentInfo_input_uid" type="text" maxlength="4" placeholder="Student UID Number" onkeyup="validateNumber (this)"/>
+                  </td>
+                  <td>
+                    <button id="listPrepareCheque_button_search" class="zenith addButton" type="button" style="visibility: initial;width: 100px" onclick="searchStudentUIDInfo ()">
+                      Search
+                    </button>
+                  </td>                 
+                </tr>
+              </table>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="zenith">
+            <div id="listPrepareCheque_div_horizontalSplitter" style="z-index: 0">
+              <div id="listPrepareCheque_div_dataGrid">
+                <table 
+                    id="listPrepareCheque_table_students"
+                    class="easyui-datagrid"
+                    title="Prepare Cheque Information List"
+                    data-options="striped:true, pagination:true, pagesize:15, rownumbers:true, fitColumns:true, remoteSort:false, singleSelect:true, toolbar:'#listPrepareCheque_div_dataGridToolbar'">
+
+                </table>
+              </div>
+              <div class="gridDetails" id="listPrepareCheque_div_listDetail">
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>

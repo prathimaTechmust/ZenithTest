@@ -228,20 +228,4 @@ function listOldStudentInfo_showAddPopup ()
 	navigate ("oldstudent", "widgets/scholarshipmanagement/studentlist/oldStudentInfo.js");
 }
 
-function studentList_setPreview (m_strStudentImageUrl)
-{
-	m_oStudentInfoListMemberData.m_strImageUrl = m_strStudentImageUrl;
-	loadPage ("scholarshipmanagement/student/studentImagePreview.html", "dialog", "studentList_showImagePreview ()");
-}
 
-function studentList_showImagePreview ()
-{
-	createPopup ('dialog', '', '', true);
-	document.getElementById('dialog').style.position = "fixed";
-	$(".imagePreview").attr('src', m_oStudentInfoListMemberData.m_strImageUrl);
-}
-
-function studentList_cancelImagePreview ()
-{
-	HideDialog ("dialog");
-}

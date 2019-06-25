@@ -149,17 +149,6 @@ function verifiedStudentListInfo_list (strColumn,strOrder,nPageNumber,nPageSize)
 	loadPage ("inventorymanagement/progressbar.html", "dialog", "verifiedStudentListInfo_progressbarLoaded ()");
 }
 
-/*function verifiedListInfo_displayImages (nStudentId)
-{
-	assert.isNumber(nStudentId, "nStudentId expected to be a Number.");
-	var oImage = 	'<table align="center">'+
-						'<tr>'+
-							'<td> <button type="button" width="20" align="center" class = "zenith addButton" style=width:100px;" id="verifyStudent" title="Verify" onClick="verifyStudentInfo_Student('+nStudentId+')">Verify</button> </td>'+							
-						'</tr>'+
-					'</table>'
-	return oImage;	
-}*/
-
 function verifyStudentInfo_Student()
 {
 	createPopup('dialog', '', '', true);	
@@ -185,7 +174,10 @@ function searchStudentUID()
 {
 	var oStudentInformationData = new StudentInformationData ();
 	oStudentInformationData.m_nUID = $("#StudentInfo_input_uid").val();
-	StudentInformationDataProcessor.getStudentUID(oStudentInformationData,studentUIDResponse);
+	if($("#StudentInfo_input_uid").val() != "")
+		StudentInformationDataProcessor.getStudentUID(oStudentInformationData,studentUIDResponse);
+	else
+		alert("Please Enter Valid UID Number");
 }
 
 function studentUIDResponse(oStudentUIDResponse)

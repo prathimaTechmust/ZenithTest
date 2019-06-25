@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>
+     Disburse Cheque Information List
+    </title>
+  </head>
+  <body>
+    <form class="zenith" id="disburseChequeListInfo_form_id">
+      <table class="zenith" id="disburseChequeList_table_filter" summary="">
+        <tr>
+          <td class="zenith">
+            <div class="zenith" id="disburseChequeList_div_dataGridToolbar">
+              <table class="zenith" cellpadding="2" cellspacing="2" summary="">
+                <tr>
+                	<td style="width:100px">
+                    	<select id="selectacademicyear" class="zenith">                    		
+                    	</select>
+                  </td>
+                  <td style="width:200px">
+                    <input class="zenith" id="StudentInfo_input_uid" type="text" maxlength="4" placeholder="Student UID Number" onkeyup="validateNumber (this)"/>
+                  </td>
+                  <td>
+                    <button 
+                        id="disburseChequeList_button_add"
+                        class="zenith addButton"
+                        type="button"
+                        style="visibility: initial; width:100px;"
+                        onclick="searchStudentUID ()">
+                      Search
+                    </button>
+                  </td>                 
+                </tr>
+              </table>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="zenith">
+            <div id="disburseChequeList_div_horizontalSplitter" style="z-index: 0">
+              <div id="disburseChequeList_div_dataGrid">
+                <table 
+                    id="disburseChequeList_table_students"
+                    class="easyui-datagrid"
+                    title="Disburse Cheque Information List"
+                    data-options="striped:true, pagination:true, pagesize:15, rownumbers:true, fitColumns:true, remoteSort:false, singleSelect:true, toolbar:'#disburseChequeList_div_dataGridToolbar'">
+
+                </table>
+              </div>
+              <div class="gridDetails" id="disburseChequeList_div_listDetail">
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>
