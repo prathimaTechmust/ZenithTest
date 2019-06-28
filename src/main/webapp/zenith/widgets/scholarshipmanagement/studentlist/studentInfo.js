@@ -786,12 +786,22 @@ function studentDateofBirth (strdateofBirth)
 
 function studentUIDInfo_submit ()
 {
-	var oStudentInformationData = new StudentInformationData ();
-	oStudentInformationData.m_nUID = $("#studentInfo_input_studentUID").val();
-	StudentInformationDataProcessor.getStudentUID (oStudentInformationData, studentInfo_gotStudentUIDData);
+	if (studentUIDInfo_validate())
+		loadPage ("include/process.html", "ProcessDialog", "studentUID_progressbarLoaded ()");
+	else
+	{
+		alert("Please Enter UID Number");
+		$('#oldstudentUIDForm').focus();
+	}	
 	
 }
 
+function studentUID_progressbarLoaded ()
+{
+	var oStudentInformationData = new StudentInformationData ();
+	oStudentInformationData.m_nUID = $("#studentInfo_input_studentUID").val();
+	StudentInformationDataProcessor.getStudentUID (oStudentInformationData, studentInfo_gotStudentUIDData);
+}
 function studentInfo_gotStudentUIDData (oStudentUIDResponse)
 {
 	HideDialog ("ProcessDialog");
@@ -854,6 +864,11 @@ function motherAadharValidate()
 	var oStudentInformationData = new StudentInformationData ();
 	oStudentInformationData.m_nMotherAadharNumber = $("#studentInfo_input_motherAadharNumber").val();
 	StudentInformationDataProcessor.checkAadharExist (oStudentInformationData, aadharResponse);
+}
+
+function studentUIDInfo_validate()
+{
+	return validateForm("oldstudentUIDForm");
 }
 
 function aadharResponse(oAadharResponse)

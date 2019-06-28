@@ -94,7 +94,7 @@ function academicyearResponse (oAcademicYearResponse)
 	m_oAcademicyearInfoMemberData.m_AcademicYearRowCount = oAcademicYearResponse.m_arrAcademicYear.length;
 	for(var nIndex = 0; nIndex < oAcademicYearResponse.m_arrAcademicYear.length; nIndex++)
 	{
-		$("#academicyeartableid").append('<tr><td><input  type="text" id="academicyearInfo_input'+(nIndex)+'" class="zenith"/></td><td style="padding-right: 10px"> </td><td style="padding-right: 10px"> </td></tr>');
+		$("#academicyeartableid").append('<tr><td><input  type="text" id="academicyearInfo_input'+(nIndex)+'" class="zenith" readonly = "readonly"/></td><td style="padding-right: 10px"> </td><td style="padding-right: 10px"> </td></tr>');
 		$("#academicyearInfo_input"+nIndex).val(oAcademicYearResponse.m_arrAcademicYear[nIndex].m_strAcademicYear);
 	}
 	if(oAcademicYearResponse.m_arrAcademicYear.length != 0)
