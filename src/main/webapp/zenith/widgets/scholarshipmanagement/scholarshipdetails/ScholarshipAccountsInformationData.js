@@ -6,7 +6,7 @@ function ScholarshipAccountsInformationData ()
 	this.m_strApplicationType = "";
 	this.m_strPaymentType = "";
 	this.m_strAcademicYear = "";
-	this.m_nChequeNumber = -1;
-	this.m_nDDNumber = -1;
+	this.m_nChequeNumber = 0;
+	this.m_nDDNumber = 0;
 }
 dataObjectLoaded ();

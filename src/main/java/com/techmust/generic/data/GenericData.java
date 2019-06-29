@@ -46,6 +46,7 @@ import com.techmust.scholarshipmanagement.academicdetails.AcademicDetails;
 import com.techmust.scholarshipmanagement.academicdetails.AcademicYear;
 import com.techmust.scholarshipmanagement.course.CourseInformationData;
 import com.techmust.scholarshipmanagement.scholarshipdetails.zenithscholarshipstatus.ZenithScholarshipDetails;
+import com.techmust.scholarshipmanagement.sholarshipaccounts.StudentScholarshipAccount;
 import com.techmust.scholarshipmanagement.student.StudentInformationData;
 import com.techmust.usermanagement.userinfo.UserInformationData;
 
@@ -779,6 +780,7 @@ public abstract class GenericData implements IGenericData, Serializable
 			{
 				ZenithScholarshipDetails oDetails = list.get(0);
 				oDetails.setM_strStatus(Constants.STUDENTREJECTED);
+				oDetails.setM_strStudentRemarks(oZenithScholarshipDetails.getM_strStudentRemarks());
 				bIsUpdate = oDetails.updateObject();
 			}
 		}
@@ -862,5 +864,67 @@ public abstract class GenericData implements IGenericData, Serializable
 		}
 		return bIsStatusUpdate;
 		
+	}
+	
+	public boolean reVerifyStudentApplication(ZenithScholarshipDetails oZenithData) throws Exception
+	{
+		boolean bIsStatusReVerify = false;
+		EntityManager oEntityManager = _getEntityManager();
+		try
+		{
+			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
+			CriteriaQuery<ZenithScholarshipDetails> oCriteriaQuery = oCriteriaBuilder.createQuery(ZenithScholarshipDetails.class);
+			Root<ZenithScholarshipDetails> oZenithRoot = oCriteriaQuery.from(ZenithScholarshipDetails.class);
+			oCriteriaQuery.select(oZenithRoot);
+			oCriteriaQuery.where(oCriteriaBuilder.equal(oZenithRoot.get("m_oStudentInformationData"),oZenithData.getM_nStudentId()));
+			List<ZenithScholarshipDetails> list = oEntityManager.createQuery(oCriteriaQuery).getResultList();
+			if(list.size() > 0)
+			{
+
+				ZenithScholarshipDetails oDetails = list.get(0);
+				oDetails.setM_strStatus(Constants.APPLICATIONREVERIFICATION);
+				bIsStatusReVerify = oDetails.updateObject();
+			}
+		}
+		catch (Exception oException)
+		{
+			m_oLogger.error("applicationReverify - oException"+oException);
+			throw oException;
+		}
+		finally
+		{
+			oEntityManager.close();
+			HibernateUtil.removeConnection();
+		}
+		return bIsStatusReVerify;		
+	}
+	
+	public boolean checkChequePrepared(Set<AcademicDetails> oAcademicDetails)
+	{
+		boolean bIsCheckPrepared = false;
+		EntityManager oEntityManager = _getEntityManager();
+		try
+		{
+			CriteriaBuilder oCriteriaBuilder =  oEntityManager.getCriteriaBuilder();
+			CriteriaQuery<AcademicDetails> oCriteriaQuery = oCriteriaBuilder.createQuery(AcademicDetails.class);
+			Root<AcademicDetails> oRootAcademicDetails = oCriteriaQuery.from(AcademicDetails.class);
+			Join<AcademicDetails,StudentScholarshipAccount> oJoinTable = oRootAcademicDetails.join("m_oStudentScholarshipAccount",JoinType.INNER);
+			oCriteriaQuery.where(oCriteriaBuilder.equal(oJoinTable.get("m_oStudentScholarshipAccount"),((AcademicDetails) oAcademicDetails).getM_nAcademicId()));
+			TypedQuery<AcademicDetails> typedquery = oEntityManager.createQuery(oCriteriaQuery);
+			ArrayList<AcademicDetails> arrAcademicInformationData = (ArrayList<AcademicDetails>) typedquery.getResultList();
+			if(arrAcademicInformationData.size() > 0)
+				bIsCheckPrepared = true;
+		} 
+		catch (Exception oException)
+		{			
+			m_oLogger.error("chequePrepared - oException"+oException);
+			throw oException;
+		}
+		finally
+		{
+			oEntityManager.close();
+			HibernateUtil.removeConnection();
+		}
+		return bIsCheckPrepared;
 	}
 }

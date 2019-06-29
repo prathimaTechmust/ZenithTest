@@ -116,6 +116,11 @@
 				<ActionName>Disburse of Cheque</ActionName>
 				<Target>navigate ('disspersed','widgets/applicationstatus/disbursecheque/disbursechequelist.js')</Target>
 				<SequenceId>40</SequenceId>
+			</Action>
+			<Action>
+				<ActionName>Rejected List</ActionName>
+				<Target>navigate ('rejected','widgets/applicationstatus/rejectedlist/rejectedlist.js')</Target>
+				<SequenceId>50</SequenceId>
 			</Action>									
 		</Actions> 
 	</ActionArea>

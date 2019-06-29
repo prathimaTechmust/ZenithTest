@@ -107,8 +107,8 @@ public class ZenithScholarshipInformationDataProcessor extends GenericIDataProce
 	@ResponseBody
 	public GenericResponse disburseCheque(@RequestBody ZenithScholarshipDetails oZenithScholarshipDetails) throws Exception
 	{
-		m_oLogger.info("IssueCheque");
-		m_oLogger.debug("IssueCheque - ZenithScholarshipDetails [IN] : " + oZenithScholarshipDetails);
+		m_oLogger.info("disburseCheque");
+		m_oLogger.debug("disburseCheque - ZenithScholarshipDetails [IN] : " + oZenithScholarshipDetails);
 		ZenithScholarshipDetailsDataResponse oDataResponse = new ZenithScholarshipDetailsDataResponse();
 		try 
 		{
@@ -116,11 +116,31 @@ public class ZenithScholarshipInformationDataProcessor extends GenericIDataProce
 		} 
 		catch (Exception oException)
 		{
-			m_oLogger.error("applicationRejectedStatus- oException"+oException);
+			m_oLogger.error("disburseCheque- oException"+oException);
 			throw oException;
 		}
 				
 		return oDataResponse;		
+	}
+	
+	@RequestMapping(value="/reverifyapplication",method = RequestMethod.POST, headers = {"Content-type=application/json"})
+	@ResponseBody
+	public GenericResponse reVerifyStudentApplication(@RequestBody ZenithScholarshipDetails oZenithScholarshipDetails) throws Exception
+	{
+		m_oLogger.info("reVerfyStudentApplication");
+		m_oLogger.debug("reVerfyStudentApplication - ZenithScholarshipDetails [IN] : " + oZenithScholarshipDetails);
+		ZenithScholarshipDetailsDataResponse oDataResponse = new ZenithScholarshipDetailsDataResponse();
+		try 
+		{
+			oDataResponse.m_bSuccess = oZenithScholarshipDetails.reVerifyStudentApplication(oZenithScholarshipDetails);
+		} 
+		catch (Exception oException)
+		{
+			m_oLogger.error("reVerfyStudentApplication- oException"+oException);
+			throw oException;
+		}				
+		return oDataResponse;
+		
 	}
 
 	@Override
