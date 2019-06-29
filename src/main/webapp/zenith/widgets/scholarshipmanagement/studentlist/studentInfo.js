@@ -57,7 +57,7 @@ function studentInfo_old ()
 function studentInfo_init ()
 {
 	createPopup("dialog", "#studentInfo_button_submit", "#studentInfo_button_cancel", true);
-	$('#student_div_tabs').tabs ();
+	document.getElementById("defaultOpen").click();
 	student_academicyearList();
 	student_institutionsNamelistCombobox();
 	student_courseNamesListCombobox();
@@ -780,7 +780,7 @@ function studentDateofBirth (strdateofBirth)
 {
 	var strStudentDateOfBirth = "/Date("+strdateofBirth+")/";
 	var date = new Date(parseFloat(strStudentDateOfBirth.substr(6)));	
-	var strDate = date.getFullYear() + "-" +("0" + (date.getMonth() + 1)).slice(-2) + "-" +date.getDate();	
+	var strDate = date.getFullYear() + "-" +("0" + (date.getMonth() + 1)).slice(-2) +  "-" +("0" + (date.getDate())).slice(-2);	
 	return strDate;
 }
 
@@ -886,3 +886,50 @@ function studentUIDInfo_cancel()
 {
 	HideDialog ("dialog");
 }
+
+function openTab(oEvent, TabName) 
+{
+	  var i, StudentInfoTab,tablinks;
+	  StudentInfoTab = document.getElementsByClassName("StudentInfoTab");
+	  for (i = 0; i < StudentInfoTab.length; i++) 
+	  {
+	    StudentInfoTab[i].style.display = "none";
+	  }
+	  
+	  tablinks = document.getElementsByClassName("tablinks");
+	  for (i = 0; i < tablinks.length; i++) 
+	  {
+	    tablinks[i].className = tablinks[i].className.replace(" active", "");
+	  }
+	  
+      document.getElementById(TabName).style.display = "block";
+	  oEvent.currentTarget.className += " active";
+}
+
+function openNextTab(oEvent, TabName, oNextBtn )
+{	
+	  var i, StudentInfoTab,tablinks;
+	  StudentInfoTab = document.getElementsByClassName("StudentInfoTab");
+	  for (i = 0; i < StudentInfoTab.length; i++) 
+	  {
+	    StudentInfoTab[i].style.display = "none";
+	  }
+	  
+	  tablinks = document.getElementsByClassName("tablinks");
+	  for (i = 0; i < tablinks.length; i++) 
+	  {
+	    tablinks[i].className = tablinks[i].className.replace(" active", "");
+	  }
+	   
+	  if(oNextBtn != undefined || oNextBtn != null)
+      {
+		  oNextBtn = document.getElementById(oNextBtn.id);
+		  oNextBtn.className  += " active";
+	      document.getElementById(TabName).style.display = "block";
+	  }
+}
+
+
+
+
+
