@@ -40,6 +40,9 @@ public class InstitutionInformationData extends MasterData
 	@Column(name = "institutionemail")
 	private String m_strInstitutionEmailAddress;
 	
+	@Column(name="institutionType")
+    private String m_strInstitutionType;
+	
 	@Column(name = "institutionaddress")
 	private String m_strInstitutionAddress;
 	
@@ -69,6 +72,7 @@ public class InstitutionInformationData extends MasterData
 		m_nInstitutionId = -1;
 		m_strInstitutionName = "";
 		m_strInstitutionEmailAddress = "";
+		m_strInstitutionType ="";
 		m_strInstitutionAddress = "";
 		m_strContactPersonName = "";
 		m_strContactPersonEmail = "";
@@ -147,6 +151,14 @@ public class InstitutionInformationData extends MasterData
 	public void setM_strContactPersonEmail(String m_strContactPersonEmail)
 	{
 		this.m_strContactPersonEmail = m_strContactPersonEmail;
+	}
+	
+	public String getM_strInstitutionType() {
+		return m_strInstitutionType;
+	}
+
+	public void setM_strInstitutionType(String m_strInstitutionType) {
+		this.m_strInstitutionType = m_strInstitutionType;
 	}
 
 	public String getM_strPhoneNumber() 
@@ -230,6 +242,7 @@ public class InstitutionInformationData extends MasterData
 			addChild (oXmlDocument, oRootElement, "m_strCity", m_strCity);
 			addChild (oXmlDocument, oRootElement, "m_strState", m_strState);
 			addChild (oXmlDocument, oRootElement, "m_nPincode", m_nPincode);
+			addChild(oXmlDocument, oRootElement, "m_strInstitutionType", m_strInstitutionType);
 			strInstitutionInfoXML = getXmlString (oXmlDocument);
 		}
 		catch (Exception oException) 
@@ -238,4 +251,6 @@ public class InstitutionInformationData extends MasterData
 		}
 		return strInstitutionInfoXML;		
 	}
+
+
 }

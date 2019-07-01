@@ -54,6 +54,10 @@ function institutionInfo_getFormData ()
 	oInstitutionInformationData.m_nInstitutionId = m_oInstitutionInfoMemberData.m_nInstitutionId;
 	oInstitutionInformationData.m_strInstitutionName = $("#institutionInfo_input_institutionName").val();
 	oInstitutionInformationData.m_strInstitutionEmailAddress = $("#institutionInfo_input_institutionemail").val();
+	if(document.getElementById("institutionInfo_input_institutionPrivate").checked)
+        oInstitutionInformationData.m_strInstitutionType = $("#institutionInfo_input_institutionPrivate").val();
+    else
+        oInstitutionInformationData.m_strInstitutionType = $("#institutionInfo_input_institutionGovernment").val();
 	oInstitutionInformationData.m_strInstitutionAddress = $("#institutionInfo_textarea_address").val();
 	oInstitutionInformationData.m_strContactPersonName = $("#institutionInfo_input_contactpersonname").val();
 	oInstitutionInformationData.m_strContactPersonEmail = $("#institutionInfo_input_contactpersonemail").val();
@@ -106,6 +110,17 @@ function institutionInfo_gotData (oInstitutionInfoResponse)
 	m_oInstitutionInfoMemberData.m_nInstitutionId = oInstitutionInfoData.m_nInstitutionId;	
 	 $("#institutionInfo_input_institutionName").val(oInstitutionInfoData.m_strInstitutionName);
 	 $("#institutionInfo_input_institutionemail").val(oInstitutionInfoData.m_strInstitutionEmailAddress);
+	 if(oInstitutionInfoData.m_strInstitutionType == "Government")
+		 {
+			var radiobutton = document.getElementById("institutionInfo_input_institutionGovernment");
+			radiobutton.checked = true;
+		 }
+	 else
+		 {
+			var radiobutton = document.getElementById("institutionInfo_input_institutionPrivate");
+			radiobutton.checked = true;
+		 }
+	 $("#institutionInfo_input_institutionType").val(oInstitutionInfoData.m_strInstitutionType);
 	 $("#institutionInfo_textarea_address").val(oInstitutionInfoData.m_strInstitutionAddress);
 	 $("#institutionInfo_input_contactpersonname").val(oInstitutionInfoData.m_strContactPersonName);
 	 $("#institutionInfo_input_contactpersonemail").val(oInstitutionInfoData.m_strContactPersonEmail);
