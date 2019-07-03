@@ -10,6 +10,9 @@
 					<tr>
 			 			<td class="xslt_fieldHeader" colspan="2">Student Information Details</td>
 			 			<td>																																															
+							<button type="button" width="20" align="center" class = "zenith addButton" style="width:100px;" id="printStudent" title="Print" onClick="printStudentDetails()">Print</button>
+						</td>
+						<td>																																															
 							<button type="button" width="20" align="center" class = "zenith addButton" style="width:100px;" id="verifyStudent" title="Verify" onClick="verifyStudentInfo_Student()">Verify</button>
 						</td>
 					</tr>
@@ -292,7 +295,7 @@
 							</table>						
 						</td>
 					</tr>
-				</table>
+				</table>				
 			</body>
 		</html>
 	</xsl:template>

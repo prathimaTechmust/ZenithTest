@@ -133,6 +133,7 @@ function verifiedStudentlistInfo_selectedRowData (oRowData, nIndex)
 
 function verifiedStudentListInfo_gotXML (strXMLData)
 {
+	m_overifiedStudentList_Info_MemberData.strXMLData = strXMLData;
 	populateXMLData (strXMLData, "applicationstatus/verified/studentInfoVerified.xslt", 'listVerifiedStudents_div_listDetail');
 }
 
@@ -147,6 +148,24 @@ function verifiedStudentListInfo_list (strColumn,strOrder,nPageNumber,nPageSize)
 	m_overifiedStudentList_Info_MemberData.m_nPageNumber = nPageNumber;
 	m_overifiedStudentList_Info_MemberData.m_nPageSize = nPageSize;
 	loadPage ("inventorymanagement/progressbar.html", "dialog", "verifiedStudentListInfo_progressbarLoaded ()");
+}
+
+function printStudentDetails()
+{
+	populateXMLData (m_overifiedStudentList_Info_MemberData.strXMLData, "applicationstatus/verified/printStudentDetails.xslt", 'printdetailsInfo');
+	printDocument();	
+}
+
+function printDocument ()
+{
+	var printContent = document.getElementById("printdetailsInfo");	
+	 var openWindow = window.open("", "", "");	   
+	    openWindow.document.write(printContent.innerHTML);
+	    openWindow.document.close();
+	    openWindow.focus();
+	    openWindow.print();
+	    openWindow.close();
+	    document.getElementById("printdetailsInfo").innerHTML = "";
 }
 
 function verifyStudentInfo_Student()
