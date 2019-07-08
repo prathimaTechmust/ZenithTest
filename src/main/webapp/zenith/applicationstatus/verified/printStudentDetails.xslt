@@ -114,7 +114,7 @@
 				<!-- Form Head Row -->
 				<tr>
 					<td>
-						<p class="centerParagraph headRow">Educational Scholarship Form <span class="rightParagraph">UID : 9900</span></p>
+						<p class="centerParagraph headRow">Educational Scholarship Form <span class="rightParagraph">UID : <xsl:value-of select="StudentInformationData/m_nUID" /></span></p>
 						<table><tbody><tr></tr></tbody></table>
 					</td>
 				</tr>
@@ -250,8 +250,8 @@
 													<label class="dataLabel">Family Income per Annum </label>
 												</td>
 												<td>:</td>
-												<td class="dataValue">
-												 <xsl:value-of select="StudentInformationData/m_nFamilyIncome">
+												<td class="dataValue"> 
+												 <xsl:value-of select="format-number(StudentInformationData/m_nFamilyIncome, '##,##,##0')">
 												</xsl:value-of></td>									
 											</tr>
 											<tr>
