@@ -262,6 +262,7 @@ public class AcademicDetails extends MasterData
 			addChild (oXmlDocument, oRootElement, "m_strStudentScore", m_strStudentScore);
 			addChild (oXmlDocument, oRootElement, "m_fAnnualFee", m_fAnnualFee);
 			addChild (oXmlDocument, oRootElement, "m_fPaidFee", m_fPaidFee);
+			addChild (oXmlDocument, oRootElement, "m_strAcademicYear", m_strAcademicYear);
 			strAcademicDetails = getXmlString (oXmlDocument);
 		} 
 		catch (Exception oException)
