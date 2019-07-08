@@ -1,0 +1,25 @@
+@CHARSET "ISO-8859-1";
+
+.outerPrintDiv {
+	color: #fff;
+	height: 200px;
+	width: 900px;
+	margin: 0px auto;
+	padding: 5px;
+}
+
+.leftDiv {
+	background-color: #efefef;
+	color: #000;
+	height: 200px;
+	width: 48%;
+	float: left;
+}
+
+.rightDiv {
+	background-color: #efefef;
+	color: #000;
+	height: 200px;
+	width: 48%;
+	float: right;
+}

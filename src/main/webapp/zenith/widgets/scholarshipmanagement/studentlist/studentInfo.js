@@ -929,6 +929,55 @@ function openNextTab(oEvent, TabName, oNextBtn )
 	  }
 }
 
+function getImage(studentInfo_input_image,fileInputTypeID, divId)
+{
+document.getElementById(divId.id).style.display = "block";
+var oFileSource = document.getElementById(fileInputTypeID.id);
+var studentInfo_input_document = document.getElementById(studentInfo_input_image.id);
+showImage(oFileSource, studentInfo_input_document);
+}
+
+function showImage(oFileSource,studentInfo_input_document)
+{
+     var fr=new FileReader();
+     fr.onload = function(e)
+                     {
+                         studentInfo_input_document.src = this.result;
+                     };
+     fr.readAsDataURL(oFileSource.files[0]);
+    
+}
+
+    
+
+function studentupload_documentPreview (studentInfo_input_previewimageId)
+{
+    
+    var viewImageId = document.getElementById(studentInfo_input_previewimageId.id)
+    var fileInputimageurl = document.getElementById (studentInfo_input_previewimageId.id).src;
+    m_oStudentInfoMemberData.m_strDocUploadURL = fileInputimageurl;
+    loadPage("scholarshipmanagement/student/studentDocumentPreview.html","secondDialog","showDocumentPreview()");    
+}
+
+
+function showDocumentPreview ()
+{
+    createPopup ('secondDialog', '', '', true);
+    document.getElementById('secondDialog').style.position = "fixed";
+    $(".imagePreview").attr('src', m_oStudentInfoMemberData.m_strDocUploadURL);    
+}
+
+
+function studentList_cancelImagePreview (){
+    
+     HideDialog ("secondDialog");
+}
+
+function disableButton(div){
+     document.getElementById(div.id).style.display = "none";
+        alert("Document uploaded.");
+        }
+
 
 
 

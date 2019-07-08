@@ -53,6 +53,14 @@
 										<xsl:value-of select="InstitutionInformationData/m_strContactPersonEmail" />
 									</td>									
 								</tr>
+								<tr>
+                                   <td class="xslt_fieldHeading">
+                                        Institution Type :
+                                    </td>
+                                    <td class="xslt_fieldData" id ="m_strInstitutionType">
+                                       <xsl:value-of select="InstitutionInformationData/m_strInstitutionType"/>
+                                   </td>
+                                </tr>
 							</table>
 						</td>
 						<td width="50%" valign="top">
