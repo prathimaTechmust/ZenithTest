@@ -7,12 +7,68 @@
 		<html>
 			<body>
 				<table class="zenith">
-					<tr>
-			 			<td class="xslt_fieldHeader" colspan="2">Student Information Details</td>
-					</tr>
-					<tr>
+					<!-- Image and Task row-->
+					<tr>					
 						<td width="50%" valign="top">
+							<table>
+								<tr>
+									<td class="zenith" align="left">
+										<table class="zenith">
+											<tr>
+												<td class="zenith" align="left" style=" padding-left: 30%;">
+													<a href="javascript:studentList_setPreview ('{StudentInformationData/m_strStudentImageUrl}');">
+														<img src="{StudentInformationData/m_strStudentImageUrl}" id = "imagePreview_img_student" class="studentDetailImage"/>
+													</a>
+													<br />
+												</td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+							</table>
+						</td>
+						<td width="50%" valign="bottom">
+							<table>
+								<tr>
+									<td class="zenith" align="left">
+										<table class="zenith">
+											<tr>
+												<td width="25%" valign="top">
+													<fieldset style="width: 70%;">
+														<legend>
+															Approve Amount
+														</legend>
+															<table class ="xslt_zenith" cellspacing="5px">
+																<tr>
+																	<td text-align="center" style = "width:80px">Amount(₹)<em>*</em></td>
+																	<td>
+																		<input type = "text" id ="zenithInfo_approvedamount" class="zenith easyui-validatebox" data-options="required:true" style="margin-left: 5px" onkeyup ="validateNumber(this)"/>
+																	</td>
+																</tr> 
+																<tr>
+																	<td align = "left" colspan = "2">
+																		<hr/>																																															
+																		<button type="button" style= "margin-right:10px" class = "zenith" id="approveStudent" title="Approve" onClick="approveStudentInfo_Student()">Approve</button>
+																		<button type="button" style= "margin-right:10px; float: right;" class = "zenith" id="rejectStudent" title="Reject" onClick="recjectStudentInfo_Student()">Reject</button>
+																	</td>			 							
+																</tr>							
+															</table>
+													</fieldset>													
+												</td>
+											</tr>									
+										</table>										
+									</td>																
+								</tr>								
+							</table>
+						</td>
+					</tr>
+					<!-- Student information row-->
+					<tr>
+						<td width="50%" valign="top">						
 							<table class="zenith" cellSpacing="5px">
+								<tr>
+									<td class = "xslt_zenithFieldHeader">Student Details:</td>								
+								</tr>
 								<tr>
 									<td class="xslt_fieldHeading">UID :</td>
 									<td class="xslt_fieldData" id="m_nUID">
@@ -95,119 +151,106 @@
 										<xsl:value-of select="StudentInformationData/m_strGender" />
 									</td>
 								</tr>
-							</table>
+							</table>					
 						</td>
 						<td width="50%" valign="top">
-							<table class="xslt_zenith" cellSpacing="5px">
-								<tr>
-									<td class ="xslt_fieldHeading">
-										Facilitator Name:
-									</td>
-									<td class ="xslt_fieldData" id = "m_strFacilitatorName">
-										<xsl:value-of select="StudentInformationData/m_oFacilitatorInformationData/FacilitatorInformationData/m_strFacilitatorName"/>
-									</td>
-								</tr>
-								<tr>
-									<td class="xslt_fieldHeading">Parental Status:</td>
-									<td class="xslt_fieldData" id="m_strParentalStatus">
-										<xsl:value-of select= "StudentInformationData/m_strParentalStatus" />
-									</td>
-								</tr>
-								<tr>
-									<td class="xslt_fieldHeading">Income Per Annum(₹):</td>
-									<td class="xslt_fieldData" id="m_nFamilyIncome">
-										<xsl:value-of select= "format-number(StudentInformationData/m_nFamilyIncome, '##,##,##0')" />
-									</td>
-								</tr>
-								<tr>
-									<td class="xslt_fieldHeading">
-										Father Occupation :
-									</td>
-									<td class="xslt_fieldData" id="m_strFatherOccupation">
-										<xsl:value-of select="StudentInformationData/m_strFatherOccupation" />
-									</td>
-								</tr>
-								<tr>
-									<td class="xslt_fieldHeading">
-										Father Aadhar Number :
-									</td>
-									<td class="xslt_fieldData" id="m_nFatherAadharNumber">
-										<xsl:value-of select="StudentInformationData/m_nFatherAadharNumber" />
-									</td>
-								</tr>
-								<tr>
-									<td class="xslt_fieldHeading">
-										Mother Occupation :
-									</td>
-									<td class="xslt_fieldData" id="m_strMotherOccupation">
-										<xsl:value-of select="StudentInformationData/m_strMotherOccupation" />
-									</td>
-								</tr>
-								<tr>
-									<td class="xslt_fieldHeading">
-										Mother Aadhar Number :
-									</td>
-									<td class="xslt_fieldData" id="m_nMotherAadharNumber">
-										<xsl:value-of select="StudentInformationData/m_nMotherAadharNumber" />
-									</td>
-								</tr>
-								<tr>
-									<td class="xslt_fieldHeading">
-										Address :
-									</td>
-									<td class="xslt_fieldData" id="m_strCurrentAddress">
-										<xsl:value-of select="StudentInformationData/m_strCurrentAddress" />
-									</td>
-								</tr>
-								<tr>
-									<td class="xslt_fieldHeading">
-										City :
-									</td>
-									<td class="xslt_fieldData" id="m_strCity">
-										<xsl:value-of select="StudentInformationData/m_strCity" />
-									</td>
-								</tr>
-								<tr>
-									<td class="xslt_fieldHeading">
-										State :
-									</td>
-									<td class="xslt_fieldData" id="m_strState">
-										<xsl:value-of select="StudentInformationData/m_strState" />
-									</td>
-								</tr>
-								<tr>
-									<td class="xslt_fieldHeading">
-										PinCode :
-									</td>
-									<td class="xslt_fieldData" id="m_nPincode">
-										<xsl:value-of select="StudentInformationData/m_nPincode" />
-									</td>
-								</tr>
-							</table>
-						</td>
-						<td class="zenith" align="left" style="vertical-align:top;width:15%">
-							<table class="zenith">
-								<tr>
-									<td class="zenith" align="center">
-										<a href="javascript:studentList_setPreview ('{StudentInformationData/m_strStudentImageUrl}');">
-											<img src="{StudentInformationData/m_strStudentImageUrl}" id = "imagePreview_img_student" class="studentDetailImage"/>
-										</a>
-										<br />
-									</td>
-								</tr>
-							</table>
-						</td>
-					</tr>					
-					<!-- <tr>
-						
-					</tr> -->
+								<table class="xslt_trademust" cellSpacing="5px">
+									<tr>
+										<td class = "xslt_zenithFieldHeader"> </td>								
+									</tr>
+									<tr>
+										<td class ="xslt_fieldHeading">
+											Facilitator Name:
+										</td>
+										<td class ="xslt_fieldData" id = "m_strFacilitatorName">
+											<xsl:value-of select="StudentInformationData/m_oFacilitatorInformationData/FacilitatorInformationData/m_strFacilitatorName"/>
+										</td>
+									</tr>
+									<tr>
+										<td class="xslt_fieldHeading">Parental Status:</td>
+										<td class="xslt_fieldData" id="m_strParentalStatus">
+											<xsl:value-of select= "StudentInformationData/m_strParentalStatus" />
+										</td>
+									</tr>
+									<tr>
+										<td class="xslt_fieldHeading">Income Per Annum(₹):</td>
+										<td class="xslt_fieldData" id="m_nFamilyIncome">
+											<xsl:value-of select= "format-number(StudentInformationData/m_nFamilyIncome, '##,##,##0')" />
+										</td>
+									</tr>
+									<tr>
+										<td class="xslt_fieldHeading">
+											Father Occupation :
+										</td>
+										<td class="xslt_fieldData" id="m_strFatherOccupation">
+											<xsl:value-of select="StudentInformationData/m_strFatherOccupation" />
+										</td>
+									</tr>
+									<tr>
+										<td class="xslt_fieldHeading">
+											Father Aadhar Number :
+										</td>
+										<td class="xslt_fieldData" id="m_nFatherAadharNumber">
+											<xsl:value-of select="StudentInformationData/m_nFatherAadharNumber" />
+										</td>
+									</tr>
+									<tr>
+										<td class="xslt_fieldHeading">
+											Mother Occupation :
+										</td>
+										<td class="xslt_fieldData" id="m_strMotherOccupation">
+											<xsl:value-of select="StudentInformationData/m_strMotherOccupation" />
+										</td>
+									</tr>
+									<tr>
+										<td class="xslt_fieldHeading">
+											Mother Aadhar Number :
+										</td>
+										<td class="xslt_fieldData" id="m_nMotherAadharNumber">
+											<xsl:value-of select="StudentInformationData/m_nMotherAadharNumber" />
+										</td>
+									</tr>
+									<tr>
+										<td class="xslt_fieldHeading">
+											Address :
+										</td>
+										<td class="xslt_fieldData" id="m_strCurrentAddress">
+											<xsl:value-of select="StudentInformationData/m_strCurrentAddress" />
+										</td>
+									</tr>
+									<tr>
+										<td class="xslt_fieldHeading">
+											City :
+										</td>
+										<td class="xslt_fieldData" id="m_strCity">
+											<xsl:value-of select="StudentInformationData/m_strCity" />
+										</td>
+									</tr>
+									<tr>
+										<td class="xslt_fieldHeading">
+											State :
+										</td>
+										<td class="xslt_fieldData" id="m_strState">
+											<xsl:value-of select="StudentInformationData/m_strState" />
+										</td>
+									</tr>
+									<tr>
+										<td class="xslt_fieldHeading">
+											PinCode :
+										</td>
+										<td class="xslt_fieldData" id="m_nPincode">
+											<xsl:value-of select="StudentInformationData/m_nPincode" />
+										</td>
+									</tr>
+								</table>				
+							</td>							
+					</tr>
+					<!-- Academic details and scholarship details-->
 					<tr>
-						<table>
-							<tr>
-								<td width="50%" valign="top">
-							<table class="xslt_zenith" cellSpacing="5px">
+						<td width="50%" valign="top">	
+							<table class="xslt_trademust" cellSpacing="5px">
 								<tr>
-									<td class = "xslt_zenithFieldHeader">Academic Details</td>								
+									<td class = "xslt_zenithFieldHeader">Academic Details:</td>								
 								</tr>
 								<tr>
 									<td class="xslt_fieldHeading">
@@ -258,9 +301,9 @@
 									</td>
 								</tr>								
 							</table>
-						</td>
-						<td width="32%" valign="top">
-							<table class="xslt_zenith" cellSpacing="5px">
+						</td>														
+						<td width="50%" valign="top">
+							<table class="xslt_trademust" cellSpacing="5px">
 								<tr>
 									<td class = "xslt_zenithFieldHeader">Scolarship Details</td>	
 								</tr>
@@ -286,30 +329,6 @@
 								</tr>
 							</table>
 						</td>
-						<td width="25%" valign="top">
-							<fieldset>
-		 						<legend>
-		 							Approve Amount
-		 						</legend>
-		 							<table class ="xslt_zenith" cellspacing="5px">
-			 							<tr>
-											<td text-align="center" style = "width:80px">Amount(₹)<em>*</em></td>
-			 								<td>
-												<input type = "text" id ="zenithInfo_approvedamount" class="zenith easyui-validatebox" data-options="required:true" style="margin-left: 5px" onkeyup ="validateNumber(this)"/>
-											</td>
-			 							</tr> 
-			 							<tr>
-			 								<td align = "left" colspan = "2">
-			 									<hr/>																																															
-												<button type="button" style= "margin-right:10px" class = "zenith" id="approveStudent" title="Approve" onClick="approveStudentInfo_Student()">Approve</button>
-												<button type="button" class = "zenith" id="rejectStudent" title="Reject" onClick="recjectStudentInfo_Student()">Reject</button>
-											</td>			 							
-			 							</tr>							
-		 							</table>
-		 					</fieldset>													
-						</td>
-							</tr>
-						</table>						
 					</tr>
 				</table>
 			</body>
