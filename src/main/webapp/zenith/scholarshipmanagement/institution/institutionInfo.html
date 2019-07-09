@@ -140,11 +140,11 @@
 	                            <td>
 	                              <input
 	                              	  type="text"
-	                              	  id="institutionInfo_input_pincode"  maxlength="70"
+	                              	  id="institutionInfo_input_pincode"  maxlength="6"
 	                              	  class="easyui-validatebox zenith"
 	                                  data-options="required:true"		                          
-			                          placeholder="Pincode"		                          
-			                          />
+			                          placeholder="Pincode" 
+			                          onkeyup = "validateNumber (this)"/>
 	                            </td>                      
 							 </tr>					 			 
 					 </table>

@@ -545,6 +545,21 @@ function getSharedWithList (arrConnections)
 	return arrSharedWithUsers;
 }
 
+function convertDateToTimeStamp(strDate)
+{
+    strDate= strDate.split("-");
+    var newDate = strDate[0]+"/"+strDate[1]+"/"+strDate[2];
+    value = new Date(newDate).getTime();
+    return value;
+}
+
+function convertTimestampToDate(dTimeStamp)
+{
+    var timeStamp = new Date(dTimeStamp);
+   var date = timeStamp.getFullYear() + '-'+ ("0" +timeStamp.getMonth()).slice(-2)  + '-' + ("0" +timeStamp.getDate()).slice(-2);
+   return date;
+}
+
 function FormatDate (strDate)
 {
 	var arrDate = strDate.split('/');

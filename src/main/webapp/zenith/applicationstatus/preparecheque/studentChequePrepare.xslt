@@ -7,15 +7,49 @@
 		<html>
 			<body>
 				<table class="zenith">
-					<tr>
-			 			<td class="xslt_fieldHeader" colspan="2">Student Information Details</td>
-			 			<td>																																															
-							<button type="button" width="20" align="center" class = "zenith addButton" style="width:130px;" id="verifyStudent" title="Prepare Cheque" onClick="prepareCheque()">Prepare Cheque</button>
+					<!-- Image and Task row-->
+					<tr>					
+						<td width="50%" valign="top">
+							<table>
+								<tr>
+									<td class="zenith" align="left">
+										<table class="zenith">
+											<tr>
+												<td class="zenith" align="left" style=" padding-left: 30%;">
+													<a href="javascript:studentList_setPreview ('{StudentInformationData/m_strStudentImageUrl}');">
+														<img src="{StudentInformationData/m_strStudentImageUrl}" id = "imagePreview_img_student" class="studentDetailImage"/>
+													</a>
+													<br />
+												</td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+							</table>
+						</td>
+						<td width="50%" valign="bottom">
+							<table>
+								<tr>
+									<td class="zenith" align="left" style="vertical-align:top;width:15%">
+										<table class="zenith">
+											<tr>
+												<td>																																															
+													<button type="button" width="20" align="center" class = "zenith addButton" style="width:130px;" id="verifyStudent" title="Prepare Cheque" onClick="prepareCheque()">Prepare Cheque</button>
+												</td>																							
+											</tr>									
+										</table>										
+									</td>																
+								</tr>								
+							</table>
 						</td>
 					</tr>
+					<!-- Student information row-->
 					<tr>
-						<td width="50%" valign="top">
+						<td width="50%" valign="top">						
 							<table class="zenith" cellSpacing="5px">
+								<tr>
+									<td class = "xslt_zenithFieldHeader">Student Details:</td>								
+								</tr>
 								<tr>
 									<td class="xslt_fieldHeading">UID :</td>
 									<td class="xslt_fieldData" id="m_nUID">
@@ -98,114 +132,106 @@
 										<xsl:value-of select="StudentInformationData/m_strGender" />
 									</td>
 								</tr>
-							</table>
+							</table>					
 						</td>
 						<td width="50%" valign="top">
-							<table class="xslt_trademust" cellSpacing="5px">
-								<tr>
-									<td class ="xslt_fieldHeading">
-										Facilitator Name:
-									</td>
-									<td class ="xslt_fieldData" id = "m_strFacilitatorName">
-										<xsl:value-of select="StudentInformationData/m_oFacilitatorInformationData/FacilitatorInformationData/m_strFacilitatorName"/>
-									</td>
-								</tr>
-								<tr>
-									<td class="xslt_fieldHeading">Parental Status:</td>
-									<td class="xslt_fieldData" id="m_strParentalStatus">
-										<xsl:value-of select= "StudentInformationData/m_strParentalStatus" />
-									</td>
-								</tr>
-								<tr>
-									<td class="xslt_fieldHeading">Income Per Annum(₹):</td>
-									<td class="xslt_fieldData" id="m_nFamilyIncome">
-										<xsl:value-of select= "format-number(StudentInformationData/m_nFamilyIncome, '##,##,##0')" />
-									</td>
-								</tr>
-								<tr>
-									<td class="xslt_fieldHeading">
-										Father Occupation :
-									</td>
-									<td class="xslt_fieldData" id="m_strFatherOccupation">
-										<xsl:value-of select="StudentInformationData/m_strFatherOccupation" />
-									</td>
-								</tr>
-								<tr>
-									<td class="xslt_fieldHeading">
-										Father Aadhar Number :
-									</td>
-									<td class="xslt_fieldData" id="m_nFatherAadharNumber">
-										<xsl:value-of select="StudentInformationData/m_nFatherAadharNumber" />
-									</td>
-								</tr>
-								<tr>
-									<td class="xslt_fieldHeading">
-										Mother Occupation :
-									</td>
-									<td class="xslt_fieldData" id="m_strMotherOccupation">
-										<xsl:value-of select="StudentInformationData/m_strMotherOccupation" />
-									</td>
-								</tr>
-								<tr>
-									<td class="xslt_fieldHeading">
-										Mother Aadhar Number :
-									</td>
-									<td class="xslt_fieldData" id="m_nMotherAadharNumber">
-										<xsl:value-of select="StudentInformationData/m_nMotherAadharNumber" />
-									</td>
-								</tr>
-								<tr>
-									<td class="xslt_fieldHeading">
-										Address :
-									</td>
-									<td class="xslt_fieldData" id="m_strCurrentAddress">
-										<xsl:value-of select="StudentInformationData/m_strCurrentAddress" />
-									</td>
-								</tr>
-								<tr>
-									<td class="xslt_fieldHeading">
-										City :
-									</td>
-									<td class="xslt_fieldData" id="m_strCity">
-										<xsl:value-of select="StudentInformationData/m_strCity" />
-									</td>
-								</tr>
-								<tr>
-									<td class="xslt_fieldHeading">
-										State :
-									</td>
-									<td class="xslt_fieldData" id="m_strState">
-										<xsl:value-of select="StudentInformationData/m_strState" />
-									</td>
-								</tr>
-								<tr>
-									<td class="xslt_fieldHeading">
-										PinCode :
-									</td>
-									<td class="xslt_fieldData" id="m_nPincode">
-										<xsl:value-of select="StudentInformationData/m_nPincode" />
-									</td>
-								</tr>
-							</table>
-						</td>
-						<td class="zenith" align="left" style="vertical-align:top;width:15%">
-							<table class="zenith">
-								<tr>
-									<td class="zenith" align="center">
-										<a href="javascript:studentList_setPreview ('{StudentInformationData/m_strStudentImageUrl}');">
-											<img src="{StudentInformationData/m_strStudentImageUrl}" id = "imagePreview_img_student" class="studentDetailImage"/>
-										</a>
-										<br />
-									</td>
-								</tr>
-							</table>
-						</td>
-					</tr>					
+								<table class="xslt_trademust" cellSpacing="5px">
+									<tr>
+										<td class = "xslt_zenithFieldHeader"> </td>								
+									</tr>
+									<tr>
+										<td class ="xslt_fieldHeading">
+											Facilitator Name:
+										</td>
+										<td class ="xslt_fieldData" id = "m_strFacilitatorName">
+											<xsl:value-of select="StudentInformationData/m_oFacilitatorInformationData/FacilitatorInformationData/m_strFacilitatorName"/>
+										</td>
+									</tr>
+									<tr>
+										<td class="xslt_fieldHeading">Parental Status:</td>
+										<td class="xslt_fieldData" id="m_strParentalStatus">
+											<xsl:value-of select= "StudentInformationData/m_strParentalStatus" />
+										</td>
+									</tr>
+									<tr>
+										<td class="xslt_fieldHeading">Income Per Annum(₹):</td>
+										<td class="xslt_fieldData" id="m_nFamilyIncome">
+											<xsl:value-of select= "format-number(StudentInformationData/m_nFamilyIncome, '##,##,##0')" />
+										</td>
+									</tr>
+									<tr>
+										<td class="xslt_fieldHeading">
+											Father Occupation :
+										</td>
+										<td class="xslt_fieldData" id="m_strFatherOccupation">
+											<xsl:value-of select="StudentInformationData/m_strFatherOccupation" />
+										</td>
+									</tr>
+									<tr>
+										<td class="xslt_fieldHeading">
+											Father Aadhar Number :
+										</td>
+										<td class="xslt_fieldData" id="m_nFatherAadharNumber">
+											<xsl:value-of select="StudentInformationData/m_nFatherAadharNumber" />
+										</td>
+									</tr>
+									<tr>
+										<td class="xslt_fieldHeading">
+											Mother Occupation :
+										</td>
+										<td class="xslt_fieldData" id="m_strMotherOccupation">
+											<xsl:value-of select="StudentInformationData/m_strMotherOccupation" />
+										</td>
+									</tr>
+									<tr>
+										<td class="xslt_fieldHeading">
+											Mother Aadhar Number :
+										</td>
+										<td class="xslt_fieldData" id="m_nMotherAadharNumber">
+											<xsl:value-of select="StudentInformationData/m_nMotherAadharNumber" />
+										</td>
+									</tr>
+									<tr>
+										<td class="xslt_fieldHeading">
+											Address :
+										</td>
+										<td class="xslt_fieldData" id="m_strCurrentAddress">
+											<xsl:value-of select="StudentInformationData/m_strCurrentAddress" />
+										</td>
+									</tr>
+									<tr>
+										<td class="xslt_fieldHeading">
+											City :
+										</td>
+										<td class="xslt_fieldData" id="m_strCity">
+											<xsl:value-of select="StudentInformationData/m_strCity" />
+										</td>
+									</tr>
+									<tr>
+										<td class="xslt_fieldHeading">
+											State :
+										</td>
+										<td class="xslt_fieldData" id="m_strState">
+											<xsl:value-of select="StudentInformationData/m_strState" />
+										</td>
+									</tr>
+									<tr>
+										<td class="xslt_fieldHeading">
+											PinCode :
+										</td>
+										<td class="xslt_fieldData" id="m_nPincode">
+											<xsl:value-of select="StudentInformationData/m_nPincode" />
+										</td>
+									</tr>
+								</table>				
+							</td>							
+					</tr>
+					<!-- Academic details and scholarship details-->
 					<tr>
-						<td width="50%" valign="top">
+						<td width="50%" valign="top">	
 							<table class="xslt_trademust" cellSpacing="5px">
 								<tr>
-									<td class = "xslt_zenithFieldHeader">Academic Details</td>								
+									<td class = "xslt_zenithFieldHeader">Academic Details:</td>								
 								</tr>
 								<tr>
 									<td class="xslt_fieldHeading">
@@ -256,7 +282,7 @@
 									</td>
 								</tr>								
 							</table>
-						</td>
+						</td>														
 						<td width="50%" valign="top">
 							<table class="xslt_trademust" cellSpacing="5px">
 								<tr>
@@ -283,13 +309,6 @@
 									</xsl:for-each>									
 								</tr>
 							</table>
-						</td>
-						<td width="50%" valign="bottom">
-							<table class="xslt_trademust" cellSpacing="5px">
-								<tr>
-									
-								</tr>
-							</table>						
 						</td>
 					</tr>
 				</table>

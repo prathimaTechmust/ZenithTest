@@ -46,6 +46,18 @@ public class AWSUtils
 		return UploadFile(strFileName, oStudentImg);
 	}
 	
+	public static String UploadToStudentAadharDocumentsFolder(String strFileName,MultipartFile oStudentAadharMultipartFile) throws AmazonServiceException, AmazonClientException, IOException, InterruptedException
+	{
+		return UploadFile(strFileName, oStudentAadharMultipartFile);
+		
+	}
+
+	public static String UploadToStudentElectricityDocumentsFolder(String strFileName,MultipartFile oStudentElectricityBillMultipartFile) throws AmazonServiceException, AmazonClientException, IOException, InterruptedException
+	{
+		return UploadFile(strFileName, oStudentElectricityBillMultipartFile);
+		
+	}
+	
 	public static String UploadToUserImagesFolder(String strUserImageName,MultipartFile oUserImage)throws AmazonServiceException, AmazonClientException,IOException,InterruptedException
 	{
 		return UploadFile(strUserImageName,oUserImage);
@@ -101,5 +113,6 @@ public class AWSUtils
 			oInputStream.close();
 		}
 	   return strUploadedFile;
-	}	
+	}
+		
 }

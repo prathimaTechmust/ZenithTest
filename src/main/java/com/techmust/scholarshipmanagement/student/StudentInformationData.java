@@ -1,4 +1,5 @@
 package com.techmust.scholarshipmanagement.student;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -35,7 +36,7 @@ import com.techmust.usermanagement.facilitator.FacilitatorInformationData;
 
 @Entity
 @Table(name = "student")
-public class StudentInformationData  extends MasterData
+public class StudentInformationData  extends MasterData implements Serializable
 {
 
 	/**
@@ -67,7 +68,7 @@ public class StudentInformationData  extends MasterData
 	private String m_strGender;
 	
 	@Column(name = "dateofbirth")
-	private Date m_dDateOfBirth;
+	private long m_dDateOfBirth;
 	
 	@Column(name = "familyincome")
 	private float m_nFamilyIncome;
@@ -96,8 +97,8 @@ public class StudentInformationData  extends MasterData
 	@Column(name = "pincode")
 	private int m_nPincode;
 	
-	@Column(name = "imagename")
-	private String m_strStudentImageName;
+	@Column(name = "imageId")
+	private String m_strStudentImageId;
 	
 	@Column(name = "UID")
 	private long m_nUID;
@@ -125,11 +126,11 @@ public class StudentInformationData  extends MasterData
 	private FacilitatorInformationData m_oFacilitatorInformationData;
 	
 	@JsonManagedReference
-	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "m_oStudentInformationData")
+	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "m_oStudentInformationData",orphanRemoval = true)
 	private Set<AcademicDetails> m_oAcademicDetails;
 	
 	@JsonManagedReference
-	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "m_oStudentInformationData")
+	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "m_oStudentInformationData",orphanRemoval = true)
 	private Set<ZenithScholarshipDetails> m_oZenithScholarshipDetails ;
 	
 	@Transient
@@ -140,7 +141,7 @@ public class StudentInformationData  extends MasterData
 		m_nStudentId = -1;
 		m_strStudentName = "";
 		m_nStudentAadharNumber = -1;
-		m_dDateOfBirth = null; 
+		m_dDateOfBirth = 0; 
 		m_strFatherName = "";
 		m_strFatherOccupation = "";
 		m_nFatherAadharNumber = -1;
@@ -158,7 +159,7 @@ public class StudentInformationData  extends MasterData
 		m_strCity = "";
 		m_strState = "";
 		m_nPincode = -1;
-		m_strStudentImageName = "";
+		m_strStudentImageId = "";
 		m_nUID = -1;
 		m_oAcademicDetails = new HashSet<AcademicDetails> ();	
 		m_oFacilitatorInformationData = new FacilitatorInformationData();
@@ -263,14 +264,14 @@ public class StudentInformationData  extends MasterData
 	public void setM_nUID(long nUID)
 	{
 		this.m_nUID = nUID;
-	}
+	}	
 
-	public Date getM_dDateOfBirth()
+	public long getM_dDateOfBirth()
 	{
 		return m_dDateOfBirth;
 	}
-
-	public void setM_dDateOfBirth(Date dDateOfBirth)
+	
+	public void setM_dDateOfBirth(long dDateOfBirth)
 	{
 		this.m_dDateOfBirth = dDateOfBirth;
 	}
@@ -433,18 +434,18 @@ public class StudentInformationData  extends MasterData
 	public void setM_nPincode(int nPincode) 
 	{
 		this.m_nPincode = nPincode;
-	}
-
-	public String getM_strStudentImageName() 
-	{
-		return m_strStudentImageName;
-	}
-
-	public void setM_strStudentImageName(String strStudentImageName)
-	{
-		this.m_strStudentImageName = strStudentImageName;
-	}
+	}	
 	
+	public String getM_strStudentImageId()
+	{
+		return m_strStudentImageId;
+	}
+
+	public void setM_strStudentImageId(String strStudentImageId)
+	{
+		this.m_strStudentImageId = strStudentImageId;
+	}
+
 	public Set<ZenithScholarshipDetails> getM_oZenithScholarshipDetails()
 	{
 		return m_oZenithScholarshipDetails;
@@ -514,7 +515,7 @@ public class StudentInformationData  extends MasterData
 			addChild (oXmlDocument, oRootElement, "m_nStudentId", m_nStudentId);
 			addChild (oXmlDocument, oRootElement, "m_strStudentName", m_strStudentName);
 			addChild (oXmlDocument, oRootElement, "m_strGender", m_strGender);	
-			addChild (oXmlDocument, oRootElement, "m_dDateOfBirth", m_dDateOfBirth != null ? getStudentDOB(m_dDateOfBirth.toString ()) : "");
+			//addChild (oXmlDocument, oRootElement, "m_dDateOfBirth", m_dDateOfBirth != null ? getStudentDOB(m_dDateOfBirth.toString ()) : "");
 			addChild (oXmlDocument, oRootElement, "m_strFatherName", m_strFatherName);
 			addChild (oXmlDocument, oRootElement, "m_strMotherName", m_strMotherName);
 			addChild (oXmlDocument, oRootElement, "m_strReligion", m_strReligion);
@@ -531,8 +532,8 @@ public class StudentInformationData  extends MasterData
 			addChild (oXmlDocument, oRootElement, "m_strCity", m_strCity);
 			addChild (oXmlDocument, oRootElement, "m_strState", m_strState);
 			addChild (oXmlDocument, oRootElement, "m_nPincode", m_nPincode);
-			addChild (oXmlDocument, oRootElement, "m_strStudentImageName", m_strStudentImageName);					
-			addChild (oXmlDocument, oRootElement, "m_strStudentImageUrl", getStudentImageURL(m_nStudentId,m_strStudentImageName));
+			addChild (oXmlDocument, oRootElement, "m_strStudentImageId", m_strStudentImageId);					
+			addChild (oXmlDocument, oRootElement, "m_strStudentImageUrl", getStudentImageURL(m_strStudentImageId));
 			strStudentInfoXML = getXmlString (oXmlDocument);
 		}
 		catch (Exception oException) 
@@ -566,10 +567,9 @@ public class StudentInformationData  extends MasterData
 	}
 
 
-	private static String getStudentImageURL(int nStudentId, String strStudentImageName)
-	{
-		String strFileExtension = FilenameUtils.getExtension(strStudentImageName);
-		String strStudentImageUrl = Constants.STUDENTIMAGEURL + Constants.STUDENTIMAGEFOLDER+ nStudentId + "." + strFileExtension;
+	private static String getStudentImageURL(String strStudentImageName)
+	{		
+		String strStudentImageUrl = Constants.STUDENTIMAGEURL + Constants.STUDENTIMAGEFOLDER+ strStudentImageName + Constants.IMAGE_DEFAULT_EXTENSION;
 		return strStudentImageUrl;
 	}
 }

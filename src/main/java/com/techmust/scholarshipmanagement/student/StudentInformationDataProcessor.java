@@ -15,12 +15,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
 import com.techmust.constants.Constants;
 import com.techmust.generic.dataprocessor.GenericIDataProcessor;
 import com.techmust.generic.response.GenericResponse;
 import com.techmust.helper.ZenithHelper;
 import com.techmust.scholarshipmanagement.academicdetails.AcademicDetails;
 import com.techmust.utils.AWSUtils;
+import com.techmust.utils.Utils;
 
 @Controller
 public class StudentInformationDataProcessor extends GenericIDataProcessor <StudentInformationData> 
@@ -47,6 +49,27 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		}
 		return oStudentDataResponse;
 	}
+	/*@RequestMapping(value = "/studentInfoCreate",method = RequestMethod.POST)
+	@ResponseBody
+	public GenericResponse createStudentData(@RequestParam(name = "studentimage",required = false)MultipartFile oStudentMultipartFile,@RequestParam("studentObject") String oStudentData) throws Exception
+	{
+		m_oLogger.info ("create");
+		m_oLogger.debug ("create - oStudentInformationData [IN] : " + oStudentData);
+		StudentDataResponse oStudentDataResponse = new StudentDataResponse();
+		try
+		{
+			StudentInformationData oStudentInformationData = new Gson().fromJson(oStudentData, StudentInformationData.class);
+			oStudentDataResponse.m_bSuccess = oStudentInformationData.saveObject();
+			oStudentDataResponse.m_arrStudentInformationData.add(oStudentInformationData);			
+		}
+		catch (Exception oException)
+		{
+			m_oLogger.error ("create - oException : " + oException);
+			throw oException;
+		}
+		return oStudentDataResponse;
+		
+	}*/
 
 	@Override
 	@RequestMapping(value = "/studentInfoDelete",method = RequestMethod.POST, headers = {"Content-type=application/json"})
@@ -71,14 +94,28 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 	
 	@RequestMapping(value="/createStudentImageData", method = RequestMethod.POST)
 	@ResponseBody
-	public GenericResponse createStudentImagetoS3bucket(@RequestParam("studentimage") MultipartFile oMultipartFile, @RequestParam("studentId") String strStudentId ) throws Exception
+	public GenericResponse createStudentImagetoS3bucket(@RequestParam(name = "studentimage",required = false) MultipartFile oStudentMultipartFile, @RequestParam("studentId") int nStudentId ) throws Exception
     {
-		
 		StudentDataResponse oStudentDataResponse = new StudentDataResponse();
-        String strFileName = oMultipartFile.getOriginalFilename();
-        String strNewName = strStudentId + "." + FilenameUtils.getExtension(strFileName);
-		String strPath = Constants.STUDENTIMAGEFOLDER + strNewName;
-	    AWSUtils.UploadToStudentImagesFolder(strPath, oMultipartFile);		
+		StudentInformationData oStudentInformationData = new StudentInformationData();
+		oStudentInformationData.setM_nStudentId(nStudentId);
+		try 
+		{	
+			if(oStudentMultipartFile != null)
+			{
+				oStudentInformationData = (StudentInformationData) populateObject(oStudentInformationData);	
+		        String strUUID = Utils.getUUID();
+		        String strFileExtension = Constants.IMAGE_DEFAULT_EXTENSION;
+				String strStudentImagePath = Constants.STUDENTIMAGEFOLDER + strUUID + strFileExtension;
+			    AWSUtils.UploadToStudentImagesFolder(strStudentImagePath, oStudentMultipartFile);
+			    oStudentInformationData.setM_strStudentImageId(strUUID);
+			    oStudentDataResponse.m_bSuccess = oStudentInformationData.updateObject();
+			}			
+		} 
+		catch (Exception oException) 
+		{
+			m_oLogger.error ("UploadstudentImage - oException : " + oException);
+		}				
 		return oStudentDataResponse; 
     }
 
@@ -247,5 +284,5 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 			throws Exception {
 		// TODO Auto-generated method stub
 		return null;
-	}
+	}	
 }

@@ -1,5 +1,6 @@
 package com.techmust.scholarshipmanagement.scholarshipdetails.zenithscholarshipstatus;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -20,7 +21,7 @@ import com.techmust.scholarshipmanagement.student.StudentInformationData;
 
 @Entity
 @Table(name = "zenithscholarshipdetails")
-public class ZenithScholarshipDetails extends MasterData
+public class ZenithScholarshipDetails extends MasterData implements Serializable
 {
 
 	private static final long serialVersionUID = 1L;
@@ -40,7 +41,7 @@ public class ZenithScholarshipDetails extends MasterData
 	private String m_strReceiverContactNumber;
 	
 	@Column(name = "issuedate")
-	private Date m_dChequeIssueDate;
+	private long m_dChequeIssueDate;
 	
 	@Column(name = "remarks")
 	private String m_strStudentRemarks;
@@ -64,7 +65,7 @@ public class ZenithScholarshipDetails extends MasterData
 		m_fApprovedAmount = 0;
 		m_strReceiverName = "";
 		m_strReceiverContactNumber = "";
-		m_dChequeIssueDate = null;
+		m_dChequeIssueDate = 0;
 		m_strStudentRemarks = "";
 		
 	}	
@@ -78,13 +79,15 @@ public class ZenithScholarshipDetails extends MasterData
 	{
 		this.m_strStudentRemarks = strStudentRemarks;
 	}
+	
+	
+	public long getM_dChequeIssueDate()
 
-	public Date getM_dChequeIssueDate()
 	{
 		return m_dChequeIssueDate;
 	}
 
-	public void setM_dChequeIssueDate(Date dChequeIssueDate)
+	public void setM_dChequeIssueDate(long dChequeIssueDate)
 	{
 		this.m_dChequeIssueDate = dChequeIssueDate;
 	}

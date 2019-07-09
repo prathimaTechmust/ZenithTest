@@ -18,7 +18,7 @@ function StudentInformationData ()
 	this.m_strAlternateNumber = "";
 	this.m_strReligion = "";
 	this.m_strEmailAddress = "";
-	this.m_strStudentImageName = "";
+	this.m_strStudentImageId = "";
 	this.m_strCity = "";
 	this.m_strState = "";
 	this.m_nPincode = -1;
