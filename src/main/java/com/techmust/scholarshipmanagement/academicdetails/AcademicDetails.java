@@ -1,7 +1,10 @@
 package com.techmust.scholarshipmanagement.academicdetails;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -17,6 +20,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -24,16 +31,18 @@ import org.w3c.dom.Node;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.techmust.generic.data.GenericData;
 import com.techmust.generic.data.MasterData;
 import com.techmust.scholarshipmanagement.course.CourseInformationData;
 import com.techmust.scholarshipmanagement.institution.InstitutionInformationData;
 import com.techmust.scholarshipmanagement.scholarshipdetails.ScholarshipDetails;
 import com.techmust.scholarshipmanagement.sholarshipaccounts.StudentScholarshipAccount;
 import com.techmust.scholarshipmanagement.student.StudentInformationData;
+import com.techmust.scholarshipmanagement.studentdocuments.StudentDocuments;
 
 @Entity
 @Table(name = "academicdetails")
-public class AcademicDetails extends MasterData
+public class AcademicDetails extends MasterData implements Serializable
 {
 
 	private static final long serialVersionUID = 1L;
@@ -81,6 +90,11 @@ public class AcademicDetails extends MasterData
 	@JsonManagedReference
 	@OneToMany(fetch = FetchType.EAGER,mappedBy = "m_oAcademicDetails")
 	private Set<StudentScholarshipAccount> m_oStudentScholarshipAccount;
+	
+	
+	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	@JoinColumn(name = "academic_id")
+	private List<StudentDocuments> m_arrStudentDocuments;
 
 	@Transient
 	public ScholarshipDetails[] m_arrScholarshipDetails;	
@@ -99,8 +113,19 @@ public class AcademicDetails extends MasterData
 		m_oCourseInformationData = new CourseInformationData();	
 		m_oScholarshipDetails = new HashSet<ScholarshipDetails> ();	
 		m_oStudentScholarshipAccount = new HashSet<StudentScholarshipAccount> ();
+		m_arrStudentDocuments = new ArrayList<StudentDocuments>();
 	}	
 	
+	public List<StudentDocuments> getM_arrStudentDocuments()
+	{
+		return m_arrStudentDocuments;
+	}
+
+	public void setM_arrStudentDocuments(List<StudentDocuments> arrStudentDocuments)
+	{
+		this.m_arrStudentDocuments = arrStudentDocuments;
+	}
+
 	public Set<StudentScholarshipAccount> getM_oStudentScholarshipAccount()
 	{
 		return m_oStudentScholarshipAccount;
@@ -232,6 +257,24 @@ public class AcademicDetails extends MasterData
 	}	
 	
 	@Override
+	protected Predicate listCriteria(CriteriaBuilder oCriteriaBuilder, Root<GenericData> oRootObject) 
+	{
+		Predicate oConjunct = oCriteriaBuilder.conjunction();
+		if (getM_nAcademicId() > 0)
+			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_nAcademicId"), m_nAcademicId));				
+		return oConjunct;
+	}
+	
+	@Override
+	public Predicate prepareCriteria(Root<GenericData> oRootObject, CriteriaQuery<GenericData> oCriteria,CriteriaBuilder oCriteriaBuilder)
+	{
+		Predicate oConjunct = oCriteriaBuilder.conjunction();
+		if (getM_nAcademicId() > 0)
+			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_nAcademicId"), m_nAcademicId));
+		return oConjunct;
+	}
+	
+	@Override
 	public String generateXML() 
 	{
 		String strAcademicDetails = "";
@@ -252,8 +295,8 @@ public class AcademicDetails extends MasterData
 			Document oScholarshipDetalsXmlDoc = getXmlDocument ("<m_oScholarshipDetails>"+buildScholarshipDetails (m_oScholarshipDetails)+"</m_oScholarshipDetails>");
 			Node oScholarshipNode = oXmlDocument.importNode(oScholarshipDetalsXmlDoc.getFirstChild(), true);
 			oRootElement.appendChild(oScholarshipNode);
-			/*Student ChildNode
-			Document oStudentDetalsXmlDoc = getXmlDocument ("<m_oStudentInformationData>"+buildStudentDetails (m_oStudentInformationData)+"</m_oStudentInformationData>");
+			/*Student ChildNode*/
+			/*Document oStudentDetalsXmlDoc = getXmlDocument ("<m_oStudentInformationData>"+buildStudentDetails (m_oStudentInformationData)+"</m_oStudentInformationData>");
 			Node oStudentNode = oXmlDocument.importNode(oStudentDetalsXmlDoc.getFirstChild(), true);
 			oRootElement.appendChild(oStudentNode);*/
 			

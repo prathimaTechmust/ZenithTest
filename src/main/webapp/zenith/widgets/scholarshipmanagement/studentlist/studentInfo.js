@@ -16,7 +16,7 @@ function studentInfo_memberData ()
 {
 	this.m_oStudentData = new StudentInformationData();
 	this.m_nStudentId = -1;
-	this.m_strImageName = "";
+	this.m_strImageId = "";
 	this.m_bIsNew = false;
 	this.m_oInstitutionDataRow = new InstitutionInformationData ();
 	this.m_oCourseDataRow = new CourseInformationData();
@@ -440,7 +440,8 @@ function studentInfo_edit ()
 function studentInfo_getFormData ()
 {
 	var oStudentInformationData = new StudentInformationData ();
-	oStudentInformationData.m_nStudentId = m_oStudentInfoMemberData.m_nStudentId;
+	if(m_oStudentInfoMemberData.m_nStudentId != -1)
+		oStudentInformationData.m_nStudentId = m_oStudentInfoMemberData.m_nStudentId;
 	oStudentInformationData.m_nUID = $("#studentInfo_input_studentUIDNumber").val();	
 	oStudentInformationData.m_nStudentAadharNumber = $("#studentInfo_input_studentAadharNumber").val();
 	oStudentInformationData.m_strStudentName = $("#studentInfo_input_studentName").val();
@@ -453,10 +454,10 @@ function studentInfo_getFormData ()
 	 else
 		 oStudentInformationData.m_strGender = document.getElementById("studentInfo_input_other").value;	
 	if($("#studentInfo_input_studentPhoto").val() == '')
-		oStudentInformationData.m_strStudentImageName = m_oStudentInfoMemberData.m_strImageName;			
-	else
-		oStudentInformationData.m_strStudentImageName = $("#studentInfo_input_studentPhoto").val().replace(/.*(\/|\\)/, '');
-	oStudentInformationData.m_dDateOfBirth = $("#student_input_dateofbirth").val();
+		oStudentInformationData.m_strStudentImageId = m_oStudentInfoMemberData.m_strImageId;			
+	/*else
+		oStudentInformationData.m_strStudentImageName = $("#studentInfo_input_studentPhoto").val().replace(/.*(\/|\\)/, '');*/
+	oStudentInformationData.m_dDateOfBirth = convertDateToTimeStamp($("#student_input_dateofbirth").val());
 	if($("#student_input_dateofbirth").val() == '')
 		oStudentInformationData.m_dDateOfBirth = m_oStudentInfoMemberData.m_studentDateofBirth;
 	oStudentInformationData.m_strFatherName = $("#studentInfo_input_fathername").val();
@@ -479,7 +480,9 @@ function studentInfo_getFormData ()
 		oStudentInformationData.m_oZenithScholarshipDetails = getZenithstatus();
 	      /*Academic details*/
 	oStudentInformationData.m_oAcademicDetails = getAcademicDetails ();			
-	
+	/*var oFormData = new FormData();
+	oFormData.append('studentimage',$("#studentInfo_input_studentPhoto")[0].files[0]);
+	oFormData.append('studentObject',JSON.stringify(oStudentInformationData));*/
 	return oStudentInformationData;
 }
 
@@ -613,7 +616,7 @@ function studentInfo_updated (oStudentInfoResponse)
 			{
 				student_details_updated();
 			}
-			else if(oStudentInfoResponse.m_arrStudentInformationData[0].m_strStudentImageName == "" || m_oStudentInfoMemberData.m_strImageName != strImageName)
+			else if(oStudentInfoResponse.m_arrStudentInformationData[0].m_strStudentImageId == "" || m_oStudentInfoMemberData.m_strImageId != strImageName)
 			{
 				oFormData.append('studentId',oStudentInfoResponse.m_arrStudentInformationData[0].m_nStudentId);				
 				StudentInformationDataProcessor.setImagetoS3bucket (oFormData, student_details_updated);
@@ -653,7 +656,7 @@ function student_displayInfo(strMessage)
 function studentInfo_gotData (oStudentInfoResponse)
 {	
 	var oStudentInfoData = oStudentInfoResponse.m_arrStudentInformationData[0];	
-	m_oStudentInfoMemberData.m_strImageName = oStudentInfoData.m_strStudentImageName;
+	m_oStudentInfoMemberData.m_strImageId = oStudentInfoData.m_strStudentImageId;
 	m_oStudentInfoMemberData.m_studentDateofBirth = oStudentInfoData.m_dDateOfBirth;
 	m_oStudentInfoMemberData.m_nAcademicId = oStudentInfoData.m_oAcademicDetails[0].m_nAcademicId;
 	m_oStudentInfoMemberData.m_strAcademicYear = oStudentInfoData.m_oAcademicDetails[0].m_strAcademicYear;
@@ -968,15 +971,47 @@ function showDocumentPreview ()
 }
 
 
-function studentList_cancelImagePreview (){
-    
+function studentList_cancelImagePreview ()
+{    
      HideDialog ("secondDialog");
 }
 
-function disableButton(div){
-     document.getElementById(div.id).style.display = "none";
-        alert("Document uploaded.");
-        }
+function uploadStudentAadharDocuments(div)
+{
+	m_oStudentInfoMemberData.m_divisionId = div.id;
+	var oFormData = new FormData ();
+	if($("#aadharInputID").val() != '')
+	{
+		oFormData.append('studentaadhar',$("#aadharInputID")[0].files[0]);
+		oFormData.append('academicId',m_oStudentInfoMemberData.m_nAcademicId);
+	}
+	AcademicDetailsDataProcessor.uploadDocumentstoS3bucket(oFormData,uploadResponse);    
+}
+
+function uploadStudentElectricityDocuments(div)
+{
+	m_oStudentInfoMemberData.m_divisionId = div.id;
+	var oFormData = new FormData ();
+	if($("#studentElectricityBill").val() != '')
+	{
+		oFormData.append('studentelectricitybill',$("#studentElectricityBill")[0].files[0]);
+		oFormData.append('academicId',m_oStudentInfoMemberData.m_nAcademicId);
+	}
+	AcademicDetailsDataProcessor.uploadDocumentstoS3bucket(oFormData,uploadResponse);
+}
+
+function uploadResponse(oUploadResponse)
+{
+	if(oUploadResponse.m_bSuccess)
+	{
+		document.getElementById(m_oStudentInfoMemberData.m_divisionId).style.display = "none";
+		informUser("Document Uploaded Success","kSuccess");
+	}
+	else
+	{
+		informUser("Document Uploaded Failed","kError");
+	}
+}
 
 
 

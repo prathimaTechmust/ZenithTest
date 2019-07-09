@@ -233,10 +233,11 @@
 					                         <td>
 					                           	  <input
 					                                type="text"
-					                                id="studentInfo_input_pincodeName"  maxlength="70"
+					                                id="studentInfo_input_pincodeName"  maxlength="6"
 					                                class="easyui-validatebox zenith"
 					                                data-options="required:true"                                  
-					                                placeholder="Pincode"/>
+					                                placeholder="Pincode"
+					                                keyup = "validateNumber (this)"/>
 					                         </td>
 					                	</tr>			                                 
 								   </table>
@@ -403,7 +404,7 @@
 	                    		   <tr>
 		                                <td class="fieldHeading"><b>AadharDocument</b></td>
 		                                <td>
-					                        <button><input name= "studentadhar" type="file"  id = "adharInputID" onchange="getImage(studentInfo_input_studentaadhar, adharInputID, adhardocumentupload_div )"></button>
+					                        <button><input name= "studentaadhar" type="file"  id = "aadharInputID" onchange="getImage(studentInfo_input_studentaadhar, aadharInputID, aadhardocumentupload_div )"></button>
 					                    </td>
 		                                <td>
 			                                <a href="javascript:studentupload_documentPreview (studentInfo_input_studentaadhar);">
@@ -411,24 +412,24 @@
 			                                </a>
 		                         		</td>
 		                          		<td>
-				                            <div id="adhardocumentupload_div"  style="display:none">
-				                                 <input type="button" id="btn1" style.visibility = "hidden" value="upload" onclick="disableButton(adhardocumentupload_div)">
+				                            <div id="aadhardocumentupload_div"  style="display:none">
+				                                 <input type="button" id="btn1" style.visibility = "hidden" value="Upload" onclick="uploadStudentAadharDocuments(aadhardocumentupload_div)">
 				                           </div>
 			                          </td>
 	                             </tr>
 	                         	 <tr>
-		                           <td class="fieldHeading"><b>PanDocument</b></td>
+		                           <td class="fieldHeading"><b>Electricity Bill</b></td>
 		                           <td>
-		                            <button><input name= "studentpan" type="file"  id = "panInputID" onchange="getImage(studentInfo_input_studentpan, panInputID, pandocumentupload_div)"></button>
+		                            <button><input name= "studentElectricityBill" type="file"  id = "studentElectricityBill" onchange="getImage(studentInfo_input_studentElectricityBill, studentElectricityBill, electricityBilldocumentupload_div)"></button>
 		                           </td>
 		                          <td>
-		                            <a href="javascript:studentupload_documentPreview (studentInfo_input_studentpan);">
-		                            <img id="studentInfo_input_studentpan"/ style="width:20%; margin-top:10px;"  src="" >
+		                            <a href="javascript:studentupload_documentPreview (studentInfo_input_studentElectricityBill);">
+		                            <img id="studentInfo_input_studentElectricityBill"/ style="width:20%; margin-top:10px;"  src="" >
 		                            </a>
 		                           </td>
 		                           <td>
-		                            <div id="pandocumentupload_div"  style="display:none">
-		                              <input type="button" id="btn2" style.visibility = "hidden" value="upload" onclick="disableButton(pandocumentupload_div)">
+		                            <div id="electricityBilldocumentupload_div"  style="display:none">
+		                              <input type="button" id="btn2" style.visibility = "hidden" value="Upload" onclick="uploadStudentElectricityDocuments(electricityBilldocumentupload_div)">
 		                            </div>
 		                          </td>
 	                          </tr>

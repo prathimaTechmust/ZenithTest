@@ -3,6 +3,7 @@ var StudentInformationDataProcessor = (function __StudentInformationDataProcesso
 	function create (oStudentData,callback)
 	{
 		ajaxCall(oStudentData, "/studentInfoCreate", callback);
+		//multipartAjaxCall(oStudentData, "/studentInfoCreate", callback); 
 				
 	}
 	
