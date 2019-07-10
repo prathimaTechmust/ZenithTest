@@ -67,43 +67,38 @@
 						 </tr>
 						 <tr>
 							<td class="fieldHeading">
-                                Contact Person E-Mail <em>*</em>
+                                Contact Person E-Mail
                             </td>
 							<td>
                                 <input 
                                     type="text"
                                     id="institutionInfo_input_contactpersonemail" maxlength="40"
                                     class="zenith easyui-validatebox"
-                                    data-options="required:true,validType:'email'"/>
+                                 />
                             </td>
 						</tr>
 						<tr>
 							<td class="fieldHeading">
                                 Contact Person Number
-                                <em>
-                                  *
-                                </em>
                             </td>
 							<td>
 							<input 
-                                    type="tel"  maxlength="10"
+                                    type="tel" 
                                     id="institutionInfo_input_phoneNumber"
 									required
 									style="width: 200px;"
-                                    class="zenith easyui-validatebox"  data-options="validType:'minLength[10]'"
-                                    onkeyup="validateNumber (this)"/>
+                              />
 							</td>                            
 						</tr>	
 						<tr>
-							<td class="fieldHeading">Institution Address<em> * </em>
-							</td>
+							<td class="fieldHeading">Institution Address</td>
 							<td>
                                 <textarea 
                                     id="institutionInfo_textarea_address"
                                     rows="2"
-                                    cols="20"  
-                                    class="zenith easyui-validatebox"
-                                    data-options="required:true"></textarea>
+                                    cols="20"                                    
+                                  >
+                                  </textarea>
                             </td>                             
 						</tr>			    	
 				    	</table>
@@ -111,40 +106,34 @@
 							<tr>
 						 		<td class="fieldHeading">
 	                                City
-	                                <em>*</em>
+	                               
 	                            </td>
 	                            <td>
-	                            	<input
-	                                 data-options="required:true"
-			                         class="easyui-validatebox zenith"
+	                            	<input                                
 			                         id="institutionInfo_input_cityName"  maxlength="70"
 			                         placeholder="City"
 			                         type="text"/>
 	                            </td>
 								<td class="fieldHeading">
 	                                State
-	                                <em>*</em>
+	                                
 	                            </td>
 								<td>
 								 <input
-	                               data-options="required:true"
-			                       class="easyui-validatebox zenith"
 			                       id="institutionInfo_input_stateName"  maxlength="70"
 			                       placeholder="State"
 			                       type="text"/>
 	                            </td>
 								<td class="fieldHeading">
 	                                Pincode
-	                                <em>*</em>
+	                                
 	                            </td>
 	                            <td>
 	                              <input
 	                              	  type="text"
-	                              	  id="institutionInfo_input_pincode"  maxlength="6"
-	                              	  class="easyui-validatebox zenith"
-	                                  data-options="required:true"		                          
+	                              	  id="institutionInfo_input_pincode"  maxlength="6"		                          
 			                          placeholder="Pincode" 
-			                          onkeyup = "validateNumber (this)"/>
+		                          />
 	                            </td>                      
 							 </tr>					 			 
 					 </table>
