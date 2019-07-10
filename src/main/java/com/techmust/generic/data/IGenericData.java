@@ -3,6 +3,9 @@ package com.techmust.generic.data;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Set;
+
+import com.techmust.scholarshipmanagement.academicdetails.AcademicDetails;
 import com.techmust.scholarshipmanagement.scholarshipdetails.zenithscholarshipstatus.ZenithScholarshipDetails;
 import com.techmust.scholarshipmanagement.student.StudentInformationData;
 
@@ -22,5 +25,7 @@ public interface IGenericData
 	boolean updateStudentApplicationRejectedStatus(ZenithScholarshipDetails oZenithScholarshipDetails) throws Exception;
 	boolean disburseCheque (ZenithScholarshipDetails oZenithScholarshipDetails) throws Exception;
 	boolean applicationStatusUpdate(ZenithScholarshipDetails oZenithScholarshipDetails) throws Exception;
+	boolean reVerifyStudentApplication(ZenithScholarshipDetails oZenithData) throws Exception;
+	boolean checkChequePrepared(Set<AcademicDetails> oAcademicDetails);
 	
 }

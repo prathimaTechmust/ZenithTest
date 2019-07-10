@@ -43,6 +43,9 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 	@Column(name = "issuedate")
 	private long m_dChequeIssueDate;
 	
+	@Column(name = "remarks")
+	private String m_strStudentRemarks;
+	
 	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "studentid")
@@ -63,10 +66,23 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 		m_strReceiverName = "";
 		m_strReceiverContactNumber = "";
 		m_dChequeIssueDate = 0;
+		m_strStudentRemarks = "";
 		
+	}	
+	
+	public String getM_strStudentRemarks() 
+	{
+		return m_strStudentRemarks;
+	}
+
+	public void setM_strStudentRemarks(String strStudentRemarks)
+	{
+		this.m_strStudentRemarks = strStudentRemarks;
 	}
 	
+	
 	public long getM_dChequeIssueDate()
+
 	{
 		return m_dChequeIssueDate;
 	}

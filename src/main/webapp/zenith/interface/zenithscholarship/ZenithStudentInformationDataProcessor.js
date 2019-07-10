@@ -22,10 +22,17 @@ var ZenithStudentInformationDataProcessor = (function __ZenithStudentInformation
 		ajaxCall(oChequeData,"/studentIssueCheque",callback);
 	}
 	
+	function reVerifiedStatusUpdate (oReVerification,callback)
+	{
+		
+		ajaxCall(oReVerification,"/reverifyapplication",callback);
+	}
+	
 	return { 		
 		verifiedStatusUpdate:verifiedStatusUpdate,		
 		approvedStatusUpdate :approvedStatusUpdate,
 		rejectStatusUpdate :rejectStatusUpdate,
-		issueCheque:issueCheque
+		issueCheque:issueCheque,
+		reVerifiedStatusUpdate :reVerifiedStatusUpdate
 	};
 })();

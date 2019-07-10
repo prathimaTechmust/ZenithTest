@@ -21,7 +21,7 @@
 							  <button type="button" class="tablinks" onclick="openTab(event, 'Personal_details')" id="defaultOpen">Personal details</button>
 							  <button type="button" class="tablinks" onclick="openTab(event, 'Academic_details')" id='Academic_details_btn' >Academic details</button>
 							  <button type="button" class="tablinks" onclick="openTab(event, 'Scholarship_details')" id='Scholarship_details_btn'>Scholarship details</button>
-							  <button type="button" class="tablinks" onclick="openTab(event, 'DocumentUpload_details')" id='DocumentUpload_details_btn'>Documents</button>																								
+			            <!--   <button type="button" class="tablinks" onclick="openTab(event, 'DocumentUpload_details')" id='DocumentUpload_details_btn'>Documents</button>		 -->																						
 		      	 	   </div>	
 		      	 	        <!-- Personal details	 -->      	 	   
 		      	 	   		<div id="Personal_details" style="padding: 10px" class="StudentInfoTab" >
@@ -112,9 +112,9 @@
 						                         </td>
 										</tr>
 										<tr>
-			                          		<td class="fieldHeading">Father Aadhar Number <em> * </em> </td>
+			                          		<td class="fieldHeading">Father Aadhar Number</td>
 			                          		<td style = "padding-left = 20px;">                      
-							                    <input type="text" id="studentInfo_input_fatherAadharNumber" maxlength="12" data-options="required:true" style = "width:200px;" class="zenith easyui-validatebox" keyup="validateNumber (this)" onchange="fatherAadharValidate();"/>
+							                    <input type="text" id="studentInfo_input_fatherAadharNumber" maxlength="12" style = "width:200px;" class="zenith" keyup="validateNumber (this)" onchange="fatherAadharValidate();"/>
 						                    </td>
 			                          	</tr>     
 										<tr>
@@ -129,9 +129,9 @@
 					                         </td>
 										</tr>
 										<tr>
-			                          		<td class="fieldHeading">Mother Aadhar Number <em> * </em> </td>
+			                          		<td class="fieldHeading">Mother Aadhar Number</td>
 			                          		<td style = "padding-left = 20px;">                      
-							                    <input type="text" id="studentInfo_input_motherAadharNumber" maxlength="12" data-options="required:true" style = "width:200px;" class="zenith easyui-validatebox" onkeyup="validateNumber (this)" onchange="motherAadharValidate();"/>
+							                    <input type="text" id="studentInfo_input_motherAadharNumber" maxlength="12"  style = "width:200px;" class="zenith`" onkeyup="validateNumber (this)" onchange="motherAadharValidate();"/>
 						                    </td>
 			                          	</tr>
 			                          	<tr>
@@ -189,10 +189,10 @@
 						                    </td>
 						                </tr> 
 						                <tr>
-						                    <td class="fieldHeading">E-Mail <em> * </em></td>
+						                    <td class="fieldHeading">E-Mail</td>
 						                    <td>
-						                        <input type="text" id="studentInfo_input_email" maxlength="40" class="zenith easyui-validatebox"
-						                            data-options="required:true,validType:'email'"/>
+						                        <input type="text" id="studentInfo_input_email" maxlength="40" class="zenith"
+						                            data-options="validType:'email'"/>
 						                    </td>
 						                </tr>
 						                <tr>

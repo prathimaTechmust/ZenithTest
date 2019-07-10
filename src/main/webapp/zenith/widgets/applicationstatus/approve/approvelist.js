@@ -163,9 +163,33 @@ function approveStudentInfo_Student()
 
 function recjectStudentInfo_Student ()
 {
-		var oZenith = new ZenithScholarshipDetails ();		
-		oZenith.m_nStudentId = m_oApproveStudentList_Info_MemberData.m_nStudentId;
-		ZenithStudentInformationDataProcessor.rejectStatusUpdate(oZenith,studentrejectResponse);		
+	loadPage("applicationstatus/rejectlist/studentRemarkInfo.html","dialog","rejectStudentRemarks_init()");		
+}
+
+function rejectStudentRemarks_init()
+{
+	createPopup('dialog','#remarkInfo_button_submit','remarkInfo_button_cancel',true);
+	initFormValidateBoxes('studentRemarkForm');
+}
+function studentRemarkInfo_submit ()
+{
+	if(studentRemarkValidate ())
+		loadPage ("include/process.html", "ProcessDialog", "studentremark_progressbarLoaded ()");
+	else
+	{
+		alert("Please Enter Remarks");
+		$("#studentRemarkForm").focus();
+	}
+	
+}
+
+function studentremark_progressbarLoaded ()
+{
+	createPopup('dialog','','',true);
+	var oZenith = new ZenithScholarshipDetails ();		
+	oZenith.m_nStudentId = m_oApproveStudentList_Info_MemberData.m_nStudentId;
+	oZenith.m_strStudentRemarks = $("#studentRemarkInfo_input_Remark").val();
+	ZenithStudentInformationDataProcessor.rejectStatusUpdate(oZenith,studentrejectResponse);
 }
 
 function studentrejectResponse (oResponse)
@@ -218,6 +242,11 @@ function studentapproveResponse (oResponse)
 	
 }
 
+function studentRemarkValidate ()
+{
+	return validateForm("studentRemarkForm");
+}
+
 function approveStudentListInfo_progressbarLoaded ()
 {
 	createPopup('dialog', '', '', true);
@@ -233,6 +262,11 @@ function approveStudentListInfo_listed(oStudentResponseData)
 	for (var nIndex = 0; nIndex < oStudentResponseData.m_arrStudentInformationData.length; nIndex++)
 		$('#listApproveStudents_table_students').datagrid('appendRow',oStudentResponseData.m_arrStudentInformationData[nIndex]);
 	$('#listApproveStudents_table_students').datagrid('getPager').pagination ({total:oStudentResponseData.m_nRowCount, pageNumber:oStudentResponseData.m_nPageNumber});
+	HideDialog("dialog");
+}
+
+function studentRemarkInfo_cancel ()
+{
 	HideDialog("dialog");
 }
 

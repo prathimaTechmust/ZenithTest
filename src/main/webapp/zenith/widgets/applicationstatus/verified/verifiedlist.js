@@ -170,7 +170,6 @@ function printDocument ()
 
 function verifyStudentInfo_Student()
 {
-	createPopup('dialog', '', '', true);	
 	var oZenith = new ZenithScholarshipDetails ();
 	oZenith.m_nStudentId = m_overifiedStudentList_Info_MemberData.m_nStudentId;
 	ZenithStudentInformationDataProcessor.verifiedStatusUpdate(oZenith,studentverifiedResponse);
@@ -196,7 +195,7 @@ function searchStudentUID()
 	if($("#StudentInfo_input_uid").val() != "")
 		StudentInformationDataProcessor.getStudentUID(oStudentInformationData,studentUIDResponse);
 	else
-		alert("Please Enter Valid UID Number");
+		alert("Please Enter UID Number");
 }
 
 function studentUIDResponse(oStudentUIDResponse)

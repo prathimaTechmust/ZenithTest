@@ -32,6 +32,7 @@ public class Constants
 	public static final String STUDENTREJECTED = "rejected";
 	public static final String CHEQUEPREPARED = "cheque prepared";
 	public static final String CHEQUEDISBURSED = "cheque disbursed";
+	public static final String APPLICATIONREVERIFICATION = "pending";
 	public static final String STUDENTAADHARDOCUMENTFOLDER = "images/studentaadhar/";
 	public static final String STUDENTELECTRICITYBILLDOCUMENTFOLDER = "images/studentelectricitybill/";
 	
