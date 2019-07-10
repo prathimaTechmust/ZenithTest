@@ -7,6 +7,6 @@ function ZenithScholarshipDetails ()
 	this.m_strReceiverContactNumber = "";	
 	this.m_strStudentRemarks = "";
 	this.m_dChequeIssueDate = 0;
-	
+	this.m_strImage="";	
 }
 dataObjectLoaded();

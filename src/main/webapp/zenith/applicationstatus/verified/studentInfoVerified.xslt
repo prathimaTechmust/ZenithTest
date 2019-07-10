@@ -33,6 +33,21 @@
 									<td class="zenith" align="left">
 										<table class="zenith">
 											<tr>
+												<td>
+	                    							<input name="studentdocument" type="file"	id="ScanCopy" onchange="scanImage(ScanCopy, scanDocument_td)"/>
+	 			       							 </td>
+											</tr>									
+										</table>										
+									</td>																
+								</tr>								
+							</table>
+						</td>
+						<td width="50%" valign="bottom">
+							<table>
+								<tr>
+									<td class="zenith" align="left">
+										<table class="zenith">
+											<tr>
 												<td>																																															
 													<button type="button" width="20" align="center" class = "zenith addButton" style="width:100px;" id="printStudent" title="Print" onClick="printStudentDetails()">Print</button>
 												</td>

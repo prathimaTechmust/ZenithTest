@@ -230,4 +230,19 @@ function verifiedStudentListInfo_listed(oStudentResponseData)
 	$('#listVerifiedStudents_table_students').datagrid('getPager').pagination ({total:oStudentResponseData.m_nRowCount, pageNumber:oStudentResponseData.m_nPageNumber});
 	HideDialog("dialog");
 }
+function scanImage(fileInputTypeID, tdId) {
+	
+	document.getElementById(tdId.id).style.display = "block";
+	var oFileSource = document.getElementById(fileInputTypeID.id);
+
+}
+
+function verifyStudentInfo_Student()
+{
+	
+	createPopup('dialog', '', '', true);	
+	var oZenith = new ZenithScholarshipDetails ();
+	oZenith.m_nStudentId = m_overifiedStudentList_Info_MemberData.m_nStudentId;
+	ZenithStudentInformationDataProcessor.verifiedStatusUpdate(oZenith,studentverifiedResponse);
+}
 
