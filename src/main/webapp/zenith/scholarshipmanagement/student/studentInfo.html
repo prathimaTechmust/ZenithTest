@@ -6,14 +6,17 @@
       Student Information
      </title>
      <style>
-		table{
-		width:100%;
+		.mainTable
+		{
+		   border: 1px solid black;
+		   padding: 5px;
+		}	
+		.documentImagePrwview
+		{
+	   		 width: 50%;
+		    text-align: center;
 		}
-		
-		td{
-		width:33%;
-		}
-	</style>
+		</style>
  </head>
 <body>
 <form class="zenith" id="studentInfo_form_id" style="width:800px;">
@@ -479,184 +482,160 @@
 				 	      </table>
 					 </div>	
 		                  
-	                       <!--DocumentUpload  div-->		                       
-                           <div id="DocumentUpload_details"  style="padding: 10px" class="StudentInfoTab" >
-	                		<table class="zenith">
-	                  			<tr  bgcolor="#efefef">
-	                   			 <td>
-								  <div id="aadhardiv" style="border: 1px solid black;">
-								  <table>
-	                    		   <tr>
-		                                <td class="fieldHeading"><b>StudentAadhar</b></td>
-		                                <td style="padding-right: 25px"></td>
-		                                <td>
-					                        <button><input name= "studentaadhar" type="file"  id = "aadharInputID" onchange="getImage(studentInfo_input_studentaadhar, aadharInputID, aadhardocumentupload_div )"></button>
-					                    </td>
-					                    	<td style="padding-right: 10px"></td>
-		                                <td>
-			                                <a href="javascript:studentupload_documentPreview (studentInfo_input_studentaadhar);">
-			                                <img id="studentInfo_input_studentaadhar"/style="width:20%; margin-top:10px;"  src="" >
-			                                </a>
-		                         		</td>
-		                          		<td>
-				                            <div id="aadhardocumentupload_div"  style="display:none">
-				                                 <input type="button" id="btn1" style.visibility = "hidden" value="Upload" onclick="uploadStudentAadharDocuments(aadhardocumentupload_div)">
-				                           </div>
-			                          </td>
-	                             </tr>
-								 </table>
-								 </div >
-								 
-								 <div id="fatheraadherdiv" style="border: 1px solid black;">
-								 <table>
-								 <tr>
-								 <td class="fieldHeading"><b>FatherAadhar</b></td>
-		                                <td style="padding-right: 25px"></td>
-		                                <td>
-					                        <button><input name= "fatheraadhar" type="file"  id = "fatheraadharInputID" onchange="getImage(studentInfo_input_fatheraadhar, fatheraadharInputID, fatheraadhardocument_div )"></button>
-					                    </td>
-					                    <td style="padding-right: 10px"></td>
-		                                <td>
-			                                <a href="javascript:studentupload_documentPreview (studentInfo_input_fatheraadhar);">
-			                                <img id="studentInfo_input_fatheraadhar"/style="width:20%; margin-top:10px;"  src="" >
-			                                </a>
-		                         		</td>
-		                          		<td>
-				                            <div id="fatheraadhardocument_div"  style="display:none">
-				                                 <input type="button" id="btn2" style.visibility = "hidden" value="Upload" onclick="uploadFatherAadharDocuments(fatheraadhardocument_div)">
-				                           </div>
-			                          </td>
-								 </tr>
-								 </table>
-								 </div>
-								 
-								 <div id="motheraadherdiv" style="border: 1px solid black;">
-								 <table>
-								 <tr>
-								 <td class="fieldHeading"><b>MotherAadhar</b></td>
-		                                <td style="padding-right: 25px"></td>
-		                                <td>
-					                        <button><input name= "motheraadhar" type="file"  id = "motheraadharInputID" onchange="getImage(studentInfo_input_motheraadhar, motheraadharInputID, motheraadhardocument_div )"></button>
-					                    </td>
-					                    <td style="padding-right: 10px"></td>
-		                                <td>
-			                                <a href="javascript:studentupload_documentPreview (studentInfo_input_motheraadhar);">
-			                                <img id="studentInfo_input_motheraadhar"/style="width:20%; margin-top:10px;"  src="" >
-			                                </a>
-		                         		</td>
-		                          		<td>
-				                            <div id="motheraadhardocument_div"  style="display:none">
-				                                 <input type="button" id="btn3" style.visibility = "hidden" value="Upload" onclick="uploadMotherAadharDocuments(motheraadhardocument_div)">
-				                           </div>
-			                          </td>
-								 </tr>
-								 </table>
-								 </div>
-								 
-								 <div id="electricitydiv" style="border: 1px solid black;">
-									 <table>
-		                         	 <tr>
-			                           <td class="fieldHeading"><b>Electricity Bill</b></td>
-			                           <td style="padding-right: 50px"></td>
-			                           <td>
-			                            <button><input name= "studentElectricityBill" type="file"  id = "studentElectricityBill" onchange="getImage(studentInfo_input_studentElectricityBill, studentElectricityBill, electricityBilldocumentupload_div)"></button>
-			                           </td>
-			                           	<td style="padding-right: 10px"></td>
-			                          <td>
-			                            <a href="javascript:studentupload_documentPreview (studentInfo_input_studentElectricityBill);">
-			                            <img id="studentInfo_input_studentElectricityBill"/ style="width:20%; margin-top:10px;"  src="" >
-			                            </a>
-			                           </td>
-			                           <td>
-			                            <div id="electricityBilldocumentupload_div"  style="display:none">
-			                              <input type="button" id="btn4" style.visibility = "hidden" value="Upload" onclick="uploadStudentElectricityDocuments(electricityBilldocumentupload_div)">
-			                            </div>
-			                        	  </td>
-		                          		</tr>
-										  </table>
-							  	</div>
-							  	
-							  	<div id="markscarddiv1" style="border: 1px solid black;">
-									 <table>
-		                         	 <tr>
-			                           <td class="fieldHeading"><b>MarksCard 1</b></td>
-			                           <td style="padding-right: 50px"></td>
-			                           <td>
-			                            <button><input name= "studentMarksCard1" type="file"  id = "studentMarksCard1" onchange="getImage(studentInfo_input_studentMarksCard1, studentMarksCard1, marksCardUpload_div1)"></button>
-			                           </td>
-			                           	<td style="padding-right: 10px"></td>
-			                          <td>
-			                            <a href="javascript:studentupload_documentPreview (studentInfo_input_studentMarksCard1);">
-			                            <img id="studentInfo_input_studentMarksCard1"/ style="width:20%; margin-top:10px;"  src="" >
-			                            </a>
-			                           </td>
-			                           <td>
-			                            <div id="marksCardUpload_div1"  style="display:none">
-			                              <input type="button" id="btn5" style.visibility = "hidden" value="Upload" onclick="uploadStudentMarksCardOne(marksCardUpload_div1)">
-			                            </div>
-			                        	  </td>
-		                          		</tr>
-										  </table>
-							  	</div>
-							  	
-							  	
-							  	<div id="markscarddiv2" style="border: 1px solid black;">
-									 <table>
-		                         	 <tr>
-			                           <td class="fieldHeading"><b>MarksCard 2</b></td>
-			                           <td style="padding-right: 50px"></td>
-			                           <td>
-			                            <button><input name= "studentMarksCard2" type="file"  id = "studentMarksCard2" onchange="getImage(studentInfo_input_studentMarksCard2, studentMarksCard2, marksCardUpload_div2)"></button>
-			                           </td>
-			                           	<td style="padding-right: 10px"></td>
-			                          <td>
-			                            <a href="javascript:studentupload_documentPreview (studentInfo_input_studentMarksCard2);">
-			                            <img id="studentInfo_input_studentMarksCard2"/ style="width:20%; margin-top:10px;"  src="" >
-			                            </a>
-			                           </td>
-			                           <td>
-			                            <div id="marksCardUpload_div2"  style="display:none">
-			                              <input type="button" id="btn6" style.visibility = "hidden" value="Upload" onclick="uploadStudentMarksCardTwo(marksCardUpload_div2)">
-			                            </div>
-			                        	  </td>
-		                          		</tr>
-										  </table>
-							  	</div>
-							  	<div id="additionalDocument" style="border: 1px solid black;">
-									 <table>
-		                         	 <tr>
-			                           <td class="fieldHeading"><b>Additional Document If Any</b></td>
-			                           <td style="padding-right: 50px"></td>
-			                           <td>
-			                            <button><input name= "additionalDocuments" type="file"  id = "additionalDocuments" onchange="getImage(studentInfo_input_additionalDocuments, additionalDocuments, additionalDocuments_div)"></button>
-			                           </td>
-			                           	<td style="padding-right: 10px"></td>
-			                          <td>
-			                            <a href="javascript:studentupload_documentPreview (studentInfo_input_additionalDocuments);">
-			                            <img id="studentInfo_input_additionalDocuments"/ style="width:20%; margin-top:10px;"  src="" >
-			                            </a>
-			                           </td>
-			                           <td>
-			                            <div id="additionalDocuments_div"  style="display:none">
-			                              <input type="button" id="btn7" style.visibility = "hidden" value="Upload" onclick="uploadAdditionalDocuments(additionalDocuments_div)">
-			                            </div>
-			                        	  </td>
-		                          		</tr>
-										  </table>
-							  	</div>
-	                         </table>
-	                         </div>
-	                       </td>
-	                     </tr>
-	                  </table>
-                  </div>
-                       
+	                       <!--DocumentUpload  div-->	
+	                       <div id="DocumentUpload_details"  style="padding: 10px" class="StudentInfoTab" >
+	                		<table  width="100%" class="zenith mainTable">
+								<tr bgcolor="#efefef">
+									<td width="50%" valign="top">									
+										<tr>
+											<td class="fieldHeading"><b>Student Aadhar</b></td>
+											<td>
+												<button><input name= "studentaadhar" type="file"  id = "aadharInputID" onchange="getImage(studentInfo_input_studentaadhar, aadharInputID, aadhardocumentupload_div )"></button>
+											</td>
+											<td class="documentImagePrwview">
+												<a href="javascript:studentupload_documentPreview (studentInfo_input_studentaadhar);">
+												<img id="studentInfo_input_studentaadhar"/style="width:20%; margin-top:10px;"  src="" >
+												</a>
+											</td>
+											<td>
+												<div id="aadhardocumentupload_div"  style="display:none">
+												<input type="button" id="btn1"  value="Upload" onclick="uploadStudentAadharDocuments(aadhardocumentupload_div)">
+												</div>
+											</td>
+										</tr>	
+									</td>
+								</tr>
+								<tr>
+									<td width="50%" valign="top">
+										<tr>
+											<td class="fieldHeading "><b>Father Aadhar</b></td>
+											<td>
+												<button><input name= "fatheraadhar" type="file"  id = "fatheraadharInputID" onchange="getImage(studentInfo_input_fatheraadhar, fatheraadharInputID, fatheraadhardocument_div )"></button>
+											</td>
+											<td class="documentImagePrwview">
+												<a href="javascript:studentupload_documentPreview (studentInfo_input_fatheraadhar);">
+												<img id="studentInfo_input_fatheraadhar"/style="width:20%; margin-top:10px;"  src="" >
+											</a>
+											</td>
+											<td>
+												<div id="fatheraadhardocument_div"  style="display:none">
+													<input type="button" id="btn2"  value="Upload" onclick="uploadFatherAadharDocuments(fatheraadhardocument_div)">
+												</div>
+											</td>
+										</tr>												
+									</td>
+								</tr>
+								<tr>
+									<td width="50%" valign="top">
+										<tr>
+											<td class="fieldHeading "><b>Mother Aadhar</b></td>
+											<td>
+												<button><input name= "motheraadhar" type="file"  id = "motheraadharInputID" onchange="getImage(studentInfo_input_motheraadhar, motheraadharInputID, motheraadhardocument_div )"></button>
+											</td>
+											<td class="documentImagePrwview">
+												<a href="javascript:studentupload_documentPreview (studentInfo_input_motheraadhar);">
+												<img id="studentInfo_input_motheraadhar"/style="width:20%; margin-top:10px;"  src="" >
+												</a>
+											</td>
+											<td>
+												<div id="motheraadhardocument_div"  style="display:none">
+												<input type="button" id="btn3"  value="Upload" onclick="uploadMotherAadharDocuments(motheraadhardocument_div)">
+												</div>
+											</td>
+										</tr>															
+									</td>
+								</tr>
+								<tr>
+									<td width="50%" valign="top">
+										<tr>
+											<td class="fieldHeading "><b>Electricity Bill</b></td>
+											<td>
+												<button><input name= "studentElectricityBill" type="file"  id = "studentElectricityBill" onchange="getImage(studentInfo_input_studentElectricityBill, studentElectricityBill, electricityBilldocumentupload_div)"></button>
+											</td>
+											<td class="documentImagePrwview">
+												<a href="javascript:studentupload_documentPreview (studentInfo_input_studentElectricityBill);">
+												<img id="studentInfo_input_studentElectricityBill"/ style="width:20%; margin-top:10px;"  src="" >
+												</a>
+											</td>
+											<td>
+												<div id="electricityBilldocumentupload_div"  style="display:none">
+												<input type="button" id="btn4"  value="Upload" onclick="uploadStudentElectricityDocuments(electricityBilldocumentupload_div)">
+												</div>
+											</td>
+										</tr>																	
+									</td>
+								</tr>
+								<tr>
+									<td width="50%" valign="top">																	
+									<tr>
+									<td class="fieldHeading"><b>MarksCard 1</b></td>
+									<td>
+										<button><input name= "studentMarksCard1" type="file"  id = "studentMarksCard1" onchange="getImage(studentInfo_input_studentMarksCard1, studentMarksCard1, marksCardUpload_div1)"></button>
+									</td>
+									<td class="documentImagePrwview">
+										<a href="javascript:studentupload_documentPreview (studentInfo_input_studentMarksCard1);">
+										<img id="studentInfo_input_studentMarksCard1"/ style="width:20%; margin-top:10px;"  src="" >
+										</a>
+									</td>
+									<td>
+										<div id="marksCardUpload_div1"  style="display:none">
+										<input type="button" id="btn5" style.visibility = "hidden" value="Upload" onclick="uploadStudentMarksCardOne(marksCardUpload_div1)">
+										</div>
+									</td>
+									</tr>								
+									</td>
+								</tr>
+								<tr>
+									<td width="50%" valign="top">																		
+										<tr>
+											<td class="fieldHeading "><b>MarksCard 2</b></td>
+											<td>
+												<button><input name= "studentMarksCard2" type="file"  id = "studentMarksCard2" onchange="getImage(studentInfo_input_studentMarksCard2, studentMarksCard2, marksCardUpload_div2)"></button>
+											</td>
+											<td class="documentImagePrwview">
+												<a href="javascript:studentupload_documentPreview (studentInfo_input_studentMarksCard2);">
+												<img id="studentInfo_input_studentMarksCard2"/ style="width:20%; margin-top:10px;"  src="" >
+												</a>
+											</td>
+											<td>
+												<div id="marksCardUpload_div2"  style="display:none">
+												<input type="button" id="btn6"  value="Upload" onclick="uploadStudentMarksCardTwo(marksCardUpload_div2)">
+												</div>
+											</td>
+										</tr>										
+									</td>
+								</tr>
+								<tr>
+									<td width="50%" valign="top">									
+											<tr>
+												<td class="fieldHeading DocumentuploadHeading"><b>Additional Document</b></td>
+												<td>
+													<button><input name= "additionalDocuments" type="file"  id = "additionalDocuments" onchange="getImage(studentInfo_input_additionalDocuments, additionalDocuments, additionalDocuments_div)"></button>
+												</td>
+												<td class="documentImagePrwview">
+													<a href="javascript:studentupload_documentPreview (studentInfo_input_additionalDocuments);">
+													<img id="studentInfo_input_additionalDocuments"/ style="width:20%; margin-top:10px;"  src="" >
+													</a>
+												</td>
+												<td>
+													<div id="additionalDocuments_div"  style="display:none">
+													<input type="button" id="btn7"  value="Upload" onclick="uploadAdditionalDocuments(additionalDocuments_div)">
+													</div>
+												</td>
+											</tr>										
+									</td>
+								</tr>
+							</td>
+						</tr>								
+					 </table>
+				</div>	                       
+                          
+                      </td>
+                    </tr>
+                 </table>                      
              </td>
             </tr>
           </table>
-		</td>
-	  </tr>		
-	</table>
 </form>
 </body>
 </html>
