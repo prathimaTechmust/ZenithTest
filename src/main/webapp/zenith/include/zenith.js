@@ -556,8 +556,8 @@ function convertDateToTimeStamp(strDate)
 function convertTimestampToDate(dTimeStamp)
 {
     var timeStamp = new Date(dTimeStamp);
-   var date = timeStamp.getFullYear() + '-'+ ("0" +timeStamp.getMonth()).slice(-2)  + '-' + ("0" +timeStamp.getDate()).slice(-2);
-   return date;
+   var strDate = timeStamp.getFullYear() + "-" +("0" + (timeStamp.getMonth() + 1)).slice(-2) +  "-" +("0" + (timeStamp.getDate())).slice(-2);	
+   return strDate; 
 }
 
 function FormatDate (strDate)

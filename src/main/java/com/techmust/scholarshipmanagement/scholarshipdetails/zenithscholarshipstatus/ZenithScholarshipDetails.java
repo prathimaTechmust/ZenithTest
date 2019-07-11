@@ -1,6 +1,7 @@
 package com.techmust.scholarshipmanagement.scholarshipdetails.zenithscholarshipstatus;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -57,6 +58,9 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 	@Column(name="ScanDocument")
 	private String m_strImage;
 	
+	@Column(name = "approved_date")
+	private Date m_dApprovedDate;
+	
 	@Transient
 	private int m_nStudentId;
 	
@@ -70,9 +74,19 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 		m_strReceiverContactNumber = "";
 		m_dChequeIssueDate = 0;
 		m_strImage = "";
-		
-	}	
+		m_dApprovedDate = null;
+	}
 	
+	public Date getM_dApprovedDate()
+	{
+		return m_dApprovedDate;
+	}
+
+	public void setM_dApprovedDate(Date dApprovedDate)
+	{
+		this.m_dApprovedDate = dApprovedDate;
+	}
+
 	public String getM_strStudentRemarks() 
 	{
 		return m_strStudentRemarks;

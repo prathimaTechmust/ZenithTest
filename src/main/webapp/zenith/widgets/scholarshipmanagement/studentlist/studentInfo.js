@@ -704,7 +704,7 @@ function studentInfo_gotData (oStudentInfoResponse)
 		 var radiobutton = document.getElementById("studentInfo_input_other");
 			radiobutton.checked = true;
 	 }
-	 document.getElementById("student_input_dateofbirth").value = studentDateofBirth(oStudentInfoData.m_dDateOfBirth);
+	 document.getElementById("student_input_dateofbirth").value = convertTimestampToDate(oStudentInfoData.m_dDateOfBirth);
 	 $("#studentInfo_input_fathername").val(oStudentInfoData.m_strFatherName);
 	 $("#studentInfo_input_fatheroccupation").val(oStudentInfoData.m_strFatherOccupation);
 	 $("#studentInfo_input_fatherAadharNumber").val(oStudentInfoData.m_nFatherAadharNumber);
@@ -814,14 +814,6 @@ function coursePopulateCombobox(oStudentInfoData)
 			    }
 				$('#select_input_studentcourse').combobox('loadData',arrCourseInfo)
 			});
-}
-
-function studentDateofBirth (strdateofBirth)
-{
-	var strStudentDateOfBirth = "/Date("+strdateofBirth+")/";
-	var date = new Date(parseFloat(strStudentDateOfBirth.substr(6)));	
-	var strDate = date.getFullYear() + "-" +("0" + (date.getMonth() + 1)).slice(-2) +  "-" +("0" + (date.getDate())).slice(-2);	
-	return strDate;
 }
 
 function studentUIDInfo_submit ()
