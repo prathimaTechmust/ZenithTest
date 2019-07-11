@@ -27,7 +27,7 @@
 								</tr>
 							</table>
 						</td>
-						<td width="50%" valign="bottom">
+						<td width="50%" valign="top">
 							<table>
 								<tr>
 									<td class="zenith" align="left">

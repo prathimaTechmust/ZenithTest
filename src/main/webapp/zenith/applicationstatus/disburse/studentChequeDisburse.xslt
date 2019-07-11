@@ -27,8 +27,22 @@
 								</tr>
 							</table>
 						</td>
-						<td width="50%" valign="bottom">
+						<td width="50%" valign="top">
 							<table>
+								<tr>
+									<td class="zenith" align="left" style="vertical-align:top;width:15%">
+									<table class="zenith">
+										<tr>																																																									
+										<td class="xslt_fieldHeading" style="text-align: left;">
+										<span style="font-weight:bold">Approved amount  &#x20b9;: </span> 
+										</td>
+										<td class="xslt_fieldData" id="m_strApprovedAmount">
+										<span style="font-weight:bold"> </span> 
+										</td>																																			
+										</tr>									
+									</table>										
+									</td>																
+								</tr>		
 								<tr>
 									<td class="zenith" align="left" style="vertical-align:top;width:15%">
 										<table class="zenith">
