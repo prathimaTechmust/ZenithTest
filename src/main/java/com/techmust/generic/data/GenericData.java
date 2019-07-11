@@ -613,7 +613,12 @@ public abstract class GenericData implements IGenericData, Serializable
 		{
 			m_oLogger.error("getAcademicDetails - oException : " +oException);
 			throw oException;
-		}		
+		}
+		finally 
+		{
+			oEntityManager.close();
+			HibernateUtil.removeConnection();
+		}
 		return arrAcademicDetails;
 	}
 	

@@ -190,6 +190,7 @@ function listStudentInfo_edit (nStudentId)
 {
 	assert.isNumber(nStudentId, "nStudentId expected to be a Number.");
 	m_oStudentInfoListMemberData.m_nSelectedStudentId = nStudentId;
+	m_oStudentInfoListMemberData.m_strAcademicYear = $("#selectacademicyearwiseStudents").val();
 	navigate ("actionInformation", "widgets/scholarshipmanagement/studentlist/editStudentInfo.js");
 }
 

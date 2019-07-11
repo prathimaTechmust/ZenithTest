@@ -39,9 +39,9 @@ public class AWSUtils
 	}
 	
 	public static String UploadToStudentImagesFolder(String strFileName, MultipartFile oStudentImg) throws AmazonServiceException, 
-	                                                                                    AmazonClientException, 
-	                                                                                    IOException, 
-	                                                                                    InterruptedException 
+						                                                                                   AmazonClientException, 
+						                                                                                   IOException, 
+						                                                                                   InterruptedException 
 	{
 		return UploadFile(strFileName, oStudentImg);
 	}
@@ -62,6 +62,31 @@ public class AWSUtils
 	{
 		return UploadFile(strUserImageName,oUserImage);
 	}	
+	
+	public static String UploadToStudentFatherAadharDocumentsFolder(String strFileName,MultipartFile oFatherMultipartFile) throws AmazonServiceException, AmazonClientException, IOException, InterruptedException
+	{
+		return UploadFile(strFileName, oFatherMultipartFile);		
+	}	
+
+	public static String UploadToStudentMarksCard2DocumentsFolder(String strFileName,	MultipartFile oStudentMarksCard2MultipartFile) throws AmazonServiceException, AmazonClientException, IOException, InterruptedException
+	{
+		return UploadFile(strFileName, oStudentMarksCard2MultipartFile);	
+	}
+	
+	public static String UploadToStudentOtherDocumentsFolder(String strFileName,MultipartFile oOtherDocumentsMultipartFile) throws AmazonServiceException, AmazonClientException, IOException, InterruptedException
+	{
+		return UploadFile(strFileName, oOtherDocumentsMultipartFile);	
+	}
+
+	public static String UploadToStudentMotherAadharDocumentsFolder(String strFileName,MultipartFile oMotherMultipartFile) throws AmazonServiceException, AmazonClientException, IOException, InterruptedException
+	{
+		return UploadFile(strFileName, oMotherMultipartFile);	
+	}
+	
+	public static String UploadToStudentMarksCard1DocumentsFolder(String strFileName,MultipartFile oStudentMarksCard1MultipartFile) throws AmazonServiceException, AmazonClientException, IOException, InterruptedException
+	{
+		return UploadFile(strFileName, oStudentMarksCard1MultipartFile);	
+	}
 	
 	public static String UploadFile (String strFileName, MultipartFile oImage) throws AmazonServiceException, 
 																			 AmazonClientException, 
@@ -114,5 +139,7 @@ public class AWSUtils
 		}
 	   return strUploadedFile;
 	}
+
+	
 		
 }

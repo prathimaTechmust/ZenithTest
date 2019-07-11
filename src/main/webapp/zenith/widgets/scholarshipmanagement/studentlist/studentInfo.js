@@ -454,6 +454,7 @@ function studentInfo_edit ()
 	studentInfo_init();
 	var oStudentInformationData = new StudentInformationData ();
 	oStudentInformationData.m_nStudentId = m_oStudentInfoListMemberData.m_nSelectedStudentId;
+	oStudentInformationData.m_strAcademicYear = m_oStudentInfoListMemberData.m_strAcademicYear;
 	document.getElementById("studentInfo_button_submit").setAttribute('update', true);
 	document.getElementById("studentInfo_button_submit").innerHTML = "Update";
 	document.getElementById("DocumentUpload_details_btn").style.display="inline";
@@ -501,8 +502,7 @@ function studentInfo_getFormData ()
 		oStudentInformationData.m_oZenithScholarshipDetails = getZenithstatus();
 	      /*Academic details*/
 	oStudentInformationData.m_oAcademicDetails = getAcademicDetails ();	
-	//oStudentInformationData.m_oSiblingsDetails = getSiblingsDetails();
-	
+	//oStudentInformationData.m_oSiblingsDetails = getSiblingsDetails();	
 	return oStudentInformationData;
 }
 
@@ -744,6 +744,18 @@ function studentInfo_gotData (oStudentInfoResponse)
 		 $("#scholarshipInfo_input_organizationamount"+nIndex).val(m_oStudentInfoMemberData.m_arrScholarshipDetails[nIndex].m_fAmount);
 	 }
 	 initFormValidateBoxes ("studentInfo_form_id");
+	 gotStudentDocuments(oStudentInfoResponse.m_oStudentDocuments);
+}
+
+function  gotStudentDocuments(oStudentDocuments)
+{
+	$("#studentInfo_input_studentaadhar").attr("src",oStudentDocuments.m_strStudentAadhar);
+	$("#studentInfo_input_studentElectricityBill").attr("src",oStudentDocuments.m_strStudentElectricityBill);
+	$("#studentInfo_input_fatheraadhar").attr("src",oStudentDocuments.m_strFatherAadharImageId);
+	$("#studentInfo_input_motheraadhar").attr("src",oStudentDocuments.m_strMotherAadharImageId);
+	$("#studentInfo_input_studentMarksCard1").attr("src",oStudentDocuments.m_strStudentMarksCard1);
+	$("#studentInfo_input_studentMarksCard2").attr("src",oStudentDocuments.m_strStudentMarksCard2);
+	$("#studentInfo_input_additionalDocuments").attr("src",oStudentDocuments.m_strOtherDocuments);
 }
 
 function facilitatorPopulateCombobox(oStudentInfoData)
@@ -955,10 +967,10 @@ function openNextTab(oEvent, TabName, oNextBtn )
 
 function getImage(studentInfo_input_image,fileInputTypeID, divId)
 {
-document.getElementById(divId.id).style.display = "block";
-var oFileSource = document.getElementById(fileInputTypeID.id);
-var studentInfo_input_document = document.getElementById(studentInfo_input_image.id);
-showImage(oFileSource, studentInfo_input_document);
+	document.getElementById(divId.id).style.display = "block";
+	var oFileSource = document.getElementById(fileInputTypeID.id);
+	var studentInfo_input_document = document.getElementById(studentInfo_input_image.id);
+	showImage(oFileSource, studentInfo_input_document);
 }
 
 function showImage(oFileSource,studentInfo_input_document)
@@ -1018,6 +1030,66 @@ function uploadStudentElectricityDocuments(div)
 	AcademicDetailsDataProcessor.uploadDocumentstoS3bucket(oFormData,uploadResponse);
 }
 
+function uploadFatherAadharDocuments(div)
+{
+	m_oStudentInfoMemberData.m_divisionId = div.id;
+	var oFormData = new FormData ();
+	if($("#fatheraadharInputID").val() != '')
+	{
+		oFormData.append('fatheraadhar',$("#fatheraadharInputID")[0].files[0]);
+		oFormData.append('academicId',m_oStudentInfoMemberData.m_nAcademicId);
+	}
+	AcademicDetailsDataProcessor.uploadDocumentstoS3bucket(oFormData,uploadResponse);
+}
+
+function uploadMotherAadharDocuments(div)
+{
+	m_oStudentInfoMemberData.m_divisionId = div.id;
+	var oFormData = new FormData ();
+	if($("#motheraadharInputID").val() != '')
+	{
+		oFormData.append('motheraadhar',$("#motheraadharInputID")[0].files[0]);
+		oFormData.append('academicId',m_oStudentInfoMemberData.m_nAcademicId);
+	}
+	AcademicDetailsDataProcessor.uploadDocumentstoS3bucket(oFormData,uploadResponse);
+}
+
+function uploadStudentMarksCard1(div)
+{
+	m_oStudentInfoMemberData.m_divisionId = div.id;
+	var oFormData = new FormData ();
+	if($("#studentMarksCard1").val() != '')
+	{
+		oFormData.append('studentmarkscard1',$("#studentMarksCard1")[0].files[0]);
+		oFormData.append('academicId',m_oStudentInfoMemberData.m_nAcademicId);
+	}
+	AcademicDetailsDataProcessor.uploadDocumentstoS3bucket(oFormData,uploadResponse);
+}
+
+function uploadStudentMarksCard2(div)
+{
+	m_oStudentInfoMemberData.m_divisionId = div.id;
+	var oFormData = new FormData ();
+	if($("#studentMarksCard2").val() != '')
+	{
+		oFormData.append('studentmarkscard2',$("#studentMarksCard2")[0].files[0]);
+		oFormData.append('academicId',m_oStudentInfoMemberData.m_nAcademicId);
+	}
+	AcademicDetailsDataProcessor.uploadDocumentstoS3bucket(oFormData,uploadResponse);
+}
+
+function uploadAdditionalDocuments(div)
+{
+	m_oStudentInfoMemberData.m_divisionId = div.id;
+	var oFormData = new FormData ();
+	if($("#additionalDocuments").val() != '')
+	{
+		oFormData.append('otherdocuments',$("#additionalDocuments")[0].files[0]);
+		oFormData.append('academicId',m_oStudentInfoMemberData.m_nAcademicId);
+	}
+	AcademicDetailsDataProcessor.uploadDocumentstoS3bucket(oFormData,uploadResponse);
+}
+
 function uploadResponse(oUploadResponse)
 {
 	if(oUploadResponse.m_bSuccess)
@@ -1033,16 +1105,11 @@ function uploadResponse(oUploadResponse)
 
 function getSiblings(divId)
 {
-
-
-document.getElementById(divId.id).style.display = "block";
-
-
+	document.getElementById(divId.id).style.display = "block";
 }
 
 function hideSiblings(divId)
 {
-
 	document.getElementById(divId.id).style.display = "none";
 }
 
