@@ -45,13 +45,13 @@ public class StudentDocuments  extends MasterData
 	public StudentDocuments() 
 	{
 		m_nDocumentId = -1;
-		m_strStudentAadhar = "";
-		m_strStudentElectricityBill = "";
-		m_strFatherAadharImageId = "";
-		m_strMotherAadharImageId = "";
-		m_strStudentMarksCard1 = "";
-		m_strStudentMarksCard2 = "";
-		m_strOtherDocuments = "";
+		m_strStudentAadhar = null;
+		m_strStudentElectricityBill = null;
+		m_strFatherAadharImageId = null;
+		m_strMotherAadharImageId = null;
+		m_strStudentMarksCard1 = null;
+		m_strStudentMarksCard2 = null;
+		m_strOtherDocuments = null;
 	}
 	
 	public String getM_strFatherAadharImageId() 

@@ -44,25 +44,21 @@ function studentInfo_memberData ()
 	this.m_nInstitutionId = -1;
 	this.m_nCourseId = -1;
 	
-//	this.m_nRowSiblingsUIDIdCount = -1;
-//	this.m_nRowSiblingsNameCount= -1;
-//	this.m_nRowSiblingsStudying = -1;
-//	this.m_nRowSiblingsSchoolCollege = -1;
-//	
-//	this.m_nRowSiblingsCount = -1;
-//	this.m_nSiblingsUIDId = 1;
-//	this.m_nSiblingsName = 1;
-//	this.m_nSiblingsStudying = 1;
-//	this.m_nSiblingsSchoolCollege = 1;
-//	
-//	this.m_arrSiblingsUIDId = new Array();
-//	
-//	this.m_nUpdatedSiblingsUIDIdRowCount = 0;
-//	this.m_nUpdatedSiblingsNameRowCount = 0;
-//	this.m_nUpdatedSiblingStudyingRowCount = 0;
-//	this.m_nUpdatedSiblingSchoolCollegeRowCount = 0;
-//	
+	this.m_nRowSiblingsUIDIdCount = -1;
+	this.m_nRowSiblingsNameCount= -1;
+	this.m_nRowSiblingsStudying = -1;
+	this.m_nRowSiblingsSchoolCollege = -1;
 	
+	this.m_nRowSiblingsCount = -1;
+	this.m_nSiblingsUIDId = 1;
+	this.m_nSiblingsName = 1;
+	this.m_nSiblingsStudying = 1;
+	this.m_nSiblingsSchoolCollege = 1;
+
+	this.m_nUpdatedSiblingsUIDIdRowCount = 0;
+	this.m_nUpdatedSiblingsNameRowCount = 0;
+	this.m_nUpdatedSiblingStudyingRowCount = 0;
+	this.m_nUpdatedSiblingSchoolCollegeRowCount = 0;	
 }
 
 var m_oStudentInfoMemberData = new studentInfo_memberData ();
@@ -749,13 +745,20 @@ function studentInfo_gotData (oStudentInfoResponse)
 
 function  gotStudentDocuments(oStudentDocuments)
 {
-	$("#studentInfo_input_studentaadhar").attr("src",oStudentDocuments.m_strStudentAadhar);
-	$("#studentInfo_input_studentElectricityBill").attr("src",oStudentDocuments.m_strStudentElectricityBill);
-	$("#studentInfo_input_fatheraadhar").attr("src",oStudentDocuments.m_strFatherAadharImageId);
-	$("#studentInfo_input_motheraadhar").attr("src",oStudentDocuments.m_strMotherAadharImageId);
-	$("#studentInfo_input_studentMarksCard1").attr("src",oStudentDocuments.m_strStudentMarksCard1);
-	$("#studentInfo_input_studentMarksCard2").attr("src",oStudentDocuments.m_strStudentMarksCard2);
-	$("#studentInfo_input_additionalDocuments").attr("src",oStudentDocuments.m_strOtherDocuments);
+	if(oStudentDocuments.m_strStudentAadhar != null)
+		$("#studentInfo_input_studentaadhar").attr("src",oStudentDocuments.m_strStudentAadhar);
+	if(oStudentDocuments.m_strStudentElectricityBill != null)
+		$("#studentInfo_input_studentElectricityBill").attr("src",oStudentDocuments.m_strStudentElectricityBill);
+	if(oStudentDocuments.m_strFatherAadharImageId != null)
+		$("#studentInfo_input_fatheraadhar").attr("src",oStudentDocuments.m_strFatherAadharImageId);
+	if(oStudentDocuments.m_strMotherAadharImageId != null)
+		$("#studentInfo_input_motheraadhar").attr("src",oStudentDocuments.m_strMotherAadharImageId);
+	if(oStudentDocuments.m_strStudentMarksCard1 != null)
+		$("#studentInfo_input_studentMarksCard1").attr("src",oStudentDocuments.m_strStudentMarksCard1);
+	if(oStudentDocuments.m_strStudentMarksCard2 != null)
+		$("#studentInfo_input_studentMarksCard2").attr("src",oStudentDocuments.m_strStudentMarksCard2);
+	if(oStudentDocuments.m_strOtherDocuments != null)
+		$("#studentInfo_input_additionalDocuments").attr("src",oStudentDocuments.m_strOtherDocuments);
 }
 
 function facilitatorPopulateCombobox(oStudentInfoData)
@@ -776,6 +779,7 @@ function facilitatorPopulateCombobox(oStudentInfoData)
 			});
 	
 }
+
 function institutionPopulateCombobox(oStudentInfoData)
 {
 	assert.isObject(oStudentInfoData, "oStudentInfoData expected to be an Object.");
@@ -1136,21 +1140,22 @@ function siblingsAddSiblings ()
 }
 function deleteNewSiblings ()
 {
-$("#siblings").on('click','.removeSiblings',function() { $(this).parent().parent().remove(); });
-   var siblingsrows = document.getElementById("siblings");   
+	$("#siblings").on('click','.removeSiblings',function() { $(this).parent().parent().remove(); });
+	var siblingsrows = document.getElementById("siblings");   
     m_oStudentInfoMemberData.m_nSiblingsUIDId = siblingsrows.rows.length;
     m_oStudentInfoMemberData.m_nSiblingsName = siblingsrows.rows.length;
     m_oStudentInfoMemberData.m_nSiblingsStudying = siblingsrows.rows.length;
     m_oStudentInfoMemberData.m_nSiblingsSchoolCollege =  siblingsrows.rows.length;
 }
 
-function deletSiblings(clicked_id) {
+function deletSiblings(clicked_id) 
+{
 	$("#siblings").on('click','.removeSiblings',function() { $(this).parent().parent().remove(); });
 	var siblingsrows = document.getElementById("siblings");   
     m_oStudentInfoMemberData.m_nRowSiblingsUIDIdCount = siblingsrows.rows.length;
     m_oStudentInfoMemberData.m_nRowSiblingsNameCount = siblingsrows.rows.length;
     m_oStudentInfoMemberData.m_nRowSiblingsStudyingCount = siblingsrows.rows.length;
-   m_oStudentInfoMemberData.m_nRowSiblingsSchoolCollegeCount =  siblingsrows.rows.length;
+    m_oStudentInfoMemberData.m_nRowSiblingsSchoolCollegeCount =  siblingsrows.rows.length;
 }
 //function getSiblingsDetails()
 //{
@@ -1172,14 +1177,22 @@ function deletSiblings(clicked_id) {
 //	
 //	return oArrSiblingsDetails;	
 //}
-//
-//function checkSiblingsRowCount() 
-//{
-// var result = m_oStudentInfoMemberData.m_nUpdatedSiblingsUIDIdRowCount;
-// if(result == 0)
-//	 m_oStudentInfoMemberData.m_nUpdatedSiblingsUIDIdRowCount = 1;
-//}
 
+
+
+function getSiblingsDetails()
+{
+	var oArrSiblingsDetails = new Array();
+	checkSiblingDetailsRowCount();
+
+}
+
+function checkSiblingDetailsRowCount ()
+{
+	var result = m_oStudentInfoMemberData.m_nUpdatedSiblingsUIDIdRowCount;
+	if(result == 0)
+		 m_oStudentInfoMemberData.m_nUpdatedSiblingsUIDIdRowCount = 1;
+}
 
 
 

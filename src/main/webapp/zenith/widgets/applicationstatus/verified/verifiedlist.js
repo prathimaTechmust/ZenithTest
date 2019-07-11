@@ -168,12 +168,14 @@ function printDocument ()
 	    document.getElementById("printdetailsInfo").innerHTML = "";
 }
 
-//function verifyStudentInfo_Student()
-//{
-//	var oZenith = new ZenithScholarshipDetails ();
-//	oZenith.m_nStudentId = m_overifiedStudentList_Info_MemberData.m_nStudentId;
-//	ZenithStudentInformationDataProcessor.verifiedStatusUpdate(oZenith,studentverifiedResponse);
-//}
+function verifyStudentInfo_Student()
+{	
+	createPopup('dialog', '', '', true);
+	var oFormData = new FormData ();
+	oFormData.append('scancopy',$("#ScanCopy")[0].files[0]);
+	oFormData.append('studentId',m_overifiedStudentList_Info_MemberData.m_nStudentId);
+	ZenithStudentInformationDataProcessor.verifiedStatusUpdate(oFormData,studentverifiedResponse);
+}
 
 function studentverifiedResponse (oResponse)
 {
@@ -230,27 +232,11 @@ function verifiedStudentListInfo_listed(oStudentResponseData)
 	$('#listVerifiedStudents_table_students').datagrid('getPager').pagination ({total:oStudentResponseData.m_nRowCount, pageNumber:oStudentResponseData.m_nPageNumber});
 	HideDialog("dialog");
 }
-
-function scanImage(fileInputTypeID, tdId) {
-	
+function scanImage(fileInputTypeID, tdId)
+{	
 	document.getElementById(tdId.id).style.display = "block";
 	var oFileSource = document.getElementById(fileInputTypeID.id);
-
 }
 
-function verifyStudentInfo_Student()
-{
-	
-	createPopup('dialog', '', '', true);	
-	var oZenith = new ZenithScholarshipDetails ();
-	oZenith.m_nStudentId = m_overifiedStudentList_Info_MemberData.m_nStudentId;
-//	//m_overifiedStudentList_Info_MemberData.m_tableId.tdId.id
-//	var oFormData = new FormData ();
-//	if($("#scanCopy").val() != '')
-//	{
-//		oFormData.append('studentdocument',$("#scanCopy")[0].files[0]);
-//	}
-//	//ZenithStudentInformationDataProcessor.uploadDocumentstoS3bucket(oFormData,uploadResponse);
-	ZenithStudentInformationDataProcessor.verifiedStatusUpdate(oZenith,studentverifiedResponse);
-}
+
 

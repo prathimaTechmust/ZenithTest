@@ -1,9 +1,9 @@
 var ZenithStudentInformationDataProcessor = (function __ZenithStudentInformationDataProcessor ()
 {
 	
-	function verifiedStatusUpdate(oVerifiedData,callback)
+	function verifiedStatusUpdate(oVerifiedFormData,callback)
 	{
-		ajaxCall(oVerifiedData, "/studentStatusInfoUpdate", callback);
+		multipartAjaxCall(oVerifiedFormData, "/studentStatusInfoUpdate", callback);
 	}
 	
 	function approvedStatusUpdate(oApprovedData,callback)
