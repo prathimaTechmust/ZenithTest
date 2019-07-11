@@ -32,16 +32,14 @@ import com.techmust.generic.data.GenericData;
 import com.techmust.generic.data.MasterData;
 import com.techmust.scholarshipmanagement.academicdetails.AcademicDetails;
 import com.techmust.scholarshipmanagement.scholarshipdetails.zenithscholarshipstatus.ZenithScholarshipDetails;
+import com.techmust.scholarshipmanagement.siblingdetails.SiblingDetails;
 import com.techmust.usermanagement.facilitator.FacilitatorInformationData;
+import com.techmust.utils.Utils;
 
 @Entity
 @Table(name = "student")
 public class StudentInformationData  extends MasterData implements Serializable
 {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -133,6 +131,9 @@ public class StudentInformationData  extends MasterData implements Serializable
 	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "m_oStudentInformationData",orphanRemoval = true)
 	private Set<ZenithScholarshipDetails> m_oZenithScholarshipDetails ;
 	
+	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	private Set<SiblingDetails> m_oSibilingDetails;
+	
 	@Transient
 	public AcademicDetails[] m_arrAcademicDetails;
 	
@@ -164,7 +165,18 @@ public class StudentInformationData  extends MasterData implements Serializable
 		m_oAcademicDetails = new HashSet<AcademicDetails> ();	
 		m_oFacilitatorInformationData = new FacilitatorInformationData();
 		m_oZenithScholarshipDetails = new HashSet<ZenithScholarshipDetails>();
-	}	
+		m_oSibilingDetails = new HashSet<SiblingDetails>();
+	}
+	
+	public Set<SiblingDetails> getM_oSibilingDetails()
+	{
+		return m_oSibilingDetails;
+	}
+	
+	public void setM_oSibilingDetails(Set<SiblingDetails> oSibilingDetails)
+	{
+		this.m_oSibilingDetails = oSibilingDetails;
+	}
 	
 	public String getM_strStatus()
 	{
@@ -515,7 +527,7 @@ public class StudentInformationData  extends MasterData implements Serializable
 			addChild (oXmlDocument, oRootElement, "m_nStudentId", m_nStudentId);
 			addChild (oXmlDocument, oRootElement, "m_strStudentName", m_strStudentName);
 			addChild (oXmlDocument, oRootElement, "m_strGender", m_strGender);	
-			//addChild (oXmlDocument, oRootElement, "m_dDateOfBirth", m_dDateOfBirth != null ? getStudentDOB(m_dDateOfBirth.toString ()) : "");
+			addChild (oXmlDocument, oRootElement, "m_dDateOfBirth", m_dDateOfBirth != 0 ? getStudentDOB(m_dDateOfBirth) : "");
 			addChild (oXmlDocument, oRootElement, "m_strFatherName", m_strFatherName);
 			addChild (oXmlDocument, oRootElement, "m_strMotherName", m_strMotherName);
 			addChild (oXmlDocument, oRootElement, "m_strReligion", m_strReligion);
@@ -543,16 +555,18 @@ public class StudentInformationData  extends MasterData implements Serializable
 		return strStudentInfoXML;		
 	}	
 
+	private String getStudentDOB(long dDateOfBirth)
+	{		
+		String strDate = Utils.convertTimeStampToDate(dDateOfBirth);
+		return strDate;
+	}
+
 	private String buildFacilitatorInformationDetails(FacilitatorInformationData oFacilitatorInformationData)
 	{
 		
 		return oFacilitatorInformationData.generateXML();
 	}
-
-	private String getStudentDOB(String strStudentDOB)
-	{		
-		return strStudentDOB.substring(0, 10);
-	}	
+	
 
 	private String buildAcademicDetails(Set<AcademicDetails> oAcademicDetails)
 	{

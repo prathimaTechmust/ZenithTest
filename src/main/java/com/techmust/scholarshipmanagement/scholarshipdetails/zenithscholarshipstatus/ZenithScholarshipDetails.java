@@ -54,6 +54,9 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 	@Column(name = "approvedamount")
 	private float m_fApprovedAmount;
 	
+	@Column(name="ScanDocument")
+	private String m_strImage;
+	
 	@Transient
 	private int m_nStudentId;
 	
@@ -66,7 +69,7 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 		m_strReceiverName = "";
 		m_strReceiverContactNumber = "";
 		m_dChequeIssueDate = 0;
-		m_strStudentRemarks = "";
+		m_strImage = "";
 		
 	}	
 	
@@ -95,6 +98,16 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 	public String getM_strReceiverName()
 	{
 		return m_strReceiverName;
+	}
+
+	public String getM_strImage()
+	{
+		return m_strImage;
+	}
+
+	public void setM_strImage(String m_strImage)
+	{
+		this.m_strImage = m_strImage;
 	}
 
 	public void setM_strReceiverName(String strReceiverName)

@@ -1,5 +1,7 @@
 package com.techmust.utils;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.UUID;
@@ -59,5 +61,12 @@ public class Utils
 	public static String getUUID()
 	{
 		return UUID.randomUUID().toString();
+	}
+	@SuppressWarnings("Depricated")
+	public static String convertTimeStampToDate(long dDateOfBirth)
+	{	        
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date(dDateOfBirth);
+        return formatter.format(date);
 	}
 }

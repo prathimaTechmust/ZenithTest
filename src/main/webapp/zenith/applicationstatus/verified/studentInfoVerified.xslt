@@ -36,7 +36,10 @@
 												<td>																																															
 													<button type="button" width="20" align="center" class = "zenith addButton" style="width:100px;" id="printStudent" title="Print" onClick="printStudentDetails()">Print</button>
 												</td>
-												<td>																																															
+												<td>
+	                    							<input name="studentdocument" type="file"	id="ScanCopy" onchange="scanImage(ScanCopy, scanDocument_td)"/>
+	 			       							 </td>
+												<td id = "scanDocument_td" style="display:none;">																																															
 													<button type="button" width="20" align="center" class = "zenith addButton" style="width:100px;" id="verifyStudent" title="Verify" onClick="verifyStudentInfo_Student()">Verify</button>
 												</td>
 											</tr>									

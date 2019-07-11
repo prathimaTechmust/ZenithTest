@@ -1003,7 +1003,3 @@ function ajaxXMLCall(oData, strURL, callback)
 	    });
 }
 
-function studentList_cancelImagePreview ()
-{
-    HideDialog ("seconddialog");
-}

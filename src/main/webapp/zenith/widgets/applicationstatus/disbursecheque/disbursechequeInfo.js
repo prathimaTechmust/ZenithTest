@@ -59,7 +59,7 @@ function getDisburseChequeFormData ()
 	var oZenithScholarshipDetails = new ZenithScholarshipDetails ();
 	oZenithScholarshipDetails.m_strReceiverName = $("#chequeInfo_inputReceivername").val();
 	oZenithScholarshipDetails.m_strReceiverContactNumber = $("#chequeInfo_inputReceiverContactNumber").val();
-	oZenithScholarshipDetails.m_dChequeIssueDate = $("#chequeInfo_input_IssueDate").val();
+	oZenithScholarshipDetails.m_dChequeIssueDate = convertDateToTimeStamp($("#chequeInfo_input_IssueDate").val());
 	oZenithScholarshipDetails.m_nStudentId = m_oDisburseStudentChequeInfo_MemberData.m_nStudentId;
 	return oZenithScholarshipDetails;
 }

@@ -613,7 +613,12 @@ public abstract class GenericData implements IGenericData, Serializable
 		{
 			m_oLogger.error("getAcademicDetails - oException : " +oException);
 			throw oException;
-		}		
+		}
+		finally 
+		{
+			oEntityManager.close();
+			HibernateUtil.removeConnection();
+		}
 		return arrAcademicDetails;
 	}
 	
@@ -660,6 +665,7 @@ public abstract class GenericData implements IGenericData, Serializable
 			{
 				ZenithScholarshipDetails oZenith = arrZenithScholarshipDetails.get(0);
 				oZenith.setM_strStatus(Constants.STUDENTVERIFIED);
+				oZenith.setM_strImage(oZenithScholarshipDetails.getM_strImage());
 				IsUpdate = oZenith.updateObject();
 			}
 		}

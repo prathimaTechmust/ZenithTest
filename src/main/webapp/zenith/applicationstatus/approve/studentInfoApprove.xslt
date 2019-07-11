@@ -34,7 +34,7 @@
 										<table class="zenith">
 											<tr>
 												<td width="25%" valign="top">
-													<fieldset style="width: 70%;">
+													<fieldset>
 														<legend>
 															Approve Amount
 														</legend>
@@ -49,6 +49,7 @@
 																	<td align = "left" colspan = "2">
 																		<hr/>																																															
 																		<button type="button" style= "margin-right:10px" class = "zenith" id="approveStudent" title="Approve" onClick="approveStudentInfo_Student()">Approve</button>
+																		<button type="button" style= "margin-right:10px" class = "zenith" id="reVerifyStudent" title="reverify" onClick="reVerifyStudentInfo_Student()">ReVerify</button>
 																		<button type="button" style= "margin-right:10px; float: right;" class = "zenith" id="rejectStudent" title="Reject" onClick="recjectStudentInfo_Student()">Reject</button>
 																	</td>			 							
 																</tr>							

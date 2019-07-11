@@ -6,10 +6,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.techmust.constants.Constants;
 import com.techmust.generic.dataprocessor.GenericIDataProcessor;
 import com.techmust.generic.response.GenericResponse;
+import com.techmust.utils.AWSUtils;
+import com.techmust.utils.Utils;
 
 @Controller
 public class ZenithScholarshipInformationDataProcessor extends GenericIDataProcessor<ZenithScholarshipDetails>
@@ -43,16 +48,22 @@ public class ZenithScholarshipInformationDataProcessor extends GenericIDataProce
 		return null;
 	}
 
-	@RequestMapping(value="/studentStatusInfoUpdate", method = RequestMethod.POST, headers = {"Content-type=application/json"})
+	@RequestMapping(value="/studentStatusInfoUpdate", method = RequestMethod.POST)
 	@ResponseBody
-	public GenericResponse update( @RequestBody ZenithScholarshipDetails oZenithScholarshipDetails) throws Exception
+	public GenericResponse update(@RequestParam(name = "scancopy",required = false)MultipartFile oScanCopyMultipartFile,@RequestParam("studentId") int nStudentId) throws Exception
 	{
 		
 		m_oLogger.info ("applicationStatusUpdate");
-		m_oLogger.debug ("applicationStatusUpdate - ZenithScholarshipDetails [IN] : " + oZenithScholarshipDetails);
+		m_oLogger.debug ("applicationStatusUpdate - ScanCopy [IN] : " + oScanCopyMultipartFile);
 		ZenithScholarshipDetailsDataResponse oZenithScholarshipDetailsDataResponse = new ZenithScholarshipDetailsDataResponse();
+		ZenithScholarshipDetails oZenithScholarshipDetails = new ZenithScholarshipDetails();
+		oZenithScholarshipDetails.setM_nStudentId(nStudentId);
 		try
-		{			
+		{	
+			String strUUID = Utils.getUUID();
+			String strFileName = Constants.VERIFIEDAPPLICATION + strUUID + Constants.IMAGE_DEFAULT_EXTENSION;
+			AWSUtils.UploadSealedCopyDocumentsFolder(strFileName,oScanCopyMultipartFile);
+			oZenithScholarshipDetails.setM_strImage(strUUID);
 			oZenithScholarshipDetailsDataResponse.m_bSuccess =  oZenithScholarshipDetails.updateStudentApplicationVerifiedStatus(oZenithScholarshipDetails);
 		}
 		catch (Exception oException)
@@ -145,6 +156,13 @@ public class ZenithScholarshipInformationDataProcessor extends GenericIDataProce
 
 	@Override
 	public String getXML(ZenithScholarshipDetails oGenericData) throws Exception
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public GenericResponse update(ZenithScholarshipDetails oGenericData) throws Exception 
 	{
 		// TODO Auto-generated method stub
 		return null;
