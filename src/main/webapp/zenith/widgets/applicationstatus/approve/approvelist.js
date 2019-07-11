@@ -270,3 +270,30 @@ function studentRemarkInfo_cancel ()
 	HideDialog("dialog");
 }
 
+
+function reVerifyStudentInfo_Student(){
+	
+	var oZenith = new ZenithScholarshipDetails ();
+	oZenith.m_nStudentId = m_oApproveStudentList_Info_MemberData.m_nStudentId;
+	ZenithStudentInformationDataProcessor.reVerifiedStatusUpdate(oZenith,studentReVerifiedResponse);
+	
+}
+
+
+function studentReVerifiedResponse(oResponse) {
+	
+	if(oResponse.m_bSuccess)
+	{
+		informUser("Application Status Sent to Verify Successfully","kSuccess");
+		navigate("approvelist","widgets/applicationstatus/approve/approvelist.js");
+	}
+	else
+		informUser("Application Status Sent to Verify Failed","kError");
+	
+	
+	
+}
+
+
+
+

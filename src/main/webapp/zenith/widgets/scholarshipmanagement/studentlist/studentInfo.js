@@ -1103,6 +1103,7 @@ function uploadResponse(oUploadResponse)
 	}
 }
 
+
 function getSiblings(divId)
 {
 	document.getElementById(divId.id).style.display = "block";
