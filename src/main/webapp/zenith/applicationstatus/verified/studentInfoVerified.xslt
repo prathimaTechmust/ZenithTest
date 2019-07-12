@@ -56,7 +56,7 @@
 											<tr>
 												 <td>
 		 			       							 <a href="javascript:studentuploadScan_documentPreview (inputDocument);">
-		 			       							 	 <img id="inputDocument" src="#" alt="" style="height: 50%;"/>
+		 			       							 	 <img id="inputDocument" src="#" alt="" style="height: 20%;"/>
 		 			       							  </a>
 	 			       							 </td>
 											</tr>									
