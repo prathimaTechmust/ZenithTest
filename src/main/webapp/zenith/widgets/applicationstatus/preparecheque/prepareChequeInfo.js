@@ -19,8 +19,13 @@ var m_oPrepareChequeInfoMemberData = new prepareChequeInfo_MemberData();
 function prepareChequeInfo_new ()
 {
 	prepareCheque_init();
-	$("#student_input_studentUIDNumber").val(m_oPrepareChequeInfoMemberData.m_nUID);
-	$("#studentInfo_inputStudentName").val(m_oPrepareChequeInfoMemberData.m_StudentName);
+	m_oPrepareChequeInfoMemberData.m_nStudentId = m_oPrepareChequeInfoMemberData.m_oStudentInformationData.m_nStudentId;
+	$("#student_input_studentUIDNumber").val(m_oPrepareChequeInfoMemberData.m_oStudentInformationData.m_nUID);
+	$("#studentInfo_inputStudentName").val(m_oPrepareChequeInfoMemberData.m_oStudentInformationData.m_strStudentName);
+	$("#accountInfo_input_AccountPayeeName").val(m_oPrepareChequeInfoMemberData.m_oStudentInformationData.m_oAcademicDetails[0].m_oInstitutionInformationData.m_strInstitutionName);
+	$("#accountInfo_input_SanctionedAmount").val(m_oPrepareChequeInfoMemberData.m_oStudentInformationData.m_oZenithScholarshipDetails[0].m_fApprovedAmount);
+	var approveDate = convertTimestampToDate(m_oPrepareChequeInfoMemberData.m_oStudentInformationData.m_oZenithScholarshipDetails[0].m_dApprovedDate);
+	$("#accountInfo_input_SanctionedDate").val(approveDate);
 	initFormValidateBoxes ("accountInfo_form_id");
 
 }
@@ -107,6 +112,10 @@ function studentUIDInformationLoad (oResponse)
 		m_oPrepareChequeInfoMemberData.m_nStudentId = oResponse.m_arrStudentInformationData[0].m_nStudentId;
 		$("#student_input_studentUIDNumber").val(oResponse.m_arrStudentInformationData[0].m_nUID);
 		$("#studentInfo_inputStudentName").val(oResponse.m_arrStudentInformationData[0].m_strStudentName);
+		$("#accountInfo_input_AccountPayeeName").val(oResponse.m_arrStudentInformationData[0].m_oAcademicDetails[0].m_oInstitutionInformationData.m_strInstitutionName);
+		$("#accountInfo_input_SanctionedAmount").val(oResponse.m_arrStudentInformationData[0].m_oZenithScholarshipDetails[0].m_fApprovedAmount);
+		var approveDate = convertTimestampToDate(oResponse.m_arrStudentInformationData[0].m_oZenithScholarshipDetails[0].m_dApprovedDate);
+		$("#accountInfo_input_SanctionedDate").val(approveDate);
 		initFormValidateBoxes ("accountInfo_form_id");
 	}
 	else
@@ -143,9 +152,8 @@ function accountcreatedResponse(oAccountResponse)
 
 function accountdetails_getFormData ()
 {
-	
 	var oScholarshipAccountsInformationData = new ScholarshipAccountsInformationData();
-	oScholarshipAccountsInformationData.m_nStudentId = m_oPrepareChequeInfoMemberData.m_nStudentId
+	oScholarshipAccountsInformationData.m_nStudentId = m_oPrepareChequeInfoMemberData.m_nStudentId;
 	oScholarshipAccountsInformationData.m_strPayeeName = $("#accountInfo_input_AccountPayeeName").val();
 	oScholarshipAccountsInformationData.m_fSanctionedAmount = $("#accountInfo_input_SanctionedAmount").val();
 	oScholarshipAccountsInformationData.m_dSanctionDate = $("#accountInfo_input_SanctionedDate").val();
@@ -161,8 +169,7 @@ function accountdetails_getFormData ()
 	if(document.getElementById("select_radio_Cheque").checked == true)
 		oScholarshipAccountsInformationData.m_nChequeNumber = $("#chequeddInfo_input_ChequeDDNumber").val();
 	else
-		oScholarshipAccountsInformationData.m_nDDNumber = $("#chequeddInfo_input_ChequeDDNumber").val();
-	oScholarshipAccountsInformationData.m_nStudentId = m_oPrepareChequeInfoMemberData.m_nStudentId;
+		oScholarshipAccountsInformationData.m_nDDNumber = $("#chequeddInfo_input_ChequeDDNumber").val();	
 	return oScholarshipAccountsInformationData;
 }
 

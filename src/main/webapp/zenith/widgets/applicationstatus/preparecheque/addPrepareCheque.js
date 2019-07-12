@@ -2,8 +2,6 @@ navigate("preparecheque","widgets/applicationstatus/preparecheque/prepareChequeI
 
 function prepareChequeInfo_Loaded ()
 {
-	m_oPrepareChequeInfoMemberData.m_nUID = m_oPrepareChequeListMemberData.m_nUID;
-	m_oPrepareChequeInfoMemberData.m_StudentName = m_oPrepareChequeListMemberData.m_strStudentName; 
-	m_oPrepareChequeInfoMemberData.m_nStudentId = m_oPrepareChequeListMemberData.m_nStudentId;
+	m_oPrepareChequeInfoMemberData.m_oStudentInformationData = m_oPrepareChequeListMemberData.m_oStudentInformationData;	
 	loadPage("applicationstatus/preparecheque/preparechequeInfo.html","dialog","prepareChequeInfo_new ()");
 }

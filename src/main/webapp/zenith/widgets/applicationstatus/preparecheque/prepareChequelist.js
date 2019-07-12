@@ -67,8 +67,18 @@ function listPrepareChequeInfo_createDataGrid ()
 				{field:'m_nUID',title:'UID',sortable:true,width:150},
 				{field:'m_strStudentName',title:'Student Name',sortable:true,width:300},
 				{field:'m_strFatherName',title:'Father Name',sortable:true,width:300},
-				{field:'m_strPhoneNumber',title:'Phone Number',sortable:true,width:200},
-				{field:'m_strCity',title:'City',sortable:true,width:200},					
+				{field:'m_fSactionAmount',title:'Sanctioned Amount',sortable:true,width:200,
+					formatter:function(value,row,index)
+					{
+						return row.m_oZenithScholarshipDetails[0].m_fApprovedAmount;
+					}					
+				},
+				{field:'m_dApprovedDate',title:'Sanctioned Date',sortable:true,width:200,
+					formatter:function(value,row,index)
+					{
+						return convertTimestampToDate(row.m_oZenithScholarshipDetails[0].m_dApprovedDate);
+					}					
+				},					
 			]],				
 		}
 	);
@@ -122,9 +132,7 @@ function listPrepareChequeInfo_selectedRowData (oRowData, nIndex)
 	var oStudentInformationData = new StudentInformationData () ;
 	oStudentInformationData.m_nStudentId = oRowData.m_nStudentId;
 	oStudentInformationData.m_strAcademicYear = $("#selectapprovedstudentsacademicyear").val();
-	m_oPrepareChequeListMemberData.m_nStudentId = oRowData.m_nStudentId;
-	m_oPrepareChequeListMemberData.m_nUID = oRowData.m_nUID;
-	m_oPrepareChequeListMemberData.m_strStudentName = oRowData.m_strStudentName;
+	m_oPrepareChequeListMemberData.m_oStudentInformationData = oRowData;
 	StudentInformationDataProcessor.getXML (oStudentInformationData,listPrepareChequeInfo_gotXML);
 }
 

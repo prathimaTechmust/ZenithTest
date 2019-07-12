@@ -63,10 +63,10 @@ public class Utils
 		return UUID.randomUUID().toString();
 	}
 	@SuppressWarnings("Depricated")
-	public static String convertTimeStampToDate(long dDateOfBirth)
+	public static String convertTimeStampToDate(long dLongTimeStamp)
 	{	        
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        Date date = new Date(dDateOfBirth);
+        Date date = new Date(dLongTimeStamp);
         return formatter.format(date);
 	}
 }
