@@ -37,11 +37,28 @@
 													<button type="button" width="20" align="center" class = "zenith addButton" style="width:100px;" id="printStudent" title="Print" onClick="printStudentDetails()">Print</button>
 												</td>
 												<td>
-	                    							<input name="studentdocument" type="file"	id="ScanCopy" onchange="scanImage(ScanCopy, scanDocument_td)"/>
+	                    							<input name="studentdocument" type="file"	id="ScanCopy" onchange="scanImage(inputDocument,ScanCopy,scanDocument_td,verifyStudent)"/>
 	 			       							 </td>
-												<td id = "scanDocument_td" style="display:none;">																																															
-													<button type="button" width="20" align="center" class = "zenith addButton" style="width:100px;" id="verifyStudent" title="Verify" onClick="verifyStudentInfo_Student()">Verify</button>
-												</td>
+												<td id="scanDocument_td">                                                                                                                                                                                                                                            
+                                                    <button type="button"  disabled="true" width="20" align="center"  class = "zenith addButton" style="width:100px;color: grey;" id="verifyStudent" title="Verify" onClick="verifyStudentInfo_Student()">Verify</button>
+                                                </td>
+											</tr>									
+										</table>										
+									</td>																
+								</tr>								
+							</table>
+						</td>
+						<td width="50%" valign="top">
+							<table>
+								<tr>
+									<td class="zenith" align="left">
+										<table class="zenith">
+											<tr>
+												 <td>
+		 			       							 <a href="javascript:studentuploadScan_documentPreview (inputDocument);">
+		 			       							 	 <img id="inputDocument" src="#" alt="" style="height: 50%;"/>
+		 			       							  </a>
+	 			       							 </td>
 											</tr>									
 										</table>										
 									</td>																

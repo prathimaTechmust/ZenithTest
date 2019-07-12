@@ -232,11 +232,49 @@ function verifiedStudentListInfo_listed(oStudentResponseData)
 	$('#listVerifiedStudents_table_students').datagrid('getPager').pagination ({total:oStudentResponseData.m_nRowCount, pageNumber:oStudentResponseData.m_nPageNumber});
 	HideDialog("dialog");
 }
-function scanImage(fileInputTypeID, tdId)
+
+function scanImage(studentdocument,fileInputTypeID,tdId,buttonId)
 {	
-	document.getElementById(tdId.id).style.display = "block";
 	var oFileSource = document.getElementById(fileInputTypeID.id);
+	document.getElementById(buttonId.id).style.color = "white";
+	var btnVerifyButton = document.getElementById(buttonId.id);
+    btnVerifyButton.disabled = false;
+	var studentInfo_input_document = document.getElementById(studentdocument.id);
+	showImage(oFileSource, studentInfo_input_document);
 }
+
+function showImage(oFileSource,studentInfo_input_document)
+{
+     var fr=new FileReader();
+     fr.onload = function(e)
+                     {
+                         studentInfo_input_document.src = this.result;
+                     };
+     fr.readAsDataURL(oFileSource.files[0]);
+    
+}
+
+function studentuploadScan_documentPreview(scan_input_previewimageId){
+	 var viewImageId = document.getElementById(scan_input_previewimageId.id)
+	    var fileInputimageurl = document.getElementById (scan_input_previewimageId.id).src;
+	 m_overifiedStudentList_Info_MemberData.m_strScanDocUploadURL = fileInputimageurl;
+	    loadPage("applicationstatus/verified/scanDocumentPreview.html","dialog","showScanDocumentPreview()");    
+	}
+
+
+	function showScanDocumentPreview ()
+	{
+	    createPopup ('dialog', '', '', true);
+	    document.getElementById('dialog').style.position = "fixed";
+	    $(".imagePreview").attr('src', m_overifiedStudentList_Info_MemberData.m_strScanDocUploadURL);    
+	}
+
+	
+	function scanDocument_cancelImagePreview() {
+	
+		  HideDialog ("dialog");
+	}
+
 
 
 
