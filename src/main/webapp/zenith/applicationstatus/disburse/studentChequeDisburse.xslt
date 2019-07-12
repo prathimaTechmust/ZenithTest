@@ -37,7 +37,8 @@
 										<span style="font-weight:bold">Approved amount  &#x20b9;: </span> 
 										</td>
 										<td class="xslt_fieldData" id="m_strApprovedAmount">
-										<span style="font-weight:bold"> </span> 
+										<span style="font-weight:bold"> </span>
+											<xsl:value-of select="format-number(StudentInformationData/m_oZenithScholarshipDetails/ZenithScholarshipDetails/m_fApprovedAmount, '##,##,##0')" /> 
 										</td>																																			
 										</tr>									
 									</table>										

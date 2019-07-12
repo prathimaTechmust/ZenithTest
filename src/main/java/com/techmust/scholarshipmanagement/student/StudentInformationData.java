@@ -502,12 +502,18 @@ public class StudentInformationData  extends MasterData implements Serializable
 		{
 			Document oXmlDocument = createNewXMLDocument ();
 			Element oRootElement = createRootElement(oXmlDocument, "StudentInformationData");
+			//AcademicDetails XMLData
 			Document oAcademicDetalsXmlDoc = getXmlDocument ("<m_oAcademicDetails>"+buildAcademicDetails (m_oAcademicDetails)+"</m_oAcademicDetails>");
-			Node oAcademicNode = oXmlDocument.importNode(oAcademicDetalsXmlDoc.getFirstChild(), true);
+			Node oAcademicNode = oXmlDocument.importNode(oAcademicDetalsXmlDoc.getFirstChild(), true);			
 			oRootElement.appendChild(oAcademicNode);
+			//FacilitatorInformation XMLData
 			Document oFacilitatorInformationDataXmlDoc = getXmlDocument ("<m_oFacilitatorInformationData>"+buildFacilitatorInformationDetails (m_oFacilitatorInformationData)+"</m_oFacilitatorInformationData>");
 			Node oFacilitatorInformationDataNode = oXmlDocument.importNode(oFacilitatorInformationDataXmlDoc.getFirstChild(), true);
 			oRootElement.appendChild(oFacilitatorInformationDataNode);
+			//ZenithScholarshipDetails XMLData
+			Document oZenithScholarshipDetailsDataXmlDoc = getXmlDocument ("<m_oZenithScholarshipDetails>"+buildZenithScholarshipDetails (m_oZenithScholarshipDetails)+"</m_oZenithScholarshipDetails>");
+			Node oZenithScholarshipDetailsDataNode = oXmlDocument.importNode(oZenithScholarshipDetailsDataXmlDoc.getFirstChild(), true);
+			oRootElement.appendChild(oZenithScholarshipDetailsDataNode);
 			
 			addChild (oXmlDocument, oRootElement, "m_nUID", m_nUID);
 			addChild (oXmlDocument, oRootElement, "m_nStudentAadharNumber", m_nStudentAadharNumber);
@@ -540,21 +546,14 @@ public class StudentInformationData  extends MasterData implements Serializable
 			m_oLogger.error("generateXML - oException : " + oException);
 		}
 		return strStudentInfoXML;		
-	}	
+	}
 
 	private String getStudentDOB(long dDateOfBirth)
 	{		
 		String strDate = Utils.convertTimeStampToDate(dDateOfBirth);
 		return strDate;
 	}
-
-	private String buildFacilitatorInformationDetails(FacilitatorInformationData oFacilitatorInformationData)
-	{
-		
-		return oFacilitatorInformationData.generateXML();
-	}
 	
-
 	private String buildAcademicDetails(Set<AcademicDetails> oAcademicDetails)
 	{
 		String strXML = "";
@@ -567,6 +566,24 @@ public class StudentInformationData  extends MasterData implements Serializable
 		return strXML;
 	}
 
+	private String buildFacilitatorInformationDetails(FacilitatorInformationData oFacilitatorInformationData)
+	{
+		
+		return oFacilitatorInformationData.generateXML();
+	}	
+	
+	private String buildZenithScholarshipDetails(Set<ZenithScholarshipDetails> m_oZenithScholarshipDetails)
+	{
+		
+		String strXML = "";
+		Object [] arrZenithScholarshipDetails = m_oZenithScholarshipDetails.toArray ();
+		for (int nIndex = 0; nIndex < arrZenithScholarshipDetails.length; nIndex ++)
+		{
+			ZenithScholarshipDetails oZenithScholarshipDetails = (ZenithScholarshipDetails) arrZenithScholarshipDetails [nIndex];
+			strXML += oZenithScholarshipDetails.generateXML ();
+		}		
+		return strXML;
+	}
 
 	private static String getStudentImageURL(String strStudentImageName)
 	{		

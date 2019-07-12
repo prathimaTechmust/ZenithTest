@@ -15,10 +15,16 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.techmust.constants.Constants;
 import com.techmust.generic.data.MasterData;
 import com.techmust.scholarshipmanagement.academicdetails.AcademicDetails;
 import com.techmust.scholarshipmanagement.student.StudentInformationData;
+import com.techmust.utils.Utils;
 
 @Entity
 @Table(name = "zenithscholarshipdetails")
@@ -188,5 +194,49 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 	public void setM_oStudentInformationData(StudentInformationData m_oStudentInformationData) 
 	{
 		this.m_oStudentInformationData = m_oStudentInformationData;
+	}
+	
+	@Override
+	public String generateXML()
+	{
+		
+		m_oLogger.info ("generateXML");
+		String strZenithScholarshipDetailsInfoXML ="";
+		try
+		{
+			Document oXmlDocument = createNewXMLDocument ();
+			Element oRootElement = createRootElement(oXmlDocument, "ZenithScholarshipDetails");			
+			addChild (oXmlDocument, oRootElement, "m_nZenithScholarshipId",m_nZenithScholarshipId);
+			addChild (oXmlDocument, oRootElement, "m_strStatus",m_strStatus);
+			addChild (oXmlDocument, oRootElement, "m_fApprovedAmount",m_fApprovedAmount);
+			addChild (oXmlDocument, oRootElement, "m_strReceiverName",m_strReceiverName);
+			addChild (oXmlDocument, oRootElement, "m_strReceiverContactNumber",m_strReceiverContactNumber);	
+			addChild (oXmlDocument, oRootElement, "m_dChequeIssueDate",m_dChequeIssueDate != 0 ? getChequeIssueDate(m_dChequeIssueDate) : "");
+			addChild (oXmlDocument, oRootElement, "m_dApprovedDate",m_dApprovedDate != null ? getApproveDate(m_dApprovedDate.toString()) :"");
+			addChild (oXmlDocument, oRootElement, "m_strImage",m_strImage);
+			addChild (oXmlDocument, oRootElement, "m_strScanCopyImageURL",getScanCopyImageURL(m_strImage));			
+			strZenithScholarshipDetailsInfoXML = getXmlString (oXmlDocument);			 
+		}
+		catch (Exception oException) 
+		{
+			m_oLogger.error("generateXML - oException : " + oException);
+		}
+		return strZenithScholarshipDetailsInfoXML;
+	}
+
+	private String getApproveDate(String string)
+	{		
+		return string.substring(0, 10);
+	}	
+
+	private String getScanCopyImageURL(String strImage)
+	{
+		String strImageURL = Constants.S3BUCKETURL + Constants.VERIFIEDAPPLICATION + strImage + Constants.IMAGE_DEFAULT_EXTENSION;
+		return strImageURL;
+	}
+
+	private String getChequeIssueDate(long dChequeIssueDate)
+	{		
+		return Utils.convertTimeStampToDate(dChequeIssueDate);
 	}
 }
