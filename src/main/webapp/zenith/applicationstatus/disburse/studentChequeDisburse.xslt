@@ -50,7 +50,8 @@
 											<tr>
 												<td>																																															
 													<button type="button" width="20" align="center" class = "zenith addButton" style="width:150px;" id="disburseCheque" title="Disburse" onClick="disburseStudent_Cheque()">Disburse of Cheque</button>
-												</td>																						
+												    <button type="button" width="20" align="center" class ="zenith addButton" style="width:130px;" id="reIssueCheque" title="re-issue Cheque" onClick="reIssueCheque_Details()">Re-Issue Cheque </button>
+												</td>																							
 											</tr>									
 										</table>										
 									</td>																

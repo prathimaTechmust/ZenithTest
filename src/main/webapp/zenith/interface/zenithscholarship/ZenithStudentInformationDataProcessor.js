@@ -28,11 +28,17 @@ var ZenithStudentInformationDataProcessor = (function __ZenithStudentInformation
 		ajaxCall(oReVerification,"/reverifyapplication",callback);
 	}
 	
+	function reIssueChequeStatusUpdate(oReIssueCheque, callback) 
+	{
+	    ajaxCall(oReIssueCheque,"/reIssueCheque",callback);
+	
+	}
 	return { 		
 		verifiedStatusUpdate:verifiedStatusUpdate,		
 		approvedStatusUpdate :approvedStatusUpdate,
 		rejectStatusUpdate :rejectStatusUpdate,
 		issueCheque:issueCheque,
+		reIssueChequeStatusUpdate:reIssueChequeStatusUpdate,
 		reVerifiedStatusUpdate :reVerifiedStatusUpdate
 	};
 })();

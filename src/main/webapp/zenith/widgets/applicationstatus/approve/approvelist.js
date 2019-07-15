@@ -171,6 +171,7 @@ function rejectStudentRemarks_init()
 	createPopup('dialog','#remarkInfo_button_submit','remarkInfo_button_cancel',true);
 	initFormValidateBoxes('studentRemarkForm');
 }
+
 function studentRemarkInfo_submit ()
 {
 	if(studentRemarkValidate ())
@@ -181,7 +182,6 @@ function studentRemarkInfo_submit ()
 		$("#studentRemarkForm").focus();
 	}	
 }
-
 function studentremark_progressbarLoaded ()
 {
 	createPopup('dialog','','',true);

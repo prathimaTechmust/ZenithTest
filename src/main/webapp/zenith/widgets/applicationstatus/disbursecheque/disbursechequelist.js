@@ -195,6 +195,11 @@ function disburseStudent_Cheque ()
 	navigate("dispursecheque","widgets/applicationstatus/disbursecheque/disbursechequeadd.js");
 }
 
+function reIssueCheque_Details() 
+{	
+	navigate("reIssueCheque","widgets/applicationstatus/disbursecheque/reIssueCheque.js");	
+}
+
 function disburseChequeListInfo_listed (oStudentResponseData)
 {
 	clearGridData ("#disburseChequeList_table_students");

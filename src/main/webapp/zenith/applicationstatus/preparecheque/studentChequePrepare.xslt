@@ -50,7 +50,8 @@
 											<tr>
 												<td>																																															
 													<button type="button" width="20" align="center" class = "zenith addButton" style="width:130px;" id="verifyStudent" title="Prepare Cheque" onClick="prepareCheque()">Prepare Cheque</button>
-												</td>																							
+												</td>	
+																																	
 											</tr>									
 										</table>										
 									</td>																

@@ -26,6 +26,7 @@ public interface IGenericData
 	boolean disburseCheque (ZenithScholarshipDetails oZenithScholarshipDetails) throws Exception;
 	boolean applicationStatusUpdate(ZenithScholarshipDetails oZenithScholarshipDetails) throws Exception;
 	boolean reVerifyStudentApplication(ZenithScholarshipDetails oZenithData) throws Exception;
+	boolean reIssueCheckDetails(ZenithScholarshipDetails oZenithData) throws Exception;
 	boolean checkChequePrepared(Set<AcademicDetails> oAcademicDetails);
 	StudentInformationData getSearchUIDStudentData(StudentInformationData oStudentData);
 	
