@@ -72,7 +72,30 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		return oStudentDataResponse;
 		
 	}*/
-
+	
+	@RequestMapping(value = "/studentInfoCreateAndPrint",method = RequestMethod.POST,headers = {"Content-type=application/json"})
+	@ResponseBody
+	public GenericResponse createAndPrint(@RequestBody StudentInformationData oStudentInformationData) throws Exception
+	{
+		m_oLogger.info ("create and print");
+		m_oLogger.debug ("create and print - oStudentInformationData [IN] : " + oStudentInformationData);
+		StudentDataResponse oStudentDataResponse = new StudentDataResponse();
+		try
+		{
+			oStudentDataResponse.m_bSuccess = oStudentInformationData.saveObject();
+			if(oStudentDataResponse.m_bSuccess == true)
+				oStudentDataResponse.m_strStudentXMLData = oStudentInformationData.generateXML();
+			oStudentDataResponse.m_arrStudentInformationData.add(oStudentInformationData);
+			
+		}
+		catch (Exception oException)
+		{
+			m_oLogger.error ("create and print - oException : " + oException);
+			throw oException;
+		}
+		return oStudentDataResponse;		
+	}
+	
 	@Override
 	@RequestMapping(value = "/studentInfoDelete",method = RequestMethod.POST, headers = {"Content-type=application/json"})
 	@ResponseBody
@@ -103,7 +126,7 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		oStudentInformationData.setM_nStudentId(nStudentId);
 		try 
 		{	
-			if(oStudentMultipartFile != null)
+			if(!oStudentMultipartFile.isEmpty())
 			{
 				oStudentInformationData = (StudentInformationData) populateObject(oStudentInformationData);	
 		        String strUUID = Utils.getUUID();
@@ -194,26 +217,39 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 
 	@RequestMapping(value="/studentInfoGetUIDData", method = RequestMethod.POST, headers = {"Content-type=application/json"})
 	@ResponseBody
-	public GenericResponse getStudentUIDData(@RequestBody StudentInformationData oStudentInformationData) throws Exception
+	public GenericResponse getSearchStudentUIDData(@RequestBody StudentInformationData oStudentInformationData) throws Exception
 	{
-		m_oLogger.info("getStudentUID");
-		m_oLogger.debug("getStudentUID - oStudentInformationData [IN] :" + oStudentInformationData.getM_nUID());
+		m_oLogger.info("getSearchStudentUIDData");
+		m_oLogger.debug("getSearchStudentUIDData - oStudentInformationData [IN] :" + oStudentInformationData.getM_nUID());
 		StudentDataResponse oStudentDataResponse = new StudentDataResponse();
 		try
 		{
-			oStudentInformationData = (StudentInformationData) populateObject (oStudentInformationData);
-			oStudentDataResponse.m_arrStudentInformationData.add (oStudentInformationData);	
+			oStudentInformationData = oStudentInformationData.getSearchUIDStudentData(oStudentInformationData);
 			if(oStudentInformationData != null)
-				oStudentDataResponse.m_bSuccess = true;
+			{
+				oStudentDataResponse = getStudentUIDData(oStudentInformationData);
+			}
+			
 		}
 		catch (Exception oException) 
 		{
-			m_oLogger.error ("getStudentUID - oException : "  + oException);
+			m_oLogger.error ("getSearchUIDStudentData - oException : "  + oException);
 			throw oException;
 		}
 		return oStudentDataResponse;
 	}
-
+	
+	private StudentDataResponse getStudentUIDData(StudentInformationData oStudentInformationData)
+	{
+		StudentDataResponse oStudentDataResponse = new StudentDataResponse();
+		if(oStudentInformationData.getM_oZenithScholarshipDetails().size() > 0)
+		{
+			oStudentDataResponse.m_arrStudentInformationData.add (oStudentInformationData);
+			oStudentDataResponse.m_bSuccess = true;
+		}
+		return oStudentDataResponse;
+	}
+	
 	@RequestMapping(value="/studentInfoList", method = RequestMethod.POST, headers = {"Content-type=application/json"})
 	@ResponseBody
 	public GenericResponse list(@RequestBody ZenithHelper oData)throws Exception

@@ -140,7 +140,7 @@ function approveStudentListInfo_list (strColumn,strOrder,nPageNumber,nPageSize)
 	m_oApproveStudentList_Info_MemberData.m_strSortOrder = strOrder;
 	m_oApproveStudentList_Info_MemberData.m_nPageNumber = nPageNumber;
 	m_oApproveStudentList_Info_MemberData.m_nPageSize = nPageSize;
-	loadPage ("inventorymanagement/progressbar.html", "dialog", "approveStudentListInfo_progressbarLoaded ()");
+	loadPage ("progressbarmanagement/progressbar.html", "dialog", "approveStudentListInfo_progressbarLoaded ()");
 }
 
 
@@ -179,8 +179,7 @@ function studentRemarkInfo_submit ()
 	{
 		alert("Please Enter Remarks");
 		$("#studentRemarkForm").focus();
-	}
-	
+	}	
 }
 
 function studentremark_progressbarLoaded ()
@@ -208,10 +207,12 @@ function searchStudentUID ()
 {
 	var oStudentInformationData = new StudentInformationData ();
 	oStudentInformationData.m_nUID = $("#StudentInfo_input_uid").val();
+	oStudentInformationData.m_strStatus = m_oApproveStudentList_Info_MemberData.m_strapplicationStatus;
+	oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
 	if($("#StudentInfo_input_uid").val() != "")
 		StudentInformationDataProcessor.getStudentUID(oStudentInformationData,studentUIDResponse);
 	else
-		alert("Please Enter Valid UID Number");
+		alert("Please Enter UID Number");
 }
 
 function studentUIDResponse (oStudentUIDResponse)
@@ -226,7 +227,11 @@ function studentUIDResponse (oStudentUIDResponse)
 		document.getElementById("StudentInfo_input_uid").value = "";
 	}
 	else
-		alert("Student UID Does not exist");
+	{
+		alert("Student UID Does not Exist in the List!!");
+		document.getElementById("StudentInfo_input_uid").value = "";
+	}
+		
 }
 
 function studentapproveResponse (oResponse)

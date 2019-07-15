@@ -42,7 +42,7 @@ function dropdownacademicyear ()
 
 function academicyearResponse(oYearResponse)
 {
-	populateYear("selectapprovedstudentsacademicyear",oYearResponse);
+	populateYear("selectacademicyear",oYearResponse);
 }
 
 function populateYear(academicyear,oYearResponse)
@@ -131,12 +131,12 @@ function listPrepareChequeInfo_selectedRowData (oRowData, nIndex)
 	document.getElementById("listPrepareCheque_div_listDetail").innerHTML = "";
 	var oStudentInformationData = new StudentInformationData () ;
 	oStudentInformationData.m_nStudentId = oRowData.m_nStudentId;
-	oStudentInformationData.m_strAcademicYear = $("#selectapprovedstudentsacademicyear").val();
+	oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
 	m_oPrepareChequeListMemberData.m_oStudentInformationData = oRowData;
-	StudentInformationDataProcessor.getXML (oStudentInformationData,listPrepareChequeInfo_gotXML);
+	StudentInformationDataProcessor.getXML (oStudentInformationData,prepareChequeInfo_gotXML);
 }
 
-function listPrepareChequeInfo_gotXML (strXMLData)
+function prepareChequeInfo_gotXML (strXMLData)
 {
 	populateXMLData (strXMLData, "applicationstatus/preparecheque/studentChequePrepare.xslt", 'listPrepareCheque_div_listDetail');
 }
@@ -151,7 +151,7 @@ function listPrepareChequeInfo_list (strColumn, strOrder, nPageNumber, nPageSize
 	m_oPrepareChequeListMemberData.m_strSortOrder = strOrder;
 	m_oPrepareChequeListMemberData.m_nPageNumber = nPageNumber;
 	m_oPrepareChequeListMemberData.m_nPageSize = nPageSize;
-	loadPage ("inventorymanagement/progressbar.html", "dialog", "listPrepareChequeInfo_progressbarLoaded ()");
+	loadPage ("progressbarmanagement/progressbar.html", "dialog", "listPrepareChequeInfo_progressbarLoaded ()");
 }
 
 function prepareCheque ()
@@ -159,24 +159,45 @@ function prepareCheque ()
 	navigate("addaccount","widgets/applicationstatus/preparecheque/addPrepareCheque.js");
 }
 
-function searchStudentUIDInfo ()
+/*function searchStudentUIDInfo ()
 {
 	if($("StudentInfo_input_uid").val() != "")
 		navigate("searchuid","widgets/applicationstatus/preparecheque/searchUID.js");
 	else
 		alert("Please Enter UID Number");
+}*/
+
+function searchStudentUID ()
+{
+	var oStudentInformationData = new StudentInformationData();
+	oStudentInformationData.m_nUID = $("#StudentInfo_input_uid").val();
+	oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+	oStudentInformationData.m_strStatus = m_oPrepareChequeListMemberData.m_strStatus;
+	if($("StudentInfo_input_uid").val() != "")
+		StudentInformationDataProcessor.getStudentUID (oStudentInformationData, studentUIDInformation);	
+	else
+	{
+		alert("Please Enter UID Number");
+		document.getElementById("StudentInfo_input_uid").value = "";
+	}		
 }
 
 function studentUIDInformation (oResponse)
-{
+{	
 	if(oResponse.m_bSuccess)
 	{
+		document.getElementById("listPrepareCheque_div_listDetail").innerHTML = "";
+		var oStudentInformationData = new StudentInformationData () ;
+		oStudentInformationData.m_nStudentId = m_oPrepareChequeListMemberData.m_nStudentId = oResponse.m_arrStudentInformationData[0].m_nStudentId;
+		oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+		StudentInformationDataProcessor.getXML (oStudentInformationData,prepareChequeInfo_gotXML);
 		document.getElementById("StudentInfo_input_uid").value = "";
-		m_oPrepareChequeListMemberData.m_oStudentData = oResponse.m_arrStudentInformationData[0];
-		navigate("searchuid","widgets/applicationstatus/preparecheque/searchUID.js");		
 	}
 	else
-		alert("Student UID does not exist");
+	{
+		alert("Student UID Does not exist in the list");
+		document.getElementById("StudentInfo_input_uid").value = "";
+	}
 }
 
 function listPrepareChequeInfo_progressbarLoaded ()
@@ -184,7 +205,7 @@ function listPrepareChequeInfo_progressbarLoaded ()
 	createPopup('dialog', '', '', true);
 	var oPrepareChequeInformationData = new PrepareChequeInformationData ();
 	var oStudentInformationData = new StudentInformationData();
-	oStudentInformationData.m_nAcademicYear = $("#selectapprovedstudentsacademicyear").val();
+	oStudentInformationData.m_nAcademicYear = $("#selectacademicyear").val();
 	oStudentInformationData.m_strStatus = m_oPrepareChequeListMemberData.m_strStatus;
 	StudentInformationDataProcessor.getStudentStatuslist(oStudentInformationData,listPrepareChequeInfo_listed);
 }

@@ -119,7 +119,7 @@ function listFacililtatorInfo_list (strColumn, strOrder, nPageNumber, nPageSize)
 	m_oFacilitatorInfoListMemberData.m_strSortOrder = strOrder;
 	m_oFacilitatorInfoListMemberData.m_nPageNumber = nPageNumber;
 	m_oFacilitatorInfoListMemberData.m_nPageSize = nPageSize;
-	loadPage ("inventorymanagement/progressbar.html", "dialog", "listFacilitatorInfo_progressbarLoaded ()");
+	loadPage ("progressbarmanagement/progressbar.html", "dialog", "listFacilitatorInfo_progressbarLoaded ()");
 }
 
 function listFacilitatorInfo_displayImages (nFacilitatorId,index)

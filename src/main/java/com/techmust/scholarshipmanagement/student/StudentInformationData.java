@@ -567,8 +567,7 @@ public class StudentInformationData  extends MasterData implements Serializable
 	}
 
 	private String buildFacilitatorInformationDetails(FacilitatorInformationData oFacilitatorInformationData)
-	{
-		
+	{		
 		return oFacilitatorInformationData.generateXML();
 	}	
 	

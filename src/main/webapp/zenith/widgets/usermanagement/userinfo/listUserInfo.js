@@ -161,7 +161,7 @@ function listUserInfo_list (strColumn, strOrder, nPageNumber, nPageSize)
 	m_oUserInfoListMemberData.m_strSortOrder = strOrder;
 	m_oUserInfoListMemberData.m_nPageNumber = nPageNumber;
 	m_oUserInfoListMemberData.m_nPageSize = nPageSize;
-	loadPage ("inventorymanagement/progressbar.html", "dialog", "listUserInfo_progressbarLoaded ()");
+	loadPage ("progressbarmanagement/progressbar.html", "dialog", "listUserInfo_progressbarLoaded ()");
 }
 
 function listUserInfo_progressbarLoaded ()

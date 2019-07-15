@@ -114,7 +114,7 @@ function listCourseInfo_list (strColumn, strOrder, nPageNumber, nPageSize)
 	m_oCourseInfoListMemberData.m_strSortOrder = strOrder;
 	m_oCourseInfoListMemberData.m_nPageNumber = nPageNumber;
 	m_oCourseInfoListMemberData.m_nPageSize = nPageSize;
-	loadPage ("inventorymanagement/progressbar.html", "dialog", "listCourseInfo_progressbarLoaded ()");
+	loadPage ("progressbarmanagement/progressbar.html", "dialog", "listCourseInfo_progressbarLoaded ()");
 }
 
 function listCourseInfo_displayImages (nCourseId,index)

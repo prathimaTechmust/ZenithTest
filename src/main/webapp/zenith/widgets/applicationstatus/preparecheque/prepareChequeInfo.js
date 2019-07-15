@@ -76,25 +76,6 @@ function cheque_progressbarLoaded ()
 	StudentScholarshipAccountsProcessor.create(accountData,accountcreatedResponse);
 }
 
-function searchStudentUID ()
-{
-	var oStudentInformationData = new StudentInformationData();
-	oStudentInformationData.m_nUID = $("#student_input_studentUIDNumber").val();
-	StudentInformationDataProcessor.getStudentUID (oStudentInformationData, studentUIDInformation);	
-}
-
-function studentUIDInformation (oResponse)
-{
-	if(oResponse.m_bSuccess)
-	{
-		m_oPrepareChequeInfoMemberData.m_nStudentId = oResponse.m_arrStudentInformationData[0].m_nStudentId;
-		$("#studentInfo_inputStudentName").val(oResponse.m_arrStudentInformationData[0].m_strStudentName);
-		initFormValidateBoxes ("accountInfo_form_id");
-	}
-	else
-		alert("Please Enter Valid UID Number");
-}
-
 function studentUIDResponseLoad()
 {
 	var oStudentInformationData = new StudentInformationData();

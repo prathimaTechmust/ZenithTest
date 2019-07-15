@@ -3,9 +3,13 @@ var StudentInformationDataProcessor = (function __StudentInformationDataProcesso
 	function create (oStudentData,callback)
 	{
 		ajaxCall(oStudentData, "/studentInfoCreate", callback);
-		//multipartAjaxCall(oStudentData, "/studentInfoCreate", callback); 
-				
+		//multipartAjaxCall(oStudentData, "/studentInfoCreate", callback);				
 	}
+	
+	function createandprint(oStudentData,callback)
+    {
+        ajaxCall(oStudentData, "/studentInfoCreateAndPrint", callback);
+    }
 	
 	function get(oStudentData,callback)
 	{
@@ -70,6 +74,7 @@ var StudentInformationDataProcessor = (function __StudentInformationDataProcesso
 	
 	return { 
 		create : create,
+		createandprint:createandprint,
 		get : get,
 		list : list,
 		update :update,

@@ -140,7 +140,7 @@ function listAction_list (strColumn, strOrder, nPageNumber, nPageSize)
 	m_oActionListMemberData.m_strSortOrder = strOrder;
 	m_oActionListMemberData.m_nPageNumber = nPageNumber;
 	m_oActionListMemberData.m_nPageSize = nPageSize;
-	loadPage ("inventorymanagement/progressbar.html", "dialog", "listAction_progressbarLoaded ()");
+	loadPage ("progressbarmanagement/progressbar.html", "dialog", "listAction_progressbarLoaded ()");
 }
 
 function listAction_progressbarLoaded ()
