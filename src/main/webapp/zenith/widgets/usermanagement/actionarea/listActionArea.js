@@ -129,7 +129,7 @@ function listActionArea_list (strColumnName, strOrder, nPageNumber, nPageSize)
 	m_olistActionArea_MemberData.m_strSortOrder = strOrder;
 	m_olistActionArea_MemberData.m_nPageNumber = nPageNumber;
 	m_olistActionArea_MemberData.m_nPageSize = nPageSize;
-	loadPage ("inventorymanagement/progressbar.html", "dialog", "listActionArea_progressbarLoaded ()");
+	loadPage ("progressbarmanagement/progressbar.html", "dialog", "listActionArea_progressbarLoaded ()");
 }
 
 function listActionArea_progressbarLoaded ()

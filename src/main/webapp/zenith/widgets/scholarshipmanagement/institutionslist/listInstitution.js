@@ -116,7 +116,7 @@ function listInstitutionsInfo_list (strColumn, strOrder, nPageNumber, nPageSize)
 	m_oInstitutionsInfoListMemberData.m_strSortOrder = strOrder;
 	m_oInstitutionsInfoListMemberData.m_nPageNumber = nPageNumber;
 	m_oInstitutionsInfoListMemberData.m_nPageSize = nPageSize;
-	loadPage ("inventorymanagement/progressbar.html", "dialog", "listInstitutionsInfo_progressbarLoaded ()");
+	loadPage ("progressbarmanagement/progressbar.html", "dialog", "listInstitutionsInfo_progressbarLoaded ()");
 }
 
 function listInstitutionsInfo_displayImages (nInstitutionId,index)

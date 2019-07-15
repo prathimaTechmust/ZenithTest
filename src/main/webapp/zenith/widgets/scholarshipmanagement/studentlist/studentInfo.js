@@ -628,12 +628,12 @@ function studentInfo_updated (oStudentInfoResponse)
 		{
 			var oForm = $('#studentInfo_form_id')[0];
 			var oFormData = new FormData (oForm);
-			var strImageName = oFormData.get("studentimage");
-			if(strImageName == "")
+			var strImageFile = oFormData.get("studentimage");
+			if(strImageFile.name == "")
 			{
 				student_details_updated();
 			}
-			else if(oStudentInfoResponse.m_arrStudentInformationData[0].m_strStudentImageId == "" || m_oStudentInfoMemberData.m_strImageId != strImageName)
+			else if(oStudentInfoResponse.m_arrStudentInformationData[0].m_strStudentImageId == "" || m_oStudentInfoMemberData.m_strImageId != strImageFile.name)
 			{
 				oFormData.append('studentId',oStudentInfoResponse.m_arrStudentInformationData[0].m_nStudentId);				
 				StudentInformationDataProcessor.setImagetoS3bucket (oFormData, student_details_updated);
@@ -874,9 +874,41 @@ function studentInfo_setStudentUIDData (oStudentSetUIDResponse)
 
 }
 
+function studentInfo_createandprint()
+{
+
+    if(studentInfo_validate())
+        loadPage("include/process.html", "ProcessDialog", "studentcreateandPrint_progressbarLoaded ()");
+    else
+    {
+        alert("Please Enter Mandatory Fields");
+        $('#studentInfo_form_id').focus();        
+    }    
+}
+
+function studentcreateandPrint_progressbarLoaded ()
+{
+    createPopup('ProcessDialog', '', '', true);
+    oStudentInformationData = studentInfo_getFormData ();    
+    StudentInformationDataProcessor.createandprint(oStudentInformationData, studentInfo_createAndPrintResponse);
+}
+
+function studentInfo_createAndPrintResponse(oPrintResponse)
+{
+    if(oPrintResponse.m_bSuccess)
+    {
+        populateXMLData (oPrintResponse.m_strStudentXMLData, "applicationstatus/verified/printStudentDetails.xslt", 'printdetailsInfo');
+        printDocument();
+        HideDialog("dialog");
+    }
+    else
+    {
+        informUser("create and print is failed","kError");        
+    }
+}
+
 function studentUIDInfo_gotData ()
 {
-	
 	studentInfo_init ();
 	document.getElementById("studentInfo_button_submit").setAttribute('update', true);
 	document.getElementById("studentInfo_button_submit").innerHTML = "Update";	
@@ -887,8 +919,7 @@ function fatherAadharValidate ()
 {
 	var oStudentInformationData = new StudentInformationData ();
 	oStudentInformationData.m_nFatherAadharNumber = $("#studentInfo_input_fatherAadharNumber").val();
-	StudentInformationDataProcessor.checkAadharExist (oStudentInformationData, aadharResponse);
-	
+	StudentInformationDataProcessor.checkAadharExist (oStudentInformationData, aadharResponse);	
 }
 
 function motherAadharValidate()

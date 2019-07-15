@@ -161,7 +161,7 @@ function listRole_list (strColumnName, strOrder, nPageNumber, nPageSize)
 	m_oRoleListMemberData.m_strSortOrder = strOrder;
 	m_oRoleListMemberData.m_nPageNumber = nPageNumber;
 	m_oRoleListMemberData.m_nPageSize = nPageSize;
-	loadPage ("inventorymanagement/progressbar.html", "dialog", "listRole_progressbarLoaded ()");
+	loadPage ("progressbarmanagement/progressbar.html", "dialog", "listRole_progressbarLoaded ()");
 }
 
 function listRole_progressbarLoaded ()

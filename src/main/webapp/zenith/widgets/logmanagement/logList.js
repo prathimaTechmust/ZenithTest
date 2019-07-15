@@ -110,7 +110,7 @@ function logList_list (strColumn, strOrder, nPageNumber, nPageSize)
 	m_oLogListMemberData.m_strSortOrder = strOrder;
 	m_oLogListMemberData.m_nPageNumber = nPageNumber;
 	m_oLogListMemberData.m_nPageSize = nPageSize;
-	loadPage ("inventorymanagement/progressbar.html", "dialog", "logList_progressbarLoaded ()");
+	loadPage ("progressbarmanagement/progressbar.html", "dialog", "logList_progressbarLoaded ()");
 }
 
 function logList_progressbarLoaded ()

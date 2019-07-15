@@ -154,7 +154,7 @@ function listStudentInfo_list (strColumn, strOrder, nPageNumber, nPageSize)
 	m_oStudentInfoListMemberData.m_strSortOrder = strOrder;
 	m_oStudentInfoListMemberData.m_nPageNumber = nPageNumber;
 	m_oStudentInfoListMemberData.m_nPageSize = nPageSize;
-	loadPage ("inventorymanagement/progressbar.html", "dialog", "listStudentInfo_progressbarLoaded ()");
+	loadPage ("progressbarmanagement/progressbar.html", "dialog", "listStudentInfo_progressbarLoaded ()");
 }
 
 function listStudentInfo_displayImages (nStudentId,index)

@@ -156,7 +156,7 @@ function rejectedStudentListInfo_list (strColumn,strOrder,nPageNumber,nPageSize)
 	m_oRejectedStudentList_Info_MemberData.m_strSortOrder = strOrder;
 	m_oRejectedStudentList_Info_MemberData.m_nPageNumber = nPageNumber;
 	m_oRejectedStudentList_Info_MemberData.m_nPageSize = nPageSize;
-	loadPage ("inventorymanagement/progressbar.html", "dialog", "rejectedStudentListInfo_progressbarLoaded ()");
+	loadPage ("progressbarmanagement/progressbar.html", "dialog", "rejectedStudentListInfo_progressbarLoaded ()");
 }
 
 

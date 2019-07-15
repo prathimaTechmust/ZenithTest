@@ -130,7 +130,7 @@ function listScholarshipInfo_list (strColumn, strOrder, nPageNumber, nPageSize)
 	m_oScholarshipListMemberData.m_strSortOrder = strOrder;
 	m_oScholarshipListMemberData.m_nPageNumber = nPageNumber;
 	m_oScholarshipListMemberData.m_nPageSize = nPageSize;
-	loadPage ("inventorymanagement/progressbar.html", "dialog", "listScholarshipInfo_progressbarLoaded ()");
+	loadPage ("progressbarmanagement/progressbar.html", "dialog", "listScholarshipInfo_progressbarLoaded ()");
 }
 
 function listScholarshipInfo_progressbarLoaded ()

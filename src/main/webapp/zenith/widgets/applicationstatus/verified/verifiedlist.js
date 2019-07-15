@@ -147,25 +147,13 @@ function verifiedStudentListInfo_list (strColumn,strOrder,nPageNumber,nPageSize)
 	m_overifiedStudentList_Info_MemberData.m_strSortOrder = strOrder;
 	m_overifiedStudentList_Info_MemberData.m_nPageNumber = nPageNumber;
 	m_overifiedStudentList_Info_MemberData.m_nPageSize = nPageSize;
-	loadPage ("inventorymanagement/progressbar.html", "dialog", "verifiedStudentListInfo_progressbarLoaded ()");
+	loadPage ("progressbarmanagement/progressbar.html", "dialog", "verifiedStudentListInfo_progressbarLoaded ()");
 }
 
 function printStudentDetails()
 {
 	populateXMLData (m_overifiedStudentList_Info_MemberData.strXMLData, "applicationstatus/verified/printStudentDetails.xslt", 'printdetailsInfo');
 	printDocument();	
-}
-
-function printDocument ()
-{
-	var printContent = document.getElementById("printdetailsInfo");	
-	 var openWindow = window.open("", "", "");	   
-	    openWindow.document.write(printContent.innerHTML);
-	    openWindow.document.close();
-	    openWindow.focus();
-	    openWindow.print();
-	    openWindow.close();
-	    document.getElementById("printdetailsInfo").innerHTML = "";
 }
 
 function verifyStudentInfo_Student()
@@ -186,14 +174,15 @@ function studentverifiedResponse (oResponse)
 		navigate("list","widgets/applicationstatus/verified/verifiedlist.js");
 	}
 	else
-		informUser ("student verification Failed", "kError");
-	
+		informUser ("student verification Failed", "kError");	
 }
 
 function searchStudentUID()
 {
 	var oStudentInformationData = new StudentInformationData ();
 	oStudentInformationData.m_nUID = $("#StudentInfo_input_uid").val();
+	oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+	oStudentInformationData.m_strStatus = m_overifiedStudentList_Info_MemberData.m_strapplicationStatus; 
 	if($("#StudentInfo_input_uid").val() != "")
 		StudentInformationDataProcessor.getStudentUID(oStudentInformationData,studentUIDResponse);
 	else
@@ -212,7 +201,11 @@ function studentUIDResponse(oStudentUIDResponse)
 		document.getElementById("StudentInfo_input_uid").value = "";
 	}
 	else
-		alert("Student UID Does not exist");	
+	{
+		alert("Student UID Does not exist in the list");
+		document.getElementById("StudentInfo_input_uid").value = "";
+	}
+			
 }
 
 function verifiedStudentListInfo_progressbarLoaded ()

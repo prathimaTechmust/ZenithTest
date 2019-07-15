@@ -108,7 +108,7 @@ function disburseChequeListInfo_createDataGrid ()
 	disburseChequeListInfo_list(m_odisburseChequeList_Info_MemberData.m_strSortColumn, m_odisburseChequeList_Info_MemberData.m_strSortOrder, 1, 10);
 }
 
-function searchStudentUID ()
+/*function searchStudentUID ()
 {
 	if($("StudentInfo_input_uid").val() != "")
 		navigate("searchuid","widgets/applicationstatus/disbursecheque/searchUID.js");
@@ -117,7 +117,7 @@ function searchStudentUID ()
 		alert("Please Enter UID Number");
 		document.getElementById("StudentInfo_input_uid").value = "";		
 	}
-}
+}*/
 
 function disburseChequeListInfo_list (strColumn,strOrder,nPageNumber,nPageSize)
 {
@@ -129,7 +129,7 @@ function disburseChequeListInfo_list (strColumn,strOrder,nPageNumber,nPageSize)
 	m_odisburseChequeList_Info_MemberData.m_strSortOrder = strOrder;
 	m_odisburseChequeList_Info_MemberData.m_nPageNumber = nPageNumber;
 	m_odisburseChequeList_Info_MemberData.m_nPageSize = nPageSize;
-	loadPage ("inventorymanagement/progressbar.html", "dialog", "disburseChequeListInfo_progressbarLoaded ()");
+	loadPage ("progressbarmanagement/progressbar.html", "dialog", "disburseChequeListInfo_progressbarLoaded ()");
 }
 
 function disburseChequeListInfo_progressbarLoaded ()
@@ -150,16 +150,44 @@ function disburseChequeListInfo_selectedRowData (oRowData, nIndex)
 	var oStudentInformationData = new StudentInformationData () ;
 	oStudentInformationData.m_nStudentId = oRowData.m_nStudentId;
 	oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
-	m_odisburseChequeList_Info_MemberData.m_nStudentId = oRowData.m_nStudentId;
-	m_odisburseChequeList_Info_MemberData.m_nUID = oRowData.m_nUID;
-	m_odisburseChequeList_Info_MemberData.m_strStudentName = oRowData.m_strStudentName;
-	m_odisburseChequeList_Info_MemberData.m_nChequeNumber = oRowData.m_oAcademicDetails[0].m_oStudentScholarshipAccount[0].m_nChequeNumber;
-	StudentInformationDataProcessor.getXML (oStudentInformationData,approvalStudentListInfo_gotXML);
+	m_odisburseChequeList_Info_MemberData.m_nStudentId = oRowData.m_nStudentId;	
+	m_odisburseChequeList_Info_MemberData.m_oStudentInformationData = oRowData;
+	StudentInformationDataProcessor.getXML (oStudentInformationData,disburseStudentInfo_gotXML);
 }
 
-function approvalStudentListInfo_gotXML (strXMLData)
+function disburseStudentInfo_gotXML (strXMLData)
 {
 	populateXMLData (strXMLData, "applicationstatus/disburse/studentChequeDisburse.xslt", 'disburseChequeList_div_listDetail');
+}
+
+function searchStudentUID ()
+{
+	var oStudentInformationData = new StudentInformationData ();
+	oStudentInformationData.m_nUID = $("#StudentInfo_input_uid").val();
+	oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+	oStudentInformationData.m_strStatus = m_odisburseChequeList_Info_MemberData.m_strStatus;
+	if($("#StudentInfo_input_uid").val() != "")
+		StudentInformationDataProcessor.getStudentUID (oStudentInformationData, studentInfo_StudentUIDData);
+	else
+		alert("Please Enter Valid UID Number");
+}
+
+function studentInfo_StudentUIDData (oResponse)
+{	
+	if(oResponse.m_bSuccess)
+	{
+		document.getElementById("disburseChequeList_div_listDetail").innerHTML = "";
+		var oStudentInformationData = new StudentInformationData () ;
+		oStudentInformationData.m_nStudentId = m_odisburseChequeList_Info_MemberData.m_nStudentId = oResponse.m_arrStudentInformationData[0].m_nStudentId;
+		oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+		StudentInformationDataProcessor.getXML (oStudentInformationData,disburseStudentInfo_gotXML);
+		document.getElementById("StudentInfo_input_uid").value = "";
+	}
+	else
+	{
+		alert("Student UID Does not exist in the list");
+		document.getElementById("StudentInfo_input_uid").value = "";
+	}
 }
 
 function disburseStudent_Cheque ()

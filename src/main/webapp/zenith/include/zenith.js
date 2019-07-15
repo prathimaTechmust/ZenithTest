@@ -545,6 +545,20 @@ function getSharedWithList (arrConnections)
 	return arrSharedWithUsers;
 }
 
+//StudentDetails Print Method
+function printDocument ()
+{
+	var printContent = document.getElementById("printdetailsInfo");	
+	 var openWindow = window.open("", "", "");	   
+	    openWindow.document.write(printContent.innerHTML);
+	    openWindow.document.close();
+	    openWindow.focus();
+	    openWindow.print();
+	    openWindow.close();
+	    document.getElementById("printdetailsInfo").innerHTML = "";
+}
+
+//Converting Date functions
 function convertDateToTimeStamp(strDate)
 {
     strDate= strDate.split("-");

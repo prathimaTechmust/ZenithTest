@@ -20,15 +20,14 @@ var m_oDisburseStudentChequeInfo_MemberData = new disburseStudentChequeInfo_Memb
 function disburseCheque_new ()
 {
 	disburseStudentChequeInfo_init ();
-	disburseStudentChequeInfo_Loaded();
-	
+	disburseStudentChequeInfo_Loaded();	
 }
 
 function disburseStudentChequeInfo_Loaded ()
 {
-	$("#student_input_studentUIDNumber").val(m_oDisburseStudentChequeInfo_MemberData.m_nUID);
-	$("#studentInfo_inputStudentName").val(m_oDisburseStudentChequeInfo_MemberData.m_strStudentName);
-	$("#studentInfo_inputStudentcheque_dd").val(m_oDisburseStudentChequeInfo_MemberData.m_nChequeNumber);
+	$("#student_input_studentUIDNumber").val(m_oDisburseStudentChequeInfo_MemberData.m_oStudentInformationData.m_nUID);
+	$("#studentInfo_inputStudentName").val(m_oDisburseStudentChequeInfo_MemberData.m_oStudentInformationData.m_strStudentName);
+	$("#studentInfo_inputStudentcheque_dd").val(m_oDisburseStudentChequeInfo_MemberData.m_oStudentInformationData.m_nChequeNumber);
 }
 
 function disburseStudentChequeInfo_init ()
@@ -74,31 +73,6 @@ function disburseChequeResponse(oDisburseChequeResponse)
 	}		
 	else
 		informUser("cheque disbursed Failed","kError");
-}
-
-function searchStudentUID ()
-{
-	var oStudentInformationData = new StudentInformationData ();
-	oStudentInformationData.m_nUID = $("#StudentInfo_input_uid").val();
-	if(oStudentInformationData.m_nUID != "")
-		StudentInformationDataProcessor.getStudentUID (oStudentInformationData, studentInfo_StudentUIDData);
-	else
-		alert("Please Enter Valid UID Number");
-}
-
-function studentInfo_StudentUIDData (oStudentUIDResponse)
-{
-	
-	HideDialog ("ProcessDialog");
-	if(oStudentUIDResponse.m_bSuccess)
-	{
-		disburseStudentChequeInfo_init ();
-		m_oDisburseStudentChequeInfo_MemberData.m_nStudentId = oStudentUIDResponse.m_arrStudentInformationData[0].m_nStudentId;
-		$("#student_input_studentUIDNumber").val(oStudentUIDResponse.m_arrStudentInformationData[0].m_nUID);
-		$("#studentInfo_inputStudentName").val(oStudentUIDResponse.m_arrStudentInformationData[0].m_strStudentName);
-		$("#studentInfo_inputStudentcheque_dd").val(oStudentUIDResponse.m_arrStudentInformationData[0].m_oAcademicDetails[0].m_oStudentScholarshipAccount[0].m_nChequeNumber);
-		validateForm("disburseStudentChequeInfo_form_id");
-	}
 }
 
 function disburseChequeInfo_validate ()

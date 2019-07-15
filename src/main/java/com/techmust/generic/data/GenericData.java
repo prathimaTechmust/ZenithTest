@@ -934,4 +934,67 @@ public abstract class GenericData implements IGenericData, Serializable
 		}
 		return bIsCheckPrepared;
 	}
+	
+	public StudentInformationData getSearchUIDStudentData(StudentInformationData oStudentData)
+	{
+		EntityManager oEntityManager = _getEntityManager();
+		StudentInformationData oStudentInformationData = null;
+		try 
+		{			
+			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
+	        CriteriaQuery<StudentInformationData> oCriteriaQuery = oCriteriaBuilder.createQuery(StudentInformationData.class);
+	        Root<StudentInformationData> oStudentInformationRoot = oCriteriaQuery.from(StudentInformationData.class);    
+	        oCriteriaQuery.select(oStudentInformationRoot);
+	        oCriteriaQuery.where(oCriteriaBuilder.equal(oStudentInformationRoot.get("m_nUID"), oStudentData.getM_nUID()));
+	        List<StudentInformationData> arrStudentList = oEntityManager.createQuery(oCriteriaQuery).getResultList();
+	        if(arrStudentList.size() > 0)
+	        {
+		        oStudentInformationData = arrStudentList.get(0);
+		        oStudentInformationData.setM_strAcademicYear(oStudentData.getM_strAcademicYear());
+		        oStudentInformationData.setM_strStatus(oStudentData.getM_strStatus());
+		        oStudentInformationData.setM_oAcademicDetails(getAcademicDetails(oStudentInformationData));
+		        oStudentInformationData.setM_oZenithScholarshipDetails(getSearchStudentUID(oStudentInformationData));
+	        }						
+		}
+		catch (Exception oException)
+		{
+			m_oLogger.error("getSearchUIDStudentData - oException : " +oException);
+			throw oException;
+		}
+		finally
+		{
+			oEntityManager.close();
+			HibernateUtil.removeConnection();
+		}		
+		return oStudentInformationData;		
+	}
+
+	private Set<ZenithScholarshipDetails> getSearchStudentUID(StudentInformationData oStudentData) 
+	{
+		EntityManager oEntityManager = _getEntityManager();
+		ArrayList<ZenithScholarshipDetails> arrZenithScholarshipDetails = null;
+		Set<ZenithScholarshipDetails> oZenithScholarshipDetails = null;
+		try
+		{
+			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
+	        CriteriaQuery<ZenithScholarshipDetails> oCriteriaQuery = oCriteriaBuilder.createQuery(ZenithScholarshipDetails.class);
+	        Root<ZenithScholarshipDetails> oZenithScholarshipDetailsRoot = oCriteriaQuery.from(ZenithScholarshipDetails.class);   
+	        oCriteriaQuery.select(oZenithScholarshipDetailsRoot);
+	        oCriteriaQuery.where(oCriteriaBuilder.equal(oZenithScholarshipDetailsRoot.get("m_strStatus"), oStudentData.getM_strStatus()),
+	        		oCriteriaBuilder.equal(oZenithScholarshipDetailsRoot.get("m_oStudentInformationData"), oStudentData.getM_nStudentId()));	        				
+	        arrZenithScholarshipDetails =  (ArrayList<ZenithScholarshipDetails>) oEntityManager.createQuery(oCriteriaQuery).getResultList();
+	        oZenithScholarshipDetails = new HashSet<ZenithScholarshipDetails>(arrZenithScholarshipDetails);
+		} 
+		catch (Exception oException)
+		{
+			m_oLogger.error("getSearchStudentUID - oException : " +oException);
+			throw oException;
+		}
+		finally 
+		{
+			oEntityManager.close();
+			HibernateUtil.removeConnection();
+		}
+		return oZenithScholarshipDetails;
+	}
 }

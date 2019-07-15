@@ -44,7 +44,7 @@ public class AcademicDetailsProcessor extends GenericIDataProcessor<AcademicDeta
 			
 			String strUUID = "";
 			String strExtension = Constants.IMAGE_DEFAULT_EXTENSION;			
-			if(oStudentAadharMultipartFile != null)
+			if(!oStudentAadharMultipartFile.isEmpty())
 			{
 				oAcademicDetails = (AcademicDetails) populateObject(oAcademicDetails);
 				strUUID = Utils.getUUID();
@@ -57,7 +57,7 @@ public class AcademicDetailsProcessor extends GenericIDataProcessor<AcademicDeta
 				oAcademicDetails.setM_arrStudentDocuments(m_arrDocuments);
 				oStudentDataResponse.m_bSuccess = oAcademicDetails.updateObject();
 			}
-			if(oStudentElectricityBillMultipartFile != null)
+			if(!oStudentElectricityBillMultipartFile.isEmpty())
 			{
 				oAcademicDetails = (AcademicDetails) populateObject(oAcademicDetails);
 				strUUID = Utils.getUUID();
@@ -70,7 +70,7 @@ public class AcademicDetailsProcessor extends GenericIDataProcessor<AcademicDeta
 				oAcademicDetails.setM_arrStudentDocuments(m_arrDocuments);
 				oStudentDataResponse.m_bSuccess = oAcademicDetails.updateObject();
 			}
-			if(oFatherMultipartFile != null)
+			if(!oFatherMultipartFile.isEmpty())
 			{
 				oAcademicDetails = (AcademicDetails) populateObject(oAcademicDetails);
 				strUUID = Utils.getUUID();
@@ -83,7 +83,7 @@ public class AcademicDetailsProcessor extends GenericIDataProcessor<AcademicDeta
 				oAcademicDetails.setM_arrStudentDocuments(m_arrDocuments);
 				oStudentDataResponse.m_bSuccess = oAcademicDetails.updateObject();
 			}
-			if(oMotherMultipartFile != null)
+			if(!oMotherMultipartFile.isEmpty())
 			{
 				oAcademicDetails = (AcademicDetails) populateObject(oAcademicDetails);
 				strUUID = Utils.getUUID();
@@ -96,7 +96,7 @@ public class AcademicDetailsProcessor extends GenericIDataProcessor<AcademicDeta
 				oAcademicDetails.setM_arrStudentDocuments(m_arrDocuments);
 				oStudentDataResponse.m_bSuccess = oAcademicDetails.updateObject();
 			}
-			if(oStudentMarksCard1MultipartFile != null)
+			if(!oStudentMarksCard1MultipartFile.isEmpty())
 			{
 				oAcademicDetails = (AcademicDetails) populateObject(oAcademicDetails);
 				strUUID = Utils.getUUID();
@@ -109,7 +109,7 @@ public class AcademicDetailsProcessor extends GenericIDataProcessor<AcademicDeta
 				oAcademicDetails.setM_arrStudentDocuments(m_arrDocuments);
 				oStudentDataResponse.m_bSuccess = oAcademicDetails.updateObject();
 			}			
-			if(oStudentMarksCard2MultipartFile != null)
+			if(!oStudentMarksCard2MultipartFile.isEmpty())
 			{
 				oAcademicDetails = (AcademicDetails) populateObject(oAcademicDetails);
 				strUUID = Utils.getUUID();
@@ -122,7 +122,7 @@ public class AcademicDetailsProcessor extends GenericIDataProcessor<AcademicDeta
 				oAcademicDetails.setM_arrStudentDocuments(m_arrDocuments);
 				oStudentDataResponse.m_bSuccess = oAcademicDetails.updateObject();
 			}
-			if(oOtherDocumentsMultipartFile != null)
+			if(!oOtherDocumentsMultipartFile.isEmpty())
 			{
 				oAcademicDetails = (AcademicDetails) populateObject(oAcademicDetails);
 				strUUID = Utils.getUUID();
