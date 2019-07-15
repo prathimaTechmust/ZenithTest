@@ -1032,3 +1032,4 @@ public abstract class GenericData implements IGenericData, Serializable
 		}
 		return oZenithScholarshipDetails;
 	}
+}
