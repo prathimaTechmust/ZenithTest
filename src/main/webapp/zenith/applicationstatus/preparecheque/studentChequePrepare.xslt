@@ -50,8 +50,8 @@
 											<tr>
 												<td>																																															
 													<button type="button" width="20" align="center" class = "zenith addButton" style="width:130px;" id="verifyStudent" title="Prepare Cheque" onClick="prepareCheque()">Prepare Cheque</button>
-												</td>	
-																																	
+											        <button type="button" width="120px" align="center" class="zenith addButton" style="width:120px;" id="documentView" title="documentView" onclick="viewStudentDocument('{StudentInformationData/m_oAcademicDetails/AcademicDetails/m_nAcademicId}')">View Documents </button>
+												</td>																					
 											</tr>									
 										</table>										
 									</td>																

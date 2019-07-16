@@ -33,7 +33,7 @@
 									<td class="zenith" align="left">
 										<table class="zenith">
 											<tr>
-												<td width="25%" valign="top">
+												<td width="75%" valign="top">
 													<fieldset>
 														<legend>
 															Approve Amount
@@ -56,9 +56,13 @@
 															</table>
 													</fieldset>													
 												</td>
+												<td> 
+								     	<button type="button" width="120px" align="center" class="zenith addButton" style="width:120px;" id="documentView" title="documentView" onclick="viewStudentDocument()">View Documents </button>
+	 			       			                </td>	
 											</tr>									
 										</table>										
-									</td>																
+									</td>
+																								
 								</tr>								
 							</table>
 						</td>

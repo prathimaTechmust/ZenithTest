@@ -79,7 +79,6 @@ function studentList_cancelImagePreview ()
 {
 	HideDialog ("dialog");
 }
-
 function isUrlValid(fieldId) {
 	var url = $("#"+fieldId).val();
     if(!(/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i
@@ -150,6 +149,45 @@ function loadPage (toPage, container, onCompleteCallBack)
 	}
     document.getElementById("status").innerHTML = "<p>loading "+toPage+"...in "+container+"</p>";
     
+}
+
+function viewStudentDocument(academicId) 
+{
+	loadPage("applicationstatus/documentView/studentDocumentView.html","dialog","viewStudentDocumentDetails()");
+}
+
+function viewStudentDocumentDetails ()
+{
+	viewStudentDocuments_init();
+
+}
+
+function viewStudentDocuments_init()
+{	
+	createPopup('dialog','','chequeRemarkInfo_button_cancel', true);
+	initFormValidateBoxes('documentViewForm');	
+}
+
+function viewStudentDocument_cancel() 
+{
+	HideDialog ("dialog");
+}
+
+function studentDocumentView_documentPreview ()
+{
+	loadPage("applicationstatus/documentView/uploadDocumentView.html","secondDialog", "documentList_showImagePreview()");
+}
+
+function documentList_showImagePreview() 
+{
+	 createPopup ('secondDialog', '', '', true);
+	 document.getElementById('secondDialog').style.position = "fixed";
+	 $(".imagePreview").attr('src', m_oZenithMemberData.m_strDocUploadURL);    
+}
+
+function documentList_cancelImagePreview() 
+{
+	HideDialog ("secondDialog");	
 }
 
 function removeAllChildren (container)
