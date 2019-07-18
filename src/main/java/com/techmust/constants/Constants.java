@@ -42,5 +42,6 @@ public class Constants
 	public static final String STUDENTMARKSCARD2 = "images/studentmarkscard2/";
 	public static final String STUDENTOTHERDOCUMENTS = "images/studentotherdocuments/";
 	public static final String VERIFIEDAPPLICATION = "images/verifiedapplication/";
+	public static final String CHEQUECLAIMED = "cheque claimed";
 	
 }

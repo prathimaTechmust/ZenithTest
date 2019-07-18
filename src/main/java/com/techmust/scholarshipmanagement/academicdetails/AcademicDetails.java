@@ -295,12 +295,8 @@ public class AcademicDetails extends MasterData implements Serializable
 			Document oScholarshipDetalsXmlDoc = getXmlDocument ("<m_oScholarshipDetails>"+buildScholarshipDetails (m_oScholarshipDetails)+"</m_oScholarshipDetails>");
 			Node oScholarshipNode = oXmlDocument.importNode(oScholarshipDetalsXmlDoc.getFirstChild(), true);
 			oRootElement.appendChild(oScholarshipNode);
-			/*Student ChildNode*/
-			/*Document oStudentDetalsXmlDoc = getXmlDocument ("<m_oStudentInformationData>"+buildStudentDetails (m_oStudentInformationData)+"</m_oStudentInformationData>");
-			Node oStudentNode = oXmlDocument.importNode(oStudentDetalsXmlDoc.getFirstChild(), true);
-			oRootElement.appendChild(oStudentNode);*/
 			
-			addChild (oXmlDocument, oRootElement, "m_nAcademicId", m_oStudentInformationData.getM_nStudentId());			
+			addChild (oXmlDocument, oRootElement, "m_nAcademicId", m_nAcademicId);			
 			addChild (oXmlDocument, oRootElement, "m_strSpecialization", m_strSpecialization);
 			addChild (oXmlDocument, oRootElement, "m_strStudentScore", m_strStudentScore);
 			addChild (oXmlDocument, oRootElement, "m_fAnnualFee", m_fAnnualFee);
@@ -313,12 +309,7 @@ public class AcademicDetails extends MasterData implements Serializable
 			m_oLogger.error ("generateXML - oException : " + oException);
 		}		
 		return strAcademicDetails;		
-	}
-	
-	/*private String buildStudentDetails(StudentInformationData oStudentInformationData)
-	{		
-		return oStudentInformationData.generateXML();
-	}*/
+	}	
 
 	private String buildScholarshipDetails(Set<ScholarshipDetails> oScholarshipDetails)
 	{

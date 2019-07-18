@@ -43,7 +43,7 @@
                                                     <button type="button"  disabled="true" width="20" align="center"  class = "zenith addButton" style="width:100px;color: grey;" id="verifyStudent" title="Verify" onClick="verifyStudentInfo_Student()">Verify</button>
                                                 </td>
                                                 <td>
-	 			       							 <button type="button" width="120px" align="center" class="zenith addButton" style="width:120px;" id="documentView" title="documentView" onclick="viewStudentDocument()">View Documents </button>
+	 			       							 <button type="button" width="120px" align="center" class="zenith addButton" style="width:120px;" id="documentView" title="documentView" onclick="viewStudentDocument('{StudentInformationData/m_oAcademicDetails/AcademicDetails/m_nAcademicId}')">View Documents </button>
 	 			       						   </td>
 											</tr>									
 										</table>										

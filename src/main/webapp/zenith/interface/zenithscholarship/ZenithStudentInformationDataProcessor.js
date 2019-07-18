@@ -27,18 +27,26 @@ var ZenithStudentInformationDataProcessor = (function __ZenithStudentInformation
 		
 		ajaxCall(oReVerification,"/reverifyapplication",callback);
 	}
-	
+
 	function reIssueChequeStatusUpdate(oReIssueCheque, callback) 
 	{
 	    ajaxCall(oReIssueCheque,"/reIssueCheque",callback);
 	
 	}
+
+	function claimCheque(oClaimCheque,callback)
+	{
+		ajaxCall(oClaimCheque,"/claimChequeUpdate",callback);
+	}
+	
 	return { 		
 		verifiedStatusUpdate:verifiedStatusUpdate,		
 		approvedStatusUpdate :approvedStatusUpdate,
 		rejectStatusUpdate :rejectStatusUpdate,
 		issueCheque:issueCheque,
 		reIssueChequeStatusUpdate:reIssueChequeStatusUpdate,
-		reVerifiedStatusUpdate :reVerifiedStatusUpdate
+		reVerifiedStatusUpdate :reVerifiedStatusUpdate,
+		claimCheque:claimCheque
+
 	};
 })();

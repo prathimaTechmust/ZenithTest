@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,7 +45,7 @@ public class AcademicDetailsProcessor extends GenericIDataProcessor<AcademicDeta
 			
 			String strUUID = "";
 			String strExtension = Constants.IMAGE_DEFAULT_EXTENSION;			
-			if(!oStudentAadharMultipartFile.isEmpty())
+			if(oStudentAadharMultipartFile != null)
 			{
 				oAcademicDetails = (AcademicDetails) populateObject(oAcademicDetails);
 				strUUID = Utils.getUUID();
@@ -57,7 +58,7 @@ public class AcademicDetailsProcessor extends GenericIDataProcessor<AcademicDeta
 				oAcademicDetails.setM_arrStudentDocuments(m_arrDocuments);
 				oStudentDataResponse.m_bSuccess = oAcademicDetails.updateObject();
 			}
-			if(!oStudentElectricityBillMultipartFile.isEmpty())
+			if(oStudentElectricityBillMultipartFile != null)
 			{
 				oAcademicDetails = (AcademicDetails) populateObject(oAcademicDetails);
 				strUUID = Utils.getUUID();
@@ -70,7 +71,7 @@ public class AcademicDetailsProcessor extends GenericIDataProcessor<AcademicDeta
 				oAcademicDetails.setM_arrStudentDocuments(m_arrDocuments);
 				oStudentDataResponse.m_bSuccess = oAcademicDetails.updateObject();
 			}
-			if(!oFatherMultipartFile.isEmpty())
+			if(oFatherMultipartFile != null)
 			{
 				oAcademicDetails = (AcademicDetails) populateObject(oAcademicDetails);
 				strUUID = Utils.getUUID();
@@ -83,7 +84,7 @@ public class AcademicDetailsProcessor extends GenericIDataProcessor<AcademicDeta
 				oAcademicDetails.setM_arrStudentDocuments(m_arrDocuments);
 				oStudentDataResponse.m_bSuccess = oAcademicDetails.updateObject();
 			}
-			if(!oMotherMultipartFile.isEmpty())
+			if(oMotherMultipartFile != null)
 			{
 				oAcademicDetails = (AcademicDetails) populateObject(oAcademicDetails);
 				strUUID = Utils.getUUID();
@@ -96,7 +97,7 @@ public class AcademicDetailsProcessor extends GenericIDataProcessor<AcademicDeta
 				oAcademicDetails.setM_arrStudentDocuments(m_arrDocuments);
 				oStudentDataResponse.m_bSuccess = oAcademicDetails.updateObject();
 			}
-			if(!oStudentMarksCard1MultipartFile.isEmpty())
+			if(oStudentMarksCard1MultipartFile != null)
 			{
 				oAcademicDetails = (AcademicDetails) populateObject(oAcademicDetails);
 				strUUID = Utils.getUUID();
@@ -109,7 +110,7 @@ public class AcademicDetailsProcessor extends GenericIDataProcessor<AcademicDeta
 				oAcademicDetails.setM_arrStudentDocuments(m_arrDocuments);
 				oStudentDataResponse.m_bSuccess = oAcademicDetails.updateObject();
 			}			
-			if(!oStudentMarksCard2MultipartFile.isEmpty())
+			if(oStudentMarksCard2MultipartFile != null)
 			{
 				oAcademicDetails = (AcademicDetails) populateObject(oAcademicDetails);
 				strUUID = Utils.getUUID();
@@ -122,7 +123,7 @@ public class AcademicDetailsProcessor extends GenericIDataProcessor<AcademicDeta
 				oAcademicDetails.setM_arrStudentDocuments(m_arrDocuments);
 				oStudentDataResponse.m_bSuccess = oAcademicDetails.updateObject();
 			}
-			if(!oOtherDocumentsMultipartFile.isEmpty())
+			if(oOtherDocumentsMultipartFile != null)
 			{
 				oAcademicDetails = (AcademicDetails) populateObject(oAcademicDetails);
 				strUUID = Utils.getUUID();
@@ -141,7 +142,18 @@ public class AcademicDetailsProcessor extends GenericIDataProcessor<AcademicDeta
 			m_oLogger.error ("Upload Documents - oException : "  +oException);
 		}        		
 		return oStudentDataResponse; 
-    }
+    }	
+	
+	@RequestMapping(value = "/getStudentUploadedDocuments",method = RequestMethod.POST,headers = {"Content-type=application/json"})
+	@ResponseBody
+	public GenericResponse getStudentUploadedDocuments(@RequestBody AcademicDetails oAcademicDetails)
+	{
+		StudentDataResponse oStudentDataResponse = new StudentDataResponse();
+		oStudentDataResponse.m_oStudentDocuments = oAcademicDetails.getStudentUploadDocuments(oAcademicDetails);
+		if(oStudentDataResponse.m_oStudentDocuments != null)
+			oStudentDataResponse.m_bSuccess = true;
+		return oStudentDataResponse;		
+	}
 	
 	@Override
 	public GenericResponse create(AcademicDetails oGenericData) throws Exception

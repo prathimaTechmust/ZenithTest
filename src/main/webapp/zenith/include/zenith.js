@@ -19,7 +19,9 @@ var m_oPagesLookup = {};
 
 var zenith_includeDataObjects = 
 [
-	'widgets/usermanagement/userinfo/UserInformationData.js'
+	'widgets/usermanagement/userinfo/UserInformationData.js',
+	'widgets/scholarshipmanagement/academicyear/AcademicYear.js',
+	'widgets/scholarshipmanagement/academicdetails/AcademicDetails.js'
 ];
 
 includeDataObjects (zenith_includeDataObjects, "");
@@ -153,19 +155,43 @@ function loadPage (toPage, container, onCompleteCallBack)
 
 function viewStudentDocument(academicId) 
 {
-	loadPage("applicationstatus/documentView/studentDocumentView.html","dialog","viewStudentDocumentDetails()");
+	var oAcademicDetails = new AcademicDetails ();
+	oAcademicDetails.m_nAcademicId = academicId;
+	AcademicDetailsDataProcessor.getStudentDocuments(oAcademicDetails,studentUploadedDocumentsResponse);
+	
+}
+
+function studentUploadedDocumentsResponse (oResponse)
+{
+	if(oResponse.m_bSuccess)
+	{
+		m_oZenithMemberData.m_oStudentDocuments = oResponse.m_oStudentDocuments;
+		loadPage("applicationstatus/documentView/studentDocumentView.html","dialog","viewStudentDocumentDetails()");
+	}
+	else
+		informUser("No Documents Uploaded!!","kError");
 }
 
 function viewStudentDocumentDetails ()
 {
 	viewStudentDocuments_init();
-
 }
 
 function viewStudentDocuments_init()
 {	
 	createPopup('dialog','','chequeRemarkInfo_button_cancel', true);
-	initFormValidateBoxes('documentViewForm');	
+	setUploadedDocuments(m_oZenithMemberData.m_oStudentDocuments);
+}
+
+function setUploadedDocuments(oStudentDocuments)
+{
+	$("#studentAadharId").attr('src',oStudentDocuments.m_strStudentAadhar);
+	$("#fatherAadharId").attr('src',oStudentDocuments.m_strFatherAadharImageId);
+	$("#motherAadharId").attr('src',oStudentDocuments.m_strMotherAadharImageId);
+	$("#electricityBillId").attr('src',oStudentDocuments.m_strStudentElectricityBill);
+	$("#marksCard1Id").attr('src',oStudentDocuments.m_strStudentMarksCard1);
+	$("#marksCard2Id").attr('src',oStudentDocuments.m_strStudentMarksCard2);
+	$("#additionalDocumentId").attr('src',oStudentDocuments.m_strOtherDocuments);	 
 }
 
 function viewStudentDocument_cancel() 
@@ -173,8 +199,10 @@ function viewStudentDocument_cancel()
 	HideDialog ("dialog");
 }
 
-function studentDocumentView_documentPreview ()
+function studentDocumentView_documentPreview (imageId)
 {
+	var imageSrc = document.getElementById(imageId.id).src;
+	m_oZenithMemberData.m_strImagePreviewUrl = imageSrc;
 	loadPage("applicationstatus/documentView/uploadDocumentView.html","secondDialog", "documentList_showImagePreview()");
 }
 
@@ -182,7 +210,7 @@ function documentList_showImagePreview()
 {
 	 createPopup ('secondDialog', '', '', true);
 	 document.getElementById('secondDialog').style.position = "fixed";
-	 $(".imagePreview").attr('src', m_oZenithMemberData.m_strDocUploadURL);    
+	 $(".imagePreview").attr('src', m_oZenithMemberData.m_strImagePreviewUrl);    
 }
 
 function documentList_cancelImagePreview() 
@@ -626,6 +654,29 @@ function FormatDateToSet (strDate)
 	var arrDate = strDate.split('-');
 	var strFormatDate = arrDate[1] + "/" + arrDate[0] + "/" + arrDate[2];
 	return strFormatDate;
+}
+
+//Populating AcademicYear Dropdown
+
+function populateAcademicYearDropDown ()
+{
+	var oAcademicYear = new AcademicYear();
+	AcademicYearProcessor.list(oAcademicYear,"m_strAcademicYear","asc",0,0,academicyearResponse);	
+}
+
+function academicyearResponse(oYearResponse)
+{
+	populateYear("selectacademicyear",oYearResponse);
+}
+
+function populateYear(academicyear,oYearResponse)
+{
+	var arrAcademicYears = new Array();
+	for(var nIndex = 0; nIndex < oYearResponse.m_arrAcademicYear.length; nIndex++)
+	{
+		arrAcademicYears.push(CreateOption(oYearResponse.m_arrAcademicYear[nIndex].m_strAcademicYear,oYearResponse.m_arrAcademicYear[nIndex].m_strAcademicYear));		
+	}
+	PopulateDD(academicyear,arrAcademicYears);	
 }
 
 function processConfirmation (strOkBtnName, strCancelBtnName, strMessage, strCallbackFunction)

@@ -152,6 +152,26 @@ public class ZenithScholarshipInformationDataProcessor extends GenericIDataProce
 		}				
 		return oDataResponse;
 		
+	}	
+	
+	@RequestMapping(value="/claimChequeUpdate",method = RequestMethod.POST, headers = {"Content-type=application/json"})
+	@ResponseBody
+	public GenericResponse claimCheque(@RequestBody ZenithScholarshipDetails oZenithScholarshipDetails) throws Exception
+	{
+		m_oLogger.info("claimCheque");
+		m_oLogger.debug("claimCheque - ZenithScholarshipDetails [IN] : " + oZenithScholarshipDetails);
+		ZenithScholarshipDetailsDataResponse oDataResponse = new ZenithScholarshipDetailsDataResponse();
+		try 
+		{
+			oDataResponse.m_bSuccess = oZenithScholarshipDetails.claimCheque(oZenithScholarshipDetails);
+		} 
+		catch (Exception oException)
+		{
+			m_oLogger.error("claimCheque- oException"+oException);
+			throw oException;
+		}				
+		return oDataResponse;
+		
 	}
 	
 	@RequestMapping(value = "/reIssueCheque", method = RequestMethod.POST, headers = {"Content-type=application/json"})

@@ -48,7 +48,9 @@ import com.techmust.scholarshipmanagement.course.CourseInformationData;
 import com.techmust.scholarshipmanagement.scholarshipdetails.zenithscholarshipstatus.ZenithScholarshipDetails;
 import com.techmust.scholarshipmanagement.sholarshipaccounts.StudentScholarshipAccount;
 import com.techmust.scholarshipmanagement.student.StudentInformationData;
+import com.techmust.scholarshipmanagement.studentdocuments.StudentDocuments;
 import com.techmust.usermanagement.userinfo.UserInformationData;
+import com.techmust.utils.Utils;
 
 public abstract class GenericData implements IGenericData, Serializable
 {
@@ -1032,4 +1034,72 @@ public abstract class GenericData implements IGenericData, Serializable
 		}
 		return oZenithScholarshipDetails;
 	}
+	
+	public boolean claimCheque(ZenithScholarshipDetails oZenithData) throws Exception
+	{
+		boolean bIsChequeClaimed = false;
+		EntityManager oEntityManager = _getEntityManager();
+		try
+		{
+			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
+			CriteriaQuery<ZenithScholarshipDetails> oCriteriaQuery = oCriteriaBuilder.createQuery(ZenithScholarshipDetails.class);
+			Root<ZenithScholarshipDetails> oZenithRoot = oCriteriaQuery.from(ZenithScholarshipDetails.class);
+			oCriteriaQuery.select(oZenithRoot);
+			oCriteriaQuery.where(oCriteriaBuilder.equal(oZenithRoot.get("m_oStudentInformationData"),oZenithData.getM_nStudentId()));
+			List<ZenithScholarshipDetails> list = oEntityManager.createQuery(oCriteriaQuery).getResultList();
+			if(list.size() > 0)
+			{
+				ZenithScholarshipDetails oDetails = list.get(0);
+				oDetails.setM_strStatus(Constants.CHEQUECLAIMED);
+				bIsChequeClaimed = oDetails.updateObject();
+			}
+		}
+		catch (Exception oException)
+		{
+			m_oLogger.error("Claimed Cheque - oException"+oException);
+			throw oException;
+		}
+		finally
+		{
+			oEntityManager.close();
+			HibernateUtil.removeConnection();
+		}
+		return bIsChequeClaimed;		
+	}
+	
+	public StudentDocuments getStudentUploadDocuments(AcademicDetails oAcademicDetails)
+	{
+		List<StudentDocuments> m_arrStudentDocuments = null;
+		StudentDocuments oStudentDocuments = null;
+		EntityManager oEntityManager = _getEntityManager();
+		try
+		{
+			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
+			CriteriaQuery<AcademicDetails> oCriteriaQuery = oCriteriaBuilder.createQuery(AcademicDetails.class);
+			Root<AcademicDetails> oRoot = oCriteriaQuery.from(AcademicDetails.class);
+			oCriteriaQuery.select(oRoot);
+			oCriteriaQuery.where(oCriteriaBuilder.equal(oRoot.get("m_nAcademicId"),oAcademicDetails.getM_nAcademicId()));
+			List<AcademicDetails> documentList = oEntityManager.createQuery(oCriteriaQuery).getResultList();
+			AcademicDetails oAcademicData = documentList.get(0);
+			if(oAcademicData.getM_arrStudentDocuments().size() > 0)
+			{
+				m_arrStudentDocuments = documentList.get(0).getM_arrStudentDocuments();
+				oStudentDocuments = Utils.getStudentDocuments(m_arrStudentDocuments.get(0));
+			}
+			
+		} 
+		catch (Exception oException)
+		{
+			m_oLogger.error("get Documents - oException" + oException);
+			throw oException;
+		}
+		finally 
+		{
+			oEntityManager.close();
+			HibernateUtil.removeConnection();
+		}
+		return oStudentDocuments;		
+	}
 }
+
+

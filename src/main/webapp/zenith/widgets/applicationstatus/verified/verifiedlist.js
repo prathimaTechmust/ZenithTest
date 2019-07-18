@@ -243,30 +243,30 @@ function showImage(oFileSource,studentInfo_input_document)
                      {
                          studentInfo_input_document.src = this.result;
                      };
-     fr.readAsDataURL(oFileSource.files[0]);
-    
+     fr.readAsDataURL(oFileSource.files[0]);    
 }
 
-function studentuploadScan_documentPreview(scan_input_previewimageId){
+function studentuploadScan_documentPreview(scan_input_previewimageId)
+{
 	 var viewImageId = document.getElementById(scan_input_previewimageId.id)
-	    var fileInputimageurl = document.getElementById (scan_input_previewimageId.id).src;
+	 var fileInputimageurl = document.getElementById (scan_input_previewimageId.id).src;
 	 m_overifiedStudentList_Info_MemberData.m_strScanDocUploadURL = fileInputimageurl;
-	    loadPage("applicationstatus/verified/scanDocumentPreview.html","dialog","showScanDocumentPreview()");    
-	}
+	 loadPage("applicationstatus/verified/scanDocumentPreview.html","dialog","showScanDocumentPreview()");    
+}
 
 
-	function showScanDocumentPreview ()
-	{
-	    createPopup ('dialog', '', '', true);
-	    document.getElementById('dialog').style.position = "fixed";
-	    $(".imagePreview").attr('src', m_overifiedStudentList_Info_MemberData.m_strScanDocUploadURL);    
-	}
+function showScanDocumentPreview ()
+{
+    createPopup ('dialog', '', '', true);
+    document.getElementById('dialog').style.position = "fixed";
+    $(".imagePreview").attr('src', m_overifiedStudentList_Info_MemberData.m_strScanDocUploadURL);    
+}
 
-	
-	function scanDocument_cancelImagePreview() {
-	
-		  HideDialog ("dialog");
-	}
+
+function scanDocument_cancelImagePreview() 
+{
+	  HideDialog ("dialog");
+}
 
 
 

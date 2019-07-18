@@ -8,6 +8,7 @@ import java.util.Set;
 import com.techmust.scholarshipmanagement.academicdetails.AcademicDetails;
 import com.techmust.scholarshipmanagement.scholarshipdetails.zenithscholarshipstatus.ZenithScholarshipDetails;
 import com.techmust.scholarshipmanagement.student.StudentInformationData;
+import com.techmust.scholarshipmanagement.studentdocuments.StudentDocuments;
 
 public interface IGenericData
 {
@@ -29,5 +30,7 @@ public interface IGenericData
 	boolean reIssueCheckDetails(ZenithScholarshipDetails oZenithData) throws Exception;
 	boolean checkChequePrepared(Set<AcademicDetails> oAcademicDetails);
 	StudentInformationData getSearchUIDStudentData(StudentInformationData oStudentData);
+	boolean claimCheque(ZenithScholarshipDetails oZenithData) throws Exception;
+	StudentDocuments getStudentUploadDocuments(AcademicDetails oAcademicDetails);
 	
 }

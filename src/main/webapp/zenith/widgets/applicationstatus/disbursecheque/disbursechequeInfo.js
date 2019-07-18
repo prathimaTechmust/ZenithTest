@@ -27,7 +27,7 @@ function disburseStudentChequeInfo_Loaded ()
 {
 	$("#student_input_studentUIDNumber").val(m_oDisburseStudentChequeInfo_MemberData.m_oStudentInformationData.m_nUID);
 	$("#studentInfo_inputStudentName").val(m_oDisburseStudentChequeInfo_MemberData.m_oStudentInformationData.m_strStudentName);
-	$("#studentInfo_inputStudentcheque_dd").val(m_oDisburseStudentChequeInfo_MemberData.m_oStudentInformationData.m_nChequeNumber);
+	$("#studentInfo_inputStudentcheque_dd").val(m_oDisburseStudentChequeInfo_MemberData.m_oStudentInformationData.m_oAcademicDetails[0].m_oStudentScholarshipAccount.m_nChequeNumber);
 }
 
 function disburseStudentChequeInfo_init ()

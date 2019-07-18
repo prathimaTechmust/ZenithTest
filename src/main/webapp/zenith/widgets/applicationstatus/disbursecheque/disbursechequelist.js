@@ -71,8 +71,7 @@ function disburseChequeListInfo_createDataGrid ()
 					formatter:function(value,row,index)
 		        	{
 		        		return row.m_oAcademicDetails[0].m_oInstitutionInformationData.m_strInstitutionName;
-		        	}
-					
+		        	}					
 				},
 				{field:'m_nChequeNumber',title:'Cheque Number',sortable:true,width:200,
 					formatter:function(value,row,index)
