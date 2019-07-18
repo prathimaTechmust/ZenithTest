@@ -582,11 +582,10 @@ function studentInfo_gotData (oStudentInfoResponse)
 	m_oStudentInfoMemberData.m_nRowOrgAmountCount = m_oStudentInfoMemberData.m_arrScholarshipDetails.length;
 	m_oStudentInfoMemberData.m_nStudentId = oStudentInfoData.m_nStudentId;
 	 $("#studentInfo_input_studentUIDNumber").val(oStudentInfoData.m_nUID);
-	// $("#select_student_academicyear").val(oStudentInfoData.m_oAcademicYear.m_strAcademicYear);
 	 $("#studentInfo_input_studentAadharNumber").val(oStudentInfoData.m_nStudentAadharNumber);
 	 $("#studentInfo_input_studentName").val(oStudentInfoData.m_strStudentName);
 	 facilitatorPopulateCombobox(oStudentInfoData);
-	 $('#selectStudentInfo_input_studentfacilitator').combobox('select', oStudentInfoData.m_oFacilitatorInformationData.m_nFacilitatorId);
+	/* $('#selectStudentInfo_input_studentfacilitator').combobox('select', oStudentInfoData.m_oFacilitatorInformationData.m_nFacilitatorId);*/
 	 if(oStudentInfoData.m_strGender == "Male")
 	 {
 		var radiobutton = document.getElementById("studentInfo_input_male");
@@ -622,8 +621,8 @@ function studentInfo_gotData (oStudentInfoResponse)
 	  /*Academic Details*/
 	 institutionPopulateCombobox(oStudentInfoData);
 	 coursePopulateCombobox(oStudentInfoData);
-	 $("#select_input_academic_name").combobox('select',oStudentInfoData.m_oAcademicDetails[0].m_oInstitutionInformationData.m_nInstitutionId);	
-	 $("#select_input_studentcourse").combobox('select',oStudentInfoData.m_oAcademicDetails[0].m_oCourseInformationData.m_nCourseId);	
+	 /*$("#select_input_academic_name").combobox('select',oStudentInfoData.m_oAcademicDetails[0].m_oInstitutionInformationData.m_nInstitutionId);	
+	 $("#select_input_studentcourse").combobox('select',oStudentInfoData.m_oAcademicDetails[0].m_oCourseInformationData.m_nCourseId);*/	
 	 $("#select_input_studentSpecialization").val(oStudentInfoData.m_oAcademicDetails[0].m_strSpecialization);
 	 $("#studentInfo_input_studentScore").val(oStudentInfoData.m_oAcademicDetails[0].m_strStudentScore);
 	 $("#academicInfo_input_annualfee").val(oStudentInfoData.m_oAcademicDetails[0].m_fAnnualFee);
@@ -661,7 +660,7 @@ function  gotStudentDocuments(oStudentDocuments)
 
 function facilitatorPopulateCombobox(oStudentInfoData)
 {
-	assert.isObject(oStudentInfoData, "oStudentInfoData expected to be an Object.");
+	/*assert.isObject(oStudentInfoData, "oStudentInfoData expected to be an Object.");
 	assert( Object.keys(oStudentInfoData).length >0 , "oStudentInfoData cannot be an empty .");// checks for non emptyness 
 	var oFacilitatorInformationData = new FacilitatorInformationData ();
 	oFacilitatorInformationData.m_strFacilitatorName = oStudentInfoData.m_oFacilitatorInformationData.m_strFacilitatorName;
@@ -674,13 +673,16 @@ function facilitatorPopulateCombobox(oStudentInfoData)
 					arrFacilitatorInfo[nIndex].m_strFacilitatorName = encodeURIComponent(oFacilitatorResponse.m_arrFacilitatorInformationData[nIndex].m_strFacilitatorName);
 			    }
 				$('#selectStudentInfo_input_studentfacilitator').combobox('loadData',arrFacilitatorInfo)
-			});
+			});*/
+	var arrFacilitator = new Array();
+	arrFacilitator.push(oStudentInfoData.m_oFacilitatorInformationData)
+	$('#selectStudentInfo_input_studentfacilitator').jqxComboBox({source:arrFacilitator,selectedIndex:0});
 	
 }
 
 function institutionPopulateCombobox(oStudentInfoData)
 {
-	assert.isObject(oStudentInfoData, "oStudentInfoData expected to be an Object.");
+	/*assert.isObject(oStudentInfoData, "oStudentInfoData expected to be an Object.");
 	assert( Object.keys(oStudentInfoData).length >0 , "oStudentInfoData cannot be an empty .");// checks for non emptyness
 	var oInstitutionInformationData = new InstitutionInformationData ();
 	oInstitutionInformationData.m_strInstitutionName = oStudentInfoData.m_oAcademicDetails[0].m_oInstitutionInformationData.m_strInstitutionName;
@@ -693,12 +695,16 @@ function institutionPopulateCombobox(oStudentInfoData)
 					arrInstitutionInfo[nIndex].m_strInstitutionName = encodeURIComponent(oInstitutionResponse.m_arrInstitutionInformationData[nIndex].m_strInstitutionName);
 			    }
 				$('#select_input_academic_name').combobox('loadData',arrInstitutionInfo)
-			});
+			});*/
+	
+	var arrInstitutions = new Array();
+	arrInstitutions.push(oStudentInfoData.m_oAcademicDetails[0].m_oInstitutionInformationData)
+	$('#select_input_academic_name').jqxComboBox({source:arrInstitutions,selectedIndex:0});
 }
 
 function coursePopulateCombobox(oStudentInfoData)
 {
-	assert.isObject(oStudentInfoData, "oStudentInfoData expected to be an Object.");
+	/*assert.isObject(oStudentInfoData, "oStudentInfoData expected to be an Object.");
 	assert( Object.keys(oStudentInfoData).length >0 , "oStudentInfoData cannot be an empty .");// checks for non emptyness
 	var oCourseInformationData = new CourseInformationData ();
 	oCourseInformationData.m_strShortCourseName = oStudentInfoData.m_oAcademicDetails[0].m_oCourseInformationData.m_strShortCourseName;
@@ -711,7 +717,10 @@ function coursePopulateCombobox(oStudentInfoData)
 					arrCourseInfo[nIndex].m_strShortCourseName = encodeURIComponent(oCourseResponse.m_arrCourseInformationData[nIndex].m_strShortCourseName);
 			    }
 				$('#select_input_studentcourse').combobox('loadData',arrCourseInfo)
-			});
+			});*/
+	var arrCourses = new Array();
+	arrCourses.push(oStudentInfoData.m_oAcademicDetails[0].m_oCourseInformationData)
+	$('#select_input_studentcourse').jqxComboBox({source:arrCourses,selectedIndex:0});
 }
 
 function studentUIDInfo_submit ()
