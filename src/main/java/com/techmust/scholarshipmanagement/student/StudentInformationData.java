@@ -112,6 +112,9 @@ public class StudentInformationData  extends MasterData implements Serializable
 	@Column(name = "parentalstatus")
 	private String m_strParentalStatus;	
 	
+	@Column(name="applicationtype")
+	private String m_strApplicationType;
+	
 	@Transient	
 	private String m_strAcademicYear;
 	
@@ -156,6 +159,7 @@ public class StudentInformationData  extends MasterData implements Serializable
 		m_strCity = "";
 		m_strState = "";
 		m_nPincode = -1;
+		m_strApplicationType = "";
 		m_strStudentImageId = "";
 		m_nUID = -1;
 		m_oAcademicDetails = new HashSet<AcademicDetails> ();	
@@ -165,6 +169,16 @@ public class StudentInformationData  extends MasterData implements Serializable
 	
 
 	
+	public String getM_strApplicationType() 
+	{
+		return m_strApplicationType;
+	}
+	
+	public void setM_strApplicationType(String m_strApplicationType)
+	{
+		this.m_strApplicationType = m_strApplicationType;
+	}
+
 	public String getM_strStatus()
 	{
 		return m_strStatus;
@@ -537,6 +551,7 @@ public class StudentInformationData  extends MasterData implements Serializable
 			addChild (oXmlDocument, oRootElement, "m_strCity", m_strCity);
 			addChild (oXmlDocument, oRootElement, "m_strState", m_strState);
 			addChild (oXmlDocument, oRootElement, "m_nPincode", m_nPincode);
+			addChild (oXmlDocument, oRootElement, "m_strApplicationType", m_strApplicationType);
 			addChild (oXmlDocument, oRootElement, "m_strStudentImageId", m_strStudentImageId);					
 			addChild (oXmlDocument, oRootElement, "m_strStudentImageUrl", getStudentImageURL(m_strStudentImageId));
 			strStudentInfoXML = getXmlString (oXmlDocument);
