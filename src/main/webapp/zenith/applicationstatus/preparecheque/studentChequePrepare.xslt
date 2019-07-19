@@ -5,9 +5,9 @@
 <html>
 <head>
 	<style>
-		td{
-			vertical-align: top;				
-		}		
+		.topAlign{
+		vertical-align: top;				
+		}			
 	</style>
 </head>
 <body>
@@ -22,7 +22,7 @@
 							</a>
 							<br/>
 						</td>
-						<td style="padding-top: 8%;">
+						<td>
 							<table>
 								<tr>
 									<tr>
@@ -49,7 +49,7 @@
 					</tr>
 				</table>
 			</td>
-			<td style="padding-top: 2%;"  align="center">			
+			<td   align="center">			
 				<!--BUTTONS DEFINATION -->	
 				<table>
 					<tr>
@@ -349,8 +349,8 @@
 					</tr>
 				</table>			
 			</td>
-			<td>
-			<!-- Parents guardian details -->
+			<td class="topAlign">
+			<!-- Scholarship details -->
 				<table>
 					<tr>
 						<td>
