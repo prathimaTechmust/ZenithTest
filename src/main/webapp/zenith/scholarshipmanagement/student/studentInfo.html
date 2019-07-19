@@ -54,7 +54,7 @@
 								           <td class="fieldHeading">Tatkal</td>
 								           <td>
 										  <input id="studentInfo_input_tatkalYes" name="studentInfo_input_tatkal" type="radio" data-options="required:true" value="yes"/>Yes
-										  <input id="studentInfo_input_tatkalNo" name="studentInfo_input_tatkal" type="radio" data-options="required:true" value="no"/>No
+										  <input id="studentInfo_input_tatkalNo" name="studentInfo_input_tatkal" type="radio" data-options="required:true" value="no" checked="checked"/>No
 										            </td>   
 										</tr>			                    
 			                         
@@ -299,6 +299,7 @@
 															<input	type="radio" id="studentInfo_input_No"
 																	name="siblingsButton"
 																	value="No"
+																	checked="checked"
 																	onchange="hideSiblings(siblingdiv)">No</td>
 														</td>
 													</tr>
@@ -479,9 +480,9 @@
 						                 onclick="studentInfo_submit()">
 						               Create
 						             </button>
-						             <button id="studentInfo_button_print" type="button" class="zenith" style="width: 20%;" onclick="studentInfo_createandprint()">
+						            <!--  <button id="studentInfo_button_print" type="button" class="zenith" style="width: 20%;" onclick="studentInfo_createandprint()">
                                      CreateAndPrint
-                                     </button>
+                                     </button> -->
 						             <button id="studentInfo_button_cancel" type="button" class="zenith" onclick="studentInfo_cancel()">
 						               Cancel
 						             </button>
