@@ -71,8 +71,7 @@ function disburseChequeListInfo_createDataGrid ()
 					formatter:function(value,row,index)
 		        	{
 		        		return row.m_oAcademicDetails[0].m_oInstitutionInformationData.m_strInstitutionName;
-		        	}
-					
+		        	}					
 				},
 				{field:'m_nChequeNumber',title:'Cheque Number',sortable:true,width:200,
 					formatter:function(value,row,index)
@@ -193,6 +192,11 @@ function studentInfo_StudentUIDData (oResponse)
 function disburseStudent_Cheque ()
 {
 	navigate("dispursecheque","widgets/applicationstatus/disbursecheque/disbursechequeadd.js");
+}
+
+function reIssueCheque_Details() 
+{	
+	navigate("reIssueCheque","widgets/applicationstatus/disbursecheque/reIssueCheque.js");	
 }
 
 function disburseChequeListInfo_listed (oStudentResponseData)

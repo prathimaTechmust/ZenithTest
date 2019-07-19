@@ -158,3 +158,20 @@ function accountInfo_cancel ()
 {
 	HideDialog ("dialog");
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -19,7 +19,9 @@ var m_oPagesLookup = {};
 
 var zenith_includeDataObjects = 
 [
-	'widgets/usermanagement/userinfo/UserInformationData.js'
+	'widgets/usermanagement/userinfo/UserInformationData.js',
+	'widgets/scholarshipmanagement/academicyear/AcademicYear.js',
+	'widgets/scholarshipmanagement/academicdetails/AcademicDetails.js'
 ];
 
 includeDataObjects (zenith_includeDataObjects, "");
@@ -79,7 +81,6 @@ function studentList_cancelImagePreview ()
 {
 	HideDialog ("dialog");
 }
-
 function isUrlValid(fieldId) {
 	var url = $("#"+fieldId).val();
     if(!(/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i
@@ -150,6 +151,78 @@ function loadPage (toPage, container, onCompleteCallBack)
 	}
     document.getElementById("status").innerHTML = "<p>loading "+toPage+"...in "+container+"</p>";
     
+}
+
+function viewStudentDocument(academicId) 
+{
+	var oAcademicDetails = new AcademicDetails ();
+	oAcademicDetails.m_nAcademicId = academicId;
+	AcademicDetailsDataProcessor.getStudentDocuments(oAcademicDetails,studentUploadedDocumentsResponse);
+	
+}
+
+function studentUploadedDocumentsResponse (oResponse)
+{
+	if(oResponse.m_bSuccess)
+	{
+		m_oZenithMemberData.m_oStudentDocuments = oResponse.m_oStudentDocuments;
+		loadPage("applicationstatus/documentView/studentDocumentView.html","dialog","viewStudentDocumentDetails()");
+	}
+	else
+		informUser("No Documents Uploaded!!","kError");
+}
+
+function viewStudentDocumentDetails ()
+{
+	viewStudentDocuments_init();
+}
+
+function viewStudentDocuments_init()
+{	
+	createPopup('dialog','','chequeRemarkInfo_button_cancel', true);
+	setUploadedDocuments(m_oZenithMemberData.m_oStudentDocuments);
+}
+
+function setUploadedDocuments(oStudentDocuments)
+{
+	if(oStudentDocuments.m_strStudentAadhar != null)
+		$("#studentAadharId").attr('src',oStudentDocuments.m_strStudentAadhar);
+	if(oStudentDocuments.m_strFatherAadharImageId != null)
+		$("#fatherAadharId").attr('src',oStudentDocuments.m_strFatherAadharImageId);
+	if(oStudentDocuments.m_strMotherAadharImageId !=null)
+		$("#motherAadharId").attr('src',oStudentDocuments.m_strMotherAadharImageId);
+	if(oStudentDocuments.m_strStudentElectricityBill !=null)
+		$("#electricityBillId").attr('src',oStudentDocuments.m_strStudentElectricityBill);
+	if(oStudentDocuments.m_strStudentMarksCard1 !=null)
+		$("#marksCard1Id").attr('src',oStudentDocuments.m_strStudentMarksCard1);
+	if(oStudentDocuments.m_strStudentMarksCard2 !=null)
+		$("#marksCard2Id").attr('src',oStudentDocuments.m_strStudentMarksCard2);
+	if(oStudentDocuments.m_strOtherDocuments !=null)
+		$("#additionalDocumentId").attr('src',oStudentDocuments.m_strOtherDocuments);	 
+}
+
+function viewStudentDocument_cancel() 
+{
+	HideDialog ("dialog");
+}
+
+function studentDocumentView_documentPreview (imageId)
+{
+	var imageSrc = document.getElementById(imageId.id).src;
+	m_oZenithMemberData.m_strImagePreviewUrl = imageSrc;
+	loadPage("applicationstatus/documentView/uploadDocumentView.html","secondDialog", "documentList_showImagePreview()");
+}
+
+function documentList_showImagePreview() 
+{
+	 createPopup ('secondDialog', '', '', true);
+	 document.getElementById('secondDialog').style.position = "fixed";
+	 $(".imagePreview").attr('src', m_oZenithMemberData.m_strImagePreviewUrl);    
+}
+
+function documentList_cancelImagePreview() 
+{
+	HideDialog ("secondDialog");	
 }
 
 function removeAllChildren (container)

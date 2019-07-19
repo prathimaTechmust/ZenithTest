@@ -36,9 +36,13 @@ public class StudentScholarshipAccountsProcessor extends GenericIDataProcessor<S
 			oStudentInformationData.setM_nStudentId(oStudentScholarshipAccount.getM_nStudentId());
 			oStudentInformationData.setM_strAcademicYear(oStudentScholarshipAccount.getM_strAcademicYear());
 			oStudentInformationData = oStudentInformationData.getStudentDetails(oStudentInformationData);
-			List<AcademicDetails> list = new ArrayList<AcademicDetails>(oStudentInformationData.getM_oAcademicDetails());		
-			oStudentScholarshipAccount.setM_oAcademicDetails(list.get(0));
-			oAccountsDataResponse.m_bSuccess = oStudentScholarshipAccount.saveObject();
+			List<AcademicDetails> list = new ArrayList<AcademicDetails>(oStudentInformationData.getM_oAcademicDetails());
+			if(list.get(0).getM_oScholarshipDetails().size() > 0)
+			{
+				oStudentScholarshipAccount.setM_oAcademicDetails(list.get(0));
+				oAccountsDataResponse.m_bSuccess = oStudentScholarshipAccount.saveObject();
+			}
+			
 			if(oAccountsDataResponse.m_bSuccess  == true)
 			{
 				oZenithScholarshipDetails.setM_nStudentId(oStudentScholarshipAccount.getM_nStudentId());

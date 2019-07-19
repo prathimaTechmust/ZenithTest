@@ -16,7 +16,7 @@
 	   		 width: 50%;
 		    text-align: center;
 		}
-		</style>
+		</style>	
  </head>
 <body>
 <form class="zenith" id="studentInfo_form_id" style="width:800px;">
@@ -49,13 +49,21 @@
 								                        data-options="required:true" style = "width:200px;"
 								                        class="zenith easyui-validatebox"
 								                        onchange = "searchStudentUID ()" onkeyup="validateNumber (this)"/>
-						                    </td>			                    
-			                          	</tr> 
+								                     <td>
+								          
+								           <td class="fieldHeading">Tatkal</td>
+								           <td>
+										  <input id="studentInfo_input_tatkalYes" name="studentInfo_input_tatkal" type="radio" data-options="required:true" value="yes"/>Yes
+										  <input id="studentInfo_input_tatkalNo" name="studentInfo_input_tatkal" type="radio" data-options="required:true" value="no"/>No
+										            </td>   
+										</tr>			                    
+			                         
 			                          	<tr>
 			                          		<td class="fieldHeading"> Facilitator Name <em> * </em> </td>
 			                          		<td style = "padding-left = 20px;">                      
-							                    <input type="text" id="selectStudentInfo_input_studentfacilitator" class = "easyui-combobox zenith" data-options="hasDownArrow:false,panelWidth: 0,required:true"
-								                        style = "width:200px;"/>					                        
+							                    <!-- <input type="text" id="selectStudentInfo_input_studentfacilitator" class = "easyui-combobox zenith" data-options="hasDownArrow:false,panelWidth: 0,required:true"
+								                        style = "width:200px;"/> -->
+								                  <div id ="selectStudentInfo_input_studentfacilitator"></div>    								                       					                        
 						                    </td>
 			                          	</tr> 
 			                          	<tr>
@@ -281,14 +289,17 @@
 													</tr>
 													
 													<tr>	
-														<td class="fieldHeading">Have Siblings<em>*</em>
-														</td>
-														<td><input type="radio" id="studentInfo_input_yes"
-															name="siblingsButton" value="yes"
-															onchange="getSiblings(siblingdiv)">Yes <input
-															type="radio" id="studentInfo_input_No"
-															name="siblingsButton" value="No"
-															onchange="hideSiblings(siblingdiv)">No</td>
+														<td class="fieldHeading">Have Siblings</td>
+														<td><input 	type="radio"
+																	id="studentInfo_input_yes"
+																	name="siblingsButton"
+																	value="Yes"
+																	onchange="getSiblings(siblingdiv)">Yes
+																	
+															<input	type="radio" id="studentInfo_input_No"
+																	name="siblingsButton"
+																	value="No"
+																	onchange="hideSiblings(siblingdiv)">No</td>
 														</td>
 													</tr>
 												<tr>
@@ -296,16 +307,16 @@
 															<div id="siblingdiv" style="display: none;">
 																<table class="zenith" id="siblings">
 																	<tr>
-																		<td class="fieldHeading">Zenith UID</td>
+																		<td class="fieldHeading">UID</td>
 																		<td><input type="text"
-																			id="studentInfo_input_SiblingsUID0" class="zenith" style="margin-right: 60px" />
+																			id="studentInfo_input_SiblingsUID0" class="zenith" style="margin-right: 60px" maxlength="4" />
 																		</td>
 																		<td class="fieldHeading">Name</td>
 																		<td><input type="text"
 																			id="studentInfo_input_SiblingsName0" class="zenith" />
 																		</td>
 																	
-																		<td class="fieldHeading">class Studying</td>
+																		<td class="fieldHeading">Studying</td>
 																		<td><input type="text"
 																			id="studentInfo_input_SiblingsStudying0"
 																			 class="zenith" /></td>
@@ -349,7 +360,8 @@
 			                         	<tr>
 											<td class="fieldHeading">School/College/Institute</td>
 											<td>
-												<input type ="text" id = "select_input_academic_name" class = "easyui-combobox zenith" data-options="hasDownArrow:false,panelWidth: 0,required:true" style="width:200px;"/>
+												<!-- <input type ="text" id = "select_input_academic_name" class = "easyui-combobox zenith" data-options="hasDownArrow:false,panelWidth: 0,required:true" style="width:200px;"/> -->
+												<div id = "select_input_academic_name"></div>
 											</td>
 											<td style="padding-right: 16px"> </td>  
 						                    <td class="fieldHeading">Academic Year<em>*</em> </td>
@@ -361,7 +373,8 @@
 										<tr>
 											<td class="fieldHeading">Class/Course</td>
 											<td>
-												<input type ="text" id = "select_input_studentcourse" class = "easyui-combobox zenith" data-options="hasDownArrow:false,panelWidth: 0,required:true" style="width:200px;"/>								
+												<!-- <input type ="text" id = "select_input_studentcourse" class = "easyui-combobox zenith" data-options="hasDownArrow:false,panelWidth: 0,required:true" style="width:200px;"/> -->								
+												<div id="select_input_studentcourse"></div>
 											</td>
 										</tr>
 										<tr>
@@ -574,7 +587,7 @@
 									</td>
 									<td>
 										<div id="marksCardUpload_div1"  style="display:none">
-										<input type="button" id="btn5" style.visibility = "hidden" value="Upload" onclick="uploadStudentMarksCardOne(marksCardUpload_div1)">
+										<input type="button" id="btn5" style.visibility = "hidden" value="Upload" onclick="uploadStudentMarksCard1(marksCardUpload_div1)">
 										</div>
 									</td>
 									</tr>								
@@ -594,7 +607,7 @@
 											</td>
 											<td>
 												<div id="marksCardUpload_div2"  style="display:none">
-												<input type="button" id="btn6"  value="Upload" onclick="uploadStudentMarksCardTwo(marksCardUpload_div2)">
+												<input type="button" id="btn6"  value="Upload" onclick="uploadStudentMarksCard2(marksCardUpload_div2)">
 												</div>
 											</td>
 										</tr>										

@@ -49,41 +49,39 @@
 					</tr>
 				</table>
 			</td>
-			<td style="padding-top: 1%;"  align="center">			
+			<td style="padding-top: 2%;">			
 				<!--BUTTONS DEFINATION -->	
 				<table>
 					<tr>
 						<td class="zenith" align="left">
-							<table class="zenith">
+							<table>
 								<tr>
-									<td width="75%" >
-										<fieldset>
-											<legend>
-												Approve Amount
-											</legend>
-											<table class ="xslt_zenith" cellspacing="5px">
-												<tr>
-													<td text-align="center" style = "width:80px">Amount(₹)<em>*</em></td>
-													<td>
-														<input type = "text" id ="zenithInfo_approvedamount" class="zenith easyui-validatebox" data-options="required:true" style="margin-left: 5px" onkeyup ="validateNumber(this)"/>
-													</td>
-												</tr> 
-												<tr>
-													<td align = "left" colspan = "2">
-														<hr/>																																															
-														<button type="button" style= "margin-right:10px" class = "zenith" id="approveStudent" title="Approve" onClick="approveStudentInfo_Student()">Approve</button>
-														<button type="button" style= "margin-right:10px" class = "zenith" id="reVerifyStudent" title="reverify" onClick="reVerifyStudentInfo_Student()">ReVerify</button>
-														<button type="button" style= "margin-right:10px; float: right;" class = "zenith" id="rejectStudent" title="Reject" onClick="recjectStudentInfo_Student()">Reject</button>
-													</td>			 							
-												</tr>							
-											</table>
-										</fieldset>													
-									</td>
-									<td style="padding-top: 10%;"> 
-					     				<button type="button" width="120px" align="center" class="zenith addButton" style="width:120px;" id="documentView" title="documentView" onclick="viewStudentDocument('{StudentInformationData/m_oAcademicDetails/AcademicDetails/m_nAcademicId}')">View Documents </button>
-	       			                </td>	
-								</tr>									
-							</table>										
+									<td class="zenith" align="left" style="vertical-align:top;width:15%">
+									<table class="zenith">
+										<tr>																																																									
+										<td class="xslt_fieldHeading" style="text-align: left;">
+										<span style="font-weight:bold">Approved amount  &#x20b9;: </span> 
+										</td>
+										<td class="xslt_fieldData" id="m_fApprovedAmount">
+										<span style="font-weight:bold"> </span> 
+											<xsl:value-of select="format-number(StudentInformationData/m_oZenithScholarshipDetails/ZenithScholarshipDetails/m_fApprovedAmount, '##,##,##0')" />
+										</td>																																			
+										</tr>									
+									</table>										
+									</td>																
+								</tr>		
+								<tr>
+									<td class="zenith" align="left" style="vertical-align:top;width:15%">
+										<table class="zenith">
+											<tr>
+												<td>																																															
+													<button type="button" width="20" align="center" class = "zenith addButton" style="width:130px;" id="claim" title="Claim Cheque" onClick="claimCheque ()">Claim Cheque</button>
+												</td>																							
+											</tr>									
+										</table>										
+									</td>																
+								</tr>								
+							</table>
 						</td>																					
 					</tr>								
 				</table>

@@ -696,7 +696,7 @@ div.panel-header
 
 .jqx-fill-state-pressed 
 {
-	background: #F09F05;
+	background: #d6d8ea;
 }
 
 .display-success, .display-info, .display-warning, .display-error
@@ -816,23 +816,26 @@ td.xslt_formHeading
 }
 
 /*Student tabs css  */
-.tab {
-  overflow: hidden;
-  border: 1px solid #ccc;
-  background-color: #f1f1f1;
+.tab
+{
+	overflow: hidden;
+	border: 1px solid #ccc;
+	background-color: #f1f1f1;
 }  
 
-.tab button {
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 7px 31px;
-  transition: 0.3s;
+.tab button
+{
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 7px 31px;
+	transition: 0.3s;
 }
 
 /* Change background color of buttons on hover */
-.tab button:hover {
-  background-color: #ddd;
+.tab button:hover
+{
+    background-color: #ddd;
 }
 
 /* Create an active/current tablink class */
@@ -845,8 +848,14 @@ td.xslt_formHeading
 /* Style the tab content */
 .tabcontent
  {
-  display: none;
-  padding: 6px 12px;
-  border: 1px solid #ccc;
-  border-top: none;
+	display: none;
+	padding: 6px 12px;
+	border: 1px solid #ccc;
+	border-top: none;
+}
+
+ .imagesize
+{
+	width:100px;
+	height:100px;
 }

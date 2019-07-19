@@ -25,9 +25,10 @@ function disburseCheque_new ()
 
 function disburseStudentChequeInfo_Loaded ()
 {
+	m_oDisburseStudentChequeInfo_MemberData.m_nStudentId = m_oDisburseStudentChequeInfo_MemberData.m_oStudentInformationData.m_nStudentId;
 	$("#student_input_studentUIDNumber").val(m_oDisburseStudentChequeInfo_MemberData.m_oStudentInformationData.m_nUID);
 	$("#studentInfo_inputStudentName").val(m_oDisburseStudentChequeInfo_MemberData.m_oStudentInformationData.m_strStudentName);
-	$("#studentInfo_inputStudentcheque_dd").val(m_oDisburseStudentChequeInfo_MemberData.m_oStudentInformationData.m_nChequeNumber);
+	$("#studentInfo_inputStudentcheque_dd").val(m_oDisburseStudentChequeInfo_MemberData.m_oStudentInformationData.m_oAcademicDetails[0].m_oStudentScholarshipAccount[0].m_nChequeNumber);
 }
 
 function disburseStudentChequeInfo_init ()
@@ -84,3 +85,63 @@ function disburseChequeInfo_cancel ()
 {
 	HideDialog ("dialog");
 }
+
+
+function reIssueCheque_new() 
+{
+	reIssueCheque_init();
+}
+
+function reIssueCheque_init()
+{	
+	createPopup('dialog','#chequeRemarkInfo_button_submit','chequeRemarkInfo_button_cancel', true);
+	initFormValidateBoxes('chequeRemarkForm');
+	m_oDisburseStudentChequeInfo_MemberData.m_nStudentId = m_oDisburseStudentChequeInfo_MemberData.m_oStudentInformationData.m_nStudentId;
+}
+
+function chequeRemarkInfo_submit()
+{
+	
+	if(chequeRemarkValidate ())
+		loadPage ("include/process.html", "ProcessDialog", "chequeRemark_progressbarLoaded ()");
+	else
+	{
+		alert("Please Enter Remarks");
+		$("#chequeRemarkForm").focus();
+	}	
+}
+function chequeRemarkValidate ()
+{
+	return validateForm("chequeRemarkForm");
+}
+
+function chequeRemarkInfo_cancel() {
+	
+	HideDialog("dialog");
+}
+
+function chequeRemark_progressbarLoaded() {
+	
+	createPopup('dialog','','',true);
+	var oZenith = new ZenithScholarshipDetails ();	
+	oZenith.m_nStudentId = m_oDisburseStudentChequeInfo_MemberData.m_nStudentId;
+	oZenith.m_strChequeRemarks = $("#chequeRemarkInfo_input_Remark").val();
+	ZenithStudentInformationDataProcessor.reIssueChequeStatusUpdate(oZenith,reIssueChequeResponse);
+}
+
+function reIssueChequeResponse (oResponse)
+{
+		
+		if(oResponse.m_bSuccess)
+		{
+			informUser("Application Status Sent to prepareCheque Successfully","kSuccess");
+			HideDialog("dialog");
+			navigate("reIssueCheque","widgets/applicationstatus/disbursecheque/disbursechequelist.js");
+		}
+		else
+			informUser("Application Status Sent to prepareCheque Failed","kError");
+		
+	}
+
+
+

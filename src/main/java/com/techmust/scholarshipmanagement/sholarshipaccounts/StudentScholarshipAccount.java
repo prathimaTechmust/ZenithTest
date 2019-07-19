@@ -58,6 +58,12 @@ public class StudentScholarshipAccount extends MasterData
 	@Column(name = "ddnumber")
 	private int m_nDDNumber;
 	
+	@Column(name = "remarks")
+	private String m_strRemarks;
+	
+	@Column(name = "chequestatus")
+	private String m_strChequeStatus;
+	
 	@Transient
 	private int m_nStudentId;
 	
@@ -79,9 +85,31 @@ public class StudentScholarshipAccount extends MasterData
 		m_dSanctionDate = null;	
 		m_oAcademicDetails = new AcademicDetails();
 		m_nChequeNumber = 0;
-		m_nDDNumber = 0;		
+		m_nDDNumber = 0;
+		m_strRemarks = "";
+		m_strChequeStatus = "";
 	}
 	
+	public String getM_strRemarks()
+	{
+		return m_strRemarks;
+	}
+
+	public void setM_strRemarks(String strRemarks)
+	{
+		this.m_strRemarks = strRemarks;
+	}
+
+	public String getM_strChequeStatus()
+	{
+		return m_strChequeStatus;
+	}
+
+	public void setM_strChequeStatus(String strChequeStatus)
+	{
+		this.m_strChequeStatus = strChequeStatus;
+	}
+
 	public int getM_nChequeNumber()
 	{
 		return m_nChequeNumber;

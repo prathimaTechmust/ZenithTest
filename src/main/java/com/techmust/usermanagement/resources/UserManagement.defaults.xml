@@ -123,9 +123,19 @@
 				<SequenceId>40</SequenceId>
 			</Action>
 			<Action>
+				<ActionName>To Be Claimed</ActionName>
+				<Target>navigate ('tobeclaimcheque','widgets/applicationstatus/ChequeDetails/toBeClaimedChequeList/toBeClaimchequelist.js')</Target>
+				<SequenceId>50</SequenceId>
+			</Action>
+			<Action>
+				<ActionName>Claimed List</ActionName>
+				<Target>navigate ('claimedList','widgets/applicationstatus/ChequeDetails/claimedChequeList/claimedChequeList.js')</Target>
+				<SequenceId>60</SequenceId>
+			</Action>
+			<Action>
 				<ActionName>Rejected List</ActionName>
 				<Target>navigate ('rejected','widgets/applicationstatus/rejectedlist/rejectedlist.js')</Target>
-				<SequenceId>50</SequenceId>
+				<SequenceId>70</SequenceId>
 			</Action>									
 		</Actions> 
 	</ActionArea>

@@ -31,6 +31,7 @@ public class Constants
 	public static final String STUDENTAPPROVED = "approved";
 	public static final String STUDENTREJECTED = "rejected";
 	public static final String CHEQUEPREPARED = "cheque prepared";
+    public static final String  REISSUECHEQUE = "approved";
 	public static final String CHEQUEDISBURSED = "cheque disbursed";
 	public static final String APPLICATIONREVERIFICATION = "pending";
 	public static final String STUDENTAADHARDOCUMENTFOLDER = "images/studentaadhar/";
@@ -42,5 +43,6 @@ public class Constants
 	public static final String STUDENTMARKSCARD2 = "images/studentmarkscard2/";
 	public static final String STUDENTOTHERDOCUMENTS = "images/studentotherdocuments/";
 	public static final String VERIFIEDAPPLICATION = "images/verifiedapplication/";
+	public static final String CHEQUECLAIMED = "cheque claimed";
 	
 }

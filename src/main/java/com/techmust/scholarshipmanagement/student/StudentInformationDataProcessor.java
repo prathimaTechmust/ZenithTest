@@ -126,7 +126,7 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		oStudentInformationData.setM_nStudentId(nStudentId);
 		try 
 		{	
-			if(!oStudentMultipartFile.isEmpty())
+			if(oStudentMultipartFile != null)
 			{
 				oStudentInformationData = (StudentInformationData) populateObject(oStudentInformationData);	
 		        String strUUID = Utils.getUUID();
@@ -163,7 +163,7 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 			if(oAcademicDetails.getM_arrStudentDocuments().size() >0)
 			{
 				StudentDocuments oStudentDocuments = oAcademicDetails.getM_arrStudentDocuments().get(0);
-				oStudentDataResponse.m_oStudentDocuments = getStudentDocuments(oStudentDocuments);
+				oStudentDataResponse.m_oStudentDocuments = Utils.getStudentDocuments(oStudentDocuments);
 			}
 			oStudentDataResponse.m_arrStudentInformationData.add (oStudentInformationData);
 		} 
@@ -173,47 +173,7 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 			throw oException;
 		}
 		return oStudentDataResponse;
-	}
-	
-	private StudentDocuments getStudentDocuments(StudentDocuments oStudentDocuments)
-	{
-		 if(oStudentDocuments.getM_strStudentAadhar() != null)
-		 {
-			 String strStudentAadharURL = Constants.S3BUCKETURL + Constants.STUDENTAADHARDOCUMENTFOLDER + oStudentDocuments.getM_strStudentAadhar() + Constants.IMAGE_DEFAULT_EXTENSION;
- 			 oStudentDocuments.setM_strStudentAadhar(strStudentAadharURL);
-		 }
-		 if(oStudentDocuments.getM_strFatherAadharImageId() != null)
-		 {
-			 String strStudentFatherAadharURL = Constants.S3BUCKETURL + Constants.STUDENTFATHERAADHAR + oStudentDocuments.getM_strFatherAadharImageId() + Constants.IMAGE_DEFAULT_EXTENSION;
-			 oStudentDocuments.setM_strFatherAadharImageId(strStudentFatherAadharURL);
-		 }
-		 if(oStudentDocuments.getM_strMotherAadharImageId() != null)
-		 {
-			 String strStudentMotherAadharURL = Constants.S3BUCKETURL + Constants.STUDENTMOTHERAADHAR + oStudentDocuments.getM_strMotherAadharImageId() + Constants.IMAGE_DEFAULT_EXTENSION;
-			 oStudentDocuments.setM_strMotherAadharImageId(strStudentMotherAadharURL);
-		 }	
-		 if(oStudentDocuments.getM_strStudentElectricityBill() != null)
-		 {
-			 String strStudentElectricityBillURL = Constants.S3BUCKETURL + Constants.STUDENTELECTRICITYBILLDOCUMENTFOLDER + oStudentDocuments.getM_strStudentElectricityBill() + Constants.IMAGE_DEFAULT_EXTENSION;
-			 oStudentDocuments.setM_strStudentElectricityBill(strStudentElectricityBillURL);
-		 }			
-		 if(oStudentDocuments.getM_strStudentMarksCard1() != null)
-		 {
-			 String strStudentMarkscard1URL = Constants.S3BUCKETURL + Constants.STUDENTMARKSCARD1 + oStudentDocuments.getM_strStudentMarksCard1() + Constants.IMAGE_DEFAULT_EXTENSION;
-			 oStudentDocuments.setM_strStudentMarksCard1(strStudentMarkscard1URL);
-		 }
-		 if(oStudentDocuments.getM_strStudentMarksCard2() != null)
-		 {
-			 String strStudentMarkscard2URL = Constants.S3BUCKETURL + Constants.STUDENTMARKSCARD2 + oStudentDocuments.getM_strStudentMarksCard2() + Constants.IMAGE_DEFAULT_EXTENSION;
-			 oStudentDocuments.setM_strStudentMarksCard2(strStudentMarkscard2URL);
-		 }
-		 if(oStudentDocuments.getM_strOtherDocuments() != null)
-		 {
-			 String strStudentOtherDocumentsURL = Constants.S3BUCKETURL + Constants.STUDENTOTHERDOCUMENTS + oStudentDocuments.getM_strOtherDocuments() + Constants.IMAGE_DEFAULT_EXTENSION;
-			 oStudentDocuments.setM_strOtherDocuments(strStudentOtherDocumentsURL);
-		 }			 
-		return oStudentDocuments;
-	}
+	}	
 
 	@RequestMapping(value="/studentInfoGetUIDData", method = RequestMethod.POST, headers = {"Content-type=application/json"})
 	@ResponseBody
@@ -287,7 +247,9 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		m_oLogger.debug ("update - oStudentInformationData.getM_nStudentId() [IN] : " + oStudentInformationData.getM_nStudentId());
 		StudentDataResponse oStudentDataResponse = new StudentDataResponse();
 		try
-		{			
+		{	
+			
+			StudentInformationData oStudentData = getStudentDocuments(oStudentInformationData);		
 			oStudentDataResponse.m_bSuccess = oStudentInformationData.updateObject();
 			oStudentDataResponse.m_arrStudentInformationData.add(oStudentInformationData);
 		}
@@ -299,6 +261,20 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		return oStudentDataResponse;
 	}
 
+	private StudentInformationData getStudentDocuments(StudentInformationData oStudentInformationData)
+	{
+		Set<AcademicDetails> arrAcademics = oStudentInformationData.getM_oAcademicDetails();
+		List<AcademicDetails> oAcademicDetails = new ArrayList<>(arrAcademics);
+		AcademicDetails oAcademic = oAcademicDetails.get(0);
+		StudentDocuments oStudentDocuments = oStudentInformationData.getStudentUploadDocuments(oAcademic);
+		List<StudentDocuments> listDocuments = new ArrayList<StudentDocuments>();
+		listDocuments.add(oStudentDocuments);
+		oAcademic.setM_arrStudentDocuments(listDocuments);
+		arrAcademics.add(oAcademic);
+		oStudentInformationData.setM_oAcademicDetails(arrAcademics);
+		return oStudentInformationData;	
+	}
+	
 	@Override
 	@RequestMapping(value="/studentInfoGetXML", method = RequestMethod.POST, headers = {"Content-type=application/json"})
 	@ResponseBody
