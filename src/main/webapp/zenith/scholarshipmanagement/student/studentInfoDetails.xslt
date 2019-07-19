@@ -57,7 +57,8 @@
 			<table >
 				<tr>
 					<td>
-					
+					 <button type="button" width="120px" align="center" class="zenith addButton" style="width:120px;" id="documentView" title="documentView" onclick="viewStudentDocument('{StudentInformationData/m_oAcademicDetails/AcademicDetails/m_nAcademicId}')">View Documents 
+					 </button>
 					</td>
 				</tr>
 			</table>				

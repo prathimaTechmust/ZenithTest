@@ -185,13 +185,20 @@ function viewStudentDocuments_init()
 
 function setUploadedDocuments(oStudentDocuments)
 {
-	$("#studentAadharId").attr('src',oStudentDocuments.m_strStudentAadhar);
-	$("#fatherAadharId").attr('src',oStudentDocuments.m_strFatherAadharImageId);
-	$("#motherAadharId").attr('src',oStudentDocuments.m_strMotherAadharImageId);
-	$("#electricityBillId").attr('src',oStudentDocuments.m_strStudentElectricityBill);
-	$("#marksCard1Id").attr('src',oStudentDocuments.m_strStudentMarksCard1);
-	$("#marksCard2Id").attr('src',oStudentDocuments.m_strStudentMarksCard2);
-	$("#additionalDocumentId").attr('src',oStudentDocuments.m_strOtherDocuments);	 
+	if(oStudentDocuments.m_strStudentAadhar != null)
+		$("#studentAadharId").attr('src',oStudentDocuments.m_strStudentAadhar);
+	if(oStudentDocuments.m_strFatherAadharImageId != null)
+		$("#fatherAadharId").attr('src',oStudentDocuments.m_strFatherAadharImageId);
+	if(oStudentDocuments.m_strMotherAadharImageId !=null)
+		$("#motherAadharId").attr('src',oStudentDocuments.m_strMotherAadharImageId);
+	if(oStudentDocuments.m_strStudentElectricityBill !=null)
+		$("#electricityBillId").attr('src',oStudentDocuments.m_strStudentElectricityBill);
+	if(oStudentDocuments.m_strStudentMarksCard1 !=null)
+		$("#marksCard1Id").attr('src',oStudentDocuments.m_strStudentMarksCard1);
+	if(oStudentDocuments.m_strStudentMarksCard2 !=null)
+		$("#marksCard2Id").attr('src',oStudentDocuments.m_strStudentMarksCard2);
+	if(oStudentDocuments.m_strOtherDocuments !=null)
+		$("#additionalDocumentId").attr('src',oStudentDocuments.m_strOtherDocuments);	 
 }
 
 function viewStudentDocument_cancel() 
