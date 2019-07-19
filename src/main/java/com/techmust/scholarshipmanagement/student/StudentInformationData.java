@@ -32,6 +32,7 @@ import com.techmust.generic.data.GenericData;
 import com.techmust.generic.data.MasterData;
 import com.techmust.scholarshipmanagement.academicdetails.AcademicDetails;
 import com.techmust.scholarshipmanagement.scholarshipdetails.zenithscholarshipstatus.ZenithScholarshipDetails;
+import com.techmust.scholarshipmanagement.siblingdetails.SiblingDetails;
 import com.techmust.usermanagement.facilitator.FacilitatorInformationData;
 import com.techmust.utils.Utils;
 
@@ -133,8 +134,15 @@ public class StudentInformationData  extends MasterData implements Serializable
 	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "m_oStudentInformationData",orphanRemoval = true)
 	private Set<ZenithScholarshipDetails> m_oZenithScholarshipDetails ;
 	
+	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	@JoinColumn(name = "student_id")
+	private Set<SiblingDetails> m_oSibilingDetails;
+	
 	@Transient
 	public AcademicDetails[] m_arrAcademicDetails;
+	
+	@Transient
+	public SiblingDetails[] m_arrSiblingDetails;
 	
 	public StudentInformationData()
 	{
@@ -165,10 +173,29 @@ public class StudentInformationData  extends MasterData implements Serializable
 		m_oAcademicDetails = new HashSet<AcademicDetails> ();	
 		m_oFacilitatorInformationData = new FacilitatorInformationData();
 		m_oZenithScholarshipDetails = new HashSet<ZenithScholarshipDetails>();
+		m_oSibilingDetails = new HashSet<SiblingDetails>();
 	}
 	
+	public SiblingDetails[] getM_arrSiblingDetails()
+	{
+		return m_arrSiblingDetails;
+	}
 
+	public void setM_arrSiblingDetails(SiblingDetails[] arrSiblingDetails)
+	{
+		this.m_arrSiblingDetails = arrSiblingDetails;
+	}
+
+	public Set<SiblingDetails> getM_oSibilingDetails()
+	{
+		return m_oSibilingDetails;
+	}
 	
+	public void setM_oSibilingDetails(Set<SiblingDetails> oSibilingDetails)
+	{
+		this.m_oSibilingDetails = oSibilingDetails;
+	}
+
 	public String getM_strApplicationType() 
 	{
 		return m_strApplicationType;

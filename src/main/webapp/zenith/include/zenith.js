@@ -663,29 +663,6 @@ function FormatDateToSet (strDate)
 	return strFormatDate;
 }
 
-//Populating AcademicYear Dropdown
-
-function populateAcademicYearDropDown ()
-{
-	var oAcademicYear = new AcademicYear();
-	AcademicYearProcessor.list(oAcademicYear,"m_strAcademicYear","asc",0,0,academicyearResponse);	
-}
-
-function academicyearResponse(oYearResponse)
-{
-	populateYear("selectacademicyear",oYearResponse);
-}
-
-function populateYear(academicyear,oYearResponse)
-{
-	var arrAcademicYears = new Array();
-	for(var nIndex = 0; nIndex < oYearResponse.m_arrAcademicYear.length; nIndex++)
-	{
-		arrAcademicYears.push(CreateOption(oYearResponse.m_arrAcademicYear[nIndex].m_strAcademicYear,oYearResponse.m_arrAcademicYear[nIndex].m_strAcademicYear));		
-	}
-	PopulateDD(academicyear,arrAcademicYears);	
-}
-
 function processConfirmation (strOkBtnName, strCancelBtnName, strMessage, strCallbackFunction)
 {
 	$.messager.defaults.ok = strOkBtnName;

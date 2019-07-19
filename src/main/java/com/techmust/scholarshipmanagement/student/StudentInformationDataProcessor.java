@@ -126,7 +126,7 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		oStudentInformationData.setM_nStudentId(nStudentId);
 		try 
 		{	
-			if(!oStudentMultipartFile.isEmpty())
+			if(oStudentMultipartFile != null)
 			{
 				oStudentInformationData = (StudentInformationData) populateObject(oStudentInformationData);	
 		        String strUUID = Utils.getUUID();
@@ -247,7 +247,9 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		m_oLogger.debug ("update - oStudentInformationData.getM_nStudentId() [IN] : " + oStudentInformationData.getM_nStudentId());
 		StudentDataResponse oStudentDataResponse = new StudentDataResponse();
 		try
-		{			
+		{	
+			
+			StudentInformationData oStudentData = getStudentDocuments(oStudentInformationData);		
 			oStudentDataResponse.m_bSuccess = oStudentInformationData.updateObject();
 			oStudentDataResponse.m_arrStudentInformationData.add(oStudentInformationData);
 		}
@@ -259,6 +261,20 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		return oStudentDataResponse;
 	}
 
+	private StudentInformationData getStudentDocuments(StudentInformationData oStudentInformationData)
+	{
+		Set<AcademicDetails> arrAcademics = oStudentInformationData.getM_oAcademicDetails();
+		List<AcademicDetails> oAcademicDetails = new ArrayList<>(arrAcademics);
+		AcademicDetails oAcademic = oAcademicDetails.get(0);
+		StudentDocuments oStudentDocuments = oStudentInformationData.getStudentUploadDocuments(oAcademic);
+		List<StudentDocuments> listDocuments = new ArrayList<StudentDocuments>();
+		listDocuments.add(oStudentDocuments);
+		oAcademic.setM_arrStudentDocuments(listDocuments);
+		arrAcademics.add(oAcademic);
+		oStudentInformationData.setM_oAcademicDetails(arrAcademics);
+		return oStudentInformationData;	
+	}
+	
 	@Override
 	@RequestMapping(value="/studentInfoGetXML", method = RequestMethod.POST, headers = {"Content-type=application/json"})
 	@ResponseBody

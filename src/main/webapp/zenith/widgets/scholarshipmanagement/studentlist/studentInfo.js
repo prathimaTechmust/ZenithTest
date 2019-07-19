@@ -7,7 +7,8 @@ var studentInfo_includeDataObjects =
 	'widgets/scholarshipmanagement/academicdetails/AcademicDetails.js',
 	'widgets/usermanagement/facilitator/FacilitatorInformationData.js',
 	'widgets/scholarshipmanagement/academicyear/AcademicYear.js',
-	'widgets/scholarshipmanagement/zenithscholarship/ZenithScholarshipDetails.js'
+	'widgets/scholarshipmanagement/zenithscholarship/ZenithScholarshipDetails.js',
+	'widgets/scholarshipmanagement/siblingsDetails/SiblingsDetails.js'
 	
 	
 ];
@@ -357,7 +358,8 @@ function studentInfo_edit ()
 }
 
 function studentInfo_getFormData ()
-{	var oStudentInformationData = new StudentInformationData ();
+{	
+	var oStudentInformationData = new StudentInformationData ();
 	oStudentInformationData.m_nStudentId = m_oStudentInfoMemberData.m_nStudentId;
 	oStudentInformationData.m_nUID = $("#studentInfo_input_studentUIDNumber").val();	
 	if(document.getElementById("studentInfo_input_tatkalYes").checked)
@@ -401,8 +403,9 @@ function studentInfo_getFormData ()
 	if(m_oStudentInfoMemberData.m_strAcademicYear != $("#select_student_academicyear").val())
 		oStudentInformationData.m_oZenithScholarshipDetails = getZenithstatus();
 	      /*Academic details*/
-	oStudentInformationData.m_oAcademicDetails = getAcademicDetails ();	
-	//oStudentInformationData.m_oSiblingsDetails = getSiblingsDetails();	
+	oStudentInformationData.m_oAcademicDetails = getAcademicDetails ();
+	if(document.getElementById("studentInfo_input_yes").checked)
+		oStudentInformationData.m_oSibilingDetails = getSiblingsDetails();	
 	return oStudentInformationData;
 }
 
@@ -428,9 +431,10 @@ function getAcademicDetails ()
 		oAcademicDetails.m_oScholarshipDetails = getNewScholarshipDetails ();
 	else if(scholarshipdetails.length >= 1)
 		oAcademicDetails.m_oScholarshipDetails = getAddScolarshipDetails ();	
-	oArrAcademicDetails.push(oAcademicDetails);	
+	oArrAcademicDetails.push(oAcademicDetails);		
 	return oArrAcademicDetails;
 }
+
 function getZenithstatus()
 {
 	var oArrScholarshipStatus = new Array();
@@ -488,8 +492,7 @@ function getAddScolarshipDetails ()
 		{
 			var oScholarshipDetails = new ScholarshipDetails();			
 			if(($("#scholarshipInfo_input_organization"+nIndex).val() != '' && $("#scholarshipInfo_input_organizationamount"+nIndex).val() !='')&&($("#scholarshipInfo_input_organization"+nIndex).val() != undefined && $("#scholarshipInfo_input_organizationamount"+nIndex).val() != undefined))
-	    	{
-					   
+	    	{					   
 				oScholarshipDetails.m_strOrganizationName = $("#scholarshipInfo_input_organization"+nIndex).val();
 				oScholarshipDetails.m_fAmount = $("#scholarshipInfo_input_organizationamount"+nIndex).val();
 				oArrScholarshipDetails.push(oScholarshipDetails);
@@ -576,11 +579,13 @@ function student_displayInfo(strMessage)
 
 function studentInfo_gotData (oStudentInfoResponse)
 {	
+	
 	var oStudentInfoData = oStudentInfoResponse.m_arrStudentInformationData[0];	
 	m_oStudentInfoMemberData.m_strImageId = oStudentInfoData.m_strStudentImageId;
 	m_oStudentInfoMemberData.m_studentDateofBirth = oStudentInfoData.m_dDateOfBirth;
 	m_oStudentInfoMemberData.m_nAcademicId = oStudentInfoData.m_oAcademicDetails[0].m_nAcademicId;
 	m_oStudentInfoMemberData.m_strAcademicYear = oStudentInfoData.m_oAcademicDetails[0].m_strAcademicYear;
+	m_oStudentInfoMemberData.m_arrSiblingsDetails = oStudentInfoData.m_oSibilingDetails;
 	m_oStudentInfoMemberData.m_nInstitutionId = oStudentInfoData.m_oAcademicDetails[0].m_oInstitutionInformationData.m_nInstitutionId;
 	m_oStudentInfoMemberData.m_nCourseId = oStudentInfoData.m_oAcademicDetails[0].m_oCourseInformationData.m_nCourseId;
 	m_oStudentInfoMemberData.m_arrScholarshipDetails = 	oStudentInfoData.m_oAcademicDetails[0].m_oScholarshipDetails;
@@ -645,16 +650,44 @@ function studentInfo_gotData (oStudentInfoResponse)
 	 $("#academicInfo_input_annualfee").val(oStudentInfoData.m_oAcademicDetails[0].m_fAnnualFee);
 	 $("#academicInfo_input_paidfee").val(oStudentInfoData.m_oAcademicDetails[0].m_fPaidFee);	 
 	 substraction();
-	 /* Scholarship Details*/
-	 for(var nIndex = 0; nIndex < m_oStudentInfoMemberData.m_arrScholarshipDetails.length; nIndex++ )
+	 /* Scholarship Details*/	
+	 gotScholarshipdata(m_oStudentInfoMemberData.m_arrScholarshipDetails);	 
+	 gotStudentDocuments(oStudentInfoResponse.m_oStudentDocuments);
+	 setReadableFields();
+	 if(m_oStudentInfoMemberData.m_arrSiblingsDetails.length > 0)
+		 gotSiblingDetails(m_oStudentInfoMemberData.m_arrSiblingsDetails);
+	 initFormValidateBoxes ("studentInfo_form_id");
+}
+
+function gotSiblingDetails (m_arrSiblingsDetails)
+{	
+		getSiblings(siblingdiv);
+		document.getElementById("studentInfo_input_yes").checked = true;
+	 for(var nIndex = 0; nIndex < m_arrSiblingsDetails.length; nIndex++ )
+	 {
+		 if(nIndex !=0)
+			 $("#siblings").append('<tr><td class="fieldHeading">Zenith UID</td> <td><input type="text" id="studentInfo_input_SiblingsUID'+(nIndex)+'" class="zenith" style="margin-right: 60px" /></td><td class="fieldHeading">Name</td><td><input type="text"id="studentInfo_input_SiblingsName'+(nIndex)+'" class="zenith" /></td><td class="fieldHeading">class Studying</td><td><input type="text" id="studentInfo_input_SiblingsStudying'+(nIndex)+'" class="zenith" /></td><td class="fieldHeading">School/College</td><td><input type="text" id="studentInfo_input_SiblingsSchoolCollege'+(nIndex)+'" class="zenith" /></td><td> <img src="images/delete.png" width="20" align="center" id="deleteImageId" title="DeleteSiblings" class = "removeSiblings" onClick="deleteNewSiblings ()"/> </td></tr>');
+		 $("#studentInfo_input_SiblingsUID"+nIndex).val(m_arrSiblingsDetails[nIndex].m_nZenithUID);
+		 $("#studentInfo_input_SiblingsName"+nIndex).val(m_arrSiblingsDetails[nIndex].m_strSiblingName);
+		 $("#studentInfo_input_SiblingsStudying"+nIndex).val(m_arrSiblingsDetails[nIndex].m_strStudying);
+		 $("#studentInfo_input_SiblingsSchoolCollege"+nIndex).val(m_arrSiblingsDetails[nIndex].m_strStudyingInstitution);		 
+	 }
+}
+
+function gotScholarshipdata (m_arrScholarshipDetails)
+{
+	 for(var nIndex = 0; nIndex < m_arrScholarshipDetails.length; nIndex++ )
 	 {
 		 if(nIndex !=0)
 			 $("#scholarship_Organization").append('<tr><td class="fieldHeading">Organization</td><td style="padding-right: 10px"> </td><td><input  type="text" id="scholarshipInfo_input_organization'+(nIndex)+'" class="zenith"/></td><td style="padding-right: 10px"> </td><td class="fieldHeading">Amount(Rs)</td><td style="padding-right: 10px"> </td><td><input  type="text" id="scholarshipInfo_input_organizationamount'+(nIndex)+'" class="zenith" onkeyup="validateNumber(this)"/></td><td style="padding-right: 10px"> </td><td> <img src="images/delete.png" width="20" align="center" id="'+(nIndex)+'" title="Delete Organization" class = "removeOrganization" onClick="scholarship_removeEditOrganizationrow(this.id)"/> </td></tr>');		
-		 $("#scholarshipInfo_input_organization"+nIndex).val(m_oStudentInfoMemberData.m_arrScholarshipDetails[nIndex].m_strOrganizationName);
-		 $("#scholarshipInfo_input_organizationamount"+nIndex).val(m_oStudentInfoMemberData.m_arrScholarshipDetails[nIndex].m_fAmount);
+		 $("#scholarshipInfo_input_organization"+nIndex).val(m_arrScholarshipDetails[nIndex].m_strOrganizationName);
+		 $("#scholarshipInfo_input_organizationamount"+nIndex).val(m_arrScholarshipDetails[nIndex].m_fAmount);
 	 }
-	 initFormValidateBoxes ("studentInfo_form_id");
-	 gotStudentDocuments(oStudentInfoResponse.m_oStudentDocuments);
+}
+
+function setReadableFields()
+{
+	$("#studentInfo_input_studentUIDNumber").attr('readonly','readonly');
 }
 
 function  gotStudentDocuments(oStudentDocuments)
@@ -677,20 +710,6 @@ function  gotStudentDocuments(oStudentDocuments)
 
 function facilitatorPopulateCombobox(oStudentInfoData)
 {
-	/*assert.isObject(oStudentInfoData, "oStudentInfoData expected to be an Object.");
-	assert( Object.keys(oStudentInfoData).length >0 , "oStudentInfoData cannot be an empty .");// checks for non emptyness 
-	var oFacilitatorInformationData = new FacilitatorInformationData ();
-	oFacilitatorInformationData.m_strFacilitatorName = oStudentInfoData.m_oFacilitatorInformationData.m_strFacilitatorName;
-	FacilitatorInformationDataProcessor.getFacilitatorSuggesstions (oFacilitatorInformationData, "", "", function(oFacilitatorResponse)
-			{
-				var arrFacilitatorInfo = new Array ();
-				for(var nIndex=0; nIndex< oFacilitatorResponse.m_arrFacilitatorInformationData.length; nIndex++)
-			    {
-					arrFacilitatorInfo.push(oFacilitatorResponse.m_arrFacilitatorInformationData[nIndex]);
-					arrFacilitatorInfo[nIndex].m_strFacilitatorName = encodeURIComponent(oFacilitatorResponse.m_arrFacilitatorInformationData[nIndex].m_strFacilitatorName);
-			    }
-				$('#selectStudentInfo_input_studentfacilitator').combobox('loadData',arrFacilitatorInfo)
-			});*/
 	var arrFacilitator = new Array();
 	arrFacilitator.push(oStudentInfoData.m_oFacilitatorInformationData)
 	$('#selectStudentInfo_input_studentfacilitator').jqxComboBox({source:arrFacilitator,selectedIndex:0});
@@ -699,21 +718,6 @@ function facilitatorPopulateCombobox(oStudentInfoData)
 
 function institutionPopulateCombobox(oStudentInfoData)
 {
-	/*assert.isObject(oStudentInfoData, "oStudentInfoData expected to be an Object.");
-	assert( Object.keys(oStudentInfoData).length >0 , "oStudentInfoData cannot be an empty .");// checks for non emptyness
-	var oInstitutionInformationData = new InstitutionInformationData ();
-	oInstitutionInformationData.m_strInstitutionName = oStudentInfoData.m_oAcademicDetails[0].m_oInstitutionInformationData.m_strInstitutionName;
-	InstitutionInformationDataProcessor.getInstitutionSuggesstions (oInstitutionInformationData, "", "", function(oInstitutionResponse)
-			{
-				var arrInstitutionInfo = new Array ();
-				for(var nIndex=0; nIndex< oInstitutionResponse.m_arrInstitutionInformationData.length; nIndex++)
-			    {
-					arrInstitutionInfo.push(oInstitutionResponse.m_arrInstitutionInformationData[nIndex]);
-					arrInstitutionInfo[nIndex].m_strInstitutionName = encodeURIComponent(oInstitutionResponse.m_arrInstitutionInformationData[nIndex].m_strInstitutionName);
-			    }
-				$('#select_input_academic_name').combobox('loadData',arrInstitutionInfo)
-			});*/
-	
 	var arrInstitutions = new Array();
 	arrInstitutions.push(oStudentInfoData.m_oAcademicDetails[0].m_oInstitutionInformationData)
 	$('#select_input_academic_name').jqxComboBox({source:arrInstitutions,selectedIndex:0});
@@ -721,20 +725,7 @@ function institutionPopulateCombobox(oStudentInfoData)
 
 function coursePopulateCombobox(oStudentInfoData)
 {
-	/*assert.isObject(oStudentInfoData, "oStudentInfoData expected to be an Object.");
-	assert( Object.keys(oStudentInfoData).length >0 , "oStudentInfoData cannot be an empty .");// checks for non emptyness
-	var oCourseInformationData = new CourseInformationData ();
-	oCourseInformationData.m_strShortCourseName = oStudentInfoData.m_oAcademicDetails[0].m_oCourseInformationData.m_strShortCourseName;
-	CourseInformationDataProcessor.getCourseSuggesstions (oCourseInformationData, "", "", function(oCourseResponse)
-			{
-				var arrCourseInfo = new Array ();
-				for(var nIndex=0; nIndex< oCourseResponse.m_arrCourseInformationData.length; nIndex++)
-			    {
-					arrCourseInfo.push(oCourseResponse.m_arrCourseInformationData[nIndex]);
-					arrCourseInfo[nIndex].m_strShortCourseName = encodeURIComponent(oCourseResponse.m_arrCourseInformationData[nIndex].m_strShortCourseName);
-			    }
-				$('#select_input_studentcourse').combobox('loadData',arrCourseInfo)
-			});*/
+
 	var arrCourses = new Array();
 	arrCourses.push(oStudentInfoData.m_oAcademicDetails[0].m_oCourseInformationData)
 	$('#select_input_studentcourse').jqxComboBox({source:arrCourses,selectedIndex:0});
@@ -1104,37 +1095,78 @@ function deletSiblings(clicked_id)
     m_oStudentInfoMemberData.m_nRowSiblingsStudyingCount = siblingsrows.rows.length;
     m_oStudentInfoMemberData.m_nRowSiblingsSchoolCollegeCount =  siblingsrows.rows.length;
 }
-//function getSiblingsDetails()
-//{
-//	
-//	var oArrSiblingsDetails = new Array();
-//	checkSiblingsRowCount();
-//	for(var nIndex=0; nIndex<m_oStudentInfoMemberData.m_nUpdatedSiblingsUIDIdRowCount; nIndex++)
-//	{
-//		var oSiblingsDeatils = new SiblingsDetails();
-//		if(($("#studentInfo_input_SiblingsUID"+nIndex).val() != '' && $("#studentInfo_input_SiblingsName"+nIndex).val() !='' && $("#studentInfo_input_SiblingsStudying"+nIndex).val() != '' && $("#studentInfo_input_SiblingsSchoolCollege"+nIndex).val() !='')&&($("#studentInfo_input_SiblingsUID"+nIndex).val() != undefined && $("#studentInfo_input_SiblingsName"+nIndex).val() != undefined  && $("#studentInfo_input_SiblingsStudying"+nIndex).val() != undefined && $("#studentInfo_input_SiblingsSchoolCollege"+nIndex).val() != undefined  ))
-//		{
-//			oSiblingsDeatils.m_nZenithUID = $("#studentInfo_input_SiblingsUID"+nIndex).val();
-//			oSiblingsDeatils.m_strSiblingName = $("#studentInfo_input_SiblingsName"+nIndex).val();
-//			oSiblingsDeatils.m_strStudying = $("#studentInfo_input_SiblingsStudying"+nIndex).val();
-//			oSiblingsDeatils.m_strStudyingInstitution = $("#studentInfo_input_SiblingsSchoolCollege"+nIndex).val();
-//			oArrSiblingsDetails.push(oSiblingsDeatils);
-//		}		
-//	}
-//	
-//	return oArrSiblingsDetails;	
-//}
-
-
 
 function getSiblingsDetails()
 {
-	var oArrSiblingsDetails = new Array();
-	checkSiblingDetailsRowCount();
 
+	var siblingDetails = m_oStudentInfoMemberData.m_arrSiblingsDetails;
+	if(siblingDetails.length == 0)
+		getNewSiblingsDetails ();
+	else if(siblingDetails.length >= 1)
+		addSibilingsDetails();
+		
 }
 
-function checkSiblingDetailsRowCount ()
+function addSibilingsDetails ()
+{
+	var oArrSiblingsDetails = new Array();
+	var arrSiblingDetails = m_oStudentInfoMemberData.m_arrSiblingsDetails;	
+	var siblingDetails = document.getElementById("siblings");
+	if(siblingDetails.rows.length == arrSiblingDetails.length)
+	{
+		for(var nIndex = 0; nIndex < arrSiblingDetails.length; nIndex++)
+		{
+			var oSiblingsDeatils = new SiblingsDetails();				    
+			oSiblingsDeatils.m_nSiblingId = arrSiblingDetails[nIndex].m_nSiblingId;				
+			oSiblingsDeatils.m_nZenithUID = $("#studentInfo_input_SiblingsUID"+nIndex).val();
+			oSiblingsDeatils.m_strSiblingName = $("#studentInfo_input_SiblingsName"+nIndex).val();
+			oSiblingsDeatils.m_strStudying = $("#studentInfo_input_SiblingsStudying"+nIndex).val();
+			oSiblingsDeatils.m_strStudyingInstitution = $("#studentInfo_input_SiblingsSchoolCollege"+nIndex).val();
+			oArrSiblingsDetails.push(oSiblingsDeatils);
+		}
+	}
+	else
+	{
+		for(var nIndex = 0; nIndex < m_oStudentInfoMemberData.m_nUpdatedSiblingsUIDIdRowCount; nIndex++)
+		{
+			var oSiblingsDeatils = new SiblingsDetails();			
+			if(($("#studentInfo_input_SiblingsUID"+nIndex).val() != '' && $("#studentInfo_input_SiblingsName"+nIndex).val() !='' && $("#studentInfo_input_SiblingsStudying"+nIndex).val() != '' && $("#studentInfo_input_SiblingsSchoolCollege"+nIndex).val() !='')&&($("#studentInfo_input_SiblingsUID"+nIndex).val() != undefined && $("#studentInfo_input_SiblingsName"+nIndex).val() != undefined  && $("#studentInfo_input_SiblingsStudying"+nIndex).val() != undefined && $("#studentInfo_input_SiblingsSchoolCollege"+nIndex).val() != undefined  ))
+	    	{					   
+				oSiblingsDeatils.m_nZenithUID = $("#studentInfo_input_SiblingsUID"+nIndex).val();
+				oSiblingsDeatils.m_strSiblingName = $("#studentInfo_input_SiblingsName"+nIndex).val();
+				oSiblingsDeatils.m_strStudying = $("#studentInfo_input_SiblingsStudying"+nIndex).val();
+				oSiblingsDeatils.m_strStudyingInstitution = $("#studentInfo_input_SiblingsSchoolCollege"+nIndex).val();
+				oArrSiblingsDetails.push(oSiblingsDeatils);
+	    	}
+			if((nIndex < arrSiblingDetails.length))
+			{
+				oSiblingsDeatils.m_nSiblingId = arrSiblingDetails[nIndex].m_nSiblingId;	
+			}
+		}		
+	}	
+	return oArrSiblingsDetails;
+}
+
+function getNewSiblingsDetails ()
+{
+	var oArrSiblingsDetails = new Array();
+	checkSiblingsRowCount();
+	for(var nIndex=0; nIndex < m_oStudentInfoMemberData.m_nUpdatedSiblingsUIDIdRowCount; nIndex++)
+	{
+		var oSiblingsDeatils = new SiblingsDetails();
+		if(($("#studentInfo_input_SiblingsUID"+nIndex).val() != '' && $("#studentInfo_input_SiblingsName"+nIndex).val() !='' && $("#studentInfo_input_SiblingsStudying"+nIndex).val() != '' && $("#studentInfo_input_SiblingsSchoolCollege"+nIndex).val() !='')&&($("#studentInfo_input_SiblingsUID"+nIndex).val() != undefined && $("#studentInfo_input_SiblingsName"+nIndex).val() != undefined  && $("#studentInfo_input_SiblingsStudying"+nIndex).val() != undefined && $("#studentInfo_input_SiblingsSchoolCollege"+nIndex).val() != undefined  ))
+		{
+			oSiblingsDeatils.m_nZenithUID = $("#studentInfo_input_SiblingsUID"+nIndex).val();
+			oSiblingsDeatils.m_strSiblingName = $("#studentInfo_input_SiblingsName"+nIndex).val();
+			oSiblingsDeatils.m_strStudying = $("#studentInfo_input_SiblingsStudying"+nIndex).val();
+			oSiblingsDeatils.m_strStudyingInstitution = $("#studentInfo_input_SiblingsSchoolCollege"+nIndex).val();
+			oArrSiblingsDetails.push(oSiblingsDeatils);			
+		}		
+	}	
+	return oArrSiblingsDetails;
+}
+
+function checkSiblingsRowCount ()
 {
 	var result = m_oStudentInfoMemberData.m_nUpdatedSiblingsUIDIdRowCount;
 	if(result == 0)

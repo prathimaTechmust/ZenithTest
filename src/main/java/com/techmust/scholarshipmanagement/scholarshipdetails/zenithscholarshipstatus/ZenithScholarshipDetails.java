@@ -67,6 +67,9 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 	@Column(name = "approved_date")
 	private Date m_dApprovedDate;
 	
+	@Column(name = "claimed_date")
+	private Date m_dClaimedDate;
+	
 	@Transient
 	private int m_nStudentId;
 	
@@ -81,8 +84,19 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 		m_dChequeIssueDate = 0;
 		m_strImage = "";
 		m_dApprovedDate = null;
-	}
+		m_dClaimedDate = null;
+	}	
 	
+	public Date getM_dClaimedDate()
+	{
+		return m_dClaimedDate;
+	}
+
+	public void setM_dClaimedDate(Date dClaimedDate)
+	{
+		this.m_dClaimedDate = dClaimedDate;
+	}
+
 	public Date getM_dApprovedDate()
 	{
 		return m_dApprovedDate;

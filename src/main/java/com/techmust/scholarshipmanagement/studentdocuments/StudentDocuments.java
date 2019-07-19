@@ -40,8 +40,8 @@ public class StudentDocuments  extends MasterData
 	private String m_strStudentMarksCard2;
 	
 	@Column(name = "other_documents")
-	private String m_strOtherDocuments;
-
+	private String m_strOtherDocuments;	
+	
 	public StudentDocuments() 
 	{
 		m_nDocumentId = -1;

@@ -289,14 +289,17 @@
 													</tr>
 													
 													<tr>	
-														<td class="fieldHeading">Have Siblings<em>*</em>
-														</td>
-														<td><input type="radio" id="studentInfo_input_yes"
-															name="siblingsButton" value="yes"
-															onchange="getSiblings(siblingdiv)">Yes <input
-															type="radio" id="studentInfo_input_No"
-															name="siblingsButton" value="No"
-															onchange="hideSiblings(siblingdiv)">No</td>
+														<td class="fieldHeading">Have Siblings</td>
+														<td><input 	type="radio"
+																	id="studentInfo_input_yes"
+																	name="siblingsButton"
+																	value="Yes"
+																	onchange="getSiblings(siblingdiv)">Yes
+																	
+															<input	type="radio" id="studentInfo_input_No"
+																	name="siblingsButton"
+																	value="No"
+																	onchange="hideSiblings(siblingdiv)">No</td>
 														</td>
 													</tr>
 												<tr>
@@ -304,16 +307,16 @@
 															<div id="siblingdiv" style="display: none;">
 																<table class="zenith" id="siblings">
 																	<tr>
-																		<td class="fieldHeading">Zenith UID</td>
+																		<td class="fieldHeading">UID</td>
 																		<td><input type="text"
-																			id="studentInfo_input_SiblingsUID0" class="zenith" style="margin-right: 60px" />
+																			id="studentInfo_input_SiblingsUID0" class="zenith" style="margin-right: 60px" maxlength="4" />
 																		</td>
 																		<td class="fieldHeading">Name</td>
 																		<td><input type="text"
 																			id="studentInfo_input_SiblingsName0" class="zenith" />
 																		</td>
 																	
-																		<td class="fieldHeading">class Studying</td>
+																		<td class="fieldHeading">Studying</td>
 																		<td><input type="text"
 																			id="studentInfo_input_SiblingsStudying0"
 																			 class="zenith" /></td>

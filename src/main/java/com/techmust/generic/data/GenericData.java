@@ -1051,6 +1051,7 @@ public abstract class GenericData implements IGenericData, Serializable
 			{
 				ZenithScholarshipDetails oDetails = list.get(0);
 				oDetails.setM_strStatus(Constants.CHEQUECLAIMED);
+				oDetails.setM_dClaimedDate(Calendar.getInstance().getTime());
 				bIsChequeClaimed = oDetails.updateObject();
 			}
 		}
@@ -1084,7 +1085,7 @@ public abstract class GenericData implements IGenericData, Serializable
 			if(oAcademicData.getM_arrStudentDocuments().size() > 0)
 			{
 				m_arrStudentDocuments = documentList.get(0).getM_arrStudentDocuments();
-				oStudentDocuments = Utils.getStudentDocuments(m_arrStudentDocuments.get(0));
+				oStudentDocuments = m_arrStudentDocuments.get(0);
 			}
 			
 		} 
