@@ -49,7 +49,7 @@
 					</tr>
 				</table>
 			</td>
-			<td>			
+			<td  align="center">			
 				<!--BUTTONS DEFINATION -->	
 				<table>
 					<tr>
