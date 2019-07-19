@@ -49,7 +49,7 @@
 					</tr>
 				</table>
 			</td>
-			<td style="padding-top: 2%;">			
+			<td style="padding-top: 1%;"  align="center">			
 				<!--BUTTONS DEFINATION -->	
 				<table>
 					<tr>

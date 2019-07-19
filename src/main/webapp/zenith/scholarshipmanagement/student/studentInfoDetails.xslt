@@ -43,16 +43,14 @@
 							</tr>
 							<tr>
 								<td class="xslt_fieldHeading">Application Status :</td>
-								<td class="xslt_fieldData" id="m_strApplicationStatus">
-									
-								</td>
+								<td class="xslt_fieldData" id="m_strApplicationStatus"></td>
 							</tr>
 						</table>
 					</td>
 				</tr>
 			</table>
 		</td>
-		<td style="padding-top: 1%;">			
+		<td style="padding-top: 3%;"  align="center">			
 			<!--BUTTONS DEFINATION-->	
 			<table >
 				<tr>
