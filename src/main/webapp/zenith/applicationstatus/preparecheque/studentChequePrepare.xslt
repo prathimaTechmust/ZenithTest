@@ -54,25 +54,6 @@
 				<table>
 					<tr>
 						<td class="zenith" align="left">
-							<td width="50%" valign="top">
-							<table>
-								<tr>
-									<td class="zenith" align="left">
-										<table class="zenith">
-											<tr>
-												<td class="zenith" align="left" style=" padding-left: 30%;">
-													<a href="javascript:studentList_setPreview ('{StudentInformationData/m_strStudentImageUrl}');">
-														<img src="{StudentInformationData/m_strStudentImageUrl}" id = "imagePreview_img_student" class="studentDetailImage" onerror="this.onerror=null; this.src='images/NoImage.png'" />
-													</a>
-													<br />
-												</td>
-											</tr>
-										</table>
-									</td>
-								</tr>
-							</table>
-							</td>
-							<td width="50%" valign="top">
 							<table>
 								<tr>
 									<td class="zenith" align="left" style="vertical-align:top;width:15%">
@@ -101,8 +82,7 @@
 										</table>										
 									</td>																
 								</tr>								
-							</table>
-							</td>							
+							</table>												
 						</td>																					
 					</tr>								
 				</table>
