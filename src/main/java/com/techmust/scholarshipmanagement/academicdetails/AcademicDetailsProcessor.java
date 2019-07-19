@@ -149,9 +149,12 @@ public class AcademicDetailsProcessor extends GenericIDataProcessor<AcademicDeta
 	public GenericResponse getStudentUploadedDocuments(@RequestBody AcademicDetails oAcademicDetails)
 	{
 		StudentDataResponse oStudentDataResponse = new StudentDataResponse();
-		oStudentDataResponse.m_oStudentDocuments = Utils.getStudentDocuments(oAcademicDetails.getStudentUploadDocuments(oAcademicDetails));
+		StudentDocuments oStudentDocuments = oAcademicDetails.getStudentUploadDocuments(oAcademicDetails);
 		if(oStudentDataResponse.m_oStudentDocuments != null)
+		{
+			oStudentDataResponse.m_oStudentDocuments = Utils.getStudentDocuments(oStudentDocuments);
 			oStudentDataResponse.m_bSuccess = true;
+		}
 		return oStudentDataResponse;		
 	}
 	
