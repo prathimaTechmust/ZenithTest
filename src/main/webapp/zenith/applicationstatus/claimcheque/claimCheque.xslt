@@ -41,7 +41,7 @@
 								<tr>
 									<td class="xslt_fieldHeading">Application Status :</td>
 									<td class="xslt_fieldData" id="m_strApplicationStatus">
-										
+										<xsl:value-of select="StudentInformationData/m_oZenithScholarshipDetails/ZenithScholarshipDetails/m_strStatus"/>
 									</td>
 								</tr>
 							</table>
