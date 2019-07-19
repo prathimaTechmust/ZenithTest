@@ -5,9 +5,9 @@
 <html>
 <head>
 	<style>
-		td{
-			vertical-align: top;				
-		}		
+		.topAlign{
+		vertical-align: top;				
+		}	
 	</style>
 </head>
 <body>
@@ -22,7 +22,7 @@
 							</a>
 							<br/>
 						</td>
-						<td style="padding-top: 8%;">
+						<td >
 							<table>
 								<tr>
 									<tr>
@@ -41,7 +41,7 @@
 								<tr>
 									<td class="xslt_fieldHeading">Application Status :</td>
 									<td class="xslt_fieldData" id="m_strApplicationStatus">
-										
+									<xsl:value-of select="StudentInformationData/m_oZenithScholarshipDetails/ZenithScholarshipDetails/m_strStatus"/>										
 									</td>
 								</tr>
 							</table>
@@ -49,7 +49,7 @@
 					</tr>
 				</table>
 			</td>
-			<td style="padding-top: 1%;"  align="center">			
+			<td  align="center">			
 				<!--BUTTONS DEFINATION -->	
 				<table>
 					<tr>
@@ -79,7 +79,7 @@
 											</table>
 										</fieldset>													
 									</td>
-									<td style="padding-top: 10%;"> 
+									<td style="padding-top: 3%;"> 
 					     				<button type="button" width="120px" align="center" class="zenith addButton" style="width:120px;" id="documentView" title="documentView" onclick="viewStudentDocument('{StudentInformationData/m_oAcademicDetails/AcademicDetails/m_nAcademicId}')">View Documents </button>
 	       			                </td>	
 								</tr>									
@@ -350,8 +350,8 @@
 					</tr>
 				</table>			
 			</td>
-			<td>
-			<!-- Parents guardian details -->
+			<td class= "topAlign">
+			<!-- scholarship details -->
 				<table>
 					<tr>
 						<td>

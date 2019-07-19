@@ -6,9 +6,8 @@
 <html>
 <head>
 	<style>
-		td
-		{
-			vertical-align: top;				
+		.topAlign{
+		vertical-align: top;				
 		}		
 		td.container > div 
 		{
@@ -34,7 +33,7 @@
 							</a>
 							<br/>
 						</td>
-						<td style="padding-top: 8%;">
+						<td >
 							<table>
 								<tr>
 									<tr>
@@ -53,7 +52,7 @@
 								<tr>
 									<td class="xslt_fieldHeading">Application Status :</td>
 									<td class="xslt_fieldData" id="m_strApplicationStatus">
-										
+										<xsl:value-of select="StudentInformationData/m_oZenithScholarshipDetails/ZenithScholarshipDetails/m_strStatus"/>
 									</td>
 								</tr>
 							</table>
@@ -61,7 +60,7 @@
 					</tr>
 				</table>
 			</td>
-			<td  style="padding-top: 2%;">			
+			<td >			
 				<!--BUTTONS DEFINATION -->	
 				<table width="100%" >
 					<tr>
@@ -376,8 +375,8 @@
 					</tr>
 				</table>			
 			</td>
-			<td>
-			<!-- Parents guardian details -->
+			<td class="topAlign">
+			<!-- Scholarship details -->
 				<table>
 					<tr>
 						<td>
