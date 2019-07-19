@@ -666,7 +666,7 @@ function gotSiblingDetails (m_arrSiblingsDetails)
 	 for(var nIndex = 0; nIndex < m_arrSiblingsDetails.length; nIndex++ )
 	 {
 		 if(nIndex !=0)
-			 $("#siblings").append('<tr><td class="fieldHeading">Zenith UID</td> <td><input type="text" id="studentInfo_input_SiblingsUID'+(nIndex)+'" class="zenith" style="margin-right: 60px" /></td><td class="fieldHeading">Name</td><td><input type="text"id="studentInfo_input_SiblingsName'+(nIndex)+'" class="zenith" /></td><td class="fieldHeading">class Studying</td><td><input type="text" id="studentInfo_input_SiblingsStudying'+(nIndex)+'" class="zenith" /></td><td class="fieldHeading">School/College</td><td><input type="text" id="studentInfo_input_SiblingsSchoolCollege'+(nIndex)+'" class="zenith" /></td><td> <img src="images/delete.png" width="20" align="center" id="deleteImageId" title="DeleteSiblings" class = "removeSiblings" onClick="deleteNewSiblings ()"/> </td></tr>');
+			 $("#siblings").append('<tr><td class="fieldHeading">UID</td> <td><input type="text" id="studentInfo_input_SiblingsUID'+(nIndex)+'" class="zenith" style="margin-right: 60px" /></td><td class="fieldHeading">Name</td><td><input type="text"id="studentInfo_input_SiblingsName'+(nIndex)+'" class="zenith" /></td><td class="fieldHeading">Studying</td><td><input type="text" id="studentInfo_input_SiblingsStudying'+(nIndex)+'" class="zenith" /></td><td class="fieldHeading">School/College</td><td><input type="text" id="studentInfo_input_SiblingsSchoolCollege'+(nIndex)+'" class="zenith" /></td><td> <img src="images/delete.png" width="20" align="center" id="deleteImageId" title="DeleteSiblings" class = "removeSiblings" onClick="deleteNewSiblings ()"/> </td></tr>');
 		 $("#studentInfo_input_SiblingsUID"+nIndex).val(m_arrSiblingsDetails[nIndex].m_nZenithUID);
 		 $("#studentInfo_input_SiblingsName"+nIndex).val(m_arrSiblingsDetails[nIndex].m_strSiblingName);
 		 $("#studentInfo_input_SiblingsStudying"+nIndex).val(m_arrSiblingsDetails[nIndex].m_strStudying);
@@ -1098,13 +1098,13 @@ function deletSiblings(clicked_id)
 
 function getSiblingsDetails()
 {
-
+	var arrSiblingDetails = null;
 	var siblingDetails = m_oStudentInfoMemberData.m_arrSiblingsDetails;
 	if(siblingDetails.length == 0)
-		getNewSiblingsDetails ();
+		arrSiblingDetails = getNewSiblingsDetails ();
 	else if(siblingDetails.length >= 1)
-		addSibilingsDetails();
-		
+		arrSiblingDetails = addSibilingsDetails();
+	return arrSiblingDetails;
 }
 
 function addSibilingsDetails ()
