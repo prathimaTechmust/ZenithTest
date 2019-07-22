@@ -32,7 +32,7 @@ function studentInfo_memberData ()
 	this.m_nSholarshipId = -1;
 	this.m_strApplicationType = "";
 	this.m_arrScholarshipDetails = new Array ();
-	this.m_oArrSiblingsDetails = new Array();
+	this.m_arrSiblingsDetails = new Array();
 	
 	this.m_nRowOrgCount = -1; 
 	this.m_nRowOrgAmountCount = -1;
@@ -505,7 +505,6 @@ function getAddScolarshipDetails ()
 	}	
 	return oArrScholarshipDetails;
 }
-
 function studentInfo_created (oStudentInfoResponse)
 {
 	HideDialog ("ProcessDialog");
@@ -585,9 +584,9 @@ function studentInfo_gotData (oStudentInfoResponse)
 	m_oStudentInfoMemberData.m_studentDateofBirth = oStudentInfoData.m_dDateOfBirth;
 	m_oStudentInfoMemberData.m_nAcademicId = oStudentInfoData.m_oAcademicDetails[0].m_nAcademicId;
 	m_oStudentInfoMemberData.m_strAcademicYear = oStudentInfoData.m_oAcademicDetails[0].m_strAcademicYear;
-	m_oStudentInfoMemberData.m_arrSiblingsDetails = oStudentInfoData.m_oSibilingDetails;
 	m_oStudentInfoMemberData.m_nInstitutionId = oStudentInfoData.m_oAcademicDetails[0].m_oInstitutionInformationData.m_nInstitutionId;
 	m_oStudentInfoMemberData.m_nCourseId = oStudentInfoData.m_oAcademicDetails[0].m_oCourseInformationData.m_nCourseId;
+	m_oStudentInfoMemberData.m_arrSiblingsDetails = oStudentInfoData.m_oSibilingDetails;
 	m_oStudentInfoMemberData.m_arrScholarshipDetails = 	oStudentInfoData.m_oAcademicDetails[0].m_oScholarshipDetails;
 	m_oStudentInfoMemberData.m_nRowOrgCount = m_oStudentInfoMemberData.m_arrScholarshipDetails.length;
 	m_oStudentInfoMemberData.m_nRowOrgAmountCount = m_oStudentInfoMemberData.m_arrScholarshipDetails.length;
@@ -657,6 +656,15 @@ function studentInfo_gotData (oStudentInfoResponse)
 	 if(m_oStudentInfoMemberData.m_arrSiblingsDetails.length > 0)
 		 gotSiblingDetails(m_oStudentInfoMemberData.m_arrSiblingsDetails);
 	 initFormValidateBoxes ("studentInfo_form_id");
+	 siblingsRowCount(m_oStudentInfoMemberData.m_arrSiblingsDetails);
+}
+/*siblings details*/
+function siblingsRowCount(siblingsEditRowCount) {
+	
+	m_oStudentInfoMemberData.m_nRowSiblingsUIDIdCount = siblingsEditRowCount.length;
+	m_oStudentInfoMemberData.m_nRowSiblingsNameCount = siblingsEditRowCount.length;
+	m_oStudentInfoMemberData.m_nRowSiblingStudyingCount = siblingsEditRowCount.length;
+	m_oStudentInfoMemberData.m_nRowSiblingSchoolCollegeCount = siblingsEditRowCount.length;
 }
 
 function gotSiblingDetails (m_arrSiblingsDetails)
@@ -1058,7 +1066,7 @@ function hideSiblings(divId)
 
 function siblingsAddSiblings () 
 {
-	if(m_oStudentInfoMemberData.m_nRowSiblingsCount != -1)
+	if(m_oStudentInfoMemberData.m_nRowSiblingsUIDIdCount != -1)
 	{
 		$("#siblings").append('<tr><td class="fieldHeading">UID</td> <td><input type="text"id="studentInfo_input_SiblingsUID'+(m_oStudentInfoMemberData.m_nRowSiblingsUIDIdCount++)+'" class="zenith" style="margin-right: 60px" maxlength = "4"/></td><td class="fieldHeading">Name</td><td><input type="text"id="studentInfo_input_SiblingsName'+(m_oStudentInfoMemberData.m_nRowSiblingsNameCount++)+'" class="zenith" /></td><td class="fieldHeading">Studying</td><td><input type="text" id="studentInfo_input_SiblingsStudying'+(m_oStudentInfoMemberData.m_nRowSiblingStudyingCount++)+'" class="zenith" /></td><td class="fieldHeading">School/College</td><td><input type="text" id="studentInfo_input_SiblingsSchoolCollege'+(m_oStudentInfoMemberData.m_nRowSiblingSchoolCollegeCount++)+'" class="zenith" /></td><td> <img src="images/delete.png" width="20" align="center" id="deleteImageId" title="Delete Siblings" class = "removeSiblings" onClick="deletSiblings()"/> </td></tr>');
 		m_oStudentInfoMemberData.m_nUpdatedEditSiblingsUIDIdRowCount = m_oStudentInfoMemberData.m_nRowSiblingsUIDIdCount;
@@ -1076,9 +1084,17 @@ function siblingsAddSiblings ()
 	}
 
 }
-function deleteNewSiblings ()
+function deleteNewSiblings (clicked_id)
 {
+var bUserConfirm = getUserConfirmation("Are you sure do you want to delete?");
+if(bUserConfirm)
+{
+
 	$("#siblings").on('click','.removeSiblings',function() { $(this).parent().parent().remove(); });
+	var oSiblingsDetails = new SiblingsDetails();
+	oSiblingsDetails.m_nSiblingId = $("#studentInfo_input_SiblingsUID"+clicked_id).val();
+	checkSiblings(oSiblingsDetails);
+}
 	var siblingsrows = document.getElementById("siblings");   
     m_oStudentInfoMemberData.m_nSiblingsUIDId = siblingsrows.rows.length;
     m_oStudentInfoMemberData.m_nSiblingsName = siblingsrows.rows.length;
@@ -1086,7 +1102,13 @@ function deleteNewSiblings ()
     m_oStudentInfoMemberData.m_nSiblingsSchoolCollege =  siblingsrows.rows.length;
 }
 
-function deletSiblings(clicked_id) 
+function checkSiblings()
+{
+	if(oSiblingsDetails.m_nSinlingsId != undefined)
+		StudentInformationDataProcessor.deleteSiblings(oSiblingsDetails,deleteSiblingsResponse);
+}
+
+function deletSiblings() 
 {
 	$("#siblings").on('click','.removeSiblings',function() { $(this).parent().parent().remove(); });
 	var siblingsrows = document.getElementById("siblings");   
@@ -1096,6 +1118,10 @@ function deletSiblings(clicked_id)
     m_oStudentInfoMemberData.m_nRowSiblingsSchoolCollegeCount =  siblingsrows.rows.length;
 }
 
+function deleteSiblingsResponse ()
+{
+	student_displayInfo("siblings deleted successfully");
+}
 function getSiblingsDetails()
 {
 	var arrSiblingDetails = null;
@@ -1127,7 +1153,7 @@ function addSibilingsDetails ()
 	}
 	else
 	{
-		for(var nIndex = 0; nIndex < m_oStudentInfoMemberData.m_nUpdatedSiblingsUIDIdRowCount; nIndex++)
+		for(var nIndex = 0; nIndex < m_oStudentInfoMemberData.m_nUpdatedEditSiblingsUIDIdRowCount; nIndex++)
 		{
 			var oSiblingsDeatils = new SiblingsDetails();			
 			if(($("#studentInfo_input_SiblingsUID"+nIndex).val() != '' && $("#studentInfo_input_SiblingsName"+nIndex).val() !='' && $("#studentInfo_input_SiblingsStudying"+nIndex).val() != '' && $("#studentInfo_input_SiblingsSchoolCollege"+nIndex).val() !='')&&($("#studentInfo_input_SiblingsUID"+nIndex).val() != undefined && $("#studentInfo_input_SiblingsName"+nIndex).val() != undefined  && $("#studentInfo_input_SiblingsStudying"+nIndex).val() != undefined && $("#studentInfo_input_SiblingsSchoolCollege"+nIndex).val() != undefined  ))
@@ -1146,7 +1172,6 @@ function addSibilingsDetails ()
 	}	
 	return oArrSiblingsDetails;
 }
-
 function getNewSiblingsDetails ()
 {
 	var oArrSiblingsDetails = new Array();
