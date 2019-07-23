@@ -72,6 +72,11 @@ var StudentInformationDataProcessor = (function __StudentInformationDataProcesso
 		ajaxCall(oStudentData,"/studentStatusInfoList",callback);
 	}
 	
+	function getStudentDataUID (oStudentFormUIDData,callback)
+	{
+		ajaxCall(oStudentFormUIDData,"/getStudentUIDData",callback);
+	}
+	
 	return { 
 		create : create,
 		createandprint:createandprint,
@@ -85,6 +90,7 @@ var StudentInformationDataProcessor = (function __StudentInformationDataProcesso
 		setImagetoS3bucket :setImagetoS3bucket,
 		getStudentUID :getStudentUID,
 		checkAadharExist:checkAadharExist,
-		getStudentStatuslist : getStudentStatuslist
+		getStudentStatuslist : getStudentStatuslist,
+		getStudentDataUID:getStudentDataUID
 	};
 })();

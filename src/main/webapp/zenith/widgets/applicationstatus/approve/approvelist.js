@@ -284,12 +284,11 @@ function studentRemarkInfo_cancel ()
 }
 
 
-function reVerifyStudentInfo_Student(){
-	
+function reVerifyStudentInfo_Student()
+{	
 	var oZenith = new ZenithScholarshipDetails ();
 	oZenith.m_nStudentId = m_oApproveStudentList_Info_MemberData.m_nStudentId;
-	ZenithStudentInformationDataProcessor.reVerifiedStatusUpdate(oZenith,studentReVerifiedResponse);
-	
+	ZenithStudentInformationDataProcessor.reVerifiedStatusUpdate(oZenith,studentReVerifiedResponse);	
 }
 
 

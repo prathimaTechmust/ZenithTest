@@ -160,11 +160,7 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 			Set<AcademicDetails> m_setAcademicDetails = oStudentInformationData.getM_oAcademicDetails();
 			List<AcademicDetails>m_arrAcademicDetails = new ArrayList<AcademicDetails>(m_setAcademicDetails);
 			AcademicDetails oAcademicDetails = m_arrAcademicDetails.get(0);
-			if(oAcademicDetails.getM_arrStudentDocuments().size() >0)
-			{
-				StudentDocuments oStudentDocuments = oAcademicDetails.getM_arrStudentDocuments().get(0);
-				oStudentDataResponse.m_oStudentDocuments = Utils.getStudentDocuments(oStudentDocuments);
-			}
+			oStudentDataResponse.m_oStudentDocuments = getStudentDocuments(oAcademicDetails);			
 			oStudentDataResponse.m_arrStudentInformationData.add (oStudentInformationData);
 		} 
 		catch (Exception oException) 
@@ -174,6 +170,17 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		}
 		return oStudentDataResponse;
 	}	
+
+	private StudentDocuments getStudentDocuments(AcademicDetails oAcademicDetails)
+	{
+		StudentDocuments oStudentDocuments = null;
+		if(oAcademicDetails.getM_arrStudentDocuments().size() >0)
+		{
+			oStudentDocuments = oAcademicDetails.getM_arrStudentDocuments().get(0);
+			oStudentDocuments = Utils.getStudentDocuments(oStudentDocuments);
+		}
+		return oStudentDocuments;		
+	}
 
 	@RequestMapping(value="/studentInfoGetUIDData", method = RequestMethod.POST, headers = {"Content-type=application/json"})
 	@ResponseBody
@@ -338,8 +345,33 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 			m_oLogger.error ("studentStatuslist - oException : "  + oException);
 			throw oException;
 		}
-		return oStudentDataResponse;
-		
+		return oStudentDataResponse;		
+	}
+	
+	@RequestMapping(value = "/getStudentUIDData",method = RequestMethod.POST,headers = {"Content-type=application/json"})
+	@ResponseBody
+	public GenericResponse getStudentDataUID(@RequestBody StudentInformationData oStudentInformationData)
+	{
+		m_oLogger.info ("getStudentDataUID");
+		m_oLogger.debug ("getStudentDataUID - oStudentInformationData [IN] : " + oStudentInformationData);
+		StudentDataResponse oStudentDataResponse = new StudentDataResponse();
+		try
+		{
+			oStudentInformationData = oStudentInformationData.getUIDAndAadharFormData(oStudentInformationData);
+			if(oStudentInformationData != null)
+			{
+				oStudentDataResponse.m_arrStudentInformationData.add(oStudentInformationData);
+				List<AcademicDetails> m_arrAcademicList = new ArrayList<AcademicDetails>(oStudentInformationData.getM_oAcademicDetails());				
+				oStudentDataResponse.m_oStudentDocuments = getStudentDocuments(m_arrAcademicList.get(0));
+				oStudentDataResponse.m_bSuccess = true;
+			}
+		}
+		catch (Exception oException)
+		{
+			m_oLogger.error ("getStudentDataUID - oException : "  + oException);
+			throw oException;
+		}
+		return oStudentDataResponse;		
 	}
 	
 	@Override	

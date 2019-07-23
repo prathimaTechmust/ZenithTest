@@ -87,12 +87,7 @@ function studentInfo_init ()
 	studentReligionDropDown();
 	studentParentalStatusDropDown();
 	studentScoreDropDown();
-	getDropDownValues ();
-	loadDropDownValues ();	
-}
-
-function loadDropDownValues ()
-{
+	getDropDownValues ();	
 	laodFacilitatorListToDropDown();
 	loadInstitutionsNamesListDropDown();
 	loadCourseNamesListDropDown();
@@ -595,7 +590,7 @@ function studentInfo_gotData (oStudentInfoResponse)
 	 $("#studentInfo_input_studentAadharNumber").val(oStudentInfoData.m_nStudentAadharNumber);
 	 $("#studentInfo_input_studentName").val(oStudentInfoData.m_strStudentName);
 	 facilitatorPopulateCombobox(oStudentInfoData);
-	/* $('#selectStudentInfo_input_studentfacilitator').combobox('select', oStudentInfoData.m_oFacilitatorInformationData.m_nFacilitatorId);*/
+	 $('#selectStudentInfo_input_studentfacilitator').jqxComboBox('val', oStudentInfoData.m_oFacilitatorInformationData.m_nFacilitatorId);
 	 if(oStudentInfoData.m_strGender == "Male")
 	 {
 		var radiobutton = document.getElementById("studentInfo_input_male");
@@ -642,8 +637,8 @@ function studentInfo_gotData (oStudentInfoResponse)
 	  /*Academic Details*/
 	 institutionPopulateCombobox(oStudentInfoData);
 	 coursePopulateCombobox(oStudentInfoData);
-	 /*$("#select_input_academic_name").combobox('select',oStudentInfoData.m_oAcademicDetails[0].m_oInstitutionInformationData.m_nInstitutionId);	
-	 $("#select_input_studentcourse").combobox('select',oStudentInfoData.m_oAcademicDetails[0].m_oCourseInformationData.m_nCourseId);*/	
+	 $("#select_input_academic_name").jqxComboBox('val',oStudentInfoData.m_oAcademicDetails[0].m_oInstitutionInformationData.m_nInstitutionId);	
+	 $("#select_input_studentcourse").jqxComboBox('val',oStudentInfoData.m_oAcademicDetails[0].m_oCourseInformationData.m_nCourseId);
 	 $("#select_input_studentSpecialization").val(oStudentInfoData.m_oAcademicDetails[0].m_strSpecialization);
 	 $("#studentInfo_input_studentScore").val(oStudentInfoData.m_oAcademicDetails[0].m_strStudentScore);
 	 $("#academicInfo_input_annualfee").val(oStudentInfoData.m_oAcademicDetails[0].m_fAnnualFee);
@@ -700,101 +695,73 @@ function setReadableFields()
 
 function  gotStudentDocuments(oStudentDocuments)
 {
-	if(oStudentDocuments.m_strStudentAadhar != null)
+	if(oStudentDocuments != null && oStudentDocuments.m_strStudentAadhar != null)
 		$("#studentInfo_input_studentaadhar").attr("src",oStudentDocuments.m_strStudentAadhar);
-	if(oStudentDocuments.m_strStudentElectricityBill != null)
+	if(oStudentDocuments != null && oStudentDocuments.m_strStudentElectricityBill != null)
 		$("#studentInfo_input_studentElectricityBill").attr("src",oStudentDocuments.m_strStudentElectricityBill);
-	if(oStudentDocuments.m_strFatherAadharImageId != null)
+	if(oStudentDocuments != null && oStudentDocuments.m_strFatherAadharImageId != null)
 		$("#studentInfo_input_fatheraadhar").attr("src",oStudentDocuments.m_strFatherAadharImageId);
-	if(oStudentDocuments.m_strMotherAadharImageId != null)
+	if(oStudentDocuments != null && oStudentDocuments.m_strMotherAadharImageId != null)
 		$("#studentInfo_input_motheraadhar").attr("src",oStudentDocuments.m_strMotherAadharImageId);
-	if(oStudentDocuments.m_strStudentMarksCard1 != null)
+	if(oStudentDocuments != null && oStudentDocuments.m_strStudentMarksCard1 != null)
 		$("#studentInfo_input_studentMarksCard1").attr("src",oStudentDocuments.m_strStudentMarksCard1);
-	if(oStudentDocuments.m_strStudentMarksCard2 != null)
+	if(oStudentDocuments != null && oStudentDocuments.m_strStudentMarksCard2 != null)
 		$("#studentInfo_input_studentMarksCard2").attr("src",oStudentDocuments.m_strStudentMarksCard2);
-	if(oStudentDocuments.m_strOtherDocuments != null)
+	if(oStudentDocuments != null && oStudentDocuments.m_strOtherDocuments != null)
 		$("#studentInfo_input_additionalDocuments").attr("src",oStudentDocuments.m_strOtherDocuments);
 }
 
 function facilitatorPopulateCombobox(oStudentInfoData)
 {
-	var arrFacilitator = new Array();
-	arrFacilitator.push(oStudentInfoData.m_oFacilitatorInformationData)
-	$('#selectStudentInfo_input_studentfacilitator').jqxComboBox({source:arrFacilitator,selectedIndex:0});
-	
+	getFacilitatorListToDropDown();
+	laodFacilitatorListToDropDown();	
 }
 
 function institutionPopulateCombobox(oStudentInfoData)
 {
-	var arrInstitutions = new Array();
-	arrInstitutions.push(oStudentInfoData.m_oAcademicDetails[0].m_oInstitutionInformationData)
-	$('#select_input_academic_name').jqxComboBox({source:arrInstitutions,selectedIndex:0});
+	getInstitutionsNamesListDropDown();
+	loadInstitutionsNamesListDropDown();
 }
 
 function coursePopulateCombobox(oStudentInfoData)
-{
-
-	var arrCourses = new Array();
-	arrCourses.push(oStudentInfoData.m_oAcademicDetails[0].m_oCourseInformationData)
-	$('#select_input_studentcourse').jqxComboBox({source:arrCourses,selectedIndex:0});
-}
-
-function studentUIDInfo_submit ()
-{
-	if (studentUIDInfo_validate())
-		loadPage ("include/process.html", "ProcessDialog", "studentUID_progressbarLoaded ()");
-	else
-	{
-		alert("Please Enter UID Number");
-		$('#oldstudentUIDForm').focus();
-	}	
-	
-}
-
-function studentUID_progressbarLoaded ()
-{
-	var oStudentInformationData = new StudentInformationData ();
-	oStudentInformationData.m_nUID = $("#studentInfo_input_studentUID").val();
-	StudentInformationDataProcessor.getStudentUID (oStudentInformationData, studentInfo_gotStudentUIDData);
-}
-function studentInfo_gotStudentUIDData (oStudentUIDResponse)
-{
-	HideDialog ("ProcessDialog");
-	if(oStudentUIDResponse.m_bSuccess)
-	{
-		m_oStudentInfoMemberData.m_arrStudentUIDData = oStudentUIDResponse;
-		loadPage ("scholarshipmanagement/student/studentInfo.html", "dialog", "studentUIDInfo_gotData()");
-	}
-	else
-	{
-		alert("Student UID does not exist!");
-		$('#oldstudentUIDForm').focus();
-	}
+{	
+	getCourseNamesListDropDown();
+	loadCourseNamesListDropDown ();
 }
 
 function searchStudentUID ()
 {
 	var oStudentInformationData = new StudentInformationData ();
 	oStudentInformationData.m_nUID = $("#studentInfo_input_studentUIDNumber").val();
-	StudentInformationDataProcessor.getStudentUID (oStudentInformationData, studentInfo_setStudentUIDData);
+	oStudentInformationData.m_strAcademicYear = $("#select_student_academicyear").val();
+	StudentInformationDataProcessor.getStudentDataUID (oStudentInformationData, studentInfo_setStudentData);
 }
 
-function studentInfo_setStudentUIDData (oStudentSetUIDResponse)
+function studentInfo_setStudentData (oStudentUIDAadharResponse)
 {
 	
 	HideDialog ("ProcessDialog");
-	if(oStudentSetUIDResponse.m_bSuccess)
+	if(oStudentUIDAadharResponse.m_bSuccess)
 	{
 		
 		document.getElementById("studentInfo_button_submit").setAttribute('update', true);
 		document.getElementById("studentInfo_button_submit").innerHTML = "Update";
-		studentInfo_gotData(oStudentSetUIDResponse);		
+		document.getElementById("DocumentUpload_details_btn").style.display="inline";
+		studentInfo_gotData(oStudentUIDAadharResponse);		
 	}
 	else
 	{		
 		$('#studentInfo_form_id').focus();
 	}
 
+}
+
+function searchStudentAadhar ()
+{
+	var oStudentInformationData = new StudentInformationData ();
+	oStudentInformationData.m_nStudentAadharNumber = $("#studentInfo_input_studentAadharNumber").val();
+	oStudentInformationData.m_strAcademicYear = $("#select_student_academicyear").val();
+	StudentInformationDataProcessor.getStudentDataUID (oStudentInformationData, studentInfo_setStudentData);
 }
 
 function studentInfo_createandprint()
@@ -828,14 +795,6 @@ function studentInfo_createAndPrintResponse(oPrintResponse)
     {
         informUser("create and print is failed","kError");        
     }
-}
-
-function studentUIDInfo_gotData ()
-{
-	studentInfo_init ();
-	document.getElementById("studentInfo_button_submit").setAttribute('update', true);
-	document.getElementById("studentInfo_button_submit").innerHTML = "Update";	
-	studentInfo_gotData(m_oStudentInfoMemberData.m_arrStudentUIDData);	
 }
 
 function fatherAadharValidate ()
