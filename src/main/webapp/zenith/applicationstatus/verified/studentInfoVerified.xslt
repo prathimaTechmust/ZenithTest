@@ -74,11 +74,8 @@
 													<button type="button" width="20" align="center" class = "zenith addButton" style="width:100px;" id="printStudent" title="Print" onClick="printStudentDetails()">Print</button>
 												</td>
 												<td>
-	                    							<input name="studentdocument" type="file"	id="ScanCopy" onchange="scanImage(inputDocument,ScanCopy,scanDocument_td,verifyStudent)"/>
-	 			       							 </td>
-												<td id="scanDocument_td">                                                                                                                                                                                                                                            
-                                                    <button type="button"  disabled="true" width="20" align="center"  class = "zenith addButton" style="width:100px;color: grey;" id="verifyStudent" title="Verify" onClick="verifyStudentInfo_Student()">Verify</button>
-                                                </td>
+												  <button type="button" width="20" align="center"  class="zenith addButton" style="width:100px;" id="verfiychoosefile" title="verfiy" onclick="showChooseFile()">Verfiy</button>
+												</td>
                                                 <td>
 	 			       							 <button type="button" width="120px" align="center" class="zenith addButton" style="width:120px;" id="documentView" title="documentView" onclick="viewStudentDocument('{StudentInformationData/m_oAcademicDetails/AcademicDetails/m_nAcademicId}')">View Documents </button>
 	 			       						   </td>
@@ -90,25 +87,6 @@
 						</td>
 						<td width="33.3%">
 							<br/>
-						</td>
-						<td width="33.3%" >
-							<table>
-								<tr>
-									<td class="zenith" align="left">
-									 <div style="height: 95px; overflow:hidden;">
-										<table class="zenith">
-											<tr>
-												 <td>
-		 			       							 <a href="javascript:studentuploadScan_documentPreview (inputDocument);">
-		 			       							 	 <img id="inputDocument" src="#" alt="" style="height: 80px;"/>
-		 			       							  </a>
-	 			       							 </td>
-											</tr>									
-										</table>
-									</div>										
-									</td>																
-								</tr>								
-							</table>
 						</td>
 					</tr>
 				</table>				
