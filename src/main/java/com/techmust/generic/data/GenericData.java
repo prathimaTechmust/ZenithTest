@@ -1053,7 +1053,7 @@ public abstract class GenericData implements IGenericData, Serializable
 			{
 				ZenithScholarshipDetails oDetails = list.get(0);
 				oDetails.setM_strStatus(Constants.CHEQUECLAIMED);
-				oDetails.setM_dClaimedDate(Calendar.getInstance().getTime());
+				oDetails.setM_dClaimedDate(oZenithData.getM_dClaimedDate());
 				bIsChequeClaimed = oDetails.updateObject();
 			}
 		}

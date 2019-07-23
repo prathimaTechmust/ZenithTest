@@ -140,17 +140,61 @@ function toBeClaimChequeListInfo_gotXML (strXMLData)
 
 function claimCheque ()
 {
+	loadPage("applicationstatus/chequeDetails/toBeClaimCheque/toBeClaimChequeDate.html", "dialog", "claimChequeDateNew()");
+}
+function claimChequeDateNew() 
+{
+	claimChequeDateInit();
+}
+
+function claimChequeDateInit()
+{
+	createPopup('dialog','claimChequeDate_submit','claimChequeDate_cancle', true);
+	initFormValidateBoxes("claimChequeForm");
+}
+
+function claimChequeDate_submit() 
+{
+	if(claimChequeInfo_validate())
+	{
+			loadPage ("include/process.html", "ProcessDialog", "claimCheque_progressbarLoaded ()");
+	}
+	else
+	{
+		alert("Please Fill Mandiatory Fields");
+		$('#claimChequeForm').focus();
+	}
+}
+
+function claimChequeInfo_validate() 
+{
+	return validateForm("claimChequeForm");
+	
+}
+
+function claimCheque_progressbarLoaded()
+{
+	createPopup('ProcessDialog', '', '', true);
 	var oZenithScholarshipDetails = new ZenithScholarshipDetails ();
 	oZenithScholarshipDetails.m_nStudentId = m_oToBeClaimChequeListMemberData.m_nStudentId;
-	ZenithStudentInformationDataProcessor.claimCheque(oZenithScholarshipDetails,toBeClaimChequeResponse);	
+	oZenithScholarshipDetails.m_dClaimedDate = $("#studentChequeInfo_input_chequeDate").val();
+	ZenithStudentInformationDataProcessor.claimCheque(oZenithScholarshipDetails,toBeClaimChequeResponse);		
+}
+
+function claimChequeDate_cancel()
+{
+	HideDialog("dialog")
 }
 
 function toBeClaimChequeResponse (oResponse)
 {
 	if(oResponse.m_bSuccess)
-	{
+	{ 
+		HideDialog ("ProcessDialog");
 		informUser("Cheque Claimed Successfully","kSuccess");
+		HideDialog("dialog")
 		navigate("tobeClaimChequeList","widgets/applicationstatus/ChequeDetails/toBeClaimedChequeList/toBeClaimchequelist.js");
+		
 	}
 	else
 		informUser("Cheque Claimed unsuccessfully","kError");		
