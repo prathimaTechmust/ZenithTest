@@ -55,6 +55,7 @@ function createToBeClaimChequeList_DataGrid()
 			fit:true,
 			columns:
 			[[
+				{field:'m_nUID',title:'UID',sortable:true,width:200},
 				{field:'m_strStudentName',title:'Student Name',sortable:true,width:300},
 				{field:'m_strInstitutionName',title:'Institution Name',sortable:true,width:300,
 					formatter:function(value,row,index)
@@ -139,19 +140,95 @@ function toBeClaimChequeListInfo_gotXML (strXMLData)
 
 function claimCheque ()
 {
+	loadPage("applicationstatus/chequeDetails/toBeClaimCheque/toBeClaimChequeDate.html", "dialog", "claimChequeDateNew()");
+}
+function claimChequeDateNew() 
+{
+	claimChequeDateInit();
+}
+
+function claimChequeDateInit()
+{
+	createPopup('dialog','claimChequeDate_submit','claimChequeDate_cancle', true);
+	initFormValidateBoxes("claimChequeForm");
+}
+
+function claimChequeDate_submit() 
+{
+	if(claimChequeInfo_validate())
+	{
+			loadPage ("include/process.html", "ProcessDialog", "claimCheque_progressbarLoaded ()");
+	}
+	else
+	{
+		alert("Please Fill Mandiatory Fields");
+		$('#claimChequeForm').focus();
+	}
+}
+
+function claimChequeInfo_validate() 
+{
+	return validateForm("claimChequeForm");
+	
+}
+
+function claimCheque_progressbarLoaded()
+{
+	createPopup('ProcessDialog', '', '', true);
 	var oZenithScholarshipDetails = new ZenithScholarshipDetails ();
 	oZenithScholarshipDetails.m_nStudentId = m_oToBeClaimChequeListMemberData.m_nStudentId;
-	ZenithStudentInformationDataProcessor.claimCheque(oZenithScholarshipDetails,toBeClaimChequeResponse);	
+	oZenithScholarshipDetails.m_dClaimedDate = $("#studentChequeInfo_input_chequeDate").val();
+	ZenithStudentInformationDataProcessor.claimCheque(oZenithScholarshipDetails,toBeClaimChequeResponse);		
+}
+
+function claimChequeDate_cancel()
+{
+	HideDialog("dialog")
 }
 
 function toBeClaimChequeResponse (oResponse)
 {
 	if(oResponse.m_bSuccess)
-	{
+	{ 
+		HideDialog ("ProcessDialog");
 		informUser("Cheque Claimed Successfully","kSuccess");
+		HideDialog("dialog")
 		navigate("tobeClaimChequeList","widgets/applicationstatus/ChequeDetails/toBeClaimedChequeList/toBeClaimchequelist.js");
+		
 	}
 	else
-		informUser("Cheque Claimed unsuccessfully","kError");
-		
+		informUser("Cheque Claimed unsuccessfully","kError");		
+}
+
+function searchStudentUID ()
+{
+	var oStudentInformationData = new StudentInformationData();
+	oStudentInformationData.m_nUID = $("#StudentInfo_input_uid").val();
+	oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+	oStudentInformationData.m_strStatus = m_oToBeClaimChequeListMemberData.m_strapplicationStatus;
+	if($("StudentInfo_input_uid").val() != "")
+		StudentInformationDataProcessor.getStudentUID (oStudentInformationData, studentUIDInformation);	
+	else
+	{
+		alert("Please Enter UID Number");
+		document.getElementById("StudentInfo_input_uid").value = "";
+	}		
+}
+
+function studentUIDInformation (oResponse)
+{	
+	if(oResponse.m_bSuccess)
+	{
+		document.getElementById("toBeClaimChequeList_div_listDetail").innerHTML = "";
+		var oStudentInformationData = new StudentInformationData () ;
+		oStudentInformationData.m_nStudentId = m_oToBeClaimChequeListMemberData.m_nStudentId = oResponse.m_arrStudentInformationData[0].m_nStudentId;
+		oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+		StudentInformationDataProcessor.getXML (oStudentInformationData,toBeClaimChequeListInfo_gotXML);
+		document.getElementById("StudentInfo_input_uid").value = "";
+	}
+	else
+	{
+		alert("Student UID Does not exist in the list");
+		document.getElementById("StudentInfo_input_uid").value = "";
+	}
 }

@@ -16,7 +16,7 @@
 <body>
 <table border="1" width="100%" >
 	<tr>	
-		<td style="width: 40%;" >
+		<td style="width: 50%;" >
 			<table>
 				<tr>
 					<td align="left">
@@ -43,7 +43,10 @@
 							</tr>
 							<tr>
 								<td class="xslt_fieldHeading">Application Status :</td>
-								<td class="xslt_fieldData" id="m_strApplicationStatus"></td>
+								<td class="xslt_fieldData" id="m_strApplicationStatus">
+								<xsl:value-of select="StudentInformationData/m_oZenithScholarshipDetails/ZenithScholarshipDetails/m_strStatus"/>								
+								</td>
+								
 							</tr>
 						</table>
 					</td>

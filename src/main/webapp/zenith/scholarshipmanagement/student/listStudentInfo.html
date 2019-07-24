@@ -25,11 +25,6 @@
                     </button>
                   </td>
                   <td class="zenith" style="width:15%">
-                  	<button id="listStudentInfo_button_old" class="zenith addButton" type="button" style="visibility: initial;" onclick="listOldStudentInfo_showAddPopup ()">
-                  	Old Student
-                  	</button>
-                  </td>
-                  <td class="zenith" style="width:15%">
                     <input 
                         class="filterTextBox"
                         id="filterStudentInfo_input_studentName"
@@ -47,9 +42,9 @@
                   <td class="zenith" style="width:15%">
                     <input 
                         class="filterTextBox"
-                        id="filterStudentInfo_input_city"
+                        id="filterStudentInfo_input_aadhar"
                         onkeypress="handleFilter('listStudentInfo_filter()','')"
-                        placeholder="City"/>
+                        placeholder="Student Aadhar"/>
                   </td>
                   <td class="zenith" style="width:5%">
                     	<select id="selectacademicyearwiseStudents" class="filterTextBox" style="width: 100px;">                    		
@@ -58,11 +53,6 @@
                   <td class="zenith" style="width:5%">
                     <button class="zenith filterButton" type="button" onclick="listStudentInfo_filter ()">
                       Filter
-                    </button>
-                  </td>
-                  <td class="zenith" style="width:5%">
-                    <button class="zenith importButton" type="button" onclick="listStudentInfo_import ()">
-                      Import
                     </button>
                   </td>
                 </tr>

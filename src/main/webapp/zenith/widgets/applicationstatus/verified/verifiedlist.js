@@ -67,12 +67,6 @@ function verifiedStudentListInfo_createDataGrid ()
 				{field:'m_strFatherName',title:'Father Name',sortable:true,width:300},
 				{field:'m_strPhoneNumber',title:'Phone Number',sortable:true,width:200},
 				{field:'m_strCity',title:'City',sortable:true,width:200},
-				/*{field:'Actions',title:'Action',width:80,align:'center',
-					formatter:function(value,row,index)
-		        	{
-		        		return verifiedListInfo_displayImages (row.m_nStudentId);
-		        	}
-	            },*/
 			]],				
 		}
 	);
@@ -251,23 +245,37 @@ function studentuploadScan_documentPreview(scan_input_previewimageId)
 	 var viewImageId = document.getElementById(scan_input_previewimageId.id)
 	 var fileInputimageurl = document.getElementById (scan_input_previewimageId.id).src;
 	 m_overifiedStudentList_Info_MemberData.m_strScanDocUploadURL = fileInputimageurl;
-	 loadPage("applicationstatus/verified/scanDocumentPreview.html","dialog","showScanDocumentPreview()");    
+	 loadPage("applicationstatus/verified/scanDocumentPreview.html","secondDialog","showScanDocumentPreview()");    
 }
 
 
 function showScanDocumentPreview ()
 {
-    createPopup ('dialog', '', '', true);
-    document.getElementById('dialog').style.position = "fixed";
+    createPopup ('secondDialog', '', '', true);
+    document.getElementById('secondDialog').style.position = "fixed";
     $(".imagePreview").attr('src', m_overifiedStudentList_Info_MemberData.m_strScanDocUploadURL);    
 }
 
 
 function scanDocument_cancelImagePreview() 
 {
-	  HideDialog ("dialog");
+	  HideDialog ("secondDialog");
 }
 
 
+function showChooseFile() {
+	
+	 loadPage("applicationstatus/verified/choosefile.html","dialog","chooseFileInit()");    
+	
+}
+function chooseFileInit() 
+{
+	createPopup('dialog','','chooseFileDocument_cancel', true);
+	
+}
 
+function chooseFileDocument_cancel()
+{
+	HideDialog("dialog")
+}
 

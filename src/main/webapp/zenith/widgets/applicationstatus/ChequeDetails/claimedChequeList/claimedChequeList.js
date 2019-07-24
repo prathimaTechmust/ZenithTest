@@ -9,7 +9,7 @@ includeDataObjects(claimedChequesInfo_includeDataObjects,"claimedChequesInfo_Loa
 
 function claimedChequeList_MemberData ()
 {
-	this.m_strapplicationStatus = "cheque claimed";
+	this.m_strStatus = "cheque claimed";
 }
 
 var m_oClaimedChequeListMemberData = new claimedChequeList_MemberData();
@@ -48,14 +48,14 @@ function populateYear(academicyear,oYearResponse)
 
 function createClaimedChequeList_DataGrid()
 {
-	initHorizontalSplitter("#claimedChequeList_div_horizontalSplitter", "#claimedChequeList_div_horizontalSplitter");
-	
+	initHorizontalSplitter("#claimedChequeList_div_horizontalSplitter", "#claimedChequeList_div_horizontalSplitter");	
 	$("#claimedChequeList_table").datagrid
 	(
 		{
 			fit:true,
 			columns:
 			[[
+				{field:'m_nUID',title:'UID',sortable:true,width:200},
 				{field:'m_strStudentName',title:'Student Name',sortable:true,width:300},
 				{field:'m_strInstitutionName',title:'Institution Name',sortable:true,width:300,
 					formatter:function(value,row,index)
@@ -118,7 +118,7 @@ function claimedChequeListInfo_progressbarLoaded ()
 	createPopup('dialog', '', '', true);
 	var oStudentInformationData = new StudentInformationData ();
 	oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
-	oStudentInformationData.m_strStatus = m_oClaimedChequeListMemberData.m_strapplicationStatus;
+	oStudentInformationData.m_strStatus = m_oClaimedChequeListMemberData.m_strStatus;
 	StudentInformationDataProcessor.getStudentStatuslist(oStudentInformationData,claimedChequeListInfo_listed);
 }
 
@@ -147,4 +147,37 @@ function claimedChequeListInfo_selectedRowData(oRowData,nIndex)
 function claimedChequeListInfo_gotXML (strXMLData)
 {
 	populateXMLData (strXMLData, "applicationstatus/chequeDetails/claimedCheque/claimedCheque.xslt", 'claimedChequeList_div_listDetail');
+}
+
+function searchStudentUID ()
+{
+	var oStudentInformationData = new StudentInformationData();
+	oStudentInformationData.m_nUID = $("#StudentInfo_input_uid").val();
+	oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+	oStudentInformationData.m_strStatus = m_oClaimedChequeListMemberData.m_strStatus;
+	if($("StudentInfo_input_uid").val() != "")
+		StudentInformationDataProcessor.getStudentUID (oStudentInformationData, studentUIDInformation);	
+	else
+	{
+		alert("Please Enter UID Number");
+		document.getElementById("StudentInfo_input_uid").value = "";
+	}		
+}
+
+function studentUIDInformation (oResponse)
+{	
+	if(oResponse.m_bSuccess)
+	{
+		document.getElementById("claimedChequeList_div_listDetail").innerHTML = "";
+		var oStudentInformationData = new StudentInformationData () ;
+		oStudentInformationData.m_nStudentId = m_oClaimedChequeListMemberData.m_nStudentId = oResponse.m_arrStudentInformationData[0].m_nStudentId;
+		oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+		StudentInformationDataProcessor.getXML (oStudentInformationData,claimedChequeListInfo_gotXML);
+		document.getElementById("StudentInfo_input_uid").value = "";
+	}
+	else
+	{
+		alert("Student UID Does not exist in the list");
+		document.getElementById("StudentInfo_input_uid").value = "";
+	}
 }

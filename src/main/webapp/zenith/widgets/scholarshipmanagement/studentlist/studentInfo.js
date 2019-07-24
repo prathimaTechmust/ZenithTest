@@ -32,7 +32,7 @@ function studentInfo_memberData ()
 	this.m_nSholarshipId = -1;
 	this.m_strApplicationType = "";
 	this.m_arrScholarshipDetails = new Array ();
-	this.m_oArrSiblingsDetails = new Array();
+	this.m_arrSiblingsDetails = new Array();
 	
 	this.m_nRowOrgCount = -1; 
 	this.m_nRowOrgAmountCount = -1;
@@ -87,12 +87,7 @@ function studentInfo_init ()
 	studentReligionDropDown();
 	studentParentalStatusDropDown();
 	studentScoreDropDown();
-	getDropDownValues ();
-	loadDropDownValues ();	
-}
-
-function loadDropDownValues ()
-{
+	getDropDownValues ();	
 	laodFacilitatorListToDropDown();
 	loadInstitutionsNamesListDropDown();
 	loadCourseNamesListDropDown();
@@ -505,7 +500,6 @@ function getAddScolarshipDetails ()
 	}	
 	return oArrScholarshipDetails;
 }
-
 function studentInfo_created (oStudentInfoResponse)
 {
 	HideDialog ("ProcessDialog");
@@ -585,9 +579,9 @@ function studentInfo_gotData (oStudentInfoResponse)
 	m_oStudentInfoMemberData.m_studentDateofBirth = oStudentInfoData.m_dDateOfBirth;
 	m_oStudentInfoMemberData.m_nAcademicId = oStudentInfoData.m_oAcademicDetails[0].m_nAcademicId;
 	m_oStudentInfoMemberData.m_strAcademicYear = oStudentInfoData.m_oAcademicDetails[0].m_strAcademicYear;
-	m_oStudentInfoMemberData.m_arrSiblingsDetails = oStudentInfoData.m_oSibilingDetails;
 	m_oStudentInfoMemberData.m_nInstitutionId = oStudentInfoData.m_oAcademicDetails[0].m_oInstitutionInformationData.m_nInstitutionId;
 	m_oStudentInfoMemberData.m_nCourseId = oStudentInfoData.m_oAcademicDetails[0].m_oCourseInformationData.m_nCourseId;
+	m_oStudentInfoMemberData.m_arrSiblingsDetails = oStudentInfoData.m_oSibilingDetails;
 	m_oStudentInfoMemberData.m_arrScholarshipDetails = 	oStudentInfoData.m_oAcademicDetails[0].m_oScholarshipDetails;
 	m_oStudentInfoMemberData.m_nRowOrgCount = m_oStudentInfoMemberData.m_arrScholarshipDetails.length;
 	m_oStudentInfoMemberData.m_nRowOrgAmountCount = m_oStudentInfoMemberData.m_arrScholarshipDetails.length;
@@ -596,7 +590,7 @@ function studentInfo_gotData (oStudentInfoResponse)
 	 $("#studentInfo_input_studentAadharNumber").val(oStudentInfoData.m_nStudentAadharNumber);
 	 $("#studentInfo_input_studentName").val(oStudentInfoData.m_strStudentName);
 	 facilitatorPopulateCombobox(oStudentInfoData);
-	/* $('#selectStudentInfo_input_studentfacilitator').combobox('select', oStudentInfoData.m_oFacilitatorInformationData.m_nFacilitatorId);*/
+	 $('#selectStudentInfo_input_studentfacilitator').jqxComboBox('val', oStudentInfoData.m_oFacilitatorInformationData.m_nFacilitatorId);
 	 if(oStudentInfoData.m_strGender == "Male")
 	 {
 		var radiobutton = document.getElementById("studentInfo_input_male");
@@ -643,8 +637,8 @@ function studentInfo_gotData (oStudentInfoResponse)
 	  /*Academic Details*/
 	 institutionPopulateCombobox(oStudentInfoData);
 	 coursePopulateCombobox(oStudentInfoData);
-	 /*$("#select_input_academic_name").combobox('select',oStudentInfoData.m_oAcademicDetails[0].m_oInstitutionInformationData.m_nInstitutionId);	
-	 $("#select_input_studentcourse").combobox('select',oStudentInfoData.m_oAcademicDetails[0].m_oCourseInformationData.m_nCourseId);*/	
+	 $("#select_input_academic_name").jqxComboBox('val',oStudentInfoData.m_oAcademicDetails[0].m_oInstitutionInformationData.m_nInstitutionId);	
+	 $("#select_input_studentcourse").jqxComboBox('val',oStudentInfoData.m_oAcademicDetails[0].m_oCourseInformationData.m_nCourseId);
 	 $("#select_input_studentSpecialization").val(oStudentInfoData.m_oAcademicDetails[0].m_strSpecialization);
 	 $("#studentInfo_input_studentScore").val(oStudentInfoData.m_oAcademicDetails[0].m_strStudentScore);
 	 $("#academicInfo_input_annualfee").val(oStudentInfoData.m_oAcademicDetails[0].m_fAnnualFee);
@@ -657,6 +651,15 @@ function studentInfo_gotData (oStudentInfoResponse)
 	 if(m_oStudentInfoMemberData.m_arrSiblingsDetails.length > 0)
 		 gotSiblingDetails(m_oStudentInfoMemberData.m_arrSiblingsDetails);
 	 initFormValidateBoxes ("studentInfo_form_id");
+	 siblingsRowCount(m_oStudentInfoMemberData.m_arrSiblingsDetails);
+}
+/*siblings details*/
+function siblingsRowCount(siblingsEditRowCount) {
+	
+	m_oStudentInfoMemberData.m_nRowSiblingsUIDIdCount = siblingsEditRowCount.length;
+	m_oStudentInfoMemberData.m_nRowSiblingsNameCount = siblingsEditRowCount.length;
+	m_oStudentInfoMemberData.m_nRowSiblingStudyingCount = siblingsEditRowCount.length;
+	m_oStudentInfoMemberData.m_nRowSiblingSchoolCollegeCount = siblingsEditRowCount.length;
 }
 
 function gotSiblingDetails (m_arrSiblingsDetails)
@@ -692,101 +695,73 @@ function setReadableFields()
 
 function  gotStudentDocuments(oStudentDocuments)
 {
-	if(oStudentDocuments.m_strStudentAadhar != null)
+	if(oStudentDocuments != null && oStudentDocuments.m_strStudentAadhar != null)
 		$("#studentInfo_input_studentaadhar").attr("src",oStudentDocuments.m_strStudentAadhar);
-	if(oStudentDocuments.m_strStudentElectricityBill != null)
+	if(oStudentDocuments != null && oStudentDocuments.m_strStudentElectricityBill != null)
 		$("#studentInfo_input_studentElectricityBill").attr("src",oStudentDocuments.m_strStudentElectricityBill);
-	if(oStudentDocuments.m_strFatherAadharImageId != null)
+	if(oStudentDocuments != null && oStudentDocuments.m_strFatherAadharImageId != null)
 		$("#studentInfo_input_fatheraadhar").attr("src",oStudentDocuments.m_strFatherAadharImageId);
-	if(oStudentDocuments.m_strMotherAadharImageId != null)
+	if(oStudentDocuments != null && oStudentDocuments.m_strMotherAadharImageId != null)
 		$("#studentInfo_input_motheraadhar").attr("src",oStudentDocuments.m_strMotherAadharImageId);
-	if(oStudentDocuments.m_strStudentMarksCard1 != null)
+	if(oStudentDocuments != null && oStudentDocuments.m_strStudentMarksCard1 != null)
 		$("#studentInfo_input_studentMarksCard1").attr("src",oStudentDocuments.m_strStudentMarksCard1);
-	if(oStudentDocuments.m_strStudentMarksCard2 != null)
+	if(oStudentDocuments != null && oStudentDocuments.m_strStudentMarksCard2 != null)
 		$("#studentInfo_input_studentMarksCard2").attr("src",oStudentDocuments.m_strStudentMarksCard2);
-	if(oStudentDocuments.m_strOtherDocuments != null)
+	if(oStudentDocuments != null && oStudentDocuments.m_strOtherDocuments != null)
 		$("#studentInfo_input_additionalDocuments").attr("src",oStudentDocuments.m_strOtherDocuments);
 }
 
 function facilitatorPopulateCombobox(oStudentInfoData)
 {
-	var arrFacilitator = new Array();
-	arrFacilitator.push(oStudentInfoData.m_oFacilitatorInformationData)
-	$('#selectStudentInfo_input_studentfacilitator').jqxComboBox({source:arrFacilitator,selectedIndex:0});
-	
+	getFacilitatorListToDropDown();
+	laodFacilitatorListToDropDown();	
 }
 
 function institutionPopulateCombobox(oStudentInfoData)
 {
-	var arrInstitutions = new Array();
-	arrInstitutions.push(oStudentInfoData.m_oAcademicDetails[0].m_oInstitutionInformationData)
-	$('#select_input_academic_name').jqxComboBox({source:arrInstitutions,selectedIndex:0});
+	getInstitutionsNamesListDropDown();
+	loadInstitutionsNamesListDropDown();
 }
 
 function coursePopulateCombobox(oStudentInfoData)
-{
-
-	var arrCourses = new Array();
-	arrCourses.push(oStudentInfoData.m_oAcademicDetails[0].m_oCourseInformationData)
-	$('#select_input_studentcourse').jqxComboBox({source:arrCourses,selectedIndex:0});
-}
-
-function studentUIDInfo_submit ()
-{
-	if (studentUIDInfo_validate())
-		loadPage ("include/process.html", "ProcessDialog", "studentUID_progressbarLoaded ()");
-	else
-	{
-		alert("Please Enter UID Number");
-		$('#oldstudentUIDForm').focus();
-	}	
-	
-}
-
-function studentUID_progressbarLoaded ()
-{
-	var oStudentInformationData = new StudentInformationData ();
-	oStudentInformationData.m_nUID = $("#studentInfo_input_studentUID").val();
-	StudentInformationDataProcessor.getStudentUID (oStudentInformationData, studentInfo_gotStudentUIDData);
-}
-function studentInfo_gotStudentUIDData (oStudentUIDResponse)
-{
-	HideDialog ("ProcessDialog");
-	if(oStudentUIDResponse.m_bSuccess)
-	{
-		m_oStudentInfoMemberData.m_arrStudentUIDData = oStudentUIDResponse;
-		loadPage ("scholarshipmanagement/student/studentInfo.html", "dialog", "studentUIDInfo_gotData()");
-	}
-	else
-	{
-		alert("Student UID does not exist!");
-		$('#oldstudentUIDForm').focus();
-	}
+{	
+	getCourseNamesListDropDown();
+	loadCourseNamesListDropDown ();
 }
 
 function searchStudentUID ()
 {
 	var oStudentInformationData = new StudentInformationData ();
 	oStudentInformationData.m_nUID = $("#studentInfo_input_studentUIDNumber").val();
-	StudentInformationDataProcessor.getStudentUID (oStudentInformationData, studentInfo_setStudentUIDData);
+	oStudentInformationData.m_strAcademicYear = $("#select_student_academicyear").val();
+	StudentInformationDataProcessor.getStudentDataUID (oStudentInformationData, studentInfo_setStudentData);
 }
 
-function studentInfo_setStudentUIDData (oStudentSetUIDResponse)
+function studentInfo_setStudentData (oStudentUIDAadharResponse)
 {
 	
 	HideDialog ("ProcessDialog");
-	if(oStudentSetUIDResponse.m_bSuccess)
+	if(oStudentUIDAadharResponse.m_bSuccess)
 	{
 		
 		document.getElementById("studentInfo_button_submit").setAttribute('update', true);
 		document.getElementById("studentInfo_button_submit").innerHTML = "Update";
-		studentInfo_gotData(oStudentSetUIDResponse);		
+		document.getElementById("DocumentUpload_details_btn").style.display="inline";
+		studentInfo_gotData(oStudentUIDAadharResponse);		
 	}
 	else
 	{		
 		$('#studentInfo_form_id').focus();
 	}
 
+}
+
+function searchStudentAadhar ()
+{
+	var oStudentInformationData = new StudentInformationData ();
+	oStudentInformationData.m_nStudentAadharNumber = $("#studentInfo_input_studentAadharNumber").val();
+	oStudentInformationData.m_strAcademicYear = $("#select_student_academicyear").val();
+	StudentInformationDataProcessor.getStudentDataUID (oStudentInformationData, studentInfo_setStudentData);
 }
 
 function studentInfo_createandprint()
@@ -820,14 +795,6 @@ function studentInfo_createAndPrintResponse(oPrintResponse)
     {
         informUser("create and print is failed","kError");        
     }
-}
-
-function studentUIDInfo_gotData ()
-{
-	studentInfo_init ();
-	document.getElementById("studentInfo_button_submit").setAttribute('update', true);
-	document.getElementById("studentInfo_button_submit").innerHTML = "Update";	
-	studentInfo_gotData(m_oStudentInfoMemberData.m_arrStudentUIDData);	
 }
 
 function fatherAadharValidate ()
@@ -1058,7 +1025,7 @@ function hideSiblings(divId)
 
 function siblingsAddSiblings () 
 {
-	if(m_oStudentInfoMemberData.m_nRowSiblingsCount != -1)
+	if(m_oStudentInfoMemberData.m_nRowSiblingsUIDIdCount != -1)
 	{
 		$("#siblings").append('<tr><td class="fieldHeading">UID</td> <td><input type="text"id="studentInfo_input_SiblingsUID'+(m_oStudentInfoMemberData.m_nRowSiblingsUIDIdCount++)+'" class="zenith" style="margin-right: 60px" maxlength = "4"/></td><td class="fieldHeading">Name</td><td><input type="text"id="studentInfo_input_SiblingsName'+(m_oStudentInfoMemberData.m_nRowSiblingsNameCount++)+'" class="zenith" /></td><td class="fieldHeading">Studying</td><td><input type="text" id="studentInfo_input_SiblingsStudying'+(m_oStudentInfoMemberData.m_nRowSiblingStudyingCount++)+'" class="zenith" /></td><td class="fieldHeading">School/College</td><td><input type="text" id="studentInfo_input_SiblingsSchoolCollege'+(m_oStudentInfoMemberData.m_nRowSiblingSchoolCollegeCount++)+'" class="zenith" /></td><td> <img src="images/delete.png" width="20" align="center" id="deleteImageId" title="Delete Siblings" class = "removeSiblings" onClick="deletSiblings()"/> </td></tr>');
 		m_oStudentInfoMemberData.m_nUpdatedEditSiblingsUIDIdRowCount = m_oStudentInfoMemberData.m_nRowSiblingsUIDIdCount;
@@ -1076,9 +1043,17 @@ function siblingsAddSiblings ()
 	}
 
 }
-function deleteNewSiblings ()
+function deleteNewSiblings (clicked_id)
 {
+var bUserConfirm = getUserConfirmation("Are you sure do you want to delete?");
+if(bUserConfirm)
+{
+
 	$("#siblings").on('click','.removeSiblings',function() { $(this).parent().parent().remove(); });
+	var oSiblingsDetails = new SiblingsDetails();
+	oSiblingsDetails.m_nSiblingId = $("#studentInfo_input_SiblingsUID"+clicked_id).val();
+	checkSiblings(oSiblingsDetails);
+}
 	var siblingsrows = document.getElementById("siblings");   
     m_oStudentInfoMemberData.m_nSiblingsUIDId = siblingsrows.rows.length;
     m_oStudentInfoMemberData.m_nSiblingsName = siblingsrows.rows.length;
@@ -1086,7 +1061,13 @@ function deleteNewSiblings ()
     m_oStudentInfoMemberData.m_nSiblingsSchoolCollege =  siblingsrows.rows.length;
 }
 
-function deletSiblings(clicked_id) 
+function checkSiblings()
+{
+	if(oSiblingsDetails.m_nSinlingsId != undefined)
+		StudentInformationDataProcessor.deleteSiblings(oSiblingsDetails,deleteSiblingsResponse);
+}
+
+function deletSiblings() 
 {
 	$("#siblings").on('click','.removeSiblings',function() { $(this).parent().parent().remove(); });
 	var siblingsrows = document.getElementById("siblings");   
@@ -1096,6 +1077,10 @@ function deletSiblings(clicked_id)
     m_oStudentInfoMemberData.m_nRowSiblingsSchoolCollegeCount =  siblingsrows.rows.length;
 }
 
+function deleteSiblingsResponse ()
+{
+	student_displayInfo("siblings deleted successfully");
+}
 function getSiblingsDetails()
 {
 	var arrSiblingDetails = null;
@@ -1127,7 +1112,7 @@ function addSibilingsDetails ()
 	}
 	else
 	{
-		for(var nIndex = 0; nIndex < m_oStudentInfoMemberData.m_nUpdatedSiblingsUIDIdRowCount; nIndex++)
+		for(var nIndex = 0; nIndex < m_oStudentInfoMemberData.m_nUpdatedEditSiblingsUIDIdRowCount; nIndex++)
 		{
 			var oSiblingsDeatils = new SiblingsDetails();			
 			if(($("#studentInfo_input_SiblingsUID"+nIndex).val() != '' && $("#studentInfo_input_SiblingsName"+nIndex).val() !='' && $("#studentInfo_input_SiblingsStudying"+nIndex).val() != '' && $("#studentInfo_input_SiblingsSchoolCollege"+nIndex).val() !='')&&($("#studentInfo_input_SiblingsUID"+nIndex).val() != undefined && $("#studentInfo_input_SiblingsName"+nIndex).val() != undefined  && $("#studentInfo_input_SiblingsStudying"+nIndex).val() != undefined && $("#studentInfo_input_SiblingsSchoolCollege"+nIndex).val() != undefined  ))
@@ -1146,7 +1131,6 @@ function addSibilingsDetails ()
 	}	
 	return oArrSiblingsDetails;
 }
-
 function getNewSiblingsDetails ()
 {
 	var oArrSiblingsDetails = new Array();

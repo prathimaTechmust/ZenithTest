@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Claim Cheque Date</title>
+</head>
+<body>
+<form class ="zenith" id="claimChequeForm" style="width: 300px;">
+<table class="zenith" summary="">
+  <tr>
+ 	 <td  class="formHeading" style="width: 500px;">
+ 		 Claim Information
+ 	</td>
+  </tr>
+  <tr>
+  	<td class="zenith">
+  		 <fieldset>
+  		 	 <legend> Cheque Claim Date </legend>
+  		 	 	 <table cellspacing="10px" summary="">
+  		 	 	 	<tr>
+  		 	 	 		<td class="fieldHeading">
+  		 	 	 		 Enter Date<em>*</em>
+  		 	 	 		</td>
+  		 	 	 	</tr>
+  		 	 	 	<tr>
+  		 	 	 		<td>
+  		 	 	 		<input type="date" id="studentChequeInfo_input_chequeDate"  class="zenith easyui-validatebox" data-options="required:true" style="width: 140px;">
+  		 	 	 		</td>
+  		 	 	   </tr>
+  		 	 	 </table>
+  		 </fieldset>
+  	</td>
+  </tr>
+  	<tr>
+ 				<td align="right" colspan="2">
+ 					<hr>
+ 					<button	id="chequeDateInfo_button_submit" type="button" class="zenith"	onclick="claimChequeDate_submit()">
+				  		Submit
+					</button>
+					<button id="chequeDateInfo_button_cancel" type="button" class="zenith" onclick="claimChequeDate_cancel()">
+				  		Cancel
+					</button>
+ 				</td>
+ 			</tr> 
+
+</table>
+
+</form>
+
+</body>
+</html>

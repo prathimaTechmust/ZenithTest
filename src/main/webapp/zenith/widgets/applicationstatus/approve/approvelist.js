@@ -66,7 +66,15 @@ function approveStudentListInfo_createDataGrid ()
 				{field:'m_strStudentName',title:'Student Name',sortable:true,width:300},
 				{field:'m_strFatherName',title:'Father Name',sortable:true,width:300},
 				{field:'m_strPhoneNumber',title:'Phone Number',sortable:true,width:200},
-				{field:'m_strCity',title:'City',sortable:true,width:200},				
+				{field:'m_strFacilitatorName',title:'FacilitatorName',sortable:true,width:200,
+				 
+					formatter:function(value,row,index){
+						return row.m_oFacilitatorInformationData.m_strFacilitatorName;
+					}
+						
+					},
+				
+				
 			]],				
 		}
 	);
@@ -276,12 +284,11 @@ function studentRemarkInfo_cancel ()
 }
 
 
-function reVerifyStudentInfo_Student(){
-	
+function reVerifyStudentInfo_Student()
+{	
 	var oZenith = new ZenithScholarshipDetails ();
 	oZenith.m_nStudentId = m_oApproveStudentList_Info_MemberData.m_nStudentId;
-	ZenithStudentInformationDataProcessor.reVerifiedStatusUpdate(oZenith,studentReVerifiedResponse);
-	
+	ZenithStudentInformationDataProcessor.reVerifiedStatusUpdate(oZenith,studentReVerifiedResponse);	
 }
 
 

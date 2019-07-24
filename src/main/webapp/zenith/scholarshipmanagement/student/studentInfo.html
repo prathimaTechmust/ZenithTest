@@ -80,7 +80,8 @@
 							                    <input type="text" id="studentInfo_input_studentAadharNumber" maxlength="12"
 								                        data-options="required:true" style = "width:200px;"
 								                        class="zenith easyui-validatebox"
-								                        onkeyup="validateNumber (this)"/>
+								                        onkeyup="validateNumber (this)"
+								                        onchange="searchStudentAadhar()"/>
 						                    </td>
 			                          	</tr>			
 										<tr>
@@ -298,7 +299,7 @@
 																	
 															<input	type="radio" id="studentInfo_input_No"
 																	name="siblingsButton"
-																	value="No"
+																	value="No" 
 																	checked="checked"
 																	onchange="hideSiblings(siblingdiv)">No</td>
 														</td>

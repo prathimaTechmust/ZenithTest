@@ -6,10 +6,12 @@ import java.io.Serializable;
 import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -1051,7 +1053,7 @@ public abstract class GenericData implements IGenericData, Serializable
 			{
 				ZenithScholarshipDetails oDetails = list.get(0);
 				oDetails.setM_strStatus(Constants.CHEQUECLAIMED);
-				oDetails.setM_dClaimedDate(Calendar.getInstance().getTime());
+				oDetails.setM_dClaimedDate(oZenithData.getM_dClaimedDate());
 				bIsChequeClaimed = oDetails.updateObject();
 			}
 		}
@@ -1100,6 +1102,42 @@ public abstract class GenericData implements IGenericData, Serializable
 			HibernateUtil.removeConnection();
 		}
 		return oStudentDocuments;		
+	}
+	
+	public StudentInformationData getUIDAndAadharFormData(StudentInformationData oData)
+	{
+		EntityManager oEntityManager = _getEntityManager();
+		StudentInformationData oStudentInformationData = null;
+		try 
+		{			
+			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
+	        CriteriaQuery<StudentInformationData> oCriteriaQuery = oCriteriaBuilder.createQuery(StudentInformationData.class);
+	        Root<StudentInformationData> oStudentInformationRoot = oCriteriaQuery.from(StudentInformationData.class);
+	        List<Predicate> m_arrPredicateList = new ArrayList<Predicate>();
+			if(oData.getM_nUID() > 0)
+				m_arrPredicateList.add(oCriteriaBuilder.equal(oStudentInformationRoot.get("m_nUID"), oData.getM_nUID()));
+			else
+				m_arrPredicateList.add(oCriteriaBuilder.equal(oStudentInformationRoot.get("m_nStudentAadharNumber"), oData.getM_nStudentAadharNumber()));
+	        oCriteriaQuery.select(oStudentInformationRoot).where(m_arrPredicateList.toArray(new Predicate[]{}));;
+	        List<StudentInformationData> arrStudentList = oEntityManager.createQuery(oCriteriaQuery).getResultList();
+	        if(arrStudentList.size() > 0)
+	        {
+		        oStudentInformationData = arrStudentList.get(0);
+		        oStudentInformationData.setM_strAcademicYear(oData.getM_strAcademicYear());
+		        oStudentInformationData.setM_oAcademicDetails(getAcademicDetails(oStudentInformationData));
+	        }						
+		}
+		catch (Exception oException)
+		{
+			m_oLogger.error("getUIDAndAadharFormData - oException : " +oException);
+			throw oException;
+		}
+		finally
+		{
+			oEntityManager.close();
+			HibernateUtil.removeConnection();
+		}		
+		return oStudentInformationData;		
 	}
 }
 

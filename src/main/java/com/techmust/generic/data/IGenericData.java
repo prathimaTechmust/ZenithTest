@@ -32,5 +32,6 @@ public interface IGenericData
 	StudentInformationData getSearchUIDStudentData(StudentInformationData oStudentData);
 	boolean claimCheque(ZenithScholarshipDetails oZenithData) throws Exception;
 	StudentDocuments getStudentUploadDocuments(AcademicDetails oAcademicDetails);
+	StudentInformationData getUIDAndAadharFormData(StudentInformationData oData);
 	
 }
