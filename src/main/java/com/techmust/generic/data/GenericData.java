@@ -927,7 +927,7 @@ public abstract class GenericData implements IGenericData, Serializable
 			 {
 				 ZenithScholarshipDetails oDetails = list.get(0);
 				 oDetails.setM_strStatus(Constants.REISSUECHEQUE);
-				 oDetails.setM_strStudentRemarks(oZenithData.getM_strStudentRemarks());
+				 oDetails.setM_strChequeRemark(oZenithData.getM_strChequeRemark());
 				 bIsStatusReVerify = oDetails.updateObject();
 			 }
 		 }

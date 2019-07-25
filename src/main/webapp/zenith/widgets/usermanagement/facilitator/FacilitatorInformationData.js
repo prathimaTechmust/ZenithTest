@@ -5,5 +5,6 @@ function FacilitatorInformationData ()
 	this.m_strEmail = "";
 	this.m_strPhoneNumber = "";
 	this.m_strCity = "";	
+	this.m_strState = "";
 }
 dataObjectLoaded ();

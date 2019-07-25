@@ -9,5 +9,6 @@ function ZenithScholarshipDetails ()
 	this.m_dChequeIssueDate = 0;
 	this.m_strImage = "";	
 	this.m_dClaimedDate = "";
+	this.m_strChequeRemark = "";
 }
 dataObjectLoaded();

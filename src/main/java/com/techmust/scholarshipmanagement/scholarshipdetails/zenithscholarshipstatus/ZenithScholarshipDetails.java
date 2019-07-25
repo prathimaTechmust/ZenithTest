@@ -50,7 +50,7 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 	@Column(name = "issuedate")
 	private long m_dChequeIssueDate;
 	
-	@Column(name = "remarks")
+	@Column(name = "studentRemarks")
 	private String m_strStudentRemarks;
 	
 	@JsonBackReference
@@ -70,6 +70,9 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 	@Column(name = "claimed_date")
 	private Date m_dClaimedDate;
 	
+	@Column(name = "chequeRemark")
+	private String m_strChequeRemark;
+	
 	@Transient
 	private int m_nStudentId;
 	
@@ -83,6 +86,7 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 		m_strReceiverContactNumber = "";
 		m_dChequeIssueDate = 0;
 		m_strImage = "";
+		m_strChequeRemark= "";
 		m_dApprovedDate = null;
 		m_dClaimedDate = null;
 	}	
@@ -195,6 +199,16 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 		return m_strStatus;
 	}
 
+	public String getM_strChequeRemark() 
+	{
+		return m_strChequeRemark;
+	}
+
+	public void setM_strChequeRemark(String m_strChequeRemark)
+	{
+		this.m_strChequeRemark = m_strChequeRemark;
+	}
+
 	public void setM_strStatus(String m_strStatus) 
 	{
 		this.m_strStatus = m_strStatus;
@@ -228,7 +242,8 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 			addChild (oXmlDocument, oRootElement, "m_dChequeIssueDate",m_dChequeIssueDate != 0 ? getChequeIssueDate(m_dChequeIssueDate) : "");
 			addChild (oXmlDocument, oRootElement, "m_dApprovedDate",m_dApprovedDate != null ? getApproveDate(m_dApprovedDate.toString()) :"");
 			addChild (oXmlDocument, oRootElement, "m_strImage",m_strImage);
-			addChild (oXmlDocument, oRootElement, "m_strScanCopyImageURL",getScanCopyImageURL(m_strImage));			
+			addChild (oXmlDocument, oRootElement, "m_strScanCopyImageURL",getScanCopyImageURL(m_strImage));	
+			addChild(oXmlDocument, oRootElement, "m_strChequeRemark", m_strChequeRemark);
 			strZenithScholarshipDetailsInfoXML = getXmlString (oXmlDocument);			 
 		}
 		catch (Exception oException) 

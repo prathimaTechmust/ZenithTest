@@ -43,6 +43,14 @@
 										<xsl:value-of select="FacilitatorInformationData/m_strCity" />
 									</td>
 								</tr>
+								<tr>
+									<td class="xslt_fieldHeading">
+										State:
+									</td>
+									<td class="xslt_fieldHeading" id="m_strState">
+										<xsl:value-of select="FacilitatorInformationData/m_strState"/>
+									</td>
+								</tr>
 							</table>
 						</td>
 						<!-- <td width="50%" valign="top">
