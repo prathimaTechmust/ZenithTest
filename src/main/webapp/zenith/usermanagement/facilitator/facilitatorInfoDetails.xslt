@@ -47,32 +47,12 @@
 									<td class="xslt_fieldHeading">
 										State:
 									</td>
-									<td class="xslt_fieldHeading" id="m_strState">
+									<td class="xslt_fieldData" id="m_strState">
 										<xsl:value-of select="FacilitatorInformationData/m_strState"/>
 									</td>
 								</tr>
 							</table>
 						</td>
-						<!-- <td width="50%" valign="top">
-							<table class="xslt_trademust" cellSpacing="5px">
-								<tr>
-									<td class="xslt_fieldHeading">
-										Address :
-									</td>
-									<td class="xslt_fieldData" id="m_strAddress">
-										<xsl:value-of select="FacilitatorInformationData/m_strAddress" />
-									</td>
-								</tr>
-								<tr>
-									<td class="xslt_fieldHeading">
-										Phone Number :
-									</td>
-									<td class="xslt_fieldData" id="m_strPhoneNumber">
-										<xsl:value-of select="FacilitatorInformationData/m_strPhoneNumber" />
-									</td>
-								</tr>
-							</table>
-						</td> -->
 					</tr>
 				</table>
 			</body>
