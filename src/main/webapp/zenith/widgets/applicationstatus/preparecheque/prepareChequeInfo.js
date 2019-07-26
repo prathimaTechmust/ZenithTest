@@ -26,7 +26,7 @@ function prepareChequeInfo_new ()
 	$("#accountInfo_input_SanctionedAmount").val(m_oPrepareChequeInfoMemberData.m_oStudentInformationData.m_oZenithScholarshipDetails[0].m_fApprovedAmount);
 	var approveDate = convertTimestampToDate(m_oPrepareChequeInfoMemberData.m_oStudentInformationData.m_oZenithScholarshipDetails[0].m_dApprovedDate);
 	$("#accountInfo_input_SanctionedDate").val(approveDate);
-	initFormValidateBoxes ("accountInfo_form_id");
+	initFormValidateBoxes ("prepareChequeInfo_form_id");
 
 }
 
@@ -57,14 +57,14 @@ function populateYear(academicyear,oYearResponse)
 	PopulateDD(academicyear,arrAcademicYears);	
 }
 
-function accountInfo_submit ()
+function prepareChequeInfo_submit ()
 {
 	if (chequeInfo_validate())
 		loadPage ("include/process.html", "ProcessDialog", "cheque_progressbarLoaded ()");
 	else
 	{
 		alert("Please Fill Mandiatory Fields");
-		$('#accountInfo_form_id').focus();
+		$('#prepareChequeInfo_form_id').focus();
 	}
 	
 }
@@ -72,8 +72,8 @@ function accountInfo_submit ()
 function cheque_progressbarLoaded ()
 {
 	createPopup('ProcessDialog', '', '', true);
-	var accountData = accountdetails_getFormData();
-	StudentScholarshipAccountsProcessor.create(accountData,accountcreatedResponse);
+	var chequeInfoData = chequeDetails_getFormData();
+	StudentScholarshipAccountsProcessor.create(chequeInfoData,chequeCreatedResponse);
 }
 
 function studentUIDResponseLoad()
@@ -88,7 +88,7 @@ function studentUIDInformationLoad (oResponse)
 	if(oResponse.m_bSuccess)
 	{
 		document.getElementById("StudentInfo_input_uid").value = "";
-		createPopup("dialog", "#accountInfo_button_submit", "#accountInfo_button_cancel", true);
+		createPopup("dialog", "#prepareChequeInfo_button_submit", "#prepareChequeInfo_button_cancel", true);
 		dropdownacademicyear();
 		m_oPrepareChequeInfoMemberData.m_nStudentId = oResponse.m_arrStudentInformationData[0].m_nStudentId;
 		$("#student_input_studentUIDNumber").val(oResponse.m_arrStudentInformationData[0].m_nUID);
@@ -97,7 +97,7 @@ function studentUIDInformationLoad (oResponse)
 		$("#accountInfo_input_SanctionedAmount").val(oResponse.m_arrStudentInformationData[0].m_oZenithScholarshipDetails[0].m_fApprovedAmount);
 		var approveDate = convertTimestampToDate(oResponse.m_arrStudentInformationData[0].m_oZenithScholarshipDetails[0].m_dApprovedDate);
 		$("#accountInfo_input_SanctionedDate").val(approveDate);
-		initFormValidateBoxes ("accountInfo_form_id");
+		initFormValidateBoxes ("prepareChequeInfo_form_id");
 	}
 	else
 		alert("Student UID does not exist");
@@ -105,7 +105,7 @@ function studentUIDInformationLoad (oResponse)
 
 function chequeInfo_validate ()
 {
-	return validateForm("accountInfo_form_id");
+	return validateForm("prepareChequeInfo_form_id");
 }
 
 function addChequeLabel ()
@@ -118,20 +118,36 @@ function addDDLabel ()
 	document.getElementById("cheque_dd").innerText = "DD Number*";	
 }
 
-function accountcreatedResponse(oAccountResponse)
+function chequeCreatedResponse(oChequeResponse)
 {
-	if(oAccountResponse.m_bSuccess)
+	if(oChequeResponse.m_bSuccess)
 	{
 		HideDialog ("ProcessDialog");
 		informUser("Cheque Prepared Successfully","kSuccess");
 		HideDialog ("dialog");
+		sendSMSAndMail(oChequeResponse.m_nStudentId);		
 		navigate("chequelist","widgets/applicationstatus/preparecheque/prepareChequelist.js");
 	}
 	else
 		informUser("Cheque Preparation  Failed","kError");	
 }
 
-function accountdetails_getFormData ()
+function sendSMSAndMail (nStudentId)
+{
+	var oScholarshipAccountsInformationData = new ScholarshipAccountsInformationData();
+	oScholarshipAccountsInformationData.m_nStudentId = nStudentId;
+	StudentScholarshipAccountsProcessor.sendSMSAndMail(oScholarshipAccountsInformationData,smsAndEmailSentResponse);
+}
+
+function smsAndEmailSentResponse (oSMSSentResponse)
+{
+	if(oSMSSentResponse.m_bSuccess)
+		informUser("SMS And Email Sent Successfully","kSuccess");	
+	else
+		informUser("SMS And Email Sent Failed","kError");
+}
+
+function chequeDetails_getFormData ()
 {
 	var oScholarshipAccountsInformationData = new ScholarshipAccountsInformationData();
 	oScholarshipAccountsInformationData.m_nStudentId = m_oPrepareChequeInfoMemberData.m_nStudentId;
@@ -154,7 +170,7 @@ function accountdetails_getFormData ()
 	return oScholarshipAccountsInformationData;
 }
 
-function accountInfo_cancel ()
+function prepareChequeInfo_cancel ()
 {
 	HideDialog ("dialog");
 }

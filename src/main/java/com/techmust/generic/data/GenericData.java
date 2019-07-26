@@ -13,9 +13,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 
 import javax.imageio.ImageIO;
+import javax.mail.MessagingException;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.Transient;
@@ -34,6 +36,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -51,7 +54,10 @@ import com.techmust.scholarshipmanagement.scholarshipdetails.zenithscholarshipst
 import com.techmust.scholarshipmanagement.sholarshipaccounts.StudentScholarshipAccount;
 import com.techmust.scholarshipmanagement.student.StudentInformationData;
 import com.techmust.scholarshipmanagement.studentdocuments.StudentDocuments;
+import com.techmust.usermanagement.facilitator.FacilitatorInformationData;
 import com.techmust.usermanagement.userinfo.UserInformationData;
+import com.techmust.utils.AmazonSMS;
+import com.techmust.utils.MailService;
 import com.techmust.utils.Utils;
 
 public abstract class GenericData implements IGenericData, Serializable
@@ -62,7 +68,7 @@ public abstract class GenericData implements IGenericData, Serializable
 	private String m_strXMLData;
 	@Transient
 	private GenericUtil m_oGenericUtils;
-	
+
 	@SuppressWarnings("unchecked")
     List<ITradeMustEventListener> m_arrListeners = new ArrayList<ITradeMustEventListener>();
 
@@ -857,10 +863,9 @@ public abstract class GenericData implements IGenericData, Serializable
 			List<ZenithScholarshipDetails> list = oEntityManager.createQuery(oCriteriaQuery).getResultList();
 			if(list.size() > 0)
 			{
-
 				ZenithScholarshipDetails oDetails = list.get(0);
-				oDetails.setM_strStatus(Constants.CHEQUEPREPARED);
-				bIsStatusUpdate = oDetails.updateObject();
+				oDetails.setM_strStatus(Constants.CHEQUEPREPARED);				
+				bIsStatusUpdate = oDetails.updateObject();				
 			}
 		}
 		catch (Exception oException)
@@ -875,8 +880,8 @@ public abstract class GenericData implements IGenericData, Serializable
 		}
 		return bIsStatusUpdate;
 		
-	}
-	
+	}	
+
 	public boolean reVerifyStudentApplication(ZenithScholarshipDetails oZenithData) throws Exception
 	{
 		boolean bIsStatusReVerify = false;
@@ -1088,8 +1093,7 @@ public abstract class GenericData implements IGenericData, Serializable
 			{
 				m_arrStudentDocuments = documentList.get(0).getM_arrStudentDocuments();
 				oStudentDocuments = m_arrStudentDocuments.get(0);
-			}
-			
+			}			
 		} 
 		catch (Exception oException)
 		{

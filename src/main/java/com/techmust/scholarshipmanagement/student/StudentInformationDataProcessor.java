@@ -337,7 +337,7 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		StudentDataResponse oStudentDataResponse = new StudentDataResponse();
 		try
 		{
-			oStudentDataResponse.m_arrStudentInformationData = new ArrayList(oStudentInformationData.getStatusStudentsList(oStudentInformationData));
+			oStudentDataResponse.m_arrStudentInformationData = new ArrayList(oStudentInformationData.getStatusStudentsList(oStudentInformationData));			
 			oStudentDataResponse.m_nRowCount = oStudentDataResponse.m_arrStudentInformationData.size();
 		}
 		catch (Exception oException)
@@ -375,9 +375,8 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 	}
 	
 	@Override	
-	public GenericResponse list(StudentInformationData oGenericData, HashMap<String, String> arrOrderBy)
-			throws Exception {
-		// TODO Auto-generated method stub
+	public GenericResponse list(StudentInformationData oGenericData, HashMap<String, String> arrOrderBy)throws Exception
+	{		
 		return null;
 	}	
 }
