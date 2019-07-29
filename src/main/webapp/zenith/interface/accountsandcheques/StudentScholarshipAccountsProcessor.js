@@ -16,9 +16,15 @@ var StudentScholarshipAccountsProcessor = (function __StudentScholarshipAccounts
 		ajaxXMLCall(oAccountData,"/studentAccountXML",callback);
 	}
 	
+	function sendSMSAndMail(oSMSSentData,callback)
+	{
+		ajaxCall(oSMSSentData,"/sendSMSAndMailNotification",callback);		
+	}
+	
 	return {		
 		create:create,
 		list :list,
+		sendSMSAndMail:sendSMSAndMail,
 		getXML :getXML
 	};
 })();

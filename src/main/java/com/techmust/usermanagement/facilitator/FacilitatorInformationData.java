@@ -43,6 +43,9 @@ public class FacilitatorInformationData extends MasterData
 	@Column(name = "city")
 	private String m_strCity;	
 	
+	@Column(name = "state")
+	private String m_strState;
+	
 	public FacilitatorInformationData()
 	{
 		m_nFacilitatorId = -1;
@@ -50,7 +53,7 @@ public class FacilitatorInformationData extends MasterData
 		m_strPhoneNumber = "";
 		m_strEmail = "";
 		m_strCity = "";
-		
+		m_strState = "";
 	}	
 
 	public int getM_nFacilitatorId() 
@@ -86,6 +89,16 @@ public class FacilitatorInformationData extends MasterData
 	public String getM_strEmail()
 	{
 		return m_strEmail;
+	}
+
+	public String getM_strState()
+	{
+		return m_strState;
+	}
+
+	public void setM_strState(String m_strState)
+	{
+		this.m_strState = m_strState;
 	}
 
 	public void setM_strEmail(String m_strEmail)
@@ -139,6 +152,7 @@ public class FacilitatorInformationData extends MasterData
 			addChild (oXmlDocument, oRootElement, "m_strPhoneNumber", m_strPhoneNumber);
 			addChild (oXmlDocument, oRootElement, "m_strEmail", m_strEmail);
 			addChild (oXmlDocument, oRootElement, "m_strCity", m_strCity);
+			addChild(oXmlDocument, oRootElement, "m_strState", m_strState);
 			strFacilitatorInfoXML = getXmlString (oXmlDocument);
 		}
 		catch (Exception oException) 

@@ -125,7 +125,7 @@ function chequeRemark_progressbarLoaded() {
 	createPopup('dialog','','',true);
 	var oZenith = new ZenithScholarshipDetails ();	
 	oZenith.m_nStudentId = m_oDisburseStudentChequeInfo_MemberData.m_nStudentId;
-	oZenith.m_strChequeRemarks = $("#chequeRemarkInfo_input_Remark").val();
+	oZenith.m_strChequeRemark = $("#chequeRemarkInfo_input_Remark").val();
 	ZenithStudentInformationDataProcessor.reIssueChequeStatusUpdate(oZenith,reIssueChequeResponse);
 }
 

@@ -57,6 +57,7 @@ function facilitatorInfo_getFormData ()
 	oFacilitatorInformationData.m_strEmail = $("#facilitatorInfo_input_email").val();
 	oFacilitatorInformationData.m_strPhoneNumber = $("#facilitatorInfo_input_phoneNumber").val();
 	oFacilitatorInformationData.m_strCity = $("#facilitatorInfo_input_city").val();
+	oFacilitatorInformationData.m_strState = $("#facilatatorInfo_input_state").val();
 	return oFacilitatorInformationData;
 }
 
@@ -98,6 +99,7 @@ function facilitatorInfo_gotData (oFacilitatorInfoResponse)
 	$("#facilitatorInfo_input_phoneNumber").val(oFacilitatorInfoData.m_strPhoneNumber);
 	$("#facilitatorInfo_input_email").val(oFacilitatorInfoData.m_strEmail);
 	$("#facilitatorInfo_input_city").val(oFacilitatorInfoData.m_strCity);
+	$("#facilatatorInfo_input_state").val(oFacilitatorInfoData.m_strState);
 	initFormValidateBoxes ("facilitatorInfo_form_id");
 }
 

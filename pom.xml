@@ -28,12 +28,7 @@
     <dependencies>
 
    
-   <!--
-   		<dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>5.0.7.RELEASE</version>
-        </dependency>
+   <!--   		
 
         <dependency>
             <groupId>org.springframework</groupId>
@@ -144,6 +139,11 @@
 		  <version>8.0.11</version>
 		</dependency>
 <!-- 	
+	 	<dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>5.0.7.RELEASE</version>
+        </dependency> 
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
@@ -206,13 +206,7 @@
 			<groupId>javax.transaction</groupId>
 			<artifactId>jta</artifactId>
 			<version>1.1</version>
-		</dependency>
-
-		<dependency>
-			<groupId>javax.mail</groupId>
-			<artifactId>mail</artifactId>
-			<version>1.4.7</version>
-		</dependency>
+		</dependency>	
 
 		<dependency>
 			<groupId>ognl</groupId>
@@ -283,9 +277,19 @@
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-asl</artifactId>
 			<version>1.9.13</version>
-		</dependency>	
-    </dependencies>
-
+		</dependency>
+		<!-- Mail Dependencies -->
+			<dependency>
+				<groupId>javax.mail</groupId>
+				<artifactId>mail</artifactId>
+				<version>1.4.7</version>
+			</dependency>		
+	        <dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context-support</artifactId>
+				<version>5.1.3.RELEASE</version>
+			</dependency>					
+	    </dependencies>
     <build>
         <pluginManagement>
             <plugins>
