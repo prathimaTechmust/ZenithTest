@@ -61,6 +61,9 @@ function studentInfo_memberData ()
 	this.m_nUpdatedSiblingsNameRowCount = 0;
 	this.m_nUpdatedSiblingStudyingRowCount = 0;
 	this.m_nUpdatedSiblingSchoolCollegeRowCount = 0;	
+	this.m_oStudentResponse="";
+	
+	this.m_nSiblingRowId=-1;
 }
 
 var m_oStudentInfoMemberData = new studentInfo_memberData ();
@@ -669,7 +672,7 @@ function gotSiblingDetails (m_arrSiblingsDetails)
 	 for(var nIndex = 0; nIndex < m_arrSiblingsDetails.length; nIndex++ )
 	 {
 		 if(nIndex !=0)
-			 $("#siblings").append('<tr><td class="fieldHeading">UID</td> <td><input type="text" id="studentInfo_input_SiblingsUID'+(nIndex)+'" class="zenith" style="margin-right: 60px" /></td><td class="fieldHeading">Name</td><td><input type="text"id="studentInfo_input_SiblingsName'+(nIndex)+'" class="zenith" /></td><td class="fieldHeading">Studying</td><td><input type="text" id="studentInfo_input_SiblingsStudying'+(nIndex)+'" class="zenith" /></td><td class="fieldHeading">School/College</td><td><input type="text" id="studentInfo_input_SiblingsSchoolCollege'+(nIndex)+'" class="zenith" /></td><td> <img src="images/delete.png" width="20" align="center" id="deleteImageId" title="DeleteSiblings" class = "removeSiblings" onClick="deleteNewSiblings ()"/> </td></tr>');
+		 $("#siblings").append('<tr><td class="fieldHeading">UID</td> <td><input type="text" id="studentInfo_input_SiblingsUID'+(nIndex)+'" class="zenith" style="margin-right: 60px"/></td><td class="fieldHeading">Name</td><td><input type="text"id="studentInfo_input_SiblingsName'+(nIndex)+'" class="zenith" /></td><td class="fieldHeading">Studying</td><td><input type="text" id="studentInfo_input_SiblingsStudying'+(nIndex)+'" class="zenith" /></td><td class="fieldHeading">School/College</td><td><input type="text" id="studentInfo_input_SiblingsSchoolCollege'+(nIndex)+'" class="zenith" /></td><td> <img src="images/delete.png" width="20" align="center" id="deleteImageId" title="DeleteSiblings" class = "removeSiblings" onClick="deleteNewSiblings(this.id)"/> </td></tr>');
 		 $("#studentInfo_input_SiblingsUID"+nIndex).val(m_arrSiblingsDetails[nIndex].m_nZenithUID);
 		 $("#studentInfo_input_SiblingsName"+nIndex).val(m_arrSiblingsDetails[nIndex].m_strSiblingName);
 		 $("#studentInfo_input_SiblingsStudying"+nIndex).val(m_arrSiblingsDetails[nIndex].m_strStudying);
@@ -682,7 +685,7 @@ function gotScholarshipdata (m_arrScholarshipDetails)
 	 for(var nIndex = 0; nIndex < m_arrScholarshipDetails.length; nIndex++ )
 	 {
 		 if(nIndex !=0)
-			 $("#scholarship_Organization").append('<tr><td class="fieldHeading">Organization</td><td style="padding-right: 10px"> </td><td><input  type="text" id="scholarshipInfo_input_organization'+(nIndex)+'" class="zenith"/></td><td style="padding-right: 10px"> </td><td class="fieldHeading">Amount(Rs)</td><td style="padding-right: 10px"> </td><td><input  type="text" id="scholarshipInfo_input_organizationamount'+(nIndex)+'" class="zenith" onkeyup="validateNumber(this)"/></td><td style="padding-right: 10px"> </td><td> <img src="images/delete.png" width="20" align="center" id="'+(nIndex)+'" title="Delete Organization" class = "removeOrganization" onClick="scholarship_removeEditOrganizationrow(this.id)"/> </td></tr>');		
+		 $("#scholarship_Organization").append('<tr><td class="fieldHeading">Organization</td><td style="padding-right: 10px"> </td><td><input  type="text" id="scholarshipInfo_input_organization'+(nIndex)+'" class="zenith"/></td><td style="padding-right: 10px"> </td><td class="fieldHeading">Amount(Rs)</td><td style="padding-right: 10px"> </td><td><input  type="text" id="scholarshipInfo_input_organizationamount'+(nIndex)+'" class="zenith" onkeyup="validateNumber(this)"/></td><td style="padding-right: 10px"> </td><td> <img src="images/delete.png" width="20" align="center" id="'+(nIndex)+'" title="Delete Organization" class = "removeOrganization" onClick="scholarship_removeEditOrganizationrow(this.id)"/> </td></tr>');		
 		 $("#scholarshipInfo_input_organization"+nIndex).val(m_arrScholarshipDetails[nIndex].m_strOrganizationName);
 		 $("#scholarshipInfo_input_organizationamount"+nIndex).val(m_arrScholarshipDetails[nIndex].m_fAmount);
 	 }
@@ -739,7 +742,7 @@ function searchStudentUID ()
 
 function studentInfo_setStudentData (oStudentUIDAadharResponse)
 {
-	
+	m_oStudentInfoMemberData.m_oStudentResponse = oStudentUIDAadharResponse;
 	HideDialog ("ProcessDialog");
 	if(oStudentUIDAadharResponse.m_bSuccess)
 	{
@@ -1027,7 +1030,7 @@ function siblingsAddSiblings ()
 {
 	if(m_oStudentInfoMemberData.m_nRowSiblingsUIDIdCount != -1)
 	{
-		$("#siblings").append('<tr><td class="fieldHeading">UID</td> <td><input type="text"id="studentInfo_input_SiblingsUID'+(m_oStudentInfoMemberData.m_nRowSiblingsUIDIdCount++)+'" class="zenith" style="margin-right: 60px" maxlength = "4"/></td><td class="fieldHeading">Name</td><td><input type="text"id="studentInfo_input_SiblingsName'+(m_oStudentInfoMemberData.m_nRowSiblingsNameCount++)+'" class="zenith" /></td><td class="fieldHeading">Studying</td><td><input type="text" id="studentInfo_input_SiblingsStudying'+(m_oStudentInfoMemberData.m_nRowSiblingStudyingCount++)+'" class="zenith" /></td><td class="fieldHeading">School/College</td><td><input type="text" id="studentInfo_input_SiblingsSchoolCollege'+(m_oStudentInfoMemberData.m_nRowSiblingSchoolCollegeCount++)+'" class="zenith" /></td><td> <img src="images/delete.png" width="20" align="center" id="deleteImageId" title="Delete Siblings" class = "removeSiblings" onClick="deletSiblings()"/> </td></tr>');
+		$("#siblings").append('<tr id=rowCountId><td class="fieldHeading">UID</td> <td><input type="text"id="studentInfo_input_SiblingsUID'+(m_oStudentInfoMemberData.m_nRowSiblingsUIDIdCount++)+'" class="zenith" style="margin-right: 60px" maxlength = "4"  onchange="scarchSiblingsUID(rowCountId)"/></td><td class="fieldHeading">Name</td><td><input type="text"id="studentInfo_input_SiblingsName'+(m_oStudentInfoMemberData.m_nRowSiblingsNameCount++)+'" class="zenith" /></td><td class="fieldHeading">Studying</td><td><input type="text" id="studentInfo_input_SiblingsStudying'+(m_oStudentInfoMemberData.m_nRowSiblingStudyingCount++)+'" class="zenith" /></td><td class="fieldHeading">School/College</td><td><input type="text" id="studentInfo_input_SiblingsSchoolCollege'+(m_oStudentInfoMemberData.m_nRowSiblingSchoolCollegeCount++)+'" class="zenith" /></td><td> <img src="images/delete.png" width="20" align="center" id="deleteImageId" title="Delete Siblings" class = "removeSiblings" onClick="deletSiblings()"/> </td></tr>');
 		m_oStudentInfoMemberData.m_nUpdatedEditSiblingsUIDIdRowCount = m_oStudentInfoMemberData.m_nRowSiblingsUIDIdCount;
 		m_oStudentInfoMemberData.m_nUpdatedEditSiblingsNameRowCount = m_oStudentInfoMemberData.m_nRowSiblingsNameCount;
 		m_oStudentInfoMemberData.m_nUpdatedEditSiblingsStudyingRowCount = m_oStudentInfoMemberData.m_nRowSiblingsStudyingCount;
@@ -1035,8 +1038,8 @@ function siblingsAddSiblings ()
 	}
 	else
 	{
-		$("#siblings").append('<tr><td class="fieldHeading">UID</td> <td><input type="text" id="studentInfo_input_SiblingsUID'+(m_oStudentInfoMemberData.m_nSiblingsUIDId++)+'" class="zenith" style="margin-right: 60px" maxlength = "4"/></td><td class="fieldHeading">Name</td><td><input type="text"id="studentInfo_input_SiblingsName'+(m_oStudentInfoMemberData.m_nSiblingsName++)+'" class="zenith" /></td><td class="fieldHeading">Studying</td><td><input type="text" id="studentInfo_input_SiblingsStudying'+(m_oStudentInfoMemberData.m_nSiblingsStudying++)+'" class="zenith" /></td><td class="fieldHeading">School/College</td><td><input type="text" id="studentInfo_input_SiblingsSchoolCollege'+(m_oStudentInfoMemberData.m_nSiblingsSchoolCollege++)+'" class="zenith" /></td><td> <img src="images/delete.png" width="20" align="center" id="deleteImageId" title="DeleteSiblings" class = "removeSiblings" onClick="deleteNewSiblings ()"/> </td></tr>');
-		m_oStudentInfoMemberData.m_nUpdatedSiblingsUIDIdRowCount = m_oStudentInfoMemberData.m_nSiblingsUIDId;
+		$("#siblings").append('<tr id=rowCountId><td class="fieldHeading">UID</td> <td><input type="text" id="studentInfo_input_SiblingsUID'+(m_oStudentInfoMemberData.m_nSiblingsUIDId++)+'" class="zenith" style="margin-right: 60px" maxlength = "4" onchange="scarchSiblingsUID(rowCountId)"/></td><td class="fieldHeading">Name</td><td><input type="text"id="studentInfo_input_SiblingsName'+(m_oStudentInfoMemberData.m_nSiblingsName++)+'" class="zenith" /></td><td class="fieldHeading">Studying</td><td><input type="text" id="studentInfo_input_SiblingsStudying'+(m_oStudentInfoMemberData.m_nSiblingsStudying++)+'" class="zenith" /></td><td class="fieldHeading">School/College</td><td><input type="text" id="studentInfo_input_SiblingsSchoolCollege'+(m_oStudentInfoMemberData.m_nSiblingsSchoolCollege++)+'" class="zenith" /></td><td> <img src="images/delete.png" width="20" align="center" id="deleteImageId" title="DeleteSiblings" class = "removeSiblings" onClick="deleteNewSiblings()"/> </td></tr>');
+		m_oStudentInfoMemberData.m_nNewSiblingRowCount = m_oStudentInfoMemberData.m_nUpdatedSiblingsUIDIdRowCount = m_oStudentInfoMemberData.m_nSiblingsUIDId;
 		m_oStudentInfoMemberData.m_nUpdatedSiblingsNameRowCount = m_oStudentInfoMemberData.m_nSiblingsName;
 		m_oStudentInfoMemberData.m_nUpdatedSiblingsStudyingRowCount = m_oStudentInfoMemberData.m_nSiblingsStudying;
 		m_oStudentInfoMemberData.m_nUpdatedSiblingsSchoolCollegeRowCount = m_oStudentInfoMemberData.m_nSiblingsSchoolCollege;		
@@ -1061,7 +1064,7 @@ if(bUserConfirm)
     m_oStudentInfoMemberData.m_nSiblingsSchoolCollege =  siblingsrows.rows.length;
 }
 
-function checkSiblings()
+function checkSiblings(oSiblingsDetails)
 {
 	if(oSiblingsDetails.m_nSinlingsId != undefined)
 		StudentInformationDataProcessor.deleteSiblings(oSiblingsDetails,deleteSiblingsResponse);
@@ -1081,6 +1084,7 @@ function deleteSiblingsResponse ()
 {
 	student_displayInfo("siblings deleted successfully");
 }
+
 function getSiblingsDetails()
 {
 	var arrSiblingDetails = null;
@@ -1158,6 +1162,31 @@ function checkSiblingsRowCount ()
 }
 
 
+function scarchSiblingsUID(oRowCountId) 
+{
+	
+	
+	m_oStudentInfoMemberData.m_nSiblingRowId = 0;
+	if(m_oStudentInfoMemberData.m_nNewSiblingRowCount != 0)
+    {
+		m_oStudentInfoMemberData.m_nSiblingRowId = --m_oStudentInfoMemberData.m_nNewSiblingRowCount;
+    }
+	var oStudentInformationData = new  StudentInformationData();
+	oStudentInformationData.m_nUID = $("#studentInfo_input_SiblingsUID"+m_oStudentInfoMemberData.m_nSiblingRowId).val();
+	oStudentInformationData.m_strAcademicYear = $("#select_student_academicyear").val();
+	StudentInformationDataProcessor.getStudentDataUID (oStudentInformationData, studentInfo_setSiblingsData);
+}
 
 
+function studentInfo_setSiblingsData(oResponse) 
+{
+	if(oResponse.m_bSuccess)
+	{
+		 $("#studentInfo_input_SiblingsUID"+m_oStudentInfoMemberData.m_nSiblingRowId).val(oResponse.m_arrStudentInformationData[0].m_nUID);
+		 $("#studentInfo_input_SiblingsName"+m_oStudentInfoMemberData.m_nSiblingRowId).val(oResponse.m_arrStudentInformationData[0].m_strStudentName);
+		 $("#studentInfo_input_SiblingsStudying"+m_oStudentInfoMemberData.m_nSiblingRowId).val(oResponse.m_arrStudentInformationData[0].m_oAcademicDetails[0].m_oCourseInformationData.m_strShortCourseName);
+		 $("#studentInfo_input_SiblingsSchoolCollege"+m_oStudentInfoMemberData.m_nSiblingRowId).val(oResponse.m_arrStudentInformationData[0].m_oAcademicDetails[0].m_oInstitutionInformationData.m_strInstitutionName);	
+		 
+	}
 
+} 
