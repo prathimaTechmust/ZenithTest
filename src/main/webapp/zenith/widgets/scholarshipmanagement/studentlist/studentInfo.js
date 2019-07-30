@@ -9,20 +9,15 @@ var studentInfo_includeDataObjects =
 	'widgets/scholarshipmanagement/academicyear/AcademicYear.js',
 	'widgets/scholarshipmanagement/zenithscholarship/ZenithScholarshipDetails.js',
 	'widgets/scholarshipmanagement/siblingsDetails/SiblingsDetails.js'
-	
-	
 ];
 
  includeDataObjects (studentInfo_includeDataObjects, "studentInfo_loaded()");
 
 function studentInfo_memberData ()
 {
-	this.m_oStudentData = new StudentInformationData();
 	this.m_nStudentId = -1;
 	this.m_strImageId = "";
 	this.m_bIsNew = false;
-	this.m_oInstitutionDataRow = new InstitutionInformationData ();
-	this.m_oCourseDataRow = new CourseInformationData();
 	this.m_oformData = new FormData();
 	this.m_arrStudentUIDData = new Array();
 	this.m_studentInstitution = "";
@@ -91,54 +86,6 @@ function studentInfo_init ()
 	studentParentalStatusDropDown();
 	studentScoreDropDown();
 	getDropDownValues ();	
-	laodFacilitatorListToDropDown();
-	loadInstitutionsNamesListDropDown();
-	loadCourseNamesListDropDown();
-}
-
-function laodFacilitatorListToDropDown ()
-{
-   $(document).ready(function ()
-		   				{
-						   $("#selectStudentInfo_input_studentfacilitator").jqxComboBox({	source :m_oStudentInfoMemberData.m_arrFacilitatorInformationData,
-																							displayMember: "m_strFacilitatorName",
-																							valueMember: "m_nFacilitatorId",
-																							autoComplete:true,
-																							searchMode :"startswithignorecase",
-																							width :"200px",
-																							height:"25px"});
-		   				}
-		   			);	
-}
-
-function loadInstitutionsNamesListDropDown ()
-{
-	$(document).ready(function ()
-						{
-							$("#select_input_academic_name").jqxComboBox({	source :m_oStudentInfoMemberData.m_arrInstitutionInformationData,
-																			displayMember: "m_strInstitutionName",
-																			valueMember: "m_nInstitutionId",
-																			autoComplete:true,
-																			searchMode :"startswithignorecase",
-																			width :"200px",
-																			height:"25px"});
-						}					 
-					 );	
-}
-
-function loadCourseNamesListDropDown ()
-{
-	$(document).ready(function ()
-					 	{
-							$("#select_input_studentcourse").jqxComboBox({	source :m_oStudentInfoMemberData.m_arrCourseInformationData,
-																			displayMember: "m_strShortCourseName",
-																			valueMember: "m_nCourseId",
-																			autoComplete:true,
-																			searchMode :"startswithignorecase",
-																			width :"200px",
-																			height:"25px"});
-					 	}
-					 );		
 }
 
 function getDropDownValues ()
@@ -151,34 +98,67 @@ function getDropDownValues ()
 function getCourseNamesListDropDown ()
 {
 	var oCourseInformationData = new CourseInformationData ();
-	CourseInformationDataProcessor.getCourseSuggesstions (oCourseInformationData, "", "", courseListResponse);
+	CourseInformationDataProcessor.list (oCourseInformationData, "", "",1,10,loadCourseListResponseToDropDown);
 }
 
-function courseListResponse(oCourseListResponse)
+function loadCourseListResponseToDropDown(oCourseListResponse)
 {
 	m_oStudentInfoMemberData.m_arrCourseInformationData = oCourseListResponse.m_arrCourseInformationData;
+	$(document).ready(function ()
+		 	{
+				$("#select_input_studentcourse").jqxComboBox({	source :oCourseListResponse.m_arrCourseInformationData,
+																displayMember: "m_strShortCourseName",
+																valueMember: "m_nCourseId",
+																autoComplete:true,
+																searchMode :"startswithignorecase",
+																width :"200px",
+																height:"25px"});
+		 	}
+		 );		
 }
 
 function getInstitutionsNamesListDropDown ()
 {
 	var oInstitutionInformationData = new InstitutionInformationData ();
-	InstitutionInformationDataProcessor.getInstitutionSuggesstions (oInstitutionInformationData, "", "", institutionListResponse);
+	InstitutionInformationDataProcessor.list (oInstitutionInformationData, "", "",1,10, loadInstitutionListResponseToDropDown);
 }
 
-function institutionListResponse (oInstitutionResponse)
+function loadInstitutionListResponseToDropDown (oInstitutionResponse)
 {
 	m_oStudentInfoMemberData.m_arrInstitutionInformationData = oInstitutionResponse.m_arrInstitutionInformationData;
+	$(document).ready(function ()
+			{
+				$("#select_input_academic_name").jqxComboBox({	source :oInstitutionResponse.m_arrInstitutionInformationData,
+																displayMember: "m_strInstitutionName",
+																valueMember: "m_nInstitutionId",
+																autoComplete:true,
+																searchMode :"startswithignorecase",
+																width :"200px",
+																height:"25px"});
+			}					 
+		 );	
 }
 
 function getFacilitatorListToDropDown ()
 {
 	var oFacilitatorInformationData = new FacilitatorInformationData ();
-	FacilitatorInformationDataProcessor.getFacilitatorSuggesstions (oFacilitatorInformationData,"","",facilitatorResponseList);			
+	FacilitatorInformationDataProcessor.list (oFacilitatorInformationData,"","",1,10,loadFacilitatorListResponseToDropDown);			
 }
 
-function facilitatorResponseList (oReponse)
+function loadFacilitatorListResponseToDropDown (oReponse)
 {
-	m_oStudentInfoMemberData.m_arrFacilitatorInformationData = oReponse.m_arrFacilitatorInformationData;	
+	m_oStudentInfoMemberData.m_arrFacilitatorInformationData = oReponse.m_arrFacilitatorInformationData;
+	$(document).ready(function ()
+				{
+			   $("#selectStudentInfo_input_studentfacilitator").jqxComboBox({	source :oReponse.m_arrFacilitatorInformationData,
+																				displayMember: "m_strFacilitatorName",
+																				valueMember: "m_nFacilitatorId",
+																				autoComplete:true,
+																				searchMode :"startswithignorecase",
+																				width :"200px",
+																				height:"25px"});
+				}
+			);	
 }
 
 function student_academicyearList ()
@@ -717,19 +697,16 @@ function  gotStudentDocuments(oStudentDocuments)
 function facilitatorPopulateCombobox(oStudentInfoData)
 {
 	getFacilitatorListToDropDown();
-	laodFacilitatorListToDropDown();	
 }
 
 function institutionPopulateCombobox(oStudentInfoData)
 {
 	getInstitutionsNamesListDropDown();
-	loadInstitutionsNamesListDropDown();
 }
 
 function coursePopulateCombobox(oStudentInfoData)
 {	
 	getCourseNamesListDropDown();
-	loadCourseNamesListDropDown ();
 }
 
 function searchStudentUID ()
@@ -1190,3 +1167,4 @@ function studentInfo_setSiblingsData(oResponse)
 	}
 
 } 
+
