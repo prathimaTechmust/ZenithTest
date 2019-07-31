@@ -366,15 +366,6 @@
 														<td class="dataValue">
 														<xsl:value-of select="format-number(StudentInformationData/m_oAcademicDetails/AcademicDetails/m_fAnnualFee, '##,##,##0')"></xsl:value-of></td>									
 													</tr>
-													<tr>
-														<!-- <td>
-															<label class="dataLabel">Required scholarship </label>
-														</td>
-														<td>:</td>
-														<td class="dataValue">
-														
-														</td>		 -->							
-													</tr>
 												</tbody>
 												</table>
 											</td>

@@ -60,46 +60,28 @@
 					</tr>
 				</table>
 			</td>
-			<td class="topAlign" >			
+			<td align="center">			
 				<!--BUTTONS DEFINATION -->	
-				<table width="100%" >
+				<table>
 					<tr>
-						<td width="33.3%" >
-							<table>
+						<td class="zenith" align="left">
+							<table>		
 								<tr>
-									<td class="zenith" align="left">
+									<td class="zenith" align="left" style="vertical-align:top;width:15%">
 										<table class="zenith">
 											<tr>
+												<td>																																															
+											        <button type="button" width="120px" align="center" class="zenith addButton" style="width:120px;" id="documentView" title="documentView" onclick="viewStudentDocument('{StudentInformationData/m_oAcademicDetails/AcademicDetails/m_nAcademicId}')">View Documents </button>																																															
+													<button type="button" width="20" align="center" class = "zenith addButton" style="width:100px;" id="printStudent" title="Print" onClick="printClaimedChequeList()">Print</button>
+												</td>																							
 											</tr>									
 										</table>										
 									</td>																
 								</tr>								
 							</table>
-						</td>
-						<td width="33.3%">
-							<br/>
-						</td>
-						<td width="33.3%" >
-							<table>
-								<tr>
-									<td class="zenith" align="left">
-									 <div style="height: 95px; overflow:hidden;">
-										<table class="zenith">
-											<tr>
-												 <td>
-		 			       							 <a href="javascript:studentuploadScan_documentPreview (inputDocument);">
-		 			       							 	 <img id="inputDocument" src="#" alt="" style="height: 80px;"/>
-		 			       							  </a>
-	 			       							 </td>
-											</tr>									
-										</table>
-									</div>										
-									</td>																
-								</tr>								
-							</table>
-						</td>
-					</tr>
-				</table>				
+						</td>																					
+					</tr>								
+				</table>
 			</td>
 		</tr>	
 		<tr>
