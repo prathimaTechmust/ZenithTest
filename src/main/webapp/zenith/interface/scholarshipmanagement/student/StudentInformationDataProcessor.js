@@ -77,6 +77,11 @@ var StudentInformationDataProcessor = (function __StudentInformationDataProcesso
 		ajaxCall(oStudentFormUIDData,"/getStudentUIDData",callback);
 	}
 	
+	function getFacilitatorWiseStudent(oFacilitatorStudentData, callback) 
+	{
+	   ajaxCall(oFacilitatorStudentData,"/getFacilitatorWiseData", callback)	
+	}
+	
 	return { 
 		create : create,
 		createandprint:createandprint,
@@ -91,6 +96,7 @@ var StudentInformationDataProcessor = (function __StudentInformationDataProcesso
 		getStudentUID :getStudentUID,
 		checkAadharExist:checkAadharExist,
 		getStudentStatuslist : getStudentStatuslist,
-		getStudentDataUID:getStudentDataUID
+		getStudentDataUID:getStudentDataUID,
+		getFacilitatorWiseStudent:getFacilitatorWiseStudent
 	};
 })();

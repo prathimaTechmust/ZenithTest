@@ -95,7 +95,7 @@ public class AcademicDetails extends MasterData implements Serializable
 	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	@JoinColumn(name = "academic_id")
 	private List<StudentDocuments> m_arrStudentDocuments;
-
+	
 	@Transient
 	public ScholarshipDetails[] m_arrScholarshipDetails;	
 	
@@ -115,7 +115,6 @@ public class AcademicDetails extends MasterData implements Serializable
 		m_oStudentScholarshipAccount = new HashSet<StudentScholarshipAccount> ();
 		m_arrStudentDocuments = new ArrayList<StudentDocuments>();
 	}	
-	
 	public List<StudentDocuments> getM_arrStudentDocuments()
 	{
 		return m_arrStudentDocuments;

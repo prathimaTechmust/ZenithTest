@@ -97,6 +97,11 @@
 				<ActionName>Scholarship List</ActionName>
 				<Target>navigate ('scholarshiplist','widgets/scholarshipmanagement/scholarshiplist/scholarshiplist.js')</Target>
 				<SequenceId>60</SequenceId>
+			</Action>
+			<Action>
+			    <ActionName>Transaction</ActionName>
+			    <Target>navigate('transactionlist','widgets/scholarshipmanagement/transaction/transactionlist.js')</Target>
+			    <SequenceId>70</SequenceId>
 			</Action>						
 		</Actions> 
 	</ActionArea>
@@ -139,6 +144,14 @@
 			</Action>									
 		</Actions> 
 	</ActionArea>
-		
+	<ActionArea name="Reports" SequenceId="40">
+		<Actions>
+			<Action>
+				<ActionName>Facilitator-wise</ActionName>
+				<Target>navigate ('facilitatorWise','widgets/Reports/facilitatorReports.js')</Target>
+				<SequenceId>10</SequenceId>
+		</Action>
+		</Actions>
+	</ActionArea>
 </root>  
 </UserManagementDefaults>
