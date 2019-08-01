@@ -442,21 +442,25 @@
 														<td>
 															<table>		
 																<tbody>
-																	<tr>
+																<!--  	<tr>
 																		<td>
 																			<label class="dataLabel">Payment Type </label>
 																		</td>
 																		<td>:</td>
 																		<td class="dataValue">
-																		
+																		 	<xsl:value-of select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oStudentScholarshipAccount/StudentScholarshipAccount/m_strPaymentType" >
+																			</xsl:value-of>
 																		</td>									
 																	</tr>	
+																	-->
 																	<tr>
 																		<td>
 																			<label class="dataLabel">In favour of </label>
 																		</td>
 																		<td>:</td>
 																		<td class="dataValue">
+																			<xsl:value-of select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oInstitutionInformationData/InstitutionInformationData/m_strInstitutionName">
+													                  </xsl:value-of>	
 																		
 																		</td>									
 																	</tr>		
@@ -466,7 +470,8 @@
 																		</td>
 																		<td>:</td>
 																		<td class="dataValue">
-																			
+																			<xsl:value-of select="StudentInformationData/m_oZenithScholarshipDetails/ZenithScholarshipDetails/m_dApprovedDate" >
+																			</xsl:value-of>
 																		</td>									
 																	</tr>
 																	<tr>
@@ -494,21 +499,23 @@
 														<td>
 															<table>		
 																<tbody>
-																	<tr>
+																<!-- 	<tr>
 																		<td>
 																			<label class="dataLabel"> Cheque / DD Number </label>
 																		</td>
 																		<td>:</td>
 																		<td class="dataValue">
 																		
+																		
 																		</td>									
-																	</tr>	
+																	</tr>	 -->
 																	<tr>
 																		<td>
 																			<label class="dataLabel">Receiver name </label>
 																		</td>
 																		<td>:</td>
 																		<td class="dataValue">
+																			
 																			
 																		</td>									
 																	</tr>		
@@ -518,6 +525,7 @@
 																		</td>
 																		<td>:</td>
 																		<td class="dataValue">
+																			
 																		
 																		</td>									
 																	</tr>
@@ -527,6 +535,7 @@
 																		</td>
 																		<td>:</td>
 																		<td class="dataValue">
+																			
 																			
 																		</td>									
 																	</tr>														

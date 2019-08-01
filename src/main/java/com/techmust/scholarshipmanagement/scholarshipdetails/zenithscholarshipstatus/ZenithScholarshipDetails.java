@@ -244,6 +244,8 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 			addChild (oXmlDocument, oRootElement, "m_strImage",m_strImage);
 			addChild (oXmlDocument, oRootElement, "m_strScanCopyImageURL",getScanCopyImageURL(m_strImage));	
 			addChild(oXmlDocument, oRootElement, "m_strChequeRemark", m_strChequeRemark);
+			addChild (oXmlDocument, oRootElement, "m_dClaimedDate",m_dClaimedDate != null ? getClaimedDate(m_dClaimedDate.toString()) :"");
+		
 			strZenithScholarshipDetailsInfoXML = getXmlString (oXmlDocument);			 
 		}
 		catch (Exception oException) 
@@ -251,6 +253,12 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 			m_oLogger.error("generateXML - oException : " + oException);
 		}
 		return strZenithScholarshipDetailsInfoXML;
+	}
+
+	private String getClaimedDate(String string)
+	{
+
+		return string.substring(0, 10);
 	}
 
 	private String getApproveDate(String string)
