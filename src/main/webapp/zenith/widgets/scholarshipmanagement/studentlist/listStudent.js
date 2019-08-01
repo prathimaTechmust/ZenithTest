@@ -141,6 +141,7 @@ function listStudentInfo_selectedRowData (oRowData, nIndex)
 
 function listStudentInfo_gotXML (strXMLData)
 {
+	m_oStudentInfoListMemberData.m_PrintData =  strXMLData;
 	populateXMLData (strXMLData, "scholarshipmanagement/student/studentInfoDetails.xslt", 'listStudentInfo_div_listDetail');
 }
 
@@ -263,4 +264,10 @@ function studentFilteredResponse(oResponse)
 	
 }
 
+
+function printStudentDetails()
+{
+	populateXMLData (m_oStudentInfoListMemberData.m_PrintData , "applicationstatus/chequeDetails/claimedCheque/PrintClaimedList.xslt", 'printdetailsInfo');
+	printDocument();	
+}
 
