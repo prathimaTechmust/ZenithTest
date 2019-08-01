@@ -411,7 +411,10 @@
 																		</td>
 																		<td>:</td>
 																		<td class="dataValue">
-																		
+																		<xsl:variable name="annualFee" select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_fAnnualFee"></xsl:variable>
+																			<xsl:variable name="paidFee" select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_fPaidFee"></xsl:variable>
+																			<xsl:value-of select="format-number($annualFee - $paidFee, '##,##,##0')"/>
+																			
 																		</td>									
 																	</tr>	
 																	<tr>
