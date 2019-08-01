@@ -166,6 +166,7 @@ function facilitatorlistInfo_selectedRowData (oRowData, nIndex)
 }
 function facilitatorListInfo_gotXML(strXMLData) 
 {
+	m_ofacilitatorList_MemberData.m_PrintData = strXMLData;
 	populateXMLData (strXMLData, "reports/facilitatorReports.xslt", 'facilitatorWiseList_div_listDetail');
 }
 
@@ -210,4 +211,10 @@ function getFacilitatorWiseStudentDetails (oResponse)
 		$('#facilitatorWiseList_table').datagrid('appendRow',oResponse.m_arrStudentInformationData[nIndex]);
 	$('#facilitatorWiseList_table').datagrid('getPager').pagination ({total:oResponse.m_nRowCount, pageNumber:oResponse.m_nPageNumber});
 	HideDialog("dialog");
+}
+
+function printStudentDetails()
+{
+	populateXMLData (m_ofacilitatorList_MemberData.m_PrintData , "applicationstatus/chequeDetails/claimedCheque/PrintClaimedList.xslt", 'printdetailsInfo');
+	printDocument();	
 }
