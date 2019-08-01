@@ -439,5 +439,32 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 	public GenericResponse list(StudentInformationData oGenericData, HashMap<String, String> arrOrderBy)throws Exception
 	{		
 		return null;
-	}	
+	}
+	@RequestMapping(value = "/getFacilitatorWiseData", method = RequestMethod.POST, headers = {"content-type=application/json"})
+	@ResponseBody
+	public  GenericResponse getFacilitatorWiseStudent(@RequestBody StudentInformationData oStudentInformationData)
+	{
+		m_oLogger.info("getFacilitatorWiseStudent");
+		m_oLogger.debug("getFacilitatorWiseStudent - oStudentInformationData[IN] : " +oStudentInformationData);
+		StudentDataResponse oStudentDataResponse = new StudentDataResponse();
+		EntityManager oEntityManager = oStudentInformationData._getEntityManager();
+		try 
+		{
+			 CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
+			 CriteriaQuery<StudentInformationData>  oCriteriaQuery = oCriteriaBuilder.createQuery(StudentInformationData.class);
+			 Root<StudentInformationData> oStudentRoot = oCriteriaQuery.from(StudentInformationData.class);
+			 oCriteriaQuery.select(oStudentRoot);
+			 oCriteriaQuery.where(oCriteriaBuilder.equal(oStudentRoot.get("m_oFacilitatorInformationData"),oStudentInformationData.getM_nFacilitatorId()));
+		     List<StudentInformationData> list = oEntityManager.createQuery(oCriteriaQuery).getResultList();
+		    oStudentDataResponse.m_arrStudentInformationData.addAll(list);
+		}
+		catch (Exception oException)
+		{
+			oException.printStackTrace();
+		}
+		return oStudentDataResponse;
+	
+	
+	
+	}
 }

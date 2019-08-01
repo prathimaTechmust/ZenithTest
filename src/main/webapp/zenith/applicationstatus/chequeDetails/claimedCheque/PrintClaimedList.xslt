@@ -411,7 +411,10 @@
 																		</td>
 																		<td>:</td>
 																		<td class="dataValue">
-																		
+																		<xsl:variable name="annualFee" select="format-number(StudentInformationData/m_oAcademicDetails/AcademicDetails/m_fAnnualFee, '##,##,##0')"></xsl:variable>
+																			<xsl:variable name="paidFee" select="format-number(StudentInformationData/m_oAcademicDetails/AcademicDetails/m_fPaidFee, '##,##,##0')"></xsl:variable>
+																			<xsl:value-of select="concat($annualFee - $paidFee,'&#xA;')"/>
+																			
 																		</td>									
 																	</tr>	
 																	<tr>
@@ -440,22 +443,25 @@
 														<td>
 															<table>		
 																<tbody>
-																	<tr>
+																<!-- 	<tr>
 																		<td>
 																			<label class="dataLabel">Payment Type </label>
 																		</td>
 																		<td>:</td>
 																		<td class="dataValue">
+																		 <xsl:value-of select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oStudentScholarshipAccount/StudentScholarshipAccount/m_strPaymentType" >
+																			</xsl:value-of>
 																		
 																		</td>									
-																	</tr>	
+																	</tr>	-->
 																	<tr>
 																		<td>
 																			<label class="dataLabel">In favour of </label>
 																		</td>
 																		<td>:</td>
 																		<td class="dataValue">
-																		
+																			<xsl:value-of select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oInstitutionInformationData/InstitutionInformationData/m_strInstitutionName">
+													                       </xsl:value-of>
 																		</td>									
 																	</tr>		
 																	<tr>
@@ -464,7 +470,8 @@
 																		</td>
 																		<td>:</td>
 																		<td class="dataValue">
-																			
+																			<xsl:value-of select="StudentInformationData/m_oZenithScholarshipDetails/ZenithScholarshipDetails/m_dApprovedDate" >
+																			</xsl:value-of>
 																		</td>									
 																	</tr>
 																	<tr>
@@ -473,6 +480,8 @@
 																		</td>
 																		<td>:</td>
 																		<td class="dataValue">
+																		<xsl:value-of select="StudentInformationData/m_oZenithScholarshipDetails/ZenithScholarshipDetails/m_dClaimedDate" >
+																			</xsl:value-of>
 																			
 																		</td>									
 																	</tr>																	
@@ -492,21 +501,25 @@
 														<td>
 															<table>		
 																<tbody>
-																	<tr>
+														<!--  			<tr>
 																		<td>
 																			<label class="dataLabel"> Cheque / DD Number </label>
 																		</td>
 																		<td>:</td>
 																		<td class="dataValue">
+																			<xsl:value-of select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oStudentScholarshipAccount/StudentScholarshipAccount/m_nChequeNumber">
+																			</xsl:value-of>
 																		
 																		</td>									
-																	</tr>	
+																	</tr>	-->
 																	<tr>
 																		<td>
 																			<label class="dataLabel">Receiver name </label>
 																		</td>
 																		<td>:</td>
 																		<td class="dataValue">
+																		<xsl:value-of select="StudentInformationData/m_oZenithScholarshipDetails/ZenithScholarshipDetails/m_strReceiverName" >
+																			</xsl:value-of>
 																			
 																		</td>									
 																	</tr>		
@@ -516,15 +529,20 @@
 																		</td>
 																		<td>:</td>
 																		<td class="dataValue">
+																			<xsl:value-of select="StudentInformationData/m_oZenithScholarshipDetails/ZenithScholarshipDetails/m_strReceiverContactNumber" >
+																			</xsl:value-of>
 																		
 																		</td>									
 																	</tr>
 																	<tr>
-																		<td>
+																	<td>
 																			<label class="dataLabel">Date of issue </label>
 																		</td>
 																		<td>:</td>
 																		<td class="dataValue">
+																			<xsl:value-of select="StudentInformationData/m_oZenithScholarshipDetails/ZenithScholarshipDetails/m_dChequeIssueDate" >
+																			</xsl:value-of>
+																		
 																			
 																		</td>									
 																	</tr>														
