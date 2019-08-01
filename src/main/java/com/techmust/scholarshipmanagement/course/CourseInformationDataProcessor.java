@@ -1,16 +1,32 @@
 package com.techmust.scholarshipmanagement.course;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.techmust.constants.Constants;
 import com.techmust.generic.dataprocessor.GenericIDataProcessor;
 import com.techmust.generic.response.GenericResponse;
+import com.techmust.generic.util.HibernateUtil;
+import com.techmust.helper.ActionManagerHelper;
 import com.techmust.helper.ZenithHelper;
+import com.techmust.scholarshipmanagement.activitylog.ActivityLog;
+import com.techmust.scholarshipmanagement.activitylog.ActivityLogDataProcessor;
+import com.techmust.utils.Utils;
 
 @Controller
 public class CourseInformationDataProcessor extends GenericIDataProcessor <CourseInformationData>
@@ -21,12 +37,15 @@ public class CourseInformationDataProcessor extends GenericIDataProcessor <Cours
 	@ResponseBody
 	public GenericResponse create(@RequestBody CourseInformationData oCourseInformationData) throws Exception
 	{
+		
 		m_oLogger.info ("create");
 		m_oLogger.debug ("create - oCourseInformationData [IN] : " + oCourseInformationData);
 		CourseDataResponse oCourseDataResponse = new CourseDataResponse();
 		try
 		{
-			oCourseDataResponse.m_bSuccess = oCourseInformationData.saveObject();			
+			oCourseDataResponse.m_bSuccess = oCourseInformationData.saveObject();
+			if(oCourseDataResponse.m_bSuccess = true)			
+				Utils.createActivityLog("CourseInformationDataProcessor::create", oCourseInformationData);	
 		}
 		catch (Exception oException)
 		{
@@ -54,7 +73,11 @@ public class CourseInformationDataProcessor extends GenericIDataProcessor <Cours
 				oCourseDataResponse.m_bSuccess = false;
 			}				
 			else
+			{
 				oCourseDataResponse.m_bSuccess = oCourseInformationData.deleteObject();
+				Utils.createActivityLog("CourseInformationDataProcessor::delete", oCourseInformationData);
+			}
+				
 		}
 		catch (Exception oException)
 		{
@@ -91,7 +114,7 @@ public class CourseInformationDataProcessor extends GenericIDataProcessor <Cours
 	public GenericResponse list(@RequestBody ZenithHelper oData)throws Exception
 	{
 		HashMap<String, String> oOrderBy = new HashMap<String, String> ();
-		oOrderBy.put(oData.getM_strColumn(), oData.getM_strOrderBy());
+		oOrderBy.put(oData.getM_strSortColumn(), oData.getM_strOrderBy());
 		return list (oData.getM_oCourseInformationData(), oOrderBy, oData.getM_nPageNo(), oData.getM_nPageSize());
 	}
 	
@@ -126,7 +149,11 @@ public class CourseInformationDataProcessor extends GenericIDataProcessor <Cours
 		try
 		{			
 			oCourseDataResponse.m_bSuccess = oCourseInformationData.updateObject();
-			oCourseDataResponse.m_arrCourseInformationData.add(oCourseInformationData);
+			if(oCourseDataResponse.m_bSuccess)
+			{
+				oCourseDataResponse.m_arrCourseInformationData.add(oCourseInformationData);
+				Utils.createActivityLog("CourseInformationDataProcessor::update", oCourseInformationData);
+			}
 		}
 		catch (Exception oException)
 		{
@@ -162,7 +189,7 @@ public class CourseInformationDataProcessor extends GenericIDataProcessor <Cours
 	@ResponseBody
 	public CourseDataResponse getCourseSuggestions(@RequestBody ZenithHelper oData) throws Exception
 	{
-		return  getCoursesSuggestions(oData.getM_oCourseInformationData(),oData.getM_strColumn(),oData.getM_strOrderBy());
+		return  getCoursesSuggestions(oData.getM_oCourseInformationData(),oData.getM_strSortColumn(),oData.getM_strOrderBy());
 	}	
 
 	public CourseDataResponse getCoursesSuggestions(CourseInformationData oCourseInformationData, String strColumn,String strOrderBy) throws Exception
@@ -174,8 +201,7 @@ public class CourseInformationDataProcessor extends GenericIDataProcessor <Cours
 		CourseDataResponse oCourseDataResponse = new CourseDataResponse();
 		try 
 		{
-			oCourseDataResponse.m_arrCourseInformationData = new ArrayList(oCourseInformationData.listCustomData(this));
-			
+			oCourseDataResponse.m_arrCourseInformationData = new ArrayList(oCourseInformationData.listCustomData(this));			
 		}
 		catch (Exception oException)
 		{
@@ -184,6 +210,49 @@ public class CourseInformationDataProcessor extends GenericIDataProcessor <Cours
 		}
 		return oCourseDataResponse;
 	}
+	
+	
+	
+	@RequestMapping(value="/courseFilterInfoData", method = RequestMethod.POST, headers = {"Content-type=application/json"})
+	@ResponseBody
+	public GenericResponse getCourseFilterData(@RequestBody CourseInformationData oCourseInformationData) throws Exception
+	{
+		m_oLogger.info ("getCourseFilterData");
+		m_oLogger.debug ("getCourseFilterData - oCourseInformationData [IN] : " + oCourseInformationData);
+		EntityManager oEntityManager = oCourseInformationData._getEntityManager();
+		CourseDataResponse oCourseDataResponse = new CourseDataResponse();
+		try 
+		{
+			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
+			CriteriaQuery<CourseInformationData> oCriteriaQuery = oCriteriaBuilder.createQuery(CourseInformationData.class);
+			Root<CourseInformationData> oRootCourseInformationData = oCriteriaQuery.from(CourseInformationData.class);
+			List<Predicate> m_arrPredicateList = new ArrayList<Predicate>();
+			if(oCourseInformationData.getM_strShortCourseName() != "")
+				m_arrPredicateList.add(oCriteriaBuilder.equal(oRootCourseInformationData.get("m_strShortCourseName"),oCourseInformationData.getM_strShortCourseName()));
+			else
+				m_arrPredicateList.add(oCriteriaBuilder.equal(oRootCourseInformationData.get("m_strLongCourseName"),oCourseInformationData.getM_strLongCourseName()));
+			oCriteriaQuery.select(oRootCourseInformationData).where(m_arrPredicateList.toArray(new Predicate[]{}));
+			List<CourseInformationData> m_arrCourseInformationDataList =  oEntityManager.createQuery(oCriteriaQuery).getResultList();
+			if(m_arrCourseInformationDataList.size() > 0)
+			{
+				for(int nIndex = 0; nIndex < m_arrCourseInformationDataList.size(); nIndex++)
+					oCourseDataResponse.m_arrCourseInformationData.add(m_arrCourseInformationDataList.get(nIndex));
+				oCourseDataResponse.m_bSuccess = true;
+			}
+						
+		}
+		catch (Exception oException)
+		{
+			m_oLogger.error("getCourseFilterData - oException : " +oException);
+			throw oException;
+		}
+		finally 
+		{
+			oEntityManager.close();
+			HibernateUtil.removeConnection();
+		}
+		return oCourseDataResponse;		
+	}	
 
 	@Override
 	public GenericResponse list(CourseInformationData oGenericData, HashMap<String, String> arrOrderBy)throws Exception

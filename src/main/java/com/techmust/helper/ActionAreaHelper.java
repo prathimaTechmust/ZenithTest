@@ -36,7 +36,7 @@ public class ActionAreaHelper extends ActionAreaDataProcessor {
 	public ActionAreaResponse list (@RequestBody ZenithHelper oData) 
 	{
 		HashMap<String, String> oOrderBy = new HashMap<String, String> ();
-		oOrderBy.put(oData.getM_strColumn(), oData.getM_strOrderBy());
+		oOrderBy.put(oData.getM_strSortColumn(), oData.getM_strOrderBy());
 		ActionAreaResponse oActionAreaResponse = super.list(oData.getM_oActionArea(), oOrderBy, oData.getM_nPageNo(), oData.getM_nPageSize());
 		return oActionAreaResponse;
 	}

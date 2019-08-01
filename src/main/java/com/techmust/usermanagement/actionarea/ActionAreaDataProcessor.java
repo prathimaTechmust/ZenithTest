@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 import com.techmust.generic.data.GenericData;
 import com.techmust.generic.dataprocessor.GenericIDataProcessor;
 import com.techmust.generic.util.HibernateUtil;
+import com.techmust.utils.Utils;
 
 public class ActionAreaDataProcessor extends GenericIDataProcessor<ActionAreaData>
 {
@@ -36,6 +37,7 @@ public class ActionAreaDataProcessor extends GenericIDataProcessor<ActionAreaDat
 			{
 				oActionAreaResponse.m_bSuccess = oData.saveObject ();
 				oActionAreaResponse.m_arrActionArea.add (oData);
+				Utils.createActivityLog("ActionAreaDataProcessor::create", oData);
 			}
 		}
 		catch (Exception oException)
@@ -99,6 +101,8 @@ public class ActionAreaDataProcessor extends GenericIDataProcessor<ActionAreaDat
 		try
 		{
 			oActionAreaResponse.m_bSuccess = oData.updateObject ();
+			if(oActionAreaResponse.m_bSuccess)
+				Utils.createActivityLog("ActionAreaDataProcessor::update", oData);
 		}
 		catch (Exception oException) 
 		{
@@ -116,6 +120,8 @@ public class ActionAreaDataProcessor extends GenericIDataProcessor<ActionAreaDat
 		try
 		{	
 			oActionAreaResponse.m_bSuccess = oData.deleteObject ();
+			if(oActionAreaResponse.m_bSuccess)
+				Utils.createActivityLog("ActionAreaDataProcessor::deleteData", oData);
 		}
 		catch (Exception oException) 
 		{

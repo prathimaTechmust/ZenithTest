@@ -50,7 +50,7 @@ public class UserInformationHelper extends UserInformationDataProcessor<IUserInf
 	public GenericResponse list(@RequestBody ZenithHelper oData) throws Exception 
 	{
 		HashMap<String, String> oOrderBy = new HashMap<String, String> ();
-		oOrderBy.put(oData.getM_strColumn(), oData.getM_strOrderBy());
+		oOrderBy.put(oData.getM_strSortColumn(), oData.getM_strOrderBy());
 		UserInformationResponse oUserInformationResponse = super.list(oData.getM_oUserData(), oOrderBy, oData.getM_nPageNo(), oData.getM_nPageSize());
 		return oUserInformationResponse; 
 	}
@@ -104,7 +104,7 @@ public class UserInformationHelper extends UserInformationDataProcessor<IUserInf
 	@ResponseBody
 	public UserInformationResponse getUserSuggesstions (@RequestBody ZenithHelper oData) throws Exception 
 	{
-		UserInformationResponse oUserInformationResponse = super.getUserSuggesstions(oData.getM_oUserData(), oData.getM_strColumn (), oData.getM_strOrderBy());
+		UserInformationResponse oUserInformationResponse = super.getUserSuggesstions(oData.getM_oUserData(), oData.getM_strSortColumn(), oData.getM_strOrderBy());
 		return oUserInformationResponse;
 	}
 }

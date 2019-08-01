@@ -155,7 +155,7 @@ function disburseChequeListInfo_selectedRowData (oRowData, nIndex)
 }
 
 function disburseStudentInfo_gotXML (strXMLData)
-{
+{	m_odisburseChequeList_Info_MemberData.oDisburseData =  strXMLData;
 	populateXMLData (strXMLData, "applicationstatus/disburse/studentChequeDisburse.xslt", 'disburseChequeList_div_listDetail');
 }
 
@@ -207,3 +207,10 @@ function disburseChequeListInfo_listed (oStudentResponseData)
 	$('#disburseChequeList_table_students').datagrid('getPager').pagination ({total:oStudentResponseData.m_nRowCount, pageNumber:oStudentResponseData.m_nPageNumber});
 	HideDialog("dialog");
 }
+
+function printDisburseChequeDetails()
+{
+	populateXMLData (m_odisburseChequeList_Info_MemberData.oDisburseData , "applicationstatus/disburse/PrintDisburseOfCheque.xslt", 'printdetailsInfo');
+	printDocument();	
+}
+

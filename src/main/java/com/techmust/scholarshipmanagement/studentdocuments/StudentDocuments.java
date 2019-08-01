@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.techmust.generic.data.MasterData;
 
@@ -41,6 +42,11 @@ public class StudentDocuments  extends MasterData
 	
 	@Column(name = "other_documents")
 	private String m_strOtherDocuments;	
+	
+	@Transient
+	private String m_strVerifyScanDocument;
+	
+	
 	
 	public StudentDocuments() 
 	{
@@ -79,6 +85,17 @@ public class StudentDocuments  extends MasterData
 		return m_strStudentMarksCard1;
 	}
 	
+	
+	public String getM_strVerifyScanDocument()
+	{
+		return m_strVerifyScanDocument;
+	}
+
+	public void setM_strVerifyScanDocument(String m_strVerifyScanDocument) 
+	{
+		this.m_strVerifyScanDocument = m_strVerifyScanDocument;
+	}
+
 	public void setM_strStudentMarksCard1(String strStudentMarksCard1)
 	{
 		this.m_strStudentMarksCard1 = strStudentMarksCard1;

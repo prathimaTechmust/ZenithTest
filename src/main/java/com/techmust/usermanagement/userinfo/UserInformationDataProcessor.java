@@ -8,6 +8,8 @@ import org.apache.log4j.Logger;
 import com.techmust.generic.data.GenericData;
 import com.techmust.generic.dataprocessor.GenericIDataProcessor;
 import com.techmust.generic.util.GenericUtil;
+import com.techmust.utils.Utils;
+
 import org.hibernate.Criteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
@@ -43,6 +45,7 @@ public class UserInformationDataProcessor <T extends IUserInformationData> exten
 //				oData.setM_dDOB (getDBCompatibleDateFormat (oData.getM_strDOB ()));
 //				oData.setM_oUserPhoto (getBlob (oData.getM_buffImgUserPhoto ()));
 				oUserInformationResponse.m_bSuccess = oData.saveObject ();
+				Utils.createActivityLog("UserInformationDataProcessor::create", (GenericData) oData);
 				oUserInformationResponse.m_arrUserInformationData.add((UserInformationData)oData);
 				processConfirmation ((UserInformationData)oData);
 			}
@@ -69,6 +72,7 @@ public class UserInformationDataProcessor <T extends IUserInformationData> exten
 			{
 				oUserInformationData.setM_nStatus(UserStatus.kActive);
 				oUserInformationResponse.m_bSuccess = oUserInformationData.updateObject();
+				Utils.createActivityLog("UserInformationDataProcessor::changeUserStatus", oUserInformationData);
 			}
 		}
 		catch (Exception oException)
@@ -174,6 +178,9 @@ public class UserInformationDataProcessor <T extends IUserInformationData> exten
 //			oData.setM_dDOB (getDBCompatibleDateFormat (oData.getM_strDOB ()));
 			setUserPhoto (oData);
 			oUserInformationResponse.m_bSuccess = oData.updateObject ();
+			if(oUserInformationResponse.m_bSuccess)
+				Utils.createActivityLog("UserInformationDataProcessor::update", (GenericData) oData);
+			
 		} 
 		catch (Exception oException) 
 		{
@@ -193,6 +200,8 @@ public class UserInformationDataProcessor <T extends IUserInformationData> exten
 		try 
 		{
 			oUserInformationResponse.m_bSuccess = oData.deleteObject ();
+			if(oUserInformationResponse.m_bSuccess)
+				Utils.createActivityLog("UserInformationDataProcessor::deleteData", (GenericData) oData);
 		} 
 		catch (Exception oException) 
 		{

@@ -146,6 +146,7 @@ function claimedChequeListInfo_selectedRowData(oRowData,nIndex)
 
 function claimedChequeListInfo_gotXML (strXMLData)
 {
+	m_oClaimedChequeListMemberData.oClaimedChequeData =  strXMLData;
 	populateXMLData (strXMLData, "applicationstatus/chequeDetails/claimedCheque/claimedCheque.xslt", 'claimedChequeList_div_listDetail');
 }
 
@@ -180,4 +181,10 @@ function studentUIDInformation (oResponse)
 		alert("Student UID Does not exist in the list");
 		document.getElementById("StudentInfo_input_uid").value = "";
 	}
+}
+
+function printClaimedChequeList()
+{
+	populateXMLData (m_oClaimedChequeListMemberData.oClaimedChequeData, "applicationstatus/chequeDetails/claimedCheque/PrintClaimedList.xslt", 'printdetailsInfo');
+	printDocument();	
 }

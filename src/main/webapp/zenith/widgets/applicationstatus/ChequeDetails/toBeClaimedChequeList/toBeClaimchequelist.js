@@ -135,6 +135,7 @@ function toBeClaimChequeListInfo_selectedRowData(oRowData,nIndex)
 
 function toBeClaimChequeListInfo_gotXML (strXMLData)
 {
+	m_oToBeClaimChequeListMemberData.oTobeclaimedChequeData = strXMLData;
 	populateXMLData (strXMLData, "applicationstatus/chequeDetails/toBeClaimCheque/toBeClaimCheque.xslt", 'toBeClaimChequeList_div_listDetail');
 }
 
@@ -244,4 +245,10 @@ function studentUIDInformation (oResponse)
 		alert("Student UID Does not exist in the list");
 		document.getElementById("StudentInfo_input_uid").value = "";
 	}
+}
+
+function printToBeClaimedChequeList()
+{
+	populateXMLData (m_oToBeClaimChequeListMemberData.oTobeclaimedChequeData, "applicationstatus/chequeDetails/toBeClaimCheque/PrintToBeClaimed.xslt", 'printdetailsInfo');
+	printDocument();	
 }

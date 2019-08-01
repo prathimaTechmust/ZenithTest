@@ -185,20 +185,22 @@ function viewStudentDocuments_init()
 
 function setUploadedDocuments(oStudentDocuments)
 {
-	if(oStudentDocuments.m_strStudentAadhar != null)
+	if(oStudentDocuments != null && oStudentDocuments.m_strStudentAadhar != null)
 		$("#studentAadharId").attr('src',oStudentDocuments.m_strStudentAadhar);
-	if(oStudentDocuments.m_strFatherAadharImageId != null)
+	if(oStudentDocuments != null && oStudentDocuments.m_strFatherAadharImageId != null)
 		$("#fatherAadharId").attr('src',oStudentDocuments.m_strFatherAadharImageId);
-	if(oStudentDocuments.m_strMotherAadharImageId !=null)
+	if(oStudentDocuments != null && oStudentDocuments.m_strMotherAadharImageId !=null)
 		$("#motherAadharId").attr('src',oStudentDocuments.m_strMotherAadharImageId);
-	if(oStudentDocuments.m_strStudentElectricityBill !=null)
+	if(oStudentDocuments != null && oStudentDocuments.m_strStudentElectricityBill !=null)
 		$("#electricityBillId").attr('src',oStudentDocuments.m_strStudentElectricityBill);
-	if(oStudentDocuments.m_strStudentMarksCard1 !=null)
+	if(oStudentDocuments != null && oStudentDocuments.m_strStudentMarksCard1 !=null)
 		$("#marksCard1Id").attr('src',oStudentDocuments.m_strStudentMarksCard1);
-	if(oStudentDocuments.m_strStudentMarksCard2 !=null)
+	if(oStudentDocuments != null && oStudentDocuments.m_strStudentMarksCard2 !=null)
 		$("#marksCard2Id").attr('src',oStudentDocuments.m_strStudentMarksCard2);
-	if(oStudentDocuments.m_strOtherDocuments !=null)
-		$("#additionalDocumentId").attr('src',oStudentDocuments.m_strOtherDocuments);	 
+	if(oStudentDocuments != null && oStudentDocuments.m_strOtherDocuments !=null)
+		$("#additionalDocumentId").attr('src',oStudentDocuments.m_strOtherDocuments);	
+	if(oStudentDocuments != null && oStudentDocuments.m_strVerifyScanDocument !=null)
+		$("#scanDocumentId").attr('src', oStudentDocuments.m_strVerifyScanDocument);
 }
 
 function viewStudentDocument_cancel() 
@@ -1018,7 +1020,7 @@ function ajaxCall(oData, strURL, callback)
 	    beforeSend: 
 	    	function(xhr)
 	    	{
-	    		xhr.setRequestHeader('trademustTenantName', strTenantName);
+	    		xhr.setRequestHeader('zenithTenantName', strTenantName);
 	    		xhr.setRequestHeader("Content-Encoding", "gzip, deflate");
 	    	},
 	    data: JSON.stringify(oData),
@@ -1070,7 +1072,7 @@ function ajaxXMLCall(oData, strURL, callback)
 	    beforeSend: 
 	    	function(xhr)
 	    	{
-	    		xhr.setRequestHeader('trademustTenantName', strTenantName);
+	    		xhr.setRequestHeader('zenithTenantName', strTenantName);
 	    		xhr.setRequestHeader("Content-Encoding", "gzip, deflate");
 	    	},
 	    data: JSON.stringify(oData),

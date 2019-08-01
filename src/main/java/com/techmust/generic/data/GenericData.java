@@ -1122,7 +1122,7 @@ public abstract class GenericData implements IGenericData, Serializable
 				m_arrPredicateList.add(oCriteriaBuilder.equal(oStudentInformationRoot.get("m_nUID"), oData.getM_nUID()));
 			else
 				m_arrPredicateList.add(oCriteriaBuilder.equal(oStudentInformationRoot.get("m_nStudentAadharNumber"), oData.getM_nStudentAadharNumber()));
-	        oCriteriaQuery.select(oStudentInformationRoot).where(m_arrPredicateList.toArray(new Predicate[]{}));;
+	        oCriteriaQuery.select(oStudentInformationRoot).where(m_arrPredicateList.toArray(new Predicate[]{}));
 	        List<StudentInformationData> arrStudentList = oEntityManager.createQuery(oCriteriaQuery).getResultList();
 	        if(arrStudentList.size() > 0)
 	        {

@@ -6,6 +6,10 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.stereotype.Controller;
@@ -20,6 +24,7 @@ import com.google.gson.Gson;
 import com.techmust.constants.Constants;
 import com.techmust.generic.dataprocessor.GenericIDataProcessor;
 import com.techmust.generic.response.GenericResponse;
+import com.techmust.generic.util.HibernateUtil;
 import com.techmust.helper.ZenithHelper;
 import com.techmust.scholarshipmanagement.academicdetails.AcademicDetails;
 import com.techmust.scholarshipmanagement.studentdocuments.StudentDocuments;
@@ -27,8 +32,9 @@ import com.techmust.utils.AWSUtils;
 import com.techmust.utils.Utils;
 
 @Controller
-public class StudentInformationDataProcessor extends GenericIDataProcessor <StudentInformationData> 
+public class StudentInformationDataProcessor extends GenericIDataProcessor <StudentInformationData>
 {
+	
 
 	@Override
 	@RequestMapping(value = "/studentInfoCreate",method = RequestMethod.POST, headers = {"Content-type=application/json"})
@@ -41,7 +47,11 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		try
 		{
 			oStudentDataResponse.m_bSuccess = oStudentInformationData.saveObject();
-			oStudentDataResponse.m_arrStudentInformationData.add(oStudentInformationData);
+			if(oStudentDataResponse.m_bSuccess)
+			{
+				oStudentDataResponse.m_arrStudentInformationData.add(oStudentInformationData);
+				Utils.createActivityLog("StudentInformationDataProcessor::create", oStudentInformationData);
+			}			
 			
 		}
 		catch (Exception oException)
@@ -108,6 +118,8 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		{
 			oStudentInformationData = (StudentInformationData) populateObject (oStudentInformationData);
 			oStudentDataResponse.m_bSuccess = oStudentInformationData.deleteObject();
+			if(oStudentDataResponse.m_bSuccess)
+				Utils.createActivityLog("StudentInformationDataProcessor::deleteData", oStudentInformationData);
 		}
 		catch (Exception oException)
 		{
@@ -117,9 +129,9 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		return oStudentDataResponse;
 	}
 	
-	@RequestMapping(value="/createStudentImageData", method = RequestMethod.POST)
+	@RequestMapping(value="/uploadStudentImageData", method = RequestMethod.POST)
 	@ResponseBody
-	public GenericResponse createStudentImagetoS3bucket(@RequestParam(name = "studentimage",required = false) MultipartFile oStudentMultipartFile, @RequestParam("studentId") int nStudentId ) throws Exception
+	public GenericResponse uploadStudentImagetoS3bucket(@RequestParam(name = "studentimage",required = false) MultipartFile oStudentMultipartFile, @RequestParam("studentId") int nStudentId ) throws Exception
     {
 		StudentDataResponse oStudentDataResponse = new StudentDataResponse();
 		StudentInformationData oStudentInformationData = new StudentInformationData();
@@ -222,7 +234,7 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 	public GenericResponse list(@RequestBody ZenithHelper oData)throws Exception
 	{
 		HashMap<String, String> oOrderBy = new HashMap<String, String> ();
-		oOrderBy.put(oData.getM_strColumn(), oData.getM_strOrderBy());
+		oOrderBy.put(oData.getM_strSortColumn(), oData.getM_strOrderBy());
 		return list (oData.getM_oStudentInformationData(), oOrderBy, oData.getM_nPageNo(), oData.getM_nPageSize());
 	}
 	
@@ -254,11 +266,14 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		m_oLogger.debug ("update - oStudentInformationData.getM_nStudentId() [IN] : " + oStudentInformationData.getM_nStudentId());
 		StudentDataResponse oStudentDataResponse = new StudentDataResponse();
 		try
-		{	
-			
+		{			
 			StudentInformationData oStudentData = getStudentDocuments(oStudentInformationData);		
 			oStudentDataResponse.m_bSuccess = oStudentInformationData.updateObject();
-			oStudentDataResponse.m_arrStudentInformationData.add(oStudentInformationData);
+			if(oStudentDataResponse.m_bSuccess)
+			{
+				oStudentDataResponse.m_arrStudentInformationData.add(oStudentInformationData);
+				Utils.createActivityLog("StudentInformationDataProcessor::update", oStudentInformationData);
+			}			
 		}
 		catch (Exception oException)
 		{
@@ -372,6 +387,52 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 			throw oException;
 		}
 		return oStudentDataResponse;		
+	}
+	
+	@RequestMapping(value = "/getStudentFilterData",method = RequestMethod.POST,headers = {"Content-type=application/json"})
+	@ResponseBody
+	public GenericResponse  getStudentFilterData (@RequestBody StudentInformationData oStudentInformationData)
+	{
+		EntityManager oEntityManager = oStudentInformationData._getEntityManager();
+		StudentDataResponse oStudentDataResponse = new StudentDataResponse();
+		try 
+		{			
+			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
+			CriteriaQuery<StudentInformationData> oCriteriaQuery = oCriteriaBuilder.createQuery(StudentInformationData.class);
+			Root<StudentInformationData> oStudentInformationRoot = oCriteriaQuery.from(StudentInformationData.class);   
+			List<Predicate> m_arrPredicateList = new ArrayList<Predicate>();
+			if(oStudentInformationData.getM_strStudentName() != "")
+					m_arrPredicateList.add(oCriteriaBuilder.equal(oStudentInformationRoot.get("m_strStudentName"), oStudentInformationData.getM_strStudentName()));
+			if(oStudentInformationData.getM_strPhoneNumber() != "")
+				m_arrPredicateList.add(oCriteriaBuilder.equal(oStudentInformationRoot.get("m_strPhoneNumber"), oStudentInformationData.getM_strPhoneNumber()));
+			if(oStudentInformationData.getM_nStudentAadharNumber() > 0)
+				m_arrPredicateList.add(oCriteriaBuilder.equal(oStudentInformationRoot.get("m_nStudentAadharNumber"), oStudentInformationData.getM_nStudentAadharNumber()));
+			 oCriteriaQuery.select(oStudentInformationRoot).where(m_arrPredicateList.toArray(new Predicate[]{}));
+			List<StudentInformationData> m_arrStudentInformationDataList = oEntityManager.createQuery(oCriteriaQuery).getResultList();
+			if(m_arrStudentInformationDataList.size() > 0)
+			{
+				for(int nIndex = 0; nIndex < m_arrStudentInformationDataList.size(); nIndex++)
+				{
+					oStudentInformationData = m_arrStudentInformationDataList.get(nIndex);
+					oStudentInformationData.setM_strAcademicYear(oStudentInformationData.getM_strAcademicYear());
+					oStudentInformationData.setM_oAcademicDetails(oStudentInformationData.getAcademicDetails(oStudentInformationData));
+					oStudentDataResponse.m_arrStudentInformationData.add(oStudentInformationData);
+				}
+				oStudentDataResponse.m_bSuccess = true;
+			}			
+			
+		}
+		catch (Exception oException)
+		{
+			m_oLogger.error("getStudentDetails - oException : " +oException);
+			throw oException;
+		}
+		finally
+		{
+			oEntityManager.close();
+			HibernateUtil.removeConnection();
+		}		
+		return oStudentDataResponse;
 	}
 	
 	@Override	

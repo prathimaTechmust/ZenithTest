@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.techmust.generic.dataprocessor.GenericIDataProcessor;
 import com.techmust.generic.response.GenericResponse;
 import com.techmust.helper.ZenithHelper;
+import com.techmust.utils.Utils;
 
 @Controller
 public class FacilitatorInformationDataProcessor extends GenericIDataProcessor <FacilitatorInformationData>
@@ -27,7 +28,9 @@ public class FacilitatorInformationDataProcessor extends GenericIDataProcessor <
 		FacilitatorDataResponse oFacilitatorDataResponse = new FacilitatorDataResponse();
 		try
 		{
-			oFacilitatorDataResponse.m_bSuccess = oFacilitatorInformationData.saveObject();			
+			oFacilitatorDataResponse.m_bSuccess = oFacilitatorInformationData.saveObject();
+			if(oFacilitatorDataResponse.m_bSuccess)
+				Utils.createActivityLog("FacilitatorInformationDataProcessor::create", oFacilitatorInformationData);
 		}
 		catch (Exception oException)
 		{
@@ -49,6 +52,8 @@ public class FacilitatorInformationDataProcessor extends GenericIDataProcessor <
 		{
 			oFacilitatorInformationData = (FacilitatorInformationData) populateObject (oFacilitatorInformationData);
 			oFacilitatorDataResponse.m_bSuccess = oFacilitatorInformationData.deleteObject();
+			if(oFacilitatorDataResponse.m_bSuccess)
+				Utils.createActivityLog("FacilitatorInformationDataProcessor::deleteData", oFacilitatorInformationData);
 		}
 		catch (Exception oException)
 		{
@@ -85,7 +90,7 @@ public class FacilitatorInformationDataProcessor extends GenericIDataProcessor <
 	public GenericResponse list(@RequestBody ZenithHelper oData)throws Exception
 	{
 		HashMap<String, String> oOrderBy = new HashMap<String, String> ();
-		oOrderBy.put(oData.getM_strColumn(), oData.getM_strOrderBy());
+		oOrderBy.put(oData.getM_strSortColumn(), oData.getM_strOrderBy());
 		return list (oData.getM_oFacilitatorInformationData(), oOrderBy, oData.getM_nPageNo(), oData.getM_nPageSize());
 	}
 	
@@ -120,6 +125,8 @@ public class FacilitatorInformationDataProcessor extends GenericIDataProcessor <
 		try
 		{			
 			oFacilitatorDataResponse.m_bSuccess = oFacilitatorInformationData.updateObject();
+			if(oFacilitatorDataResponse.m_bSuccess)
+				Utils.createActivityLog("FacilitatorInformationDataProcessor::update", oFacilitatorInformationData);
 		}
 		catch (Exception oException)
 		{
@@ -155,7 +162,7 @@ public class FacilitatorInformationDataProcessor extends GenericIDataProcessor <
 	@ResponseBody
 	public FacilitatorDataResponse getInstitutionSuggestions (@RequestBody ZenithHelper oData) throws Exception
 	{
-		return getFacilitatorSuggestions(oData.getM_oFacilitatorInformationData(),oData.getM_strColumn(),oData.getM_strOrderBy());
+		return getFacilitatorSuggestions(oData.getM_oFacilitatorInformationData(),oData.getM_strSortColumn(),oData.getM_strOrderBy());
 	}
 	
 

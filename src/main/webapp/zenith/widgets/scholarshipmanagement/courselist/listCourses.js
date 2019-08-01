@@ -182,3 +182,29 @@ function listCourseInfo_showAddPopup ()
 {
 	navigate ("newcourse", "widgets/scholarshipmanagement/courselist/newCourseInfo.js");
 }
+
+function courseLitInfo_filter ()
+{
+	var oCourseInformationData = new CourseInformationData () ;
+	if($("#filterCourseInfo_input_shortcourseName").val() !="")
+		oCourseInformationData.m_strShortCourseName = $("#filterCourseInfo_input_shortcourseName").val();
+	else
+		oCourseInformationData.m_strLongCourseName = $("#filterCourseInfo_input_longcourseName").val();
+	CourseInformationDataProcessor.courseFilterData(oCourseInformationData,filteredCourseResponse);
+}
+
+function filteredCourseResponse(oCourseInfoResponse)
+{
+	if(oCourseInfoResponse.m_bSuccess)
+	{
+		document.getElementById("filterCourseInfo_input_shortcourseName").value = "";
+		document.getElementById("filterCourseInfo_input_longcourseName").value = "";
+		clearGridData ("#listCourseInfo_table_courses");
+		for (var nIndex = 0; nIndex < oCourseInfoResponse.m_arrCourseInformationData.length; nIndex++)
+			$('#listCourseInfo_table_courses').datagrid('appendRow',oCourseInfoResponse.m_arrCourseInformationData[nIndex]);
+		$('#listCourseInfo_table_courses').datagrid('getPager').pagination ({total:oCourseInfoResponse.m_nRowCount, pageNumber:oCourseInfoResponse.m_nPageNumber});
+	}
+	else
+		informUser("no search result found","kError");
+	
+}

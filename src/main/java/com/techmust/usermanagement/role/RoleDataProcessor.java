@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import com.techmust.generic.dataprocessor.GenericIDataProcessor;
 import com.techmust.usermanagement.action.ActionData;
 import com.techmust.usermanagement.actionarea.ActionAreaData;
+import com.techmust.utils.Utils;
 
 public class RoleDataProcessor extends GenericIDataProcessor<RoleData>
 {
@@ -26,13 +27,13 @@ public class RoleDataProcessor extends GenericIDataProcessor<RoleData>
 			oActions.remove (null);
 			oData.setm_oActions (oActions);
 			oRoleResponse.m_bSuccess = oData.saveObject();
+			Utils.createActivityLog("RoleDataProcessor::create", oData);
 		}
 		catch (Exception oException)
 		{
 			m_oLogger.error ("create - oException : " +oException);
 		}
-		m_oLogger.debug ("create - oRoleResponse.m_bSuccess [OUT] : "
-							+oRoleResponse.m_bSuccess);
+		m_oLogger.debug ("create - oRoleResponse.m_bSuccess [OUT] : "+oRoleResponse.m_bSuccess);
 		return oRoleResponse;
 	}
 
@@ -114,6 +115,8 @@ public class RoleDataProcessor extends GenericIDataProcessor<RoleData>
 			oActions.remove (null);
 			oData.setm_oActions (oActions);
 			oRoleResponse.m_bSuccess = oData.updateObject ();
+			if(oRoleResponse.m_bSuccess)
+				Utils.createActivityLog("RoleDataProcessor::update", oData);
 		}
 		catch (Exception oException)
 		{
@@ -133,6 +136,8 @@ public class RoleDataProcessor extends GenericIDataProcessor<RoleData>
 		try
 		{
 			oRoleResponse.m_bSuccess = oData.deleteObject ();
+			if(oRoleResponse.m_bSuccess)
+				Utils.createActivityLog("RoleDataProcessor::deleteData", oData);
 		}
 		catch (Exception oException) 
 		{

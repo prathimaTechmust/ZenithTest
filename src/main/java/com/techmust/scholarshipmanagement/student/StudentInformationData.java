@@ -122,6 +122,9 @@ public class StudentInformationData  extends MasterData implements Serializable
 	@Transient
 	private String m_strStatus;
 	
+	@Transient
+	private int m_nFacilitatorId;
+	
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "facilitatorid")
 	private FacilitatorInformationData m_oFacilitatorInformationData;
@@ -179,6 +182,16 @@ public class StudentInformationData  extends MasterData implements Serializable
 	public SiblingDetails[] getM_arrSiblingDetails()
 	{
 		return m_arrSiblingDetails;
+	}
+
+	public int getM_nFacilitatorId() 
+	{
+		return m_nFacilitatorId;
+	}
+
+	public void setM_nFacilitatorId(int m_nFacilitatorId)
+	{
+		this.m_nFacilitatorId = m_nFacilitatorId;
 	}
 
 	public void setM_arrSiblingDetails(SiblingDetails[] arrSiblingDetails)

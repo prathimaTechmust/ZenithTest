@@ -41,6 +41,7 @@ function listFacilitatorInfo_createDataGrid ()
 				{field:'m_strEmail',title:'Email',sortable:true,width:200},
 				{field:'m_strPhoneNumber',title:'Phone Number',sortable:true,width:200},
 				{field:'m_strCity',title:'City',sortable:true,width:200},
+				{field:'m_strState',title:'State',sortable:true,width:200},
 				{field:'Actions',title:'Action',width:80,align:'center',
 					formatter:function(value,row,index)
 		        	{

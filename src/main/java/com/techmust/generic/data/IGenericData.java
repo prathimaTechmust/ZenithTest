@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Set;
 
+import javax.persistence.EntityManager;
+
 import com.techmust.scholarshipmanagement.academicdetails.AcademicDetails;
 import com.techmust.scholarshipmanagement.scholarshipdetails.zenithscholarshipstatus.ZenithScholarshipDetails;
 import com.techmust.scholarshipmanagement.student.StudentInformationData;
@@ -12,6 +14,7 @@ import com.techmust.scholarshipmanagement.studentdocuments.StudentDocuments;
 
 public interface IGenericData
 {
+	public abstract EntityManager _getEntityManager ();
 	boolean saveObject() throws Exception;
 	boolean updateObject() throws Exception;
 	boolean deleteObject() throws Exception;

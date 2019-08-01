@@ -75,7 +75,8 @@
 										<table class="zenith">
 											<tr>
 												<td>																																															
-													<button type="button" width="20" align="center" class = "zenith addButton" style="width:130px;" id="claim" title="Claim Cheque" onClick="claimCheque ()">Claim Cheque</button>
+													<button type="button" width="20" align="center" class = "zenith addButton" style="width:130px;" id="claim" title="Claim Cheque" onClick="claimCheque ()">Claim Cheque</button>																																																										
+													<button type="button" width="20" align="center" class = "zenith addButton" style="width:100px;" id="printStudent" title="Print" onClick="printToBeClaimedChequeList()">Print</button>												
 												</td>																							
 											</tr>									
 										</table>										

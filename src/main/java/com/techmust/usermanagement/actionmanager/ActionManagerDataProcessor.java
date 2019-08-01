@@ -3,6 +3,8 @@ package com.techmust.usermanagement.actionmanager;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import com.techmust.constants.Constants;
 import com.techmust.generic.data.GenericData;
 import com.techmust.generic.dataprocessor.GenericIDataProcessor;
@@ -12,6 +14,7 @@ import com.techmust.usermanagement.MessageConstants;
 import com.techmust.usermanagement.userinfo.UserInformationData;
 import com.techmust.usermanagement.userinfo.UserInformationDataProcessor;
 import com.techmust.usermanagement.userinfo.UserStatus;
+import com.techmust.utils.Utils;
 
 public class ActionManagerDataProcessor extends GenericIDataProcessor<ActionManagerData> 
 {
@@ -38,6 +41,7 @@ public class ActionManagerDataProcessor extends GenericIDataProcessor<ActionMana
 			{
 				oUserInformationData.setM_strPassword (oData.getM_strNewPassword ());
 				oActionManagerResponse.m_bSuccess = oUserInformationData.updateObject ();
+				Utils.createActivityLog("ActionManagerDataProcessor::changePassword", oUserInformationData);
 			}
 		}
 		catch (Exception oException)
@@ -59,7 +63,7 @@ public class ActionManagerDataProcessor extends GenericIDataProcessor<ActionMana
 			UserInformationData oUserInfoData = getUserInfoData (oData);
 			if (oUserInfoData != null && oUserInfoData.getM_nStatus () == UserStatus.kActive)
 			{
-				oActionManagerResponse.set (oUserInfoData);
+				oActionManagerResponse.set (oUserInfoData);				
 			}
 			else if (oUserInfoData != null && oUserInfoData.getM_nStatus() == UserStatus.kInactive)
 			{
@@ -253,7 +257,8 @@ public class ActionManagerDataProcessor extends GenericIDataProcessor<ActionMana
 			// Generate a new password
 			String strPassword = generatePassword ();
 			oData.setM_strNewPassword (GenericIDataProcessor.encryptPassword(strPassword));
-			oUserInformationDataProcessor.update (oData);
+			oUserInformationDataProcessor.update (oData);			
+			Utils.createActivityLog("ActionManagerDataProcessor::newPasswordUpdate", oData);
 			
 			// send new password by email
 			String strMessageFrom = GenericUtil.getProperty("kAPPLICATIONNAME")+" <"+GenericUtil.getProperty("kMAILREPLAYTO")+">";

@@ -138,6 +138,7 @@ function listPrepareChequeInfo_selectedRowData (oRowData, nIndex)
 
 function prepareChequeInfo_gotXML (strXMLData)
 {
+	m_oPrepareChequeListMemberData.strApprovedAmountXmlData = strXMLData;
 	populateXMLData (strXMLData, "applicationstatus/preparecheque/studentChequePrepare.xslt", 'listPrepareCheque_div_listDetail');
 }
 
@@ -218,4 +219,11 @@ function listPrepareChequeInfo_listed (oStudentPrepareChequeInfoResponse)
 	$('#listPrepareCheque_table_students').datagrid('getPager').pagination ({total:oStudentPrepareChequeInfoResponse.m_nRowCount, pageNumber:oStudentPrepareChequeInfoResponse.m_nPageNumber});
 	HideDialog("dialog");
 }
+
+function printChequeDetails()
+{
+	populateXMLData (m_oPrepareChequeListMemberData.strApprovedAmountXmlData, "applicationstatus/preparecheque/PrintPrepareCheck.xslt", 'printdetailsInfo');
+	printDocument();	
+}
+
 

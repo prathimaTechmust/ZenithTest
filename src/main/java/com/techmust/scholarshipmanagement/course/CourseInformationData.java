@@ -115,6 +115,5 @@ public class CourseInformationData extends MasterData
 		}
 		return strCourseInfoXML;		
 	}
-	
 
 }

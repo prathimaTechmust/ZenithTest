@@ -77,7 +77,8 @@
 												<td>																																															
 													<button type="button" width="20" align="center" class = "zenith addButton" style="width:150px;" id="disburseCheque" title="Disburse" onClick="disburseStudent_Cheque()">Disburse of Cheque</button>
 												    <button type="button" width="20" align="center" class ="zenith addButton" style="width:130px;" id="reIssueCheque" title="re-issue Cheque" onClick="reIssueCheque_Details()">Re-Issue Cheque </button>
-											        <button type="button" width="120px" align="center" class="zenith addButton" style="width:120px;" id="documentView" title="documentView" onclick="viewStudentDocument('{StudentInformationData/m_oAcademicDetails/AcademicDetails/m_nAcademicId}')">View Documents </button>
+											        <button type="button" width="120px" align="center" class="zenith addButton" style="width:120px;" id="documentView" title="documentView" onclick="viewStudentDocument('{StudentInformationData/m_oAcademicDetails/AcademicDetails/m_nAcademicId}')">View Documents </button>																																															
+													<button type="button" width="20" align="center" class = "zenith addButton" style="width:100px;" id="printStudent" title="Print" onClick="printDisburseChequeDetails()">Print</button>
 												</td>																							
 											</tr>									
 										</table>										

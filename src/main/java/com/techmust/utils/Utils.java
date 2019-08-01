@@ -1,6 +1,7 @@
 package com.techmust.utils;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -9,15 +10,25 @@ import java.util.UUID;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.RandomStringUtils;
+import org.apache.log4j.Logger;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.techmust.constants.Constants;
+import com.techmust.generic.data.GenericData;
+import com.techmust.generic.dataprocessor.GenericIDataProcessor;
+import com.techmust.scholarshipmanagement.activitylog.ActivityLog;
+import com.techmust.scholarshipmanagement.activitylog.ActivityLogDataProcessor;
 import com.techmust.scholarshipmanagement.studentdocuments.StudentDocuments;
+import com.techmust.usermanagement.userinfo.UserInformationData;
 
 
 public class Utils 
 {	
+	public static Logger m_oLogger = Logger.getLogger(GenericIDataProcessor.class);
 	public static void saveCookie(String strCookieName, String strValue, HttpServletResponse oResponse)
 	{
 	    Cookie cookie = new Cookie(strCookieName, strValue);	  
@@ -110,5 +121,30 @@ public class Utils
 			 oStudentDocuments.setM_strOtherDocuments(strStudentOtherDocumentsURL);
 		 }			 
 		return oStudentDocuments;
+	}
+
+	public static void createActivityLog(String strFunctionName, GenericData oGenericData)
+	{
+		m_oLogger.debug("createLog - oLoginUserData.getM_strUserName() :" );
+		ActivityLog oActivityLog = new ActivityLog();
+		ActivityLogDataProcessor oActivityLogDataProcessor = new ActivityLogDataProcessor ();
+		try
+		{
+			ServletRequestAttributes oServletRequestAttr = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+			HttpServletRequest oHttpServletRequest = oServletRequestAttr.getRequest();		
+			HttpSession oHttpSession = oHttpServletRequest.getSession();
+			String strLoginUser = (String) oHttpSession.getAttribute(Constants.LOGINUSERNAME);
+			oActivityLog.setM_strLoginUserName(strLoginUser);
+			oActivityLog.setM_strTaskPerformed(strFunctionName);
+			oActivityLog.setM_dDate(Calendar.getInstance().getTime());
+			String strXMLData = oGenericData.generateXML();
+			oActivityLog.setM_strXMLString(strXMLData);
+			oActivityLogDataProcessor.create(oActivityLog);
+		}
+		catch (Exception oException)
+		{
+			m_oLogger.error("createLog - oException : " + oException);
+		}		
+		
 	}
 }

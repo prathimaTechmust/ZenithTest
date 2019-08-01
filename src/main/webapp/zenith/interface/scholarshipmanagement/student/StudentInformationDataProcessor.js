@@ -25,7 +25,7 @@ var StudentInformationDataProcessor = (function __StudentInformationDataProcesso
 	
 	function setImagetoS3bucket(oStudentData,callback)
 	{
-		multipartAjaxCall(oStudentData, "/createStudentImageData", callback);   
+		multipartAjaxCall(oStudentData, "/uploadStudentImageData", callback);   
 	}
 	
 	function list(oStudentData, strSortColumn, strSortOrder, nPageNo, nPageSize, callback)
@@ -77,6 +77,17 @@ var StudentInformationDataProcessor = (function __StudentInformationDataProcesso
 		ajaxCall(oStudentFormUIDData,"/getStudentUIDData",callback);
 	}
 	
+
+	function getFacilitatorWiseStudent(oFacilitatorStudentData, callback) 
+	{
+	   ajaxCall(oFacilitatorStudentData,"/getFacilitatorWiseData", callback)	
+	}
+
+	function filterStudentData(oStudentFilterData,callback)
+	{
+		ajaxCall(oStudentFilterData,"/getStudentFilterData",callback);		
+	}
+	
 	return { 
 		create : create,
 		createandprint:createandprint,
@@ -91,6 +102,8 @@ var StudentInformationDataProcessor = (function __StudentInformationDataProcesso
 		getStudentUID :getStudentUID,
 		checkAadharExist:checkAadharExist,
 		getStudentStatuslist : getStudentStatuslist,
-		getStudentDataUID:getStudentDataUID
+		getStudentDataUID:getStudentDataUID,
+		getFacilitatorWiseStudent:getFacilitatorWiseStudent,
+		filterStudentData:filterStudentData
 	};
 })();

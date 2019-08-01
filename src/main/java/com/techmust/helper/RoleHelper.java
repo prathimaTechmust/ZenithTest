@@ -45,7 +45,7 @@ public class RoleHelper extends RoleDataProcessor{
 	public RoleResponse list (@RequestBody ZenithHelper oData) 
 	{
 		HashMap<String, String> oOrderBy = new HashMap<String, String> ();
-		oOrderBy.put(oData.getM_strColumn(), oData.getM_strOrderBy());
+		oOrderBy.put(oData.getM_strSortColumn(), oData.getM_strOrderBy());
 		RoleResponse oRoleResponse = super.list(oData.getM_oRoleData(), oOrderBy, oData.getM_nPageNo(), oData.getM_nPageSize());
 		return oRoleResponse;
 	}
