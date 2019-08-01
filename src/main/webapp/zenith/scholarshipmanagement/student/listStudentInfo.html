@@ -28,14 +28,14 @@
                     <input 
                         class="filterTextBox"
                         id="filterStudentInfo_input_studentName"
-                        onkeypress="handleFilter('listStudentInfo_filter()','')"
+                        onkeypress="handleFilter('studentListInfo_filter()','#filterStudentInfo_input_studentName')"
                         placeholder="Student Name"/>
                   </td>
                   <td class="zenith" style="width:15%">
                      <input 
                         class="filterTextBox"
                         id="filterStudentInfo_input_phonenumber"
-                        onkeypress="handleFilter('listStudentInfo_filter()','')"
+                        onkeypress="handleFilter('studentListInfo_filter()','#filterStudentInfo_input_phonenumber');validateNumber(this)"
                         placeholder="Phone Number"
                         maxlength="10"/>
                   </td>
@@ -43,7 +43,7 @@
                     <input 
                         class="filterTextBox"
                         id="filterStudentInfo_input_aadhar"
-                        onkeypress="handleFilter('listStudentInfo_filter()','')"
+                        onkeypress="handleFilter('studentListInfo_filter()','#filterStudentInfo_input_aadhar')"
                         placeholder="Student Aadhar"/>
                   </td>
                   <td class="zenith" style="width:5%">
@@ -51,7 +51,7 @@
                     	</select>
                   </td>
                   <td class="zenith" style="width:5%">
-                    <button class="zenith filterButton" type="button" onclick="listStudentInfo_filter ()">
+                    <button class="zenith filterButton" type="button" onclick="studentListInfo_filter ()">
                       Filter
                     </button>
                   </td>

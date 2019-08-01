@@ -141,6 +141,11 @@
 				<ActionName>Rejected List</ActionName>
 				<Target>navigate ('rejected','widgets/applicationstatus/rejectedlist/rejectedlist.js')</Target>
 				<SequenceId>70</SequenceId>
+			</Action>
+			<Action>
+				<ActionName>Activity Log</ActionName>
+				<Target>navigate ('activitylog','widgets/activitylog/activityLogList.js')</Target>
+				<SequenceId>80</SequenceId>
 			</Action>									
 		</Actions> 
 	</ActionArea>

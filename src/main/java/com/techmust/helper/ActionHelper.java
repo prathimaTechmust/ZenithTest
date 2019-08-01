@@ -42,7 +42,7 @@ public class ActionHelper extends ActionDataProcessor
 	public ActionResponse list (@RequestBody ZenithHelper oData) 
 	{
 		HashMap<String, String> oOrderBy = new HashMap<String, String> ();
-		oOrderBy.put(oData.getM_strColumn(), oData.getM_strOrderBy());
+		oOrderBy.put(oData.getM_strSortColumn(), oData.getM_strOrderBy());
 		ActionResponse oActionResponse = super.list(oData.getM_oAction(), oOrderBy, oData.getM_nPageNo(), oData.getM_nPageSize());
 		return oActionResponse;
 	}

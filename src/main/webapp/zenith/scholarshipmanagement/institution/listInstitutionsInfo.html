@@ -28,14 +28,14 @@
                     <input 
                         class="filterTextBox"
                         id="filterInstitutionsInfo_input_institutionName"
-                        onkeypress="handleFilter('listInstitutionsInfo_filter()','')"
+                        onkeypress="handleFilter('institutionsListInfo_filter()','#filterInstitutionsInfo_input_institutionName')"
                         placeholder="Institution Name"/>
                   </td>
                   <td class="zenith" style="width:25%">
                      <input 
                         class="filterTextBox"
                         id="filterInstitutionsInfo_input_phonenumber"
-                        onkeypress="handleFilter('listInstitutionsInfo_filter()','')"
+                        onkeypress="handleFilter('institutionsListInfo_filter()','#filterInstitutionsInfo_input_phonenumber');validateNumber(this)"
                         placeholder="Phone Number"
                         maxlength="10"/>
                   </td>
@@ -43,19 +43,19 @@
                     <input 
                         class="filterTextBox"
                         id="filterInstitutionsInfo_input_city"
-                        onkeypress="handleFilter('listInstitutionsInfo_filter()','')"
+                        onkeypress="handleFilter('institutionsListInfo_filter()','#filterInstitutionsInfo_input_city')"
                         placeholder="City"/>
                   </td>
                   <td class="zenith" style="width:5%">
-                    <button class="zenith filterButton" type="button" onclick="listInstitutionsInfo_filter ()">
+                    <button class="zenith filterButton" type="button" onclick="institutionsListInfo_filter ()">
                       Filter
                     </button>
                   </td>
-                  <td class="zenith" style="width:5%">
-                    <button class="zenith importButton" type="button" onclick="listInstitutionsInfo_import ()">
+                  <!-- <td class="zenith" style="width:5%">
+                    <button class="zenith importButton" type="button" onclick="institutionsListInfo_filter ()">
                       Import
                     </button>
-                  </td>
+                  </td> -->
                 </tr>
               </table>
             </div>

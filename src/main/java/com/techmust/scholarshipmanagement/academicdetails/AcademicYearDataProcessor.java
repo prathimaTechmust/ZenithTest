@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.techmust.generic.dataprocessor.GenericIDataProcessor;
 import com.techmust.generic.response.GenericResponse;
 import com.techmust.helper.ZenithHelper;
+import com.techmust.utils.Utils;
 
 @Controller
 public class AcademicYearDataProcessor extends GenericIDataProcessor<AcademicYear>
@@ -28,7 +29,8 @@ public class AcademicYearDataProcessor extends GenericIDataProcessor<AcademicYea
 		AcademicYearResponse oAcademicYearResponse = new AcademicYearResponse();
 		try
 		{
-			oAcademicYearResponse.m_bSuccess = oAcademicYear.saveObject();			
+			oAcademicYearResponse.m_bSuccess = oAcademicYear.saveObject();
+			Utils.createActivityLog("AcademicYearDataProcessor::create", oAcademicYear);
 		}
 		catch (Exception oException)
 		{
@@ -57,7 +59,7 @@ public class AcademicYearDataProcessor extends GenericIDataProcessor<AcademicYea
 	public GenericResponse list(@RequestBody ZenithHelper oZenithHelper) throws Exception
 	{
 		HashMap<String, String> oOrderBy = new HashMap<String,String>();
-		oOrderBy.put(oZenithHelper.getM_strColumn(), oZenithHelper.getM_strOrderBy());
+		oOrderBy.put(oZenithHelper.getM_strSortColumn(), oZenithHelper.getM_strOrderBy());
 		return list(oZenithHelper.getM_oAcademicYear(),oOrderBy,oZenithHelper.getM_nPageNo(),oZenithHelper.getM_nPageSize());
 	}
 

@@ -10,6 +10,7 @@ import org.hibernate.Criteria;
 
 import com.techmust.generic.data.GenericData;
 import com.techmust.scholarshipmanagement.academicdetails.AcademicYear;
+import com.techmust.scholarshipmanagement.activitylog.ActivityLog;
 import com.techmust.scholarshipmanagement.course.CourseInformationData;
 import com.techmust.scholarshipmanagement.institution.InstitutionInformationData;
 import com.techmust.scholarshipmanagement.sholarshipaccounts.StudentScholarshipAccount;
@@ -32,10 +33,11 @@ public class ZenithHelper extends GenericData
 	private CourseInformationData m_oCourseInformationData;
 	private InstitutionInformationData m_oInstitutionInformationData;
 	private AcademicYear m_oAcademicYear;
+	private ActivityLog m_oActivityLog;
 	private RoleData m_oRoleData;
 	private ActionAreaData m_oActionArea;
 	private ActionData m_oAction;	
-	private String m_strColumn;
+	private String m_strSortColumn;
 	private String m_strOrderBy;
 	private int m_nPageNo;
 	private int m_nPageSize;
@@ -53,16 +55,27 @@ public class ZenithHelper extends GenericData
 		m_oCourseInformationData = new CourseInformationData();
 		m_oInstitutionInformationData = new InstitutionInformationData();
 		m_oStudentScholarshipAccount = new StudentScholarshipAccount();
+		m_oActivityLog = new ActivityLog();
 		m_oAcademicYear = new AcademicYear();
 		m_oRoleData = new RoleData ();
 		m_oActionArea = new ActionAreaData ();
 		m_oAction = new ActionData ();
-		m_strColumn = "";
+		m_strSortColumn = "";
 		m_strOrderBy = "";
 		m_nPageNo = 0;
 		m_nPageSize = 10;
-	}	
+	}
 	
+	public ActivityLog getM_oActivityLog()
+	{
+		return m_oActivityLog;
+	}
+
+	public void setM_oActivityLog(ActivityLog oActivityLog) 
+	{
+		this.m_oActivityLog = oActivityLog;
+	}
+
 	public StudentScholarshipAccount getM_oStudentScholarshipAccount()
 	{
 		return m_oStudentScholarshipAccount;
@@ -173,14 +186,14 @@ public class ZenithHelper extends GenericData
 		return m_oAction;
 	}
 
-	public String getM_strColumn() 
+	public String getM_strSortColumn()
 	{
-		return m_strColumn;
+		return m_strSortColumn;
 	}
 
-	public void setM_strColumn(String strColumn) 
+	public void setM_strSortColumn(String strSortColumn)
 	{
-		m_strColumn = strColumn;
+		this.m_strSortColumn = strSortColumn;
 	}
 
 	public String getM_strOrderBy() 

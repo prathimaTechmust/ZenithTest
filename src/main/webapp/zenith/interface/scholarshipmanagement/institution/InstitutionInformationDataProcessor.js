@@ -41,6 +41,11 @@ var InstitutionInformationDataProcessor = (function __InstitutionInformationData
 		 ajaxCall(oInstitutionData, "/institutionInfoGetSuggestions", callback);		
 	}
 	
+	function institutionFilterData (oInstitutionFilterData,callback)
+	{
+		 ajaxCall(oInstitutionFilterData, "/getInstitutionInfoFilterData", callback);
+	}
+	
 	return { 
 		create : create,
 		get : get,
@@ -49,6 +54,7 @@ var InstitutionInformationDataProcessor = (function __InstitutionInformationData
 		deleteData : deleteData, 
 		getImagePreview : getImagePreview,
 		getXML : getXML,
-		getInstitutionSuggesstions :getInstitutionSuggesstions
+		getInstitutionSuggesstions :getInstitutionSuggesstions,
+		institutionFilterData :institutionFilterData
 	};
 })();

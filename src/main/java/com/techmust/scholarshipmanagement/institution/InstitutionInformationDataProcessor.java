@@ -2,6 +2,13 @@ package com.techmust.scholarshipmanagement.institution;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,7 +18,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.techmust.generic.dataprocessor.GenericIDataProcessor;
 import com.techmust.generic.response.GenericResponse;
+import com.techmust.generic.util.HibernateUtil;
 import com.techmust.helper.ZenithHelper;
+import com.techmust.scholarshipmanagement.course.CourseDataResponse;
+import com.techmust.scholarshipmanagement.course.CourseInformationData;
+import com.techmust.utils.Utils;
 
 @Controller
 public class InstitutionInformationDataProcessor extends GenericIDataProcessor<InstitutionInformationData>
@@ -27,7 +38,9 @@ public class InstitutionInformationDataProcessor extends GenericIDataProcessor<I
 		InstitutionDataResponse oInstitutionDataResponse = new InstitutionDataResponse();
 		try
 		{
-			oInstitutionDataResponse.m_bSuccess = oInstitutionInformationData.saveObject();			
+			oInstitutionDataResponse.m_bSuccess = oInstitutionInformationData.saveObject();
+			if(oInstitutionDataResponse.m_bSuccess)
+				Utils.createActivityLog("InstitutionInformationDataProcessor::create", oInstitutionInformationData);
 		}
 		catch (Exception oException)
 		{
@@ -55,7 +68,11 @@ public class InstitutionInformationDataProcessor extends GenericIDataProcessor<I
 				oInstitutionDataResponse.m_bSuccess = false;
 			}				
 			else
+			{
 				oInstitutionDataResponse.m_bSuccess = oInstitutionInformationData.deleteObject();
+				Utils.createActivityLog("oInstitutionInformationData::deleteData", oInstitutionInformationData);
+			}
+				
 		}
 		catch (Exception oException)
 		{
@@ -92,7 +109,7 @@ public class InstitutionInformationDataProcessor extends GenericIDataProcessor<I
 	public GenericResponse list(@RequestBody ZenithHelper oData)throws Exception
 	{
 		HashMap<String, String> oOrderBy = new HashMap<String, String> ();
-		oOrderBy.put(oData.getM_strColumn(), oData.getM_strOrderBy());
+		oOrderBy.put(oData.getM_strSortColumn(), oData.getM_strOrderBy());
 		return list (oData.getM_oInstitutionInformationData(), oOrderBy, oData.getM_nPageNo(), oData.getM_nPageSize());
 	}
 	
@@ -127,7 +144,11 @@ public class InstitutionInformationDataProcessor extends GenericIDataProcessor<I
 		try
 		{			
 			oInstitutionDataResponse.m_bSuccess = oInstitutionInformationData.updateObject();
-			oInstitutionDataResponse.m_arrInstitutionInformationData.add(oInstitutionInformationData);
+			if(oInstitutionDataResponse.m_bSuccess)
+			{
+				oInstitutionDataResponse.m_arrInstitutionInformationData.add(oInstitutionInformationData);
+				Utils.createActivityLog("InstitutionInformationDataProcessor::update", oInstitutionInformationData);
+			}
 		}
 		catch (Exception oException)
 		{
@@ -163,7 +184,7 @@ public class InstitutionInformationDataProcessor extends GenericIDataProcessor<I
 	@ResponseBody
 	public InstitutionDataResponse getInstitutionSuggestions (@RequestBody ZenithHelper oData) throws Exception
 	{
-		return getInstitutionsSuggestions(oData.getM_oInstitutionInformationData(),oData.getM_strColumn(),oData.getM_strOrderBy());
+		return getInstitutionsSuggestions(oData.getM_oInstitutionInformationData(),oData.getM_strSortColumn(),oData.getM_strOrderBy());
 	}
 
 	public InstitutionDataResponse getInstitutionsSuggestions(InstitutionInformationData oInstitutionInformationData,String strColumn, String strOrderBy) throws Exception
@@ -184,7 +205,53 @@ public class InstitutionInformationDataProcessor extends GenericIDataProcessor<I
 		}
 		return oInstitutionDataResponse;
 	}
-
+	
+	
+	
+	@RequestMapping(value="/getInstitutionInfoFilterData", method = RequestMethod.POST, headers = {"Content-type=application/json"})
+	@ResponseBody
+	public GenericResponse getInstitutionFilterData (@RequestBody InstitutionInformationData oInstitutionInformationData) throws Exception
+	{
+		
+		m_oLogger.info ("getInstitutionFilterData");
+		m_oLogger.debug ("getInstitutionFilterData - oInstitutionInformationData [IN] : " + oInstitutionInformationData);
+		EntityManager oEntityManager = oInstitutionInformationData._getEntityManager();
+		InstitutionDataResponse oInstitutionDataResponse = new InstitutionDataResponse();
+		try 
+		{
+			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
+			CriteriaQuery<InstitutionInformationData> oCriteriaQuery = oCriteriaBuilder.createQuery(InstitutionInformationData.class);
+			Root<InstitutionInformationData> oRootInstitutionInformationData = oCriteriaQuery.from(InstitutionInformationData.class);
+			List<Predicate> m_arrPredicateList = new ArrayList<Predicate>();
+			if(oInstitutionInformationData.getM_strInstitutionName() != "")
+				m_arrPredicateList.add(oCriteriaBuilder.equal(oRootInstitutionInformationData.get("m_strInstitutionName"),oInstitutionInformationData.getM_strInstitutionName()));
+			else if(oInstitutionInformationData.getM_strPhoneNumber() != "")
+				m_arrPredicateList.add(oCriteriaBuilder.equal(oRootInstitutionInformationData.get("m_strPhoneNumber"),oInstitutionInformationData.getM_strPhoneNumber()));
+			else
+				m_arrPredicateList.add(oCriteriaBuilder.equal(oRootInstitutionInformationData.get("m_strCity"),oInstitutionInformationData.getM_strCity()));
+			oCriteriaQuery.select(oRootInstitutionInformationData).where(m_arrPredicateList.toArray(new Predicate[]{}));
+			List<InstitutionInformationData> oInstitutionInformationDataList = oEntityManager.createQuery(oCriteriaQuery).getResultList();
+			if(oInstitutionInformationDataList.size() > 0)
+			{
+				for(int nIndex = 0; nIndex < oInstitutionInformationDataList.size(); nIndex++)
+					oInstitutionDataResponse.m_arrInstitutionInformationData.add(oInstitutionInformationDataList.get(nIndex));
+				oInstitutionDataResponse.m_bSuccess = true;
+			}						
+		}
+		catch (Exception oException)
+		{
+			m_oLogger.error("getInstitutionFilterData - oException : " +oException);
+			throw oException;
+		}
+		finally
+		{
+			oEntityManager.close();
+			HibernateUtil.removeConnection();
+		}
+		return oInstitutionDataResponse;	
+		
+	}
+	
 	@Override
 	public GenericResponse list(InstitutionInformationData oGenericData, HashMap<String, String> arrOrderBy)throws Exception
 	{

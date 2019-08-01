@@ -6,6 +6,7 @@ import java.util.HashMap;
 import org.apache.log4j.Logger;
 
 import com.techmust.generic.dataprocessor.GenericIDataProcessor;
+import com.techmust.utils.Utils;
 /**
  * Holds the functionalities for creating action,
  * updating action, deleting action and listing actions 
@@ -33,7 +34,12 @@ public class ActionDataProcessor extends GenericIDataProcessor<ActionData>
 		try 
 		{
 			oActionResponse.m_bSuccess = oData.saveObject ();
-			oActionResponse.m_arrActionData.add (oData);
+			if(oActionResponse.m_bSuccess)
+			{
+				oActionResponse.m_arrActionData.add (oData);
+				Utils.createActivityLog("ActionDataProcessor::create", oData);
+			}
+			
 		} 
 		catch (Exception oException) 
 		{
@@ -114,6 +120,8 @@ public class ActionDataProcessor extends GenericIDataProcessor<ActionData>
 		try 
 		{
 			oActionResponse.m_bSuccess = oData.updateObject ();
+			if(oActionResponse.m_bSuccess)
+				Utils.createActivityLog("ActionDataProcessor::update", oData);
 		} 
 		catch (Exception oException) 
 		{
@@ -136,6 +144,8 @@ public class ActionDataProcessor extends GenericIDataProcessor<ActionData>
 		try 
 		{
 			oActionResponse.m_bSuccess = oData.deleteObject ();
+			if(oActionResponse.m_bSuccess)
+				Utils.createActivityLog("ActionDataProcessor::deleteData", oData);
 		} 
 		catch (Exception oException) 
 		{

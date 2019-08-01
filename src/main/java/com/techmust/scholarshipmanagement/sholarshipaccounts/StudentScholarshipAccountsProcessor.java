@@ -22,6 +22,7 @@ import com.techmust.scholarshipmanagement.student.StudentInformationData;
 import com.techmust.usermanagement.facilitator.FacilitatorInformationData;
 import com.techmust.utils.AmazonSMS;
 import com.techmust.utils.MailService;
+import com.techmust.utils.Utils;
 
 @Controller
 public class StudentScholarshipAccountsProcessor extends GenericIDataProcessor<StudentScholarshipAccount>
@@ -47,6 +48,7 @@ public class StudentScholarshipAccountsProcessor extends GenericIDataProcessor<S
 			{
 				oStudentScholarshipAccount.setM_oAcademicDetails(list.get(0));
 				oAccountsDataResponse.m_bSuccess = oStudentScholarshipAccount.saveObject();
+				Utils.createActivityLog("StudentScholarshipAccountsProcessor::create", oStudentScholarshipAccount);
 				oAccountsDataResponse.m_nStudentId = oStudentScholarshipAccount.getM_nStudentId();
 			}
 			
@@ -54,6 +56,7 @@ public class StudentScholarshipAccountsProcessor extends GenericIDataProcessor<S
 			{
 				oZenithScholarshipDetails.setM_nStudentId(oStudentScholarshipAccount.getM_nStudentId());
 				boolean m_bSuccess = oZenithScholarshipDetails.applicationStatusUpdate(oZenithScholarshipDetails);
+				Utils.createActivityLog("StudentScholarshipAccountsProcessor::applicationStatusUpdate", oZenithScholarshipDetails);
 			}			
 		}
 		catch (Exception oException)
@@ -148,7 +151,7 @@ public class StudentScholarshipAccountsProcessor extends GenericIDataProcessor<S
 	public GenericResponse list(@RequestBody ZenithHelper oData)throws Exception
 	{
 		HashMap<String, String> oOrderBy = new HashMap<String, String> ();
-		oOrderBy.put(oData.getM_strColumn(), oData.getM_strOrderBy());
+		oOrderBy.put(oData.getM_strSortColumn(), oData.getM_strOrderBy());
 		return list (oData.getM_oStudentScholarshipAccount(), oOrderBy, oData.getM_nPageNo(), oData.getM_nPageSize());
 	}
 	

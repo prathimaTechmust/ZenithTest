@@ -184,3 +184,32 @@ function listInstitutionsInfo_showAddPopup ()
 {
 	navigate ("newinstitution", "widgets/scholarshipmanagement/institutionslist/newInstitutionsInfo.js");
 }
+
+function institutionsListInfo_filter ()
+{
+	var oInstitutionsInformationData = new InstitutionInformationData () ;
+	if($("#filterInstitutionsInfo_input_institutionName").val() != "")
+		oInstitutionsInformationData.m_strInstitutionName = $("#filterInstitutionsInfo_input_institutionName").val();
+	else if($("#filterInstitutionsInfo_input_phonenumber").val() != "")
+		oInstitutionsInformationData.m_strPhoneNumber = $("#filterInstitutionsInfo_input_phonenumber").val();
+	else
+		oInstitutionsInformationData.m_strCity = $("#filterInstitutionsInfo_input_city").val();
+	InstitutionInformationDataProcessor.institutionFilterData(oInstitutionsInformationData, institutionFilteredResponse);	
+}
+
+function institutionFilteredResponse(oResponse)
+{
+	if(oResponse.m_bSuccess)
+	{
+		document.getElementById("filterInstitutionsInfo_input_institutionName").value = "";
+		document.getElementById("filterInstitutionsInfo_input_phonenumber").value = "";
+		document.getElementById("filterInstitutionsInfo_input_city").value = "";
+		clearGridData ("#listInstitutionsInfo_table_institutions");
+		for (var nIndex = 0; nIndex < oResponse.m_arrInstitutionInformationData.length; nIndex++)
+			$('#listInstitutionsInfo_table_institutions').datagrid('appendRow',oResponse.m_arrInstitutionInformationData[nIndex]);
+		$('#listInstitutionsInfo_table_institutions').datagrid('getPager').pagination ({total:oResponse.m_nRowCount, pageNumber:oResponse.m_nPageNumber});
+	}
+	else
+		informUser("no search result found","kError");
+	
+}

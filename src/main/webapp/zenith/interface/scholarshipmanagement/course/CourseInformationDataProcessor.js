@@ -44,6 +44,11 @@ var CourseInformationDataProcessor = (function __CourseInformationDataProcessor 
 		 ajaxCall(oCourseData, "/courseInfoGetSuggestions", callback);		
 	}
 	
+	function courseFilterData(oCourseFilterData,callback)
+	{		
+		 ajaxCall(oCourseFilterData, "/courseFilterInfoData", callback);
+	}
+	
 	return { 
 		create : create,
 		get : get,
@@ -52,6 +57,7 @@ var CourseInformationDataProcessor = (function __CourseInformationDataProcessor 
 		deleteData : deleteData, 
 		getImagePreview : getImagePreview,
 		getXML : getXML,
-		getCourseSuggesstions :getCourseSuggesstions
+		getCourseSuggesstions :getCourseSuggesstions,
+		courseFilterData :courseFilterData
 	};
 })();

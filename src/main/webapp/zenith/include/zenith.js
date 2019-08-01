@@ -1020,7 +1020,7 @@ function ajaxCall(oData, strURL, callback)
 	    beforeSend: 
 	    	function(xhr)
 	    	{
-	    		xhr.setRequestHeader('trademustTenantName', strTenantName);
+	    		xhr.setRequestHeader('zenithTenantName', strTenantName);
 	    		xhr.setRequestHeader("Content-Encoding", "gzip, deflate");
 	    	},
 	    data: JSON.stringify(oData),
@@ -1072,7 +1072,7 @@ function ajaxXMLCall(oData, strURL, callback)
 	    beforeSend: 
 	    	function(xhr)
 	    	{
-	    		xhr.setRequestHeader('trademustTenantName', strTenantName);
+	    		xhr.setRequestHeader('zenithTenantName', strTenantName);
 	    		xhr.setRequestHeader("Content-Encoding", "gzip, deflate");
 	    	},
 	    data: JSON.stringify(oData),

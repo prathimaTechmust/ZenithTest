@@ -16,7 +16,7 @@ function listStudentInfo_memberData ()
     this.m_nPageSize = 10;
     this.m_strImageUrl = "";
     this.m_strSortColumn = "m_strStudentName";
-    this.m_strSortOrder = "asc";
+    this.m_strOrderBy = "asc";
 }
 
 var m_oStudentInfoListMemberData = new listStudentInfo_memberData ();
@@ -96,13 +96,13 @@ function listStudentInfo_createDataGrid ()
 				onSortColumn: function (strColumn, strOrder, oStudentInformationData)
 				{
 					m_oStudentInfoListMemberData.m_strSortColumn = strColumn;
-					m_oStudentInfoListMemberData.m_strSortOrder = strOrder;
+					m_oStudentInfoListMemberData.m_strOrderBy = strOrder;
 					listStudentInfo_list (strColumn, strOrder, m_oStudentInfoListMemberData.m_nPageNumber, m_oStudentInfoListMemberData.m_nPageSize);
 				}
 			}
 	)	
 	listStudentInfo_initDGPagination ();
-	listStudentInfo_list (m_oStudentInfoListMemberData.m_strSortColumn, m_oStudentInfoListMemberData.m_strSortOrder, 1, 10);
+	listStudentInfo_list (m_oStudentInfoListMemberData.m_strSortColumn, m_oStudentInfoListMemberData.m_strOrderBy, 1, 10);
 }
 
 function listStudentInfo_initDGPagination ()
@@ -113,14 +113,14 @@ function listStudentInfo_initDGPagination ()
 			onRefresh:function (nPageNumber, nPageSize)
 			{
 				m_oStudentInfoListMemberData.m_nPageNumber = nPageNumber;
-				listStudentInfo_list (m_oStudentInfoListMemberData.m_strSortColumn, m_oStudentInfoListMemberData.m_strSortOrder, nPageNumber, nPageSize);
+				listStudentInfo_list (m_oStudentInfoListMemberData.m_strSortColumn, m_oStudentInfoListMemberData.m_strOrderBy, nPageNumber, nPageSize);
 				document.getElementById("listStudentInfo_div_listDetail").innerHTML = "";
 			},
 			onSelectPage:function (nPageNumber, nPageSize)
 			{
 				m_oStudentInfoListMemberData.m_nPageNumber = nPageNumber;
 				m_oStudentInfoListMemberData.m_nPageSize = nPageSize;
-				listStudentInfo_list (m_oStudentInfoListMemberData.m_strSortColumn, m_oStudentInfoListMemberData.m_strSortOrder, nPageNumber, nPageSize);
+				listStudentInfo_list (m_oStudentInfoListMemberData.m_strSortColumn, m_oStudentInfoListMemberData.m_strOrderBy, nPageNumber, nPageSize);
 				document.getElementById("listStudentInfo_div_listDetail").innerHTML = "";
 			}
 		}
@@ -151,7 +151,7 @@ function listStudentInfo_list (strColumn, strOrder, nPageNumber, nPageSize)
 	assert.isNumber(nPageNumber, "nPageNumber is expected to be of type number");
 	assert.isNumber(nPageSize, "nPageSize is expected to be of type number");
 	m_oStudentInfoListMemberData.m_strSortColumn = strColumn;
-	m_oStudentInfoListMemberData.m_strSortOrder = strOrder;
+	m_oStudentInfoListMemberData.m_strOrderBy = strOrder;
 	m_oStudentInfoListMemberData.m_nPageNumber = nPageNumber;
 	m_oStudentInfoListMemberData.m_nPageSize = nPageSize;
 	loadPage ("progressbarmanagement/progressbar.html", "dialog", "listStudentInfo_progressbarLoaded ()");
@@ -174,7 +174,7 @@ function listStudentInfo_progressbarLoaded ()
 {
 	createPopup('dialog', '', '', true);
 	var oStudentInformationData = new StudentInformationData ();
-	StudentInformationDataProcessor.list(oStudentInformationData, m_oStudentInfoListMemberData.m_strSortColumn, m_oStudentInfoListMemberData.m_strSortOrder, m_oStudentInfoListMemberData.m_nPageNumber, m_oStudentInfoListMemberData.m_nPageSize, listStudentInfo_listed);
+	StudentInformationDataProcessor.list(oStudentInformationData, m_oStudentInfoListMemberData.m_strSortColumn, m_oStudentInfoListMemberData.m_strOrderBy, m_oStudentInfoListMemberData.m_nPageNumber, m_oStudentInfoListMemberData.m_nPageSize, listStudentInfo_listed);
 }
 
 function listStudentInfo_listed (oStudentInfoResponse)
@@ -227,6 +227,40 @@ function listStudentInfo_showAddPopup ()
 function listOldStudentInfo_showAddPopup ()
 {
 	navigate ("oldstudent", "widgets/scholarshipmanagement/studentlist/oldStudentInfo.js");
+}
+
+function studentListInfo_filter ()
+{
+	var oStudentFilterData = new StudentInformationData();
+	oStudentFilterData.m_strAcademicYear = $("#selectacademicyearwiseStudents").val();
+	if($("#filterStudentInfo_input_studentName").val() != "")
+	{
+		oStudentFilterData.m_strStudentName = $("#filterStudentInfo_input_studentName").val();
+	}
+	else if($("#filterStudentInfo_input_phonenumber").val() != "")
+	{
+		oStudentFilterData.m_strPhoneNumber = $("#filterStudentInfo_input_phonenumber").val();
+	}
+	else
+		oStudentFilterData.m_nStudentAadharNumber = $("#filterStudentInfo_input_aadhar").val();
+	StudentInformationDataProcessor.filterStudentData(oStudentFilterData,studentFilteredResponse);
+}
+
+function studentFilteredResponse(oResponse)
+{
+	if(oResponse.m_bSuccess)
+	{
+		document.getElementById("filterStudentInfo_input_studentName").value = "";
+		document.getElementById("filterStudentInfo_input_phonenumber").value = "";
+		document.getElementById("filterStudentInfo_input_aadhar").value = "";
+		clearGridData ("#listStudentInfo_table_students");
+		for (var nIndex = 0; nIndex < oResponse.m_arrStudentInformationData.length; nIndex++)
+			$('#listStudentInfo_table_students').datagrid('appendRow',oResponse.m_arrStudentInformationData[nIndex]);
+		$('#listStudentInfo_table_students').datagrid('getPager').pagination ({total:oResponse.m_nRowCount, pageNumber:oResponse.m_nPageNumber});
+	}
+	else
+		informUser("no search result found","kError");
+	
 }
 
 

@@ -17,8 +17,6 @@ public class Constants
 	public static final String IMAGE_DEFAULT_EXTENSION = ".jpeg";
 	public static final String TENANT_ID = "tenant_id";
 	public static final String kAdmin = "admin";
-	public static final String kVendorRole = "Vendor";
-	public static final String kClientRole = "client";
 	public static final String kTenantAdminRole = "tenantadmin";
 	public static final String kUserRole = "user";
 	public static final String CLIENTREGION = "ap-southeast-1";
@@ -45,5 +43,6 @@ public class Constants
 	public static final String VERIFIEDAPPLICATION = "images/verifiedapplication/";
 	public static final String CHEQUECLAIMED = "cheque claimed";
 	public static final String NUMBERPREFIX = "+91";
+	public static final String LOGINUSERNAME = "login_username";
 	
 }

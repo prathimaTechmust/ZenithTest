@@ -268,6 +268,4 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 	{		
 		return Utils.convertTimeStampToDate(dChequeIssueDate);
 	}
-
-
 }
