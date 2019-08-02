@@ -340,11 +340,6 @@ function studentInfo_getFormData ()
 	var oStudentInformationData = new StudentInformationData ();
 	oStudentInformationData.m_nStudentId = m_oStudentInfoMemberData.m_nStudentId;
 	oStudentInformationData.m_nUID = $("#studentInfo_input_studentUIDNumber").val();	
-	if(document.getElementById("studentInfo_input_tatkalYes").checked)
-		oStudentInformationData.m_strApplicationType = $("#studentInfo_input_tatkalYes").val();
-    else
-    	oStudentInformationData.m_strApplicationType = $("#studentInfo_input_tatkalNo").val();
-	
 	oStudentInformationData.m_nStudentAadharNumber = $("#studentInfo_input_studentAadharNumber").val();
 	oStudentInformationData.m_strStudentName = $("#studentInfo_input_studentName").val();
 	oStudentInformationData.m_oFacilitatorInformationData = new FacilitatorInformationData();
@@ -589,18 +584,7 @@ function studentInfo_gotData (oStudentInfoResponse)
 		 var radiobutton = document.getElementById("studentInfo_input_other");
 			radiobutton.checked = true;
 	 }
-	document.getElementById("student_input_dateofbirth").value = convertTimestampToDate(oStudentInfoData.m_dDateOfBirth);
-	
-	if(oStudentInfoData.m_strApplicationType =="yes")
-	{
-	var radiobutton = document.getElementById("studentInfo_input_tatkalYes");
-	radiobutton.checked = true;
-	}
-    else
-	{
-	var radiobutton = document.getElementById("studentInfo_input_tatkalNo")
-	radiobutton.checked = true;
-	}
+	 document.getElementById("student_input_dateofbirth").value = convertTimestampToDate(oStudentInfoData.m_dDateOfBirth);
 	 $("#studentInfo_input_fathername").val(oStudentInfoData.m_strFatherName);
 	 $("#studentInfo_input_fatheroccupation").val(oStudentInfoData.m_strFatherOccupation);
 	 $("#studentInfo_input_fatherAadharNumber").val(oStudentInfoData.m_nFatherAadharNumber);

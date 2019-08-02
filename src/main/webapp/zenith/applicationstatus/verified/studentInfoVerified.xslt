@@ -6,19 +6,33 @@
 <html>
 <head>
 	<style>
-		.topAlign{
-		vertical-align: top;				
-		}		
-		td.container > div 
-		{
-		    width: 100%;
-		    height: 100%;
-		    overflow:hidden;
-		}
-		td.container 
-		{
-		    height: 20px;
-		}
+	.topAlign{
+	vertical-align: top;				
+	}		
+	td.container > div 
+	{
+	    width: 100%;
+	    height: 100%;
+	    overflow:hidden;
+	}
+	td.container 
+	{
+	    height: 20px;
+	}
+	table.organization {
+	border-collapse: collapse;
+	}
+
+	td.organization {
+	border: 1px solid black;
+	padding: 10px;
+    text-align: center;
+	}
+	
+	td.organizationData{
+	text-align: center;
+	font-weight: bold;
+	}
 	</style>
 </head>
 <body>
@@ -355,47 +369,45 @@
 			</td>
 			<td class="topAlign">
 			<!-- Scholarship details -->
-				<table>
-					<tr>
-						<td>
-							<table class="xslt_trademust" cellSpacing="5px">
-							<tr>
-								<td class = "xslt_zenithFieldHeader">Scolarship Details</td>	
-							</tr>
-							<tr>
-								<td class="xslt_fieldHeading">
-									<label class="dataLabel">Required amount(₹) : </label>
-								</td>
-								<td class="xslt_fieldData">
-									<xsl:variable name="annualFee" select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_fAnnualFee"></xsl:variable>
-									<xsl:variable name="paidFee" select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_fPaidFee"></xsl:variable>
-									<xsl:value-of select="format-number($annualFee - $paidFee, '##,##,##0')"/>
-								</td>									
-							</tr>	
-							<tr>
-								<td class="xslt_fieldHeading">
-									Organization Name
-								</td>
-								<td class="xslt_fieldHeading">
-									Amount(₹)
-								</td>
-							</tr>																
-							<tr>
-								<xsl:for-each select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oScholarshipDetails/ScholarshipDetails">
-									<tr>
-										<td class="xslt_organizationDetails">
-											<xsl:value-of select="m_strOrganizationName" />
-										</td>
-										<td class="xslt_organizationDetails">
-											<xsl:value-of select="format-number(m_fAmount, '##,##,##0')"/>
-										</td>											
-									</tr>									
-								</xsl:for-each>									
-							</tr>							
-							</table>						
-						</td>					
-					</tr>
-				</table>			
+			<table>
+			<tr>
+				<td>
+					<table class="xslt_trademust" cellSpacing="5px">
+						<tr>
+							<td class = "xslt_zenithFieldHeader">Scolarship Details</td>	
+						</tr>
+						<tr>
+							<td class="xslt_fieldHeading">
+								<label class="dataLabel">Required amount(₹) : </label>
+							</td>
+							<td class="xslt_fieldData">
+								<xsl:variable name="annualFee" select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_fAnnualFee"></xsl:variable>
+								<xsl:variable name="paidFee" select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_fPaidFee"></xsl:variable>
+								<xsl:value-of select="format-number($annualFee - $paidFee, '##,##,##0')"/>
+							</td>									
+						</tr>						
+					</table>
+					<table border="1" cellSpacing="5px" class="organization" >	
+						<tr>
+							<td class="organization">Organization Name</td>
+							<td class="organization">Amount(₹)</td>
+						</tr>																			
+						<tr>
+						<xsl:for-each select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oScholarshipDetails/ScholarshipDetails">
+						<tr>
+							<td class="organization organizationData" >
+								<xsl:value-of select="m_strOrganizationName" />
+							</td>
+							<td class="organization organizationData">
+								<xsl:value-of select="format-number(m_fAmount, '##,##,##0')"/>
+							</td>											
+						</tr>									
+						</xsl:for-each>									
+						</tr>								
+					</table>						
+				</td>					
+			</tr>
+			</table>			
 			</td>		
 		</tr>
 	</table>
