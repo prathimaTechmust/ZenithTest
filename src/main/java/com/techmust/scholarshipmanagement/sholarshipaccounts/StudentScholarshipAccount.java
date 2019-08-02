@@ -18,8 +18,6 @@ import javax.persistence.criteria.Root;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.techmust.generic.data.GenericData;
 import com.techmust.generic.data.MasterData;
@@ -250,9 +248,6 @@ public class StudentScholarshipAccount extends MasterData
 		{
 			Document oXmlDocument = createNewXMLDocument();
 			Element oRootElement = createRootElement(oXmlDocument, "StudentScholarshipAccount");
-			Document oAcademicDetailsDocument =  getXmlDocument ("<m_oAcademicDetails>"+buildAcademicDetails (m_oAcademicDetails)+"</m_oAcademicDetails>");
-			Node oChildNode = oXmlDocument.importNode(oAcademicDetailsDocument.getFirstChild(), true);
-			oRootElement.appendChild(oChildNode);
 			addChild(oXmlDocument, oRootElement, "m_nAccountId", m_nAccountId);
 			addChild(oXmlDocument, oRootElement, "m_strApplicationType", m_strApplicationType);
 			addChild(oXmlDocument, oRootElement, "m_strPaymentType", m_strPaymentType);		
@@ -273,10 +268,5 @@ public class StudentScholarshipAccount extends MasterData
 	private String getSanctionDate(String strSanctionDate)
 	{		
 		return strSanctionDate.substring(0, 10);
-	}
-
-	private String buildAcademicDetails(AcademicDetails oAcademicDetails)
-	{		
-		return oAcademicDetails.generateXML();
 	}	
 }
