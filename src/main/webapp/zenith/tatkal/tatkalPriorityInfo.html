@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Tatkal Priority</title>
+</head>
+<body>
+	<form class="zenith" id="tatkalPriority_form_id" style="width: 400px;">
+		<table class="zenith" summary="">
+			<tr>
+				<td class="formHeading">Tatkal Priority Information</td>
+			</tr>					
+			<tr>
+				<td class="zenith">
+					 <fieldset>
+		                  <legend>
+						  	Priority
+						  </legend>
+							  <table summary="">
+							  	<tr>
+									<td class="fieldHeading">Choose Priority<em>*</em></td>
+								</tr>
+								<tr>
+									<td>
+										<input type="radio" id="select_priority_HighRadioButton" name="select_priority_Button" value="1"/>High
+										<input type="radio" id="select_priority_MediumRadioButton" name="select_priority_Button" value="2">Medium
+										<input type="radio" id="select_priority_NormalRadioButton" name="select_priority_Button" value="3" checked="checked">Normal 
+									</td>
+								</tr>
+							  	<tr>
+									<td align="center" colspan="2">
+									<hr/>
+										<button type="button" id="priority_change_submitButton" class="zenith" style="width: 110px;" onclick="changePriority_submit ()">Update Priority</button>
+										<button type="button" id="priority_change_cancelButton" class="zenith" onclick="changePriority_cancel ()">Cancel</button>
+									</td>
+								</tr>
+							  </table>
+					  </fieldset>
+				  </td>			
+			</tr>		
+		</table>	
+	</form>
+</body>
+</html>

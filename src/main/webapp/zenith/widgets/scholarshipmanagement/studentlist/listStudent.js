@@ -29,16 +29,16 @@ function listStudentInfo_loaded ()
 function listStudentInfo_init ()
 {
 	listStudentInfo_createDataGrid ();
-	academicyear();
+	populateAcademicYearDropDown();
 }
 
-function academicyear ()
+function populateAcademicYearDropDown ()
 {
 	var oAcademicYear = new AcademicYear();
-	AcademicYearProcessor.list(oAcademicYear,"m_strAcademicYear","asc",0,0,academicyearResponse);	
+	AcademicYearProcessor.list(oAcademicYear,"m_strAcademicYear","asc",0,0,academicYearResponse);	
 }
 
-function academicyearResponse(oYearResponse)
+function academicYearResponse(oYearResponse)
 {
 	populateYear("selectacademicyearwiseStudents",oYearResponse);
 }
@@ -137,7 +137,7 @@ function listStudentInfo_selectedRowData (oRowData, nIndex)
 {
  	assert.isObject(oRowData, "oRowData expected to be an Object.");
 	assert.isNumber(nIndex, "nIndex is expected to be of type number");
-	m_oStudentInfoListMemberData.m_nIndex = nIndex;
+	m_oStudentInfoListMemberData.m_nIndex = nIndex; 
 	document.getElementById("listStudentInfo_div_listDetail").innerHTML = "";
 	var oStudentInformationData = new StudentInformationData () ;
 	oStudentInformationData.m_nStudentId = oRowData.m_nStudentId;
@@ -181,7 +181,9 @@ function listStudentInfo_progressbarLoaded ()
 {
 	createPopup('dialog', '', '', true);
 	var oStudentInformationData = new StudentInformationData ();
-	StudentInformationDataProcessor.list(oStudentInformationData, m_oStudentInfoListMemberData.m_strSortColumn, m_oStudentInfoListMemberData.m_strOrderBy, m_oStudentInfoListMemberData.m_nPageNumber, m_oStudentInfoListMemberData.m_nPageSize, listStudentInfo_listed);
+	//StudentInformationDataProcessor.list(oStudentInformationData, m_oStudentInfoListMemberData.m_strSortColumn, m_oStudentInfoListMemberData.m_strOrderBy, m_oStudentInfoListMemberData.m_nPageNumber, m_oStudentInfoListMemberData.m_nPageSize, listStudentInfo_listed);
+	StudentInformationDataProcessor.studentTatkalList(oStudentInformationData,listStudentInfo_listed);
+	
 }
 
 function listStudentInfo_listed (oStudentInfoResponse)

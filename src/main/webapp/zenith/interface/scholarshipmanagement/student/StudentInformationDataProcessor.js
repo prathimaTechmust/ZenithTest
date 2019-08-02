@@ -76,7 +76,6 @@ var StudentInformationDataProcessor = (function __StudentInformationDataProcesso
 	{
 		ajaxCall(oStudentFormUIDData,"/getStudentUIDData",callback);
 	}
-	
 
 	function getFacilitatorWiseStudent(oFacilitatorStudentData, callback) 
 	{
@@ -88,6 +87,16 @@ var StudentInformationDataProcessor = (function __StudentInformationDataProcesso
 		ajaxCall(oStudentFilterData,"/getStudentFilterData",callback);		
 	}
 	
+	function studentTatkalList(oStudentData,callback)
+	{
+		ajaxCall(oStudentData,"/getTatkalStudentList",callback);
+	}
+	
+	function updateTatkalPriority (oStudentTakalData,callback)
+	{
+		ajaxCall(oStudentTakalData,"/updateApplicationPriority",callback);
+		
+	}	
 	return { 
 		create : create,
 		createandprint:createandprint,
@@ -104,6 +113,8 @@ var StudentInformationDataProcessor = (function __StudentInformationDataProcesso
 		getStudentStatuslist : getStudentStatuslist,
 		getStudentDataUID:getStudentDataUID,
 		getFacilitatorWiseStudent:getFacilitatorWiseStudent,
-		filterStudentData:filterStudentData
+		filterStudentData:filterStudentData,
+		studentTatkalList:studentTatkalList,
+		updateTatkalPriority:updateTatkalPriority
 	};
 })();

@@ -113,8 +113,8 @@ public class StudentInformationData  extends MasterData implements Serializable
 	@Column(name = "parentalstatus")
 	private String m_strParentalStatus;	
 	
-	@Column(name="applicationtype")
-	private String m_strApplicationType;
+	@Column(name="applicationpriority")
+	private int m_nApplicationPriority;
 	
 	@Transient	
 	private String m_strAcademicYear;
@@ -170,7 +170,7 @@ public class StudentInformationData  extends MasterData implements Serializable
 		m_strCity = "";
 		m_strState = "";
 		m_nPincode = -1;
-		m_strApplicationType = "";
+		m_nApplicationPriority = 3;
 		m_strStudentImageId = "";
 		m_nUID = -1;
 		m_oAcademicDetails = new HashSet<AcademicDetails> ();	
@@ -208,15 +208,15 @@ public class StudentInformationData  extends MasterData implements Serializable
 	{
 		this.m_oSibilingDetails = oSibilingDetails;
 	}
-
-	public String getM_strApplicationType() 
-	{
-		return m_strApplicationType;
-	}
 	
-	public void setM_strApplicationType(String m_strApplicationType)
+	public int getM_nApplicationPriority()
 	{
-		this.m_strApplicationType = m_strApplicationType;
+		return m_nApplicationPriority;
+	}
+
+	public void setM_nApplicationPriority(int m_nApplicationPriority)
+	{
+		this.m_nApplicationPriority = m_nApplicationPriority;
 	}
 
 	public String getM_strStatus()
@@ -591,7 +591,7 @@ public class StudentInformationData  extends MasterData implements Serializable
 			addChild (oXmlDocument, oRootElement, "m_strCity", m_strCity);
 			addChild (oXmlDocument, oRootElement, "m_strState", m_strState);
 			addChild (oXmlDocument, oRootElement, "m_nPincode", m_nPincode);
-			addChild (oXmlDocument, oRootElement, "m_strApplicationType", m_strApplicationType);
+			addChild (oXmlDocument, oRootElement, "m_nApplicationPriority", getApplicationPriority(m_nApplicationPriority));
 			addChild (oXmlDocument, oRootElement, "m_strStudentImageId", m_strStudentImageId);					
 			addChild (oXmlDocument, oRootElement, "m_strStudentImageUrl", getStudentImageURL(m_strStudentImageId));
 			strStudentInfoXML = getXmlString (oXmlDocument);
@@ -601,6 +601,18 @@ public class StudentInformationData  extends MasterData implements Serializable
 			m_oLogger.error("generateXML - oException : " + oException);
 		}
 		return strStudentInfoXML;		
+	}
+
+	private String getApplicationPriority(int nApplicationPriority)
+	{
+		String strApplicationPriority = "";
+		if(nApplicationPriority == 1)
+			strApplicationPriority = "High";
+		else if(nApplicationPriority == 2)
+			strApplicationPriority = "Medium";
+		else
+			strApplicationPriority = "Normal";		
+		return strApplicationPriority;
 	}
 
 	private String getStudentDOB(long dDateOfBirth)

@@ -143,9 +143,14 @@
 				<SequenceId>70</SequenceId>
 			</Action>
 			<Action>
+				<ActionName>Make Tatkal</ActionName>
+				<Target>navigate ('tatkal','widgets/tatkal/tatkalList.js')</Target>
+				<SequenceId>80</SequenceId>
+			</Action>
+			<Action>
 				<ActionName>Activity Log</ActionName>
 				<Target>navigate ('activitylog','widgets/activitylog/activityLogList.js')</Target>
-				<SequenceId>80</SequenceId>
+				<SequenceId>90</SequenceId>
 			</Action>									
 		</Actions> 
 	</ActionArea>
