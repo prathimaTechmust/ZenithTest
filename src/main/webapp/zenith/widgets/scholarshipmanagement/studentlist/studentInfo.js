@@ -1144,7 +1144,7 @@ function scarchSiblingsUID(oRowCountId)
 	
 	
 	m_oStudentInfoMemberData.m_nSiblingRowId = 0;
-	if(m_oStudentInfoMemberData.m_nNewSiblingRowCount != 0)
+	if(m_oStudentInfoMemberData.m_nNewSiblingRowCount != 0 && m_oStudentInfoMemberData.m_nNewSiblingRowCount != undefined)
     {
 		m_oStudentInfoMemberData.m_nSiblingRowId = --m_oStudentInfoMemberData.m_nNewSiblingRowCount;
     }

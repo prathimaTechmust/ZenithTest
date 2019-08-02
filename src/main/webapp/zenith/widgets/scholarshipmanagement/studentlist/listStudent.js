@@ -77,6 +77,12 @@ function listStudentInfo_createDataGrid ()
 				{field:'m_strFatherName',title:'Father Name',sortable:true,width:200},
 				{field:'m_strPhoneNumber',title:'Phone Number',sortable:true,width:200},
 				{field:'m_strCity',title:'City',sortable:true,width:200},
+				{field:'m_strStatus',title:'Application Status',sortable:true,width:200,
+					formatter:function(value,row,index)
+		        	{
+		        		return row.m_oZenithScholarshipDetails[0].m_strStatus;
+		        	}
+				},		
 				{field:'Actions',title:'Action',width:80,align:'center',
 					formatter:function(value,row,index)
 		        	{
