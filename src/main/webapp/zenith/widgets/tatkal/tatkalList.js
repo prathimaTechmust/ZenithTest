@@ -175,7 +175,7 @@ function loadTatkalPriority (nStudentId)
 	m_oTatkalStudentListInfo_memberData.m_nStudentId = nStudentId;
 	if(m_oTatkalStudentListInfo_memberData.m_strApplicationPriority == 'High')
 		document.getElementById("select_priority_HighRadioButton").checked = true;
-	else if(m_oTatkalStudentListInfo_memberData.m_strApplicationPriority == 'Medium')
+	else if(m_oTatkalStudentListInfo_memberData.m_strApplicationPriority == 'Normal')
 		document.getElementById("select_priority_MediumRadioButton").checked = true;
 	else
 		document.getElementById("select_priority_NormalRadioButton").checked = true;		

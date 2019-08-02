@@ -26,6 +26,6 @@ function StudentInformationData ()
 	this.m_strAcademicYear = "";
 	this.m_strStatus = "";
 	this.m_arrAcademicDetails = new Array();
-	this.m_nApplicationPriority = 3;
+	this.m_nApplicationPriority = 2;
 }
 dataObjectLoaded ();
