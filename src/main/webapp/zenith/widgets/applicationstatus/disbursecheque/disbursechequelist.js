@@ -86,6 +86,12 @@ function disburseChequeListInfo_createDataGrid ()
 		        		return row.m_oAcademicDetails[0].m_oStudentScholarshipAccount[0].m_fSanctionedAmount;
 		        	}					
 				},
+				{field:'m_strStatus',title:'Application Status',sortable:true,width:200,
+					formatter:function(value,row,index)
+		        	{
+		        		return row.m_oZenithScholarshipDetails[0].m_strStatus;
+		        	}
+				},		
 			]],				
 		}
 	);

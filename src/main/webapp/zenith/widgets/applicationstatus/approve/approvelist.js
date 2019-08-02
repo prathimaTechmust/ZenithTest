@@ -64,17 +64,20 @@ function approveStudentListInfo_createDataGrid ()
 			[[
 				{field:'m_nUID',title:'UID',sortable:true,width:150},
 				{field:'m_strStudentName',title:'Student Name',sortable:true,width:300},
-				{field:'m_strFatherName',title:'Father Name',sortable:true,width:300},
 				{field:'m_strPhoneNumber',title:'Phone Number',sortable:true,width:200},
 				{field:'m_strFacilitatorName',title:'FacilitatorName',sortable:true,width:200,
-				 
-					formatter:function(value,row,index){
+					formatter:function(value,row,index)
+					{
 						return row.m_oFacilitatorInformationData.m_strFacilitatorName;
 					}
 						
 					},
-				
-				
+					{field:'m_strStatus',title:'Application Status',sortable:true,width:200,
+						formatter:function(value,row,index)
+			        	{
+			        		return row.m_oZenithScholarshipDetails[0].m_strStatus;
+			        	}
+					},		
 			]],				
 		}
 	);
@@ -301,11 +304,4 @@ function studentReVerifiedResponse(oResponse) {
 	}
 	else
 		informUser("Application Status Sent to Verify Failed","kError");
-	
-	
-	
 }
-
-
-
-

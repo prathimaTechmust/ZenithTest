@@ -81,6 +81,13 @@ function createToBeClaimChequeList_DataGrid()
 		        		return convertTimestampToDate(row.m_oZenithScholarshipDetails[0].m_dApprovedDate);
 		        	}	
 				},
+				
+				{field:'m_strStatus',title:'Application Status',sortable:true,width:200,
+					formatter:function(value,row,index)
+		        	{
+		        		return row.m_oZenithScholarshipDetails[0].m_strStatus;
+		        	}
+				},		
 			]],				
 		}
 			

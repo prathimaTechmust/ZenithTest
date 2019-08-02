@@ -152,7 +152,7 @@ function chequeDetails_getFormData ()
 	var oScholarshipAccountsInformationData = new ScholarshipAccountsInformationData();
 	oScholarshipAccountsInformationData.m_nStudentId = m_oPrepareChequeInfoMemberData.m_nStudentId;
 	oScholarshipAccountsInformationData.m_strPayeeName = $("#accountInfo_input_AccountPayeeName").val();
-	oScholarshipAccountsInformationData.m_fSanctionedAmount = $("#accountInfo_input_SanctionedAmount").val();
+	oScholarshipAccountsInformationData.m_fSanctionedAmount = convertDateToTimeStamp($("#accountInfo_input_SanctionedAmount").val());
 	oScholarshipAccountsInformationData.m_dSanctionDate = $("#accountInfo_input_SanctionedDate").val();
 	if(document.getElementById("selectapplication_fresh").checked)
 		oScholarshipAccountsInformationData.m_strApplicationType = document.getElementById("selectapplication_fresh").value;
