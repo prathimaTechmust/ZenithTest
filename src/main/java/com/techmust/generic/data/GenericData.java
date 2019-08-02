@@ -641,6 +641,7 @@ public abstract class GenericData implements IGenericData, Serializable
 			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
 			CriteriaQuery<StudentInformationData> oCriteriaQuery = oCriteriaBuilder.createQuery(StudentInformationData.class);
 			Root<StudentInformationData> oStudentInformationDataRoot = oCriteriaQuery.from(StudentInformationData.class);
+			oCriteriaQuery.orderBy(oCriteriaBuilder.asc(oStudentInformationDataRoot.get("m_nApplicationPriority")));
 			Join<StudentInformationData,ZenithScholarshipDetails> oJoinTable = oStudentInformationDataRoot.join("m_oZenithScholarshipDetails",JoinType.INNER);
 			oCriteriaQuery.where(oCriteriaBuilder.equal(oJoinTable.get("m_strStatus"), oStudentInformationData.getM_strStatus()));
 			TypedQuery<StudentInformationData> typedquery = oEntityManager.createQuery(oCriteriaQuery);
