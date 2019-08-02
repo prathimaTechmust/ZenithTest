@@ -501,7 +501,8 @@
 																		</td>
 																		<td>:</td>
 																		<td class="dataValue">
-																		
+																			<xsl:value-of select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oStudentScholarshipAccount/StudentScholarshipAccount/m_nChequeNumber" >
+																			</xsl:value-of>
 																		</td>									
 																	</tr>	
 																	<tr>

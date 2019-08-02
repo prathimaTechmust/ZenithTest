@@ -64,9 +64,14 @@ function verifiedStudentListInfo_createDataGrid ()
 			[[
 				{field:'m_nUID',title:'UID',sortable:true,width:150},
 				{field:'m_strStudentName',title:'Student Name',sortable:true,width:300},
-				{field:'m_strFatherName',title:'Father Name',sortable:true,width:300},
 				{field:'m_strPhoneNumber',title:'Phone Number',sortable:true,width:200},
-				{field:'m_strCity',title:'City',sortable:true,width:200},
+				{field:'m_strCity',title:'City',sortable:true,width:200}, 
+				{field:'m_strStatus',title:'Application Status',sortable:true,width:200,
+					formatter:function(value,row,index)
+		        	{
+		        		return row.m_oZenithScholarshipDetails[0].m_strStatus;
+		        	}
+				},		
 			]],				
 		}
 	);

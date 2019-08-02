@@ -294,6 +294,10 @@ public class AcademicDetails extends MasterData implements Serializable
 			Document oScholarshipDetalsXmlDoc = getXmlDocument ("<m_oScholarshipDetails>"+buildScholarshipDetails (m_oScholarshipDetails)+"</m_oScholarshipDetails>");
 			Node oScholarshipNode = oXmlDocument.importNode(oScholarshipDetalsXmlDoc.getFirstChild(), true);
 			oRootElement.appendChild(oScholarshipNode);
+		   /*ScholarshipAccount child Node*/
+			Document oScholarshipAccountDetalsXmlDoc = getXmlDocument ("<m_oStudentScholarshipAccount>"+buildAccountDetails (m_oStudentScholarshipAccount)+"</m_oStudentScholarshipAccount>");
+			Node oAccountNode = oXmlDocument.importNode(oScholarshipAccountDetalsXmlDoc.getFirstChild(), true);
+			oRootElement.appendChild(oAccountNode);
 			
 			addChild (oXmlDocument, oRootElement, "m_nAcademicId", m_nAcademicId);			
 			addChild (oXmlDocument, oRootElement, "m_strSpecialization", m_strSpecialization);
@@ -309,6 +313,17 @@ public class AcademicDetails extends MasterData implements Serializable
 		}		
 		return strAcademicDetails;		
 	}	
+
+    private String buildAccountDetails(Set<StudentScholarshipAccount> m_oStudentScholarshipAccount)
+    {
+    	String strXML = "";
+	  Object [] arrStudentScholarshipAccount= m_oStudentScholarshipAccount.toArray ();
+	  for (int nIndex = 0; nIndex < arrStudentScholarshipAccount.length; nIndex ++)
+	  {
+		StudentScholarshipAccount oAccountData = (StudentScholarshipAccount) arrStudentScholarshipAccount [nIndex];
+		strXML += oAccountData.generateXML ();	}		
+		return strXML;
+		}
 
 	private String buildScholarshipDetails(Set<ScholarshipDetails> oScholarshipDetails)
 	{

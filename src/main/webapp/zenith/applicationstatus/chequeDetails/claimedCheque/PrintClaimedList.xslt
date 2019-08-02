@@ -501,7 +501,7 @@
 														<td>
 															<table>		
 																<tbody>
-														<!--  			<tr>
+																	<tr>
 																		<td>
 																			<label class="dataLabel"> Cheque / DD Number </label>
 																		</td>
@@ -511,7 +511,7 @@
 																			</xsl:value-of>
 																		
 																		</td>									
-																	</tr>	-->
+																	</tr>	
 																	<tr>
 																		<td>
 																			<label class="dataLabel">Receiver name </label>
