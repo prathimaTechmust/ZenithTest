@@ -57,7 +57,7 @@
 							<table class="zenith">
 							<tr>
 								<td class="xslt_fieldHeading">
-									<label class="dataLabel">Required amount : </label>
+									<label class="dataLabel">Required amount(₹) : </label>
 								</td>
 								<td class="xslt_fieldData">
 									<xsl:variable name="annualFee" select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_fAnnualFee"></xsl:variable>
@@ -372,10 +372,10 @@
 								<td class = "xslt_zenithFieldHeader">Scolarship Details</td>	
 							</tr>
 							<tr>
-								<td class="xslt_fieldHeading">
-									<label class="dataLabel">Required amount : </label>
+								<td class="xslt_fieldHeading"> 
+									<label class="dataLabel">Required amount(₹) : </label>
 								</td>
-								<td class="xslt_fieldHeading">
+								<td class="xslt_fieldData">
 									<xsl:variable name="annualFee" select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_fAnnualFee"></xsl:variable>
 									<xsl:variable name="paidFee" select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_fPaidFee"></xsl:variable>
 									<xsl:value-of select="format-number($annualFee - $paidFee, '##,##,##0')"/>

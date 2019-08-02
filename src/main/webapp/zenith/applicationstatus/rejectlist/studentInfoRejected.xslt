@@ -338,7 +338,7 @@
 							</tr>
 							<tr>
 								<td class="xslt_fieldHeading">
-									<label class="dataLabel">Required amount : </label>
+									<label class="dataLabel">Required amount(₹) : </label>
 								</td>
 								<td class="xslt_fieldData">
 									<xsl:variable name="annualFee" select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_fAnnualFee"></xsl:variable>

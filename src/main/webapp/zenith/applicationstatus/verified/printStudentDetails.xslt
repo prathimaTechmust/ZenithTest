@@ -247,7 +247,7 @@
 											</tr>
 											<tr>
 												<td>
-													<label class="dataLabel">Family Income per Annum </label>
+													<label class="dataLabel">Family Income per Annum(₹) </label>
 												</td>
 												<td>:</td>
 												<td class="dataValue"> 
@@ -360,7 +360,7 @@
 												<tbody>
 													<tr>
 														<td>
-															<label class="dataLabel">Annual Fees</label>
+															<label class="dataLabel">Annual Fees(₹)</label>
 														</td>
 														<td>:</td>
 														<td class="dataValue">
