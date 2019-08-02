@@ -645,8 +645,15 @@ function convertDateToTimeStamp(strDate)
 function convertTimestampToDate(dTimeStamp)
 {
     var timeStamp = new Date(dTimeStamp);
-   var strDate = timeStamp.getFullYear() + "-" +("0" + (timeStamp.getMonth() + 1)).slice(-2) +  "-" +("0" + (timeStamp.getDate())).slice(-2);	
+    var strDate = ("0" + (timeStamp.getDate())).slice(-2)+"-" +("0" + (timeStamp.getMonth() + 1)).slice(-2)+"-"+timeStamp.getFullYear();   
    return strDate; 
+}
+
+function convertTimestampToDateTime(dTimeStamp)
+{
+	var timeStamp = new Date(dTimeStamp);
+	var strDateTime = timeStamp.toLocaleString();   
+   return strDateTime;
 }
 
 function FormatDate (strDate)

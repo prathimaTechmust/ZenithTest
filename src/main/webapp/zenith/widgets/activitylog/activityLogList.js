@@ -39,7 +39,7 @@ function createActivityLog_dataGrid ()
 				{field:'m_dDate',title:'Date',sortable:true,width:200,
 					formatter:function(row,value,index)
 					{
-						return convertTimestampToDate(row);
+						return convertTimestampToDateTime(row);
 					}
 				},				
 			]],

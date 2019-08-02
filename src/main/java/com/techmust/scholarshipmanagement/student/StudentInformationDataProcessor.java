@@ -420,7 +420,6 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 				}
 				oStudentDataResponse.m_bSuccess = true;
 			}			
-			
 		}
 		catch (Exception oException)
 		{
@@ -435,11 +434,41 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		return oStudentDataResponse;
 	}
 	
+	@RequestMapping(value = "/getTatkalStudentList",method = RequestMethod.POST,headers = {"Content-type=application/json"})
+	@ResponseBody
+	public GenericResponse  getStudentTatkalList (@RequestBody StudentInformationData oStudentInformationData)
+	{
+		EntityManager oEntityManager = oStudentInformationData._getEntityManager();
+		StudentDataResponse oStudentDataResponse = new StudentDataResponse();
+		try 
+		{			
+			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
+			CriteriaQuery<StudentInformationData> oCriteriaQuery = oCriteriaBuilder.createQuery(StudentInformationData.class);
+			Root<StudentInformationData> oStudentInformationRoot = oCriteriaQuery.from(StudentInformationData.class);   
+			oCriteriaQuery.select(oStudentInformationRoot);
+			oCriteriaQuery.orderBy(oCriteriaBuilder.asc(oStudentInformationRoot.get("m_nApplicationPriority")));			 
+			oStudentDataResponse.m_arrStudentInformationData = new ArrayList(oEntityManager.createQuery(oCriteriaQuery).getResultList());		
+		}
+		catch (Exception oException)
+		{
+			m_oLogger.error("getStudentTatkalList - oException : " +oException);
+			throw oException;
+		}
+		finally
+		{
+			oEntityManager.close();
+			HibernateUtil.removeConnection();
+		}		
+		return oStudentDataResponse;
+	}
+	
+	
 	@Override	
 	public GenericResponse list(StudentInformationData oGenericData, HashMap<String, String> arrOrderBy)throws Exception
 	{		
 		return null;
 	}
+	
 	@RequestMapping(value = "/getFacilitatorWiseData", method = RequestMethod.POST, headers = {"content-type=application/json"})
 	@ResponseBody
 	public  GenericResponse getFacilitatorWiseStudent(@RequestBody StudentInformationData oStudentInformationData)
@@ -462,9 +491,27 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		{
 			oException.printStackTrace();
 		}
-		return oStudentDataResponse;
+		return oStudentDataResponse;	
+	}
 	
 	
-	
+	@RequestMapping(value = "/updateApplicationPriority",method = RequestMethod.POST,headers = {"Content-type=application/json"})
+	@ResponseBody
+	public GenericResponse updateStudentApplicationPriority(@RequestBody StudentInformationData oStudentData)
+	{
+		StudentDataResponse oStudentDataResponse = new StudentDataResponse();
+		StudentInformationData oStudentInformationData = new StudentInformationData();
+		try 
+		{
+			oStudentInformationData = (StudentInformationData) populateObject(oStudentData);
+			oStudentInformationData = getStudentDocuments(oStudentInformationData);
+			oStudentInformationData.setM_nApplicationPriority(oStudentData.getM_nApplicationPriority());
+			oStudentDataResponse.m_bSuccess = oStudentInformationData.updateObject();
+		}
+		catch (Exception oException)
+		{
+			m_oLogger.error("updateStudentApplicationPriority - oException"+oException);
+		}
+		return oStudentDataResponse;		
 	}
 }
