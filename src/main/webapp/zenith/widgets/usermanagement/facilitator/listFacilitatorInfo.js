@@ -186,3 +186,37 @@ function listFacilitatorInfo_showAddPopup ()
 {
 	navigate ("newfacilitator", "widgets/usermanagement/facilitator/newFacilitatorInfo.js");
 }
+
+function listFacilitatorInfo_filter ()
+{
+	var oFacililtatorFilteredData = new FacilitatorInformationData ();
+	if($("#filterFacilitatorInfo_input_facilitatorName").val() != "")
+	{
+		oFacililtatorFilteredData.m_strFacilitatorName = $("#filterFacilitatorInfo_input_facilitatorName").val();
+	}
+	else if($("#filterFacilitatorInfo_input_phoneNumber").val() != "")
+	{
+		oFacililtatorFilteredData.m_strPhoneNumber = $("#filterFacilitatorInfo_input_phoneNumber").val();
+	}
+	else
+		oFacililtatorFilteredData.m_strCity = $("#filterFacilitatorInfo_input_city").val();
+	FacilitatorInformationDataProcessor.filterFacilitatorData(oFacililtatorFilteredData,facililtatorFilteredDataResponse);
+}
+
+
+function facililtatorFilteredDataResponse(oFacilitatorResponse)
+{
+	if(oFacilitatorResponse.m_bSuccess)
+	{
+		document.getElementById("filterFacilitatorInfo_input_facilitatorName").value = "";
+		document.getElementById("filterFacilitatorInfo_input_phoneNumber").value = "";
+		document.getElementById("filterFacilitatorInfo_input_city").value = "";
+		clearGridData ("#listFacilitatorInfo_table_facilitators");
+		for (var nIndex = 0; nIndex < oFacilitatorResponse.m_arrFacilitatorInformationData.length; nIndex++)
+			$('#listFacilitatorInfo_table_facilitators').datagrid('appendRow',oFacilitatorResponse.m_arrFacilitatorInformationData[nIndex]);
+		$('#listFacilitatorInfo_table_facilitators').datagrid('getPager').pagination ({total:oFacilitatorResponse.m_nRowCount, pageNumber:oFacilitatorResponse.m_nPageNumber});
+	}
+	else
+		informUser("no search result found","kError");
+	
+}

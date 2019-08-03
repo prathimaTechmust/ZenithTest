@@ -2,6 +2,13 @@ package com.techmust.usermanagement.facilitator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,7 +18,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.techmust.generic.dataprocessor.GenericIDataProcessor;
 import com.techmust.generic.response.GenericResponse;
+import com.techmust.generic.util.HibernateUtil;
 import com.techmust.helper.ZenithHelper;
+import com.techmust.scholarshipmanagement.student.StudentInformationData;
 import com.techmust.utils.Utils;
 
 @Controller
@@ -183,6 +192,47 @@ public class FacilitatorInformationDataProcessor extends GenericIDataProcessor <
 			throw oException;
 		}
 		return oFacilitatorDataResponse;
+	}	
+	
+	@RequestMapping(value="/getFilterFacilitatorData", method = RequestMethod.POST, headers = {"Content-type=application/json"})
+	@ResponseBody
+	public GenericResponse getFilterFacilitatorData (@RequestBody FacilitatorInformationData oFacilitatorInformationData) throws Exception
+	{
+		m_oLogger.info("getFilterFacilitatorData");
+		m_oLogger.debug("getFilterFacilitatorData FacilitatorInformationData-"+oFacilitatorInformationData);
+		FacilitatorDataResponse oFacilitatorDataResponse = new FacilitatorDataResponse();
+		EntityManager oEntityManager = oFacilitatorInformationData._getEntityManager();
+		try 
+		{
+			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
+			CriteriaQuery<FacilitatorInformationData> oCriteriaQuery = oCriteriaBuilder.createQuery(FacilitatorInformationData.class);
+			Root<FacilitatorInformationData> oFacilitatorRoot = oCriteriaQuery.from(FacilitatorInformationData.class);   
+			List<Predicate> m_arrPredicateList = new ArrayList<Predicate>();
+			if(oFacilitatorInformationData.getM_strFacilitatorName() != "")
+					m_arrPredicateList.add(oCriteriaBuilder.equal(oFacilitatorRoot.get("m_strFacilitatorName"), oFacilitatorInformationData.getM_strFacilitatorName()));
+			if(oFacilitatorInformationData.getM_strPhoneNumber() != "")
+				m_arrPredicateList.add(oCriteriaBuilder.equal(oFacilitatorRoot.get("m_strPhoneNumber"), oFacilitatorInformationData.getM_strPhoneNumber()));
+			if(oFacilitatorInformationData.getM_strCity() != "")
+				m_arrPredicateList.add(oCriteriaBuilder.equal(oFacilitatorRoot.get("m_strCity"), oFacilitatorInformationData.getM_strCity()));
+			 oCriteriaQuery.select(oFacilitatorRoot).where(m_arrPredicateList.toArray(new Predicate[]{}));
+			List<FacilitatorInformationData> facilitatorList = oEntityManager.createQuery(oCriteriaQuery).getResultList();
+			if(facilitatorList.size() > 0)
+			{	
+				oFacilitatorDataResponse.m_arrFacilitatorInformationData = new ArrayList<FacilitatorInformationData>(facilitatorList);
+				oFacilitatorDataResponse.m_bSuccess = true;				
+			}			
+			
+		}
+		catch (Exception oException)
+		{
+			m_oLogger.debug("getFilterFacilitatorData - oException"+oException);
+		}
+		finally
+		{
+			oEntityManager.close();
+			HibernateUtil.removeConnection();
+		}
+		return oFacilitatorDataResponse;		
 	}
 
 	@Override

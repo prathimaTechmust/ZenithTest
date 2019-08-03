@@ -160,6 +160,7 @@ function tatkalStudentListInfo_selectedRowData (oRowData, rowIndex)
 
 function tatkalStudentListInfo_gotXML(strXMLData)
 {
+	m_oTatkalStudentListInfo_memberData.m_PrintDetails =  strXMLData;
 	populateXMLData (strXMLData, "tatkal/tatkalStudentListInfo.xslt", 'tatkalStudentListInfo_div_listStudentDetails');
 }
 
@@ -238,4 +239,10 @@ function studentFilteredResponse(oResponse)
 	}
 	else
 		informUser("no search result found","kError");	
+}
+
+function printTatkal()
+{
+	populateXMLData (m_oTatkalStudentListInfo_memberData.m_PrintDetails, "applicationstatus/chequeDetails/claimedCheque/PrintClaimedList.xslt", 'printdetailsInfo');
+	printDocument();	
 }
