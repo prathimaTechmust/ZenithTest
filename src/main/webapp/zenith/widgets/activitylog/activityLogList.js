@@ -23,6 +23,7 @@ function activityLogListInfo_loaded ()
 function activityLogListInfo_init ()
 {
 	createActivityLog_dataGrid ();
+	loadLoginUsersDropDown ();
 }
 
 function createActivityLog_dataGrid ()
@@ -79,6 +80,27 @@ function activityLogListInfo_initDGPagination ()
 	)
 }
 
+function loadLoginUsersDropDown ()
+{
+	var oActivityLog = new ActivityLogInformation ();
+	ActivityLogInformationDataProcessor.getLoginUsers(oActivityLog,loginUsersResponse);
+}
+
+function loginUsersResponse(oLoginUsersResponse)
+{															
+	$(document).ready(function ()
+			{
+		   $("#filterActivityLogInfo_select_loginUser").jqxComboBox({	source :oLoginUsersResponse.m_arrActivityLog,
+																		displayMember: "m_strLoginUserName",
+																		valueMember: "m_strLoginUserName",
+																		autoComplete:true,
+																		searchMode :"startswithignorecase",
+																		width :"200px",
+																		height:"25px"});
+			}
+		);	
+}
+
 function activityLogListInfo_List (strColumn,strOrderBy,nPageNumber,nPageSize)
 {
 	m_oActivityLogInfo_memberData.m_strSortColumn = strColumn;
@@ -132,4 +154,9 @@ function activityLogListInfo_gotXML(strXMLData)
 	populateXMLData (strXMLData, "activityLog/activityLog.xslt", 'activityLogInfo_div_listDetail');
 }
 
-
+function activityLogListInfo_filter ()
+{
+	var oActivityLogInformation = new ActivityLogInformation ();
+	//if(filterActivityLogInfo_select_loginUser)
+	
+}

@@ -210,3 +210,32 @@ function changePriority_cancel ()
 {
 	HideDialog("dialog");
 }
+
+function tatkalStudentListInfo_filter ()
+{
+	var oStudentFilterData = new StudentInformationData();
+	oStudentFilterData.m_strAcademicYear = $("#selectacademicyearwiseStudents").val();
+	if($("#filterTatkalStudentListInfo_input_studentName").val() != '')
+		oStudentFilterData.m_strStudentName = $("#filterTatkalStudentListInfo_input_studentName").val();
+	else if($("#filterTatkalStudentListInfo_input_studentAadhar").val() != '')
+		oStudentFilterData.m_nStudentAadharNumber = $("#filterTatkalStudentListInfo_input_studentAadhar").val();
+	else
+		oStudentFilterData.m_strPhoneNumber = $("#filterTatkalStudentListInfo_input_PhoneNumber").val();
+	StudentInformationDataProcessor.filterStudentData(oStudentFilterData,studentFilteredResponse);	
+}
+
+function studentFilteredResponse(oResponse)
+{
+	if(oResponse.m_bSuccess)
+	{
+		document.getElementById("filterTatkalStudentListInfo_input_studentName").value = "";
+		document.getElementById("filterTatkalStudentListInfo_input_PhoneNumber").value = "";
+		document.getElementById("filterTatkalStudentListInfo_input_studentAadhar").value = "";
+		clearGridData ("#tatkalStudentListInformation");
+		for (var nIndex = 0; nIndex < oResponse.m_arrStudentInformationData.length; nIndex++)
+			$('#tatkalStudentListInformation').datagrid('appendRow',oResponse.m_arrStudentInformationData[nIndex]);
+		$('#tatkalStudentListInformation').datagrid('getPager').pagination ({total:oResponse.m_nRowCount, pageNumber:oResponse.m_nPageNumber});
+	}
+	else
+		informUser("no search result found","kError");	
+}

@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.techmust.constants.Constants;
 import com.techmust.generic.dataprocessor.GenericIDataProcessor;
 import com.techmust.generic.response.GenericResponse;
+import com.techmust.generic.util.HibernateUtil;
 import com.techmust.helper.ZenithHelper;
 
 @Controller
@@ -70,7 +76,7 @@ public class ActivityLogDataProcessor  extends GenericIDataProcessor<ActivityLog
 	{
 		m_oLogger.info("sortingList");
 		m_oLogger.debug("sortingList Zenith Helper"+ oZenithHelper);
-		ActivityLogResponse oActivityLogResponse = new ActivityLogResponse();
+		ActivityLogResponse oActivityLogResponse = new ActivityLogResponse();		
 		try
 		{
 			HashMap<String, String> sortBy = new HashMap<String,String>();
@@ -83,6 +89,34 @@ public class ActivityLogDataProcessor  extends GenericIDataProcessor<ActivityLog
 		}
 		return oActivityLogResponse;
 		
+	}
+	
+	@RequestMapping(value = "/getLoginUsersList",method = RequestMethod.POST,headers = {"Content-type=application/json"})
+	@ResponseBody
+	public GenericResponse getLoginUsersList(@RequestBody ActivityLog oActivityLog)
+	{
+		m_oLogger.info("getLoginUsersList");
+		m_oLogger.debug("getLoginUsersList ActivityLog"+ oActivityLog);
+		ActivityLogResponse oActivityLogResponse = new ActivityLogResponse();
+		EntityManager oEntityManager = oActivityLog._getEntityManager();
+		try
+		{
+			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
+			CriteriaQuery<ActivityLog> oCriteriaQuery = oCriteriaBuilder.createQuery(ActivityLog.class);
+			Root<ActivityLog> oRootActivityLog = oCriteriaQuery.from(ActivityLog.class);
+			oCriteriaQuery.select(oRootActivityLog.get("m_strLoginUserName")).distinct(true);
+			oActivityLogResponse.m_arrActivityLog = new ArrayList(oEntityManager.createQuery(oCriteriaQuery).getResultList());			
+		}
+		catch (Exception oException)
+		{
+			m_oLogger.error("getLoginUsersList - oException "+oException);
+		}
+		finally
+		{
+			oEntityManager.close();
+			HibernateUtil.removeConnection();
+		}
+		return oActivityLogResponse;		
 	}
 
 	@Override

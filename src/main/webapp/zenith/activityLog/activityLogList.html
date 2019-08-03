@@ -14,32 +14,46 @@
             <div class="zenith" id="activityLogInfo_div_dataGridToolbar">
               <table class="zenith" cellpadding="2" cellspacing="2" summary="">
                 <tr>
-                  <td class="zenith" style="width:15%">
-                    <input 
-                        class="filterTextBox"
-                        id="filterActivityLogInfo_input_loginUser"
-                        onkeypress="handleFilter('activityLogListInfo_filter()','#filterActivityLogInfo_input_loginUser')"
-                        placeholder="User Name"/>
-                  </td>
-                  <td class="zenith" style="width:15%">
-                     <input 
-                        class="filterTextBox"
-                        id="filterActivityLogInfo_input_functionName"
-                        onkeypress="handleFilter('activityLogListInfo_filter()','#filterActivityLogInfo_input_functionName')"
-                        placeholder="Function Name"/>
-                  </td>
-                  <td class="zenith" style="width:15%">
-                    <input 
-                        class="filterTextBox"
-                        id="filterActivityLogInfo_input_date"
-                        onkeypress="handleFilter('activityLogListInfo_filter()','#filterActivityLogInfo_input_date')"
-                        type="date"/>
-                  </td>
-                  <td class="zenith" style="width:5%">
-                    <button class="zenith filterButton" type="button" onclick="activityLogListInfo_filter ()">
-                      Filter
-                    </button>
-                  </td>
+	                  <td class="zenith" style="width:15%">
+	                    <!-- <input 
+	                        class="filterTextBox"
+	                        id="filterActivityLogInfo_input_loginUser"
+	                        onkeypress="handleFilter('activityLogListInfo_filter()','#filterActivityLogInfo_input_loginUser')"
+	                        placeholder="User Name"/> -->
+	                        <div id="filterActivityLogInfo_select_loginUser"></div>
+	                  </td>
+	                  <td class="zenith" style="width:15%">
+	                     <input 
+	                        class="filterTextBox"
+	                        id="filterActivityLogInfo_input_functionName"
+	                        onkeypress="handleFilter('activityLogListInfo_filter()','#filterActivityLogInfo_input_functionName')"
+	                        placeholder="Function Name"/>
+	                  </td>
+	                  	<td align="center">
+	                  		From
+	                  	</td>
+	                  	<td>
+	                    <input 
+	                        class="filterTextBox"
+	                        id="filterActivityLogInfo_input_fromdate"
+	                        onkeypress="handleFilter('activityLogListInfo_filter()','#filterActivityLogInfo_input_fromdate')"
+	                        type="date"/>
+	                  	</td>
+	                  <td align="center">
+	                  	To
+	                  </td>
+	                  <td>
+	               		 <input 
+	                       class="filterTextBox"
+	                       id="filterActivityLogInfo_input_todate"
+	                       onkeypress="handleFilter('activityLogListInfo_filter()','#filterActivityLogInfo_input_todate')"
+	                       type="date"/>
+	                  </td>
+	                  <td class="zenith" style="width:5%">
+	                    <button class="zenith filterButton" type="button" onclick="activityLogListInfo_filter ()">
+	                      Filter
+	                    </button>
+	                  </td>
                 </tr>
               </table>
             </div>
