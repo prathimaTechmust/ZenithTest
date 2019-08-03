@@ -17,9 +17,14 @@ var ActivityLogInformationDataProcessor = (function __ActivityLogInformationData
 		
 	}
 	
+	function getLoginUsers (oLoginUsersData,callback)
+	{
+		ajaxCall(oLoginUsersData,"/getLoginUsersList",callback);
+	}
 	return { 	
 		sortingList : sortingList,
 		list:list,
-		getXML:getXML
+		getXML:getXML,
+		getLoginUsers :getLoginUsers
 	};
 })();
