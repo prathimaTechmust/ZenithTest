@@ -1128,6 +1128,11 @@ public abstract class GenericData implements IGenericData, Serializable
 		{
 			m_oLogger.error("getStudentVerifiedDocument - oException" + oException);
 		}
+		finally 
+		{
+			oEntityManager.close();
+			HibernateUtil.removeConnection();
+		}
 		return strVerifiedDocument;		
 	}
 
