@@ -568,7 +568,7 @@ public class StudentInformationData  extends MasterData implements Serializable
 			Document oZenithScholarshipDetailsDataXmlDoc = getXmlDocument ("<m_oZenithScholarshipDetails>"+buildZenithScholarshipDetails (m_oZenithScholarshipDetails)+"</m_oZenithScholarshipDetails>");
 			Node oZenithScholarshipDetailsDataNode = oXmlDocument.importNode(oZenithScholarshipDetailsDataXmlDoc.getFirstChild(), true);
 			oRootElement.appendChild(oZenithScholarshipDetailsDataNode);
-			
+			addChild (oXmlDocument, oRootElement, "m_nStudentId", m_nStudentId);
 			addChild (oXmlDocument, oRootElement, "m_nUID", m_nUID);
 			addChild (oXmlDocument, oRootElement, "m_nStudentAadharNumber", m_nStudentAadharNumber);
 			addChild (oXmlDocument, oRootElement, "m_nStudentId", m_nStudentId);
