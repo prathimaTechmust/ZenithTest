@@ -78,7 +78,7 @@ function createClaimedChequeList_DataGrid()
 				{field:'m_dApprovedDate',title:'Sanctioned Date',sortable:true,width:200,
 					formatter:function(value,row,index)
 		        	{
-		        		return convertTimestampToDate(row.m_oZenithScholarshipDetails[0].m_dApprovedDate);
+		        		return convertTimestampToDayMonthYear(row.m_oZenithScholarshipDetails[0].m_dApprovedDate);
 		        	}	
 				},
 				{field:'m_dClaimedDate',title:'Claimed Date',sortable:true,width:200,
@@ -87,7 +87,7 @@ function createClaimedChequeList_DataGrid()
 						var claimedDate = null;
 						if(row.m_oZenithScholarshipDetails[0].m_dClaimedDate != null)
 						{
-							claimedDate = convertTimestampToDate(row.m_oZenithScholarshipDetails[0].m_dClaimedDate);
+							claimedDate = convertTimestampToDayMonthYear(row.m_oZenithScholarshipDetails[0].m_dClaimedDate);
 						}
 		        		return claimedDate;
 		        	}	

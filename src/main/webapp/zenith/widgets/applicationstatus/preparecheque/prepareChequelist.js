@@ -75,7 +75,7 @@ function listPrepareChequeInfo_createDataGrid ()
 				{field:'m_dApprovedDate',title:'Sanctioned Date',sortable:true,width:200,
 					formatter:function(value,row,index)
 					{
-						return convertTimestampToDate(row.m_oZenithScholarshipDetails[0].m_dApprovedDate);
+						return convertTimestampToDayMonthYear(row.m_oZenithScholarshipDetails[0].m_dApprovedDate);
 					}					
 				},
 				{field:'m_strStatus',title:'Application Status',sortable:true,width:200,
