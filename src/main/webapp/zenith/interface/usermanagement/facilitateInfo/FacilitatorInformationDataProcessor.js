@@ -46,6 +46,11 @@ var FacilitatorInformationDataProcessor = (function __FacilitatorInformationData
 		 ajaxCall(oFacilitatorData, "/facilitatorInfoGetFacilitatorSuggestions", callback);		
 	}
 	
+	function filterFacilitatorData (oFacilitatorFilterData,callback)
+	{
+		 ajaxCall(oFacilitatorFilterData, "/getFilterFacilitatorData", callback);	
+	}
+	
 	return { 
 		create : create,
 		get : get,
@@ -54,6 +59,7 @@ var FacilitatorInformationDataProcessor = (function __FacilitatorInformationData
 		deleteData : deleteData, 
 		getImagePreview : getImagePreview,
 		getXML : getXML,
-		getFacilitatorSuggesstions :getFacilitatorSuggesstions
+		getFacilitatorSuggesstions :getFacilitatorSuggesstions,
+		filterFacilitatorData :filterFacilitatorData
 	};
 })();
