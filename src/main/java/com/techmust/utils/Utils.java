@@ -119,7 +119,12 @@ public class Utils
 		 {
 			 String strStudentOtherDocumentsURL = Constants.S3BUCKETURL + Constants.STUDENTOTHERDOCUMENTS + oStudentDocuments.getM_strOtherDocuments() + Constants.IMAGE_DEFAULT_EXTENSION;
 			 oStudentDocuments.setM_strOtherDocuments(strStudentOtherDocumentsURL);
-		 }			 
+		 }
+		 if(oStudentDocuments.getM_strVerifyScanDocument() != null)
+		 {
+			 String strStudentVerifiedDocumentURL = Constants.S3BUCKETURL + Constants.VERIFIEDAPPLICATION + oStudentDocuments.getM_strVerifyScanDocument() + Constants.IMAGE_DEFAULT_EXTENSION;
+			 oStudentDocuments.setM_strVerifyScanDocument(strStudentVerifiedDocumentURL);
+		 }
 		return oStudentDocuments;
 	}
 

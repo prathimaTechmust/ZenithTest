@@ -1079,7 +1079,7 @@ public abstract class GenericData implements IGenericData, Serializable
 	public StudentDocuments getStudentUploadDocuments(AcademicDetails oAcademicDetails)
 	{
 		List<StudentDocuments> m_arrStudentDocuments = null;
-		StudentDocuments oStudentDocuments = null;
+		StudentDocuments oStudentDocuments = new StudentDocuments();
 		EntityManager oEntityManager = _getEntityManager();
 		try
 		{
@@ -1094,7 +1094,8 @@ public abstract class GenericData implements IGenericData, Serializable
 			{
 				m_arrStudentDocuments = documentList.get(0).getM_arrStudentDocuments();
 				oStudentDocuments = m_arrStudentDocuments.get(0);
-			}			
+			}
+			oStudentDocuments.setM_strVerifyScanDocument(getStudentVerifiedDocument(oAcademicData.getM_oStudentInformationData()));
 		} 
 		catch (Exception oException)
 		{
@@ -1109,6 +1110,28 @@ public abstract class GenericData implements IGenericData, Serializable
 		return oStudentDocuments;		
 	}
 	
+	private String getStudentVerifiedDocument(StudentInformationData oData)
+	{
+		EntityManager oEntityManager = _getEntityManager();
+		String strVerifiedDocument = "";
+		try
+		{
+			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
+			CriteriaQuery<ZenithScholarshipDetails> oCriteriaQuery = oCriteriaBuilder.createQuery(ZenithScholarshipDetails.class);
+			Root<ZenithScholarshipDetails> oZenithRoot = oCriteriaQuery.from(ZenithScholarshipDetails.class);
+			oCriteriaQuery.select(oZenithRoot);
+			oCriteriaQuery.where(oCriteriaBuilder.equal(oZenithRoot.get("m_oStudentInformationData"),oData.getM_nStudentId()));
+			List<ZenithScholarshipDetails> documentList = oEntityManager.createQuery(oCriteriaQuery).getResultList();
+			strVerifiedDocument = documentList.get(0).getM_strImage();
+		}
+		catch (Exception oException)
+		{
+			m_oLogger.error("getStudentVerifiedDocument - oException" + oException);
+		}
+		return strVerifiedDocument;		
+	}
+
+
 	public StudentInformationData getUIDAndAadharFormData(StudentInformationData oData)
 	{
 		EntityManager oEntityManager = _getEntityManager();
