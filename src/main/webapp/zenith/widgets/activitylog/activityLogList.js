@@ -156,5 +156,7 @@ function activityLogListInfo_gotXML(strXMLData)
 
 function activityLogListInfo_filter ()
 {
+	var oActivityLogInformation = new ActivityLogInformation ();
+	//if(filterActivityLogInfo_select_loginUser)
 	
 }
