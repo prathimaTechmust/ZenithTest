@@ -642,14 +642,21 @@ function convertDateToTimeStamp(strDate)
     return value;
 }
 
-function convertTimestampToDate(dTimeStamp)
+function convertTimestampToDate(dTimeStamp) //Formated to  'yyyy-mm-dd', to set in  form 
 {
-    var timeStamp = new Date(dTimeStamp);
-    var strDate = ("0" + (timeStamp.getDate())).slice(-2)+"-" +("0" + (timeStamp.getMonth() + 1)).slice(-2)+"-"+timeStamp.getFullYear();   
+	var timeStamp = new Date(dTimeStamp);
+    var strDate =  timeStamp.getFullYear() +"-"+("0" + (timeStamp.getMonth() + 1)).slice(-2)+"-"+("0" + (timeStamp.getDate())).slice(-2);   
    return strDate; 
 }
 
-function convertTimestampToDateTime(dTimeStamp)
+function convertTimestampToDayMonthYear(dTimeStamp)  //Formated to  'dd-mm-yyyy', to set in  Grid
+{
+	 var timeStamp = new Date(dTimeStamp);
+	 var strDate = ("0" + (timeStamp.getDate())).slice(-2)+"-" +("0" + (timeStamp.getMonth() + 1)).slice(-2)+"-"+timeStamp.getFullYear();   
+	 return strDate; 	
+}
+
+function convertTimestampToDateTime(dTimeStamp) //Formated to DateTime format 
 {
 	var timeStamp = new Date(dTimeStamp);
 	var strDateTime = timeStamp.toLocaleString();   
