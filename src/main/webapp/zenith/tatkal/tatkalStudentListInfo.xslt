@@ -39,15 +39,13 @@
 						</a>
 						<br/>
 					</td>
-					<td >
+					<td>
 						<table>
-							<tr>
-								<tr>
-									<td class="xslt_fieldHeading">UID :</td>
-									<td class="xslt_fieldData" id="m_nUID">
-										<xsl:value-of select="StudentInformationData/m_nUID" />
-									</td>
-								</tr>									
+							<tr>							
+								<td class="xslt_fieldHeading">UID :</td>
+								<td class="xslt_fieldData" id="m_nUID">
+									<xsl:value-of select="StudentInformationData/m_nUID" />
+								</td>															
 							</tr>
 							<tr>
 								<td class="xslt_fieldHeading">Name :</td>
@@ -58,9 +56,11 @@
 							<tr>
 								<td class="xslt_fieldHeading">Application Status :</td>
 								<td class="xslt_fieldData" id="m_strApplicationStatus">
-								<xsl:value-of select="StudentInformationData/m_oZenithScholarshipDetails/ZenithScholarshipDetails/m_strStatus"/>								
+									<xsl:value-of select="StudentInformationData/m_oZenithScholarshipDetails/ZenithScholarshipDetails/m_strStatus"/>								
 								</td>								
 							</tr>
+						</table>
+						<table align="right"> 
 							<tr>
 								<td>
 									 <button type="button" width="120px" align="center" class="zenith addButton" style="width:120px;" id="makeTatkal" title="Change Priority" onclick="changePriority('{StudentInformationData/m_nStudentId}','{StudentInformationData/m_nApplicationPriority}')">Change Priority
