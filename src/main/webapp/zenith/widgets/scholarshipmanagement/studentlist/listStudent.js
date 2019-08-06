@@ -238,41 +238,6 @@ function listOldStudentInfo_showAddPopup ()
 	navigate ("oldstudent", "widgets/scholarshipmanagement/studentlist/oldStudentInfo.js");
 }
 
-function studentListInfo_filter ()
-{
-	var oStudentFilterData = new StudentInformationData();
-	oStudentFilterData.m_strAcademicYear = $("#selectacademicyearwiseStudents").val();
-	if($("#filterStudentInfo_input_studentName").val() != "")
-	{
-		oStudentFilterData.m_strStudentName = $("#filterStudentInfo_input_studentName").val();
-	}
-	else if($("#filterStudentInfo_input_phonenumber").val() != "")
-	{
-		oStudentFilterData.m_strPhoneNumber = $("#filterStudentInfo_input_phonenumber").val();
-	}
-	else
-		oStudentFilterData.m_nStudentAadharNumber = $("#filterStudentInfo_input_aadhar").val();
-	StudentInformationDataProcessor.filterStudentData(oStudentFilterData,studentFilteredResponse);
-}
-
-function studentFilteredResponse(oResponse)
-{
-	if(oResponse.m_bSuccess)
-	{
-		document.getElementById("filterStudentInfo_input_studentName").value = "";
-		document.getElementById("filterStudentInfo_input_phonenumber").value = "";
-		document.getElementById("filterStudentInfo_input_aadhar").value = "";
-		clearGridData ("#listStudentInfo_table_students");
-		for (var nIndex = 0; nIndex < oResponse.m_arrStudentInformationData.length; nIndex++)
-			$('#listStudentInfo_table_students').datagrid('appendRow',oResponse.m_arrStudentInformationData[nIndex]);
-		$('#listStudentInfo_table_students').datagrid('getPager').pagination ({total:oResponse.m_nRowCount, pageNumber:oResponse.m_nPageNumber});
-	}
-	else
-		informUser("no search result found","kError");
-	
-}
-
-
 function printStudentDetails()
 {
 	populateXMLData (m_oStudentInfoListMemberData.m_PrintData , "applicationstatus/chequeDetails/claimedCheque/PrintClaimedList.xslt", 'printdetailsInfo');

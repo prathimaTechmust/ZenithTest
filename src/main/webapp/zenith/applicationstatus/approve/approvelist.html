@@ -14,24 +14,37 @@
             <div class="zenith" id="listApproveStudents_div_dataGridToolbar">
               <table class="zenith" cellpadding="2" cellspacing="2" summary="">
                 <tr>
-                	<td style="width:100px">
+                	<td style="width:4%">
                     	<select id="selectacademicyear" class="zenith">                    		
                     	</select>
                   </td>
-                  <td style="width:200px">
-                    <input class="zenith" id="StudentInfo_input_uid" type="text" maxlength="4" placeholder="Student UID Number" onkeyup="validateNumber (this)"/>
+                  <td class="zenith" style="width:15%">
+                    <input 
+                        class="filterTextBox"
+                        id="filterStudentInfo_input_studentName"
+                        onkeypress="handleFilter('studentListInfo_filter()','#filterStudentInfo_input_studentName')"
+                        placeholder="Student Name"/>
                   </td>
-                  <td>
-                    <button 
-                        id="listApproveStudents_button_add"
-                        class="zenith addButton"
-                        type="button"
-                        style="visibility: initial; width:100px;"
-                        onclick="searchStudentUID ()"
-                       >
-                      Search
+     			<td class="zenith" style="width:15%">
+                     <input 
+                        class="filterTextBox"
+                        id="filterStudentInfo_input_phonenumber"
+                        onkeypress="handleFilter('studentListInfo_filter()','#filterStudentInfo_input_phonenumber');validateNumber(this)"
+                        placeholder="Phone Number"
+                        maxlength="10"/>
+                  </td>
+                  <td class="zenith" style="width:15%">
+                    <input 
+                        class="filterTextBox"
+                        id="filterStudentInfo_input_aadhar"
+                        onkeypress="handleFilter('studentListInfo_filter()','#filterStudentInfo_input_aadhar')"
+                        placeholder="Student Aadhar"/>
+                  </td>
+                  <td class="zenith" style="width:5%">
+                    <button class="zenith filterButton" type="button" onclick="studentListInfo_filter (listApproveStudents_table_students)">
+                      Filter
                     </button>
-                  </td>                 
+                  </td>
                 </tr>
               </table>
             </div>

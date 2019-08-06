@@ -82,9 +82,9 @@ function disburseChequeListInfo_createDataGrid ()
 				},
 				{field:'m_fSanctionedAmount',title:'Sanctioned Amount',sortable:true,width:200,
 					formatter:function(value,row,index)
-		        	{
-		        		return row.m_oAcademicDetails[0].m_oStudentScholarshipAccount[0].m_fSanctionedAmount;
-		        	}					
+					{
+						return row.m_oZenithScholarshipDetails[0].m_fApprovedAmount;
+					}					
 				},
 				{field:'m_strStatus',title:'Application Status',sortable:true,width:200,
 					formatter:function(value,row,index)
