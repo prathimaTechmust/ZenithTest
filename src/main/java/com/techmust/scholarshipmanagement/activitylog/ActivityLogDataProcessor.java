@@ -1,12 +1,14 @@
 package com.techmust.scholarshipmanagement.activitylog;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Controller;
@@ -118,7 +120,47 @@ public class ActivityLogDataProcessor  extends GenericIDataProcessor<ActivityLog
 		}
 		return oActivityLogResponse;		
 	}
-
+	
+	@RequestMapping(value = "/activityLogInfoGetXML",method = RequestMethod.POST,headers = {"Content-type=application/json"})
+	@ResponseBody	
+	public String getXML(@RequestBody ActivityLog oActivityLog) throws Exception
+	{
+		m_oLogger.info("getXML");
+		m_oLogger.debug("getXML - ActivityLog"+oActivityLog);
+		String strActivityLogXMLData = "";
+		try 
+		{
+			oActivityLog = (ActivityLog) populateObject(oActivityLog);
+			strActivityLogXMLData = oActivityLog != null ? oActivityLog.generateXML() : "";
+		}
+		catch (Exception oException) 
+		{
+			m_oLogger.error("getXML - oException"+oException);
+		}
+		return strActivityLogXMLData;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/getFilteredActivityLog",method = RequestMethod.POST,headers = {"Content-type=application/json"})
+	@ResponseBody
+	public GenericResponse getFilteredActivityLog(@RequestBody ActivityLog oActivityLog)
+	{
+		m_oLogger.info("getFilteredActivityLog");
+		m_oLogger.debug("getFilteredActivityLog - ActivityLog"+oActivityLog);
+		ActivityLogResponse oActivityLogResponse = new ActivityLogResponse();
+		try 
+		{
+			oActivityLogResponse.m_arrActivityLog = (ArrayList<ActivityLog>) populateFilterObjectData(oActivityLog);
+			if(oActivityLogResponse.m_arrActivityLog.size() > 0)
+				oActivityLogResponse.m_bSuccess = true;
+		}
+		catch (Exception oException)
+		{
+			m_oLogger.error("getFilteredActivityLog - oException"+oException);
+		}
+		return oActivityLogResponse;		
+	}	
+	
 	@Override
 	public GenericResponse deleteData(ActivityLog oActivityLog) throws Exception
 	{
@@ -141,24 +183,7 @@ public class ActivityLogDataProcessor  extends GenericIDataProcessor<ActivityLog
 		return null;
 	}
 	
-	@RequestMapping(value = "/activityLogInfoGetXML",method = RequestMethod.POST,headers = {"Content-type=application/json"})
-	@ResponseBody	
-	public String getXML(@RequestBody ActivityLog oActivityLog) throws Exception
-	{
-		m_oLogger.info("getXML");
-		m_oLogger.debug("getXML - ActivityLog"+oActivityLog);
-		String strActivityLogXMLData = "";
-		try 
-		{
-			oActivityLog = (ActivityLog) populateObject(oActivityLog);
-			strActivityLogXMLData = oActivityLog != null ? oActivityLog.generateXML() : "";
-		}
-		catch (Exception oException) 
-		{
-			m_oLogger.error("getXML - oException"+oException);
-		}
-		return strActivityLogXMLData;
-	}
+	
 
 	@Override
 	public GenericResponse list(ActivityLog oActivityLog, HashMap<String, String> arrOrderBy) throws Exception

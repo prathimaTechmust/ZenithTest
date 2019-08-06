@@ -531,13 +531,13 @@ public class StudentInformationData  extends MasterData implements Serializable
 	{
 		Predicate oConjunct = oCriteriaBuilder.conjunction();
 		if (getM_nStudentId() > 0)
-		{
-			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_nStudentId"), m_nStudentId));
-		}			
+			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_nStudentId"), m_nStudentId));				
 		if (!m_strStudentName.isEmpty())
-		{
 			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_strStudentName"), m_strStudentName));
-		}
+		if(!m_strPhoneNumber.isEmpty())
+			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_strPhoneNumber"), m_strPhoneNumber));
+		if(getM_nStudentAadharNumber() > 0)
+			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_nStudentAadharNumber"), m_nStudentAadharNumber));
 		if(getM_nUID() > 0)
 			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_nUID"), m_nUID));	
 		if(getM_nFatherAadharNumber()>0)

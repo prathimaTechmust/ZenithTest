@@ -1,7 +1,5 @@
 package com.techmust.helper;
 
-import java.util.ArrayList;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -14,7 +12,6 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.techmust.constants.Constants;
-import com.techmust.generic.data.GenericData;
 import com.techmust.usermanagement.actionmanager.ActionManagerData;
 import com.techmust.usermanagement.actionmanager.ActionManagerDataProcessor;
 import com.techmust.usermanagement.actionmanager.ActionManagerResponse;

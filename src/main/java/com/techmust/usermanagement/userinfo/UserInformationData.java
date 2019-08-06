@@ -512,6 +512,10 @@ public class UserInformationData extends MasterData implements IUserInformationD
 	protected Predicate listCriteria (CriteriaBuilder oCriteriaBuilder, Root<GenericData> oRootObject) 
 	{
 		Predicate oConjunct = oCriteriaBuilder.conjunction();
+		if(!m_strUserName.isEmpty())
+		{
+			oConjunct = oCriteriaBuilder.and(oConjunct,oCriteriaBuilder.equal(oRootObject.get("m_strUserName"), m_strUserName));
+		}
 		if (!m_strUserName.isEmpty ())
 		{
 			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.like(oCriteriaBuilder.lower(oRootObject.get("m_strUserName")), m_strUserName.toLowerCase())); 
@@ -531,6 +535,10 @@ public class UserInformationData extends MasterData implements IUserInformationD
 	public Predicate prepareCriteria(Root<GenericData> oRootObject, CriteriaQuery<GenericData> oCriteria, CriteriaBuilder oCriteriaBuilder)
 	{
 		Predicate oConjunct = oCriteriaBuilder.conjunction();
+		if(!m_strUserName.isEmpty())
+		{
+			oConjunct = oCriteriaBuilder.and(oConjunct,oCriteriaBuilder.equal(oRootObject.get("m_strUserName"), m_strUserName));
+		}
 		if (!m_strPassword.isEmpty ())
 		{
 			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.like(oCriteriaBuilder.lower(oRootObject.get("m_strPassword")), m_strPassword.toLowerCase())); 

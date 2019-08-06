@@ -91,6 +91,7 @@ function loginUsersResponse(oLoginUsersResponse)
 	$(document).ready(function ()
 			{
 		   $("#filterActivityLogInfo_select_loginUser").jqxComboBox({	source :oLoginUsersResponse.m_arrActivityLog,
+			   															placeHolder:'Select User Name',
 																		displayMember: "m_strLoginUserName",
 																		valueMember: "m_strLoginUserName",
 																		autoComplete:true,
@@ -119,7 +120,7 @@ function activityLogListInfo_progressbarLoaded ()
 
 function activityLogListResponse (oActivityLogResponse)
 {
-	clearGridData("activityLogInfo_table_logs");
+	clearGridData("#activityLogInfo_table_logs");
 	for(var nIndex = 0; nIndex < oActivityLogResponse.m_arrActivityLog.length; nIndex++)
 		$("#activityLogInfo_table_logs").datagrid('appendRow',oActivityLogResponse.m_arrActivityLog[nIndex]);
 	HideDialog("dialog");	
@@ -135,7 +136,7 @@ function activityLogListInfo_SortList(strColumn,strOrderBy,nPageNumber,nPageSize
 
 function sortActivityLogListResponse (oResponse)
 {
-	clearGridData("activityLogInfo_table_logs");
+	clearGridData("#activityLogInfo_table_logs");
 	for(var nIndex = 0; nIndex < oActivityLogResponse.m_arrActivityLog.length; nIndex++)
 		$("#activityLogInfo_table_logs").datagrid('appendRow',oActivityLogResponse.m_arrActivityLog[nIndex]);
 }
@@ -157,6 +158,40 @@ function activityLogListInfo_gotXML(strXMLData)
 function activityLogListInfo_filter ()
 {
 	var oActivityLogInformation = new ActivityLogInformation ();
-	//if(filterActivityLogInfo_select_loginUser)
-	
+	if($("#filterActivityLogInfo_select_loginUser").val() != '')
+	{
+		oActivityLogInformation.m_strLoginUserName = $("#filterActivityLogInfo_select_loginUser").val();
+	}	
+	else if ($("#filterActivityLogInfo_input_functionName").val() != '')
+	{
+		oActivityLogInformation.m_strTaskPerformed = $("#filterActivityLogInfo_input_functionName").val();
+	}	
+	else
+	{
+		if($("#filterActivityLogInfo_input_fromdate").val() != '' && $("#filterActivityLogInfo_input_todate").val() != '')
+		{
+			oActivityLogInformation.m_dFromDate = $("#filterActivityLogInfo_input_fromdate").val();
+			oActivityLogInformation.m_dToDate	= $("#filterActivityLogInfo_input_todate").val();
+		}
+		else
+			alert("Please Enter Valid From And To Date");
+	}		
+	ActivityLogInformationDataProcessor.getFilteredActivityLog(oActivityLogInformation,activityLogFilteredResponse);
+}
+
+function activityLogFilteredResponse(oFilteredActivityLogResponse)
+{
+	if(oFilteredActivityLogResponse.m_bSuccess)
+	{
+		$("#filterActivityLogInfo_select_loginUser").jqxComboBox('clearSelection');
+		document.getElementById("filterActivityLogInfo_input_functionName").value = "";
+		document.getElementById("filterActivityLogInfo_input_fromdate").value = "";
+		document.getElementById("filterActivityLogInfo_input_todate").value = "";
+		clearGridData("#activityLogInfo_table_logs");
+		for(var nIndex = 0; nIndex < oFilteredActivityLogResponse.m_arrActivityLog.length; nIndex++)
+			$("#activityLogInfo_table_logs").datagrid('appendRow',oFilteredActivityLogResponse.m_arrActivityLog[nIndex]);
+	}
+	else
+		informUser("no search result found","kError");
+
 }

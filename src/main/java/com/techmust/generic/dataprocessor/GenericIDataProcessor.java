@@ -157,6 +157,35 @@ public abstract class GenericIDataProcessor<T extends IGenericData>
 		return oResult;
 	}
 	
+	public static Object populateFilterObjectData (GenericData oGenericData)
+	{
+		m_oLogger.info("populateFilterObjectData");
+		m_oLogger.debug("populateFilterObjectData - GenericData" + oGenericData);
+		EntityManager oEntityManager = oGenericData._getEntityManager();
+		ArrayList<GenericData> m_arrGenericDataList = new ArrayList<GenericData>();
+		try
+		{
+			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
+			Class<GenericData> oGetClass = (Class<GenericData>) oGenericData.getClass();
+			CriteriaQuery<GenericData> oCriteriaQuery = oCriteriaBuilder.createQuery(oGetClass);
+			Root<GenericData> oRootGetClassObject = oCriteriaQuery.from(oGetClass);
+			oCriteriaQuery.select(oRootGetClassObject);
+			oCriteriaQuery.where(oGenericData.prepareCriteria(oRootGetClassObject, oCriteriaQuery, oCriteriaBuilder));
+			m_arrGenericDataList = (ArrayList<GenericData>) oEntityManager.createQuery(oCriteriaQuery).getResultList();
+			
+		}
+		catch (Exception oException)
+		{
+			m_oLogger.error("populateFilterObjectData - oException"+ oException);
+		}
+		finally
+		{
+			oEntityManager.close();
+			HibernateUtil.removeConnection();
+		}
+		return m_arrGenericDataList;
+	}
+	
 	public static long getRowCount (GenericData  oGenericData)
 	{
 		return oGenericData.getRowCount(oGenericData);

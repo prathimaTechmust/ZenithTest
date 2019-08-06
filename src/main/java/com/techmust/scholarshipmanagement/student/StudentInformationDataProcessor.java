@@ -389,48 +389,24 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		return oStudentDataResponse;		
 	}
 	
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/getStudentFilterData",method = RequestMethod.POST,headers = {"Content-type=application/json"})
 	@ResponseBody
 	public GenericResponse  getStudentFilterData (@RequestBody StudentInformationData oStudentInformationData)
 	{
-		EntityManager oEntityManager = oStudentInformationData._getEntityManager();
+		
 		StudentDataResponse oStudentDataResponse = new StudentDataResponse();
 		try 
 		{			
-			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
-			CriteriaQuery<StudentInformationData> oCriteriaQuery = oCriteriaBuilder.createQuery(StudentInformationData.class);
-			Root<StudentInformationData> oStudentInformationRoot = oCriteriaQuery.from(StudentInformationData.class);   
-			List<Predicate> m_arrPredicateList = new ArrayList<Predicate>();
-			if(oStudentInformationData.getM_strStudentName() != "")
-					m_arrPredicateList.add(oCriteriaBuilder.equal(oStudentInformationRoot.get("m_strStudentName"), oStudentInformationData.getM_strStudentName()));
-			if(oStudentInformationData.getM_strPhoneNumber() != "")
-				m_arrPredicateList.add(oCriteriaBuilder.equal(oStudentInformationRoot.get("m_strPhoneNumber"), oStudentInformationData.getM_strPhoneNumber()));
-			if(oStudentInformationData.getM_nStudentAadharNumber() > 0)
-				m_arrPredicateList.add(oCriteriaBuilder.equal(oStudentInformationRoot.get("m_nStudentAadharNumber"), oStudentInformationData.getM_nStudentAadharNumber()));
-			 oCriteriaQuery.select(oStudentInformationRoot).where(m_arrPredicateList.toArray(new Predicate[]{}));
-			List<StudentInformationData> m_arrStudentInformationDataList = oEntityManager.createQuery(oCriteriaQuery).getResultList();
-			if(m_arrStudentInformationDataList.size() > 0)
-			{
-				for(int nIndex = 0; nIndex < m_arrStudentInformationDataList.size(); nIndex++)
-				{
-					oStudentInformationData = m_arrStudentInformationDataList.get(nIndex);
-					oStudentInformationData.setM_strAcademicYear(oStudentInformationData.getM_strAcademicYear());
-					oStudentInformationData.setM_oAcademicDetails(oStudentInformationData.getAcademicDetails(oStudentInformationData));
-					oStudentDataResponse.m_arrStudentInformationData.add(oStudentInformationData);
-				}
+			oStudentDataResponse.m_arrStudentInformationData = (ArrayList<StudentInformationData>) populateFilterObjectData(oStudentInformationData);
+			if(oStudentDataResponse.m_arrStudentInformationData.size() > 0)
 				oStudentDataResponse.m_bSuccess = true;
-			}			
 		}
 		catch (Exception oException)
 		{
 			m_oLogger.error("getStudentDetails - oException : " +oException);
 			throw oException;
-		}
-		finally
-		{
-			oEntityManager.close();
-			HibernateUtil.removeConnection();
-		}		
+		}	
 		return oStudentDataResponse;
 	}
 	

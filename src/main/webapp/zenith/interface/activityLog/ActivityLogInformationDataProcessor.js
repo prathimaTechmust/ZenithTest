@@ -21,10 +21,16 @@ var ActivityLogInformationDataProcessor = (function __ActivityLogInformationData
 	{
 		ajaxCall(oLoginUsersData,"/getLoginUsersList",callback);
 	}
+	
+	function getFilteredActivityLog(oFilteredActivityLog,callback)
+	{
+		ajaxCall(oFilteredActivityLog,"/getFilteredActivityLog",callback);
+	}
 	return { 	
 		sortingList : sortingList,
 		list:list,
 		getXML:getXML,
-		getLoginUsers :getLoginUsers
+		getLoginUsers :getLoginUsers,
+		getFilteredActivityLog :getFilteredActivityLog
 	};
 })();
