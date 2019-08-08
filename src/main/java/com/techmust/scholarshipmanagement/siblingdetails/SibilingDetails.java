@@ -7,6 +7,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+
 import com.techmust.generic.data.MasterData;
 
 @Entity
@@ -90,5 +94,28 @@ public class SibilingDetails extends MasterData
 	public void setM_strStudyingInstitution(String strStudyingInstitution)
 	{
 		this.m_strStudyingInstitution = strStudyingInstitution;
+	}	
+	@Override
+	public String generateXML() 
+	{
+		String strSibilingsDetails = "";
+		m_oLogger.info ("generateXML");
+		try
+		{
+			Document oXmlDocument = createNewXMLDocument ();
+			Element oRootElement = createRootElement (oXmlDocument, "SiblingsDetails");
+				
+			addChild (oXmlDocument, oRootElement, "m_nSiblingId", m_nSibilingId);			
+			addChild (oXmlDocument, oRootElement, "m_nZenithUID", m_nZenithUID);
+			addChild (oXmlDocument, oRootElement, "m_strSiblingName", m_strSibilingName);
+			addChild (oXmlDocument, oRootElement, "m_strStudying", m_strStudying);
+			addChild (oXmlDocument, oRootElement, "m_strStudyingInstitution", m_strStudyingInstitution);
+			strSibilingsDetails = getXmlString (oXmlDocument);
+		} 
+		catch (Exception oException)
+		{
+			m_oLogger.error ("generateXML - oException : " + oException);
+		}		
+		return strSibilingsDetails;		
 	}	
 }

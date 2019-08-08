@@ -260,139 +260,181 @@
 		</td>
 	</tr>
 	<tr>
-		<td>
+	<td class="topAlign">
 		<!-- Parents guardian details -->
-			<table>
-				<tr>
-					<td>
-						<table class="xslt_trademust" cellSpacing="5px">
-							<tr>
-								<td class = "xslt_zenithFieldHeader">Family Details:</td>								
-							</tr>
-							<tr>
-								<td class="xslt_fieldHeading">
-									Father Name :
-								</td>
-								<td class="xslt_fieldData" id="m_strFatherName">
-									<xsl:value-of select="StudentInformationData/m_strFatherName" />
-								</td>
-							</tr>
-							<tr>
-								<td class="xslt_fieldHeading">
-									Father Occupation :
-								</td>
-								<td class="xslt_fieldData" id="m_strFatherOccupation">
-									<xsl:value-of select="StudentInformationData/m_strFatherOccupation" />
-								</td>
-							</tr>
-							<tr>
-								<td class="xslt_fieldHeading">
-									Father Aadhar Number :
-								</td>
-								<td class="xslt_fieldData" id="m_nFatherAadharNumber">
-									<xsl:value-of select="StudentInformationData/m_nFatherAadharNumber" />
-								</td>
-							</tr>
-							<tr>
-								<td class="xslt_fieldHeading">Income Per Annum(₹):</td>
-								<td class="xslt_fieldData" id="m_nFamilyIncome">
-									<xsl:value-of select= "format-number(StudentInformationData/m_nFamilyIncome, '##,##,##0')" />
-								</td>
-							</tr>	
-						</table>						
-					</td>
-					<td>
-						<table class="xslt_trademust" cellSpacing="5px">
-							<tr>
-								<td class = "xslt_zenithFieldHeader"> <br/> </td>								
-							</tr>
-							<tr>
-								<td class="xslt_fieldHeading">
-									Mother Name :
-								</td>
-								<td class="xslt_fieldData" id="m_strMotherName">
-									<xsl:value-of select="StudentInformationData/m_strMotherName" />
-								</td>
-							</tr>
-							<tr>
-								<td class="xslt_fieldHeading">
-									Mother Occupation :
-								</td>
-								<td class="xslt_fieldData" id="m_strMotherOccupation">
-									<xsl:value-of select="StudentInformationData/m_strMotherOccupation" />
-								</td>
-							</tr>
-							<tr>
-								<td class="xslt_fieldHeading">
-									Mother Aadhar Number :
-								</td>
-								<td class="xslt_fieldData" id="m_nMotherAadharNumber">
-									<xsl:value-of select="StudentInformationData/m_nMotherAadharNumber" />
-								</td>
-							</tr>
-							<tr>
-								<td class="xslt_fieldHeading">
-									Alternative Number :
-								</td>
-								<td class="xslt_fieldData" id="m_strAlternateNumber">
-									<xsl:value-of select="StudentInformationData/m_strAlternateNumber" />
-								</td>								
-							</tr>
-						</table>		
-					</td>						
-				</tr>
-			</table>			
-		</td>
-		<td class="topAlign">
-		<!-- Scholarship details -->
 		<table>
-			<tr>
-				<td>
-					<table class="xslt_trademust" cellSpacing="5px">
-						<tr>
-							<td class = "xslt_zenithFieldHeader">Scolarship Details</td>	
-						</tr>
-						<tr>
-							<td class="xslt_fieldHeading">
-								Required amount(₹):
-							</td>
-							<td class="xslt_fieldData">
-								<xsl:variable name="annualFee" select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_fAnnualFee"></xsl:variable>
-								<xsl:variable name="paidFee" select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_fPaidFee"></xsl:variable>
-								<xsl:value-of select="format-number($annualFee - $paidFee, '##,##,##0')"/>
-							</td>									
-						</tr>
-						<tr> 
-							<td class="xslt_fieldHeading">
-								Sanctioned amount(₹):
-							</td>
-							<td class="xslt_fieldData">
-								<xsl:value-of select="format-number(StudentInformationData/m_oZenithScholarshipDetails/ZenithScholarshipDetails/m_fApprovedAmount, '##,##,##0')" ></xsl:value-of>
-							</td>									
-						</tr>							
-					</table>
-					<table border="1" cellSpacing="5px" class="organization" >	
-						<tr>
-							<td class="organization">Organization Name</td>
-							<td class="organization">Amount(₹)</td>
-						</tr>																			
-						<tr>
-						<xsl:for-each select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oScholarshipDetails/ScholarshipDetails">
-						<tr>
-							<td class="organization organizationData" >
-								<xsl:value-of select="m_strOrganizationName" />
-							</td>
-							<td class="organization organizationData">
-								<xsl:value-of select="format-number(m_fAmount, '##,##,##0')"/>
-							</td>											
-						</tr>									
-						</xsl:for-each>									
-						</tr>								
-					</table>						
-				</td>					
-			</tr>
+		<tr>
+			<td>
+				<table>
+					<tr>
+						<td class="topAlign">
+							<table class="xslt_trademust" cellSpacing="5px">
+								<tr>
+									<td class = "xslt_zenithFieldHeader">Family Details:</td>								
+								</tr>
+								<tr>
+									<td class="xslt_fieldHeading">
+										Father Name :
+									</td>
+									<td class="xslt_fieldData" id="m_strFatherName">
+										<xsl:value-of select="StudentInformationData/m_strFatherName" />
+									</td>
+								</tr>
+								<tr>
+									<td class="xslt_fieldHeading">
+										Father Occupation :
+									</td>
+									<td class="xslt_fieldData" id="m_strFatherOccupation">
+										<xsl:value-of select="StudentInformationData/m_strFatherOccupation" />
+									</td>
+								</tr>
+								<tr>
+									<td class="xslt_fieldHeading">
+										Father Aadhar Number :
+									</td>
+									<td class="xslt_fieldData" id="m_nFatherAadharNumber">
+										<xsl:value-of select="StudentInformationData/m_nFatherAadharNumber" />
+									</td>
+								</tr>
+								<tr>
+									<td class="xslt_fieldHeading">Income Per Annum(₹):</td>
+									<td class="xslt_fieldData" id="m_nFamilyIncome">
+										<xsl:value-of select= "format-number(StudentInformationData/m_nFamilyIncome, '##,##,##0')" />
+									</td>
+								</tr>	
+							</table>						
+						</td>
+						<td class="topAlign">
+							<table class="xslt_trademust" cellSpacing="5px">
+								<tr>
+									<td class = "xslt_zenithFieldHeader"> <br/> </td>								
+								</tr>
+								<tr>
+									<td class="xslt_fieldHeading">
+										Mother Name :
+									</td>
+									<td class="xslt_fieldData" id="m_strMotherName">
+										<xsl:value-of select="StudentInformationData/m_strMotherName" />
+									</td>
+								</tr>
+								<tr>
+									<td class="xslt_fieldHeading">
+										Mother Occupation :
+									</td>
+									<td class="xslt_fieldData" id="m_strMotherOccupation">
+										<xsl:value-of select="StudentInformationData/m_strMotherOccupation" />
+									</td>
+								</tr>
+								<tr>
+									<td class="xslt_fieldHeading">
+										Mother Aadhar Number :
+									</td>
+									<td class="xslt_fieldData" id="m_nMotherAadharNumber">
+										<xsl:value-of select="StudentInformationData/m_nMotherAadharNumber" />
+									</td>
+								</tr>
+								<tr>
+									<td class="xslt_fieldHeading">
+										Alternative Number :
+									</td>
+									<td class="xslt_fieldData" id="m_strAlternateNumber">
+										<xsl:value-of select="StudentInformationData/m_strAlternateNumber" />
+									</td>								
+								</tr>
+							</table>		
+						</td>				
+					</tr>
+					<tr>
+						<td class="topAlign" >
+							<table class="xslt_trademust" cellSpacing="5px">
+								<tr>
+									<td class = "xslt_zenithFieldHeader">Siblings:</td>								
+								</tr>						
+								<tr>
+									<td>
+										<table border="1" cellSpacing="5px" class="organization" >	
+											<tr>
+												<td class="organization">Name</td>
+												<td class="organization">Studying</td>
+												<td class="organization">School/College</td>
+											</tr>																			
+											<tr>
+												<xsl:for-each select="StudentInformationData/m_oSibilingDetails/SiblingsDetails">
+												<tr>
+													<td class="organization organizationData" >
+														<xsl:value-of select="m_strSiblingName" />
+													</td>
+													<td class="organization organizationData">
+														<xsl:value-of select="m_strStudying"/>
+													</td>
+													<td class="organization organizationData">
+														<xsl:value-of select="m_strStudyingInstitution"/>
+													</td>												
+												</tr>									
+												</xsl:for-each>									
+											</tr>								
+										</table>			
+									</td>		
+								</tr>
+							</table>		
+						</td>				
+					</tr>
+				</table>
+			</td>	
+		</tr>
 		</table>			
-		</td>		
+	</td>
+	<td class="topAlign">
+	<!-- Scholarship details -->
+	<table>
+		<tr>
+			<td>
+				<table class="xslt_trademust" cellSpacing="5px">
+					<tr>
+						<td class = "xslt_zenithFieldHeader">Scolarship Details</td>	
+					</tr>
+					<tr>
+						<td class="xslt_fieldHeading">
+							Required amount(₹):
+						</td>
+						<td class="xslt_fieldData">
+							<xsl:variable name="annualFee" select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_fAnnualFee"></xsl:variable>
+							<xsl:variable name="paidFee" select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_fPaidFee"></xsl:variable>
+							<xsl:value-of select="format-number($annualFee - $paidFee, '##,##,##0')"/>
+						</td>									
+					</tr>
+					<tr> 
+						<td class="xslt_fieldHeading">
+							Sanctioned amount(₹):
+						</td>
+						<td class="xslt_fieldData">
+							<xsl:value-of select="format-number(StudentInformationData/m_oZenithScholarshipDetails/ZenithScholarshipDetails/m_fApprovedAmount, '##,##,##0')" ></xsl:value-of>
+						</td>									
+					</tr>							
+				</table>
+				<table border="1" cellSpacing="5px" class="organization" >	
+					<tr>
+						<td class="organization">Organization Name</td>
+						<td class="organization">Amount(₹)</td>
+					</tr>																			
+					<tr>
+					<xsl:for-each select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oScholarshipDetails/ScholarshipDetails">
+					<tr>
+						<td class="organization organizationData" >
+							<xsl:value-of select="m_strOrganizationName" />
+						</td>
+						<td class="organization organizationData">
+							<xsl:value-of select="format-number(m_fAmount, '##,##,##0')"/>
+						</td>											
+					</tr>									
+					</xsl:for-each>									
+					</tr>								
+				</table>						
+			</td>					
+		</tr>
+	</table>			
+	</td>		
+		
 	</tr>
 	<tr>
 		<!--CHEQUE DETAILS -->

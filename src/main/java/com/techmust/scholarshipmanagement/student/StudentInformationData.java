@@ -568,6 +568,11 @@ public class StudentInformationData  extends MasterData implements Serializable
 			Document oZenithScholarshipDetailsDataXmlDoc = getXmlDocument ("<m_oZenithScholarshipDetails>"+buildZenithScholarshipDetails (m_oZenithScholarshipDetails)+"</m_oZenithScholarshipDetails>");
 			Node oZenithScholarshipDetailsDataNode = oXmlDocument.importNode(oZenithScholarshipDetailsDataXmlDoc.getFirstChild(), true);
 			oRootElement.appendChild(oZenithScholarshipDetailsDataNode);
+			//Siblings Details
+			Document oSiblingsDetailsDataXmlDoc = getXmlDocument ("<m_oSibilingDetails>"+buildSiblingsDetails (m_oSibilingDetails)+"</m_oSibilingDetails>");
+			Node oSiblingsDetailssDataNode = oXmlDocument.importNode(oSiblingsDetailsDataXmlDoc.getFirstChild(), true);
+			oRootElement.appendChild(oSiblingsDetailssDataNode);
+			
 			addChild (oXmlDocument, oRootElement, "m_nStudentId", m_nStudentId);
 			addChild (oXmlDocument, oRootElement, "m_nUID", m_nUID);
 			addChild (oXmlDocument, oRootElement, "m_nStudentAadharNumber", m_nStudentAadharNumber);
@@ -647,6 +652,19 @@ public class StudentInformationData  extends MasterData implements Serializable
 		{
 			ZenithScholarshipDetails oZenithScholarshipDetails = (ZenithScholarshipDetails) arrZenithScholarshipDetails [nIndex];
 			strXML += oZenithScholarshipDetails.generateXML ();
+		}		
+		return strXML;
+	}
+	
+	private String buildSiblingsDetails(Set<SibilingDetails> m_oSibilingDetails)
+	{
+		
+		String strXML = "";
+		Object [] arrSiblingsDetails = m_oSibilingDetails.toArray ();
+		for (int nIndex = 0; nIndex < arrSiblingsDetails.length; nIndex ++)
+		{
+			SibilingDetails oSiblingsDetails = (SibilingDetails) arrSiblingsDetails [nIndex];
+			strXML += oSiblingsDetails.generateXML ();
 		}		
 		return strXML;
 	}
