@@ -27,6 +27,7 @@ import com.techmust.generic.response.GenericResponse;
 import com.techmust.generic.util.HibernateUtil;
 import com.techmust.helper.ZenithHelper;
 import com.techmust.scholarshipmanagement.academicdetails.AcademicDetails;
+import com.techmust.scholarshipmanagement.scholarshipdetails.zenithscholarshipstatus.ZenithScholarshipDetails;
 import com.techmust.scholarshipmanagement.studentdocuments.StudentDocuments;
 import com.techmust.utils.AWSUtils;
 import com.techmust.utils.Utils;
@@ -50,7 +51,7 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 			if(oStudentDataResponse.m_bSuccess)
 			{
 				oStudentDataResponse.m_arrStudentInformationData.add(oStudentInformationData);
-				Utils.createActivityLog("StudentInformationDataProcessor::create", oStudentInformationData);
+				Utils.createActivityLog("StudentInformationDataProcessor::create", oStudentInformationData);				
 			}			
 			
 		}
@@ -398,7 +399,7 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		StudentDataResponse oStudentDataResponse = new StudentDataResponse();
 		try 
 		{			
-			oStudentDataResponse.m_arrStudentInformationData = (ArrayList<StudentInformationData>) populateFilterObjectData(oStudentInformationData);
+			oStudentDataResponse.m_arrStudentInformationData = (ArrayList<StudentInformationData>) populateStudentFilterObjectData(oStudentInformationData);
 			if(oStudentDataResponse.m_arrStudentInformationData.size() > 0)
 				oStudentDataResponse.m_bSuccess = true;
 		}

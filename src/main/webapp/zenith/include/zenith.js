@@ -227,39 +227,64 @@ function documentList_cancelImagePreview()
 	HideDialog ("secondDialog");	
 }
 
-function studentListInfo_filter (gridId)
+function studentListInfo_filter (gridId,applicationStatus)
 {
-	m_oZenithMemberData.m_gridId = gridId.id;
+	
+	var oStudentFilterData = validateFilterBoxes (gridId.id,applicationStatus);
+	if(oStudentFilterData.m_bSuccess)
+		StudentInformationDataProcessor.filterStudentData(oStudentFilterData,studentFilteredResponse);
+	else
+		alert("Enter Any One Of the Filter Box ");
+}
+
+function validateFilterBoxes (gridId,status)
+{
+	m_oZenithMemberData.m_gridId = gridId;
 	var oStudentFilterData = new StudentInformationData();
 	oStudentFilterData.m_strAcademicYear = $("#selectacademicyearwiseStudents").val();
+	oStudentFilterData.m_strStatus = status;
+	oStudentFilterData.m_bSuccess = false;
 	if($("#filterStudentInfo_input_studentName").val() != "")
 	{
 		oStudentFilterData.m_strStudentName = $("#filterStudentInfo_input_studentName").val();
+		oStudentFilterData.m_bSuccess = true;
 	}
 	else if($("#filterStudentInfo_input_phonenumber").val() != "")
 	{
 		oStudentFilterData.m_strPhoneNumber = $("#filterStudentInfo_input_phonenumber").val();
+		oStudentFilterData.m_bSuccess = true;
 	}
-	else
+	else if($("#filterStudentInfo_input_aadhar").val() != "")
+	{
 		oStudentFilterData.m_nStudentAadharNumber = $("#filterStudentInfo_input_aadhar").val();
-	StudentInformationDataProcessor.filterStudentData(oStudentFilterData,studentFilteredResponse);
+		oStudentFilterData.m_bSuccess = true;
+	}
+	return oStudentFilterData;		
 }
 
 function studentFilteredResponse(oResponse)
 {
 	if(oResponse.m_bSuccess)
 	{
-		document.getElementById("filterStudentInfo_input_studentName").value = "";
-		document.getElementById("filterStudentInfo_input_phonenumber").value = "";
-		document.getElementById("filterStudentInfo_input_aadhar").value = "";
+		clearFilterBoxes ();
 		clearGridData ('#'+m_oZenithMemberData.m_gridId);
 		for (var nIndex = 0; nIndex < oResponse.m_arrStudentInformationData.length; nIndex++)
 			$('#'+m_oZenithMemberData.m_gridId).datagrid('appendRow',oResponse.m_arrStudentInformationData[nIndex]);
 		$('#'+m_oZenithMemberData.m_gridId).datagrid('getPager').pagination ({total:oResponse.m_nRowCount, pageNumber:oResponse.m_nPageNumber});
 	}
 	else
+	{
+		clearFilterBoxes ();
 		informUser("no search result found","kError");
+	}	
 	
+}
+
+function clearFilterBoxes ()
+{
+	document.getElementById("filterStudentInfo_input_studentName").value = "";
+	document.getElementById("filterStudentInfo_input_phonenumber").value = "";
+	document.getElementById("filterStudentInfo_input_aadhar").value = "";
 }
 
 function removeAllChildren (container)

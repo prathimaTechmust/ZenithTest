@@ -10,22 +10,22 @@ import javax.persistence.Table;
 import com.techmust.generic.data.MasterData;
 
 @Entity
-@Table(name = "siblingdetails")
-public class SiblingDetails extends MasterData
+@Table(name = "sibilingdetails")
+public class SibilingDetails extends MasterData
 {
 
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "siblingId")
-	private int m_nSiblingId;
+	@Column(name = "sibilingId")
+	private int m_nSibilingId;
 	
 	@Column(name = "zenithUID")
 	private int m_nZenithUID;
 	
 	@Column(name = "siblingname")
-	private String m_strSiblingName;
+	private String m_strSibilingName;
 	
 	@Column(name = "studying")
 	private String m_strStudying;
@@ -33,25 +33,25 @@ public class SiblingDetails extends MasterData
 	@Column(name = "studyinginstitution")
 	private String m_strStudyingInstitution;
 
-	public SiblingDetails()
+	public SibilingDetails()
 	{
-		m_nSiblingId = -1;
+		m_nSibilingId = -1;
 		m_nZenithUID = -1;
-		m_strSiblingName = "";
+		m_strSibilingName = "";
 		m_strStudying = "";
 		m_strStudyingInstitution = "";		
 	}
 
-	public int getM_nSiblingId()
+	public int getM_nSibilingId()
 	{
-		return m_nSiblingId;
+		return m_nSibilingId;
 	}
 
-	public void setM_nSiblingId(int nSiblingId)
+	public void setM_nSibilingId(int nSibilingId)
 	{
-		this.m_nSiblingId = nSiblingId;
+		this.m_nSibilingId = nSibilingId;
 	}
-
+	
 	public int getM_nZenithUID() 
 	{
 		return m_nZenithUID;
@@ -60,16 +60,16 @@ public class SiblingDetails extends MasterData
 	public void setM_nZenithUID(int nZenithUID)
 	{
 		this.m_nZenithUID = nZenithUID;
+	}	
+
+	public String getM_strSibilingName()
+	{
+		return m_strSibilingName;
 	}
 
-	public String getM_strSiblingName()
+	public void setM_strSibilingName(String strSibilingName)
 	{
-		return m_strSiblingName;
-	}
-
-	public void setM_strSiblingName(String strSiblingName)
-	{
-		this.m_strSiblingName = strSiblingName;
+		this.m_strSibilingName = strSibilingName;
 	}
 
 	public String getM_strStudying()

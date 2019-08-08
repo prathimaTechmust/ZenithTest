@@ -605,7 +605,7 @@ public abstract class GenericData implements IGenericData, Serializable
 	public Set<AcademicDetails> getAcademicDetails(StudentInformationData oStudentData) 
 	{
 		EntityManager oEntityManager = _getEntityManager();
-		ArrayList<AcademicDetails> oAcademicDetails = null;
+		List<AcademicDetails> oAcademicDetails = null;
 		Set<AcademicDetails> arrAcademicDetails = null;
 		try
 		{
@@ -616,6 +616,7 @@ public abstract class GenericData implements IGenericData, Serializable
 	        oCriteriaQuery.where(oCriteriaBuilder.equal(oAcademicDetailsRoot.get("m_strAcademicYear"), oStudentData.getM_strAcademicYear()),
 	        		oCriteriaBuilder.equal(oAcademicDetailsRoot.get("m_oStudentInformationData"), oStudentData.getM_nStudentId()));	        				
 	        oAcademicDetails =  (ArrayList<AcademicDetails>) oEntityManager.createQuery(oCriteriaQuery).getResultList();
+	        oAcademicDetails = getCurrentYearActiveCheque(oAcademicDetails);
 	        arrAcademicDetails = new HashSet<AcademicDetails>(oAcademicDetails);
 		} 
 		catch (Exception oException)
@@ -631,6 +632,43 @@ public abstract class GenericData implements IGenericData, Serializable
 		return arrAcademicDetails;
 	}
 	
+	private List<AcademicDetails> getCurrentYearActiveCheque(List<AcademicDetails> oAcademicDetails)
+	{
+		m_oLogger.info("get Current active Cheque");
+		m_oLogger.debug("get Current active Cheque"+oAcademicDetails);
+		EntityManager oEntityManager = _getEntityManager();
+		AcademicDetails oDetails = oAcademicDetails.get(0);
+		Set<StudentScholarshipAccount> oSetAccount = oDetails.getM_oStudentScholarshipAccount();
+		try
+		{
+			if(!oSetAccount.isEmpty())
+			{
+				CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
+				CriteriaQuery<StudentScholarshipAccount> oCriteriaQuery = oCriteriaBuilder.createQuery(StudentScholarshipAccount.class);
+				Root<StudentScholarshipAccount> oAccountRoot = oCriteriaQuery.from(StudentScholarshipAccount.class);
+				oCriteriaQuery.select(oAccountRoot);
+				oCriteriaQuery.where(oCriteriaBuilder.equal(oAccountRoot.get("m_oAcademicDetails"),oDetails.getM_nAcademicId()),
+									 oCriteriaBuilder.equal(oAccountRoot.get("m_strChequeStatus"),Constants.CHEQUESTATUS));
+				List<StudentScholarshipAccount> liScholarshipAccounts =  oEntityManager.createQuery(oCriteriaQuery).getResultList();
+				oSetAccount = new HashSet<StudentScholarshipAccount>(liScholarshipAccounts);
+				oDetails.setM_oStudentScholarshipAccount(oSetAccount);
+				oAcademicDetails.add(oDetails);
+			}
+			
+		}
+		catch (Exception oException)
+		{
+			m_oLogger.error("get Current active Cheque"+oException);
+		}
+		finally
+		{
+			oEntityManager.close();
+			HibernateUtil.removeConnection();
+		}
+		return oAcademicDetails;
+	}
+
+
 	public ArrayList<StudentInformationData> getStatusStudentsList(StudentInformationData oStudentInformationData)
 	{
 		ArrayList<StudentInformationData> arrStudentInformationData = null;
@@ -936,6 +974,8 @@ public abstract class GenericData implements IGenericData, Serializable
 				 oDetails.setM_strChequeRemark(oZenithData.getM_strChequeRemark());
 				 bIsStatusReVerify = oDetails.updateObject();
 			 }
+			 if(bIsStatusReVerify)
+				 changeChequeStatus(oZenithData.getM_nAcademicId(),oZenithData.getM_strChequeRemark());
 		 }
 		  catch (Exception oException)
 		 {
@@ -950,7 +990,41 @@ public abstract class GenericData implements IGenericData, Serializable
 		    }
 		return bIsStatusReVerify;
 	  }
-		
+
+	private void changeChequeStatus(int nAcademicId,String strChequeRemark)
+	{
+		m_oLogger.info("Change Cheque Status");
+		m_oLogger.debug("Change Cheque Status - AcademicId"+ nAcademicId);
+		EntityManager oEntityManager = _getEntityManager();
+		StudentScholarshipAccount oAccount = new StudentScholarshipAccount();
+		try
+		{
+			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
+			CriteriaQuery<StudentScholarshipAccount> oCriteriaQuery = oCriteriaBuilder.createQuery(StudentScholarshipAccount.class);
+			Root<StudentScholarshipAccount> oAccountRoot = oCriteriaQuery.from(StudentScholarshipAccount.class);
+			oCriteriaQuery.select(oAccountRoot);
+			oCriteriaQuery.where(oCriteriaBuilder.equal(oAccountRoot.get("m_oAcademicDetails"),nAcademicId));
+			List<StudentScholarshipAccount> listAccount = oEntityManager.createQuery(oCriteriaQuery).getResultList();
+			if(listAccount.size() > 0)
+			{
+				oAccount = listAccount.get(0);
+				oAccount.setM_strChequeStatus("InActive");
+				oAccount.setM_strChequeRemarks(strChequeRemark);
+				oAccount.updateObject();
+			}			
+		}
+		catch (Exception oException)
+		{
+			m_oLogger.error("Change Cheque Status"+ oException);
+		}
+		finally
+		{
+			oEntityManager.close();
+			HibernateUtil.removeConnection();
+		}
+	}
+
+
 	public boolean checkChequePrepared(Set<AcademicDetails> oAcademicDetails)
 	{
 		boolean bIsCheckPrepared = false;

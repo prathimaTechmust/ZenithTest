@@ -109,6 +109,7 @@ function loadCourseListResponseToDropDown(oCourseListResponse)
 				$("#select_input_studentcourse").jqxComboBox({	source :oCourseListResponse.m_arrCourseInformationData,
 																displayMember: "m_strShortCourseName",
 																valueMember: "m_nCourseId",
+																placeHolder:"Select Course",
 																autoComplete:true,
 																searchMode :"startswithignorecase",
 																width :"200px",
@@ -131,6 +132,7 @@ function loadInstitutionListResponseToDropDown (oInstitutionResponse)
 				$("#select_input_academic_name").jqxComboBox({	source :oInstitutionResponse.m_arrInstitutionInformationData,
 																displayMember: "m_strInstitutionName",
 																valueMember: "m_nInstitutionId",
+																placeHolder:"Select Institution",
 																autoComplete:true,
 																searchMode :"startswithignorecase",
 																width :"200px",
@@ -153,6 +155,7 @@ function loadFacilitatorListResponseToDropDown (oReponse)
 			   $("#selectStudentInfo_input_studentfacilitator").jqxComboBox({	source :oReponse.m_arrFacilitatorInformationData,
 																				displayMember: "m_strFacilitatorName",
 																				valueMember: "m_nFacilitatorId",
+																				placeHolder:"Select Facilitator",
 																				autoComplete:true,
 																				searchMode :"startswithignorecase",
 																				width :"200px",
@@ -411,7 +414,8 @@ function getAcademicDetails ()
 function getZenithstatus()
 {
 	var oArrScholarshipStatus = new Array();
-	var oZenithSholarshipstatus = new ZenithScholarshipDetails ();	
+	var oZenithSholarshipstatus = new ZenithScholarshipDetails ();
+	oZenithSholarshipstatus.m_strAcademicYear = $("#select_student_academicyear").val();
 	oArrScholarshipStatus.push(oZenithSholarshipstatus);
 	return oArrScholarshipStatus;
 }

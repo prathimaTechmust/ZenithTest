@@ -6,6 +6,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -73,8 +74,15 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 	@Column(name = "chequeRemark")
 	private String m_strChequeRemark;
 	
+	@Column(name = "academicyear")
+	private String m_strAcademicYear;
+	
 	@Transient
 	private int m_nStudentId;
+	
+	@Transient
+	private int m_nAcademicId;
+	
 	
 	public ZenithScholarshipDetails()
 	{
@@ -85,12 +93,33 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 		m_strReceiverName = "";
 		m_strReceiverContactNumber = "";
 		m_dChequeIssueDate = 0;
-		m_strImage = "";
+		m_strImage = null;
 		m_strChequeRemark= "";
 		m_dApprovedDate = null;
 		m_dClaimedDate = null;
+		m_strAcademicYear = "";
 	}	
 	
+	public int getM_nAcademicId()
+	{
+		return m_nAcademicId;
+	}
+
+	public void setM_nAcademicId(int m_nAcademicId)
+	{
+		this.m_nAcademicId = m_nAcademicId;
+	}
+
+	public String getM_strAcademicYear()
+	{
+		return m_strAcademicYear;
+	}
+
+	public void setM_strAcademicYear(String m_strAcademicYear)
+	{
+		this.m_strAcademicYear = m_strAcademicYear;
+	}
+
 	public Date getM_dClaimedDate()
 	{
 		return m_dClaimedDate;
