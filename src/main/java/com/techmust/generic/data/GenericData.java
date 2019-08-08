@@ -571,7 +571,6 @@ public abstract class GenericData implements IGenericData, Serializable
 		}
 		return arrOrder;
 	}
-	
 	public  StudentInformationData  getStudentDetails (StudentInformationData oStudentData)
 	{
 		EntityManager oEntityManager = _getEntityManager();
@@ -900,6 +899,7 @@ public abstract class GenericData implements IGenericData, Serializable
 
 				ZenithScholarshipDetails oDetails = list.get(0);
 				oDetails.setM_strStatus(Constants.APPLICATIONREVERIFICATION);
+				oDetails.setM_strStudentRemarks(oZenithData.getM_strStudentRemarks());
 				bIsStatusReVerify = oDetails.updateObject();
 			}
 		}
