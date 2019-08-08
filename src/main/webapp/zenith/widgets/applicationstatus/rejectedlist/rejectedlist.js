@@ -82,7 +82,7 @@ function rejectedStudentListInfo_createDataGrid ()
 					  {						
 						return row.m_oZenithScholarshipDetails[0].m_strStudentRemarks;
 					  }
-				},				
+				},	
 			]],				
 		}
 	);

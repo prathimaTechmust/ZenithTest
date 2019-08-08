@@ -286,14 +286,48 @@ function studentRemarkInfo_cancel ()
 	HideDialog("dialog");
 }
 
+function reverifyStudentInfo_Student() 
+{
+	loadPage("applicationstatus/approve/reverifyRemark.html","dialog","reverifyRemarks_init()");	
+}
 
-function reVerifyStudentInfo_Student()
+ function reverifyRemarks_init()
+ {
+	 createPopup('dialog','#reverifyRemarkInfo_Submit','reverifyRemarkInfo_cancel',true);
+	initFormValidateBoxes ("reverifyRemarkForm");
+ }
+
+ 
+function reverifyRemarkInfo_Submit()
 {	
+	if(reverifyRemarkValidate())
+		{
+		loadPage ("include/process.html", "ProcessDialog", "reverifyremark_progressbarLoaded ()");
+		}
+		else
+		{
+			alert("Please Enter Remarks");
+			$("#reverifyRemarkForm").focus();
+		}	
+	
+}
+function reverifyRemarkValidate () 
+{
+	return validateForm("reverifyRemarkForm");	
+}
+function reverifyremark_progressbarLoaded()
+{
+	createPopup('dialog','','',true);
 	var oZenith = new ZenithScholarshipDetails ();
 	oZenith.m_nStudentId = m_oApproveStudentList_Info_MemberData.m_nStudentId;
+	oZenith.m_strStudentRemarks = $("#reverifyRemarkInfo_input_Remark").val();
 	ZenithStudentInformationDataProcessor.reVerifiedStatusUpdate(oZenith,studentReVerifiedResponse);	
 }
 
+function reverifyRemarkInfo_cancel()
+{
+   HideDialog("dialog");	
+}
 
 function studentReVerifiedResponse(oResponse) {
 	

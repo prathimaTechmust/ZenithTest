@@ -32,7 +32,7 @@ import com.techmust.generic.data.GenericData;
 import com.techmust.generic.data.MasterData;
 import com.techmust.scholarshipmanagement.academicdetails.AcademicDetails;
 import com.techmust.scholarshipmanagement.scholarshipdetails.zenithscholarshipstatus.ZenithScholarshipDetails;
-import com.techmust.scholarshipmanagement.siblingdetails.SiblingDetails;
+import com.techmust.scholarshipmanagement.siblingdetails.SibilingDetails;
 import com.techmust.usermanagement.facilitator.FacilitatorInformationData;
 import com.techmust.utils.Utils;
 
@@ -139,13 +139,13 @@ public class StudentInformationData  extends MasterData implements Serializable
 	
 	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	@JoinColumn(name = "student_id")
-	private Set<SiblingDetails> m_oSibilingDetails;
+	private Set<SibilingDetails> m_oSibilingDetails;
 	
 	@Transient
 	public AcademicDetails[] m_arrAcademicDetails;
 	
 	@Transient
-	public SiblingDetails[] m_arrSiblingDetails;
+	public SibilingDetails[] m_arrSibilingDetails;
 	
 	public StudentInformationData()
 	{
@@ -176,12 +176,27 @@ public class StudentInformationData  extends MasterData implements Serializable
 		m_oAcademicDetails = new HashSet<AcademicDetails> ();	
 		m_oFacilitatorInformationData = new FacilitatorInformationData();
 		m_oZenithScholarshipDetails = new HashSet<ZenithScholarshipDetails>();
-		m_oSibilingDetails = new HashSet<SiblingDetails>();
+		m_oSibilingDetails = new HashSet<SibilingDetails>();
+	}	
+
+	public Set<SibilingDetails> getM_oSibilingDetails()
+	{
+		return m_oSibilingDetails;
+	}
+
+	public void setM_oSibilingDetails(Set<SibilingDetails> m_oSibilingDetails)
+	{
+		this.m_oSibilingDetails = m_oSibilingDetails;
 	}
 	
-	public SiblingDetails[] getM_arrSiblingDetails()
+	public SibilingDetails[] getM_arrSibilingDetails()
 	{
-		return m_arrSiblingDetails;
+		return m_arrSibilingDetails;
+	}
+
+	public void setM_arrSibilingDetails(SibilingDetails[] m_arrSibilingDetails)
+	{
+		this.m_arrSibilingDetails = m_arrSibilingDetails;
 	}
 
 	public int getM_nFacilitatorId() 
@@ -192,22 +207,7 @@ public class StudentInformationData  extends MasterData implements Serializable
 	public void setM_nFacilitatorId(int m_nFacilitatorId)
 	{
 		this.m_nFacilitatorId = m_nFacilitatorId;
-	}
-
-	public void setM_arrSiblingDetails(SiblingDetails[] arrSiblingDetails)
-	{
-		this.m_arrSiblingDetails = arrSiblingDetails;
-	}
-
-	public Set<SiblingDetails> getM_oSibilingDetails()
-	{
-		return m_oSibilingDetails;
-	}
-	
-	public void setM_oSibilingDetails(Set<SiblingDetails> oSibilingDetails)
-	{
-		this.m_oSibilingDetails = oSibilingDetails;
-	}
+	}	
 	
 	public int getM_nApplicationPriority()
 	{
@@ -531,13 +531,13 @@ public class StudentInformationData  extends MasterData implements Serializable
 	{
 		Predicate oConjunct = oCriteriaBuilder.conjunction();
 		if (getM_nStudentId() > 0)
-		{
-			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_nStudentId"), m_nStudentId));
-		}			
+			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_nStudentId"), m_nStudentId));				
 		if (!m_strStudentName.isEmpty())
-		{
 			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_strStudentName"), m_strStudentName));
-		}
+		if(!m_strPhoneNumber.isEmpty())
+			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_strPhoneNumber"), m_strPhoneNumber));
+		if(getM_nStudentAadharNumber() > 0)
+			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_nStudentAadharNumber"), m_nStudentAadharNumber));
 		if(getM_nUID() > 0)
 			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_nUID"), m_nUID));	
 		if(getM_nFatherAadharNumber()>0)
@@ -568,6 +568,11 @@ public class StudentInformationData  extends MasterData implements Serializable
 			Document oZenithScholarshipDetailsDataXmlDoc = getXmlDocument ("<m_oZenithScholarshipDetails>"+buildZenithScholarshipDetails (m_oZenithScholarshipDetails)+"</m_oZenithScholarshipDetails>");
 			Node oZenithScholarshipDetailsDataNode = oXmlDocument.importNode(oZenithScholarshipDetailsDataXmlDoc.getFirstChild(), true);
 			oRootElement.appendChild(oZenithScholarshipDetailsDataNode);
+			//Siblings Details
+			Document oSiblingsDetailsDataXmlDoc = getXmlDocument ("<m_oSibilingDetails>"+buildSiblingsDetails (m_oSibilingDetails)+"</m_oSibilingDetails>");
+			Node oSiblingsDetailssDataNode = oXmlDocument.importNode(oSiblingsDetailsDataXmlDoc.getFirstChild(), true);
+			oRootElement.appendChild(oSiblingsDetailssDataNode);
+			
 			addChild (oXmlDocument, oRootElement, "m_nStudentId", m_nStudentId);
 			addChild (oXmlDocument, oRootElement, "m_nUID", m_nUID);
 			addChild (oXmlDocument, oRootElement, "m_nStudentAadharNumber", m_nStudentAadharNumber);
@@ -647,6 +652,19 @@ public class StudentInformationData  extends MasterData implements Serializable
 		{
 			ZenithScholarshipDetails oZenithScholarshipDetails = (ZenithScholarshipDetails) arrZenithScholarshipDetails [nIndex];
 			strXML += oZenithScholarshipDetails.generateXML ();
+		}		
+		return strXML;
+	}
+	
+	private String buildSiblingsDetails(Set<SibilingDetails> m_oSibilingDetails)
+	{
+		
+		String strXML = "";
+		Object [] arrSiblingsDetails = m_oSibilingDetails.toArray ();
+		for (int nIndex = 0; nIndex < arrSiblingsDetails.length; nIndex ++)
+		{
+			SibilingDetails oSiblingsDetails = (SibilingDetails) arrSiblingsDetails [nIndex];
+			strXML += oSiblingsDetails.generateXML ();
 		}		
 		return strXML;
 	}

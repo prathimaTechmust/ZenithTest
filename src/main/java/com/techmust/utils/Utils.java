@@ -1,5 +1,8 @@
 package com.techmust.utils;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -11,6 +14,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
@@ -31,8 +35,15 @@ public class Utils
 	public static Logger m_oLogger = Logger.getLogger(GenericIDataProcessor.class);
 	public static void saveCookie(String strCookieName, String strValue, HttpServletResponse oResponse)
 	{
-	    Cookie cookie = new Cookie(strCookieName, strValue);	  
-	    oResponse.addCookie(cookie);
+		try
+		{
+			Cookie cookie = new Cookie(strCookieName, URLEncoder.encode(strValue, "UTF-8"));
+			oResponse.addCookie(cookie);
+		}
+		catch (Exception oException)
+		{			
+			m_oLogger.error("Save Cookie - oExeception"+oException);
+		}	   
 	}
 
 	public static String getCookie(HttpServletRequest oRequest, String strCookieName)
@@ -150,6 +161,6 @@ public class Utils
 		{
 			m_oLogger.error("createLog - oException : " + oException);
 		}		
-		
 	}
+
 }

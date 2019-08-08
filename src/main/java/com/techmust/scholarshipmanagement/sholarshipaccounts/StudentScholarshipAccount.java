@@ -57,7 +57,7 @@ public class StudentScholarshipAccount extends MasterData
 	private int m_nDDNumber;
 	
 	@Column(name = "remarks")
-	private String m_strRemarks;
+	private String m_strChequeRemarks;
 	
 	@Column(name = "chequestatus")
 	private String m_strChequeStatus;
@@ -84,18 +84,18 @@ public class StudentScholarshipAccount extends MasterData
 		m_oAcademicDetails = new AcademicDetails();
 		m_nChequeNumber = 0;
 		m_nDDNumber = 0;
-		m_strRemarks = "";
-		m_strChequeStatus = "";
-	}
-	
-	public String getM_strRemarks()
-	{
-		return m_strRemarks;
+		m_strChequeRemarks = "";
+		m_strChequeStatus = "Active";
 	}
 
-	public void setM_strRemarks(String strRemarks)
+	public String getM_strChequeRemarks()
 	{
-		this.m_strRemarks = strRemarks;
+		return m_strChequeRemarks;
+	}
+
+	public void setM_strChequeRemarks(String m_strChequeRemarks)
+	{
+		this.m_strChequeRemarks = m_strChequeRemarks;
 	}
 
 	public String getM_strChequeStatus()

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.amazonaws.services.codecommit.model.transform.PostCommentForPullRequestResultJsonUnmarshaller;
 import com.techmust.generic.dataprocessor.GenericIDataProcessor;
 import com.techmust.generic.response.GenericResponse;
 import com.techmust.generic.util.HibernateUtil;
@@ -208,6 +209,7 @@ public class InstitutionInformationDataProcessor extends GenericIDataProcessor<I
 	
 	
 	
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/getInstitutionInfoFilterData", method = RequestMethod.POST, headers = {"Content-type=application/json"})
 	@ResponseBody
 	public GenericResponse getInstitutionFilterData (@RequestBody InstitutionInformationData oInstitutionInformationData) throws Exception
@@ -215,38 +217,17 @@ public class InstitutionInformationDataProcessor extends GenericIDataProcessor<I
 		
 		m_oLogger.info ("getInstitutionFilterData");
 		m_oLogger.debug ("getInstitutionFilterData - oInstitutionInformationData [IN] : " + oInstitutionInformationData);
-		EntityManager oEntityManager = oInstitutionInformationData._getEntityManager();
 		InstitutionDataResponse oInstitutionDataResponse = new InstitutionDataResponse();
 		try 
-		{
-			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
-			CriteriaQuery<InstitutionInformationData> oCriteriaQuery = oCriteriaBuilder.createQuery(InstitutionInformationData.class);
-			Root<InstitutionInformationData> oRootInstitutionInformationData = oCriteriaQuery.from(InstitutionInformationData.class);
-			List<Predicate> m_arrPredicateList = new ArrayList<Predicate>();
-			if(oInstitutionInformationData.getM_strInstitutionName() != "")
-				m_arrPredicateList.add(oCriteriaBuilder.equal(oRootInstitutionInformationData.get("m_strInstitutionName"),oInstitutionInformationData.getM_strInstitutionName()));
-			else if(oInstitutionInformationData.getM_strPhoneNumber() != "")
-				m_arrPredicateList.add(oCriteriaBuilder.equal(oRootInstitutionInformationData.get("m_strPhoneNumber"),oInstitutionInformationData.getM_strPhoneNumber()));
-			else
-				m_arrPredicateList.add(oCriteriaBuilder.equal(oRootInstitutionInformationData.get("m_strCity"),oInstitutionInformationData.getM_strCity()));
-			oCriteriaQuery.select(oRootInstitutionInformationData).where(m_arrPredicateList.toArray(new Predicate[]{}));
-			List<InstitutionInformationData> oInstitutionInformationDataList = oEntityManager.createQuery(oCriteriaQuery).getResultList();
-			if(oInstitutionInformationDataList.size() > 0)
-			{
-				for(int nIndex = 0; nIndex < oInstitutionInformationDataList.size(); nIndex++)
-					oInstitutionDataResponse.m_arrInstitutionInformationData.add(oInstitutionInformationDataList.get(nIndex));
+		{	
+			oInstitutionDataResponse.m_arrInstitutionInformationData = (ArrayList<InstitutionInformationData>) populateFilterObjectData(oInstitutionInformationData);
+			if(oInstitutionDataResponse.m_arrInstitutionInformationData.size() > 0)
 				oInstitutionDataResponse.m_bSuccess = true;
-			}						
 		}
 		catch (Exception oException)
 		{
 			m_oLogger.error("getInstitutionFilterData - oException : " +oException);
 			throw oException;
-		}
-		finally
-		{
-			oEntityManager.close();
-			HibernateUtil.removeConnection();
 		}
 		return oInstitutionDataResponse;	
 		

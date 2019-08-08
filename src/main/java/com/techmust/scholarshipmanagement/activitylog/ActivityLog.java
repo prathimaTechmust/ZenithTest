@@ -1,5 +1,6 @@
 package com.techmust.scholarshipmanagement.activitylog;
 
+import java.io.StringReader;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -8,12 +9,20 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.xml.sax.InputSource;
 
 import com.techmust.generic.data.GenericData;
 import com.techmust.generic.data.MasterData;
@@ -41,7 +50,13 @@ public class ActivityLog  extends MasterData
 	private Date m_dDate;
 	
 	@Column(name = "xmlparameter",columnDefinition = "TEXT")
-	private String m_strXMLString;	
+	private String m_strXMLString;
+	
+	@Transient
+	private Date m_dFromDate;
+	
+	@Transient
+	private Date m_dToDate;
 
 	public ActivityLog() 
 	{
@@ -50,6 +65,26 @@ public class ActivityLog  extends MasterData
 		m_strTaskPerformed = "";
 		m_dDate = null;
 		m_strXMLString = "";		
+	}	
+	
+	public Date getM_dFromDate()
+	{
+		return m_dFromDate;
+	}
+
+	public void setM_dFromDate(Date dFromDate)
+	{
+		this.m_dFromDate = dFromDate;
+	}
+
+	public Date getM_dToDate()
+	{
+		return m_dToDate;
+	}
+
+	public void setM_dToDate(Date dToDate)
+	{
+		this.m_dToDate = dToDate;
 	}
 
 	public int getM_nActivityId()
@@ -110,6 +145,13 @@ public class ActivityLog  extends MasterData
 			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_nActivityId"), m_nActivityId));
 		if(!m_strLoginUserName.isEmpty())
 			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_strLoginUserName"), m_strLoginUserName));
+		if(!m_strTaskPerformed.isEmpty())
+			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.like(oRootObject.<String>get("m_strTaskPerformed"), "%"+m_strTaskPerformed+"%"));
+		if(m_dFromDate != null && m_dToDate != null)
+		{
+			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.greaterThanOrEqualTo(oRootObject.<Date>get("m_dDate"),m_dFromDate));
+			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.lessThanOrEqualTo(oRootObject.<Date>get("m_dDate"), m_dToDate));
+		}			
 		return oConjunct;
 	}
 	
@@ -132,12 +174,14 @@ public class ActivityLog  extends MasterData
 		try
 		{
 			Document oXmlDocument = createNewXMLDocument ();
-			Element oRootElement = createRootElement(oXmlDocument, "ActivityLog");
+			Element oRootElement = createRootElement(oXmlDocument, "ActivityLog");			
+			Document oXMLParameter = convertXmlStringToXmlDocument(m_strXMLString);
+			Node oXmlParameterNode = oXmlDocument.importNode(oXMLParameter.getFirstChild(), true);			
+			oRootElement.appendChild(oXmlParameterNode);
 			addChild (oXmlDocument, oRootElement, "m_nActivityId", m_nActivityId);
 			addChild (oXmlDocument, oRootElement, "m_strLoginUserName", m_strLoginUserName);
 			addChild (oXmlDocument, oRootElement, "m_strTaskPerformed", m_strTaskPerformed);
 			addChild (oXmlDocument, oRootElement, "m_dDate", m_dDate != null ? m_dDate.toString(): "");
-			addChild (oXmlDocument, oRootElement, "m_strXMLString", m_strXMLString);
 			strActivityInfoXML = getXmlString (oXmlDocument);
 		}
 		catch (Exception oException) 
@@ -147,4 +191,19 @@ public class ActivityLog  extends MasterData
 		return strActivityInfoXML;		
 	}
 
+	private Document convertXmlStringToXmlDocument(String strXMLString)
+	{		
+		Document oDocument = null;
+		try
+		{
+			DocumentBuilderFactory oDocumentBuilderFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder oDocumentBuilder = oDocumentBuilderFactory.newDocumentBuilder();
+			oDocument = oDocumentBuilder.parse(new InputSource(new StringReader(strXMLString)));
+		} 
+		catch (Exception oException)
+		{
+			m_oLogger.error("XML String Parses To Xml" + oException);
+		}		
+		return oDocument;
+	}
 }

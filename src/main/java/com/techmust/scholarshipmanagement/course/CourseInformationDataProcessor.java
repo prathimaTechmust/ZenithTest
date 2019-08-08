@@ -209,47 +209,26 @@ public class CourseInformationDataProcessor extends GenericIDataProcessor <Cours
 			throw oException;
 		}
 		return oCourseDataResponse;
-	}
+	}	
 	
-	
-	
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/courseFilterInfoData", method = RequestMethod.POST, headers = {"Content-type=application/json"})
 	@ResponseBody
 	public GenericResponse getCourseFilterData(@RequestBody CourseInformationData oCourseInformationData) throws Exception
 	{
 		m_oLogger.info ("getCourseFilterData");
 		m_oLogger.debug ("getCourseFilterData - oCourseInformationData [IN] : " + oCourseInformationData);
-		EntityManager oEntityManager = oCourseInformationData._getEntityManager();
 		CourseDataResponse oCourseDataResponse = new CourseDataResponse();
 		try 
-		{
-			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
-			CriteriaQuery<CourseInformationData> oCriteriaQuery = oCriteriaBuilder.createQuery(CourseInformationData.class);
-			Root<CourseInformationData> oRootCourseInformationData = oCriteriaQuery.from(CourseInformationData.class);
-			List<Predicate> m_arrPredicateList = new ArrayList<Predicate>();
-			if(oCourseInformationData.getM_strShortCourseName() != "")
-				m_arrPredicateList.add(oCriteriaBuilder.equal(oRootCourseInformationData.get("m_strShortCourseName"),oCourseInformationData.getM_strShortCourseName()));
-			else
-				m_arrPredicateList.add(oCriteriaBuilder.equal(oRootCourseInformationData.get("m_strLongCourseName"),oCourseInformationData.getM_strLongCourseName()));
-			oCriteriaQuery.select(oRootCourseInformationData).where(m_arrPredicateList.toArray(new Predicate[]{}));
-			List<CourseInformationData> m_arrCourseInformationDataList =  oEntityManager.createQuery(oCriteriaQuery).getResultList();
-			if(m_arrCourseInformationDataList.size() > 0)
-			{
-				for(int nIndex = 0; nIndex < m_arrCourseInformationDataList.size(); nIndex++)
-					oCourseDataResponse.m_arrCourseInformationData.add(m_arrCourseInformationDataList.get(nIndex));
-				oCourseDataResponse.m_bSuccess = true;
-			}
-						
+		{			
+			oCourseDataResponse.m_arrCourseInformationData = (ArrayList<CourseInformationData>) populateFilterObjectData(oCourseInformationData);
+			if(oCourseDataResponse.m_arrCourseInformationData.size() > 0)
+				oCourseDataResponse.m_bSuccess = true;						
 		}
 		catch (Exception oException)
 		{
 			m_oLogger.error("getCourseFilterData - oException : " +oException);
 			throw oException;
-		}
-		finally 
-		{
-			oEntityManager.close();
-			HibernateUtil.removeConnection();
 		}
 		return oCourseDataResponse;		
 	}	

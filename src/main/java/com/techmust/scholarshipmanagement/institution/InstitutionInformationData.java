@@ -217,9 +217,11 @@ public class InstitutionInformationData extends MasterData
 		if (getM_nInstitutionId() > 0)
 			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_nInstitutionId"), m_nInstitutionId));
 		if (!m_strInstitutionName.isEmpty())
-		{
 			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_strInstitutionName"), m_strInstitutionName));
-		}
+		if (!m_strPhoneNumber.isEmpty())
+			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_strPhoneNumber"), m_strPhoneNumber));
+		if (!m_strCity.isEmpty())
+			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_strCity"), m_strCity));
 		return oConjunct;
 	}
 	

@@ -44,5 +44,6 @@ public class Constants
 	public static final String CHEQUECLAIMED = "cheque claimed";
 	public static final String NUMBERPREFIX = "+91";
 	public static final String LOGINUSERNAME = "login_username";
+	public static final String CHEQUESTATUS = "Active";
 	
 }

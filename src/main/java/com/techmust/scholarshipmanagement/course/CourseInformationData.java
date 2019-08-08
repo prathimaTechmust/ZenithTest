@@ -92,6 +92,10 @@ public class CourseInformationData extends MasterData
 		Predicate oConjunct = oCriteriaBuilder.conjunction();
 		if (getM_nCourseId() > 0)
 			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_nCourseId"), m_nCourseId));
+		if (!m_strShortCourseName.isEmpty())
+			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_strShortCourseName"), m_strShortCourseName));
+		if (!m_strLongCourseName.isEmpty())
+			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_strLongCourseName"), m_strLongCourseName));
 		return oConjunct;
 	}
 	

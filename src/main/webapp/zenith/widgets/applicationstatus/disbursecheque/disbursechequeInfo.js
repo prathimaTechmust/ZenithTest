@@ -102,6 +102,7 @@ function reIssueCheque_init()
 	createPopup('dialog','#chequeRemarkInfo_button_submit','chequeRemarkInfo_button_cancel', true);
 	initFormValidateBoxes('chequeRemarkForm');
 	m_oDisburseStudentChequeInfo_MemberData.m_nStudentId = m_oDisburseStudentChequeInfo_MemberData.m_oStudentInformationData.m_nStudentId;
+	m_oDisburseStudentChequeInfo_MemberData.m_nAcademicId =  m_oDisburseStudentChequeInfo_MemberData.m_oStudentInformationData.m_oAcademicDetails[0].m_nAcademicId;
 }
 
 function chequeRemarkInfo_submit()
@@ -130,6 +131,7 @@ function chequeRemark_progressbarLoaded() {
 	createPopup('dialog','','',true);
 	var oZenith = new ZenithScholarshipDetails ();	
 	oZenith.m_nStudentId = m_oDisburseStudentChequeInfo_MemberData.m_nStudentId;
+	oZenith.m_nAcademicId = m_oDisburseStudentChequeInfo_MemberData.m_nAcademicId;
 	oZenith.m_strChequeRemark = $("#chequeRemarkInfo_input_Remark").val();
 	ZenithStudentInformationDataProcessor.reIssueChequeStatusUpdate(oZenith,reIssueChequeResponse);
 }

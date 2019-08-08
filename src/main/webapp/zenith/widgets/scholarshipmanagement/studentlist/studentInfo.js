@@ -109,6 +109,7 @@ function loadCourseListResponseToDropDown(oCourseListResponse)
 				$("#select_input_studentcourse").jqxComboBox({	source :oCourseListResponse.m_arrCourseInformationData,
 																displayMember: "m_strShortCourseName",
 																valueMember: "m_nCourseId",
+																placeHolder:"Select Course",
 																autoComplete:true,
 																searchMode :"startswithignorecase",
 																width :"200px",
@@ -131,6 +132,7 @@ function loadInstitutionListResponseToDropDown (oInstitutionResponse)
 				$("#select_input_academic_name").jqxComboBox({	source :oInstitutionResponse.m_arrInstitutionInformationData,
 																displayMember: "m_strInstitutionName",
 																valueMember: "m_nInstitutionId",
+																placeHolder:"Select Institution",
 																autoComplete:true,
 																searchMode :"startswithignorecase",
 																width :"200px",
@@ -153,6 +155,7 @@ function loadFacilitatorListResponseToDropDown (oReponse)
 			   $("#selectStudentInfo_input_studentfacilitator").jqxComboBox({	source :oReponse.m_arrFacilitatorInformationData,
 																				displayMember: "m_strFacilitatorName",
 																				valueMember: "m_nFacilitatorId",
+																				placeHolder:"Select Facilitator",
 																				autoComplete:true,
 																				searchMode :"startswithignorecase",
 																				width :"200px",
@@ -411,7 +414,8 @@ function getAcademicDetails ()
 function getZenithstatus()
 {
 	var oArrScholarshipStatus = new Array();
-	var oZenithSholarshipstatus = new ZenithScholarshipDetails ();	
+	var oZenithSholarshipstatus = new ZenithScholarshipDetails ();
+	oZenithSholarshipstatus.m_strAcademicYear = $("#select_student_academicyear").val();
 	oArrScholarshipStatus.push(oZenithSholarshipstatus);
 	return oArrScholarshipStatus;
 }
@@ -638,7 +642,7 @@ function gotSiblingDetails (m_arrSiblingsDetails)
 		 if(nIndex !=0)
 		 $("#siblings").append('<tr><td class="fieldHeading">UID</td> <td><input type="text" id="studentInfo_input_SiblingsUID'+(nIndex)+'" class="zenith" style="margin-right: 60px"/></td><td class="fieldHeading">Name</td><td><input type="text"id="studentInfo_input_SiblingsName'+(nIndex)+'" class="zenith" /></td><td class="fieldHeading">Studying</td><td><input type="text" id="studentInfo_input_SiblingsStudying'+(nIndex)+'" class="zenith" /></td><td class="fieldHeading">School/College</td><td><input type="text" id="studentInfo_input_SiblingsSchoolCollege'+(nIndex)+'" class="zenith" /></td><td> <img src="images/delete.png" width="20" align="center" id="deleteImageId" title="DeleteSiblings" class = "removeSiblings" onClick="deleteNewSiblings(this.id)"/> </td></tr>');
 		 $("#studentInfo_input_SiblingsUID"+nIndex).val(m_arrSiblingsDetails[nIndex].m_nZenithUID);
-		 $("#studentInfo_input_SiblingsName"+nIndex).val(m_arrSiblingsDetails[nIndex].m_strSiblingName);
+		 $("#studentInfo_input_SiblingsName"+nIndex).val(m_arrSiblingsDetails[nIndex].m_strSibilingName);
 		 $("#studentInfo_input_SiblingsStudying"+nIndex).val(m_arrSiblingsDetails[nIndex].m_strStudying);
 		 $("#studentInfo_input_SiblingsSchoolCollege"+nIndex).val(m_arrSiblingsDetails[nIndex].m_strStudyingInstitution);		 
 	 }
@@ -1069,7 +1073,7 @@ function addSibilingsDetails ()
 			var oSiblingsDeatils = new SiblingsDetails();				    
 			oSiblingsDeatils.m_nSiblingId = arrSiblingDetails[nIndex].m_nSiblingId;				
 			oSiblingsDeatils.m_nZenithUID = $("#studentInfo_input_SiblingsUID"+nIndex).val();
-			oSiblingsDeatils.m_strSiblingName = $("#studentInfo_input_SiblingsName"+nIndex).val();
+			oSiblingsDeatils.m_strSibilingName = $("#studentInfo_input_SiblingsName"+nIndex).val();
 			oSiblingsDeatils.m_strStudying = $("#studentInfo_input_SiblingsStudying"+nIndex).val();
 			oSiblingsDeatils.m_strStudyingInstitution = $("#studentInfo_input_SiblingsSchoolCollege"+nIndex).val();
 			oArrSiblingsDetails.push(oSiblingsDeatils);
@@ -1083,7 +1087,7 @@ function addSibilingsDetails ()
 			if(($("#studentInfo_input_SiblingsUID"+nIndex).val() != '' && $("#studentInfo_input_SiblingsName"+nIndex).val() !='' && $("#studentInfo_input_SiblingsStudying"+nIndex).val() != '' && $("#studentInfo_input_SiblingsSchoolCollege"+nIndex).val() !='')&&($("#studentInfo_input_SiblingsUID"+nIndex).val() != undefined && $("#studentInfo_input_SiblingsName"+nIndex).val() != undefined  && $("#studentInfo_input_SiblingsStudying"+nIndex).val() != undefined && $("#studentInfo_input_SiblingsSchoolCollege"+nIndex).val() != undefined  ))
 	    	{					   
 				oSiblingsDeatils.m_nZenithUID = $("#studentInfo_input_SiblingsUID"+nIndex).val();
-				oSiblingsDeatils.m_strSiblingName = $("#studentInfo_input_SiblingsName"+nIndex).val();
+				oSiblingsDeatils.m_strSibilingName = $("#studentInfo_input_SiblingsName"+nIndex).val();
 				oSiblingsDeatils.m_strStudying = $("#studentInfo_input_SiblingsStudying"+nIndex).val();
 				oSiblingsDeatils.m_strStudyingInstitution = $("#studentInfo_input_SiblingsSchoolCollege"+nIndex).val();
 				oArrSiblingsDetails.push(oSiblingsDeatils);
@@ -1106,7 +1110,7 @@ function getNewSiblingsDetails ()
 		if(($("#studentInfo_input_SiblingsUID"+nIndex).val() != '' && $("#studentInfo_input_SiblingsName"+nIndex).val() !='' && $("#studentInfo_input_SiblingsStudying"+nIndex).val() != '' && $("#studentInfo_input_SiblingsSchoolCollege"+nIndex).val() !='')&&($("#studentInfo_input_SiblingsUID"+nIndex).val() != undefined && $("#studentInfo_input_SiblingsName"+nIndex).val() != undefined  && $("#studentInfo_input_SiblingsStudying"+nIndex).val() != undefined && $("#studentInfo_input_SiblingsSchoolCollege"+nIndex).val() != undefined  ))
 		{
 			oSiblingsDeatils.m_nZenithUID = $("#studentInfo_input_SiblingsUID"+nIndex).val();
-			oSiblingsDeatils.m_strSiblingName = $("#studentInfo_input_SiblingsName"+nIndex).val();
+			oSiblingsDeatils.m_strSibilingName = $("#studentInfo_input_SiblingsName"+nIndex).val();
 			oSiblingsDeatils.m_strStudying = $("#studentInfo_input_SiblingsStudying"+nIndex).val();
 			oSiblingsDeatils.m_strStudyingInstitution = $("#studentInfo_input_SiblingsSchoolCollege"+nIndex).val();
 			oArrSiblingsDetails.push(oSiblingsDeatils);			

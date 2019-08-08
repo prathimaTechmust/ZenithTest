@@ -12,14 +12,19 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.bouncycastle.jcajce.provider.digest.SHA3.DigestSHA3;
 import org.hibernate.Criteria;
 import javax.imageio.ImageIO;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import com.techmust.generic.data.GenericData;
@@ -27,6 +32,7 @@ import com.techmust.generic.data.IGenericData;
 import com.techmust.generic.response.GenericResponse;
 import com.techmust.generic.util.HibernateUtil;
 import com.techmust.scholarshipmanagement.academicdetails.AcademicYear;
+import com.techmust.scholarshipmanagement.scholarshipdetails.zenithscholarshipstatus.ZenithScholarshipDetails;
 import com.techmust.scholarshipmanagement.student.StudentInformationData;
 import com.techmust.usermanagement.userinfo.UserInformationData;
 
@@ -157,6 +163,97 @@ public abstract class GenericIDataProcessor<T extends IGenericData>
 		return oResult;
 	}
 	
+	public static Object populateFilterObjectData (GenericData oGenericData)
+	{
+		m_oLogger.info("populateFilterObjectData");
+		m_oLogger.debug("populateFilterObjectData - GenericData" + oGenericData);
+		EntityManager oEntityManager = oGenericData._getEntityManager();
+		ArrayList<GenericData> m_arrGenericDataList = new ArrayList<GenericData>();
+		try
+		{
+			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
+			Class<GenericData> oGetClass = (Class<GenericData>) oGenericData.getClass();
+			CriteriaQuery<GenericData> oCriteriaQuery = oCriteriaBuilder.createQuery(oGetClass);
+			Root<GenericData> oRootGetClassObject = oCriteriaQuery.from(oGetClass);
+			oCriteriaQuery.select(oRootGetClassObject);			
+			oCriteriaQuery.where(oGenericData.prepareCriteria(oRootGetClassObject, oCriteriaQuery, oCriteriaBuilder));
+			m_arrGenericDataList = (ArrayList<GenericData>) oEntityManager.createQuery(oCriteriaQuery).getResultList();
+			
+		}
+		catch (Exception oException)
+		{
+			m_oLogger.error("populateFilterObjectData - oException"+ oException);
+		}
+		finally
+		{
+			oEntityManager.close();
+			HibernateUtil.removeConnection();
+		}
+		return m_arrGenericDataList;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static Object populateStudentFilterObjectData (StudentInformationData oStudentData)
+	{
+		m_oLogger.info("populateStudentFilterObjectData");
+		m_oLogger.debug("populateStudentFilterObjectData - StudentInformationData" + oStudentData);
+		ArrayList<StudentInformationData> m_arrStudentDataList = new ArrayList<StudentInformationData>();
+		try
+		{
+			
+			if(oStudentData.getM_strStatus() != null)
+			{
+				m_arrStudentDataList = getStudentStatusFilteredData(oStudentData);							
+			}
+			else
+			{
+				m_arrStudentDataList = (ArrayList<StudentInformationData>) populateFilterObjectData(oStudentData);					
+			}
+		}
+		catch (Exception oException)
+		{
+			m_oLogger.error("populateStudentFilterObjectData - oException"+ oException);
+		}		
+		return m_arrStudentDataList;		
+	}
+	
+	private static ArrayList<StudentInformationData> getStudentStatusFilteredData(StudentInformationData oStudentData)
+	{
+		m_oLogger.info("StudentFilterObjectData");
+		m_oLogger.debug("StudentFilterObjectData - StudentInformationData" + oStudentData);
+		ArrayList<StudentInformationData> m_arrFilterStudentList = new ArrayList<StudentInformationData>();
+		EntityManager oEntityManager = oStudentData._getEntityManager();
+		try 
+		{
+			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
+			CriteriaQuery<StudentInformationData> oQuery = oCriteriaBuilder.createQuery(StudentInformationData.class);
+			Root<StudentInformationData> oStudentRoot = oQuery.from(StudentInformationData.class);
+			Join<StudentInformationData,ZenithScholarshipDetails> oRootJoin = oStudentRoot.join("m_oZenithScholarshipDetails",JoinType.INNER);
+			List<Predicate> m_PredicateList = new ArrayList<Predicate>();
+			if(oStudentData.getM_strStatus() != null)
+				m_PredicateList.add(oCriteriaBuilder.equal(oRootJoin.get("m_strStatus"),oStudentData.getM_strStatus()));
+			if(oStudentData.getM_strPhoneNumber() != "")
+				m_PredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_strPhoneNumber"),oStudentData.getM_strPhoneNumber()));
+			if(oStudentData.getM_strStudentName() != "")
+				m_PredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_strStudentName"),oStudentData.getM_strStudentName()));
+			if(oStudentData.getM_nStudentAadharNumber() >0)
+				m_PredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_nStudentAadharNumber"),oStudentData.getM_nStudentAadharNumber()));
+			oQuery.select(oStudentRoot).where(m_PredicateList.toArray(new Predicate[] {}));
+			TypedQuery<StudentInformationData> typedQuery = oEntityManager.createQuery(oQuery);
+			m_arrFilterStudentList = (ArrayList<StudentInformationData>) typedQuery.getResultList();	
+		}
+		catch (Exception oException)
+		{
+			m_oLogger.debug("getStudentFiltered Data - oException"+oException);
+		}
+		finally
+		{
+			oEntityManager.close();
+			HibernateUtil.removeConnection();
+		}
+		return m_arrFilterStudentList;
+	}
+
 	public static long getRowCount (GenericData  oGenericData)
 	{
 		return oGenericData.getRowCount(oGenericData);

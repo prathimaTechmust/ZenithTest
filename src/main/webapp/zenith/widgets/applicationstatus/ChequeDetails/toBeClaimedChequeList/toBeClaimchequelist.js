@@ -162,8 +162,8 @@ function claimChequeDateInit()
 	initFormValidateBoxes("claimChequeForm");
 }
 
-function validateDate() {
-	
+function validateDate() 
+{
 	var date = new Date();
 	var day = date.getDate();
 	var month = date.getMonth() + 1;
@@ -175,7 +175,7 @@ function validateDate() {
 }
 
 function claimChequeDate_submit() 
-{
+{ 
 	if(claimChequeInfo_validate())
 	{
 			loadPage ("include/process.html", "ProcessDialog", "claimCheque_progressbarLoaded ()");
