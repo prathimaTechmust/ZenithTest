@@ -70,7 +70,8 @@
 						<td class="zenith" align="left">
 							<table class="zenith">
 								<tr>
-									<td>																																															
+									<td>	
+									 <button type="button" width="120px" align="center" class="zenith addButton" style="width:120px;" id="documentView" title="documentView" onclick="viewStudentDocument('{StudentInformationData/m_oAcademicDetails/AcademicDetails/m_nAcademicId}')">View Documents </button>																																																																																											
 									<button type="button" width="20" align="center" class = "zenith addButton" style="width:100px;" id="reVerify" title="ReVerify" onClick="reVerifyStudentInfo_Student()">ReVerify</button>
 									</td>			
 								</tr>									
@@ -258,11 +259,14 @@
 			</td>
 		</tr>
 		<tr>
+					<td class="topAlign">
+		<!-- Parents guardian details -->
+		<table>
+		<tr>
 			<td>
-			<!-- Parents guardian details -->
 				<table>
 					<tr>
-						<td>
+						<td class="topAlign">
 							<table class="xslt_trademust" cellSpacing="5px">
 								<tr>
 									<td class = "xslt_zenithFieldHeader">Family Details:</td>								
@@ -299,7 +303,7 @@
 								</tr>	
 							</table>						
 						</td>
-						<td>
+						<td class="topAlign">
 							<table class="xslt_trademust" cellSpacing="5px">
 								<tr>
 									<td class = "xslt_zenithFieldHeader"> <br/> </td>								
@@ -337,9 +341,47 @@
 									</td>								
 								</tr>
 							</table>		
-						</td>						
+						</td>				
 					</tr>
-				</table>			
+					<tr>
+						<td class="topAlign" >
+							<table class="xslt_trademust" cellSpacing="5px">
+								<tr>
+									<td class = "xslt_zenithFieldHeader">Siblings:</td>								
+								</tr>						
+								<tr>
+									<td>
+										<table border="1" cellSpacing="5px" class="organization" >	
+											<tr>
+												<td class="organization">Name</td>
+												<td class="organization">Studying</td>
+												<td class="organization">School/College</td>
+											</tr>																			
+											<tr>
+												<xsl:for-each select="StudentInformationData/m_oSibilingDetails/SiblingsDetails">
+												<tr>
+													<td class="organization organizationData" >
+														<xsl:value-of select="m_strSiblingName" />
+													</td>
+													<td class="organization organizationData">
+														<xsl:value-of select="m_strStudying"/>
+													</td>
+													<td class="organization organizationData">
+														<xsl:value-of select="m_strStudyingInstitution"/>
+													</td>												
+												</tr>									
+												</xsl:for-each>									
+											</tr>								
+										</table>			
+									</td>		
+								</tr>
+							</table>		
+						</td>				
+					</tr>
+				</table>
+			</td>	
+		</tr>
+		</table>			
 			</td>
 			<td class="topAlign">
 			<!-- scholarship details -->
