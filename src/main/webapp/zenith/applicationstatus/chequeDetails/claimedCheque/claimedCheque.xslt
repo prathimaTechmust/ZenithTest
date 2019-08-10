@@ -363,7 +363,7 @@
 									<td class="xslt_fieldData" id="m_strAlternateNumber">
 										<xsl:value-of select="StudentInformationData/m_strAlternateNumber" />
 									</td>								
-							s	</tr>
+								</tr>
 							</table>		
 						</td>				
 					</tr>
