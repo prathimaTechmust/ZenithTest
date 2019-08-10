@@ -300,7 +300,7 @@
 			</td>
 		</tr>
 		<tr>
-						<td class="topAlign">
+		<td class="topAlign">
 		<!-- Parents guardian details -->
 		<table>
 		<tr>

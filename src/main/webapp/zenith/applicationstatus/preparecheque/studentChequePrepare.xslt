@@ -224,7 +224,71 @@
 				</tr>
 			</table>
 			</td>
-			<td class="topAlign">
+			<td>
+				<!-- Academic details-->
+				<table>
+					<tr>
+						<td width="50%" valign="top">	
+							<table class="xslt_trademust" cellSpacing="5px">
+								<tr>
+									<td class = "xslt_zenithFieldHeader">Academic Details:</td>								
+								</tr>
+								<tr>
+									<td class="xslt_fieldHeading">
+										Academic Name:									
+									</td>
+									<td class="xslt_fieldData" id="m_strInstitutionName">
+										<xsl:value-of select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oInstitutionInformationData/InstitutionInformationData/m_strInstitutionName"/>
+									</td>
+								</tr>
+								<tr>
+									<td class="xslt_fieldHeading">
+										Course Name:									
+									</td>
+									<td class="xslt_fieldData" id="m_strCourseName">
+										<xsl:value-of select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oCourseInformationData/CourseInformationData/m_strShortCourseName"/>
+									</td>
+								</tr>
+								<tr>
+									<td class="xslt_fieldHeading">
+										Specialization:									
+									</td>
+									<td class="xslt_fieldData" id="m_strSpecialization">
+										<xsl:value-of select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_strSpecialization"/>
+									</td>
+								</tr>
+								<tr>
+									<td class="xslt_fieldHeading">
+										Score:									
+									</td>
+									<td class="xslt_fieldData" id="m_strStudentScore">
+										<xsl:value-of select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_strStudentScore"/>
+									</td>
+								</tr>
+								<tr>
+									<td class="xslt_fieldHeading">
+										Annual Fee(₹):									
+									</td>
+									<td class="xslt_fieldData" id="m_fAnnualFee">
+										<xsl:value-of select="format-number(StudentInformationData/m_oAcademicDetails/AcademicDetails/m_fAnnualFee, '##,##,##0')"/>
+									</td>
+								</tr>
+								<tr>
+									<td class="xslt_fieldHeading">
+										Paid Fee(₹):									
+									</td>
+									<td class="xslt_fieldData" id="m_fPaidFee">
+										<xsl:value-of select="format-number(StudentInformationData/m_oAcademicDetails/AcademicDetails/m_fPaidFee, '##,##,##0')"/>
+									</td>
+								</tr>								
+							</table>
+						</td>																		
+					</tr>
+				</table>			
+			</td>
+		</tr>
+		<tr>
+		<td class="topAlign">
 		<!-- Parents guardian details -->
 		<table>
 		<tr>
@@ -347,92 +411,7 @@
 			</td>	
 		</tr>
 		</table>			
-	</td>
-		</tr>
-		<tr>
-			<td>
-			<!-- Parents guardian details -->
-				<table>
-					<tr>
-						<td>
-							<table class="xslt_trademust" cellSpacing="5px">
-								<tr>
-									<td class = "xslt_zenithFieldHeader">Family Details:</td>								
-								</tr>
-								<tr>
-									<td class="xslt_fieldHeading">
-										Father Name :
-									</td>
-									<td class="xslt_fieldData" id="m_strFatherName">
-										<xsl:value-of select="StudentInformationData/m_strFatherName" />
-									</td>
-								</tr>
-								<tr>
-									<td class="xslt_fieldHeading">
-										Father Occupation :
-									</td>
-									<td class="xslt_fieldData" id="m_strFatherOccupation">
-										<xsl:value-of select="StudentInformationData/m_strFatherOccupation" />
-									</td>
-								</tr>
-								<tr>
-									<td class="xslt_fieldHeading">
-										Father Aadhar Number :
-									</td>
-									<td class="xslt_fieldData" id="m_nFatherAadharNumber">
-										<xsl:value-of select="StudentInformationData/m_nFatherAadharNumber" />
-									</td>
-								</tr>
-								<tr>
-									<td class="xslt_fieldHeading">Income Per Annum(₹):</td>
-									<td class="xslt_fieldData" id="m_nFamilyIncome">
-										<xsl:value-of select= "format-number(StudentInformationData/m_nFamilyIncome, '##,##,##0')" />
-									</td>
-								</tr>	
-							</table>						
-						</td>
-						<td>
-							<table class="xslt_trademust" cellSpacing="5px">
-								<tr>
-									<td class = "xslt_zenithFieldHeader"> <br/> </td>								
-								</tr>
-								<tr>
-									<td class="xslt_fieldHeading">
-										Mother Name :
-									</td>
-									<td class="xslt_fieldData" id="m_strMotherName">
-										<xsl:value-of select="StudentInformationData/m_strMotherName" />
-									</td>
-								</tr>
-								<tr>
-									<td class="xslt_fieldHeading">
-										Mother Occupation :
-									</td>
-									<td class="xslt_fieldData" id="m_strMotherOccupation">
-										<xsl:value-of select="StudentInformationData/m_strMotherOccupation" />
-									</td>
-								</tr>
-								<tr>
-									<td class="xslt_fieldHeading">
-										Mother Aadhar Number :
-									</td>
-									<td class="xslt_fieldData" id="m_nMotherAadharNumber">
-										<xsl:value-of select="StudentInformationData/m_nMotherAadharNumber" />
-									</td>
-								</tr>
-								<tr>
-									<td class="xslt_fieldHeading">
-										Alternative Number :
-									</td>
-									<td class="xslt_fieldData" id="m_strAlternateNumber">
-										<xsl:value-of select="StudentInformationData/m_strAlternateNumber" />
-									</td>								
-								</tr>
-							</table>		
-						</td>						
-					</tr>
-				</table>			
-			</td>
+		</td>
 			<td class="topAlign">
 			<!-- Scholarship details -->
 			<table>
