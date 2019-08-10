@@ -97,6 +97,7 @@ function approveStudentListInfo_createDataGrid ()
 				}
 			}
 	)
+	applicationPriorityGridColor('listApproveStudents_table_students');
 	approveStudentList_initDGPagination();
 	approveStudentListInfo_list(m_oApproveStudentList_Info_MemberData.m_strSortColumn, m_oApproveStudentList_Info_MemberData.m_strSortOrder, 1, 10);
 }

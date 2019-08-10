@@ -2262,3 +2262,7 @@ a.s-btn-plain-active {
 .tooltip-bottom .tooltip-arrow {
   border-bottom-color: #ffffff;
 }
+
+.datagrid_priorityRow{
+	background-color:#4ca973;
+}

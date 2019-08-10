@@ -102,6 +102,7 @@ function createToBeClaimChequeList_DataGrid()
 		}
 	)
 	toBeClaimChequeList();
+	applicationPriorityGridColor('toBeClaimChequeList_table');
 }
 
 function toBeClaimChequeList()

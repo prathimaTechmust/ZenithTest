@@ -13,10 +13,11 @@
 	}
 
 	td.organization {
-	border: 1px solid black;
-	padding: 10px;
+	font-family: sans-serif;
+	padding: 4px;
     text-align: center;
 	}
+	
 	
 	td.organizationData{
 	text-align: center;

@@ -64,23 +64,7 @@ $.extend($.fn.validatebox.defaults.rules, {
     }
 });
 
-function studentList_setPreview (m_strStudentImageUrl)
-{
-	m_oZenithMemberData.m_strImageUrl = m_strStudentImageUrl;
-	loadPage ("scholarshipmanagement/student/studentImagePreview.html", "dialog", "studentList_showImagePreview ()");
-}
 
-function studentList_showImagePreview ()
-{
-	createPopup ('dialog', '', '', true);
-	document.getElementById('dialog').style.position = "fixed";
-	$(".imagePreview").attr('src', m_oZenithMemberData.m_strImageUrl);
-}
-
-function studentList_cancelImagePreview ()
-{
-	HideDialog ("dialog");
-}
 function isUrlValid(fieldId) {
 	var url = $("#"+fieldId).val();
     if(!(/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i
@@ -151,140 +135,6 @@ function loadPage (toPage, container, onCompleteCallBack)
 	}
     document.getElementById("status").innerHTML = "<p>loading "+toPage+"...in "+container+"</p>";
     
-}
-
-function viewStudentDocument(academicId) 
-{
-	var oAcademicDetails = new AcademicDetails ();
-	oAcademicDetails.m_nAcademicId = academicId;
-	AcademicDetailsDataProcessor.getStudentDocuments(oAcademicDetails,studentUploadedDocumentsResponse);
-	
-}
-
-function studentUploadedDocumentsResponse (oResponse)
-{
-	if(oResponse.m_bSuccess)
-	{
-		m_oZenithMemberData.m_oStudentDocuments = oResponse.m_oStudentDocuments;
-		loadPage("applicationstatus/documentView/studentDocumentView.html","dialog","viewStudentDocumentDetails()");
-	}
-	else
-		informUser("No Documents Uploaded!!","kError");
-}
-
-function viewStudentDocumentDetails ()
-{
-	viewStudentDocuments_init();
-}
-
-function viewStudentDocuments_init()
-{	
-	createPopup('dialog','','chequeRemarkInfo_button_cancel', true);
-	setUploadedDocuments(m_oZenithMemberData.m_oStudentDocuments);
-}
-
-function setUploadedDocuments(oStudentDocuments)
-{
-	if(oStudentDocuments != null && oStudentDocuments.m_strStudentAadhar != null)
-		$("#studentAadharId").attr('src',oStudentDocuments.m_strStudentAadhar);
-	if(oStudentDocuments != null && oStudentDocuments.m_strFatherAadharImageId != null)
-		$("#fatherAadharId").attr('src',oStudentDocuments.m_strFatherAadharImageId);
-	if(oStudentDocuments != null && oStudentDocuments.m_strMotherAadharImageId !=null)
-		$("#motherAadharId").attr('src',oStudentDocuments.m_strMotherAadharImageId);
-	if(oStudentDocuments != null && oStudentDocuments.m_strStudentElectricityBill !=null)
-		$("#electricityBillId").attr('src',oStudentDocuments.m_strStudentElectricityBill);
-	if(oStudentDocuments != null && oStudentDocuments.m_strStudentMarksCard1 !=null)
-		$("#marksCard1Id").attr('src',oStudentDocuments.m_strStudentMarksCard1);
-	if(oStudentDocuments != null && oStudentDocuments.m_strStudentMarksCard2 !=null)
-		$("#marksCard2Id").attr('src',oStudentDocuments.m_strStudentMarksCard2);
-	if(oStudentDocuments != null && oStudentDocuments.m_strOtherDocuments !=null)
-		$("#additionalDocumentId").attr('src',oStudentDocuments.m_strOtherDocuments);	
-	if(oStudentDocuments != null && oStudentDocuments.m_strVerifyScanDocument !=null)
-		$("#scanDocumentId").attr('src', oStudentDocuments.m_strVerifyScanDocument);
-}
-
-function viewStudentDocument_cancel() 
-{
-	HideDialog ("dialog");
-}
-
-function studentDocumentView_documentPreview (imageId)
-{
-	var imageSrc = document.getElementById(imageId.id).src;
-	m_oZenithMemberData.m_strImagePreviewUrl = imageSrc;
-	loadPage("applicationstatus/documentView/uploadDocumentView.html","secondDialog", "documentList_showImagePreview()");
-}
-
-function documentList_showImagePreview() 
-{
-	 createPopup ('secondDialog', '', '', true);
-	 document.getElementById('secondDialog').style.position = "fixed";
-	 $(".imagePreview").attr('src', m_oZenithMemberData.m_strImagePreviewUrl);    
-}
-
-function documentList_cancelImagePreview() 
-{
-	HideDialog ("secondDialog");	
-}
-
-function studentListInfo_filter (gridId,applicationStatus)
-{
-	
-	var oStudentFilterData = validateFilterBoxes (gridId.id,applicationStatus);
-	if(oStudentFilterData.m_bSuccess)
-		StudentInformationDataProcessor.filterStudentData(oStudentFilterData,studentFilteredResponse);
-	else
-		alert("Enter Any One Of the Filter Box ");
-}
-
-function validateFilterBoxes (gridId,status)
-{
-	m_oZenithMemberData.m_gridId = gridId;
-	var oStudentFilterData = new StudentInformationData();
-	oStudentFilterData.m_strAcademicYear = $("#selectacademicyearwiseStudents").val();
-	oStudentFilterData.m_strStatus = status;
-	oStudentFilterData.m_bSuccess = false;
-	if($("#filterStudentInfo_input_studentName").val() != "")
-	{
-		oStudentFilterData.m_strStudentName = $("#filterStudentInfo_input_studentName").val();
-		oStudentFilterData.m_bSuccess = true;
-	}
-	else if($("#filterStudentInfo_input_phonenumber").val() != "")
-	{
-		oStudentFilterData.m_strPhoneNumber = $("#filterStudentInfo_input_phonenumber").val();
-		oStudentFilterData.m_bSuccess = true;
-	}
-	else if($("#filterStudentInfo_input_aadhar").val() != "")
-	{
-		oStudentFilterData.m_nStudentAadharNumber = $("#filterStudentInfo_input_aadhar").val();
-		oStudentFilterData.m_bSuccess = true;
-	}
-	return oStudentFilterData;		
-}
-
-function studentFilteredResponse(oResponse)
-{
-	if(oResponse.m_bSuccess)
-	{
-		clearFilterBoxes ();
-		clearGridData ('#'+m_oZenithMemberData.m_gridId);
-		for (var nIndex = 0; nIndex < oResponse.m_arrStudentInformationData.length; nIndex++)
-			$('#'+m_oZenithMemberData.m_gridId).datagrid('appendRow',oResponse.m_arrStudentInformationData[nIndex]);
-		$('#'+m_oZenithMemberData.m_gridId).datagrid('getPager').pagination ({total:oResponse.m_nRowCount, pageNumber:oResponse.m_nPageNumber});
-	}
-	else
-	{
-		clearFilterBoxes ();
-		informUser("no search result found","kError");
-	}	
-	
-}
-
-function clearFilterBoxes ()
-{
-	document.getElementById("filterStudentInfo_input_studentName").value = "";
-	document.getElementById("filterStudentInfo_input_phonenumber").value = "";
-	document.getElementById("filterStudentInfo_input_aadhar").value = "";
 }
 
 function removeAllChildren (container)
@@ -655,74 +505,6 @@ function setFocus(oItemId)
 	document.getElementById(oItemId).focus();
 }
 
-function getSharedByList (arrConnections)
-{
-	var arrSharedByUsers = new Array ();
-	for (var  nIndex = 0 ; nIndex < arrConnections.length ; nIndex++)
-	{
-		var oBusinessInformationData = arrConnections[nIndex].m_oSharedByUser;
-		oBusinessInformationData.m_strRecommendedByDetail = arrConnections[nIndex].m_oInitiatedByUser.m_strUserName+"<br/>"+arrConnections[nIndex].m_oInitiatedByUser.m_strDesignation+"<br/>"+arrConnections[nIndex].m_oInitiatedByUser.m_strCompanyName;
-		oBusinessInformationData.m_nInitiatedUserId = arrConnections[nIndex].m_oInitiatedByUser.m_nUserId;
-		arrSharedByUsers.push(oBusinessInformationData);
-	}
-	return arrSharedByUsers;
-}
-
-function getSharedWithList (arrConnections)
-{
-	var arrSharedWithUsers = new Array ();
-	for (var  nIndex = 0 ; nIndex < arrConnections.length ; nIndex++)
-	{
-		var oBusinessInformationData = arrConnections[nIndex].m_oSharedWithUser;
-		oBusinessInformationData.m_strRecommendedByDetail = arrConnections[nIndex].m_oInitiatedByUser.m_strUserName+"<br/>"+arrConnections[nIndex].m_oInitiatedByUser.m_strDesignation+"<br/>"+arrConnections[nIndex].m_oInitiatedByUser.m_strCompanyName;
-		arrSharedWithUsers.push(oBusinessInformationData);
-	}
-	return arrSharedWithUsers;
-}
-
-//StudentDetails Print Method
-function printDocument ()
-{
-	var printContent = document.getElementById("printdetailsInfo");	
-	 var openWindow = window.open("", "", "");	   
-	    openWindow.document.write(printContent.innerHTML);
-	    openWindow.document.close();
-	    openWindow.focus();
-	    openWindow.print();
-	    openWindow.close();
-	    document.getElementById("printdetailsInfo").innerHTML = "";
-}
-
-//Converting Date functions
-function convertDateToTimeStamp(strDate)
-{
-    strDate= strDate.split("-");
-    var newDate = strDate[0]+"/"+strDate[1]+"/"+strDate[2];
-    value = new Date(newDate).getTime();
-    return value;
-}
-
-function convertTimestampToDate(dTimeStamp) //Formated to  'yyyy-mm-dd', to set in  form 
-{
-	var timeStamp = new Date(dTimeStamp);
-    var strDate =  timeStamp.getFullYear() +"-"+("0" + (timeStamp.getMonth() + 1)).slice(-2)+"-"+("0" + (timeStamp.getDate())).slice(-2);   
-   return strDate; 
-}
-
-function convertTimestampToDayMonthYear(dTimeStamp)  //Formated to  'dd-mm-yyyy', to set in  Grid
-{
-	 var timeStamp = new Date(dTimeStamp);
-	 var strDate = ("0" + (timeStamp.getDate())).slice(-2)+"-" +("0" + (timeStamp.getMonth() + 1)).slice(-2)+"-"+timeStamp.getFullYear();   
-	 return strDate; 	
-}
-
-function convertTimestampToDateTime(dTimeStamp) //Formated to DateTime format 
-{
-	var timeStamp = new Date(dTimeStamp);
-	var strDateTime = timeStamp.toLocaleString();   
-   return strDateTime;
-}
-
 function FormatDate (strDate)
 {
 	var arrDate = strDate.split('/');
@@ -878,47 +660,6 @@ var getUserList = function(param, success, error)
 		success(new Array ());
 }
 
-function initArticleNumberCombobox (strComboboxID, oMemberData)
-{
-	$(strComboboxID).combobox
-	({
-		valueField:'m_strArticleNumber',
-	    textField:'m_strArticleNumber',
-	    loader: getArticleNumberList,
-		mode: 'remote',
-		selectOnNavigation: false,
-		onSelect: function()
-    	{
-    		$(strComboboxID).combobox('textbox').focus();	
-    		$(strComboboxID).combobox('textbox').bind('keydown', oMemberData);
-    	}
-	});
-	var ArticleTextBox = $(strComboboxID).combobox('textbox');
-	ArticleTextBox[0].placeholder = "Article Number";
-}
-
-var getArticleNumberList = function(param, success, error)
-{
-	if(param.q != undefined && param.q.trim() != "")
-	{
-		var strQuery = param.q.trim();
-		var oItemData = new ItemData ();
-		oItemData.m_strArticleNumber = strQuery;
-		oItemData.m_oUserCredentialsData.m_nUserId = m_oZenithMemberData.m_nUserId;
-		oItemData.m_oUserCredentialsData.m_nUID = m_oZenithMemberData.m_nUID;
-		ItemDataProcessor.getArticleSuggesstions(oItemData, "", "", function(oItemDataResponse)
-				{
-					var arrItemData = new Array();
-					for(var nIndex=0; nIndex< oItemDataResponse.m_arrItems.length; nIndex++)
-				    {
-						arrItemData.push(oItemDataResponse.m_arrItems[nIndex]);
-				    }
-					success(arrItemData);
-				});
-	}
-	else
-		success(new Array ());
-}
 
 function disable (strElementId)
 {
@@ -928,23 +669,6 @@ function disable (strElementId)
 function enable (strElementId)
 {
 	document.getElementById (strElementId).disabled = false;
-}
-
-function getOrderedLineItems (arrLineItems)
-{
-	for(var nItemIndex = 0; nItemIndex < arrLineItems.length; nItemIndex++)
-	{
-		for(var nIndex = nItemIndex+1; nIndex < (arrLineItems.length); nIndex++)
-		{
-			if(arrLineItems[nItemIndex].m_nSerialNumber  > arrLineItems[nIndex].m_nSerialNumber)
-			{
-				var oLineItemData = arrLineItems[nItemIndex];
-				arrLineItems[nItemIndex] = arrLineItems[nIndex];
-				arrLineItems[nIndex] = oLineItemData;
-			}
-		}
-	}
-	return arrLineItems;
 }
 
 function loadDWRHeaders ()
@@ -1119,6 +843,7 @@ function multipartAjaxCall(oData, strURL, callback)
 	$.ajax({
 	    url: m_strLocationURL + strURL,
 	    data:oData ,
+	    dataType: "json",
 	    enctype: 'multipart/form-data',
 	    type:"POST",
 	    async:false,
@@ -1137,6 +862,43 @@ function multipartAjaxCall(oData, strURL, callback)
 	    	}
 	    });
 }
+
+
+/*function multipartAjaxCall(oData, strURL, callback)
+{
+	var strTenantName = document.cookie.split("=")[1];
+	$.ajax({
+	    url: m_strLocationURL + strURL,
+	    data:{oData},
+	    beforeSend: 
+	    	function(xhr)
+	    	{
+	    		xhr.setRequestHeader('zenithTenantName', strTenantName);
+	    		xhr.setRequestHeader("Content-Encoding", "gzip, deflate");
+	    	},
+	    dataType:"json",
+	    type:"POST",
+	    async:false,
+	    processData: false,
+	    contentType: false,
+	    cache: false,
+	    headers: { 
+	        'Accept': 'application/json',
+	        'Content-Type': 'application/json' 
+	    },
+	    success: function(oResponse){
+			fn = eval(callback);
+			fn(oResponse);
+		    },
+	    error:function(xhr, textStatus, errorThrown){
+	    	console.log(xhr );
+	    	console.log(textStatus);
+	    	console.log(errorThrown);
+	    	showError(xhr);
+	    	}
+	    });
+}*/
+
 
 function ajaxXMLCall(oData, strURL, callback)
 {
@@ -1166,3 +928,216 @@ function ajaxXMLCall(oData, strURL, callback)
 	    });
 }
 
+//Converting Date functions
+function convertDateToTimeStamp(strDate)
+{
+    strDate= strDate.split("-");
+    var newDate = strDate[0]+"/"+strDate[1]+"/"+strDate[2];
+    value = new Date(newDate).getTime();
+    return value;
+}
+
+function convertTimestampToDate(dTimeStamp) //Formated to  'yyyy-mm-dd', to set in  form 
+{
+	var timeStamp = new Date(dTimeStamp);
+    var strDate =  timeStamp.getFullYear() +"-"+("0" + (timeStamp.getMonth() + 1)).slice(-2)+"-"+("0" + (timeStamp.getDate())).slice(-2);   
+   return strDate; 
+}
+
+function convertTimestampToDayMonthYear(dTimeStamp)  //Formated to  'dd-mm-yyyy', to set in  Grid
+{
+	 var timeStamp = new Date(dTimeStamp);
+	 var strDate = ("0" + (timeStamp.getDate())).slice(-2)+"-" +("0" + (timeStamp.getMonth() + 1)).slice(-2)+"-"+timeStamp.getFullYear();   
+	 return strDate; 	
+}
+
+function convertTimestampToDateTime(dTimeStamp) //Formated to DateTime format 
+{
+	var timeStamp = new Date(dTimeStamp);
+	var strDateTime = timeStamp.toLocaleString();   
+   return strDateTime;
+}
+
+//StudentDetails Print Method
+function printDocument ()
+{
+	var printContent = document.getElementById("printdetailsInfo");	
+	 var openWindow = window.open("", "", "");	   
+	    openWindow.document.write(printContent.innerHTML);
+	    openWindow.document.close();
+	    openWindow.focus();
+	    openWindow.print();
+	    openWindow.close();
+	    document.getElementById("printdetailsInfo").innerHTML = "";
+}
+
+//StudentDetails Filters Based on StudentName,PhoneNumber,Student AadharNumber
+function studentListInfo_filter (gridId,applicationStatus)
+{
+	
+	var oStudentFilterData = validateFilterBoxes (gridId.id,applicationStatus);
+	if(oStudentFilterData.m_bSuccess)
+		StudentInformationDataProcessor.filterStudentData(oStudentFilterData,studentFilteredResponse);
+	else
+		alert("Enter Any One Of the Filter Box ");
+}
+
+function validateFilterBoxes (gridId,status)
+{
+	m_oZenithMemberData.m_gridId = gridId;
+	var oStudentFilterData = new StudentInformationData();
+	oStudentFilterData.m_strAcademicYear = $("#selectacademicyearwiseStudents").val();
+	oStudentFilterData.m_strStatus = status;
+	oStudentFilterData.m_bSuccess = false;
+	if($("#filterStudentInfo_input_studentName").val() != "")
+	{
+		oStudentFilterData.m_strStudentName = $("#filterStudentInfo_input_studentName").val();
+		oStudentFilterData.m_bSuccess = true;
+	}
+	else if($("#filterStudentInfo_input_phonenumber").val() != "")
+	{
+		oStudentFilterData.m_strPhoneNumber = $("#filterStudentInfo_input_phonenumber").val();
+		oStudentFilterData.m_bSuccess = true;
+	}
+	else if($("#filterStudentInfo_input_aadhar").val() != "")
+	{
+		oStudentFilterData.m_nStudentAadharNumber = $("#filterStudentInfo_input_aadhar").val();
+		oStudentFilterData.m_bSuccess = true;
+	}
+	return oStudentFilterData;		
+}
+
+function studentFilteredResponse(oResponse)
+{
+	if(oResponse.m_bSuccess)
+	{
+		clearFilterBoxes ();
+		clearGridData ('#'+m_oZenithMemberData.m_gridId);
+		for (var nIndex = 0; nIndex < oResponse.m_arrStudentInformationData.length; nIndex++)
+			$('#'+m_oZenithMemberData.m_gridId).datagrid('appendRow',oResponse.m_arrStudentInformationData[nIndex]);
+		$('#'+m_oZenithMemberData.m_gridId).datagrid('getPager').pagination ({total:oResponse.m_nRowCount, pageNumber:oResponse.m_nPageNumber});
+	}
+	else
+	{
+		clearFilterBoxes ();
+		informUser("no search result found","kError");
+	}	
+	
+}
+
+function clearFilterBoxes ()
+{
+	document.getElementById("filterStudentInfo_input_studentName").value = "";
+	document.getElementById("filterStudentInfo_input_phonenumber").value = "";
+	document.getElementById("filterStudentInfo_input_aadhar").value = "";
+}
+
+//Getting Student Upload Documents
+function viewStudentDocument(academicId) 
+{
+	var oAcademicDetails = new AcademicDetails ();
+	oAcademicDetails.m_nAcademicId = academicId;
+	AcademicDetailsDataProcessor.getStudentDocuments(oAcademicDetails,studentUploadedDocumentsResponse);
+	
+}
+
+function studentUploadedDocumentsResponse (oResponse)
+{
+	if(oResponse.m_bSuccess)
+	{
+		m_oZenithMemberData.m_oStudentDocuments = oResponse.m_oStudentDocuments;
+		loadPage("applicationstatus/documentView/studentDocumentView.html","dialog","viewStudentDocumentDetails()");
+	}
+	else
+		informUser("No Documents Uploaded!!","kError");
+}
+
+function viewStudentDocumentDetails ()
+{
+	viewStudentDocuments_init();
+}
+
+function viewStudentDocuments_init()
+{	
+	createPopup('dialog','','chequeRemarkInfo_button_cancel', true);
+	setUploadedDocuments(m_oZenithMemberData.m_oStudentDocuments);
+}
+
+function setUploadedDocuments(oStudentDocuments)
+{
+	if(oStudentDocuments != null && oStudentDocuments.m_strStudentAadhar != null)
+		$("#studentAadharId").attr('src',oStudentDocuments.m_strStudentAadhar);
+	if(oStudentDocuments != null && oStudentDocuments.m_strFatherAadharImageId != null)
+		$("#fatherAadharId").attr('src',oStudentDocuments.m_strFatherAadharImageId);
+	if(oStudentDocuments != null && oStudentDocuments.m_strMotherAadharImageId !=null)
+		$("#motherAadharId").attr('src',oStudentDocuments.m_strMotherAadharImageId);
+	if(oStudentDocuments != null && oStudentDocuments.m_strStudentElectricityBill !=null)
+		$("#electricityBillId").attr('src',oStudentDocuments.m_strStudentElectricityBill);
+	if(oStudentDocuments != null && oStudentDocuments.m_strStudentMarksCard1 !=null)
+		$("#marksCard1Id").attr('src',oStudentDocuments.m_strStudentMarksCard1);
+	if(oStudentDocuments != null && oStudentDocuments.m_strStudentMarksCard2 !=null)
+		$("#marksCard2Id").attr('src',oStudentDocuments.m_strStudentMarksCard2);
+	if(oStudentDocuments != null && oStudentDocuments.m_strOtherDocuments !=null)
+		$("#additionalDocumentId").attr('src',oStudentDocuments.m_strOtherDocuments);	
+	if(oStudentDocuments != null && oStudentDocuments.m_strVerifyScanDocument !=null)
+		$("#scanDocumentId").attr('src', oStudentDocuments.m_strVerifyScanDocument);
+}
+
+function viewStudentDocument_cancel() 
+{
+	HideDialog ("dialog");
+}
+
+function studentDocumentView_documentPreview (imageId)
+{
+	var imageSrc = document.getElementById(imageId.id).src;
+	m_oZenithMemberData.m_strImagePreviewUrl = imageSrc;
+	loadPage("applicationstatus/documentView/uploadDocumentView.html","secondDialog", "documentList_showImagePreview()");
+}
+
+function documentList_showImagePreview() 
+{
+	 createPopup ('secondDialog', '', '', true);
+	 document.getElementById('secondDialog').style.position = "fixed";
+	 $(".imagePreview").attr('src', m_oZenithMemberData.m_strImagePreviewUrl);    
+}
+
+function documentList_cancelImagePreview() 
+{
+	HideDialog ("secondDialog");	
+}
+
+//Student Image Preview
+function studentList_setPreview (m_strStudentImageUrl)
+{
+	m_oZenithMemberData.m_strImageUrl = m_strStudentImageUrl;
+	loadPage ("scholarshipmanagement/student/studentImagePreview.html", "dialog", "studentList_showImagePreview ()");
+}
+
+function studentList_showImagePreview ()
+{
+	createPopup ('dialog', '', '', true);
+	document.getElementById('dialog').style.position = "fixed";
+	$(".imagePreview").attr('src', m_oZenithMemberData.m_strImageUrl);
+}
+
+function studentList_cancelImagePreview ()
+{
+	HideDialog ("dialog");
+}
+
+//Student grid Colour based on priority
+
+function applicationPriorityGridColor(strGridId)
+{
+	$('#'+strGridId).datagrid
+	({				
+			rowStyler:function(index,row)
+			{
+				if(row.m_nApplicationPriority == 1)
+				{
+					return {class:'datagrid_priorityRow'};
+				}				
+			}		
+	});
+}

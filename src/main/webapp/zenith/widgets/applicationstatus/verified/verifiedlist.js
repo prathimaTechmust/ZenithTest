@@ -91,6 +91,7 @@ function verifiedStudentListInfo_createDataGrid ()
 				}
 			}
 	)
+	applicationPriorityGridColor('listVerifiedStudents_table_students');
 	verifiedStudentList_initDGPagination();
 	verifiedStudentListInfo_list(m_overifiedStudentList_Info_MemberData.m_strSortColumn, m_overifiedStudentList_Info_MemberData.m_strSortOrder, 1, 10);
 }

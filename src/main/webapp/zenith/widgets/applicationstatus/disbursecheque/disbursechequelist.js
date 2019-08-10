@@ -110,6 +110,7 @@ function disburseChequeListInfo_createDataGrid ()
 				}
 			}
 	)
+	applicationPriorityGridColor('disburseChequeList_table_students');
 	disburseChequeListInfo_list(m_odisburseChequeList_Info_MemberData.m_strSortColumn, m_odisburseChequeList_Info_MemberData.m_strSortOrder, 1, 10);
 }
 
