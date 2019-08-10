@@ -106,7 +106,8 @@ function listStudentInfo_createDataGrid ()
 					listStudentInfo_list (strColumn, strOrder, m_oStudentInfoListMemberData.m_nPageNumber, m_oStudentInfoListMemberData.m_nPageSize);
 				}
 			}
-	)	
+	)
+	applicationPriorityGridColor('listStudentInfo_table_students');
 	listStudentInfo_initDGPagination ();
 	listStudentInfo_list (m_oStudentInfoListMemberData.m_strSortColumn, m_oStudentInfoListMemberData.m_strOrderBy, 1, 10);
 }

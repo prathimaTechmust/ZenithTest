@@ -112,6 +112,7 @@ function createClaimedChequeList_DataGrid()
 		}
 	)
 	claimedChequeList();
+	applicationPriorityGridColor('claimedChequeList_table');
 }
 
 function claimedChequeList()

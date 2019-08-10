@@ -50,7 +50,7 @@ function createTatkalStudent_dataGrid ()
 					{
 						return row.m_oZenithScholarshipDetails[0].m_strStatus;
 					}
-				},
+				},				
 			]],
 		}
 	);
@@ -68,7 +68,8 @@ function createTatkalStudent_dataGrid ()
 					tatkalStudentListInfo_SortList (strColumn, strOrder, m_oTatkalStudentListInfo_memberData.m_nPageNumber, m_oTatkalStudentListInfo_memberData.m_nPageSize);
 				}
 			}
-	)	
+	)
+	applicationPriorityGridColor('tatkalStudentListInformation');
 	tatkalStudentListInfo_initDGPagination ();
 	tatkalStudentListInfo_List (m_oTatkalStudentListInfo_memberData.m_strSortColumn, m_oTatkalStudentListInfo_memberData.m_strOrderBy, 1, 10);
 }

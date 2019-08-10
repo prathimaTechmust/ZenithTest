@@ -101,7 +101,8 @@ function listPrepareChequeInfo_createDataGrid ()
 					listPrepareChequeInfo_list (strColumn, strOrder, m_oPrepareChequeListMemberData.m_nPageNumber, m_oPrepareChequeListMemberData.m_nPageSize);
 				}
 			}
-	)	
+	)
+	applicationPriorityGridColor('listPrepareCheque_table_students');
 	listPrepareChequeInfo_initDGPagination ();
 	listPrepareChequeInfo_list (m_oPrepareChequeListMemberData.m_strSortColumn, m_oPrepareChequeListMemberData.m_strSortOrder, 1, 10);
 }
