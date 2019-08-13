@@ -1,4 +1,4 @@
-package com.techmust.traderp.servlets;
+package com.techmust.zenith.servlets;
 
 import java.io.File;
 
@@ -9,7 +9,7 @@ import org.apache.log4j.PropertyConfigurator;
 import com.techmust.generic.data.AppProperties;
 import com.techmust.usermanagement.initializer.UserManagementInitializer;
 
-public class AutoSetTradeRpPropertiesServlet extends HttpServlet 
+public class AutoSetZenithPropertiesServlet extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -31,20 +31,19 @@ public class AutoSetTradeRpPropertiesServlet extends HttpServlet
 		            }
 		        }, 1000);*/
 			String strContextPath = oServletConfig.getServletContext().getRealPath("/WEB-INF/");
-			AppProperties.setProperty("PROJECT_PROPERTY_FILE", strContextPath + File.separator + "TradeRp.properties");
-			AppProperties.setProperty("MENU_XSLT_FILE", strContextPath+File.separator + "TradeRpMenu.xslt");
-			AppProperties.setProperty("ONLINE_MENU_XSLT_FILE", strContextPath+File.separator + "TradeRpOnlineMenu.xslt");
-			AppProperties.setProperty("OFFCANVAS_XSLT_FILE", strContextPath+File.separator + "TradeRpOffcanvas.xslt");
-			AppProperties.setProperty("MAIL_PROPERTY_FILE", strContextPath + File.separator + "TradeRpmail.properties");
-			System.out.println ("AutoSetTradeRpPropertiesServlet : strContextPath : " + strContextPath + File.separator + "log4jTradeRp.properties");
-			PropertyConfigurator.configure (strContextPath + File.separator+"log4jTradeRp.properties");
+			AppProperties.setProperty("PROJECT_PROPERTY_FILE", strContextPath + File.separator + "Zenith.properties");
+			AppProperties.setProperty("MENU_XSLT_FILE", strContextPath+File.separator + "ZenithMenu.xslt");
+			AppProperties.setProperty("ONLINE_MENU_XSLT_FILE", strContextPath+File.separator + "ZenithOnlineMenu.xslt");
+			AppProperties.setProperty("OFFCANVAS_XSLT_FILE", strContextPath+File.separator + "ZenithOffcanvas.xslt");
+			AppProperties.setProperty("MAIL_PROPERTY_FILE", strContextPath + File.separator + "Zenithmail.properties");
+			System.out.println ("AutoSetZenithPropertiesServlet : strContextPath : " + strContextPath + File.separator + "log4jZenith.properties");
+			PropertyConfigurator.configure (strContextPath + File.separator+"log4jZenith.properties");
 			AppProperties.setProperty ("UserManagement.defaults", strContextPath + File.separator + "UserManagement.defaults.xml");
-			AppProperties.setProperty("ClientManagement.defaults", strContextPath + File.separator + "ClientManagement.defaults.xml");
 			initialize ();
 		} 
 		catch (Exception oException) 
 		{
-			System.out.println ("AutoSetTradeRpPropertiesServlet : init : " +oException.toString());
+			System.out.println ("AutoSetZenithPropertiesServlet : init : " +oException.toString());
 		}
 	}
 

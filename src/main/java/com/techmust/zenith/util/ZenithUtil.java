@@ -1,4 +1,4 @@
-package com.techmust.traderp.util;
+package com.techmust.zenith.util;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -8,7 +8,7 @@ import java.util.Calendar;
 import java.util.Date;
 import com.techmust.generic.util.GenericUtil;
 
-public class TraderpUtil extends GenericUtil
+public class ZenithUtil extends GenericUtil
 {
 	public static String getTime(Date oDate) 
 	{

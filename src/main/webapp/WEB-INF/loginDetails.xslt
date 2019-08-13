@@ -11,7 +11,7 @@
 				<title>Login Details</title>
 			</head>
 			<body>
-				<img href="http://www.trademust.com:8080/traderp/online" src="images/zenithLogo.png"  title="Logo" />
+				<img href="http://www.trademust.com:8080/zenith" src="images/zenithLogo.png"  title="Logo" />
 				<br/>
 				<p>Dear Sir/Madam </p>
 				<p>Your login details are </p>
@@ -21,7 +21,7 @@
 				<p>Thank you</p>
 				Zenith Foundation
 				<p>
-					<a href="http://www.trademust.com:8080/traderp/online">Click here</a>
+					<a href="http://www.trademust.com:8080/zenith">Click here</a>
 					to login
 				</p>
 			</body>
