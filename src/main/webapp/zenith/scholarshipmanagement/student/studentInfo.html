@@ -34,7 +34,7 @@
 							 <button type="button" class="tablinks"onclick="openTab(event, 'Family_details')" id='Family_details_btn'>Family details</button>
 							 <button type="button" class="tablinks" onclick="openTab(event, 'Academic_details')"id='Academic_details_btn'>Academic details</button>
 							 <button type="button" class="tablinks"onclick="openTab(event, 'Scholarship_details')"id='Scholarship_details_btn'>Scholarship details</button>
-							 <button type="button" class="tablinks"onclick="openTab(event, 'DocumentUpload_details')"id='DocumentUpload_details_btn' style="display: inline">Documents</button>																							
+							 <button type="button" class="tablinks"onclick="openTab(event, 'DocumentUpload_details')"id='DocumentUpload_details_btn'>Documents</button>																							
 		      	 	   </div>	
 		      	 	        <!-- Personal details	 -->      	 	   
 		      	 	   		<div id="Personal_details" style="padding: 10px" class="StudentInfoTab" >
@@ -467,13 +467,13 @@
 	                   			<tr>			
 						           <td align="right" colspan="2">
 						             <hr>
-						             <button 
-						                 id="studentInfo_button_submit"
+     						         <button 
+						                 id="studentInfo_button_next"
 						                 type="button"
-						                 class="zenith"
+						                 class="zenith tablinks"
 						                 update="false"
-						                 onclick="studentInfo_submit()">
-						               Create
+						                 onclick="openNextTab(event, 'DocumentUpload_details', DocumentUpload_details_btn)">
+						               Next
 						             </button>
 						            <!--  <button id="studentInfo_button_print" type="button" class="zenith" style="width: 20%;" onclick="studentInfo_createandprint()">
                                      CreateAndPrint
@@ -634,19 +634,28 @@
 					   <hr>	
 						<tr>
 							<td width="50%" valign="top">									
-									<tr>
-										<td class="fieldHeading DocumentuploadHeading"></td>
-										<td>
-										</td>
-										<td class="documentImagePrwview">
-											
-										</td>
-										<td>
-											 <button id="studentInfo_button_cancel" type="button" class="zenith" onclick="studentInfo_cancel()">
-								               Cancel
-								             </button>
-										</td>
-									</tr>										
+								<tr>
+									<td class="fieldHeading DocumentuploadHeading"></td>
+									<td>
+									</td>
+									<td class="documentImagePrwview">								
+									</td>
+									<td>
+						             <button 
+						                 id="studentInfo_button_submit"
+						                 type="button"
+						                 class="zenith"
+						                 update="false"
+						                 onclick="studentInfo_submit()">
+						               Create
+						             </button>
+						             </td>
+						             <td>
+									 <button id="studentInfo_button_cancel" type="button" class="zenith" onclick="studentInfo_cancel()">
+						               Cancel
+						             </button>
+									</td>
+								</tr>										
 							</td>
 						</tr>							
 					 </table>

@@ -78,7 +78,6 @@ function studentInfo_old ()
 function studentInfo_init ()
 {
 	createPopup("dialog", "#studentInfo_button_submit", "#studentInfo_button_cancel", true);
-	document.getElementById("DocumentUpload_details_btn").style.display="none";
 	document.getElementById("defaultOpen").click();
 	populatAcademicYearDropDown('selectacademicyear');	
 	calculate_Student_CourseFee ();
