@@ -3,35 +3,29 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>
-     Student Information List
+   counseling Student Information List
     </title>
   </head>
   <body>
-    <form class="zenith" id="listStudentInfo_form_id">
-      <table class="zenith" id="listStudentInfo_table_filter" summary="">
+    <form class="zenith" id="CounselingStudentsInfo_form_id">
+      <table class="zenith" id="CounselingStudents_table_filter" summary="">
         <tr>
           <td class="zenith">
-            <div class="zenith" id="listStudentInfo_div_dataGridToolbar">
+            <div class="zenith" id="CounselingStudents_div_dataGridToolbar">
               <table class="zenith" cellpadding="2" cellspacing="2" summary="">
                 <tr>
-                  <td class="zenith" style="width:15%">
-                    <button 
-                        id="listStudentInfo_button_add"
-                        class="zenith addButton"
-                        type="button"
-                        style="visibility: initial;"
-                        onclick="listStudentInfo_showAddPopup ()">
-                      New Student
-                    </button>
+                	<td style="width:4%">
+                    	<select id="selectacademicyear" class="zenith">                    		
+                    	</select>
                   </td>
-                  <td class="zenith" style="width:15%">
+                       <td class="zenith" style="width:15%">
                     <input 
                         class="filterTextBox"
                         id="filterStudentInfo_input_studentName"
                         onkeypress="handleFilter('studentListInfo_filter()','#filterStudentInfo_input_studentName')"
                         placeholder="Student Name"/>
                   </td>
-                  <td class="zenith" style="width:15%">
+     			<td class="zenith" style="width:15%">
                      <input 
                         class="filterTextBox"
                         id="filterStudentInfo_input_phonenumber"
@@ -47,14 +41,10 @@
                         placeholder="Student Aadhar"/>
                   </td>
                   <td class="zenith" style="width:5%">
-                    	<select id="selectacademicyear" class="filterTextBox" style="width: 100px;">                    		
-                    	</select>
-                  </td>
-                  <td class="zenith" style="width:5%">
-                    <button class="zenith filterButton" type="button" onclick="studentListInfo_filter (listStudentInfo_table_students,null)">
+                    <button class="zenith filterButton" type="button" onclick="studentListInfo_filter (listVerifiedStudents_table_students)">
                       Filter
                     </button>
-                  </td>
+                  </td>                
                 </tr>
               </table>
             </div>
@@ -62,17 +52,17 @@
         </tr>
         <tr>
           <td class="zenith">
-            <div id="listStudentInfo_div_horizontalSplitter" style="z-index: 0">
-              <div id="listStudentInfo_div_dataGrid">
+            <div id="CounselingStudents_div_horizontalSplitter" style="z-index: 0">
+              <div id="CounselingStudents_div_dataGrid">
                 <table 
-                    id="listStudentInfo_table_students"
+                    id="CounselingStudents_table_students"
                     class="easyui-datagrid"
-                    title="Student Information List"
-                    data-options="striped:true, pagination:true, pagesize:15, rownumbers:true, fitColumns:true, remoteSort:false, singleSelect:true, toolbar:'#listStudentInfo_div_dataGridToolbar'">
+                    title="To Be Verified Student Information List"
+                    data-options="striped:true, pagination:true, pagesize:15, rownumbers:true, fitColumns:true, remoteSort:false, singleSelect:true, toolbar:'#CounselingStudents_div_dataGridToolbar'">
 
                 </table>
               </div>
-              <div class="gridDetails" id="listStudentInfo_div_listDetail">
+              <div class="gridDetails" id="CounselingStudents_div_listDetail">
               </div>
             </div>
           </td>

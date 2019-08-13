@@ -1,6 +1,9 @@
 package com.techmust.scholarshipmanagement.scholarshipdetails.zenithscholarshipstatus;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,7 +16,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.techmust.constants.Constants;
 import com.techmust.generic.dataprocessor.GenericIDataProcessor;
 import com.techmust.generic.response.GenericResponse;
+import com.techmust.scholarshipmanagement.student.StudentInformationData;
 import com.techmust.utils.AWSUtils;
+import com.techmust.utils.AmazonSMS;
 import com.techmust.utils.Utils;
 
 @Controller
@@ -122,7 +127,12 @@ public class ZenithScholarshipInformationDataProcessor extends GenericIDataProce
 		ZenithScholarshipDetailsDataResponse oZenithScholarshipDetailsDataResponse = new ZenithScholarshipDetailsDataResponse();
 		try 
 		{
-			oZenithScholarshipDetailsDataResponse.m_bSuccess = oZenithScholarshipDetails.reVerifyStudentApplication(oZenithScholarshipDetails);
+	    oZenithScholarshipDetailsDataResponse.m_bSuccess = oZenithScholarshipDetails.reVerifyStudentApplication(oZenithScholarshipDetails);
+	    StudentInformationData	oStudentInformationData = new StudentInformationData();
+	    oStudentInformationData.setM_nStudentId(oZenithScholarshipDetails.getM_nStudentId());
+	    oStudentInformationData= (StudentInformationData) populateObject(oStudentInformationData);
+	    List<ZenithScholarshipDetails> oDetails = new ArrayList<ZenithScholarshipDetails>(oStudentInformationData.getM_oZenithScholarshipDetails());		;
+	    AmazonSMS.sendSmsToCounselingCandidate(Constants.NUMBERPREFIX+oStudentInformationData.getM_strPhoneNumber(),oStudentInformationData.getM_strStudentName(),oDetails.get(0).getM_strStudentRemarks());	
 			if(oZenithScholarshipDetailsDataResponse.m_bSuccess)
 				Utils.createActivityLog("ZenithScholarshipInformationDataProcessor::reVerifyStudentApplication", oZenithScholarshipDetails);			
 		} 

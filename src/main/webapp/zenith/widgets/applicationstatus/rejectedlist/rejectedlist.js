@@ -31,28 +31,6 @@ function rejectedStudentInfo_init ()
 	rejectedStudentListInfo_createDataGrid ();
 	dropdownacademicyear();
 }
-
-function dropdownacademicyear ()
-{
-	var oAcademicYear = new AcademicYear();
-	AcademicYearProcessor.list(oAcademicYear,"m_strAcademicYear","asc",0,0,academicyearResponse);	
-}
-
-function academicyearResponse(oYearResponse)
-{
-	populateYear("selectacademicyear",oYearResponse);
-}
-
-function populateYear(academicyear,oYearResponse)
-{
-	var arrAcademicYears = new Array();
-	for(var nIndex = 0; nIndex < oYearResponse.m_arrAcademicYear.length; nIndex++)
-	{
-		arrAcademicYears.push(CreateOption(oYearResponse.m_arrAcademicYear[nIndex].m_strAcademicYear,oYearResponse.m_arrAcademicYear[nIndex].m_strAcademicYear));		
-	}
-	PopulateDD(academicyear,arrAcademicYears);	
-}
-
 function rejectedStudentListInfo_createDataGrid ()
 {
 	initHorizontalSplitter("#rejectedStudentsList_div_horizontalSplitter", "#rejectedStudentsList_table_students");

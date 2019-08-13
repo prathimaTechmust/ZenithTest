@@ -20,6 +20,10 @@ public class AmazonSMS
 	public static String strFacilitatorBodyMessage = "Your following student application of scholarship with Zenith Foundation has been processed and cheque prepared.Please come and collect cheque from our office";							
 	public static String strStudentBodyHeading = "Congratulations ";							
 	public static String strStudentBodyMessage = "Your application of scholarship with Zenith Foundation has been processed and cheque prepared.Please come and collect cheque from our office";
+	public static String strCounselingBodyHeading = "Dear ";
+		
+	
+	
 	public static AmazonSNS getClient ()
     {
 		m_oLogger.info("getClientDetails");
@@ -63,4 +67,20 @@ public class AmazonSMS
 		}
 		
 	} 
+	 public  static void sendSmsToCounselingCandidate(String strPhoneNumber,String strStudentName, String strStudentRemarks) 
+	 {
+		 try
+		 {
+			 AmazonSNSClient oAmazonSNSClient = (AmazonSNSClient) getClient();
+			 PublishResult oPublishResult = oAmazonSNSClient.publish(new PublishRequest()
+					 .withMessage(strCounselingBodyHeading+strStudentName+"," + strStudentRemarks)
+					 .withPhoneNumber(strPhoneNumber));
+					 
+		 }
+		 catch (Exception oException) 
+		 {
+			 m_oLogger.error("sendSMS - oException"+oException);
+		}
+		
+	}
 }

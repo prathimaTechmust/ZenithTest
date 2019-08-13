@@ -105,7 +105,7 @@
 													<td align = "left" colspan = "2">
 														<hr/>																																															
 														<button type="button" style= "margin-right:10px" class = "zenith" id="approveStudent" title="Approve" onClick="approveStudentInfo_Student()">Approve</button>
-														<button type="button" style="margin-right: 10px;" class = "zenith" id="reverify" title="reverify" onClick="reverifyStudentInfo_Student()">reverify</button>
+														<button type="button" style="width:100px;margin-right: 10px;" class = "zenith" id="counseling" title="counseling" onClick="counselingStudentInfo_Student()">Counseling</button>
 														<button type="button" style= "margin-right:10px; float: right;" class = "zenith" id="rejectStudent" title="Reject" onClick="recjectStudentInfo_Student()">Reject</button>
 													</td>			 							
 												</tr>							
@@ -120,7 +120,7 @@
 						</td>																					
 					</tr>								
 				</table>
-			</td>
+			</td>  
 		</tr>	
 		<tr>
 			<td>

@@ -32,27 +32,6 @@ function approveStudentInfo_init ()
 	$("#zenithInfo_approvedamount").focus();
 }
 
-function dropdownacademicyear ()
-{
-	var oAcademicYear = new AcademicYear();
-	AcademicYearProcessor.list(oAcademicYear,"m_strAcademicYear","asc",0,0,academicyearResponse);	
-}
-
-function academicyearResponse(oYearResponse)
-{
-	populateYear("selectacademicyear",oYearResponse);
-}
-
-function populateYear(academicyear,oYearResponse)
-{
-	var arrAcademicYears = new Array();
-	for(var nIndex = 0; nIndex < oYearResponse.m_arrAcademicYear.length; nIndex++)
-	{
-		arrAcademicYears.push(CreateOption(oYearResponse.m_arrAcademicYear[nIndex].m_strAcademicYear,oYearResponse.m_arrAcademicYear[nIndex].m_strAcademicYear));		
-	}
-	PopulateDD(academicyear,arrAcademicYears);	
-}
-
 function approveStudentListInfo_createDataGrid ()
 {
 	initHorizontalSplitter("#listApproveStudents_div_horizontalSplitter", "#listApproveStudents_table_students");
@@ -287,56 +266,59 @@ function studentRemarkInfo_cancel ()
 	HideDialog("dialog");
 }
 
-function reverifyStudentInfo_Student() 
+function counselingStudentInfo_Student() 
 {
-	loadPage("applicationstatus/approve/reverifyRemark.html","dialog","reverifyRemarks_init()");	
+	loadPage("applicationstatus/approve/counselingRemark.html","dialog","counselingRemarks_init()");	
 }
 
- function reverifyRemarks_init()
+ function counselingRemarks_init()
  {
-	 createPopup('dialog','#reverifyRemarkInfo_Submit','reverifyRemarkInfo_cancel',true);
-	initFormValidateBoxes ("reverifyRemarkForm");
+	 createPopup('dialog','#counselingRemarkInfo_Submit','counselingRemarkInfo_cancel',true);
+	initFormValidateBoxes ("counselingRemarkForm");
  }
 
  
-function reverifyRemarkInfo_Submit()
+function counselingRemarkInfo_Submit()
 {	
-	if(reverifyRemarkValidate())
+	if(counselingRemarkValidate())
 		{
-		loadPage ("include/process.html", "ProcessDialog", "reverifyremark_progressbarLoaded ()");
+		loadPage ("include/process.html", "ProcessDialog", "counselingremark_progressbarLoaded ()");
 		}
 		else
 		{
 			alert("Please Enter Remarks");
-			$("#reverifyRemarkForm").focus();
+			$("#counselingRemarkForm").focus();
 		}	
 	
 }
-function reverifyRemarkValidate () 
+function counselingRemarkValidate () 
 {
-	return validateForm("reverifyRemarkForm");	
+	return validateForm("counselingRemarkForm");	
 }
-function reverifyremark_progressbarLoaded()
+function counselingremark_progressbarLoaded()
 {
 	createPopup('dialog','','',true);
 	var oZenith = new ZenithScholarshipDetails ();
 	oZenith.m_nStudentId = m_oApproveStudentList_Info_MemberData.m_nStudentId;
-	oZenith.m_strStudentRemarks = $("#reverifyRemarkInfo_input_Remark").val();
-	ZenithStudentInformationDataProcessor.reVerifiedStatusUpdate(oZenith,studentReVerifiedResponse);	
+	oZenith.m_strStudentRemarks = $("#counselingRemarkInfo_input_Remark").val();
+	ZenithStudentInformationDataProcessor.reVerifiedStatusUpdate(oZenith,studentCounselingResponse);	
 }
 
-function reverifyRemarkInfo_cancel()
+function counselingRemarkInfo_cancel()
 {
    HideDialog("dialog");	
 }
 
-function studentReVerifiedResponse(oResponse) {
+function studentCounselingResponse(oResponse) {
 	
 	if(oResponse.m_bSuccess)
 	{
 		informUser("Application Status Sent to Verify Successfully","kSuccess");
+	
 		navigate("approvelist","widgets/applicationstatus/approve/approvelist.js");
 	}
 	else
 		informUser("Application Status Sent to Verify Failed","kError");
 }
+
+

@@ -29,30 +29,8 @@ function listStudentInfo_loaded ()
 function listStudentInfo_init ()
 {
 	listStudentInfo_createDataGrid ();
-	populateAcademicYearDropDown();
+	dropdownacademicyear();
 }
-
-function populateAcademicYearDropDown ()
-{
-	var oAcademicYear = new AcademicYear();
-	AcademicYearProcessor.list(oAcademicYear,"m_strAcademicYear","asc",0,0,academicYearResponse);	
-}
-
-function academicYearResponse(oYearResponse)
-{
-	populateYear("selectacademicyearwiseStudents",oYearResponse);
-}
-
-function populateYear(academicyear,oYearResponse)
-{
-	var arrAcademicYears = new Array();
-	for(var nIndex = 0; nIndex < oYearResponse.m_arrAcademicYear.length; nIndex++)
-	{
-		arrAcademicYears.push(CreateOption(oYearResponse.m_arrAcademicYear[nIndex].m_strAcademicYear,oYearResponse.m_arrAcademicYear[nIndex].m_strAcademicYear));		
-	}
-	PopulateDD(academicyear,arrAcademicYears);	
-}
-
 /*function academicyear ()
 {	
 		  var oDate = new Date();
@@ -142,7 +120,7 @@ function listStudentInfo_selectedRowData (oRowData, nIndex)
 	document.getElementById("listStudentInfo_div_listDetail").innerHTML = "";
 	var oStudentInformationData = new StudentInformationData () ;
 	oStudentInformationData.m_nStudentId = oRowData.m_nStudentId;
-	oStudentInformationData.m_strAcademicYear = $("#selectacademicyearwiseStudents").val();
+	oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
 	StudentInformationDataProcessor.getXML (oStudentInformationData,listStudentInfo_gotXML);
 }
 
@@ -200,7 +178,7 @@ function listStudentInfo_edit (nStudentId)
 {
 	assert.isNumber(nStudentId, "nStudentId expected to be a Number.");
 	m_oStudentInfoListMemberData.m_nSelectedStudentId = nStudentId;
-	m_oStudentInfoListMemberData.m_strAcademicYear = $("#selectacademicyearwiseStudents").val();
+	m_oStudentInfoListMemberData.m_strAcademicYear = $("#selectacademicyear").val();
 	navigate ("actionInformation", "widgets/scholarshipmanagement/studentlist/editStudentInfo.js");
 }
 
