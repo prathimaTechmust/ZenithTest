@@ -22,7 +22,7 @@ function prepareChequeInfo_new ()
 	m_oPrepareChequeInfoMemberData.m_nStudentId = m_oPrepareChequeInfoMemberData.m_oStudentInformationData.m_nStudentId;
 	$("#student_input_studentUIDNumber").val(m_oPrepareChequeInfoMemberData.m_oStudentInformationData.m_nUID);
 	$("#studentInfo_inputStudentName").val(m_oPrepareChequeInfoMemberData.m_oStudentInformationData.m_strStudentName);
-	$("#accountInfo_input_AccountPayeeName").val(m_oPrepareChequeInfoMemberData.m_oStudentInformationData.m_oAcademicDetails[0].m_oInstitutionInformationData.m_strInstitutionName);
+	$("#accountInfo_input_AccountPayeeName").val(m_oPrepareChequeInfoMemberData.m_oStudentInformationData.m_oZenithScholarshipDetails[0].m_oChequeInFavourOf.m_strChequeFavourOf);
 	$("#accountInfo_input_SanctionedAmount").val(m_oPrepareChequeInfoMemberData.m_oStudentInformationData.m_oZenithScholarshipDetails[0].m_fApprovedAmount);
 	var approveDate = convertTimestampToDate(m_oPrepareChequeInfoMemberData.m_oStudentInformationData.m_oZenithScholarshipDetails[0].m_dApprovedDate);
 	$("#accountInfo_input_SanctionedDate").val(approveDate);

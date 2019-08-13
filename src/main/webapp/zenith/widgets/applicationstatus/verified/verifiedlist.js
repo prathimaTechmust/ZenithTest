@@ -142,6 +142,7 @@ function verifyStudentInfo_Student()
 	var oFormData = new FormData ();
 	oFormData.append('scancopy',$("#ScanCopy")[0].files[0]);
 	oFormData.append('studentId',m_overifiedStudentList_Info_MemberData.m_nStudentId);
+	oFormData.append('chequefavourId',$("#select_cheque_inFavour_of").val());
 	ZenithStudentInformationDataProcessor.verifiedStatusUpdate(oFormData,studentverifiedResponse);
 }
 

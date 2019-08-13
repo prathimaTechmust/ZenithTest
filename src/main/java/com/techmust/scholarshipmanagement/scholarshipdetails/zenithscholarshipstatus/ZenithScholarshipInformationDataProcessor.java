@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.techmust.constants.Constants;
 import com.techmust.generic.dataprocessor.GenericIDataProcessor;
 import com.techmust.generic.response.GenericResponse;
+import com.techmust.scholarshipmanagement.chequeFavourOf.ChequeInFavourOf;
 import com.techmust.scholarshipmanagement.student.StudentInformationData;
 import com.techmust.utils.AWSUtils;
 import com.techmust.utils.AmazonSMS;
@@ -27,14 +28,17 @@ public class ZenithScholarshipInformationDataProcessor extends GenericIDataProce
 
 	@RequestMapping(value="/studentStatusInfoUpdate", method = RequestMethod.POST)
 	@ResponseBody
-	public GenericResponse toBeVerifiedStatusUpdate(@RequestParam(name = "scancopy",required = false)MultipartFile oScanCopyMultipartFile,@RequestParam("studentId") int nStudentId) throws Exception
+	public GenericResponse toBeVerifiedStatusUpdate(@RequestParam(name = "scancopy",required = false)MultipartFile oScanCopyMultipartFile,@RequestParam("studentId") int nStudentId,@RequestParam("chequefavourId") int nFavourid) throws Exception
 	{
 		
 		m_oLogger.info ("toBeVerifiedStatusUpdate");
 		m_oLogger.debug ("toBeVerifiedStatusUpdate - ScanCopy [IN] : " + oScanCopyMultipartFile);
 		ZenithScholarshipDetailsDataResponse oZenithScholarshipDetailsDataResponse = new ZenithScholarshipDetailsDataResponse();
 		ZenithScholarshipDetails oZenithScholarshipDetails = new ZenithScholarshipDetails();
+		ChequeInFavourOf oChequeInFavourOf = new ChequeInFavourOf();
+		oChequeInFavourOf.setM_nChequeFavourId(nFavourid);
 		oZenithScholarshipDetails.setM_nStudentId(nStudentId);
+		oZenithScholarshipDetails.setM_oChequeInFavourOf(oChequeInFavourOf);
 		try
 		{	
 			String strUUID = Utils.getUUID();

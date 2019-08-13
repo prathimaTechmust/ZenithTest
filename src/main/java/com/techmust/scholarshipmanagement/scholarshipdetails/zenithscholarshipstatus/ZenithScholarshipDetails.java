@@ -24,6 +24,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.techmust.constants.Constants;
 import com.techmust.generic.data.MasterData;
 import com.techmust.scholarshipmanagement.academicdetails.AcademicDetails;
+import com.techmust.scholarshipmanagement.chequeFavourOf.ChequeInFavourOf;
 import com.techmust.scholarshipmanagement.student.StudentInformationData;
 import com.techmust.utils.Utils;
 
@@ -77,12 +78,18 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 	@Column(name = "academicyear")
 	private String m_strAcademicYear;
 	
+	@Column(name = "appl_submit_date")
+	private Date m_dApplicationSubmitDate;
+	
 	@Transient
 	private int m_nStudentId;
 	
 	@Transient
 	private int m_nAcademicId;
 	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "cheque_InFavour_Id")
+	private ChequeInFavourOf m_oChequeInFavourOf;
 	
 	public ZenithScholarshipDetails()
 	{
@@ -98,7 +105,28 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 		m_dApprovedDate = null;
 		m_dClaimedDate = null;
 		m_strAcademicYear = "";
+		m_dApplicationSubmitDate = Calendar.getInstance().getTime();
 	}	
+	
+	public Date getM_dApplicationSubmitDate()
+	{
+		return m_dApplicationSubmitDate;
+	}
+
+	public void setM_dApplicationSubmitDate(Date m_dApplicationSubmitDate)
+	{
+		this.m_dApplicationSubmitDate = m_dApplicationSubmitDate;
+	}
+
+	public ChequeInFavourOf getM_oChequeInFavourOf()
+	{
+		return m_oChequeInFavourOf;
+	}
+	
+	public void setM_oChequeInFavourOf(ChequeInFavourOf m_oChequeInFavourOf)
+	{
+		this.m_oChequeInFavourOf = m_oChequeInFavourOf;
+	}
 	
 	public int getM_nAcademicId()
 	{
@@ -273,7 +301,9 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 			addChild (oXmlDocument, oRootElement, "m_strImage",m_strImage);
 			addChild (oXmlDocument, oRootElement, "m_strScanCopyImageURL",getScanCopyImageURL(m_strImage));	
 			addChild(oXmlDocument, oRootElement, "m_strChequeRemark", m_strChequeRemark);
-			addChild (oXmlDocument, oRootElement, "m_dClaimedDate",m_dClaimedDate != null ? getClaimedDate(m_dClaimedDate.toString()) :"");
+			addChild (oXmlDocument, oRootElement, "m_dClaimedDate",m_dClaimedDate != null ? getDate(m_dClaimedDate.toString()) :"");
+			addChild (oXmlDocument, oRootElement, "m_dApplicationSubmitDate",m_dApplicationSubmitDate != null ? getDate(m_dApplicationSubmitDate.toString()) :"");
+			
 		
 			strZenithScholarshipDetailsInfoXML = getXmlString (oXmlDocument);			 
 		}
@@ -284,9 +314,8 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 		return strZenithScholarshipDetailsInfoXML;
 	}
 
-	private String getClaimedDate(String string)
+	private String getDate(String string)
 	{
-
 		return string.substring(0, 10);
 	}
 
