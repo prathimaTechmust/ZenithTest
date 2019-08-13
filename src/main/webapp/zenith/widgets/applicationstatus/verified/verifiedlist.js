@@ -2,7 +2,8 @@ var verifiedStudentListInfo_includeDataObjects =
 [
 	'widgets/scholarshipmanagement/studentlist/StudentInformationData.js',
 	'widgets/scholarshipmanagement/academicyear/AcademicYear.js',
-	'widgets/scholarshipmanagement/zenithscholarship/ZenithScholarshipDetails.js'
+	'widgets/scholarshipmanagement/zenithscholarship/ZenithScholarshipDetails.js',
+	'widgets/scholarshipmanagement/institutionslist/InstitutionInformationData.js'
 ];
 
 includeDataObjects (verifiedStudentListInfo_includeDataObjects, "verifiedStudentListInfo_loaded()");
@@ -105,6 +106,7 @@ function verifiedStudentlistInfo_selectedRowData (oRowData, nIndex)
 	oStudentInformationData.m_nStudentId = oRowData.m_nStudentId;
 	oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
 	m_overifiedStudentList_Info_MemberData.m_nStudentId = oRowData.m_nStudentId;
+	m_overifiedStudentList_Info_MemberData.m_nInstitutionId = oRowData.m_oAcademicDetails[0].m_oInstitutionInformationData.m_nInstitutionId;
 	StudentInformationDataProcessor.getXML (oStudentInformationData,verifiedStudentListInfo_gotXML);	
 }
 
@@ -254,7 +256,33 @@ function showChooseFile() {
 function chooseFileInit() 
 {
 	createPopup('dialog','','chooseFileDocument_cancel', true);
+	populateChequeinFavourof ();	
 	
+}
+
+function populateChequeinFavourof ()
+{
+	var oInstitution = new InstitutionInformationData ();
+	oInstitution.m_nInstitutionId = m_overifiedStudentList_Info_MemberData.m_nInstitutionId;
+	InstitutionInformationDataProcessor.getChequeInFavourOf (oInstitution,chequeFavourOfResponse);
+}
+
+function chequeFavourOfResponse (oResponse)
+{
+	if(oResponse.m_bSuccess)
+	{
+		populateChequeFavour ("select_cheque_inFavour_of",oResponse.m_arrChequeInFavourOf);
+	}	
+}
+
+function populateChequeFavour (strDropDownId,favourResponse)
+{
+	var arrChequeFavour = new Array ();
+	for(var nIndex = 0; nIndex < favourResponse.length; nIndex++)
+	{
+		arrChequeFavour.push(CreateOption(favourResponse[nIndex].m_nChequeFavourId,favourResponse[nIndex].m_strChequeFavourOf));
+	}
+	PopulateDD(strDropDownId,arrChequeFavour);
 }
 
 function chooseFileDocument_cancel()

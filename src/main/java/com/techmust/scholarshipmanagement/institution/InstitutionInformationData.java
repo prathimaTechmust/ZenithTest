@@ -1,11 +1,21 @@
 package com.techmust.scholarshipmanagement.institution;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -13,14 +23,15 @@ import javax.persistence.criteria.Root;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.techmust.generic.data.GenericData;
 import com.techmust.generic.data.MasterData;
+import com.techmust.scholarshipmanagement.chequeFavourOf.ChequeInFavourOf;
 
 @Entity
 @Table(name = "institutions")
-@JsonIgnoreProperties(value = {"m_oStudentData"})
 public class InstitutionInformationData extends MasterData
 {
 
@@ -62,11 +73,18 @@ public class InstitutionInformationData extends MasterData
 	private String m_strState;
 	
 	@Column(name = "pincode")
-	private int m_nPincode;		
+	private int m_nPincode;	
 	
-	@Column(name = "issue")
-	private boolean m_bCheckedIssue;
+	@Column(name = "cheque_favourof")
+	private boolean m_bChequeFavouOf;
 	
+	@JsonManagedReference
+	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "m_oInstitutionInformationData")	
+	private Set<ChequeInFavourOf> m_oChequeInFavourOf;
+	
+	@Transient
+	public ChequeInFavourOf[] m_arrChequeFavourof;	
+
 	public InstitutionInformationData()
 	{
 		m_nInstitutionId = -1;
@@ -79,20 +97,41 @@ public class InstitutionInformationData extends MasterData
 		m_strPhoneNumber = "";
 		m_strCity = "";
 		m_strState = "";
-		m_nPincode = -1;	
-		m_bCheckedIssue = false;
-	}
+		m_nPincode = -1;
+		m_bChequeFavouOf = true;
+		m_oChequeInFavourOf = new HashSet<ChequeInFavourOf>();
+	}	
 	
-	public boolean isM_bCheckedIssue()
+	public ChequeInFavourOf[] getM_arrChequeFavourof()
 	{
-		return m_bCheckedIssue;
+		return m_arrChequeFavourof;
 	}
 
-	public void setM_bCheckedIssue(boolean bCheckedIssue)
+	public void setM_arrChequeFavourof(ChequeInFavourOf[] m_arrChequeFavourof)
 	{
-		this.m_bCheckedIssue = bCheckedIssue;
+		this.m_arrChequeFavourof = m_arrChequeFavourof;
 	}
 	
+	public boolean isM_bChequeFavouOf()
+	{
+		return m_bChequeFavouOf;
+	}
+
+	public void setM_bChequeFavouOf(boolean m_bChequeFavouOf)
+	{
+		this.m_bChequeFavouOf = m_bChequeFavouOf;
+	}	
+
+	public Set<ChequeInFavourOf> getM_oChequeInFavourOf()
+	{
+		return m_oChequeInFavourOf;
+	}
+
+	public void setM_oChequeInFavourOf(Set<ChequeInFavourOf> m_oChequeInFavourOf)
+	{
+		this.m_oChequeInFavourOf = m_oChequeInFavourOf;
+	}
+
 	public int getM_nInstitutionId()
 	{
 		return m_nInstitutionId;
@@ -234,6 +273,9 @@ public class InstitutionInformationData extends MasterData
 		{
 			Document oXmlDocument = createNewXMLDocument ();
 			Element oRootElement = createRootElement(oXmlDocument, "InstitutionInformationData");
+			Document oChequeInFavourDocument = getXmlDocument("<m_oChequeInFavourOf>"+buidChequeFavourDetails(m_oChequeInFavourOf)+"</m_oChequeInFavourOf>");
+			Node oChequeInFavourOfNode = oXmlDocument.importNode(oChequeInFavourDocument.getFirstChild(), true);
+			oRootElement.appendChild(oChequeInFavourOfNode);
 			addChild (oXmlDocument, oRootElement, "m_nInstitutionId", m_nInstitutionId);
 			addChild (oXmlDocument, oRootElement, "m_strInstitutionName", m_strInstitutionName);
 			addChild (oXmlDocument, oRootElement, "m_strInstitutionEmailAddress", m_strInstitutionEmailAddress);			
@@ -254,5 +296,15 @@ public class InstitutionInformationData extends MasterData
 		return strInstitutionInfoXML;		
 	}
 
-
+	private String buidChequeFavourDetails(Set<ChequeInFavourOf> m_oChequeInFavourOf)
+	{
+		String strFavourXML = "";
+		Object[] chequeArray = m_oChequeInFavourOf.toArray();
+		for(int nIndex = 0; nIndex < chequeArray.length; nIndex++)
+		{
+			ChequeInFavourOf oChequeInFavourOf = (ChequeInFavourOf) chequeArray[nIndex];
+			strFavourXML += oChequeInFavourOf.generateXML();
+		}
+		return strFavourXML;
+	}	
 }

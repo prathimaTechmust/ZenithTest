@@ -7,6 +7,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -21,6 +23,7 @@ import com.techmust.generic.dataprocessor.GenericIDataProcessor;
 import com.techmust.generic.response.GenericResponse;
 import com.techmust.generic.util.HibernateUtil;
 import com.techmust.helper.ZenithHelper;
+import com.techmust.scholarshipmanagement.chequeFavourOf.ChequeInFavourOf;
 import com.techmust.scholarshipmanagement.course.CourseDataResponse;
 import com.techmust.scholarshipmanagement.course.CourseInformationData;
 import com.techmust.utils.Utils;
@@ -230,6 +233,38 @@ public class InstitutionInformationDataProcessor extends GenericIDataProcessor<I
 			throw oException;
 		}
 		return oInstitutionDataResponse;	
+		
+	}
+	
+	@RequestMapping(value = "/getChequeFavourData",method = RequestMethod.POST,headers = {"Content-type=application/json"})
+	@ResponseBody
+	public GenericResponse getChequeInFavourOf (@RequestBody InstitutionInformationData oInstitutionInformationData)
+	{
+		m_oLogger.info("getChequeInFavourOf");
+		m_oLogger.debug("getChequeInFavourOf" +oInstitutionInformationData.getM_nInstitutionId());
+		InstitutionDataResponse oInstitutionDataResponse = new InstitutionDataResponse();
+		EntityManager oEntityManager = oInstitutionInformationData._getEntityManager();
+		try 
+		{
+			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
+			CriteriaQuery<ChequeInFavourOf> oCriteriaQuery = oCriteriaBuilder.createQuery(ChequeInFavourOf.class);
+			Root<ChequeInFavourOf> oChequeFavourRoot = oCriteriaQuery.from(ChequeInFavourOf.class);
+			oCriteriaQuery.select(oChequeFavourRoot);
+			oCriteriaQuery.where(oCriteriaBuilder.equal(oChequeFavourRoot.get("m_oInstitutionInformationData"), oInstitutionInformationData.getM_nInstitutionId()));
+			oInstitutionDataResponse.m_arrChequeInFavourOf = new ArrayList(oEntityManager.createQuery(oCriteriaQuery).getResultList());
+			if(oInstitutionDataResponse.m_arrChequeInFavourOf.size() >0)
+				oInstitutionDataResponse.m_bSuccess = true;
+		} 
+		catch (Exception oException)
+		{
+			m_oLogger.error("getChequeInFavourOf - oException"+oException);
+		}
+		finally 
+		{
+			oEntityManager.close();
+			HibernateUtil.removeConnection();
+		}
+		return oInstitutionDataResponse;
 		
 	}
 	
