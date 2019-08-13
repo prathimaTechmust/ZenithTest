@@ -32,7 +32,7 @@ function disburseChequeList_Loaded ()
 function disburseChequeList_init()
 {
 	disburseChequeListInfo_createDataGrid ();
-	dropdownacademicyear ();
+	populatAcademicYearDropDown ('selectDisburseacademicyear');
 }
 function disburseChequeListInfo_createDataGrid ()
 {
@@ -120,7 +120,7 @@ function disburseChequeListInfo_progressbarLoaded ()
 {
 	createPopup('dialog', '', '', true);
 	var oStudentInformationData = new StudentInformationData ();
-	oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+	oStudentInformationData.m_strAcademicYear = $("#selectDisburseacademicyear").val();
 	oStudentInformationData.m_strStatus = m_odisburseChequeList_Info_MemberData.m_strStatus;
 	StudentInformationDataProcessor.getStudentStatuslist(oStudentInformationData,disburseChequeListInfo_listed);
 }
@@ -133,7 +133,7 @@ function disburseChequeListInfo_selectedRowData (oRowData, nIndex)
 	document.getElementById("disburseChequeList_div_listDetail").innerHTML = "";
 	var oStudentInformationData = new StudentInformationData () ;
 	oStudentInformationData.m_nStudentId = oRowData.m_nStudentId;
-	oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+	oStudentInformationData.m_strAcademicYear = $("#selectDisburseacademicyear").val();
 	m_odisburseChequeList_Info_MemberData.m_nStudentId = oRowData.m_nStudentId;	
 	m_odisburseChequeList_Info_MemberData.m_oStudentInformationData = oRowData;
 	StudentInformationDataProcessor.getXML (oStudentInformationData,disburseStudentInfo_gotXML);
@@ -148,7 +148,7 @@ function searchStudentUID ()
 {
 	var oStudentInformationData = new StudentInformationData ();
 	oStudentInformationData.m_nUID = $("#StudentInfo_input_uid").val();
-	oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+	oStudentInformationData.m_strAcademicYear = $("#selectDisburseacademicyear").val();
 	oStudentInformationData.m_strStatus = m_odisburseChequeList_Info_MemberData.m_strStatus;
 	if($("#StudentInfo_input_uid").val() != "")
 		StudentInformationDataProcessor.getStudentUID (oStudentInformationData, studentInfo_StudentUIDData);
@@ -163,7 +163,7 @@ function studentInfo_StudentUIDData (oResponse)
 		document.getElementById("disburseChequeList_div_listDetail").innerHTML = "";
 		var oStudentInformationData = new StudentInformationData () ;
 		oStudentInformationData.m_nStudentId = m_odisburseChequeList_Info_MemberData.m_nStudentId = oResponse.m_arrStudentInformationData[0].m_nStudentId;
-		oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+		oStudentInformationData.m_strAcademicYear = $("#selectDisburseacademicyear").val();
 		StudentInformationDataProcessor.getXML (oStudentInformationData,disburseStudentInfo_gotXML);
 		document.getElementById("StudentInfo_input_uid").value = "";
 	}

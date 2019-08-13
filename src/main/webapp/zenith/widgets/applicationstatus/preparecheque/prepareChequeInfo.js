@@ -33,7 +33,7 @@ function prepareChequeInfo_new ()
 function prepareCheque_init ()
 {
 	createPopup("dialog", "#accountInfo_button_submit", "#accountInfo_button_cancel", true);
-	dropdownacademicyear();
+	populatAcademicYearDropDown('selectChequePreparedAcademicYear');
 }
 
 function prepareChequeInfo_submit ()
@@ -141,7 +141,7 @@ function chequeDetails_getFormData ()
 		oScholarshipAccountsInformationData.m_strPaymentType = document.getElementById("select_radio_Cheque").value;
 	else
 		oScholarshipAccountsInformationData.m_strPaymentType = document.getElementById("select_radio_DD").value;
-	oScholarshipAccountsInformationData.m_strAcademicYear = $("#selectAcademicYear").val();
+	oScholarshipAccountsInformationData.m_strAcademicYear = $("#selectChequePreparedAcademicYear").val();
 	if(document.getElementById("select_radio_Cheque").checked == true)
 		oScholarshipAccountsInformationData.m_nChequeNumber = $("#chequeddInfo_input_ChequeDDNumber").val();
 	else

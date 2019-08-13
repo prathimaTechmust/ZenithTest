@@ -24,7 +24,7 @@ function tatkalStudentListInfo_loaded ()
 function tatkalStudentListInfo_init ()
 {
 	createTatkalStudent_dataGrid ();
-	populateAcademicyearsDropdown();
+	populatAcademicYearDropDown('selectTatkalAcademicYear');
 }
 
 function createTatkalStudent_dataGrid ()
@@ -89,26 +89,26 @@ function tatkalStudentListInfo_initDGPagination ()
 	)
 }
 
-function populateAcademicyearsDropdown ()
-{
-	var oAcademicYear = new AcademicYear ();
-	AcademicYearProcessor.list(oAcademicYear,"","",0,10,academicYearResponse);	
-}
-
-function academicYearResponse (oYearResponse)
-{
-	populateDropDownValues("selectacademicyearwiseStudents",oYearResponse);
-}
-
-function populateDropDownValues (dropdownId,oResponse)
-{
-	var arrAcademicYears = new Array();
-	for(var nIndex = 0; nIndex < oResponse.m_arrAcademicYear.length; nIndex++)
-	{
-		arrAcademicYears.push(CreateOption(oResponse.m_arrAcademicYear[nIndex].m_strAcademicYear,oResponse.m_arrAcademicYear[nIndex].m_strAcademicYear));		
-	}
-	PopulateDD(dropdownId,arrAcademicYears);
-}
+//function populateAcademicyearsDropdown ()
+//{
+//	var oAcademicYear = new AcademicYear ();
+//	AcademicYearProcessor.list(oAcademicYear,"","",0,10,academicYearResponse);	
+//}
+//
+//function academicYearResponse (oYearResponse)
+//{
+//	populateDropDownValues("selectAcademicYear",oYearResponse);
+//}
+//
+//function populateDropDownValues (dropdownId,oResponse)
+//{
+//	var arrAcademicYears = new Array();
+//	for(var nIndex = 0; nIndex < oResponse.m_arrAcademicYear.length; nIndex++)
+//	{
+//		arrAcademicYears.push(CreateOption(oResponse.m_arrAcademicYear[nIndex].m_strAcademicYear,oResponse.m_arrAcademicYear[nIndex].m_strAcademicYear));		
+//	}
+//	PopulateDD(dropdownId,arrAcademicYears);
+//}
 
 function tatkalStudentListInfo_List (strColumn,strOrderBy,nPageNumber,nPageSize)
 {
@@ -155,7 +155,7 @@ function tatkalStudentListInfo_selectedRowData (oRowData, rowIndex)
 	document.getElementById("tatkalStudentListInfo_div_listStudentDetails").innerHTML = "";
 	var oStudentInformation = new StudentInformationData ();
 	oStudentInformation.m_nStudentId = oRowData.m_nStudentId;
-	oStudentInformation.m_strAcademicYear = $("#selectacademicyearwiseStudents").val();
+	oStudentInformation.m_strAcademicYear = $("#selectTatkalAcademicYear").val();
 	StudentInformationDataProcessor.getXML (oStudentInformation,tatkalStudentListInfo_gotXML);
 }
 
@@ -216,7 +216,7 @@ function changePriority_cancel ()
 function tatkalStudentListInfo_filter ()
 {
 	var oStudentFilterData = new StudentInformationData();
-	oStudentFilterData.m_strAcademicYear = $("#selectacademicyearwiseStudents").val();
+	oStudentFilterData.m_strAcademicYear = $("#selectTatkalAcademicYear").val();
 	if($("#filterTatkalStudentListInfo_input_studentName").val() != '')
 		oStudentFilterData.m_strStudentName = $("#filterTatkalStudentListInfo_input_studentName").val();
 	else if($("#filterTatkalStudentListInfo_input_studentAadhar").val() != '')

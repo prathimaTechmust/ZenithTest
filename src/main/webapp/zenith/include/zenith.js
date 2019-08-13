@@ -986,7 +986,7 @@ function validateFilterBoxes (gridId,status)
 {
 	m_oZenithMemberData.m_gridId = gridId;
 	var oStudentFilterData = new StudentInformationData();
-	oStudentFilterData.m_strAcademicYear = $("#selectacademicyearwiseStudents").val();
+	oStudentFilterData.m_strAcademicYear = $("#selectAcademicYear").val();
 	oStudentFilterData.m_strStatus = status;
 	oStudentFilterData.m_bSuccess = false;
 	if($("#filterStudentInfo_input_studentName").val() != "")
@@ -1144,15 +1144,16 @@ function applicationPriorityGridColor(strGridId)
 
 // populating academicyears dropdown
 
-function dropdownacademicyear ()
+function populatAcademicYearDropDown (selectAcademicYear)
 {
+	 m_oZenithMemberData.selectAcademicYear = selectAcademicYear;
 	var oAcademicYear = new AcademicYear();
 	AcademicYearProcessor.list(oAcademicYear,"m_strAcademicYear","asc",0,0,academicyearResponse);	
 }
 
 function academicyearResponse(oYearResponse)
 {
-	populateYear("selectAcademicYear",oYearResponse);
+	populateYear(m_oZenithMemberData.selectAcademicYear,oYearResponse);
 }
 
 function populateYear(academicyear,oYearResponse)

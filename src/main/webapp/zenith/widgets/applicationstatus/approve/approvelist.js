@@ -28,7 +28,7 @@ function approveStudentListInfo_loaded ()
 function approveStudentInfo_init ()
 {
 	approveStudentListInfo_createDataGrid ();
-	dropdownacademicyear();
+	populatAcademicYearDropDown('selectApproveAcademicYear');
 	$("#zenithInfo_approvedamount").focus();
 }
 
@@ -111,7 +111,7 @@ function approveStudentlistInfo_selectedRowData (oRowData, nIndex)
 	document.getElementById("listApproveStudents_div_listDetail").innerHTML = "";
 	var oStudentInformationData = new StudentInformationData () ;
 	oStudentInformationData.m_nStudentId = oRowData.m_nStudentId;
-	oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+	oStudentInformationData.m_strAcademicYear = $("#selectApproveAcademicYear").val();
 	m_oApproveStudentList_Info_MemberData.m_nStudentId = oRowData.m_nStudentId;
 	StudentInformationDataProcessor.getXML (oStudentInformationData,approveStudentListInfo_gotXML);	
 }
@@ -199,7 +199,7 @@ function searchStudentUID ()
 	var oStudentInformationData = new StudentInformationData ();
 	oStudentInformationData.m_nUID = $("#StudentInfo_input_uid").val();
 	oStudentInformationData.m_strStatus = m_oApproveStudentList_Info_MemberData.m_strapplicationStatus;
-	oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+	oStudentInformationData.m_strAcademicYear = $("#selectApproveAcademicYear").val();
 	if($("#StudentInfo_input_uid").val() != "")
 		StudentInformationDataProcessor.getStudentUID(oStudentInformationData,studentUIDResponse);
 	else
@@ -213,7 +213,7 @@ function studentUIDResponse (oStudentUIDResponse)
 		document.getElementById("listApproveStudents_div_listDetail").innerHTML = "";
 		var oStudentInformationData = new StudentInformationData () ;
 		oStudentInformationData.m_nStudentId = m_oApproveStudentList_Info_MemberData.m_nStudentId = oStudentUIDResponse.m_arrStudentInformationData[0].m_nStudentId;
-		oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+		oStudentInformationData.m_strAcademicYear = $("#selectApproveAcademicYear").val();
 		StudentInformationDataProcessor.getXML (oStudentInformationData,approveStudentListInfo_gotXML);
 		document.getElementById("StudentInfo_input_uid").value = "";
 	}
@@ -247,7 +247,7 @@ function approveStudentListInfo_progressbarLoaded ()
 {
 	createPopup('dialog', '', '', true);
 	var oStudentInformationData = new StudentInformationData ();
-	oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+	oStudentInformationData.m_strAcademicYear = $("#selectApproveAcademicYear").val();
 	oStudentInformationData.m_strStatus = m_oApproveStudentList_Info_MemberData.m_strapplicationStatus;
 	StudentInformationDataProcessor.getStudentStatuslist(oStudentInformationData,approveStudentListInfo_listed);
 }

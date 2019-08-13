@@ -29,7 +29,7 @@ function listStudentInfo_loaded ()
 function listStudentInfo_init ()
 {
 	listStudentInfo_createDataGrid ();
-	dropdownacademicyear();
+	populatAcademicYearDropDown('selectStudentListAcademicYear');
 }
 /*function academicyear ()
 {	
@@ -120,7 +120,7 @@ function listStudentInfo_selectedRowData (oRowData, nIndex)
 	document.getElementById("listStudentInfo_div_listDetail").innerHTML = "";
 	var oStudentInformationData = new StudentInformationData () ;
 	oStudentInformationData.m_nStudentId = oRowData.m_nStudentId;
-	oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+	oStudentInformationData.m_strAcademicYear = $("#selectStudentListAcademicYear").val();
 	StudentInformationDataProcessor.getXML (oStudentInformationData,listStudentInfo_gotXML);
 }
 
@@ -178,7 +178,7 @@ function listStudentInfo_edit (nStudentId)
 {
 	assert.isNumber(nStudentId, "nStudentId expected to be a Number.");
 	m_oStudentInfoListMemberData.m_nSelectedStudentId = nStudentId;
-	m_oStudentInfoListMemberData.m_strAcademicYear = $("#selectacademicyear").val();
+	m_oStudentInfoListMemberData.m_strAcademicYear = $("#selectStudentListAcademicYear").val();
 	navigate ("actionInformation", "widgets/scholarshipmanagement/studentlist/editStudentInfo.js");
 }
 

@@ -30,7 +30,7 @@ function counselingStudentListInfo_loaded()
 function counselingStudentInfo_init()
 {
 	counselingStudentListInfo_createDataGrid ();
-	dropdownacademicyear();
+	populatAcademicYearDropDown('selectCounselingAcademicyear');
 }
 function counselingStudentListInfo_createDataGrid ()
 {
@@ -104,7 +104,7 @@ function counselingStudentlistInfo_selectedRowData (oRowData, nIndex)
 	document.getElementById("CounselingStudents_div_listDetail").innerHTML = "";
 	var oStudentInformationData = new StudentInformationData () ;
 	oStudentInformationData.m_nStudentId = oRowData.m_nStudentId;
-	oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+	oStudentInformationData.m_strAcademicYear = $("#selectCounselingAcademicyear").val();
 	m_oCounselingStudentList_Info_MemberData.m_nStudentId = oRowData.m_nStudentId;
 	StudentInformationDataProcessor.getXML (oStudentInformationData,counselingStudentListInfo_gotXML);	
 }
@@ -132,7 +132,7 @@ function counselingStudentListInfo_progressbarLoaded ()
 {
 	createPopup('dialog', '', '', true);
 	var oStudentInformationData = new StudentInformationData ();
-	oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+	oStudentInformationData.m_strAcademicYear = $("#selectCounselingAcademicyear").val();
 	oStudentInformationData.m_strStatus = m_oCounselingStudentList_Info_MemberData.m_strapplicationStatus;
 	StudentInformationDataProcessor.getStudentStatuslist(oStudentInformationData,counselingStudentListInfo_listed);
 }
