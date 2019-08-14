@@ -59,6 +59,7 @@ function studentInfo_memberData ()
 	this.m_oStudentResponse="";
 	
 	this.m_nSiblingRowId=-1;
+	this.b_IsNewStudent = true;
 }
 
 var m_oStudentInfoMemberData = new studentInfo_memberData ();
@@ -77,6 +78,7 @@ function studentInfo_old ()
 
 function studentInfo_init ()
 {
+
 	createPopup("dialog", "#studentInfo_button_submit", "#studentInfo_button_cancel", true);
 	document.getElementById("defaultOpen").click();
 	populatAcademicYearDropDown('selectacademicyear');	
@@ -307,6 +309,7 @@ function student_progressbarLoaded ()
 function studentInfo_edit ()
 {
 	studentInfo_init();
+	m_oStudentInfoMemberData.b_IsNewStudent = false;
 	var oStudentInformationData = new StudentInformationData ();
 	oStudentInformationData.m_nStudentId = m_oStudentInfoListMemberData.m_nSelectedStudentId;
 	oStudentInformationData.m_strAcademicYear = m_oStudentInfoListMemberData.m_strAcademicYear;
@@ -822,7 +825,14 @@ function openNextTab(oEvent, TabName, oNextBtn )
 
 function getImage(studentInfo_input_image,fileInputTypeID, divId)
 {
-	document.getElementById(divId.id).style.display = "block";
+	if(m_oStudentInfoMemberData.b_IsNewStudent)	
+	{
+		document.getElementById(divId.id).style.display = "none";
+	}
+	else
+	{
+		document.getElementById(divId.id).style.display = "block";
+	}
 	var oFileSource = document.getElementById(fileInputTypeID.id);
 	var studentInfo_input_document = document.getElementById(studentInfo_input_image.id);
 	showImage(oFileSource, studentInfo_input_document);
