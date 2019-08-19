@@ -105,7 +105,7 @@
 													<td align = "left" colspan = "2">
 														<hr/>																																															
 														<button type="button" style= "margin-right:10px" class = "zenith" id="approveStudent" title="Approve" onClick="approveStudentInfo_Student()">Approve</button>
-														<button type="button" style="margin-right: 10px;" class = "zenith" id="reverify" title="reverify" onClick="reverifyStudentInfo_Student()">reverify</button>
+														<button type="button" style="width:100px;margin-right: 10px;" class = "zenith" id="counseling" title="counseling" onClick="counselingStudentInfo_Student()">Counseling</button>
 														<button type="button" style= "margin-right:10px; float: right;" class = "zenith" id="rejectStudent" title="Reject" onClick="recjectStudentInfo_Student()">Reject</button>
 													</td>			 							
 												</tr>							
@@ -120,7 +120,7 @@
 						</td>																					
 					</tr>								
 				</table>
-			</td>
+			</td>  
 		</tr>	
 		<tr>
 			<td>
@@ -398,21 +398,38 @@
 												<td class="organization">Studying</td>
 												<td class="organization">School/College</td>
 											</tr>																			
-											<tr>
-												<xsl:for-each select="StudentInformationData/m_oSibilingDetails/SiblingsDetails">
-												<tr>
+ 											<xsl:choose>
+										         <xsl:when test="StudentInformationData/m_oSibilingDetails/SiblingsDetails !=''" >
+										           	<tr>
+														<xsl:for-each select="StudentInformationData/m_oSibilingDetails/SiblingsDetails">
+															<tr>
+																<td class="organization organizationData" >
+																	<xsl:value-of select="m_strSiblingName" />
+																</td>
+																<td class="organization organizationData">
+																	<xsl:value-of select="m_strStudying"/>
+																</td>
+																<td class="organization organizationData">
+																	<xsl:value-of select="m_strStudyingInstitution"/>
+																</td>												
+															</tr>									
+														</xsl:for-each>									
+													</tr>		
+										         </xsl:when>
+										         <xsl:otherwise>
+							         			 <tr>
 													<td class="organization organizationData" >
-														<xsl:value-of select="m_strSiblingName" />
+														--
 													</td>
 													<td class="organization organizationData">
-														<xsl:value-of select="m_strStudying"/>
+														--
 													</td>
 													<td class="organization organizationData">
-														<xsl:value-of select="m_strStudyingInstitution"/>
+														--
 													</td>												
-												</tr>									
-												</xsl:for-each>									
-											</tr>								
+												</tr>										
+									         	</xsl:otherwise>
+									      	 </xsl:choose>											
 										</table>			
 									</td>		
 								</tr>
@@ -449,19 +466,35 @@
 							<td class="organization">Organization Name</td>
 							<td class="organization">Amount(₹)</td>
 						</tr>																			
-						<tr>
-						<xsl:for-each select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oScholarshipDetails/ScholarshipDetails">
-						<tr>
-							<td class="organization organizationData" >
-								<xsl:value-of select="m_strOrganizationName" />
-							</td>
-							<td class="organization organizationData">
-								<xsl:value-of select="format-number(m_fAmount, '##,##,##0')"/>
-							</td>											
-						</tr>									
-						</xsl:for-each>									
-						</tr>								
-					</table>						
+						<tr>	
+						 <xsl:choose>
+						         <xsl:when test="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oScholarshipDetails/ScholarshipDetails !=''" >
+						           	<tr>
+									<xsl:for-each select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oScholarshipDetails/ScholarshipDetails">
+									<tr>
+										<td class="organization organizationData" >
+											<xsl:value-of select="m_strOrganizationName" />
+										</td>
+										<td class="organization organizationData">
+											<xsl:value-of select="format-number(m_fAmount, '##,##,##0')"/>
+										</td>											
+									</tr>									
+									</xsl:for-each>								
+									</tr>		
+						         </xsl:when>
+						         <xsl:otherwise>
+			         			 <tr>
+									<td class="organization organizationData" >
+										--
+									</td>
+									<td class="organization organizationData">
+										--
+									</td>											
+								</tr>										
+					         	</xsl:otherwise>
+				      	 </xsl:choose>														      	 						
+					</tr>									
+				</table>						
 				</td>					
 			</tr>
 			</table>				

@@ -29,30 +29,8 @@ function rejectedStudentListInfo_loaded ()
 function rejectedStudentInfo_init ()
 {
 	rejectedStudentListInfo_createDataGrid ();
-	dropdownacademicyear();
+	populatAcademicYearDropDown('selectRejectListAcademicYear');
 }
-
-function dropdownacademicyear ()
-{
-	var oAcademicYear = new AcademicYear();
-	AcademicYearProcessor.list(oAcademicYear,"m_strAcademicYear","asc",0,0,academicyearResponse);	
-}
-
-function academicyearResponse(oYearResponse)
-{
-	populateYear("selectacademicyear",oYearResponse);
-}
-
-function populateYear(academicyear,oYearResponse)
-{
-	var arrAcademicYears = new Array();
-	for(var nIndex = 0; nIndex < oYearResponse.m_arrAcademicYear.length; nIndex++)
-	{
-		arrAcademicYears.push(CreateOption(oYearResponse.m_arrAcademicYear[nIndex].m_strAcademicYear,oYearResponse.m_arrAcademicYear[nIndex].m_strAcademicYear));		
-	}
-	PopulateDD(academicyear,arrAcademicYears);	
-}
-
 function rejectedStudentListInfo_createDataGrid ()
 {
 	initHorizontalSplitter("#rejectedStudentsList_div_horizontalSplitter", "#rejectedStudentsList_table_students");
@@ -136,7 +114,7 @@ function rejectedStudentlistInfo_selectedRowData (oRowData, nIndex)
 	document.getElementById("rejectedStudentsList_div_listDetail").innerHTML = "";
 	var oStudentInformationData = new StudentInformationData () ;
 	oStudentInformationData.m_nStudentId = oRowData.m_nStudentId;
-	oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+	oStudentInformationData.m_strAcademicYear = $("#selectRejectListAcademicYear").val();
 	m_oRejectedStudentList_Info_MemberData.m_nStudentId = oRowData.m_nStudentId;
 	StudentInformationDataProcessor.getXML (oStudentInformationData,rejectedStudentListInfo_gotXML);	
 }
@@ -177,7 +155,7 @@ function studentUIDResponse(oStudentUIDResponse)
 		document.getElementById("rejectedStudentsList_div_listDetail").innerHTML = "";
 		var oStudentInformationData = new StudentInformationData () ;
 		oStudentInformationData.m_nStudentId = m_oRejectedStudentList_Info_MemberData.m_nStudentId = oStudentUIDResponse.m_arrStudentInformationData[0].m_nStudentId;
-		oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+		oStudentInformationData.m_strAcademicYear = $("#selectRejectListAcademicYear").val();
 		StudentInformationDataProcessor.getXML (oStudentInformationData,rejectedStudentListInfo_gotXML);
 		document.getElementById("StudentInfo_input_uid").value = "";
 	}
@@ -208,7 +186,7 @@ function rejectedStudentListInfo_progressbarLoaded ()
 {
 	createPopup('dialog', '', '', true);
 	var oStudentInformationData = new StudentInformationData ();
-	oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+	oStudentInformationData.m_strAcademicYear = $("#selectRejectListAcademicYear").val();
 	oStudentInformationData.m_strStatus = m_oRejectedStudentList_Info_MemberData.m_strapplicationStatus;
 	StudentInformationDataProcessor.getStudentStatuslist(oStudentInformationData,rejectedStudentListInfo_listed);
 }

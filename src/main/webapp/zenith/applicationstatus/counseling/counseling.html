@@ -3,19 +3,19 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>
-     To Be Verified Student Information List
+   counseling Student Information List
     </title>
   </head>
   <body>
-    <form class="zenith" id="listVerifiedStudentsInfo_form_id">
-      <table class="zenith" id="listVerifiedStudents_table_filter" summary="">
+    <form class="zenith" id="CounselingStudentsInfo_form_id">
+      <table class="zenith" id="CounselingStudents_table_filter" summary="">
         <tr>
           <td class="zenith">
-            <div class="zenith" id="listVerifiedStudents_div_dataGridToolbar">
+            <div class="zenith" id="CounselingStudents_div_dataGridToolbar">
               <table class="zenith" cellpadding="2" cellspacing="2" summary="">
                 <tr>
                 	<td style="width:4%">
-                    	<select id="selectVerifiedAcademicyear" class="zenith">                    		
+                    	<select id="selectCounselingAcademicyear" class="zenith">                    		
                     	</select>
                   </td>
                        <td class="zenith" style="width:15%">
@@ -41,7 +41,7 @@
                         placeholder="Student Aadhar"/>
                   </td>
                   <td class="zenith" style="width:5%">
-                    <button class="zenith filterButton" type="button" onclick="studentListInfo_filter (listVerifiedStudents_table_students,'pending')">
+                    <button class="zenith filterButton" type="button" onclick="studentListInfo_filter (CounselingStudents_table_students,'counseling')">
                       Filter
                     </button>
                   </td>                
@@ -52,17 +52,17 @@
         </tr>
         <tr>
           <td class="zenith">
-            <div id="listVerifiedStudents_div_horizontalSplitter" style="z-index: 0">
-              <div id="listVerifiedStudents_div_dataGrid">
+            <div id="CounselingStudents_div_horizontalSplitter" style="z-index: 0">
+              <div id="CounselingStudents_div_dataGrid">
                 <table 
-                    id="listVerifiedStudents_table_students"
+                    id="CounselingStudents_table_students"
                     class="easyui-datagrid"
                     title="To Be Verified Student Information List"
-                    data-options="striped:true, pagination:true, pagesize:15, rownumbers:true, fitColumns:true, remoteSort:false, singleSelect:true, toolbar:'#listVerifiedStudents_div_dataGridToolbar'">
+                    data-options="striped:true, pagination:true, pagesize:15, rownumbers:true, fitColumns:true, remoteSort:false, singleSelect:true, toolbar:'#CounselingStudents_div_dataGridToolbar'">
 
                 </table>
               </div>
-              <div class="gridDetails" id="listVerifiedStudents_div_listDetail">
+              <div class="gridDetails" id="CounselingStudents_div_listDetail">
               </div>
             </div>
           </td>

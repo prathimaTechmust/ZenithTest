@@ -22,27 +22,7 @@ function toBeClaimChequesInfo_Loaded()
 function toBeClaimChequeList_init ()
 {
 	createToBeClaimChequeList_DataGrid();
-	populateAcademicYearDropDown ();
-}
-function populateAcademicYearDropDown ()
-{
-	var oAcademicYear = new AcademicYear();
-	AcademicYearProcessor.list(oAcademicYear,"m_strAcademicYear","asc",0,0,academicyearResponse);	
-}
-
-function academicyearResponse(oYearResponse)
-{
-	populateYear("selectacademicyear",oYearResponse);
-}
-
-function populateYear(academicyear,oYearResponse)
-{
-	var arrAcademicYears = new Array();
-	for(var nIndex = 0; nIndex < oYearResponse.m_arrAcademicYear.length; nIndex++)
-	{
-		arrAcademicYears.push(CreateOption(oYearResponse.m_arrAcademicYear[nIndex].m_strAcademicYear,oYearResponse.m_arrAcademicYear[nIndex].m_strAcademicYear));		
-	}
-	PopulateDD(academicyear,arrAcademicYears);	
+	populatAcademicYearDropDown('selectToBeClaimAcademicYear');
 }
 
 function createToBeClaimChequeList_DataGrid()
@@ -87,7 +67,7 @@ function createToBeClaimChequeList_DataGrid()
 		        	{
 		        		return row.m_oZenithScholarshipDetails[0].m_strStatus;
 		        	}
-				},		
+				},		 
 			]],				
 		}
 			
@@ -114,7 +94,7 @@ function toBeClaimChequeListInfo_progressbarLoaded ()
 {
 	createPopup('dialog', '', '', true);
 	var oStudentInformationData = new StudentInformationData ();
-	oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+	oStudentInformationData.m_strAcademicYear = $("#selectToBeClaimAcademicYear").val();
 	oStudentInformationData.m_strStatus = m_oToBeClaimChequeListMemberData.m_strapplicationStatus;
 	StudentInformationDataProcessor.getStudentStatuslist(oStudentInformationData,toBeClaimChequeListInfo_listed);
 }
@@ -136,7 +116,7 @@ function toBeClaimChequeListInfo_selectedRowData(oRowData,nIndex)
 	document.getElementById("toBeClaimChequeList_div_listDetail").innerHTML = "";
 	var oStudentInformationData = new StudentInformationData () ;
 	oStudentInformationData.m_nStudentId = oRowData.m_nStudentId;
-	oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+	oStudentInformationData.m_strAcademicYear = $("#selectToBeClaimAcademicYear").val();
 	m_oToBeClaimChequeListMemberData.m_nStudentId = oRowData.m_nStudentId;
 	StudentInformationDataProcessor.getXML (oStudentInformationData,toBeClaimChequeListInfo_gotXML);
 }
@@ -226,7 +206,7 @@ function searchStudentUID ()
 {
 	var oStudentInformationData = new StudentInformationData();
 	oStudentInformationData.m_nUID = $("#StudentInfo_input_uid").val();
-	oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+	oStudentInformationData.m_strAcademicYear = $("#selectToBeClaimAcademicYear").val();
 	oStudentInformationData.m_strStatus = m_oToBeClaimChequeListMemberData.m_strapplicationStatus;
 	if($("StudentInfo_input_uid").val() != "")
 		StudentInformationDataProcessor.getStudentUID (oStudentInformationData, studentUIDInformation);	
@@ -244,7 +224,7 @@ function studentUIDInformation (oResponse)
 		document.getElementById("toBeClaimChequeList_div_listDetail").innerHTML = "";
 		var oStudentInformationData = new StudentInformationData () ;
 		oStudentInformationData.m_nStudentId = m_oToBeClaimChequeListMemberData.m_nStudentId = oResponse.m_arrStudentInformationData[0].m_nStudentId;
-		oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+		oStudentInformationData.m_strAcademicYear = $("#selectToBeClaimAcademicYear").val();
 		StudentInformationDataProcessor.getXML (oStudentInformationData,toBeClaimChequeListInfo_gotXML);
 		document.getElementById("StudentInfo_input_uid").value = "";
 	}

@@ -31,28 +31,7 @@ function listPrepareChequeInfo_loaded ()
 function listPrepareChequeInfo_init ()
 {
 	listPrepareChequeInfo_createDataGrid ();
-	dropdownacademicyear();
-}
-
-function dropdownacademicyear ()
-{
-	var oAcademicYear = new AcademicYear();
-	AcademicYearProcessor.list(oAcademicYear,"m_strAcademicYear","asc",0,0,academicyearResponse);	
-}
-
-function academicyearResponse(oYearResponse)
-{
-	populateYear("selectacademicyear",oYearResponse);
-}
-
-function populateYear(academicyear,oYearResponse)
-{
-	var arrAcademicYears = new Array();
-	for(var nIndex = 0; nIndex < oYearResponse.m_arrAcademicYear.length; nIndex++)
-	{
-		arrAcademicYears.push(CreateOption(oYearResponse.m_arrAcademicYear[nIndex].m_strAcademicYear,oYearResponse.m_arrAcademicYear[nIndex].m_strAcademicYear));		
-	}
-	PopulateDD(academicyear,arrAcademicYears);	
+	populatAcademicYearDropDown('selectPrepareChequeacademicYear');
 }
 
 function listPrepareChequeInfo_createDataGrid ()
@@ -137,7 +116,7 @@ function listPrepareChequeInfo_selectedRowData (oRowData, nIndex)
 	document.getElementById("listPrepareCheque_div_listDetail").innerHTML = "";
 	var oStudentInformationData = new StudentInformationData () ;
 	oStudentInformationData.m_nStudentId = oRowData.m_nStudentId;
-	oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+	oStudentInformationData.m_strAcademicYear = $("#selectPrepareChequeacademicYear").val();
 	m_oPrepareChequeListMemberData.m_oStudentInformationData = oRowData;
 	StudentInformationDataProcessor.getXML (oStudentInformationData,prepareChequeInfo_gotXML);
 }
@@ -178,7 +157,7 @@ function searchStudentUID ()
 {
 	var oStudentInformationData = new StudentInformationData();
 	oStudentInformationData.m_nUID = $("#StudentInfo_input_uid").val();
-	oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+	oStudentInformationData.m_strAcademicYear = $("#selectPrepareChequeacademicYear").val();
 	oStudentInformationData.m_strStatus = m_oPrepareChequeListMemberData.m_strStatus;
 	if($("StudentInfo_input_uid").val() != "")
 		StudentInformationDataProcessor.getStudentUID (oStudentInformationData, studentUIDInformation);	
@@ -196,7 +175,7 @@ function studentUIDInformation (oResponse)
 		document.getElementById("listPrepareCheque_div_listDetail").innerHTML = "";
 		var oStudentInformationData = new StudentInformationData () ;
 		oStudentInformationData.m_nStudentId = m_oPrepareChequeListMemberData.m_nStudentId = oResponse.m_arrStudentInformationData[0].m_nStudentId;
-		oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+		oStudentInformationData.m_strAcademicYear = $("#selectPrepareChequeacademicYear").val();
 		StudentInformationDataProcessor.getXML (oStudentInformationData,prepareChequeInfo_gotXML);
 		document.getElementById("StudentInfo_input_uid").value = "";
 	}
@@ -212,7 +191,7 @@ function listPrepareChequeInfo_progressbarLoaded ()
 	createPopup('dialog', '', '', true);
 	var oPrepareChequeInformationData = new PrepareChequeInformationData ();
 	var oStudentInformationData = new StudentInformationData();
-	oStudentInformationData.m_nAcademicYear = $("#selectacademicyear").val();
+	oStudentInformationData.m_nAcademicYear = $("#selectPrepareChequeacademicYear").val();
 	oStudentInformationData.m_strStatus = m_oPrepareChequeListMemberData.m_strStatus;
 	StudentInformationDataProcessor.getStudentStatuslist(oStudentInformationData,listPrepareChequeInfo_listed);
 }

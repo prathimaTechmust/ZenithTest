@@ -59,6 +59,7 @@ function studentInfo_memberData ()
 	this.m_oStudentResponse="";
 	
 	this.m_nSiblingRowId=-1;
+	this.b_IsNewStudent = true;
 }
 
 var m_oStudentInfoMemberData = new studentInfo_memberData ();
@@ -77,10 +78,10 @@ function studentInfo_old ()
 
 function studentInfo_init ()
 {
+
 	createPopup("dialog", "#studentInfo_button_submit", "#studentInfo_button_cancel", true);
-	document.getElementById("DocumentUpload_details_btn").style.display="none";
 	document.getElementById("defaultOpen").click();
-	student_academicyearList();	
+	populatAcademicYearDropDown('selectacademicyear');	
 	calculate_Student_CourseFee ();
 	studentReligionDropDown();
 	studentParentalStatusDropDown();
@@ -162,27 +163,6 @@ function loadFacilitatorListResponseToDropDown (oReponse)
 																				height:"25px"});
 				}
 			);	
-}
-
-function student_academicyearList ()
-{
-	var oAcademicYear = new AcademicYear();
-	AcademicYearProcessor.list(oAcademicYear,"m_strAcademicYear","asc",0,0,academicyearResponse);	
-}
-
-function academicyearResponse(oYearResponse)
-{
-	populateYear("select_student_academicyear",oYearResponse);
-}
-
-function populateYear(academicyear,oYearResponse)
-{
-	var arrAcademicYears = new Array();
-	for(var nIndex = 0; nIndex < oYearResponse.m_arrAcademicYear.length; nIndex++)
-	{
-		arrAcademicYears.push(CreateOption(oYearResponse.m_arrAcademicYear[nIndex].m_strAcademicYear,oYearResponse.m_arrAcademicYear[nIndex].m_strAcademicYear));		
-	}
-	PopulateDD(academicyear,arrAcademicYears);	
 }
 
 function studentScoreDropDown ()
@@ -329,6 +309,7 @@ function student_progressbarLoaded ()
 function studentInfo_edit ()
 {
 	studentInfo_init();
+	m_oStudentInfoMemberData.b_IsNewStudent = false;
 	var oStudentInformationData = new StudentInformationData ();
 	oStudentInformationData.m_nStudentId = m_oStudentInfoListMemberData.m_nSelectedStudentId;
 	oStudentInformationData.m_strAcademicYear = m_oStudentInfoListMemberData.m_strAcademicYear;
@@ -376,7 +357,7 @@ function studentInfo_getFormData ()
 	oStudentInformationData.m_strCity = $("#studentInfo_input_cityName").val();
 	oStudentInformationData.m_strState= $("#studentInfo_input_stateName").val();
 	oStudentInformationData.m_nPincode = $("#studentInfo_input_pincodeName").val();
-	if(m_oStudentInfoMemberData.m_strAcademicYear != $("#select_student_academicyear").val())
+	if(m_oStudentInfoMemberData.m_strAcademicYear != $("#selectacademicyear").val())
 		oStudentInformationData.m_oZenithScholarshipDetails = getZenithstatus();
 	      /*Academic details*/
 	oStudentInformationData.m_oAcademicDetails = getAcademicDetails ();
@@ -393,9 +374,9 @@ function getAcademicDetails ()
 	oAcademicDetails.m_oInstitutionInformationData.m_nInstitutionId = $("#select_input_academic_name").val();
 	oAcademicDetails.m_oCourseInformationData = new CourseInformationData();
 	oAcademicDetails.m_oCourseInformationData.m_nCourseId = $("#select_input_studentcourse").val();	
-	if(m_oStudentInfoMemberData.m_strAcademicYear == $("#select_student_academicyear").val())
+	if(m_oStudentInfoMemberData.m_strAcademicYear == $("#selectacademicyear").val())
 		oAcademicDetails.m_nAcademicId = m_oStudentInfoMemberData.m_nAcademicId ;	
-	oAcademicDetails.m_strAcademicYear = $("#select_student_academicyear").val();
+	oAcademicDetails.m_strAcademicYear = $("#selectacademicyear").val();
 	oAcademicDetails.m_strStudentScore = $("#studentInfo_input_studentScore :selected").val();
 	oAcademicDetails.m_strSpecialization = $("#select_input_studentSpecialization").val();
 	oAcademicDetails.m_fAnnualFee = $("#academicInfo_input_annualfee").val();	
@@ -456,7 +437,7 @@ function getAddScolarshipDetails ()
 		for(var nIndex = 0; nIndex < arrAddscholarshipDetails.length; nIndex++)
 		{
 			var oScholarshipDetails = new ScholarshipDetails();				    
-		    if(m_oStudentInfoMemberData.m_strAcademicYear == $("#select_student_academicyear").val())
+		    if(m_oStudentInfoMemberData.m_strAcademicYear == $("#selectacademicyear").val())
 		    	oScholarshipDetails.m_nScholarshipId = arrAddscholarshipDetails[nIndex].m_nScholarshipId;				
 			oScholarshipDetails.m_strOrganizationName = $("#scholarshipInfo_input_organization"+nIndex).val();
 			oScholarshipDetails.m_fAmount = $("#scholarshipInfo_input_organizationamount"+nIndex).val();
@@ -474,7 +455,7 @@ function getAddScolarshipDetails ()
 				oScholarshipDetails.m_fAmount = $("#scholarshipInfo_input_organizationamount"+nIndex).val();
 				oArrScholarshipDetails.push(oScholarshipDetails);
 	    	}
-			if((nIndex < arrAddscholarshipDetails.length) && (m_oStudentInfoMemberData.m_strAcademicYear == $("#select_student_academicyear").val()))
+			if((nIndex < arrAddscholarshipDetails.length) && (m_oStudentInfoMemberData.m_strAcademicYear == $("#selectacademicyear").val()))
 			{
 				oScholarshipDetails.m_nScholarshipId = arrAddscholarshipDetails[nIndex].m_nScholarshipId;
 			}
@@ -701,7 +682,7 @@ function searchStudentUID ()
 {
 	var oStudentInformationData = new StudentInformationData ();
 	oStudentInformationData.m_nUID = $("#studentInfo_input_studentUIDNumber").val();
-	oStudentInformationData.m_strAcademicYear = $("#select_student_academicyear").val();
+	oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
 	StudentInformationDataProcessor.getStudentDataUID (oStudentInformationData, studentInfo_setStudentData);
 }
 
@@ -728,7 +709,7 @@ function searchStudentAadhar ()
 {
 	var oStudentInformationData = new StudentInformationData ();
 	oStudentInformationData.m_nStudentAadharNumber = $("#studentInfo_input_studentAadharNumber").val();
-	oStudentInformationData.m_strAcademicYear = $("#select_student_academicyear").val();
+	oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
 	StudentInformationDataProcessor.getStudentDataUID (oStudentInformationData, studentInfo_setStudentData);
 }
 
@@ -844,7 +825,14 @@ function openNextTab(oEvent, TabName, oNextBtn )
 
 function getImage(studentInfo_input_image,fileInputTypeID, divId)
 {
-	document.getElementById(divId.id).style.display = "block";
+	if(m_oStudentInfoMemberData.b_IsNewStudent)	
+	{
+		document.getElementById(divId.id).style.display = "none";
+	}
+	else
+	{
+		document.getElementById(divId.id).style.display = "block";
+	}
 	var oFileSource = document.getElementById(fileInputTypeID.id);
 	var studentInfo_input_document = document.getElementById(studentInfo_input_image.id);
 	showImage(oFileSource, studentInfo_input_document);
@@ -996,7 +984,7 @@ function siblingsAddSiblings ()
 	if(m_oStudentInfoMemberData.m_nRowSiblingsUIDIdCount != -1)
 	{
 		$("#siblings").append('<tr id=rowCountId><td class="fieldHeading">UID</td> <td><input type="text"id="studentInfo_input_SiblingsUID'+(m_oStudentInfoMemberData.m_nRowSiblingsUIDIdCount++)+'" class="zenith" style="margin-right: 60px" maxlength = "4"  onchange="scarchSiblingsUID(rowCountId)"/></td><td class="fieldHeading">Name</td><td><input type="text"id="studentInfo_input_SiblingsName'+(m_oStudentInfoMemberData.m_nRowSiblingsNameCount++)+'" class="zenith" /></td><td class="fieldHeading">Studying</td><td><input type="text" id="studentInfo_input_SiblingsStudying'+(m_oStudentInfoMemberData.m_nRowSiblingStudyingCount++)+'" class="zenith" /></td><td class="fieldHeading">School/College</td><td><input type="text" id="studentInfo_input_SiblingsSchoolCollege'+(m_oStudentInfoMemberData.m_nRowSiblingSchoolCollegeCount++)+'" class="zenith" /></td><td> <img src="images/delete.png" width="20" align="center" id="deleteImageId" title="Delete Siblings" class = "removeSiblings" onClick="deletSiblings()"/> </td></tr>');
-		m_oStudentInfoMemberData.m_nUpdatedEditSiblingsUIDIdRowCount = m_oStudentInfoMemberData.m_nRowSiblingsUIDIdCount;
+		m_oStudentInfoMemberData.m_nNewSiblingRowCount = m_oStudentInfoMemberData.m_nUpdatedEditSiblingsUIDIdRowCount = m_oStudentInfoMemberData.m_nRowSiblingsUIDIdCount;
 		m_oStudentInfoMemberData.m_nUpdatedEditSiblingsNameRowCount = m_oStudentInfoMemberData.m_nRowSiblingsNameCount;
 		m_oStudentInfoMemberData.m_nUpdatedEditSiblingsStudyingRowCount = m_oStudentInfoMemberData.m_nRowSiblingsStudyingCount;
 		m_oStudentInfoMemberData.m_nUpdatedEditSiblingsSchoolCollegeRowCount = m_oStudentInfoMemberData.m_nRowSiblingsSchoolCollegeCount;
@@ -1138,7 +1126,7 @@ function scarchSiblingsUID(oRowCountId)
     }
 	var oStudentInformationData = new  StudentInformationData();
 	oStudentInformationData.m_nUID = $("#studentInfo_input_SiblingsUID"+m_oStudentInfoMemberData.m_nSiblingRowId).val();
-	oStudentInformationData.m_strAcademicYear = $("#select_student_academicyear").val();
+	oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
 	StudentInformationDataProcessor.getStudentDataUID (oStudentInformationData, studentInfo_setSiblingsData);
 }
 

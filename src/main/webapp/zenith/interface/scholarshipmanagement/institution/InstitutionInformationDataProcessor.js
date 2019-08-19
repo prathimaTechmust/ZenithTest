@@ -46,6 +46,12 @@ var InstitutionInformationDataProcessor = (function __InstitutionInformationData
 		 ajaxCall(oInstitutionFilterData, "/getInstitutionInfoFilterData", callback);
 	}
 	
+	function getChequeInFavourOf (oChequeFavourData,callback)
+	{
+		
+		ajaxCall(oChequeFavourData,"/getChequeFavourData",callback);
+	}
+	
 	return { 
 		create : create,
 		get : get,
@@ -55,6 +61,7 @@ var InstitutionInformationDataProcessor = (function __InstitutionInformationData
 		getImagePreview : getImagePreview,
 		getXML : getXML,
 		getInstitutionSuggesstions :getInstitutionSuggesstions,
-		institutionFilterData :institutionFilterData
+		institutionFilterData :institutionFilterData,
+		getChequeInFavourOf :getChequeInFavourOf
 	};
 })();

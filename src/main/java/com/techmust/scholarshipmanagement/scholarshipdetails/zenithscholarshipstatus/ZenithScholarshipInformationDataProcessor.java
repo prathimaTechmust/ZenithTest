@@ -1,6 +1,9 @@
 package com.techmust.scholarshipmanagement.scholarshipdetails.zenithscholarshipstatus;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,7 +16,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.techmust.constants.Constants;
 import com.techmust.generic.dataprocessor.GenericIDataProcessor;
 import com.techmust.generic.response.GenericResponse;
+import com.techmust.scholarshipmanagement.chequeFavourOf.ChequeInFavourOf;
+import com.techmust.scholarshipmanagement.student.StudentInformationData;
 import com.techmust.utils.AWSUtils;
+import com.techmust.utils.AmazonSMS;
 import com.techmust.utils.Utils;
 
 @Controller
@@ -22,14 +28,17 @@ public class ZenithScholarshipInformationDataProcessor extends GenericIDataProce
 
 	@RequestMapping(value="/studentStatusInfoUpdate", method = RequestMethod.POST)
 	@ResponseBody
-	public GenericResponse toBeVerifiedStatusUpdate(@RequestParam(name = "scancopy",required = false)MultipartFile oScanCopyMultipartFile,@RequestParam("studentId") int nStudentId) throws Exception
+	public GenericResponse toBeVerifiedStatusUpdate(@RequestParam(name = "scancopy",required = false)MultipartFile oScanCopyMultipartFile,@RequestParam("studentId") int nStudentId,@RequestParam("chequefavourId") int nFavourid) throws Exception
 	{
 		
 		m_oLogger.info ("toBeVerifiedStatusUpdate");
 		m_oLogger.debug ("toBeVerifiedStatusUpdate - ScanCopy [IN] : " + oScanCopyMultipartFile);
 		ZenithScholarshipDetailsDataResponse oZenithScholarshipDetailsDataResponse = new ZenithScholarshipDetailsDataResponse();
 		ZenithScholarshipDetails oZenithScholarshipDetails = new ZenithScholarshipDetails();
+		ChequeInFavourOf oChequeInFavourOf = new ChequeInFavourOf();
+		oChequeInFavourOf.setM_nChequeFavourId(nFavourid);
 		oZenithScholarshipDetails.setM_nStudentId(nStudentId);
+		oZenithScholarshipDetails.setM_oChequeInFavourOf(oChequeInFavourOf);
 		try
 		{	
 			String strUUID = Utils.getUUID();
@@ -122,7 +131,12 @@ public class ZenithScholarshipInformationDataProcessor extends GenericIDataProce
 		ZenithScholarshipDetailsDataResponse oZenithScholarshipDetailsDataResponse = new ZenithScholarshipDetailsDataResponse();
 		try 
 		{
-			oZenithScholarshipDetailsDataResponse.m_bSuccess = oZenithScholarshipDetails.reVerifyStudentApplication(oZenithScholarshipDetails);
+	    oZenithScholarshipDetailsDataResponse.m_bSuccess = oZenithScholarshipDetails.reVerifyStudentApplication(oZenithScholarshipDetails);
+	    StudentInformationData	oStudentInformationData = new StudentInformationData();
+	    oStudentInformationData.setM_nStudentId(oZenithScholarshipDetails.getM_nStudentId());
+	    oStudentInformationData= (StudentInformationData) populateObject(oStudentInformationData);
+	    List<ZenithScholarshipDetails> oDetails = new ArrayList<ZenithScholarshipDetails>(oStudentInformationData.getM_oZenithScholarshipDetails());		;
+	    AmazonSMS.sendSmsToCounselingCandidate(Constants.NUMBERPREFIX+oStudentInformationData.getM_strPhoneNumber(),oStudentInformationData.getM_strStudentName(),oDetails.get(0).getM_strStudentRemarks());	
 			if(oZenithScholarshipDetailsDataResponse.m_bSuccess)
 				Utils.createActivityLog("ZenithScholarshipInformationDataProcessor::reVerifyStudentApplication", oZenithScholarshipDetails);			
 		} 

@@ -27,31 +27,9 @@ function facilitatorWiseInfo_Loaded()
 function facilitatorWise_init ()
 {
 	createFacilitatorWiseList_DataGrid ();
-	dropdownacademicyear ();
+	populatAcademicYearDropDown ('selectReportAcademicYear');
 	facilitatorListToDropDown();
 }
-
-function dropdownacademicyear ()
-{
-	var oAcademicYear = new AcademicYear();
-	AcademicYearProcessor.list(oAcademicYear,"m_strAcademicYear","asc",0,0,academicyearResponse);	
-}
-
-function academicyearResponse(oYearResponse)
-{
-	populateYear("selectacademicyear",oYearResponse);
-}
-
-function populateYear(academicyear,oYearResponse)
-{
-	var arrAcademicYears = new Array();
-	for(var nIndex = 0; nIndex < oYearResponse.m_arrAcademicYear.length; nIndex++)
-	{
-		arrAcademicYears.push(CreateOption(oYearResponse.m_arrAcademicYear[nIndex].m_strAcademicYear,oYearResponse.m_arrAcademicYear[nIndex].m_strAcademicYear));		
-	}
-	PopulateDD(academicyear,arrAcademicYears);	
-}
-
 function facilitatorListToDropDown()
 {
 	var oFacilitatorInformationData = new FacilitatorInformationData();
@@ -166,7 +144,7 @@ function facilitatorlistInfo_selectedRowData (oRowData, nIndex)
 	document.getElementById("facilitatorWiseList_div_listDetail").innerHTML = "";
 	var oStudentInformationData = new StudentInformationData () ;
 	oStudentInformationData.m_nStudentId = oRowData.m_nStudentId;
-	oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+	oStudentInformationData.m_strAcademicYear = $("#selectReportAcademicYear").val();
 	m_ofacilitatorList_MemberData.m_nStudentId = oRowData.m_nStudentId;
 	StudentInformationDataProcessor.getXML (oStudentInformationData,facilitatorListInfo_gotXML);	
 }
@@ -205,7 +183,7 @@ function searchfacilitatorName()
 {
 	var oStudentInformationData = new StudentInformationData ();
 	oStudentInformationData.m_nFacilitatorId = $("#facilitatorWiseInfo_input_name").val();
-	oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+	oStudentInformationData.m_strAcademicYear = $("#selectReportAcademicYear").val();
 	StudentInformationDataProcessor.getFacilitatorWiseStudent(oStudentInformationData, getFacilitatorWiseStudentDetails);
 	
 }

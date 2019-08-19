@@ -2,7 +2,8 @@ var verifiedStudentListInfo_includeDataObjects =
 [
 	'widgets/scholarshipmanagement/studentlist/StudentInformationData.js',
 	'widgets/scholarshipmanagement/academicyear/AcademicYear.js',
-	'widgets/scholarshipmanagement/zenithscholarship/ZenithScholarshipDetails.js'
+	'widgets/scholarshipmanagement/zenithscholarship/ZenithScholarshipDetails.js',
+	'widgets/scholarshipmanagement/institutionslist/InstitutionInformationData.js'
 ];
 
 includeDataObjects (verifiedStudentListInfo_includeDataObjects, "verifiedStudentListInfo_loaded()");
@@ -29,30 +30,9 @@ function verifiedStudentListInfo_loaded ()
 function verifiedStudentInfo_init ()
 {
 	verifiedStudentListInfo_createDataGrid ();
-	dropdownacademicyear();
+	populatAcademicYearDropDown('selectVerifiedAcademicyear');
+	
 }
-
-function dropdownacademicyear ()
-{
-	var oAcademicYear = new AcademicYear();
-	AcademicYearProcessor.list(oAcademicYear,"m_strAcademicYear","asc",0,0,academicyearResponse);	
-}
-
-function academicyearResponse(oYearResponse)
-{
-	populateYear("selectacademicyear",oYearResponse);
-}
-
-function populateYear(academicyear,oYearResponse)
-{
-	var arrAcademicYears = new Array();
-	for(var nIndex = 0; nIndex < oYearResponse.m_arrAcademicYear.length; nIndex++)
-	{
-		arrAcademicYears.push(CreateOption(oYearResponse.m_arrAcademicYear[nIndex].m_strAcademicYear,oYearResponse.m_arrAcademicYear[nIndex].m_strAcademicYear));		
-	}
-	PopulateDD(academicyear,arrAcademicYears);	
-}
-
 function verifiedStudentListInfo_createDataGrid ()
 {
 	initHorizontalSplitter("#listVerifiedStudents_div_horizontalSplitter", "#listVerifiedStudents_table_students");
@@ -75,7 +55,6 @@ function verifiedStudentListInfo_createDataGrid ()
 			]],				
 		}
 	);
-	
 	$('#listVerifiedStudents_table_students').datagrid
 	(
 			{
@@ -126,8 +105,9 @@ function verifiedStudentlistInfo_selectedRowData (oRowData, nIndex)
 	document.getElementById("listVerifiedStudents_div_listDetail").innerHTML = "";
 	var oStudentInformationData = new StudentInformationData () ;
 	oStudentInformationData.m_nStudentId = oRowData.m_nStudentId;
-	oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+	oStudentInformationData.m_strAcademicYear = $("#selectVerifiedAcademicyear").val();
 	m_overifiedStudentList_Info_MemberData.m_nStudentId = oRowData.m_nStudentId;
+	m_overifiedStudentList_Info_MemberData.m_nInstitutionId = oRowData.m_oAcademicDetails[0].m_oInstitutionInformationData.m_nInstitutionId;
 	StudentInformationDataProcessor.getXML (oStudentInformationData,verifiedStudentListInfo_gotXML);	
 }
 
@@ -162,6 +142,7 @@ function verifyStudentInfo_Student()
 	var oFormData = new FormData ();
 	oFormData.append('scancopy',$("#ScanCopy")[0].files[0]);
 	oFormData.append('studentId',m_overifiedStudentList_Info_MemberData.m_nStudentId);
+	oFormData.append('chequefavourId',$("#select_cheque_inFavour_of").val());
 	ZenithStudentInformationDataProcessor.verifiedStatusUpdate(oFormData,studentverifiedResponse);
 }
 
@@ -181,7 +162,7 @@ function searchStudentUID()
 {
 	var oStudentInformationData = new StudentInformationData ();
 	oStudentInformationData.m_nUID = $("#StudentInfo_input_uid").val();
-	oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+	oStudentInformationData.m_strAcademicYear = $("#selectVerifiedAcademicyear").val();
 	oStudentInformationData.m_strStatus = m_overifiedStudentList_Info_MemberData.m_strapplicationStatus; 
 	if($("#StudentInfo_input_uid").val() != "")
 		StudentInformationDataProcessor.getStudentUID(oStudentInformationData,studentUIDResponse);
@@ -196,7 +177,7 @@ function studentUIDResponse(oStudentUIDResponse)
 		document.getElementById("listVerifiedStudents_div_listDetail").innerHTML = "";
 		var oStudentInformationData = new StudentInformationData () ;
 		oStudentInformationData.m_nStudentId = m_overifiedStudentList_Info_MemberData.m_nStudentId = oStudentUIDResponse.m_arrStudentInformationData[0].m_nStudentId;
-		oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+		oStudentInformationData.m_strAcademicYear = $("#selectVerifiedAcademicyear").val();
 		StudentInformationDataProcessor.getXML (oStudentInformationData,verifiedStudentListInfo_gotXML);
 		document.getElementById("StudentInfo_input_uid").value = "";
 	}
@@ -212,7 +193,7 @@ function verifiedStudentListInfo_progressbarLoaded ()
 {
 	createPopup('dialog', '', '', true);
 	var oStudentInformationData = new StudentInformationData ();
-	oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+	oStudentInformationData.m_strAcademicYear = $("#selectVerifiedAcademicyear").val();
 	oStudentInformationData.m_strStatus = m_overifiedStudentList_Info_MemberData.m_strapplicationStatus;
 	StudentInformationDataProcessor.getStudentStatuslist(oStudentInformationData,verifiedStudentListInfo_listed);
 }
@@ -277,7 +258,33 @@ function showChooseFile() {
 function chooseFileInit() 
 {
 	createPopup('dialog','','chooseFileDocument_cancel', true);
+	populateChequeinFavourof ();	
 	
+}
+
+function populateChequeinFavourof ()
+{
+	var oInstitution = new InstitutionInformationData ();
+	oInstitution.m_nInstitutionId = m_overifiedStudentList_Info_MemberData.m_nInstitutionId;
+	InstitutionInformationDataProcessor.getChequeInFavourOf (oInstitution,chequeFavourOfResponse);
+}
+
+function chequeFavourOfResponse (oResponse)
+{
+	if(oResponse.m_bSuccess)
+	{
+		populateChequeFavour ("select_cheque_inFavour_of",oResponse.m_arrChequeInFavourOf);
+	}	
+}
+
+function populateChequeFavour (strDropDownId,favourResponse)
+{
+	var arrChequeFavour = new Array ();
+	for(var nIndex = 0; nIndex < favourResponse.length; nIndex++)
+	{
+		arrChequeFavour.push(CreateOption(favourResponse[nIndex].m_nChequeFavourId,favourResponse[nIndex].m_strChequeFavourOf));
+	}
+	PopulateDD(strDropDownId,arrChequeFavour);
 }
 
 function chooseFileDocument_cancel()

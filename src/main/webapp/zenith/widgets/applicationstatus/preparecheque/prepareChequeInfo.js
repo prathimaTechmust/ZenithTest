@@ -22,7 +22,7 @@ function prepareChequeInfo_new ()
 	m_oPrepareChequeInfoMemberData.m_nStudentId = m_oPrepareChequeInfoMemberData.m_oStudentInformationData.m_nStudentId;
 	$("#student_input_studentUIDNumber").val(m_oPrepareChequeInfoMemberData.m_oStudentInformationData.m_nUID);
 	$("#studentInfo_inputStudentName").val(m_oPrepareChequeInfoMemberData.m_oStudentInformationData.m_strStudentName);
-	$("#accountInfo_input_AccountPayeeName").val(m_oPrepareChequeInfoMemberData.m_oStudentInformationData.m_oAcademicDetails[0].m_oInstitutionInformationData.m_strInstitutionName);
+	$("#accountInfo_input_AccountPayeeName").val(m_oPrepareChequeInfoMemberData.m_oStudentInformationData.m_oZenithScholarshipDetails[0].m_oChequeInFavourOf.m_strChequeFavourOf);
 	$("#accountInfo_input_SanctionedAmount").val(m_oPrepareChequeInfoMemberData.m_oStudentInformationData.m_oZenithScholarshipDetails[0].m_fApprovedAmount);
 	var approveDate = convertTimestampToDate(m_oPrepareChequeInfoMemberData.m_oStudentInformationData.m_oZenithScholarshipDetails[0].m_dApprovedDate);
 	$("#accountInfo_input_SanctionedDate").val(approveDate);
@@ -33,28 +33,7 @@ function prepareChequeInfo_new ()
 function prepareCheque_init ()
 {
 	createPopup("dialog", "#accountInfo_button_submit", "#accountInfo_button_cancel", true);
-	dropdownacademicyear();
-}
-
-function dropdownacademicyear ()
-{
-	var oAcademicYear = new AcademicYear();
-	AcademicYearProcessor.list(oAcademicYear,"m_strAcademicYear","asc",0,0,academicyearResponse);	
-}
-
-function academicyearResponse(oYearResponse)
-{
-	populateYear("selectAcademicYear",oYearResponse);
-}
-
-function populateYear(academicyear,oYearResponse)
-{
-	var arrAcademicYears = new Array();
-	for(var nIndex = 0; nIndex < oYearResponse.m_arrAcademicYear.length; nIndex++)
-	{
-		arrAcademicYears.push(CreateOption(oYearResponse.m_arrAcademicYear[nIndex].m_strAcademicYear,oYearResponse.m_arrAcademicYear[nIndex].m_strAcademicYear));		
-	}
-	PopulateDD(academicyear,arrAcademicYears);	
+	populatAcademicYearDropDown('selectChequePreparedAcademicYear');
 }
 
 function prepareChequeInfo_submit ()
@@ -162,7 +141,7 @@ function chequeDetails_getFormData ()
 		oScholarshipAccountsInformationData.m_strPaymentType = document.getElementById("select_radio_Cheque").value;
 	else
 		oScholarshipAccountsInformationData.m_strPaymentType = document.getElementById("select_radio_DD").value;
-	oScholarshipAccountsInformationData.m_strAcademicYear = $("#selectAcademicYear").val();
+	oScholarshipAccountsInformationData.m_strAcademicYear = $("#selectChequePreparedAcademicYear").val();
 	if(document.getElementById("select_radio_Cheque").checked == true)
 		oScholarshipAccountsInformationData.m_nChequeNumber = $("#chequeddInfo_input_ChequeDDNumber").val();
 	else

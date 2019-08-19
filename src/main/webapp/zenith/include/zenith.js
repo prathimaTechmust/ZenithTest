@@ -986,7 +986,7 @@ function validateFilterBoxes (gridId,status)
 {
 	m_oZenithMemberData.m_gridId = gridId;
 	var oStudentFilterData = new StudentInformationData();
-	oStudentFilterData.m_strAcademicYear = $("#selectacademicyearwiseStudents").val();
+	oStudentFilterData.m_strAcademicYear = $("#selectAcademicYear").val();
 	oStudentFilterData.m_strStatus = status;
 	oStudentFilterData.m_bSuccess = false;
 	if($("#filterStudentInfo_input_studentName").val() != "")
@@ -1140,4 +1140,28 @@ function applicationPriorityGridColor(strGridId)
 				}				
 			}		
 	});
+}
+
+// populating academicyears dropdown
+
+function populatAcademicYearDropDown (selectAcademicYear)
+{
+	 m_oZenithMemberData.selectAcademicYear = selectAcademicYear;
+	var oAcademicYear = new AcademicYear();
+	AcademicYearProcessor.list(oAcademicYear,"m_strAcademicYear","asc",0,0,academicyearResponse);	
+}
+
+function academicyearResponse(oYearResponse)
+{
+	populateYear(m_oZenithMemberData.selectAcademicYear,oYearResponse);
+}
+
+function populateYear(academicyear,oYearResponse)
+{
+	var arrAcademicYears = new Array();
+	for(var nIndex = 0; nIndex < oYearResponse.m_arrAcademicYear.length; nIndex++)
+	{
+		arrAcademicYears.push(CreateOption(oYearResponse.m_arrAcademicYear[nIndex].m_strAcademicYear,oYearResponse.m_arrAcademicYear[nIndex].m_strAcademicYear));		
+	}
+	PopulateDD(academicyear,arrAcademicYears);	
 }

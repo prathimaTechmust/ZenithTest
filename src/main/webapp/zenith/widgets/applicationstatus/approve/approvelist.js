@@ -28,29 +28,8 @@ function approveStudentListInfo_loaded ()
 function approveStudentInfo_init ()
 {
 	approveStudentListInfo_createDataGrid ();
-	dropdownacademicyear();
+	populatAcademicYearDropDown('selectApproveAcademicYear');
 	$("#zenithInfo_approvedamount").focus();
-}
-
-function dropdownacademicyear ()
-{
-	var oAcademicYear = new AcademicYear();
-	AcademicYearProcessor.list(oAcademicYear,"m_strAcademicYear","asc",0,0,academicyearResponse);	
-}
-
-function academicyearResponse(oYearResponse)
-{
-	populateYear("selectacademicyear",oYearResponse);
-}
-
-function populateYear(academicyear,oYearResponse)
-{
-	var arrAcademicYears = new Array();
-	for(var nIndex = 0; nIndex < oYearResponse.m_arrAcademicYear.length; nIndex++)
-	{
-		arrAcademicYears.push(CreateOption(oYearResponse.m_arrAcademicYear[nIndex].m_strAcademicYear,oYearResponse.m_arrAcademicYear[nIndex].m_strAcademicYear));		
-	}
-	PopulateDD(academicyear,arrAcademicYears);	
 }
 
 function approveStudentListInfo_createDataGrid ()
@@ -132,7 +111,7 @@ function approveStudentlistInfo_selectedRowData (oRowData, nIndex)
 	document.getElementById("listApproveStudents_div_listDetail").innerHTML = "";
 	var oStudentInformationData = new StudentInformationData () ;
 	oStudentInformationData.m_nStudentId = oRowData.m_nStudentId;
-	oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+	oStudentInformationData.m_strAcademicYear = $("#selectApproveAcademicYear").val();
 	m_oApproveStudentList_Info_MemberData.m_nStudentId = oRowData.m_nStudentId;
 	StudentInformationDataProcessor.getXML (oStudentInformationData,approveStudentListInfo_gotXML);	
 }
@@ -220,7 +199,7 @@ function searchStudentUID ()
 	var oStudentInformationData = new StudentInformationData ();
 	oStudentInformationData.m_nUID = $("#StudentInfo_input_uid").val();
 	oStudentInformationData.m_strStatus = m_oApproveStudentList_Info_MemberData.m_strapplicationStatus;
-	oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+	oStudentInformationData.m_strAcademicYear = $("#selectApproveAcademicYear").val();
 	if($("#StudentInfo_input_uid").val() != "")
 		StudentInformationDataProcessor.getStudentUID(oStudentInformationData,studentUIDResponse);
 	else
@@ -234,7 +213,7 @@ function studentUIDResponse (oStudentUIDResponse)
 		document.getElementById("listApproveStudents_div_listDetail").innerHTML = "";
 		var oStudentInformationData = new StudentInformationData () ;
 		oStudentInformationData.m_nStudentId = m_oApproveStudentList_Info_MemberData.m_nStudentId = oStudentUIDResponse.m_arrStudentInformationData[0].m_nStudentId;
-		oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+		oStudentInformationData.m_strAcademicYear = $("#selectApproveAcademicYear").val();
 		StudentInformationDataProcessor.getXML (oStudentInformationData,approveStudentListInfo_gotXML);
 		document.getElementById("StudentInfo_input_uid").value = "";
 	}
@@ -268,7 +247,7 @@ function approveStudentListInfo_progressbarLoaded ()
 {
 	createPopup('dialog', '', '', true);
 	var oStudentInformationData = new StudentInformationData ();
-	oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+	oStudentInformationData.m_strAcademicYear = $("#selectApproveAcademicYear").val();
 	oStudentInformationData.m_strStatus = m_oApproveStudentList_Info_MemberData.m_strapplicationStatus;
 	StudentInformationDataProcessor.getStudentStatuslist(oStudentInformationData,approveStudentListInfo_listed);
 }
@@ -287,56 +266,59 @@ function studentRemarkInfo_cancel ()
 	HideDialog("dialog");
 }
 
-function reverifyStudentInfo_Student() 
+function counselingStudentInfo_Student() 
 {
-	loadPage("applicationstatus/approve/reverifyRemark.html","dialog","reverifyRemarks_init()");	
+	loadPage("applicationstatus/approve/counselingRemark.html","dialog","counselingRemarks_init()");	
 }
 
- function reverifyRemarks_init()
+ function counselingRemarks_init()
  {
-	 createPopup('dialog','#reverifyRemarkInfo_Submit','reverifyRemarkInfo_cancel',true);
-	initFormValidateBoxes ("reverifyRemarkForm");
+	 createPopup('dialog','#counselingRemarkInfo_Submit','counselingRemarkInfo_cancel',true);
+	initFormValidateBoxes ("counselingRemarkForm");
  }
 
  
-function reverifyRemarkInfo_Submit()
+function counselingRemarkInfo_Submit()
 {	
-	if(reverifyRemarkValidate())
+	if(counselingRemarkValidate())
 		{
-		loadPage ("include/process.html", "ProcessDialog", "reverifyremark_progressbarLoaded ()");
+		loadPage ("include/process.html", "ProcessDialog", "counselingremark_progressbarLoaded ()");
 		}
 		else
 		{
 			alert("Please Enter Remarks");
-			$("#reverifyRemarkForm").focus();
+			$("#counselingRemarkForm").focus();
 		}	
 	
 }
-function reverifyRemarkValidate () 
+function counselingRemarkValidate () 
 {
-	return validateForm("reverifyRemarkForm");	
+	return validateForm("counselingRemarkForm");	
 }
-function reverifyremark_progressbarLoaded()
+function counselingremark_progressbarLoaded()
 {
 	createPopup('dialog','','',true);
 	var oZenith = new ZenithScholarshipDetails ();
 	oZenith.m_nStudentId = m_oApproveStudentList_Info_MemberData.m_nStudentId;
-	oZenith.m_strStudentRemarks = $("#reverifyRemarkInfo_input_Remark").val();
-	ZenithStudentInformationDataProcessor.reVerifiedStatusUpdate(oZenith,studentReVerifiedResponse);	
+	oZenith.m_strStudentRemarks = $("#counselingRemarkInfo_input_Remark").val();
+	ZenithStudentInformationDataProcessor.reVerifiedStatusUpdate(oZenith,studentCounselingResponse);	
 }
 
-function reverifyRemarkInfo_cancel()
+function counselingRemarkInfo_cancel()
 {
    HideDialog("dialog");	
 }
 
-function studentReVerifiedResponse(oResponse) {
+function studentCounselingResponse(oResponse) {
 	
 	if(oResponse.m_bSuccess)
 	{
 		informUser("Application Status Sent to Verify Successfully","kSuccess");
+	
 		navigate("approvelist","widgets/applicationstatus/approve/approvelist.js");
 	}
 	else
 		informUser("Application Status Sent to Verify Failed","kError");
 }
+
+

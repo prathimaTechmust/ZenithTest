@@ -7,8 +7,8 @@
   
   <!--******************** TradeRp Project Start***************************************-->
    <servlet>
-  	<servlet-name>AutoSetTradeRpPropertiesServlet</servlet-name>
-  	<servlet-class>com.techmust.traderp.servlets.AutoSetTradeRpPropertiesServlet</servlet-class>
+  	<servlet-name>AutoSetZenithPropertiesServlet</servlet-name>
+  	<servlet-class>com.techmust.zenith.servlets.AutoSetZenithPropertiesServlet</servlet-class>
   	<load-on-startup>1</load-on-startup>
   </servlet>
   <!-- ******************* TradeRp Project Ends **************************************-->
