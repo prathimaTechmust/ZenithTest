@@ -859,3 +859,8 @@ td.xslt_formHeading
 	width:100px;
 	height:100px;
 }
+
+td.borderinputImage
+{
+	border: 1px solid grey;
+}

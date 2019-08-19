@@ -33,7 +33,7 @@ function prepareChequeInfo_new ()
 function prepareCheque_init ()
 {
 	createPopup("dialog", "#accountInfo_button_submit", "#accountInfo_button_cancel", true);
-	populatAcademicYearDropDown('selectChequePreparedAcademicYear');
+	populateAcademicYearDropDown('selectChequePreparedAcademicYear');
 }
 
 function prepareChequeInfo_submit ()

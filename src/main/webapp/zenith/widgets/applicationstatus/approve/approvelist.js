@@ -28,7 +28,7 @@ function approveStudentListInfo_loaded ()
 function approveStudentInfo_init ()
 {
 	approveStudentListInfo_createDataGrid ();
-	populatAcademicYearDropDown('selectApproveAcademicYear');
+	populateAcademicYearDropDown('selectApproveAcademicYear');
 	$("#zenithInfo_approvedamount").focus();
 }
 

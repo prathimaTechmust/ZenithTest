@@ -30,7 +30,7 @@ function verifiedStudentListInfo_loaded ()
 function verifiedStudentInfo_init ()
 {
 	verifiedStudentListInfo_createDataGrid ();
-	populatAcademicYearDropDown('selectVerifiedAcademicyear');
+	populateAcademicYearDropDown('selectVerifiedAcademicyear');
 	
 }
 function verifiedStudentListInfo_createDataGrid ()

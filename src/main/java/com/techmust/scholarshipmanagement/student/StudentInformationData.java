@@ -170,7 +170,7 @@ public class StudentInformationData  extends MasterData implements Serializable
 		m_strCity = "";
 		m_strState = "";
 		m_nPincode = -1;
-		m_nApplicationPriority = 2;
+		m_nApplicationPriority = -1;
 		m_strStudentImageId = "";
 		m_nUID = -1;
 		m_oAcademicDetails = new HashSet<AcademicDetails> ();	

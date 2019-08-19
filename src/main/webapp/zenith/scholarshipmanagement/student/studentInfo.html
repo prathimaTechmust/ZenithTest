@@ -167,7 +167,7 @@
 										</tr>							
 						                <tr>
 						                    <td class="fieldHeading">Student photo</td>
-						                    <td>
+						                    <td class="borderinputImage">
 						                      <input   name="studentimage"  type="file"  accept="image/*"  id="studentInfo_input_studentPhoto" style="width:100%;"/>
 						                    </td>
 						                </tr> 
@@ -474,10 +474,7 @@
 						                 update="false"
 						                 onclick="openNextTab(event, 'DocumentUpload_details', DocumentUpload_details_btn)">
 						               Next
-						             </button>
-						            <!--  <button id="studentInfo_button_print" type="button" class="zenith" style="width: 20%;" onclick="studentInfo_createandprint()">
-                                     CreateAndPrint
-                                     </button> -->
+						             </button>						             
 						             <button id="studentInfo_button_cancel" type="button" class="zenith" onclick="studentInfo_cancel()">
 						               Cancel
 						             </button>
@@ -493,8 +490,8 @@
 									<td width="50%" valign="top">									
 										<tr>
 											<td class="fieldHeading"><b>Student Aadhar</b></td>
-											<td>
-												<button><input name= "studentaadhar" type="file"  id = "aadharInputID" onchange="getImage(studentInfo_input_studentaadhar, aadharInputID, aadhardocumentupload_div )"></button>
+											<td class="borderinputImage">
+												<input name= "studentaadhar" type="file"  id = "aadharInputID" onchange="getImage(studentInfo_input_studentaadhar, aadharInputID, aadhardocumentupload_div )">
 											</td>
 											<td class="documentImagePrwview">
 												<a href="javascript:studentupload_documentPreview (studentInfo_input_studentaadhar);">
@@ -513,8 +510,8 @@
 									<td width="50%" valign="top">
 										<tr>
 											<td class="fieldHeading "><b>Father Aadhar</b></td>
-											<td>
-												<button><input name= "fatheraadhar" type="file"  id = "fatheraadharInputID" onchange="getImage(studentInfo_input_fatheraadhar, fatheraadharInputID, fatheraadhardocument_div )"></button>
+											<td class="borderinputImage">
+												<input name= "fatheraadhar" type="file"  id = "fatheraadharInputID" onchange="getImage(studentInfo_input_fatheraadhar, fatheraadharInputID, fatheraadhardocument_div )">
 											</td>
 											<td class="documentImagePrwview">
 												<a href="javascript:studentupload_documentPreview (studentInfo_input_fatheraadhar);">
@@ -533,8 +530,8 @@
 									<td width="50%" valign="top">
 										<tr>
 											<td class="fieldHeading "><b>Mother Aadhar</b></td>
-											<td>
-												<button><input name= "motheraadhar" type="file"  id = "motheraadharInputID" onchange="getImage(studentInfo_input_motheraadhar, motheraadharInputID, motheraadhardocument_div )"></button>
+											<td class="borderinputImage">
+												<input name= "motheraadhar" type="file"  id = "motheraadharInputID" onchange="getImage(studentInfo_input_motheraadhar, motheraadharInputID, motheraadhardocument_div )">
 											</td>
 											<td class="documentImagePrwview">
 												<a href="javascript:studentupload_documentPreview (studentInfo_input_motheraadhar);">
@@ -553,8 +550,8 @@
 									<td width="50%" valign="top">
 										<tr>
 											<td class="fieldHeading "><b>Electricity Bill</b></td>
-											<td>
-												<button><input name= "studentElectricityBill" type="file"  id = "studentElectricityBill" onchange="getImage(studentInfo_input_studentElectricityBill, studentElectricityBill, electricityBilldocumentupload_div)"></button>
+											<td class="borderinputImage">
+												<input name= "studentElectricityBill" type="file"  id = "studentElectricityBill" onchange="getImage(studentInfo_input_studentElectricityBill, studentElectricityBill, electricityBilldocumentupload_div)">
 											</td>
 											<td class="documentImagePrwview">
 												<a href="javascript:studentupload_documentPreview (studentInfo_input_studentElectricityBill);">
@@ -573,8 +570,8 @@
 									<td width="50%" valign="top">																	
 									<tr>
 									<td class="fieldHeading"><b>MarksCard 1</b></td>
-									<td>
-										<button><input name= "studentMarksCard1" type="file"  id = "studentMarksCard1" onchange="getImage(studentInfo_input_studentMarksCard1, studentMarksCard1, marksCardUpload_div1)"></button>
+									<td class="borderinputImage">
+										<input name= "studentMarksCard1" type="file"  id = "studentMarksCard1" onchange="getImage(studentInfo_input_studentMarksCard1, studentMarksCard1, marksCardUpload_div1)">
 									</td>
 									<td class="documentImagePrwview">
 										<a href="javascript:studentupload_documentPreview (studentInfo_input_studentMarksCard1);">
@@ -593,8 +590,8 @@
 									<td width="50%" valign="top">																		
 										<tr>
 											<td class="fieldHeading "><b>MarksCard 2</b></td>
-											<td>
-												<button><input name= "studentMarksCard2" type="file"  id = "studentMarksCard2" onchange="getImage(studentInfo_input_studentMarksCard2, studentMarksCard2, marksCardUpload_div2)"></button>
+											<td class="borderinputImage">
+												<input name= "studentMarksCard2" type="file"  id = "studentMarksCard2" onchange="getImage(studentInfo_input_studentMarksCard2, studentMarksCard2, marksCardUpload_div2)">
 											</td>
 											<td class="documentImagePrwview">
 												<a href="javascript:studentupload_documentPreview (studentInfo_input_studentMarksCard2);">
@@ -613,8 +610,8 @@
 									<td width="50%" valign="top">									
 										<tr>
 											<td class="fieldHeading DocumentuploadHeading"><b>Additional Document</b></td>
-											<td>
-												<button><input name= "additionalDocuments" type="file"  id = "additionalDocuments" onchange="getImage(studentInfo_input_additionalDocuments, additionalDocuments, additionalDocuments_div)"></button>
+											<td class="borderinputImage">
+												<input name= "additionalDocuments" type="file"  id = "additionalDocuments" onchange="getImage(studentInfo_input_additionalDocuments, additionalDocuments, additionalDocuments_div)">
 											</td>
 											<td class="documentImagePrwview">
 												<a href="javascript:studentupload_documentPreview (studentInfo_input_additionalDocuments);">
@@ -649,6 +646,11 @@
 						                 onclick="studentInfo_submit()">
 						               Create
 						             </button>
+						             </td>
+						             <td>
+						             	 <button id="studentInfo_button_print" type="button" class="zenith" style="width: 100%;" onclick="studentInfo_createandprint()">
+	                                     CreateAndPrint
+	                                     </button>
 						             </td>
 						             <td>
 									 <button id="studentInfo_button_cancel" type="button" class="zenith" onclick="studentInfo_cancel()">

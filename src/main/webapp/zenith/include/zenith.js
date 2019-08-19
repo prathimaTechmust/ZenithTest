@@ -9,6 +9,7 @@ function zenith_MemberData ()
 	var m_arrObjects = [];
 	var m_strTenantName = "";
 	var m_strImageUrl = "";
+	var selectAcademicYear = "";
 }
 
 var m_strLocationURL = window.location.origin;
@@ -1144,14 +1145,14 @@ function applicationPriorityGridColor(strGridId)
 
 // populating academicyears dropdown
 
-function populatAcademicYearDropDown (selectAcademicYear)
+function populateAcademicYearDropDown (selectAcademicYear)
 {
 	 m_oZenithMemberData.selectAcademicYear = selectAcademicYear;
 	var oAcademicYear = new AcademicYear();
-	AcademicYearProcessor.list(oAcademicYear,"m_strAcademicYear","asc",0,0,academicyearResponse);	
+	AcademicYearProcessor.list(oAcademicYear,"m_strAcademicYear","asc",0,0,academicYearListResponse);	
 }
 
-function academicyearResponse(oYearResponse)
+function academicYearListResponse (oYearResponse)
 {
 	populateYear(m_oZenithMemberData.selectAcademicYear,oYearResponse);
 }
