@@ -89,7 +89,7 @@
 								<tr>
 									<td class="zenith" align="left">
 										<table class="zenith">
-											<tr>
+											<tr>  
 												<td>																																															
 													<button type="button" width="20" align="center" class = "zenith addButton" style="width:100px;" id="printStudent" title="Print" onClick="printStudentDetails()">Print</button>
 												</td>
@@ -98,6 +98,9 @@
 												</td>
                                                 <td>
 	 			       							 <button type="button" width="120px" align="center" class="zenith addButton" style="width:120px;" id="documentView" title="documentView" onclick="viewStudentDocument('{StudentInformationData/m_oAcademicDetails/AcademicDetails/m_nAcademicId}')">View Documents </button>
+	 			       						   </td>
+	 			       						   <td>
+	 			       							 <button type="button" width="120px" align="center" class="zenith addButton" style="width:120px;" id="Rejected" title="Rejected" onClick="reject_Student()">Reject</button>
 	 			       						   </td>
 											</tr>									
 										</table>										

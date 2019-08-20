@@ -983,11 +983,11 @@ function studentListInfo_filter (gridId,applicationStatus)
 		alert("Enter Any One Of the Filter Box ");
 }
 
-function validateFilterBoxes (gridId,status)
+function validateFilterBoxes (gridId,status,academicYearId)
 {
 	m_oZenithMemberData.m_gridId = gridId;
 	var oStudentFilterData = new StudentInformationData();
-	oStudentFilterData.m_strAcademicYear = $("#selectAcademicYear").val();
+	oStudentFilterData.m_strAcademicYear = $("#"+academicYearId).val();
 	oStudentFilterData.m_strStatus = status;
 	oStudentFilterData.m_bSuccess = false;
 	if($("#filterStudentInfo_input_studentName").val() != "")

@@ -39,6 +39,16 @@ var ZenithStudentInformationDataProcessor = (function __ZenithStudentInformation
 		ajaxCall(oClaimCheque,"/claimChequeUpdate",callback);
 	}
 	
+	function counselingStatusUpdate(oCounselingStatusUpdate,callback)
+	{
+		ajaxCall(oCounselingStatusUpdate,"/counselingStatusUpdate",callback);	
+	}
+	
+	function aproveCounselingStudentUpdate(oAproveCounselingStudentUpdate,callback)
+	{
+		ajaxCall(oAproveCounselingStudentUpdate,"/approveCounselingStudent",callback);
+	}
+	
 	return { 		
 		verifiedStatusUpdate:verifiedStatusUpdate,		
 		approvedStatusUpdate :approvedStatusUpdate,
@@ -46,6 +56,8 @@ var ZenithStudentInformationDataProcessor = (function __ZenithStudentInformation
 		issueCheque:issueCheque,
 		reIssueChequeStatusUpdate:reIssueChequeStatusUpdate,
 		reVerifiedStatusUpdate :reVerifiedStatusUpdate,
+		counselingStatusUpdate:counselingStatusUpdate,
+		aproveCounselingStudentUpdate:aproveCounselingStudentUpdate,
 		claimCheque:claimCheque
 
 	};
