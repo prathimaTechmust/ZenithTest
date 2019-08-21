@@ -23,8 +23,8 @@ function tatkalStudentListInfo_loaded ()
 
 function tatkalStudentListInfo_init ()
 {
-	createTatkalStudent_dataGrid ();
-	populatAcademicYearDropDown('selectTatkalAcademicYear');
+	populateAcademicYearDropDown('selectTatkalAcademicYear');
+	createTatkalStudent_dataGrid ();	
 }
 
 function createTatkalStudent_dataGrid ()

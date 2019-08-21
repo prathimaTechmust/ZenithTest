@@ -27,8 +27,8 @@ function approveStudentListInfo_loaded ()
 
 function approveStudentInfo_init ()
 {
-	approveStudentListInfo_createDataGrid ();
-	populatAcademicYearDropDown('selectApproveAcademicYear');
+	populateAcademicYearDropDown('selectApproveAcademicYear');
+	approveStudentListInfo_createDataGrid ();	
 	$("#zenithInfo_approvedamount").focus();
 }
 
@@ -194,6 +194,17 @@ function studentrejectResponse (oResponse)
 		informUser ("student reject Failed", "kError");
 }
 
+function studentRemarkValidate ()
+{
+	return validateForm("studentRemarkForm");
+}
+
+function studentRemarkInfo_cancel ()
+{
+	HideDialog("dialog");
+}
+
+
 function searchStudentUID ()
 {
 	var oStudentInformationData = new StudentInformationData ();
@@ -237,12 +248,6 @@ function studentapproveResponse (oResponse)
 		informUser ("student approved Failed", "kError");
 	
 }
-
-function studentRemarkValidate ()
-{
-	return validateForm("studentRemarkForm");
-}
-
 function approveStudentListInfo_progressbarLoaded ()
 {
 	createPopup('dialog', '', '', true);
@@ -260,12 +265,6 @@ function approveStudentListInfo_listed(oStudentResponseData)
 	$('#listApproveStudents_table_students').datagrid('getPager').pagination ({total:oStudentResponseData.m_nRowCount, pageNumber:oStudentResponseData.m_nPageNumber});
 	HideDialog("dialog");
 }
-
-function studentRemarkInfo_cancel ()
-{
-	HideDialog("dialog");
-}
-
 function counselingStudentInfo_Student() 
 {
 	loadPage("applicationstatus/approve/counselingRemark.html","dialog","counselingRemarks_init()");	
@@ -301,7 +300,7 @@ function counselingremark_progressbarLoaded()
 	var oZenith = new ZenithScholarshipDetails ();
 	oZenith.m_nStudentId = m_oApproveStudentList_Info_MemberData.m_nStudentId;
 	oZenith.m_strStudentRemarks = $("#counselingRemarkInfo_input_Remark").val();
-	ZenithStudentInformationDataProcessor.reVerifiedStatusUpdate(oZenith,studentCounselingResponse);	
+	ZenithStudentInformationDataProcessor.counselingStatusUpdate(oZenith,studentCounselingResponse);	
 }
 
 function counselingRemarkInfo_cancel()
@@ -313,12 +312,11 @@ function studentCounselingResponse(oResponse) {
 	
 	if(oResponse.m_bSuccess)
 	{
-		informUser("Application Status Sent to Verify Successfully","kSuccess");
-	
+		informUser("Application Status Sent to Counseling Successfully","kSuccess");
 		navigate("approvelist","widgets/applicationstatus/approve/approvelist.js");
 	}
 	else
-		informUser("Application Status Sent to Verify Failed","kError");
+		informUser("Application Status Sent to Counseling Failed","kError");
 }
 
 

@@ -28,9 +28,10 @@ function rejectedStudentListInfo_loaded ()
 
 function rejectedStudentInfo_init ()
 {
-	rejectedStudentListInfo_createDataGrid ();
-	populatAcademicYearDropDown('selectRejectListAcademicYear');
+	populateAcademicYearDropDown('selectRejectListAcademicYear');
+	rejectedStudentListInfo_createDataGrid ();	
 }
+
 function rejectedStudentListInfo_createDataGrid ()
 {
 	initHorizontalSplitter("#rejectedStudentsList_div_horizontalSplitter", "#rejectedStudentsList_table_students");

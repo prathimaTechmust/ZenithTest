@@ -8,7 +8,7 @@ var StudentInformationDataProcessor = (function __StudentInformationDataProcesso
 	
 	function createandprint(oStudentData,callback)
     {
-        ajaxCall(oStudentData, "/studentInfoCreateAndPrint", callback);
+		ajaxCall(oStudentData, "/studentInfoCreate", callback);
     }
 	
 	function get(oStudentData,callback)

@@ -18,7 +18,7 @@
          <ActionName>User List</ActionName>
          <Target>navigate('userList','widgets/usermanagement/userinfo/listUserInfo.js')</Target>
          <SequenceId>10</SequenceId>
-        </Action>
+       </Action>
         <Action>
           <ActionName>New User</ActionName>
           <Target>navigate('newuser','widgets/usermanagement/userinfo/newUserInfo.js')</Target>
@@ -72,12 +72,7 @@
 				<ActionName>Academic Year List</ActionName>
 				<Target>navigate ('AcademicYearList','widgets/scholarshipmanagement/academicyear/newAcademicYear.js')</Target>
 				<SequenceId>10</SequenceId>
-			</Action>
-			<Action>
-				<ActionName>New Student</ActionName>
-				<Target>navigate ('newStudent','widgets/scholarshipmanagement/studentlist/newStudentInfo.js')</Target>
-				<SequenceId>20</SequenceId>
-			</Action>
+			</Action>			
 			<Action>
 				<ActionName>Student List</ActionName>
 				<Target>navigate ('Studentlist','widgets/scholarshipmanagement/studentlist/listStudent.js')</Target>
@@ -107,56 +102,61 @@
 	</ActionArea>
 	<ActionArea name = "Application Status"  SequenceId="30">
 		<Actions>
+			<Action>
+				<ActionName>New Student</ActionName>
+				<Target>navigate ('newStudent','widgets/scholarshipmanagement/studentlist/newStudentInfo.js')</Target>
+				<SequenceId>10</SequenceId>
+			</Action>
 		    <Action>
 				<ActionName>To Be Verified</ActionName>
 				<Target>navigate ('verified','widgets/applicationstatus/verified/verifiedlist.js')</Target>
-				<SequenceId>10</SequenceId>
+				<SequenceId>20</SequenceId>
 			</Action>
 			<Action>
 				<ActionName>To Be Approved</ActionName>
 				<Target>navigate ('approve','widgets/applicationstatus/approve/approvelist.js')</Target>
-				<SequenceId>20</SequenceId>
+				<SequenceId>30</SequenceId>
 			</Action>			
 			<Action>
 				<ActionName>Prepare Cheque</ActionName>
-				<SequenceId>30</SequenceId>
+				<SequenceId>40</SequenceId>
 				<Target>navigate ('preparecheque','widgets/applicationstatus/preparecheque/prepareChequelist.js')</Target>
 			</Action>
 			<Action>
 				<ActionName>Disburse of Cheque</ActionName>
 				<Target>navigate ('disspersed','widgets/applicationstatus/disbursecheque/disbursechequelist.js')</Target>
-				<SequenceId>40</SequenceId>
+				<SequenceId>50</SequenceId>
 			</Action>
 			<Action>
 				<ActionName>To Be Claimed</ActionName>
 				<Target>navigate ('tobeclaimcheque','widgets/applicationstatus/ChequeDetails/toBeClaimedChequeList/toBeClaimchequelist.js')</Target>
-				<SequenceId>50</SequenceId>
+				<SequenceId>60</SequenceId>
 			</Action>
 			<Action>
 				<ActionName>Claimed List</ActionName>
 				<Target>navigate ('claimedList','widgets/applicationstatus/ChequeDetails/claimedChequeList/claimedChequeList.js')</Target>
-				<SequenceId>60</SequenceId>
+				<SequenceId>70</SequenceId>
 			</Action>
 			<Action>
 				<ActionName>Make Tatkal</ActionName>
 				<Target>navigate ('tatkal','widgets/tatkal/tatkalList.js')</Target>
 				<SequenceId>80</SequenceId>
 			</Action>
-				<Action>
+			<Action>
 				<ActionName>Counseling List</ActionName>
 				<Target>navigate ('counseling','widgets/counseling/counseling.js')</Target>
-				<SequenceId>80</SequenceId>
+				<SequenceId>90</SequenceId>
+			</Action>
+			<Action>
+				<ActionName>Rejected List</ActionName>
+				<Target>navigate ('rejected','widgets/applicationstatus/rejectedlist/rejectedlist.js')</Target>
+				<SequenceId>100</SequenceId>
 			</Action>
 			<Action>
 				<ActionName>Activity Log</ActionName>
 				<Target>navigate ('activitylog','widgets/activitylog/activityLogList.js')</Target>
-				<SequenceId>90</SequenceId>
-			</Action>	
-				<Action>
-				<ActionName>Rejected List</ActionName>
-				<Target>navigate ('rejected','widgets/applicationstatus/rejectedlist/rejectedlist.js')</Target>
-				<SequenceId>70</SequenceId>
-			</Action>								
+				<SequenceId>110</SequenceId>
+			</Action>											
 		</Actions> 
 	</ActionArea>
 	<ActionArea name="Reports" SequenceId="40">
@@ -165,7 +165,7 @@
 				<ActionName>Facilitator-wise</ActionName>
 				<Target>navigate ('facilitatorWise','widgets/Reports/facilitatorReports.js')</Target>
 				<SequenceId>10</SequenceId>
-		</Action>
+			</Action>
 		</Actions>
 	</ActionArea>
 </root>  

@@ -31,9 +31,10 @@ function disburseChequeList_Loaded ()
 
 function disburseChequeList_init()
 {
+	populateAcademicYearDropDown ('selectDisburseacademicyear');
 	disburseChequeListInfo_createDataGrid ();
-	populatAcademicYearDropDown ('selectDisburseacademicyear');
 }
+
 function disburseChequeListInfo_createDataGrid ()
 {
 	initHorizontalSplitter("#disburseChequeList_div_horizontalSplitter", "#disburseChequeList_table_students");

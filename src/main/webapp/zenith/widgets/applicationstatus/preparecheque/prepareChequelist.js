@@ -30,8 +30,8 @@ function listPrepareChequeInfo_loaded ()
 
 function listPrepareChequeInfo_init ()
 {
-	listPrepareChequeInfo_createDataGrid ();
-	populatAcademicYearDropDown('selectPrepareChequeacademicYear');
+	populateAcademicYearDropDown('selectPrepareChequeacademicYear');
+	listPrepareChequeInfo_createDataGrid ();	
 }
 
 function listPrepareChequeInfo_createDataGrid ()

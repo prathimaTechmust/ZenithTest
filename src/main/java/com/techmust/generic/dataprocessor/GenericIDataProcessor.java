@@ -230,6 +230,7 @@ public abstract class GenericIDataProcessor<T extends IGenericData>
 			Root<StudentInformationData> oStudentRoot = oQuery.from(StudentInformationData.class);
 			Join<StudentInformationData,ZenithScholarshipDetails> oRootJoin = oStudentRoot.join("m_oZenithScholarshipDetails",JoinType.INNER);
 			List<Predicate> m_PredicateList = new ArrayList<Predicate>();
+			m_PredicateList.add(oCriteriaBuilder.equal(oRootJoin.get("m_strAcademicYear"), oStudentData.getM_strAcademicYear()));
 			if(oStudentData.getM_strStatus() != null)
 				m_PredicateList.add(oCriteriaBuilder.equal(oRootJoin.get("m_strStatus"),oStudentData.getM_strStatus()));
 			if(oStudentData.getM_strPhoneNumber() != "")

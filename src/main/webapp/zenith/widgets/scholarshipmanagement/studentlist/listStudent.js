@@ -28,9 +28,10 @@ function listStudentInfo_loaded ()
 
 function listStudentInfo_init ()
 {
-	listStudentInfo_createDataGrid ();
-	populatAcademicYearDropDown('selectStudentListAcademicYear');
+	populateAcademicYearDropDown('selectStudentListAcademicYear');
+	listStudentInfo_createDataGrid ();	
 }
+
 /*function academicyear ()
 {	
 		  var oDate = new Date();
@@ -161,6 +162,7 @@ function listStudentInfo_progressbarLoaded ()
 	createPopup('dialog', '', '', true);
 	var oStudentInformationData = new StudentInformationData ();
 	//StudentInformationDataProcessor.list(oStudentInformationData, m_oStudentInfoListMemberData.m_strSortColumn, m_oStudentInfoListMemberData.m_strOrderBy, m_oStudentInfoListMemberData.m_nPageNumber, m_oStudentInfoListMemberData.m_nPageSize, listStudentInfo_listed);
+	oStudentInformationData.m_strAcademicYear = $("#selectStudentListAcademicYear").val();
 	StudentInformationDataProcessor.studentTatkalList(oStudentInformationData,listStudentInfo_listed);
 	
 }

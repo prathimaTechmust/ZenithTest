@@ -18,6 +18,7 @@ function verifiedStudentList_Info_MemberData ()
     this.m_strapplicationStatus= "pending";
     this.m_nStudentId = -1;
     this.m_arrStudent = new Array();
+    this.m_bChequeFavouOf = false;
 }
 
 var m_overifiedStudentList_Info_MemberData = new verifiedStudentList_Info_MemberData();
@@ -29,10 +30,10 @@ function verifiedStudentListInfo_loaded ()
 
 function verifiedStudentInfo_init ()
 {
-	verifiedStudentListInfo_createDataGrid ();
-	populatAcademicYearDropDown('selectVerifiedAcademicyear');
-	
+	populateAcademicYearDropDown('selectVerifiedAcademicyear');
+	verifiedStudentListInfo_createDataGrid ();	
 }
+
 function verifiedStudentListInfo_createDataGrid ()
 {
 	initHorizontalSplitter("#listVerifiedStudents_div_horizontalSplitter", "#listVerifiedStudents_table_students");
@@ -108,6 +109,8 @@ function verifiedStudentlistInfo_selectedRowData (oRowData, nIndex)
 	oStudentInformationData.m_strAcademicYear = $("#selectVerifiedAcademicyear").val();
 	m_overifiedStudentList_Info_MemberData.m_nStudentId = oRowData.m_nStudentId;
 	m_overifiedStudentList_Info_MemberData.m_nInstitutionId = oRowData.m_oAcademicDetails[0].m_oInstitutionInformationData.m_nInstitutionId;
+	m_overifiedStudentList_Info_MemberData.m_bChequeFavouOf  = oRowData.m_oAcademicDetails[0].m_oInstitutionInformationData.m_bChequeFavouOf;
+	
 	StudentInformationDataProcessor.getXML (oStudentInformationData,verifiedStudentListInfo_gotXML);	
 }
 
@@ -142,8 +145,21 @@ function verifyStudentInfo_Student()
 	var oFormData = new FormData ();
 	oFormData.append('scancopy',$("#ScanCopy")[0].files[0]);
 	oFormData.append('studentId',m_overifiedStudentList_Info_MemberData.m_nStudentId);
-	oFormData.append('chequefavourId',$("#select_cheque_inFavour_of").val());
+	if(checkInFavour ())
+	{
+		oFormData.append('chequefavourId',$("#select_cheque_inFavour_of").val());
+	}
 	ZenithStudentInformationDataProcessor.verifiedStatusUpdate(oFormData,studentverifiedResponse);
+}
+
+function checkInFavour ()
+{
+  var bInFavourOf = false;
+   if($("#select_cheque_inFavour_of").val() != "null")
+   {
+		bInFavourOf = true;
+   }
+	return bInFavourOf;
 }
 
 function studentverifiedResponse (oResponse)
@@ -261,7 +277,6 @@ function chooseFileInit()
 	populateChequeinFavourof ();	
 	
 }
-
 function populateChequeinFavourof ()
 {
 	var oInstitution = new InstitutionInformationData ();
@@ -273,8 +288,27 @@ function chequeFavourOfResponse (oResponse)
 {
 	if(oResponse.m_bSuccess)
 	{
-		populateChequeFavour ("select_cheque_inFavour_of",oResponse.m_arrChequeInFavourOf);
-	}	
+		if(m_overifiedStudentList_Info_MemberData.m_bChequeFavouOf)
+		{
+			populateChequeFavour ("select_cheque_inFavour_of",oResponse.m_arrChequeInFavourOf);
+			
+		}
+		else
+		{
+			populateChequeFavourStudent ("select_cheque_inFavour_of");
+		}
+	}
+	else
+	{
+		populateChequeFavourStudent ("select_cheque_inFavour_of");
+	}
+}
+
+function populateChequeFavourStudent (strDropDownId)
+{
+	var arrChequeFavour = new Array ();
+	arrChequeFavour.push(CreateOption(null,"In Favour Of Student"));
+	PopulateDD(strDropDownId,arrChequeFavour);
 }
 
 function populateChequeFavour (strDropDownId,favourResponse)
@@ -292,3 +326,54 @@ function chooseFileDocument_cancel()
 	HideDialog("dialog")
 }
 
+function reject_Student()
+{
+	loadPage("applicationstatus/rejectlist/studentRemarkInfo.html","dialog","rejectStudentRemarks_init()");		
+}
+
+function rejectStudentRemarks_init()
+{
+	createPopup('dialog','#remarkInfo_button_submit','remarkInfo_button_cancel',true);
+	initFormValidateBoxes('studentRemarkForm');
+}
+
+function studentRemarkInfo_submit ()
+{
+	if(studentRemarkValidate ())
+		loadPage ("include/process.html", "ProcessDialog", "studentremark_progressbarLoaded ()");
+	else
+	{
+		alert("Please Enter Remarks");
+		$("#studentRemarkForm").focus();
+	}	
+}
+function studentremark_progressbarLoaded ()
+{
+	createPopup('dialog','','',true);
+	var oZenith = new ZenithScholarshipDetails ();		
+	oZenith.m_nStudentId = m_overifiedStudentList_Info_MemberData.m_nStudentId;
+	oZenith.m_strStudentRemarks = $("#studentRemarkInfo_input_Remark").val();
+	ZenithStudentInformationDataProcessor.rejectStatusUpdate(oZenith,studentrejectResponse);
+}
+
+function studentrejectResponse (oResponse)
+{
+	if(oResponse.m_bSuccess)
+	{
+		informUser ("student rejected successfully", "kSuccess");
+		document.getElementById("listVerifiedStudents_div_listDetail").innerHTML = "";		
+		navigate("approvedlist","widgets/applicationstatus/verified/verifiedlist.js");
+	}
+	else
+		informUser ("student reject Failed", "kError");
+}
+
+function studentRemarkValidate ()
+{
+	return validateForm("studentRemarkForm");
+}
+
+function studentRemarkInfo_cancel ()
+{
+	HideDialog("dialog");
+}

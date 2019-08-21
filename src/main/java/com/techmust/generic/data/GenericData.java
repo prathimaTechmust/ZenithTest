@@ -680,7 +680,8 @@ public abstract class GenericData implements IGenericData, Serializable
 			Root<StudentInformationData> oStudentInformationDataRoot = oCriteriaQuery.from(StudentInformationData.class);
 			oCriteriaQuery.orderBy(oCriteriaBuilder.asc(oStudentInformationDataRoot.get("m_nApplicationPriority")));
 			Join<StudentInformationData,ZenithScholarshipDetails> oJoinTable = oStudentInformationDataRoot.join("m_oZenithScholarshipDetails",JoinType.INNER);
-			oCriteriaQuery.where(oCriteriaBuilder.equal(oJoinTable.get("m_strStatus"), oStudentInformationData.getM_strStatus()));
+			oCriteriaQuery.where(oCriteriaBuilder.equal(oJoinTable.get("m_strStatus"), oStudentInformationData.getM_strStatus()),
+								oCriteriaBuilder.equal(oJoinTable.get("m_strAcademicYear"),oStudentInformationData.getM_strAcademicYear()));
 			TypedQuery<StudentInformationData> typedquery = oEntityManager.createQuery(oCriteriaQuery);
 			arrStudentInformationData = (ArrayList<StudentInformationData>) typedquery.getResultList();
 		}
@@ -921,7 +922,7 @@ public abstract class GenericData implements IGenericData, Serializable
 		
 	}	
 
-	public boolean reVerifyStudentApplication(ZenithScholarshipDetails oZenithData) throws Exception
+	public boolean counselingListApplication(ZenithScholarshipDetails oZenithData) throws Exception
 	{
 		boolean bIsStatusReVerify = false;
 		EntityManager oEntityManager = _getEntityManager();
@@ -937,7 +938,7 @@ public abstract class GenericData implements IGenericData, Serializable
 			{
 
 				ZenithScholarshipDetails oDetails = list.get(0);
-				oDetails.setM_strStatus(Constants.APPLICATIONREVERIFICATION);
+				oDetails.setM_strStatus(Constants.APPLICATIONCOUNSELING);
 				oDetails.setM_strStudentRemarks(oZenithData.getM_strStudentRemarks());
 				bIsStatusReVerify = oDetails.updateObject();
 			}
@@ -955,7 +956,72 @@ public abstract class GenericData implements IGenericData, Serializable
 		return bIsStatusReVerify;		
 	}
 	
-	
+	public boolean reVerifyStudentApplication(ZenithScholarshipDetails oZenithData) throws Exception
+	{
+		boolean bIsStatusReVerify = false;
+		EntityManager oEntityManager = _getEntityManager();
+		try
+		{
+			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
+			CriteriaQuery<ZenithScholarshipDetails> oCriteriaQuery = oCriteriaBuilder.createQuery(ZenithScholarshipDetails.class);
+			Root<ZenithScholarshipDetails> oZenithRoot = oCriteriaQuery.from(ZenithScholarshipDetails.class);
+			oCriteriaQuery.select(oZenithRoot);
+			oCriteriaQuery.where(oCriteriaBuilder.equal(oZenithRoot.get("m_oStudentInformationData"),oZenithData.getM_nStudentId()));
+			List<ZenithScholarshipDetails> list = oEntityManager.createQuery(oCriteriaQuery).getResultList();
+			if(list.size() > 0)
+			{
+
+				ZenithScholarshipDetails oDetails = list.get(0);
+				oDetails.setM_strStatus(Constants.APPLICATIONREVERIFICATION);
+				//oDetails.setM_strStudentRemarks(oZenithData.getM_strStudentRemarks());
+				bIsStatusReVerify = oDetails.updateObject();
+			}
+		}
+		catch (Exception oException)
+		{
+			m_oLogger.error("applicationReverify - oException"+oException);
+			throw oException;
+		}
+		finally
+		{
+			oEntityManager.close();
+			HibernateUtil.removeConnection();
+		}
+		return bIsStatusReVerify;		
+	}
+
+	public boolean approveCounselingStudentApplication(ZenithScholarshipDetails oZenithData) throws Exception
+	{
+		boolean bIsStatusReVerify = false;
+		EntityManager oEntityManager = _getEntityManager();
+		try
+		{
+			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
+			CriteriaQuery<ZenithScholarshipDetails> oCriteriaQuery = oCriteriaBuilder.createQuery(ZenithScholarshipDetails.class);
+			Root<ZenithScholarshipDetails> oZenithRoot = oCriteriaQuery.from(ZenithScholarshipDetails.class);
+			oCriteriaQuery.select(oZenithRoot);
+			oCriteriaQuery.where(oCriteriaBuilder.equal(oZenithRoot.get("m_oStudentInformationData"),oZenithData.getM_nStudentId()));
+			List<ZenithScholarshipDetails> list = oEntityManager.createQuery(oCriteriaQuery).getResultList();
+			if(list.size() > 0)
+			{
+
+				ZenithScholarshipDetails oDetails = list.get(0);
+				oDetails.setM_strStatus(Constants.COUNSELINGSTUDENTVERIFIED);
+				bIsStatusReVerify = oDetails.updateObject();
+			}
+		}
+		catch (Exception oException)
+		{
+			m_oLogger.error("applicationReverify - oException"+oException);
+			throw oException;
+		}
+		finally
+		{
+			oEntityManager.close();
+			HibernateUtil.removeConnection();
+		}
+		return bIsStatusReVerify;	
+	}
 	 public boolean reIssueCheckDetails(ZenithScholarshipDetails oZenithData) throws Exception
 	  {
 		 boolean bIsStatusReVerify = false;

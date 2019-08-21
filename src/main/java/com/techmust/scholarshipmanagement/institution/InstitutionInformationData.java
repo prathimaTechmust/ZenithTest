@@ -98,7 +98,7 @@ public class InstitutionInformationData extends MasterData
 		m_strCity = "";
 		m_strState = "";
 		m_nPincode = -1;
-		m_bChequeFavouOf = true;
+		m_bChequeFavouOf = false;
 		m_oChequeInFavourOf = new HashSet<ChequeInFavourOf>();
 	}	
 	

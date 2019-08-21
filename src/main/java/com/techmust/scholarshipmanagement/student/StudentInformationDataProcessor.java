@@ -6,12 +6,14 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.apache.commons.io.FilenameUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,13 +22,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.google.gson.Gson;
 import com.techmust.constants.Constants;
 import com.techmust.generic.dataprocessor.GenericIDataProcessor;
 import com.techmust.generic.response.GenericResponse;
 import com.techmust.generic.util.HibernateUtil;
 import com.techmust.helper.ZenithHelper;
 import com.techmust.scholarshipmanagement.academicdetails.AcademicDetails;
+import com.techmust.scholarshipmanagement.academicdetails.AcademicDetailsProcessor;
 import com.techmust.scholarshipmanagement.scholarshipdetails.zenithscholarshipstatus.ZenithScholarshipDetails;
 import com.techmust.scholarshipmanagement.studentdocuments.StudentDocuments;
 import com.techmust.utils.AWSUtils;
@@ -62,12 +64,13 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		}
 		return oStudentDataResponse;
 	}
-	/*@RequestMapping(value = "/studentInfoCreate",method = RequestMethod.POST)
+	
+	/*@RequestMapping(value = "/studentInfoCreateAndPrint",method = RequestMethod.POST)
 	@ResponseBody
-	public GenericResponse createStudentData(@RequestParam(name = "studentimage",required = false)MultipartFile oStudentMultipartFile,@RequestParam("studentObject") String oStudentData) throws Exception
+	public GenericResponse createAndPrint(@RequestParam(name = "studentimage",required = false)MultipartFile oStudentMultipartFile,@RequestParam("studentObject") String oStudentData) throws Exception
 	{
-		m_oLogger.info ("create");
-		m_oLogger.debug ("create - oStudentInformationData [IN] : " + oStudentData);
+		m_oLogger.info ("createAndPrint");
+		m_oLogger.debug ("createAndPrint - oStudentInformationData [IN] : " + oStudentData);
 		StudentDataResponse oStudentDataResponse = new StudentDataResponse();
 		try
 		{
@@ -77,35 +80,12 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		}
 		catch (Exception oException)
 		{
-			m_oLogger.error ("create - oException : " + oException);
+			m_oLogger.error ("createAndPrint - oException : " + oException);
 			throw oException;
 		}
 		return oStudentDataResponse;
 		
 	}*/
-	
-	@RequestMapping(value = "/studentInfoCreateAndPrint",method = RequestMethod.POST,headers = {"Content-type=application/json"})
-	@ResponseBody
-	public GenericResponse createAndPrint(@RequestBody StudentInformationData oStudentInformationData) throws Exception
-	{
-		m_oLogger.info ("create and print");
-		m_oLogger.debug ("create and print - oStudentInformationData [IN] : " + oStudentInformationData);
-		StudentDataResponse oStudentDataResponse = new StudentDataResponse();
-		try
-		{
-			oStudentDataResponse.m_bSuccess = oStudentInformationData.saveObject();
-			if(oStudentDataResponse.m_bSuccess == true)
-				oStudentDataResponse.m_strStudentXMLData = oStudentInformationData.generateXML();
-			oStudentDataResponse.m_arrStudentInformationData.add(oStudentInformationData);
-			
-		}
-		catch (Exception oException)
-		{
-			m_oLogger.error ("create and print - oException : " + oException);
-			throw oException;
-		}
-		return oStudentDataResponse;		
-	}
 	
 	@Override
 	@RequestMapping(value = "/studentInfoDelete",method = RequestMethod.POST, headers = {"Content-type=application/json"})
@@ -132,7 +112,16 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 	
 	@RequestMapping(value="/uploadStudentImageData", method = RequestMethod.POST)
 	@ResponseBody
-	public GenericResponse uploadStudentImagetoS3bucket(@RequestParam(name = "studentimage",required = false) MultipartFile oStudentMultipartFile, @RequestParam("studentId") int nStudentId ) throws Exception
+	public GenericResponse uploadStudentImagetoS3bucket(@RequestParam(name = "studentimage",required = false) MultipartFile oStudentMultipartFile,
+														@RequestParam(name = "studentaadhar",required = false) MultipartFile oStudentAadharMultipartFile,
+														@RequestParam(name = "studentElectricityBill",required = false) MultipartFile oStudentElectricityBillMultipartFile,
+														@RequestParam(name = "fatheraadhar",required = false) MultipartFile oFatherMultipartFile,
+														@RequestParam(name = "motheraadhar",required = false) MultipartFile oMotherMultipartFile,
+														@RequestParam(name = "studentMarksCard1",required = false) MultipartFile oStudentMarksCard1MultipartFile,
+														@RequestParam(name = "studentmarkscard2",required = false) MultipartFile oStudentMarksCard2MultipartFile,
+														@RequestParam(name = "otherdocuments",required = false) MultipartFile oOtherDocumentsMultipartFile,
+														@RequestParam("studentId") int nStudentId,
+														@RequestParam(name = "academicId",required = false) int nAcademicId) throws Exception
     {
 		StudentDataResponse oStudentDataResponse = new StudentDataResponse();
 		StudentInformationData oStudentInformationData = new StudentInformationData();
@@ -148,7 +137,15 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 			    AWSUtils.UploadToStudentImagesFolder(strStudentImagePath, oStudentMultipartFile);
 			    oStudentInformationData.setM_strStudentImageId(strUUID);
 			    oStudentDataResponse.m_bSuccess = oStudentInformationData.updateObject();
-			}			
+			    AcademicDetailsProcessor.uploadStudentDocumentstoS3bucket(oStudentAadharMultipartFile,
+			    														  oStudentElectricityBillMultipartFile,			    														  
+			    														  oFatherMultipartFile,
+			    														  oMotherMultipartFile,
+			    														  oStudentMarksCard1MultipartFile,
+			    														  oStudentMarksCard2MultipartFile,
+			    														  oOtherDocumentsMultipartFile,nAcademicId);
+			}
+			oStudentDataResponse.m_strStudentXMLData = generatePrintXMLData(oStudentDataResponse.m_bSuccess,oStudentInformationData);				
 		} 
 		catch (Exception oException) 
 		{
@@ -156,6 +153,17 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		}				
 		return oStudentDataResponse; 
     }
+
+	private String generatePrintXMLData(boolean bSuccess, StudentInformationData oStudentInformationData) throws Exception
+	{
+		String strXMLData = null;
+		if(bSuccess)
+		{
+			oStudentInformationData = (StudentInformationData) populateObject(oStudentInformationData);
+			strXMLData = oStudentInformationData.generateXML();
+		}
+		return strXMLData;		
+	}
 
 	@Override
 	@RequestMapping(value="/studentInfoGet", method = RequestMethod.POST, headers = {"Content-type=application/json"})
@@ -267,7 +275,8 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		m_oLogger.debug ("update - oStudentInformationData.getM_nStudentId() [IN] : " + oStudentInformationData.getM_nStudentId());
 		StudentDataResponse oStudentDataResponse = new StudentDataResponse();
 		try
-		{			
+		{	
+			
 			StudentInformationData oStudentData = getStudentDocuments(oStudentInformationData);		
 			oStudentDataResponse.m_bSuccess = oStudentInformationData.updateObject();
 			if(oStudentDataResponse.m_bSuccess)
@@ -286,15 +295,19 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 
 	private StudentInformationData getStudentDocuments(StudentInformationData oStudentInformationData)
 	{
+		
 		Set<AcademicDetails> arrAcademics = oStudentInformationData.getM_oAcademicDetails();
 		List<AcademicDetails> oAcademicDetails = new ArrayList<>(arrAcademics);
 		AcademicDetails oAcademic = oAcademicDetails.get(0);
-		StudentDocuments oStudentDocuments = oStudentInformationData.getStudentUploadDocuments(oAcademic);
-		List<StudentDocuments> listDocuments = new ArrayList<StudentDocuments>();
-		listDocuments.add(oStudentDocuments);
-		oAcademic.setM_arrStudentDocuments(listDocuments);
-		arrAcademics.add(oAcademic);
-		oStudentInformationData.setM_oAcademicDetails(arrAcademics);
+		if(oAcademic.getM_nAcademicId() > 0)
+		{
+			StudentDocuments oStudentDocuments = oStudentInformationData.getStudentUploadDocuments(oAcademic);
+			List<StudentDocuments> listDocuments = new ArrayList<StudentDocuments>();
+			listDocuments.add(oStudentDocuments);
+			oAcademic.setM_arrStudentDocuments(listDocuments);
+			arrAcademics.add(oAcademic);
+			oStudentInformationData.setM_oAcademicDetails(arrAcademics);
+		}		
 		return oStudentInformationData;	
 	}
 	
@@ -421,10 +434,15 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		{			
 			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
 			CriteriaQuery<StudentInformationData> oCriteriaQuery = oCriteriaBuilder.createQuery(StudentInformationData.class);
-			Root<StudentInformationData> oStudentInformationRoot = oCriteriaQuery.from(StudentInformationData.class);   
+			Root<StudentInformationData> oStudentInformationRoot = oCriteriaQuery.from(StudentInformationData.class);
+			Join<StudentInformationData, AcademicDetails> oJoin = oStudentInformationRoot.join("m_oAcademicDetails",JoinType.INNER);
+			List<Predicate> m_arrListPredicate = new ArrayList<Predicate>();
+			m_arrListPredicate.add(oCriteriaBuilder.equal(oJoin.get("m_strAcademicYear"),oStudentInformationData.getM_strAcademicYear()));
 			oCriteriaQuery.select(oStudentInformationRoot);
-			oCriteriaQuery.orderBy(oCriteriaBuilder.asc(oStudentInformationRoot.get("m_nApplicationPriority")));			 
-			oStudentDataResponse.m_arrStudentInformationData = new ArrayList(oEntityManager.createQuery(oCriteriaQuery).getResultList());		
+			oCriteriaQuery.orderBy(oCriteriaBuilder.asc(oStudentInformationRoot.get("m_nApplicationPriority")));
+			oCriteriaQuery.where(m_arrListPredicate.toArray(new Predicate[] {}));
+			TypedQuery<StudentInformationData> oTypedQuery = oEntityManager.createQuery(oCriteriaQuery);
+			oStudentDataResponse.m_arrStudentInformationData = new ArrayList(oTypedQuery.getResultList());		
 		}
 		catch (Exception oException)
 		{

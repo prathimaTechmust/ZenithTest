@@ -5,6 +5,11 @@ var AcademicYearProcessor = (function __AcademicYearProcessor ()
 		 ajaxCall(oAcademicYear, "/academicyearcreate", callback);
 	}
 	
+	function createAndUpdate(oAcademicYear,callback)
+	{
+		ajaxCall(oAcademicYear,"/academicyearcreateandupdate", callback);
+	}
+	
 	function update(oAcademicYear,callback)
 	{
 		ajaxCall(oAcademicYear, "/academicyearupdate", callback);		
@@ -18,6 +23,7 @@ var AcademicYearProcessor = (function __AcademicYearProcessor ()
 	return { 
 		create:create,
 		update:update,
-		list : list	
+		list : list,
+		createAndUpdate:createAndUpdate
 	};
 })();

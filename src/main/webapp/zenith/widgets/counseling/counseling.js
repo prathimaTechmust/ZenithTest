@@ -29,9 +29,10 @@ function counselingStudentListInfo_loaded()
 
 function counselingStudentInfo_init()
 {
-	counselingStudentListInfo_createDataGrid ();
-	populatAcademicYearDropDown('selectCounselingAcademicyear');
+	populateAcademicYearDropDown('selectCounselingAcademicyear');
+	counselingStudentListInfo_createDataGrid ();	
 }
+
 function counselingStudentListInfo_createDataGrid ()
 {
 	initHorizontalSplitter("#CounselingStudents_div_horizontalSplitter", "#CounselingStudents_table_students");
@@ -110,9 +111,9 @@ function counselingStudentlistInfo_selectedRowData (oRowData, nIndex)
 }
 
 
-function counselingStudentListInfo_gotXML()
+function counselingStudentListInfo_gotXML(strXMLData)
 {
-	
+	populateXMLData (strXMLData, "applicationstatus/counseling/counselingList.xslt", 'CounselingStudents_div_listDetail');
 }
 
 function counselingStudentListInfo_list (strColumn,strOrder,nPageNumber,nPageSize)
@@ -145,3 +146,75 @@ function counselingStudentListInfo_listed(oStudentResponseData)
 	$('#CounselingStudents_table_students').datagrid('getPager').pagination ({total:oStudentResponseData.m_nRowCount, pageNumber:oStudentResponseData.m_nPageNumber});
 	HideDialog("dialog");
 }
+
+function recjectInfo_Student ()
+{
+	loadPage("applicationstatus/rejectlist/studentRemarkInfo.html","dialog","rejectStudentRemarks_init()");		
+}
+
+function rejectStudentRemarks_init()
+{
+	createPopup('dialog','#remarkInfo_button_submit','remarkInfo_button_cancel',true);
+	initFormValidateBoxes('studentRemarkForm');
+}
+
+function studentRemarkInfo_submit ()
+{
+	if(studentRemarkValidate ())
+		loadPage ("include/process.html", "ProcessDialog", "studentremark_progressbarLoaded ()");
+	else
+	{
+		alert("Please Enter Remarks");
+		$("#studentRemarkForm").focus();
+	}	
+}
+function studentremark_progressbarLoaded ()
+{
+	createPopup('dialog','','',true);
+	var oZenith = new ZenithScholarshipDetails ();		
+	oZenith.m_nStudentId = m_oCounselingStudentList_Info_MemberData.m_nStudentId;
+	oZenith.m_strStudentRemarks = $("#studentRemarkInfo_input_Remark").val();
+	ZenithStudentInformationDataProcessor.rejectStatusUpdate(oZenith,studentrejectResponse);
+}
+
+function studentrejectResponse (oResponse)
+{
+	if(oResponse.m_bSuccess)
+	{
+		informUser ("student rejected successfully", "kSuccess");
+		document.getElementById("CounselingStudents_div_listDetail").innerHTML = "";		
+		navigate("approvedlist","widgets/applicationstatus/counseling/counseling.js");
+	}
+	else
+		informUser ("student reject Failed", "kError");
+}
+
+function studentRemarkValidate ()
+{
+	return validateForm("studentRemarkForm");
+}
+
+function studentRemarkInfo_cancel ()
+{
+	HideDialog("dialog");
+}
+
+function approve_counselingStudent ()
+{
+	var oZenith = new ZenithScholarshipDetails ();
+	oZenith.m_nStudentId = m_oCounselingStudentList_Info_MemberData.m_nStudentId;
+	ZenithStudentInformationDataProcessor.aproveCounselingStudentUpdate(oZenith,studentCounselingResponse);
+}
+
+function studentCounselingResponse (oResponse)
+{
+	if(oResponse.m_bSuccess)
+	{
+		informUser("Application Status Sent to Verify Successfully","kSuccess");
+		navigate("rejectlist","widgets/applicationstatus/rejectedlist/rejectedlist.js");
+	}
+	else
+		informUser("Application Status Sent to Verify Failed","kError");
+	
+}
+

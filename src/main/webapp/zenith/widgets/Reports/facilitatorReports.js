@@ -26,10 +26,11 @@ function facilitatorWiseInfo_Loaded()
 
 function facilitatorWise_init ()
 {
-	createFacilitatorWiseList_DataGrid ();
-	populatAcademicYearDropDown ('selectReportAcademicYear');
+	populateAcademicYearDropDown ('selectReportAcademicYear');
+	createFacilitatorWiseList_DataGrid ();	
 	facilitatorListToDropDown();
 }
+
 function facilitatorListToDropDown()
 {
 	var oFacilitatorInformationData = new FacilitatorInformationData();

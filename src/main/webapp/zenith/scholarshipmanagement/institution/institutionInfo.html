@@ -89,12 +89,13 @@
 						</table>
 						<table>
 							<tr>
-								<td><input type="radio"	id="chequefavourofInstitution_input_radio" name='chequefavour_radio' checked="checked"/></td>
+								<td><input type="radio"	id="chequefavourofInstitution_input_radio" name="chequefavour_radio" onchange="displayCheque(cheque)"/></td>
 								<td class="fieldHeading" style="padding-left: 5px">issue cheque in the favour of institution</td>
-								<td><input type="radio"	id="chequefavourofStudent_input_radio" name='chequefavour_radio'/></td>
+								<td><input type="radio"	id="chequefavourofStudent_input_radio" name="chequefavour_radio" checked="checked" onchange="hideCheque(cheque)"/></td>
 								<td class="fieldHeading" style="padding-left: 5px">issue cheque in the favour of student</td>							
 							</tr>
 						</table>
+						<div id="cheque" style="display: none">
 						<table id = "chequeInFavourOf">							
 							<tr>
 								<td class="fieldHeading" style="padding-right: 15px;">Cheque Favourof</td>
@@ -106,6 +107,7 @@
 	                            </td>		
 							</tr>
 						</table>
+						</div>
 				</td>
 			</tr>
 			<tr>

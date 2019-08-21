@@ -80,8 +80,8 @@ function studentInfo_init ()
 {
 
 	createPopup("dialog", "#studentInfo_button_submit", "#studentInfo_button_cancel", true);
-	document.getElementById("defaultOpen").click();
-	populatAcademicYearDropDown('selectacademicyear');	
+	populateAcademicYearDropDown('selectacademicyear');
+	document.getElementById("defaultOpen").click();		
 	calculate_Student_CourseFee ();
 	studentReligionDropDown();
 	studentParentalStatusDropDown();
@@ -323,6 +323,7 @@ function studentInfo_getFormData ()
 {	
 	var oStudentInformationData = new StudentInformationData ();
 	oStudentInformationData.m_nStudentId = m_oStudentInfoMemberData.m_nStudentId;
+	oStudentInformationData.m_nApplicationPriority = m_oStudentInfoMemberData.m_nApplicationPriority;
 	oStudentInformationData.m_nUID = $("#studentInfo_input_studentUIDNumber").val();	
 	oStudentInformationData.m_nStudentAadharNumber = $("#studentInfo_input_studentAadharNumber").val();
 	oStudentInformationData.m_strStudentName = $("#studentInfo_input_studentName").val();
@@ -396,7 +397,7 @@ function getZenithstatus()
 {
 	var oArrScholarshipStatus = new Array();
 	var oZenithSholarshipstatus = new ZenithScholarshipDetails ();
-	oZenithSholarshipstatus.m_strAcademicYear = $("#select_student_academicyear").val();
+	oZenithSholarshipstatus.m_strAcademicYear = $("#selectacademicyear").val();
 	oArrScholarshipStatus.push(oZenithSholarshipstatus);
 	return oArrScholarshipStatus;
 }
@@ -474,6 +475,7 @@ function studentInfo_created (oStudentInfoResponse)
 			var oForm = $('#studentInfo_form_id')[0];
 			var oFormData = new FormData (oForm);
 			oFormData.append('studentId',oStudentInfoResponse.m_arrStudentInformationData[0].m_nStudentId);
+			oFormData.append('academicId',oStudentInfoResponse.m_arrStudentInformationData[0].m_oAcademicDetails[0].m_nAcademicId);
 			StudentInformationDataProcessor.setImagetoS3bucket (oFormData, student_image_created);
 		}
 		catch(oException){}
@@ -499,7 +501,8 @@ function studentInfo_updated (oStudentInfoResponse)
 			}
 			else if(oStudentInfoResponse.m_arrStudentInformationData[0].m_strStudentImageId == "" || m_oStudentInfoMemberData.m_strImageId != strImageFile.name)
 			{
-				oFormData.append('studentId',oStudentInfoResponse.m_arrStudentInformationData[0].m_nStudentId);				
+				oFormData.append('studentId',oStudentInfoResponse.m_arrStudentInformationData[0].m_nStudentId);	
+				oFormData.append('academicId',oStudentInfoResponse.m_arrStudentInformationData[0].m_oAcademicDetails[0].m_nAcademicId);
 				StudentInformationDataProcessor.setImagetoS3bucket (oFormData, student_details_updated);
 			}			
 		}
@@ -549,6 +552,7 @@ function studentInfo_gotData (oStudentInfoResponse)
 	m_oStudentInfoMemberData.m_nRowOrgCount = m_oStudentInfoMemberData.m_arrScholarshipDetails.length;
 	m_oStudentInfoMemberData.m_nRowOrgAmountCount = m_oStudentInfoMemberData.m_arrScholarshipDetails.length;
 	m_oStudentInfoMemberData.m_nStudentId = oStudentInfoData.m_nStudentId;
+	m_oStudentInfoMemberData.m_nApplicationPriority = oStudentInfoData.m_nApplicationPriority;
 	 $("#studentInfo_input_studentUIDNumber").val(oStudentInfoData.m_nUID);
 	 $("#studentInfo_input_studentAadharNumber").val(oStudentInfoData.m_nStudentAadharNumber);
 	 $("#studentInfo_input_studentName").val(oStudentInfoData.m_strStudentName);
@@ -732,13 +736,32 @@ function studentcreateandPrint_progressbarLoaded ()
     StudentInformationDataProcessor.createandprint(oStudentInformationData, studentInfo_createAndPrintResponse);
 }
 
-function studentInfo_createAndPrintResponse(oPrintResponse)
+function studentInfo_createAndPrintResponse(oResponse)
 {
-    if(oPrintResponse.m_bSuccess)
-    {
+	HideDialog ("ProcessDialog");
+	if (oResponse.m_bSuccess)
+	{
+		studentInfo_displayInfo("student created successfully", "kSuccess");
+		try
+		{
+			var oForm = $('#studentInfo_form_id')[0];
+			var oFormData = new FormData (oForm);
+			oFormData.append('studentId',oResponse.m_arrStudentInformationData[0].m_nStudentId);
+			StudentInformationDataProcessor.setImagetoS3bucket (oFormData, student_image_createdAndPrintResponse);
+		}
+		catch(oException){}
+	}
+	else
+		studentInfo_displayInfo("student creation failed", "kError");   
+}
+
+function student_image_createdAndPrintResponse(oPrintResponse)
+{
+	if(oPrintResponse.m_bSuccess)
+    {	    	
         populateXMLData (oPrintResponse.m_strStudentXMLData, "applicationstatus/verified/printStudentDetails.xslt", 'printdetailsInfo');
         printDocument();
-        HideDialog("dialog");
+        HideDialog("secondDialog");
     }
     else
     {
