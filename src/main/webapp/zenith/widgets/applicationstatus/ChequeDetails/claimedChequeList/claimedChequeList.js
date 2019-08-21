@@ -21,8 +21,8 @@ function claimedChequesInfo_Loaded()
 
 function claimedChequeList_init ()
 {
-	createClaimedChequeList_DataGrid();
 	populateAcademicYearDropDown('selectClaimedChequeAcademicYear');
+	createClaimedChequeList_DataGrid();	
 }
 
 function createClaimedChequeList_DataGrid()

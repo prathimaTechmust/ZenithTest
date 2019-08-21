@@ -28,8 +28,8 @@ function rejectedStudentListInfo_loaded ()
 
 function rejectedStudentInfo_init ()
 {
-	rejectedStudentListInfo_createDataGrid ();
 	populateAcademicYearDropDown('selectRejectListAcademicYear');
+	rejectedStudentListInfo_createDataGrid ();	
 }
 
 function rejectedStudentListInfo_createDataGrid ()

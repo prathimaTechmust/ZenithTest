@@ -80,8 +80,8 @@ function studentInfo_init ()
 {
 
 	createPopup("dialog", "#studentInfo_button_submit", "#studentInfo_button_cancel", true);
-	document.getElementById("defaultOpen").click();
-	populateAcademicYearDropDown('selectacademicyear');	
+	populateAcademicYearDropDown('selectacademicyear');
+	document.getElementById("defaultOpen").click();		
 	calculate_Student_CourseFee ();
 	studentReligionDropDown();
 	studentParentalStatusDropDown();

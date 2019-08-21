@@ -9,7 +9,7 @@ function zenith_MemberData ()
 	var m_arrObjects = [];
 	var m_strTenantName = "";
 	var m_strImageUrl = "";
-	var selectAcademicYear = "";
+	var selectAcademicYearDropDownId = "";
 }
 
 var m_strLocationURL = window.location.origin;
@@ -1145,24 +1145,38 @@ function applicationPriorityGridColor(strGridId)
 
 // populating academicyears dropdown
 
-function populateAcademicYearDropDown (selectAcademicYear)
+function populateAcademicYearDropDown (strDropDownId)
 {
-	 m_oZenithMemberData.selectAcademicYear = selectAcademicYear;
+	 m_oZenithMemberData.selectAcademicYearDropDownId = strDropDownId;
 	var oAcademicYear = new AcademicYear();
 	AcademicYearProcessor.list(oAcademicYear,"m_strAcademicYear","asc",0,0,academicYearListResponse);	
 }
 
 function academicYearListResponse (oYearResponse)
 {
-	populateYear(m_oZenithMemberData.selectAcademicYear,oYearResponse);
+	populateYear(m_oZenithMemberData.selectAcademicYearDropDownId,oYearResponse);
 }
 
-function populateYear(academicyear,oYearResponse)
+function populateYear(academicyearId,oYearResponse)
 {
 	var arrAcademicYears = new Array();
 	for(var nIndex = 0; nIndex < oYearResponse.m_arrAcademicYear.length; nIndex++)
 	{
 		arrAcademicYears.push(CreateOption(oYearResponse.m_arrAcademicYear[nIndex].m_strAcademicYear,oYearResponse.m_arrAcademicYear[nIndex].m_strAcademicYear));		
 	}
-	PopulateDD(academicyear,arrAcademicYears);	
+	PopulateDD(academicyearId,arrAcademicYears);
+	setdefaultAcademicYear (oYearResponse.m_arrAcademicYear,academicyearId);
 }
+
+function setdefaultAcademicYear (arrAcademicYear,dropDownId)
+{
+	for(var nIndex = 0; nIndex < arrAcademicYear.length; nIndex++)
+	{
+		if(arrAcademicYear[nIndex].m_bDefaultYear)
+		{
+			document.getElementById(dropDownId).value = arrAcademicYear[nIndex].m_strAcademicYear;
+			break;
+		}		
+	}	
+}
+

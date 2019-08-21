@@ -26,8 +26,8 @@ function facilitatorWiseInfo_Loaded()
 
 function facilitatorWise_init ()
 {
-	createFacilitatorWiseList_DataGrid ();
 	populateAcademicYearDropDown ('selectReportAcademicYear');
+	createFacilitatorWiseList_DataGrid ();	
 	facilitatorListToDropDown();
 }
 

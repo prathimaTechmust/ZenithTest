@@ -28,8 +28,8 @@ function listStudentInfo_loaded ()
 
 function listStudentInfo_init ()
 {
-	listStudentInfo_createDataGrid ();
 	populateAcademicYearDropDown('selectStudentListAcademicYear');
+	listStudentInfo_createDataGrid ();	
 }
 
 /*function academicyear ()

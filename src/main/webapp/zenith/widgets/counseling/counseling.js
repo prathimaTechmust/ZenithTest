@@ -29,8 +29,8 @@ function counselingStudentListInfo_loaded()
 
 function counselingStudentInfo_init()
 {
-	counselingStudentListInfo_createDataGrid ();
 	populateAcademicYearDropDown('selectCounselingAcademicyear');
+	counselingStudentListInfo_createDataGrid ();	
 }
 
 function counselingStudentListInfo_createDataGrid ()

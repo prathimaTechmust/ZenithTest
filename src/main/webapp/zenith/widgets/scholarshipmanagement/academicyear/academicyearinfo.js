@@ -40,10 +40,12 @@ function academicyear_getFormData ()
 	var rowCount = document.getElementById("academicyeartableid");
 	for(var nIndex = 0; nIndex < rowCount.rows.length; nIndex++)
 	{
-		if($("#academicyearInfo_input"+nIndex).val() != "")
-		{
-			
-			oAcademicYear.m_strAcademicYear = $("#academicyearInfo_input"+nIndex).val();			
+		var strYear = $("#academicyearInfo_input"+nIndex).val();
+		var bDefault = document.getElementById("select_academic_year"+nIndex).checked;
+		if(strYear != "" && bDefault)
+		{			
+			oAcademicYear.m_strAcademicYear = $("#academicyearInfo_input"+nIndex).val();
+			oAcademicYear.m_bDefaultYear = bDefault;
 		}				
 	}	
 	return oAcademicYear;
@@ -61,10 +63,9 @@ function academicYearInfo_submit ()
 		var oAcademicYear = academicyear_getFormData ();
 		if(document.getElementById("academicYear_button_submit").getAttribute('update') == "false")
 			AcademicYearProcessor.create(oAcademicYear, academicyear_created);
-		else
-		{			
-			AcademicYearProcessor.create(oAcademicYear, academicyear_update);
-		}
+		else					
+			AcademicYearProcessor.createAndUpdate(oAcademicYear, academicyear_update);
+		
 	}
 }
 
@@ -81,21 +82,23 @@ function addNewAcademicYear()
 {	
 	if(m_oAcademicyearInfoMemberData.m_AcademicYearRowCount > 0)
 	{
-		$("#academicyeartableid").append('<tr><td><input  type="text" id="academicyearInfo_input'+(m_oAcademicyearInfoMemberData.m_AcademicYearRowCount++)+'" class="zenith"/></td><td style="padding-right: 10px"> </td><td style="padding-right: 10px"> </td></tr>');
+		$("#academicyeartableid").append('<tr><td><input  type="text" id="academicyearInfo_input'+(m_oAcademicyearInfoMemberData.m_AcademicYearRowCount++)+'" class="zenith"/></td><td style="width:55%"><input type="radio" id="select_academic_year'+(m_oAcademicyearInfoMemberData.m_nDefaultRadioCount++)+'" name="selectacademicYearRadio" value=false/>default</td></tr>');
 	}
 	else
 	{
-		$("#academicyeartableid").append('<tr><td><input  type="text" id="academicyearInfo_input'+(m_oAcademicyearInfoMemberData.m_nRowCount++)+'" class="zenith"/></td><td style="padding-right: 10px"> </td><td style="padding-right: 10px"> </td></tr>');
+		$("#academicyeartableid").append('<tr><td><input  type="text" id="academicyearInfo_input'+(m_oAcademicyearInfoMemberData.m_nRowCount++)+'" class="zenith"/></td><td style="width:55%"><input type="radio" id="select_academic_year'+(m_oAcademicyearInfoMemberData.m_nRadioCount++)+'" name="selectacademicYearRadio" value=false/>default</td></tr>');
 	}	
 }
 
 function academicyearResponse (oAcademicYearResponse)
 {
-	m_oAcademicyearInfoMemberData.m_AcademicYearRowCount = oAcademicYearResponse.m_arrAcademicYear.length;
+	m_oAcademicyearInfoMemberData.m_nDefaultRadioCount  = m_oAcademicyearInfoMemberData.m_AcademicYearRowCount = oAcademicYearResponse.m_arrAcademicYear.length;	
 	for(var nIndex = 0; nIndex < oAcademicYearResponse.m_arrAcademicYear.length; nIndex++)
 	{
-		$("#academicyeartableid").append('<tr><td><input  type="text" id="academicyearInfo_input'+(nIndex)+'" class="zenith" readonly = "readonly"/></td><td style="padding-right: 10px"> </td><td style="padding-right: 10px"> </td></tr>');
+		$("#academicyeartableid").append('<tr><td><input  type="text" id="academicyearInfo_input'+(nIndex)+'" class="zenith" readonly = "readonly"/></td><td style="width:55%"><input type="radio" id="select_academic_year'+(nIndex)+'" name="selectacademicYearRadio" value=false/>default</td></tr>');
 		$("#academicyearInfo_input"+nIndex).val(oAcademicYearResponse.m_arrAcademicYear[nIndex].m_strAcademicYear);
+		if(oAcademicYearResponse.m_arrAcademicYear[nIndex].m_bDefaultYear)
+			document.getElementById("select_academic_year"+nIndex).checked = true;
 	}
 	if(oAcademicYearResponse.m_arrAcademicYear.length != 0)
 	{	

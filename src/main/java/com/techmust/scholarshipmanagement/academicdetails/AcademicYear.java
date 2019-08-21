@@ -35,14 +35,28 @@ public class AcademicYear extends MasterData
 	private int m_nAcademicYearId;
 	
 	@Column(name = "year")
-	private String m_strAcademicYear;		
+	private String m_strAcademicYear;
+	
+	@Column(name = "defaultYear")
+	private boolean m_bDefaultYear;
 	
 	public AcademicYear()
 	{
 		m_nAcademicYearId = -1;
 		m_strAcademicYear = "";
+		m_bDefaultYear = false;
 	}
 
+	public boolean isM_bDefaultYear()
+	{
+		return m_bDefaultYear;
+	}
+
+	public void setM_bDefaultYear(boolean m_bDefaultYear)
+	{
+		this.m_bDefaultYear = m_bDefaultYear;
+	}
+	
 	public int getM_nAcademicYearId()
 	{
 		return m_nAcademicYearId;
@@ -69,6 +83,8 @@ public class AcademicYear extends MasterData
 		Predicate oConjunct = oCriteriaBuilder.conjunction();
 		if (getM_nAcademicYearId() > 0)
 			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_nAcademicYearId"), m_nAcademicYearId));
+		if(!m_strAcademicYear.isEmpty())
+			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_strAcademicYear"), m_strAcademicYear));
 		return oConjunct;
 	}
 	
@@ -78,6 +94,8 @@ public class AcademicYear extends MasterData
 		Predicate oConjunct = oCriteriaBuilder.conjunction();
 		if (getM_nAcademicYearId() > 0)
 			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_nAcademicYearId"), m_nAcademicYearId));
+		if(!m_strAcademicYear.isEmpty())
+			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_strAcademicYear"), m_strAcademicYear));
 		return oConjunct;
 	}
 	

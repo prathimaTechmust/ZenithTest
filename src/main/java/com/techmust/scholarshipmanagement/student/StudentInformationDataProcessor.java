@@ -434,24 +434,15 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		{			
 			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
 			CriteriaQuery<StudentInformationData> oCriteriaQuery = oCriteriaBuilder.createQuery(StudentInformationData.class);
-			Root<StudentInformationData> oStudentInformationRoot = oCriteriaQuery.from(StudentInformationData.class);   
+			Root<StudentInformationData> oStudentInformationRoot = oCriteriaQuery.from(StudentInformationData.class);
+			Join<StudentInformationData, AcademicDetails> oJoin = oStudentInformationRoot.join("m_oAcademicDetails",JoinType.INNER);
+			List<Predicate> m_arrListPredicate = new ArrayList<Predicate>();
+			m_arrListPredicate.add(oCriteriaBuilder.equal(oJoin.get("m_strAcademicYear"),oStudentInformationData.getM_strAcademicYear()));
 			oCriteriaQuery.select(oStudentInformationRoot);
-			oCriteriaQuery.orderBy(oCriteriaBuilder.asc(oStudentInformationRoot.get("m_nApplicationPriority")));			 
-			oStudentDataResponse.m_arrStudentInformationData = new ArrayList(oEntityManager.createQuery(oCriteriaQuery).getResultList());			
-			
-	       /* 
-	        CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
-			CriteriaQuery<AcademicDetails> oCriteriaQuery = oCriteriaBuilder.createQuery(AcademicDetails.class);
-			Root<AcademicDetails> oStudentInformationDataRoot = oCriteriaQuery.from(AcademicDetails.class);
-			Join<AcademicDetails,StudentInformationData> oJoinTable = oStudentInformationDataRoot.join("m_oStudentInformationData",JoinType.INNER);
-			List<Predicate> m_arrPredicate = new ArrayList<Predicate>();
-			m_arrPredicate.add(oCriteriaBuilder.equal(oJoinTable.get("m_oStudentInformationData"),oStudentInformationData));
-			if(oStudentInformationData.getM_strAcademicYear() != "")
-				m_arrPredicate.add(oCriteriaBuilder.equal(oStudentInformationDataRoot.get("m_strAcademicYear"), oStudentInformationData.getM_strAcademicYear()));
-			oCriteriaQuery.where(m_arrPredicate.toArray(new Predicate[]{}));			
-			TypedQuery<AcademicDetails> typedquery = oEntityManager.createQuery(oCriteriaQuery);
-			//arrStudentInformationData = (ArrayList<AcademicDetails>) typedquery.getResultList();
-*/			
+			oCriteriaQuery.orderBy(oCriteriaBuilder.asc(oStudentInformationRoot.get("m_nApplicationPriority")));
+			oCriteriaQuery.where(m_arrListPredicate.toArray(new Predicate[] {}));
+			TypedQuery<StudentInformationData> oTypedQuery = oEntityManager.createQuery(oCriteriaQuery);
+			oStudentDataResponse.m_arrStudentInformationData = new ArrayList(oTypedQuery.getResultList());		
 		}
 		catch (Exception oException)
 		{

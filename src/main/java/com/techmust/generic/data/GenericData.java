@@ -680,7 +680,8 @@ public abstract class GenericData implements IGenericData, Serializable
 			Root<StudentInformationData> oStudentInformationDataRoot = oCriteriaQuery.from(StudentInformationData.class);
 			oCriteriaQuery.orderBy(oCriteriaBuilder.asc(oStudentInformationDataRoot.get("m_nApplicationPriority")));
 			Join<StudentInformationData,ZenithScholarshipDetails> oJoinTable = oStudentInformationDataRoot.join("m_oZenithScholarshipDetails",JoinType.INNER);
-			oCriteriaQuery.where(oCriteriaBuilder.equal(oJoinTable.get("m_strStatus"), oStudentInformationData.getM_strStatus()));
+			oCriteriaQuery.where(oCriteriaBuilder.equal(oJoinTable.get("m_strStatus"), oStudentInformationData.getM_strStatus()),
+								oCriteriaBuilder.equal(oJoinTable.get("m_strAcademicYear"),oStudentInformationData.getM_strAcademicYear()));
 			TypedQuery<StudentInformationData> typedquery = oEntityManager.createQuery(oCriteriaQuery);
 			arrStudentInformationData = (ArrayList<StudentInformationData>) typedquery.getResultList();
 		}
