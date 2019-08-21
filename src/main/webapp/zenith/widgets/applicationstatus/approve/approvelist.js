@@ -159,7 +159,7 @@ function recjectStudentInfo_Student ()
 
 function rejectStudentRemarks_init()
 {
-	createPopup('dialog','#remarkInfo_button_submit','remarkInfo_button_cancel',true);
+	createPopup('dialog','#remarkInfo_button_submit','#remarkInfo_button_cancel',true);
 	initFormValidateBoxes('studentRemarkForm');
 }
 

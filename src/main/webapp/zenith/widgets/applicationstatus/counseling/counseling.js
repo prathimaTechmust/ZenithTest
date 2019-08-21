@@ -183,7 +183,7 @@ function studentrejectResponse (oResponse)
 	{
 		informUser ("student rejected successfully", "kSuccess");
 		document.getElementById("CounselingStudents_div_listDetail").innerHTML = "";		
-		navigate("approvedlist","widgets/applicationstatus/counseling/counseling.js");
+		navigate("counseling","widgets/applicationstatus/counseling/counseling.js");
 	}
 	else
 		informUser ("student reject Failed", "kError");

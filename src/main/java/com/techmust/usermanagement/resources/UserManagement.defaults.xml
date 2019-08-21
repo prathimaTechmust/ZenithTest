@@ -144,7 +144,12 @@
 			</Action>
 			<Action>
 				<ActionName>Counseling List</ActionName>
-				<Target>navigate ('counseling','widgets/counseling/counseling.js')</Target>
+				<Target>navigate ('counseling','widgets/applicationstatus/counseling/counseling.js')</Target>
+				<SequenceId>80</SequenceId>
+			</Action>
+			<Action>
+				<ActionName>Activity Log</ActionName>
+				<Target>navigate ('activitylog','widgets/activitylog/activityLogList.js')</Target>
 				<SequenceId>90</SequenceId>
 			</Action>
 			<Action>
