@@ -33,9 +33,10 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.techmust.generic.data.GenericData;
 import com.techmust.generic.data.MasterData;
+import com.techmust.scholarshipmanagement.academicyear.AcademicYear;
 import com.techmust.scholarshipmanagement.course.CourseInformationData;
 import com.techmust.scholarshipmanagement.institution.InstitutionInformationData;
-import com.techmust.scholarshipmanagement.scholarshipdetails.ScholarshipDetails;
+import com.techmust.scholarshipmanagement.scholarshipdetails.scholarshiporganization.ScholarshipOrganizationDetails;
 import com.techmust.scholarshipmanagement.sholarshipaccounts.StudentScholarshipAccount;
 import com.techmust.scholarshipmanagement.student.StudentInformationData;
 import com.techmust.scholarshipmanagement.studentdocuments.StudentDocuments;
@@ -67,8 +68,9 @@ public class AcademicDetails extends MasterData implements Serializable
 	@Column(name = "date")
 	private Calendar m_dDate;	
 	
-	@Column(name = "academicyear")
-	private String m_strAcademicYear;
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "academicyearid")
+	private AcademicYear m_oAcademicYear;
 	
 	@JsonBackReference
 	@ManyToOne
@@ -85,7 +87,7 @@ public class AcademicDetails extends MasterData implements Serializable
 	
 	@JsonManagedReference
 	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "m_oAcademicDetails")
-	private Set<ScholarshipDetails> m_oScholarshipDetails;
+	private Set<ScholarshipOrganizationDetails> m_oScholarshipOrganizationDetails;
 	
 	@JsonManagedReference
 	@OneToMany(fetch = FetchType.EAGER,mappedBy = "m_oAcademicDetails")
@@ -97,7 +99,7 @@ public class AcademicDetails extends MasterData implements Serializable
 	private List<StudentDocuments> m_arrStudentDocuments;
 	
 	@Transient
-	public ScholarshipDetails[] m_arrScholarshipDetails;	
+	public ScholarshipOrganizationDetails[] m_arrScholarshipOrganizationDetails;	
 	
 	public AcademicDetails()
 	{
@@ -107,14 +109,25 @@ public class AcademicDetails extends MasterData implements Serializable
 		m_fAnnualFee = 0;
 		m_fPaidFee = 0;		
 		m_dDate = Calendar.getInstance();
-		m_strAcademicYear = "";
 		m_oStudentInformationData = new StudentInformationData ();
 		m_oInstitutionInformationData = new InstitutionInformationData();
 		m_oCourseInformationData = new CourseInformationData();	
-		m_oScholarshipDetails = new HashSet<ScholarshipDetails> ();	
+		m_oScholarshipOrganizationDetails = new HashSet<ScholarshipOrganizationDetails> ();	
 		m_oStudentScholarshipAccount = new HashSet<StudentScholarshipAccount> ();
 		m_arrStudentDocuments = new ArrayList<StudentDocuments>();
-	}	
+		m_oAcademicYear = new AcademicYear();
+	}
+	
+	public AcademicYear getM_oAcademicYear()
+	{
+		return m_oAcademicYear;
+	}
+
+	public void setM_oAcademicYear(AcademicYear m_oAcademicYear)
+	{
+		this.m_oAcademicYear = m_oAcademicYear;
+	}
+	
 	public List<StudentDocuments> getM_arrStudentDocuments()
 	{
 		return m_arrStudentDocuments;
@@ -135,35 +148,25 @@ public class AcademicDetails extends MasterData implements Serializable
 		this.m_oStudentScholarshipAccount = oStudentScholarshipAccount;
 	}
 
-	public String getM_strAcademicYear() 
+	public Set<ScholarshipOrganizationDetails> getM_oScholarshipOrganizationDetails()
 	{
-		return m_strAcademicYear;
+		return m_oScholarshipOrganizationDetails;
 	}
 
-	public void setM_strAcademicYear(String m_strAcademicYear)
+	public void setM_oScholarshipOrganizationDetails(Set<ScholarshipOrganizationDetails> m_oScholarshipOrganizationDetails)
 	{
-		this.m_strAcademicYear = m_strAcademicYear;
+		this.m_oScholarshipOrganizationDetails = m_oScholarshipOrganizationDetails;
 	}
 
-	public Set<ScholarshipDetails> getM_oScholarshipDetails()
+	public ScholarshipOrganizationDetails[] getM_arrScholarshipOrganizationDetails()
 	{
-		return m_oScholarshipDetails;
+		return m_arrScholarshipOrganizationDetails;
 	}
 
-	public void setM_oScholarshipDetails(Set<ScholarshipDetails> m_oScholarshipDetails)
+	public void setM_arrScholarshipOrganizationDetails(ScholarshipOrganizationDetails[] m_arrScholarshipOrganizationDetails)
 	{
-		this.m_oScholarshipDetails = m_oScholarshipDetails;
+		this.m_arrScholarshipOrganizationDetails = m_arrScholarshipOrganizationDetails;
 	}
-
-	public ScholarshipDetails[] getM_arrScholarshipDetails()
-	{
-		return m_arrScholarshipDetails;
-	}
-
-	public void setM_arrScholarshipDetails(ScholarshipDetails[] m_arrScholarshipDetails)
-	{
-		this.m_arrScholarshipDetails = m_arrScholarshipDetails;
-	}	
 
 	public InstitutionInformationData getM_oInstitutionInformationData()
 	{
@@ -291,7 +294,7 @@ public class AcademicDetails extends MasterData implements Serializable
 			Node oCourseNode = oXmlDocument.importNode(oCourseDetalsXmlDoc.getFirstChild(), true);
 			oRootElement.appendChild(oCourseNode);
 			/*Scholarship Child Node*/
-			Document oScholarshipDetalsXmlDoc = getXmlDocument ("<m_oScholarshipDetails>"+buildScholarshipDetails (m_oScholarshipDetails)+"</m_oScholarshipDetails>");
+			Document oScholarshipDetalsXmlDoc = getXmlDocument ("<m_oScholarshipOrganizationDetails>"+buildScholarshipDetails (m_oScholarshipOrganizationDetails)+"</m_oScholarshipOrganizationDetails>");
 			Node oScholarshipNode = oXmlDocument.importNode(oScholarshipDetalsXmlDoc.getFirstChild(), true);
 			oRootElement.appendChild(oScholarshipNode);
 		   /*ScholarshipAccount child Node*/
@@ -304,7 +307,6 @@ public class AcademicDetails extends MasterData implements Serializable
 			addChild (oXmlDocument, oRootElement, "m_strStudentScore", m_strStudentScore);
 			addChild (oXmlDocument, oRootElement, "m_fAnnualFee", m_fAnnualFee);
 			addChild (oXmlDocument, oRootElement, "m_fPaidFee", m_fPaidFee);
-			addChild (oXmlDocument, oRootElement, "m_strAcademicYear", m_strAcademicYear);
 			strAcademicDetails = getXmlString (oXmlDocument);
 		} 
 		catch (Exception oException)
@@ -316,23 +318,24 @@ public class AcademicDetails extends MasterData implements Serializable
 
     private String buildAccountDetails(Set<StudentScholarshipAccount> m_oStudentScholarshipAccount)
     {
-    	String strXML = "";
-	  Object [] arrStudentScholarshipAccount= m_oStudentScholarshipAccount.toArray ();
-	  for (int nIndex = 0; nIndex < arrStudentScholarshipAccount.length; nIndex ++)
-	  {
-		StudentScholarshipAccount oAccountData = (StudentScholarshipAccount) arrStudentScholarshipAccount [nIndex];
-		strXML += oAccountData.generateXML ();	}		
+		String strXML = "";
+		Object [] arrStudentScholarshipAccount= m_oStudentScholarshipAccount.toArray ();
+		for (int nIndex = 0; nIndex < arrStudentScholarshipAccount.length; nIndex ++)
+		{
+			StudentScholarshipAccount oAccountData = (StudentScholarshipAccount) arrStudentScholarshipAccount [nIndex];
+			strXML += oAccountData.generateXML ();		
+		}		
 		return strXML;
-		}
+	}
 
-	private String buildScholarshipDetails(Set<ScholarshipDetails> oScholarshipDetails)
+	private String buildScholarshipDetails(Set<ScholarshipOrganizationDetails> oScholarshipOrganizationDetails)
 	{
 		String strXML = "";
-		Object [] arrScholarshipcDetails = oScholarshipDetails.toArray ();
-		for (int nIndex = 0; nIndex < arrScholarshipcDetails.length; nIndex ++)
+		Object [] arrScholarshipcOrganizationDetails = oScholarshipOrganizationDetails.toArray ();
+		for (int nIndex = 0; nIndex < arrScholarshipcOrganizationDetails.length; nIndex ++)
 		{
-			ScholarshipDetails oScholarshipData = (ScholarshipDetails) arrScholarshipcDetails [nIndex];
-			strXML += oScholarshipData.generateXML ();
+			ScholarshipOrganizationDetails oScholarshipOrganizationData = (ScholarshipOrganizationDetails) arrScholarshipcOrganizationDetails [nIndex];
+			strXML += oScholarshipOrganizationData.generateXML ();
 		}		
 		return strXML;
 	}

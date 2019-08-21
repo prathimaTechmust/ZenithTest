@@ -1,4 +1,4 @@
-package com.techmust.scholarshipmanagement.scholarshipdetails;
+package com.techmust.scholarshipmanagement.scholarshipdetails.scholarshiporganization;
 
 import java.util.HashMap;
 
@@ -12,20 +12,20 @@ import com.techmust.generic.dataprocessor.GenericIDataProcessor;
 import com.techmust.generic.response.GenericResponse;
 
 @Controller
-public class ScholarshipDetailsProcessor extends GenericIDataProcessor <ScholarshipDetails>
+public class ScholarshipOrganizationDetailsProcessor extends GenericIDataProcessor <ScholarshipOrganizationDetails>
 {	
 
 	@Override
 	@RequestMapping(value = "/orgInfoDelete",method = RequestMethod.POST, headers = {"Content-type=application/json"})
 	@ResponseBody
-	public GenericResponse deleteData(@RequestBody ScholarshipDetails oScholarshipDetails) throws Exception 
+	public GenericResponse deleteData(@RequestBody ScholarshipOrganizationDetails oScholarshipDetails) throws Exception 
 	{
 		m_oLogger.info ("deleteData");
 		m_oLogger.debug ("deleteData - oScholarshipDetails [IN] : " + oScholarshipDetails.getM_strOrganizationName());
-		ScholarshipDetailsResponse oScholarshipDetailsResponse = new ScholarshipDetailsResponse();
+		ScholarshipOrganizationDetailsResponse oScholarshipDetailsResponse = new ScholarshipOrganizationDetailsResponse();
 		try
 		{
-			oScholarshipDetails = (ScholarshipDetails) populateObject (oScholarshipDetails);
+			oScholarshipDetails = (ScholarshipOrganizationDetails) populateObject (oScholarshipDetails);
 			oScholarshipDetailsResponse.m_bSuccess = oScholarshipDetails.deleteObject();
 		}
 		catch (Exception oException)
@@ -37,35 +37,35 @@ public class ScholarshipDetailsProcessor extends GenericIDataProcessor <Scholars
 	}
 
 	@Override
-	public GenericResponse create(ScholarshipDetails oGenericData) throws Exception 
+	public GenericResponse create(ScholarshipOrganizationDetails oGenericData) throws Exception 
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public GenericResponse get(ScholarshipDetails oGenericData) throws Exception 
+	public GenericResponse get(ScholarshipOrganizationDetails oGenericData) throws Exception 
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public GenericResponse list(ScholarshipDetails oGenericData, HashMap<String, String> arrOrderBy) throws Exception
+	public GenericResponse list(ScholarshipOrganizationDetails oGenericData, HashMap<String, String> arrOrderBy) throws Exception
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public GenericResponse update(ScholarshipDetails oGenericData) throws Exception
+	public GenericResponse update(ScholarshipOrganizationDetails oGenericData) throws Exception
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String getXML(ScholarshipDetails oGenericData) throws Exception
+	public String getXML(ScholarshipOrganizationDetails oGenericData) throws Exception
 	{
 		// TODO Auto-generated method stub
 		return null;

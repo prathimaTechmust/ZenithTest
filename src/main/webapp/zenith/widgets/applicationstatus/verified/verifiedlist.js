@@ -106,7 +106,7 @@ function verifiedStudentlistInfo_selectedRowData (oRowData, nIndex)
 	document.getElementById("listVerifiedStudents_div_listDetail").innerHTML = "";
 	var oStudentInformationData = new StudentInformationData () ;
 	oStudentInformationData.m_nStudentId = oRowData.m_nStudentId;
-	oStudentInformationData.m_strAcademicYear = $("#selectVerifiedAcademicyear").val();
+	oStudentInformationData.m_nAcademicYearId = $("#selectVerifiedAcademicyear").val();
 	m_overifiedStudentList_Info_MemberData.m_nStudentId = oRowData.m_nStudentId;
 	m_overifiedStudentList_Info_MemberData.m_nInstitutionId = oRowData.m_oAcademicDetails[0].m_oInstitutionInformationData.m_nInstitutionId;
 	m_overifiedStudentList_Info_MemberData.m_bChequeFavouOf  = oRowData.m_oAcademicDetails[0].m_oInstitutionInformationData.m_bChequeFavouOf;
@@ -178,7 +178,7 @@ function searchStudentUID()
 {
 	var oStudentInformationData = new StudentInformationData ();
 	oStudentInformationData.m_nUID = $("#StudentInfo_input_uid").val();
-	oStudentInformationData.m_strAcademicYear = $("#selectVerifiedAcademicyear").val();
+	oStudentInformationData.m_nAcademicYearId = $("#selectVerifiedAcademicyear").val();
 	oStudentInformationData.m_strStatus = m_overifiedStudentList_Info_MemberData.m_strapplicationStatus; 
 	if($("#StudentInfo_input_uid").val() != "")
 		StudentInformationDataProcessor.getStudentUID(oStudentInformationData,studentUIDResponse);
@@ -193,7 +193,7 @@ function studentUIDResponse(oStudentUIDResponse)
 		document.getElementById("listVerifiedStudents_div_listDetail").innerHTML = "";
 		var oStudentInformationData = new StudentInformationData () ;
 		oStudentInformationData.m_nStudentId = m_overifiedStudentList_Info_MemberData.m_nStudentId = oStudentUIDResponse.m_arrStudentInformationData[0].m_nStudentId;
-		oStudentInformationData.m_strAcademicYear = $("#selectVerifiedAcademicyear").val();
+		oStudentInformationData.m_nAcademicYearId = $("#selectVerifiedAcademicyear").val();
 		StudentInformationDataProcessor.getXML (oStudentInformationData,verifiedStudentListInfo_gotXML);
 		document.getElementById("StudentInfo_input_uid").value = "";
 	}
@@ -209,7 +209,7 @@ function verifiedStudentListInfo_progressbarLoaded ()
 {
 	createPopup('dialog', '', '', true);
 	var oStudentInformationData = new StudentInformationData ();
-	oStudentInformationData.m_strAcademicYear = $("#selectVerifiedAcademicyear").val();
+	oStudentInformationData.m_nAcademicYearId = $("#selectVerifiedAcademicyear").val();
 	oStudentInformationData.m_strStatus = m_overifiedStudentList_Info_MemberData.m_strapplicationStatus;
 	StudentInformationDataProcessor.getStudentStatuslist(oStudentInformationData,verifiedStudentListInfo_listed);
 }

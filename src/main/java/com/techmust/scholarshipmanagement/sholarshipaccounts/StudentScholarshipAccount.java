@@ -66,7 +66,7 @@ public class StudentScholarshipAccount extends MasterData
 	private int m_nStudentId;
 	
 	@Transient
-	private String m_strAcademicYear;
+	private int m_nAcademicYearId;
 	
 	@JsonBackReference
 	@ManyToOne
@@ -137,17 +137,17 @@ public class StudentScholarshipAccount extends MasterData
 	{
 		this.m_nStudentId = nStudentId;
 	}
-
-	public String getM_strAcademicYear()
-	{
-		return m_strAcademicYear;
-	}
-
-	public void setM_strAcademicYear(String strAcademicYear)
-	{
-		this.m_strAcademicYear = strAcademicYear;
-	}
 	
+	public int getM_nAcademicYearId() 
+	{
+		return m_nAcademicYearId;
+	}
+
+	public void setM_nAcademicYearId(int m_nAcademicYearId) 
+	{
+		this.m_nAcademicYearId = m_nAcademicYearId;
+	}
+
 	public AcademicDetails getM_oAcademicDetails()
 	{
 		return m_oAcademicDetails;

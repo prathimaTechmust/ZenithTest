@@ -31,7 +31,6 @@ import com.techmust.generic.data.GenericData;
 import com.techmust.generic.data.IGenericData;
 import com.techmust.generic.response.GenericResponse;
 import com.techmust.generic.util.HibernateUtil;
-import com.techmust.scholarshipmanagement.academicdetails.AcademicYear;
 import com.techmust.scholarshipmanagement.scholarshipdetails.zenithscholarshipstatus.ZenithScholarshipDetails;
 import com.techmust.scholarshipmanagement.student.StudentInformationData;
 import com.techmust.usermanagement.userinfo.UserInformationData;
@@ -230,7 +229,7 @@ public abstract class GenericIDataProcessor<T extends IGenericData>
 			Root<StudentInformationData> oStudentRoot = oQuery.from(StudentInformationData.class);
 			Join<StudentInformationData,ZenithScholarshipDetails> oRootJoin = oStudentRoot.join("m_oZenithScholarshipDetails",JoinType.INNER);
 			List<Predicate> m_PredicateList = new ArrayList<Predicate>();
-			m_PredicateList.add(oCriteriaBuilder.equal(oRootJoin.get("m_strAcademicYear"), oStudentData.getM_strAcademicYear()));
+			m_PredicateList.add(oCriteriaBuilder.equal(oRootJoin.get("m_oAcademicYear"), oStudentData.getM_nAcademicYearId()));
 			if(oStudentData.getM_strStatus() != null)
 				m_PredicateList.add(oCriteriaBuilder.equal(oRootJoin.get("m_strStatus"),oStudentData.getM_strStatus()));
 			if(oStudentData.getM_strPhoneNumber() != "")

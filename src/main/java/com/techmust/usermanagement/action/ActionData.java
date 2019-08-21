@@ -22,8 +22,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.techmust.generic.data.GenericData;
 import com.techmust.generic.data.MasterData;
 import com.techmust.usermanagement.actionarea.ActionAreaData;
@@ -34,24 +32,24 @@ import com.techmust.usermanagement.userinfo.UserInformationData;
  *
  */
 @Entity
-@Table(name = "taf02_action_table")
+@Table(name = "action_table")
 public class ActionData extends MasterData
 {
 	private static final long serialVersionUID = 1L;
 	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="AF02_ACTION_AREA_ID")	
+	@JoinColumn(name="ACTION_AREA_ID")	
 	private ActionAreaData m_oActionArea;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name = "AF02_ACTION_ID")
+	@Column(name = "ACTION_ID")
 	private int m_nActionId;
-	@Column(name = "AF02_ACTION_NAME")
+	@Column(name = "ACTION_NAME")
 	@Size(max = 128)
 	private String m_strActionName;
-	@Column(name = "AF02_ACTION_TARGET")
+	@Column(name = "ACTION_TARGET")
 	@Size(max = 128)
 	private String m_strActionTarget;
-	@Column(name = "AF02_ACTION_SEQUENCENUMBER")
+	@Column(name = "ACTION_SEQUENCENUMBER")
 	private int m_nSequenceNumber;
 	
 	/**

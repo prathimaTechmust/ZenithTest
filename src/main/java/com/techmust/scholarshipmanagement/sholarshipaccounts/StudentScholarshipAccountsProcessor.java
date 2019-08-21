@@ -41,7 +41,7 @@ public class StudentScholarshipAccountsProcessor extends GenericIDataProcessor<S
 		try 
 		{			
 			oStudentInformationData.setM_nStudentId(oStudentScholarshipAccount.getM_nStudentId());
-			oStudentInformationData.setM_strAcademicYear(oStudentScholarshipAccount.getM_strAcademicYear());
+			oStudentInformationData.setM_nAcademicYearId(oStudentScholarshipAccount.getM_nAcademicYearId());
 			oStudentInformationData = oStudentInformationData.getStudentDetails(oStudentInformationData);
 			List<AcademicDetails> list = new ArrayList<AcademicDetails>(oStudentInformationData.getM_oAcademicDetails());
 			if(list.size() > 0)
@@ -97,19 +97,18 @@ public class StudentScholarshipAccountsProcessor extends GenericIDataProcessor<S
 			if(oStudentInformationData.getM_strPhoneNumber() != null)
 			{				
 				AmazonSMS.sendSMSToStudent(Constants.NUMBERPREFIX+oStudentInformationData.getM_strPhoneNumber(),oStudentInformationData.getM_strStudentName());			
-			}
-			
+				m_bIsSentSMSAndMail = true;
+			}			
 			if(oFacilitatorInformationData.getM_strPhoneNumber() != null)
 			{
 				AmazonSMS.sendSMSToFacilitator(Constants.NUMBERPREFIX+oFacilitatorInformationData.getM_strPhoneNumber(), oFacilitatorInformationData.getM_strFacilitatorName());
+				m_bIsSentSMSAndMail = true;
 			}
 			if(oStudentInformationData.getM_strEmailAddress() != null)
 			{				
 				m_oMailService.sendMailToStudent(oStudentInformationData.getM_strEmailAddress(),oStudentInformationData.getM_strStudentName());
 				m_bIsSentSMSAndMail = true;
-			}
-			
-			
+			}			
 			if(oFacilitatorInformationData.getM_strEmail() != null)
 			{
 				m_oMailService.sendMailToFacilitator(oFacilitatorInformationData.getM_strEmail(), oFacilitatorInformationData.getM_strFacilitatorName());

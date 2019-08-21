@@ -90,8 +90,9 @@ function createClaimedChequeList_DataGrid()
 			}
 		}
 	)
-	claimedChequeList();
 	applicationPriorityGridColor('claimedChequeList_table');
+	claimedChequeList();
+	
 }
 
 function claimedChequeList()
@@ -103,7 +104,7 @@ function claimedChequeListInfo_progressbarLoaded ()
 {
 	createPopup('dialog', '', '', true);
 	var oStudentInformationData = new StudentInformationData ();
-	oStudentInformationData.m_strAcademicYear = $("#selectClaimedChequeAcademicYear").val();
+	oStudentInformationData.m_nAcademicYearId = $("#selectClaimedChequeAcademicYear").val();
 	oStudentInformationData.m_strStatus = m_oClaimedChequeListMemberData.m_strStatus;
 	StudentInformationDataProcessor.getStudentStatuslist(oStudentInformationData,claimedChequeListInfo_listed);
 }
@@ -125,7 +126,7 @@ function claimedChequeListInfo_selectedRowData(oRowData,nIndex)
 	document.getElementById("claimedChequeList_div_listDetail").innerHTML = "";
 	var oStudentInformationData = new StudentInformationData () ;
 	oStudentInformationData.m_nStudentId = oRowData.m_nStudentId;
-	oStudentInformationData.m_strAcademicYear = $("#selectClaimedChequeAcademicYear").val();
+	oStudentInformationData.m_nAcademicYearId = $("#selectClaimedChequeAcademicYear").val();
 	m_oClaimedChequeListMemberData.m_nStudentId = oRowData.m_nStudentId;
 	StudentInformationDataProcessor.getXML (oStudentInformationData,claimedChequeListInfo_gotXML);
 }
@@ -140,7 +141,7 @@ function searchStudentUID ()
 {
 	var oStudentInformationData = new StudentInformationData();
 	oStudentInformationData.m_nUID = $("#StudentInfo_input_uid").val();
-	oStudentInformationData.m_strAcademicYear = $("#selectClaimedChequeAcademicYear").val();
+	oStudentInformationData.m_nAcademicYearId = $("#selectClaimedChequeAcademicYear").val();
 	oStudentInformationData.m_strStatus = m_oClaimedChequeListMemberData.m_strStatus;
 	if($("StudentInfo_input_uid").val() != "")
 		StudentInformationDataProcessor.getStudentUID (oStudentInformationData, studentUIDInformation);	
@@ -158,7 +159,7 @@ function studentUIDInformation (oResponse)
 		document.getElementById("claimedChequeList_div_listDetail").innerHTML = "";
 		var oStudentInformationData = new StudentInformationData () ;
 		oStudentInformationData.m_nStudentId = m_oClaimedChequeListMemberData.m_nStudentId = oResponse.m_arrStudentInformationData[0].m_nStudentId;
-		oStudentInformationData.m_strAcademicYear = $("#selectClaimedChequeAcademicYear").val();
+		oStudentInformationData.m_nAcademicYearId = $("#selectClaimedChequeAcademicYear").val();
 		StudentInformationDataProcessor.getXML (oStudentInformationData,claimedChequeListInfo_gotXML);
 		document.getElementById("StudentInfo_input_uid").value = "";
 	}

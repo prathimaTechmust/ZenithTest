@@ -139,7 +139,7 @@ function chequeDetails_getFormData ()
 	var oScholarshipAccountsInformationData = new ScholarshipAccountsInformationData();
 	oScholarshipAccountsInformationData.m_nStudentId = m_oPrepareChequeInfoMemberData.m_nStudentId;
 	oScholarshipAccountsInformationData.m_strPayeeName = $("#accountInfo_input_AccountPayeeName").val();
-	oScholarshipAccountsInformationData.m_fSanctionedAmount = convertDateToTimeStamp($("#accountInfo_input_SanctionedAmount").val());
+	oScholarshipAccountsInformationData.m_fSanctionedAmount = $("#accountInfo_input_SanctionedAmount").val();
 	oScholarshipAccountsInformationData.m_dSanctionDate = $("#accountInfo_input_SanctionedDate").val();
 	if(document.getElementById("selectapplication_fresh").checked)
 		oScholarshipAccountsInformationData.m_strApplicationType = document.getElementById("selectapplication_fresh").value;
@@ -149,7 +149,7 @@ function chequeDetails_getFormData ()
 		oScholarshipAccountsInformationData.m_strPaymentType = document.getElementById("select_radio_Cheque").value;
 	else
 		oScholarshipAccountsInformationData.m_strPaymentType = document.getElementById("select_radio_DD").value;
-	oScholarshipAccountsInformationData.m_strAcademicYear = $("#selectChequePreparedAcademicYear").val();
+	oScholarshipAccountsInformationData.m_nAcademicYearId = $("#selectChequePreparedAcademicYear").val();
 	if(document.getElementById("select_radio_Cheque").checked == true)
 		oScholarshipAccountsInformationData.m_nChequeNumber = $("#chequeddInfo_input_ChequeDDNumber").val();
 	else

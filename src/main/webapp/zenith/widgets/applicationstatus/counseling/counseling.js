@@ -71,6 +71,7 @@ function counselingStudentListInfo_createDataGrid ()
 				}
 			}
 	)
+	applicationPriorityGridColor('CounselingStudents_table_students');
 	counselingStudentList_initDGPagination();
 	counselingStudentListInfo_list(m_oCounselingStudentList_Info_MemberData.m_strSortColumn, m_oCounselingStudentList_Info_MemberData.m_strSortOrder, 1, 10);
 }
@@ -105,7 +106,7 @@ function counselingStudentlistInfo_selectedRowData (oRowData, nIndex)
 	document.getElementById("CounselingStudents_div_listDetail").innerHTML = "";
 	var oStudentInformationData = new StudentInformationData () ;
 	oStudentInformationData.m_nStudentId = oRowData.m_nStudentId;
-	oStudentInformationData.m_strAcademicYear = $("#selectCounselingAcademicyear").val();
+	oStudentInformationData.m_nAcademicYearId = $("#selectCounselingAcademicyear").val();
 	m_oCounselingStudentList_Info_MemberData.m_nStudentId = oRowData.m_nStudentId;
 	StudentInformationDataProcessor.getXML (oStudentInformationData,counselingStudentListInfo_gotXML);	
 }
@@ -133,7 +134,7 @@ function counselingStudentListInfo_progressbarLoaded ()
 {
 	createPopup('dialog', '', '', true);
 	var oStudentInformationData = new StudentInformationData ();
-	oStudentInformationData.m_strAcademicYear = $("#selectCounselingAcademicyear").val();
+	oStudentInformationData.m_nAcademicYearId = $("#selectCounselingAcademicyear").val();
 	oStudentInformationData.m_strStatus = m_oCounselingStudentList_Info_MemberData.m_strapplicationStatus;
 	StudentInformationDataProcessor.getStudentStatuslist(oStudentInformationData,counselingStudentListInfo_listed);
 }

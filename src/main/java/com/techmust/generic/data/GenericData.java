@@ -6,25 +6,19 @@ import java.io.Serializable;
 import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Set;
 
 import javax.imageio.ImageIO;
-import javax.mail.MessagingException;
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.persistence.Transient;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Order;
@@ -36,7 +30,6 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.exception.ConstraintViolationException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -48,17 +41,11 @@ import com.techmust.generic.listener.ITradeMustEventListener;
 import com.techmust.generic.util.GenericUtil;
 import com.techmust.generic.util.HibernateUtil;
 import com.techmust.scholarshipmanagement.academicdetails.AcademicDetails;
-import com.techmust.scholarshipmanagement.academicdetails.AcademicYear;
-import com.techmust.scholarshipmanagement.course.CourseInformationData;
 import com.techmust.scholarshipmanagement.scholarshipdetails.zenithscholarshipstatus.ZenithScholarshipDetails;
 import com.techmust.scholarshipmanagement.sholarshipaccounts.StudentScholarshipAccount;
 import com.techmust.scholarshipmanagement.student.StudentInformationData;
 import com.techmust.scholarshipmanagement.studentdocuments.StudentDocuments;
-import com.techmust.usermanagement.facilitator.FacilitatorInformationData;
 import com.techmust.usermanagement.userinfo.UserInformationData;
-import com.techmust.utils.AmazonSMS;
-import com.techmust.utils.MailService;
-import com.techmust.utils.Utils;
 
 public abstract class GenericData implements IGenericData, Serializable
 {
@@ -69,7 +56,7 @@ public abstract class GenericData implements IGenericData, Serializable
 	@Transient
 	private GenericUtil m_oGenericUtils;
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
     List<ITradeMustEventListener> m_arrListeners = new ArrayList<ITradeMustEventListener>();
 
 	public GenericData ()
@@ -576,17 +563,15 @@ public abstract class GenericData implements IGenericData, Serializable
 		EntityManager oEntityManager = _getEntityManager();
 		StudentInformationData oStudentInformationData = null;
 		try 
-		{
-			if(oStudentData.getM_nStudentId() > 0)
-			{
-				CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
-		        CriteriaQuery<StudentInformationData> oCriteriaQuery = oCriteriaBuilder.createQuery(StudentInformationData.class);
-		        Root<StudentInformationData> oStudentInformationRoot = oCriteriaQuery.from(StudentInformationData.class);    
-		        oCriteriaQuery.select(oStudentInformationRoot);
-		        oCriteriaQuery.where(oCriteriaBuilder.equal(oStudentInformationRoot.get("m_nStudentId"), oStudentData.getM_nStudentId()));
-		        oStudentInformationData = oEntityManager.createQuery(oCriteriaQuery).getSingleResult();
-		        oStudentInformationData.setM_oAcademicDetails(getAcademicDetails(oStudentData));
-			}			
+		{			
+			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
+	        CriteriaQuery<StudentInformationData> oCriteriaQuery = oCriteriaBuilder.createQuery(StudentInformationData.class);
+	        Root<StudentInformationData> oStudentInformationRoot = oCriteriaQuery.from(StudentInformationData.class);    
+	        oCriteriaQuery.select(oStudentInformationRoot);
+	        oCriteriaQuery.where(oCriteriaBuilder.equal(oStudentInformationRoot.get("m_nStudentId"), oStudentData.getM_nStudentId()));
+	        oStudentInformationData = oEntityManager.createQuery(oCriteriaQuery).getSingleResult();
+	        if(oStudentData.getM_nAcademicYearId() > 0)
+	        	oStudentInformationData.setM_oAcademicDetails(getAcademicDetails(oStudentData));						
 		}
 		catch (Exception oException)
 		{
@@ -613,7 +598,7 @@ public abstract class GenericData implements IGenericData, Serializable
 	        CriteriaQuery<AcademicDetails> oCriteriaQuery = oCriteriaBuilder.createQuery(AcademicDetails.class);
 	        Root<AcademicDetails> oAcademicDetailsRoot = oCriteriaQuery.from(AcademicDetails.class);   
 	        oCriteriaQuery.select(oAcademicDetailsRoot);
-	        oCriteriaQuery.where(oCriteriaBuilder.equal(oAcademicDetailsRoot.get("m_strAcademicYear"), oStudentData.getM_strAcademicYear()),
+	        oCriteriaQuery.where(oCriteriaBuilder.equal(oAcademicDetailsRoot.get("m_oAcademicYear"), oStudentData.getM_nAcademicYearId()),
 	        		oCriteriaBuilder.equal(oAcademicDetailsRoot.get("m_oStudentInformationData"), oStudentData.getM_nStudentId()));	        				
 	        oAcademicDetails =  (ArrayList<AcademicDetails>) oEntityManager.createQuery(oCriteriaQuery).getResultList();
 	        oAcademicDetails = getCurrentYearActiveCheque(oAcademicDetails);
@@ -681,7 +666,7 @@ public abstract class GenericData implements IGenericData, Serializable
 			oCriteriaQuery.orderBy(oCriteriaBuilder.asc(oStudentInformationDataRoot.get("m_nApplicationPriority")));
 			Join<StudentInformationData,ZenithScholarshipDetails> oJoinTable = oStudentInformationDataRoot.join("m_oZenithScholarshipDetails",JoinType.INNER);
 			oCriteriaQuery.where(oCriteriaBuilder.equal(oJoinTable.get("m_strStatus"), oStudentInformationData.getM_strStatus()),
-								oCriteriaBuilder.equal(oJoinTable.get("m_strAcademicYear"),oStudentInformationData.getM_strAcademicYear()));
+								oCriteriaBuilder.equal(oJoinTable.get("m_oAcademicYear"),oStudentInformationData.getM_nAcademicYearId()));
 			TypedQuery<StudentInformationData> typedquery = oEntityManager.createQuery(oCriteriaQuery);
 			arrStudentInformationData = (ArrayList<StudentInformationData>) typedquery.getResultList();
 		}
@@ -1136,7 +1121,7 @@ public abstract class GenericData implements IGenericData, Serializable
 	        if(arrStudentList.size() > 0)
 	        {
 		        oStudentInformationData = arrStudentList.get(0);
-		        oStudentInformationData.setM_strAcademicYear(oStudentData.getM_strAcademicYear());
+		        oStudentInformationData.setM_nAcademicYearId(oStudentData.getM_nAcademicYearId());
 		        oStudentInformationData.setM_strStatus(oStudentData.getM_strStatus());
 		        oStudentInformationData.setM_oAcademicDetails(getAcademicDetails(oStudentInformationData));
 		        oStudentInformationData.setM_oZenithScholarshipDetails(getSearchStudentUID(oStudentInformationData));
@@ -1297,7 +1282,7 @@ public abstract class GenericData implements IGenericData, Serializable
 	        if(arrStudentList.size() > 0)
 	        {
 		        oStudentInformationData = arrStudentList.get(0);
-		        oStudentInformationData.setM_strAcademicYear(oData.getM_strAcademicYear());
+		        oStudentInformationData.setM_nAcademicYearId(oData.getM_nAcademicYearId());
 		        oStudentInformationData.setM_oAcademicDetails(getAcademicDetails(oStudentInformationData));
 	        }						
 		}

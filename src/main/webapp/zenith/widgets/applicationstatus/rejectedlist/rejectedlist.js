@@ -81,6 +81,7 @@ function rejectedStudentListInfo_createDataGrid ()
 				}
 			}
 	)
+	applicationPriorityGridColor('rejectedStudentsList_table_students');
 	rejectedStudentList_initDGPagination();
 	rejectedStudentListInfo_list(m_oRejectedStudentList_Info_MemberData.m_strSortColumn, m_oRejectedStudentList_Info_MemberData.m_strSortOrder, 1, 10);
 }
@@ -115,7 +116,7 @@ function rejectedStudentlistInfo_selectedRowData (oRowData, nIndex)
 	document.getElementById("rejectedStudentsList_div_listDetail").innerHTML = "";
 	var oStudentInformationData = new StudentInformationData () ;
 	oStudentInformationData.m_nStudentId = oRowData.m_nStudentId;
-	oStudentInformationData.m_strAcademicYear = $("#selectRejectListAcademicYear").val();
+	oStudentInformationData.m_nAcademicYearId = $("#selectRejectListAcademicYear").val();
 	m_oRejectedStudentList_Info_MemberData.m_nStudentId = oRowData.m_nStudentId;
 	StudentInformationDataProcessor.getXML (oStudentInformationData,rejectedStudentListInfo_gotXML);	
 }
@@ -156,7 +157,7 @@ function studentUIDResponse(oStudentUIDResponse)
 		document.getElementById("rejectedStudentsList_div_listDetail").innerHTML = "";
 		var oStudentInformationData = new StudentInformationData () ;
 		oStudentInformationData.m_nStudentId = m_oRejectedStudentList_Info_MemberData.m_nStudentId = oStudentUIDResponse.m_arrStudentInformationData[0].m_nStudentId;
-		oStudentInformationData.m_strAcademicYear = $("#selectRejectListAcademicYear").val();
+		oStudentInformationData.m_nAcademicYearId = $("#selectRejectListAcademicYear").val();
 		StudentInformationDataProcessor.getXML (oStudentInformationData,rejectedStudentListInfo_gotXML);
 		document.getElementById("StudentInfo_input_uid").value = "";
 	}
@@ -187,7 +188,7 @@ function rejectedStudentListInfo_progressbarLoaded ()
 {
 	createPopup('dialog', '', '', true);
 	var oStudentInformationData = new StudentInformationData ();
-	oStudentInformationData.m_strAcademicYear = $("#selectRejectListAcademicYear").val();
+	oStudentInformationData.m_nAcademicYearId = $("#selectRejectListAcademicYear").val();
 	oStudentInformationData.m_strStatus = m_oRejectedStudentList_Info_MemberData.m_strapplicationStatus;
 	StudentInformationDataProcessor.getStudentStatuslist(oStudentInformationData,rejectedStudentListInfo_listed);
 }

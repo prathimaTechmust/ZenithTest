@@ -29,17 +29,17 @@ import com.techmust.usermanagement.userinfo.UserInformationData;
  *
  */
 @Entity
-@Table(name = "taf01_action_area_table")
+@Table(name = "action_area_table")
 public class ActionAreaData extends MasterData 
 {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name = "AF01_ACTION_AREA_ID")
+	@Column(name = "ACTION_AREA_ID")
 	private int m_nActionAreaId;
-	@Column(name = "AF01_ACTION_AREA_NAME")
+	@Column(name = "ACTION_AREA_NAME")
 	private String m_strActionAreaName;
-	@Column(name = "AF01_ACTION_AREA_SEQUENCENUMBER")
+	@Column(name = "ACTION_AREA_SEQUENCENUMBER")
 	private int m_nSequenceNumber;
 	@Transient
 	private boolean m_bIsMatchEqual;

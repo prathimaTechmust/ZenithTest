@@ -117,7 +117,7 @@ public class StudentInformationData  extends MasterData implements Serializable
 	private int m_nApplicationPriority;
 	
 	@Transient	
-	private String m_strAcademicYear;
+	private int m_nAcademicYearId;
 	
 	@Transient
 	private String m_strStatus;
@@ -170,7 +170,7 @@ public class StudentInformationData  extends MasterData implements Serializable
 		m_strCity = "";
 		m_strState = "";
 		m_nPincode = -1;
-		m_nApplicationPriority = -1;
+		m_nApplicationPriority = 2;
 		m_strStudentImageId = "";
 		m_nUID = -1;
 		m_oAcademicDetails = new HashSet<AcademicDetails> ();	
@@ -229,14 +229,14 @@ public class StudentInformationData  extends MasterData implements Serializable
 		this.m_strStatus = m_strStatus;
 	}
 
-	public String getM_strAcademicYear()
+	public int getM_nAcademicYearId() 
 	{
-		return m_strAcademicYear;
+		return m_nAcademicYearId;
 	}
 
-	public void setM_strAcademicYear(String m_strAcademicYear)
+	public void setM_nAcademicYearId(int m_nAcademicYearId)
 	{
-		this.m_strAcademicYear = m_strAcademicYear;
+		this.m_nAcademicYearId = m_nAcademicYearId;
 	}
 
 	public FacilitatorInformationData getM_oFacilitatorInformationData()

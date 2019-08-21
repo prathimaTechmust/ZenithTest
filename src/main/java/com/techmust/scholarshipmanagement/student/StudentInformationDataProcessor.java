@@ -437,7 +437,7 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 			Root<StudentInformationData> oStudentInformationRoot = oCriteriaQuery.from(StudentInformationData.class);
 			Join<StudentInformationData, AcademicDetails> oJoin = oStudentInformationRoot.join("m_oAcademicDetails",JoinType.INNER);
 			List<Predicate> m_arrListPredicate = new ArrayList<Predicate>();
-			m_arrListPredicate.add(oCriteriaBuilder.equal(oJoin.get("m_strAcademicYear"),oStudentInformationData.getM_strAcademicYear()));
+			m_arrListPredicate.add(oCriteriaBuilder.equal(oJoin.get("m_oAcademicYear"),oStudentInformationData.getM_nAcademicYearId()));
 			oCriteriaQuery.select(oStudentInformationRoot);
 			oCriteriaQuery.orderBy(oCriteriaBuilder.asc(oStudentInformationRoot.get("m_nApplicationPriority")));
 			oCriteriaQuery.where(m_arrListPredicate.toArray(new Predicate[] {}));

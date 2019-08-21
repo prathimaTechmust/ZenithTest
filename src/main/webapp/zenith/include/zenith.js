@@ -987,7 +987,7 @@ function validateFilterBoxes (gridId,status,academicYearId)
 {
 	m_oZenithMemberData.m_gridId = gridId;
 	var oStudentFilterData = new StudentInformationData();
-	oStudentFilterData.m_strAcademicYear = $("#"+academicYearId).val();
+	oStudentFilterData.m_nAcademicYearId = $("#"+academicYearId).val();
 	oStudentFilterData.m_strStatus = status;
 	oStudentFilterData.m_bSuccess = false;
 	if($("#filterStudentInfo_input_studentName").val() != "")
@@ -1162,7 +1162,7 @@ function populateYear(academicyearId,oYearResponse)
 	var arrAcademicYears = new Array();
 	for(var nIndex = 0; nIndex < oYearResponse.m_arrAcademicYear.length; nIndex++)
 	{
-		arrAcademicYears.push(CreateOption(oYearResponse.m_arrAcademicYear[nIndex].m_strAcademicYear,oYearResponse.m_arrAcademicYear[nIndex].m_strAcademicYear));		
+		arrAcademicYears.push(CreateOption(oYearResponse.m_arrAcademicYear[nIndex].m_nAcademicYearId,oYearResponse.m_arrAcademicYear[nIndex].m_strAcademicYear));		
 	}
 	PopulateDD(academicyearId,arrAcademicYears);
 	setdefaultAcademicYear (oYearResponse.m_arrAcademicYear,academicyearId);
@@ -1174,7 +1174,7 @@ function setdefaultAcademicYear (arrAcademicYear,dropDownId)
 	{
 		if(arrAcademicYear[nIndex].m_bDefaultYear)
 		{
-			document.getElementById(dropDownId).value = arrAcademicYear[nIndex].m_strAcademicYear;
+			document.getElementById(dropDownId).value = arrAcademicYear[nIndex].m_nAcademicYearId;
 			break;
 		}		
 	}	
