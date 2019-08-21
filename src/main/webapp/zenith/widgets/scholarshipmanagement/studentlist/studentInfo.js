@@ -316,6 +316,7 @@ function studentInfo_edit ()
 	document.getElementById("studentInfo_button_submit").setAttribute('update', true);
 	document.getElementById("studentInfo_button_submit").innerHTML = "Update";
 	document.getElementById("DocumentUpload_details_btn").style.display="inline";
+	document.getElementById("studentInfo_button_print").style.display="none";
 	StudentInformationDataProcessor.get (oStudentInformationData, studentInfo_gotData);
 }
 
