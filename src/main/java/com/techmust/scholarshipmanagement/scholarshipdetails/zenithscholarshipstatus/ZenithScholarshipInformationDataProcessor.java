@@ -138,11 +138,11 @@ public class ZenithScholarshipInformationDataProcessor extends GenericIDataProce
 			if(oZenithScholarshipDetailsDataResponse.m_bSuccess) 
 			{
 				
-//				StudentInformationData	oStudentInformationData = new StudentInformationData();
-//			    oStudentInformationData.setM_nStudentId(oZenithScholarshipDetails.getM_nStudentId());
-//			    oStudentInformationData= (StudentInformationData) populateObject(oStudentInformationData);
-//			    List<ZenithScholarshipDetails> oDetails = new ArrayList<ZenithScholarshipDetails>(oStudentInformationData.getM_oZenithScholarshipDetails());		;
-//			    AmazonSMS.sendSmsToCounselingCandidate(Constants.NUMBERPREFIX+oStudentInformationData.getM_strPhoneNumber(),oStudentInformationData.getM_strStudentName(),oDetails.get(0).getM_strStudentRemarks());	
+				StudentInformationData	oStudentInformationData = new StudentInformationData();
+			    oStudentInformationData.setM_nStudentId(oZenithScholarshipDetails.getM_nStudentId());
+			    oStudentInformationData= (StudentInformationData) populateObject(oStudentInformationData);
+			    List<ZenithScholarshipDetails> oDetails = new ArrayList<ZenithScholarshipDetails>(oStudentInformationData.getM_oZenithScholarshipDetails());
+			    AmazonSMS.sendSmsToCounselingCandidate(Constants.NUMBERPREFIX+oStudentInformationData.getM_strPhoneNumber(),oStudentInformationData.getM_strStudentName(),oDetails.get(0).getM_strStudentRemarks());	
 				Utils.createActivityLog("ZenithScholarshipInformationDataProcessor::counselingStatusApplication", oZenithScholarshipDetails);			
 			} 
 		}

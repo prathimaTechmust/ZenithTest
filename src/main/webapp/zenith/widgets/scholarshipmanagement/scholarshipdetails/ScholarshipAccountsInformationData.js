@@ -5,7 +5,7 @@ function ScholarshipAccountsInformationData ()
 	this.m_dSanctionDate = "";
 	this.m_strApplicationType = "";
 	this.m_strPaymentType = "";
-	this.m_strAcademicYear = "";
+	this.m_nAcademicYearId = "";
 	this.m_nChequeNumber = 0;
 	this.m_nDDNumber = 0;
 }

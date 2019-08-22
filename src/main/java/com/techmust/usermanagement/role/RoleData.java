@@ -36,7 +36,7 @@ import com.techmust.usermanagement.action.ActionData;
 import com.techmust.usermanagement.userinfo.UserInformationData;
 
 @Entity
-@Table(name = "taf03_role_table")
+@Table(name = "role_table")
 public class RoleData extends MasterData
 {
 	private static final long serialVersionUID = 1L;
@@ -44,14 +44,14 @@ public class RoleData extends MasterData
 	public ActionData [] m_arrActionData;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name = "AF03_ROLE_ID")
+	@Column(name = "ROLE_ID")
 	private int m_nRoleId;
-	@Column(name = "AF03_ROLE_NAME")
+	@Column(name = "ROLE_NAME")
 	@Size(max = 128)
 	private String m_strRoleName;
 	
 	@ManyToMany(fetch=FetchType.EAGER)
-	@JoinTable(name = "taf04_ROLE_ACTION_TABLE", joinColumns = { @JoinColumn(name = "AF03_ROLE_ID") }, inverseJoinColumns = { @JoinColumn(name = "AF02_ACTION_ID") })
+	@JoinTable(name = "ROLE_ACTION_TABLE", joinColumns = { @JoinColumn(name = "ROLE_ID") }, inverseJoinColumns = { @JoinColumn(name = "ACTION_ID") })
 	private Set<ActionData> m_oActions;
 	
 	public RoleData ()

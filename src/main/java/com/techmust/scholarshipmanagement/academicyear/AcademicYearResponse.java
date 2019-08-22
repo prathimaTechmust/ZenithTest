@@ -1,4 +1,4 @@
-package com.techmust.scholarshipmanagement.academicdetails;
+package com.techmust.scholarshipmanagement.academicyear;
 
 import java.util.ArrayList;
 import java.util.List;

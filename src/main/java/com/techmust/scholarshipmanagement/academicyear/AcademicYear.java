@@ -1,4 +1,4 @@
-package com.techmust.scholarshipmanagement.academicdetails;
+package com.techmust.scholarshipmanagement.academicyear;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

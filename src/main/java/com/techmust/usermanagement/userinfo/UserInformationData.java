@@ -2,7 +2,6 @@ package com.techmust.usermanagement.userinfo;
 
 import java.awt.image.BufferedImage;
 import java.sql.Blob;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -24,7 +23,6 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.validation.constraints.Size;
@@ -39,8 +37,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.techmust.constants.Constants;
 import com.techmust.generic.data.GenericData;
 import com.techmust.generic.data.MasterData;
@@ -48,7 +44,7 @@ import com.techmust.usermanagement.action.ActionData;
 import com.techmust.usermanagement.role.RoleData;
 
 @Entity
-@Table (name = "taf05_user_table")
+@Table (name = "users_table")
 //@DiscriminatorColumn(discriminatorType = DiscriminatorType.STRING)
 //@DiscriminatorValue("userinfo")
 public class UserInformationData extends MasterData implements IUserInformationData
@@ -57,66 +53,66 @@ public class UserInformationData extends MasterData implements IUserInformationD
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name = "AF05_USER_ID")
+	@Column(name = "USER_ID")
 	protected int m_nUserId;	
 	
-	@Column(name = "AF05_USER_NAME")
+	@Column(name = "USER_NAME")
 	@Size(max = 128)
 	protected String m_strUserName;
 	
-	@Column (name = "AF05_DOB")
+	@Column (name = "DOB")
 	protected Date m_dDOB;	
 	
-	@Column(name = "AF05_GENDER")
+	@Column(name = "GENDER")
 	protected String m_strGender;	
 	
-	@Column(name = "AF05_USER_PHOTO_FILENAME")
+	@Column(name = "USER_PHOTO_FILENAME")
 	protected String m_strUserPhotoFileName;
 	
-	@Column(name = "AF05_EMPLOYEE_ID")
+	@Column(name = "EMPLOYEE_ID")
 	protected String m_strEmployeeId;	
 	
-	@Column(name = "AF05_LOGIN_ID")
+	@Column(name = "LOGIN_ID")
 	@Size(max = 128)
 	protected String m_strLoginId;
 	
-	@Column(name = "AF05_PASSWORD")
+	@Column(name = "PASSWORD")
 	@Size(max = 128)
 	protected String m_strPassword;	
 	
-	@Column(name = "AF05_ADDRESS")
+	@Column(name = "ADDRESS")
 	protected String m_strAddress;
 	
-	@Column(name = "AF05_PHONE_NUM")
+	@Column(name = "PHONE_NUM")
 	protected String m_strPhoneNumber;
 	
-	@Column(name = "AF05_EMAIL_ADDRESS")
+	@Column(name = "EMAIL_ADDRESS")
 	protected String m_strEmailAddress;
 	
-	@Column(name = "AF05_STATUS")
+	@Column(name = "STATUS")
 	@Enumerated(EnumType.ORDINAL) 
 	protected UserStatus m_nStatus;
 	
-	@Column(name = "AF05_USER_PHOTO")
+	@Column(name = "USER_PHOTO")
 	@Lob
 	protected Blob m_oUserPhoto;	
 	
 	@Basic
 	@Temporal(TemporalType.TIME)
-	@Column(name = "AF05_CREATION_DATE")
+	@Column(name = "CREATION_DATE")
 	protected Date m_dCreationDate;
 	
 	@Basic
 	@Temporal(TemporalType.TIME)
-	@Column(name = "AFO5_UPDATION_DATE")
+	@Column(name = "UPDATION_DATE")
 	protected Date m_dUpdationDate;
 	
-	@Column(name = "AFO5_UID")
+	@Column(name = "UID")
 	@ColumnDefault("-1")
 	protected long m_nUID;
 	
 	@ManyToOne
-	@JoinColumn(name = "AF05_USER_ROLE")
+	@JoinColumn(name = "USER_ROLE")
 	protected RoleData m_oRole;
 	
 	@Transient

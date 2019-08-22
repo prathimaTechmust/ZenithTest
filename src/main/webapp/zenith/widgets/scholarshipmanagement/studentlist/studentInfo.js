@@ -3,7 +3,7 @@ var studentInfo_includeDataObjects =
 	'widgets/scholarshipmanagement/studentlist/StudentInformationData.js',
 	'widgets/scholarshipmanagement/institutionslist/InstitutionInformationData.js',
 	'widgets/scholarshipmanagement/courselist/CourseInformationData.js',
-	'widgets/scholarshipmanagement/scholarshipdetails/ScholarshipDetails.js',
+	'widgets/scholarshipmanagement/scholarshipdetails/ScholarshipOrganizationDetails.js',
 	'widgets/scholarshipmanagement/academicdetails/AcademicDetails.js',
 	'widgets/usermanagement/facilitator/FacilitatorInformationData.js',
 	'widgets/scholarshipmanagement/academicyear/AcademicYear.js',
@@ -24,9 +24,9 @@ function studentInfo_memberData ()
 	this.m_studentCourse = "";
 	this.m_studentDateofBirth = "";
 	this.m_nAcademicId = -1;
-	this.m_nSholarshipId = -1;
+	this.m_nOrganizationId = -1;
 	this.m_strApplicationType = "";
-	this.m_arrScholarshipDetails = new Array ();
+	this.m_arrScholarshipOrganizationDetails = new Array ();
 	this.m_arrSiblingsDetails = new Array();
 	
 	this.m_nRowOrgCount = -1; 
@@ -37,7 +37,7 @@ function studentInfo_memberData ()
 	this.m_nUpdatedOrgRowCount = 0;
 	this.m_nUpdatedAmountRowCount = 0;
 	
-	this.m_strAcademicYear = "";
+	this.m_nAcademicYearId = -1;
 	this.m_nInstitutionId = -1;
 	this.m_nCourseId = -1;
 	
@@ -312,10 +312,11 @@ function studentInfo_edit ()
 	m_oStudentInfoMemberData.b_IsNewStudent = false;
 	var oStudentInformationData = new StudentInformationData ();
 	oStudentInformationData.m_nStudentId = m_oStudentInfoListMemberData.m_nSelectedStudentId;
-	oStudentInformationData.m_strAcademicYear = m_oStudentInfoListMemberData.m_strAcademicYear;
+	oStudentInformationData.m_nAcademicYearId = m_oStudentInfoListMemberData.m_nAcademicYearId;
 	document.getElementById("studentInfo_button_submit").setAttribute('update', true);
 	document.getElementById("studentInfo_button_submit").innerHTML = "Update";
 	document.getElementById("DocumentUpload_details_btn").style.display="inline";
+	document.getElementById("studentInfo_button_print").style.display="none";
 	StudentInformationDataProcessor.get (oStudentInformationData, studentInfo_gotData);
 }
 
@@ -358,7 +359,7 @@ function studentInfo_getFormData ()
 	oStudentInformationData.m_strCity = $("#studentInfo_input_cityName").val();
 	oStudentInformationData.m_strState= $("#studentInfo_input_stateName").val();
 	oStudentInformationData.m_nPincode = $("#studentInfo_input_pincodeName").val();
-	if(m_oStudentInfoMemberData.m_strAcademicYear != $("#selectacademicyear").val())
+	if(m_oStudentInfoMemberData.m_nAcademicYearId != $("#selectacademicyear").val())
 		oStudentInformationData.m_oZenithScholarshipDetails = getZenithstatus();
 	      /*Academic details*/
 	oStudentInformationData.m_oAcademicDetails = getAcademicDetails ();
@@ -375,20 +376,20 @@ function getAcademicDetails ()
 	oAcademicDetails.m_oInstitutionInformationData.m_nInstitutionId = $("#select_input_academic_name").val();
 	oAcademicDetails.m_oCourseInformationData = new CourseInformationData();
 	oAcademicDetails.m_oCourseInformationData.m_nCourseId = $("#select_input_studentcourse").val();	
-	if(m_oStudentInfoMemberData.m_strAcademicYear == $("#selectacademicyear").val())
+	if(m_oStudentInfoMemberData.m_nAcademicYearId == $("#selectacademicyear").val())
 		oAcademicDetails.m_nAcademicId = m_oStudentInfoMemberData.m_nAcademicId ;	
-	oAcademicDetails.m_strAcademicYear = $("#selectacademicyear").val();
+	oAcademicDetails.m_oAcademicYear = getAcademicYear ();
 	oAcademicDetails.m_strStudentScore = $("#studentInfo_input_studentScore :selected").val();
 	oAcademicDetails.m_strSpecialization = $("#select_input_studentSpecialization").val();
 	oAcademicDetails.m_fAnnualFee = $("#academicInfo_input_annualfee").val();	
 	oAcademicDetails.m_fPaidFee = $("#academicInfo_input_paidfee").val();
 	oAcademicDetails.m_fBalanceFee = $("#academicInfo_input_balancefee").val();
 		/*Scholarship details*/	
-	var scholarshipdetails = m_oStudentInfoMemberData.m_arrScholarshipDetails;
-	if(scholarshipdetails.length == 0)
-		oAcademicDetails.m_oScholarshipDetails = getNewScholarshipDetails ();
-	else if(scholarshipdetails.length >= 1)
-		oAcademicDetails.m_oScholarshipDetails = getAddScolarshipDetails ();	
+	var scholarshiporganizationdetails = m_oStudentInfoMemberData.m_arrScholarshipOrganizationDetails;
+	if(scholarshiporganizationdetails.length == 0)
+		oAcademicDetails.m_oScholarshipOrganizationDetails = getNewScholarshipOrganizationDetails ();
+	else if(scholarshiporganizationdetails.length >= 1)
+		oAcademicDetails.m_oScholarshipOrganizationDetails = getAddScolarshipOrganizationDetails ();	
 	oArrAcademicDetails.push(oAcademicDetails);		
 	return oArrAcademicDetails;
 }
@@ -397,29 +398,34 @@ function getZenithstatus()
 {
 	var oArrScholarshipStatus = new Array();
 	var oZenithSholarshipstatus = new ZenithScholarshipDetails ();
-	oZenithSholarshipstatus.m_strAcademicYear = $("#selectacademicyear").val();
+	oZenithSholarshipstatus.m_oAcademicYear = getAcademicYear ();
 	oArrScholarshipStatus.push(oZenithSholarshipstatus);
 	return oArrScholarshipStatus;
 }
 
-function getNewScholarshipDetails ()
+function getAcademicYear ()
 {
-	var oArrScholarshipDetails = new Array();
+	var oAcademicYear = new AcademicYear ();
+	oAcademicYear.m_nAcademicYearId = $("#selectacademicyear").val();
+	return oAcademicYear;
+}
+
+function getNewScholarshipOrganizationDetails ()
+{
+	var oArrScholarshipOrganizationDetails = new Array();
 		checkRowCount();			
 	    for(var nIndex = 0; nIndex < m_oStudentInfoMemberData.m_nUpdatedOrgRowCount; nIndex++)
 	    {
-	    	var oScholarshipDetails = new ScholarshipDetails();
+	    	var oScholarshipOrganizationDetails = new ScholarshipOrganizationDetails();
 	    	if(($("#scholarshipInfo_input_organization"+nIndex).val() != '' && $("#scholarshipInfo_input_organizationamount"+nIndex).val() !='')&&($("#scholarshipInfo_input_organization"+nIndex).val() != undefined && $("#scholarshipInfo_input_organizationamount"+nIndex).val() != undefined))
 	    	{		   
-    			oScholarshipDetails.m_strOrganizationName = $("#scholarshipInfo_input_organization"+nIndex).val();
-				oScholarshipDetails.m_fAmount = $("#scholarshipInfo_input_organizationamount"+nIndex).val();
-				oArrScholarshipDetails.push(oScholarshipDetails);
+	    		oScholarshipOrganizationDetails.m_strOrganizationName = $("#scholarshipInfo_input_organization"+nIndex).val();
+	    		oScholarshipOrganizationDetails.m_fAmount = $("#scholarshipInfo_input_organizationamount"+nIndex).val();
+	    		oArrScholarshipOrganizationDetails.push(oScholarshipOrganizationDetails);
 	    	}
 	    }
-	return oArrScholarshipDetails;
+	return oArrScholarshipOrganizationDetails;
 }
-
-
 
 function checkRowCount ()
 {
@@ -428,41 +434,41 @@ function checkRowCount ()
 		m_oStudentInfoMemberData.m_nUpdatedOrgRowCount = 1;
 }
 
-function getAddScolarshipDetails ()
+function getAddScolarshipOrganizationDetails ()
 {
-	var oArrScholarshipDetails = new Array();
-	var arrAddscholarshipDetails = m_oStudentInfoMemberData.m_arrScholarshipDetails;	
+	var oArrScholarshipOrganizationDetails = new Array();
+	var arrAddScholarshipOrganizationDetails = m_oStudentInfoMemberData.m_arrScholarshipOrganizationDetails;	
 	var scholarshiporganizations = document.getElementById("scholarship_Organization");
-	if(scholarshiporganizations.rows.length == arrAddscholarshipDetails.length)
+	if(scholarshiporganizations.rows.length == arrAddScholarshipOrganizationDetails.length)
 	{
-		for(var nIndex = 0; nIndex < arrAddscholarshipDetails.length; nIndex++)
+		for(var nIndex = 0; nIndex < arrAddScholarshipOrganizationDetails.length; nIndex++)
 		{
-			var oScholarshipDetails = new ScholarshipDetails();				    
-		    if(m_oStudentInfoMemberData.m_strAcademicYear == $("#selectacademicyear").val())
-		    	oScholarshipDetails.m_nScholarshipId = arrAddscholarshipDetails[nIndex].m_nScholarshipId;				
-			oScholarshipDetails.m_strOrganizationName = $("#scholarshipInfo_input_organization"+nIndex).val();
-			oScholarshipDetails.m_fAmount = $("#scholarshipInfo_input_organizationamount"+nIndex).val();
-			oArrScholarshipDetails.push(oScholarshipDetails);
+			var oScholarshipOrganizationDetails = new ScholarshipOrganizationDetails();				    
+		    if(m_oStudentInfoMemberData.m_nAcademicYearId == $("#selectacademicyear").val())
+		    	oScholarshipOrganizationDetails.m_nOrganizationId = arrAddScholarshipOrganizationDetails[nIndex].m_nOrganizationId;				
+		    oScholarshipOrganizationDetails.m_strOrganizationName = $("#scholarshipInfo_input_organization"+nIndex).val();
+		    oScholarshipOrganizationDetails.m_fAmount = $("#scholarshipInfo_input_organizationamount"+nIndex).val();
+			oArrScholarshipOrganizationDetails.push(oScholarshipOrganizationDetails);
 		}
 	}
 	else
 	{
 		for(var nIndex = 0; nIndex < m_oStudentInfoMemberData.m_nUpdatedEditOrgRowCount; nIndex++)
 		{
-			var oScholarshipDetails = new ScholarshipDetails();			
+			var oScholarshipOrganizationDetails = new ScholarshipOrganizationDetails();			
 			if(($("#scholarshipInfo_input_organization"+nIndex).val() != '' && $("#scholarshipInfo_input_organizationamount"+nIndex).val() !='')&&($("#scholarshipInfo_input_organization"+nIndex).val() != undefined && $("#scholarshipInfo_input_organizationamount"+nIndex).val() != undefined))
 	    	{					   
-				oScholarshipDetails.m_strOrganizationName = $("#scholarshipInfo_input_organization"+nIndex).val();
-				oScholarshipDetails.m_fAmount = $("#scholarshipInfo_input_organizationamount"+nIndex).val();
-				oArrScholarshipDetails.push(oScholarshipDetails);
+				oScholarshipOrganizationDetails.m_strOrganizationName = $("#scholarshipInfo_input_organization"+nIndex).val();
+				oScholarshipOrganizationDetails.m_fAmount = $("#scholarshipInfo_input_organizationamount"+nIndex).val();
+				oArrScholarshipOrganizationDetails.push(oScholarshipOrganizationDetails);
 	    	}
-			if((nIndex < arrAddscholarshipDetails.length) && (m_oStudentInfoMemberData.m_strAcademicYear == $("#selectacademicyear").val()))
+			if((nIndex < arrAddScholarshipOrganizationDetails.length) && (m_oStudentInfoMemberData.m_nAcademicYearId == $("#selectacademicyear").val()))
 			{
-				oScholarshipDetails.m_nScholarshipId = arrAddscholarshipDetails[nIndex].m_nScholarshipId;
+				oScholarshipOrganizationDetails.m_nOrganizationId = arrAddScholarshipOrganizationDetails[nIndex].m_nOrganizationId;
 			}
 		}		
 	}	
-	return oArrScholarshipDetails;
+	return oArrScholarshipOrganizationDetails;
 }
 function studentInfo_created (oStudentInfoResponse)
 {
@@ -544,13 +550,13 @@ function studentInfo_gotData (oStudentInfoResponse)
 	m_oStudentInfoMemberData.m_strImageId = oStudentInfoData.m_strStudentImageId;
 	m_oStudentInfoMemberData.m_studentDateofBirth = oStudentInfoData.m_dDateOfBirth;
 	m_oStudentInfoMemberData.m_nAcademicId = oStudentInfoData.m_oAcademicDetails[0].m_nAcademicId;
-	m_oStudentInfoMemberData.m_strAcademicYear = oStudentInfoData.m_oAcademicDetails[0].m_strAcademicYear;
+	m_oStudentInfoMemberData.m_nAcademicYearId = oStudentInfoData.m_oAcademicDetails[0].m_oAcademicYear.m_nAcademicYearId;
 	m_oStudentInfoMemberData.m_nInstitutionId = oStudentInfoData.m_oAcademicDetails[0].m_oInstitutionInformationData.m_nInstitutionId;
 	m_oStudentInfoMemberData.m_nCourseId = oStudentInfoData.m_oAcademicDetails[0].m_oCourseInformationData.m_nCourseId;
 	m_oStudentInfoMemberData.m_arrSiblingsDetails = oStudentInfoData.m_oSibilingDetails;
-	m_oStudentInfoMemberData.m_arrScholarshipDetails = 	oStudentInfoData.m_oAcademicDetails[0].m_oScholarshipDetails;
-	m_oStudentInfoMemberData.m_nRowOrgCount = m_oStudentInfoMemberData.m_arrScholarshipDetails.length;
-	m_oStudentInfoMemberData.m_nRowOrgAmountCount = m_oStudentInfoMemberData.m_arrScholarshipDetails.length;
+	m_oStudentInfoMemberData.m_arrScholarshipOrganizationDetails = 	oStudentInfoData.m_oAcademicDetails[0].m_oScholarshipOrganizationDetails;
+	m_oStudentInfoMemberData.m_nRowOrgCount = m_oStudentInfoMemberData.m_arrScholarshipOrganizationDetails.length;
+	m_oStudentInfoMemberData.m_nRowOrgAmountCount = m_oStudentInfoMemberData.m_arrScholarshipOrganizationDetails.length;
 	m_oStudentInfoMemberData.m_nStudentId = oStudentInfoData.m_nStudentId;
 	m_oStudentInfoMemberData.m_nApplicationPriority = oStudentInfoData.m_nApplicationPriority;
 	 $("#studentInfo_input_studentUIDNumber").val(oStudentInfoData.m_nUID);
@@ -601,7 +607,7 @@ function studentInfo_gotData (oStudentInfoResponse)
 	 $("#academicInfo_input_paidfee").val(oStudentInfoData.m_oAcademicDetails[0].m_fPaidFee);	 
 	 substraction();
 	 /* Scholarship Details*/	
-	 gotScholarshipdata(m_oStudentInfoMemberData.m_arrScholarshipDetails);	 
+	 gotScholarshipdata(m_oStudentInfoMemberData.m_arrScholarshipOrganizationDetails);	 
 	 gotStudentDocuments(oStudentInfoResponse.m_oStudentDocuments);
 	 setReadableFields();
 	 if(m_oStudentInfoMemberData.m_arrSiblingsDetails.length > 0)
@@ -633,14 +639,14 @@ function gotSiblingDetails (m_arrSiblingsDetails)
 	 }
 }
 
-function gotScholarshipdata (m_arrScholarshipDetails)
+function gotScholarshipdata (m_arrScholarshipOrganizationDetails)
 {
-	 for(var nIndex = 0; nIndex < m_arrScholarshipDetails.length; nIndex++ )
+	 for(var nIndex = 0; nIndex < m_arrScholarshipOrganizationDetails.length; nIndex++ )
 	 {
 		 if(nIndex !=0)
 		 $("#scholarship_Organization").append('<tr><td class="fieldHeading">Organization</td><td style="padding-right: 10px"> </td><td><input  type="text" id="scholarshipInfo_input_organization'+(nIndex)+'" class="zenith"/></td><td style="padding-right: 10px"> </td><td class="fieldHeading">Amount(Rs)</td><td style="padding-right: 10px"> </td><td><input  type="text" id="scholarshipInfo_input_organizationamount'+(nIndex)+'" class="zenith" onkeyup="validateNumber(this)"/></td><td style="padding-right: 10px"> </td><td> <img src="images/delete.png" width="20" align="center" id="'+(nIndex)+'" title="Delete Organization" class = "removeOrganization" onClick="scholarship_removeEditOrganizationrow(this.id)"/> </td></tr>');		
-		 $("#scholarshipInfo_input_organization"+nIndex).val(m_arrScholarshipDetails[nIndex].m_strOrganizationName);
-		 $("#scholarshipInfo_input_organizationamount"+nIndex).val(m_arrScholarshipDetails[nIndex].m_fAmount);
+		 $("#scholarshipInfo_input_organization"+nIndex).val(m_arrScholarshipOrganizationDetails[nIndex].m_strOrganizationName);
+		 $("#scholarshipInfo_input_organizationamount"+nIndex).val(m_arrScholarshipOrganizationDetails[nIndex].m_fAmount);
 	 }
 }
 
@@ -686,7 +692,7 @@ function searchStudentUID ()
 {
 	var oStudentInformationData = new StudentInformationData ();
 	oStudentInformationData.m_nUID = $("#studentInfo_input_studentUIDNumber").val();
-	oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+	oStudentInformationData.m_nAcademicYearId = $("#selectacademicyear").val();
 	StudentInformationDataProcessor.getStudentDataUID (oStudentInformationData, studentInfo_setStudentData);
 }
 
@@ -713,7 +719,7 @@ function searchStudentAadhar ()
 {
 	var oStudentInformationData = new StudentInformationData ();
 	oStudentInformationData.m_nStudentAadharNumber = $("#studentInfo_input_studentAadharNumber").val();
-	oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+	oStudentInformationData.m_nAcademicYearId = $("#selectacademicyear").val();
 	StudentInformationDataProcessor.getStudentDataUID (oStudentInformationData, studentInfo_setStudentData);
 }
 
@@ -1024,15 +1030,14 @@ function siblingsAddSiblings ()
 }
 function deleteNewSiblings (clicked_id)
 {
-var bUserConfirm = getUserConfirmation("Are you sure do you want to delete?");
-if(bUserConfirm)
-{
-
-	$("#siblings").on('click','.removeSiblings',function() { $(this).parent().parent().remove(); });
-	var oSiblingsDetails = new SiblingsDetails();
-	oSiblingsDetails.m_nSiblingId = $("#studentInfo_input_SiblingsUID"+clicked_id).val();
-	checkSiblings(oSiblingsDetails);
-}
+	var bUserConfirm = getUserConfirmation("Are you sure do you want to delete?");
+	if(bUserConfirm)
+	{	
+		$("#siblings").on('click','.removeSiblings',function() { $(this).parent().parent().remove(); });
+		var oSiblingsDetails = new SiblingsDetails();
+		oSiblingsDetails.m_nSiblingId = $("#studentInfo_input_SiblingsUID"+clicked_id).val();
+		checkSiblings(oSiblingsDetails);
+	}
 	var siblingsrows = document.getElementById("siblings");   
     m_oStudentInfoMemberData.m_nSiblingsUIDId = siblingsrows.rows.length;
     m_oStudentInfoMemberData.m_nSiblingsName = siblingsrows.rows.length;
@@ -1149,7 +1154,7 @@ function scarchSiblingsUID(oRowCountId)
     }
 	var oStudentInformationData = new  StudentInformationData();
 	oStudentInformationData.m_nUID = $("#studentInfo_input_SiblingsUID"+m_oStudentInfoMemberData.m_nSiblingRowId).val();
-	oStudentInformationData.m_strAcademicYear = $("#selectacademicyear").val();
+	oStudentInformationData.m_nAcademicYearId = $("#selectacademicyear").val();
 	StudentInformationDataProcessor.getStudentDataUID (oStudentInformationData, studentInfo_setSiblingsData);
 }
 
@@ -1161,8 +1166,7 @@ function studentInfo_setSiblingsData(oResponse)
 		 $("#studentInfo_input_SiblingsUID"+m_oStudentInfoMemberData.m_nSiblingRowId).val(oResponse.m_arrStudentInformationData[0].m_nUID);
 		 $("#studentInfo_input_SiblingsName"+m_oStudentInfoMemberData.m_nSiblingRowId).val(oResponse.m_arrStudentInformationData[0].m_strStudentName);
 		 $("#studentInfo_input_SiblingsStudying"+m_oStudentInfoMemberData.m_nSiblingRowId).val(oResponse.m_arrStudentInformationData[0].m_oAcademicDetails[0].m_oCourseInformationData.m_strShortCourseName);
-		 $("#studentInfo_input_SiblingsSchoolCollege"+m_oStudentInfoMemberData.m_nSiblingRowId).val(oResponse.m_arrStudentInformationData[0].m_oAcademicDetails[0].m_oInstitutionInformationData.m_strInstitutionName);	
-		 
+		 $("#studentInfo_input_SiblingsSchoolCollege"+m_oStudentInfoMemberData.m_nSiblingRowId).val(oResponse.m_arrStudentInformationData[0].m_oAcademicDetails[0].m_oInstitutionInformationData.m_strInstitutionName);	 
 	}
 
 } 

@@ -121,7 +121,7 @@ function listStudentInfo_selectedRowData (oRowData, nIndex)
 	document.getElementById("listStudentInfo_div_listDetail").innerHTML = "";
 	var oStudentInformationData = new StudentInformationData () ;
 	oStudentInformationData.m_nStudentId = oRowData.m_nStudentId;
-	oStudentInformationData.m_strAcademicYear = $("#selectStudentListAcademicYear").val();
+	oStudentInformationData.m_nAcademicYearId = $("#selectStudentListAcademicYear").val();
 	StudentInformationDataProcessor.getXML (oStudentInformationData,listStudentInfo_gotXML);
 }
 
@@ -162,7 +162,7 @@ function listStudentInfo_progressbarLoaded ()
 	createPopup('dialog', '', '', true);
 	var oStudentInformationData = new StudentInformationData ();
 	//StudentInformationDataProcessor.list(oStudentInformationData, m_oStudentInfoListMemberData.m_strSortColumn, m_oStudentInfoListMemberData.m_strOrderBy, m_oStudentInfoListMemberData.m_nPageNumber, m_oStudentInfoListMemberData.m_nPageSize, listStudentInfo_listed);
-	oStudentInformationData.m_strAcademicYear = $("#selectStudentListAcademicYear").val();
+	oStudentInformationData.m_nAcademicYearId = $("#selectStudentListAcademicYear").val();
 	StudentInformationDataProcessor.studentTatkalList(oStudentInformationData,listStudentInfo_listed);
 	
 }
@@ -180,7 +180,7 @@ function listStudentInfo_edit (nStudentId)
 {
 	assert.isNumber(nStudentId, "nStudentId expected to be a Number.");
 	m_oStudentInfoListMemberData.m_nSelectedStudentId = nStudentId;
-	m_oStudentInfoListMemberData.m_strAcademicYear = $("#selectStudentListAcademicYear").val();
+	m_oStudentInfoListMemberData.m_nAcademicYearId = $("#selectStudentListAcademicYear").val();
 	navigate ("actionInformation", "widgets/scholarshipmanagement/studentlist/editStudentInfo.js");
 }
 

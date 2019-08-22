@@ -9,7 +9,7 @@ import javax.persistence.criteria.Root;
 import org.hibernate.Criteria;
 
 import com.techmust.generic.data.GenericData;
-import com.techmust.scholarshipmanagement.academicdetails.AcademicYear;
+import com.techmust.scholarshipmanagement.academicyear.AcademicYear;
 import com.techmust.scholarshipmanagement.activitylog.ActivityLog;
 import com.techmust.scholarshipmanagement.course.CourseInformationData;
 import com.techmust.scholarshipmanagement.institution.InstitutionInformationData;

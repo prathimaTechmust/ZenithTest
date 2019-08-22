@@ -145,7 +145,7 @@ function facilitatorlistInfo_selectedRowData (oRowData, nIndex)
 	document.getElementById("facilitatorWiseList_div_listDetail").innerHTML = "";
 	var oStudentInformationData = new StudentInformationData () ;
 	oStudentInformationData.m_nStudentId = oRowData.m_nStudentId;
-	oStudentInformationData.m_strAcademicYear = $("#selectReportAcademicYear").val();
+	oStudentInformationData.m_nAcademicYearId = $("#selectReportAcademicYear").val();
 	m_ofacilitatorList_MemberData.m_nStudentId = oRowData.m_nStudentId;
 	StudentInformationDataProcessor.getXML (oStudentInformationData,facilitatorListInfo_gotXML);	
 }
@@ -184,7 +184,7 @@ function searchfacilitatorName()
 {
 	var oStudentInformationData = new StudentInformationData ();
 	oStudentInformationData.m_nFacilitatorId = $("#facilitatorWiseInfo_input_name").val();
-	oStudentInformationData.m_strAcademicYear = $("#selectReportAcademicYear").val();
+	oStudentInformationData.m_nAcademicYearId = $("#selectReportAcademicYear").val();
 	StudentInformationDataProcessor.getFacilitatorWiseStudent(oStudentInformationData, getFacilitatorWiseStudentDetails);
 	
 }

@@ -1,16 +1,14 @@
-package com.techmust.scholarshipmanagement.scholarshipdetails;
+package com.techmust.scholarshipmanagement.scholarshipdetails.scholarshiporganization;
 
 import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -19,29 +17,22 @@ import javax.persistence.criteria.Root;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.techmust.generic.data.GenericData;
 import com.techmust.generic.data.MasterData;
 import com.techmust.scholarshipmanagement.academicdetails.AcademicDetails;
-import com.techmust.scholarshipmanagement.academicdetails.AcademicYear;
-import com.techmust.usermanagement.facilitator.FacilitatorInformationData;
 
 @Entity
-@Table(name = "scholarshipdetails")
-public class ScholarshipDetails extends MasterData
+@Table(name = "organizationdetails")
+public class ScholarshipOrganizationDetails extends MasterData
 {
-
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "scholarshipid")
-	private int m_nScholarshipId;
+	@Column(name = "oragnizationid")
+	private int m_nOrganizationId;
 	
 	@Column(name = "organizationname")
 	private String m_strOrganizationName;
@@ -57,9 +48,9 @@ public class ScholarshipDetails extends MasterData
 	@JoinColumn(name = "academicid")
 	private AcademicDetails m_oAcademicDetails;		
 	
-	public ScholarshipDetails()
+	public ScholarshipOrganizationDetails()
 	{
-		m_nScholarshipId = -1;
+		m_nOrganizationId = -1;
 		m_strOrganizationName = "";
 		m_fAmount = 0;	
 		m_dDate = Calendar.getInstance();		
@@ -76,15 +67,15 @@ public class ScholarshipDetails extends MasterData
 	{
 		this.m_oAcademicDetails = m_oAcademicDetails;
 	}
-
-	public int getM_nScholarshipId()
+	
+	public int getM_nOrganizationId()
 	{
-		return m_nScholarshipId;
+		return m_nOrganizationId;
 	}
 
-	public void setM_nScholarshipId(int m_nScholarshipId)
+	public void setM_nOrganizationId(int m_nOrganizationId)
 	{
-		this.m_nScholarshipId = m_nScholarshipId;
+		this.m_nOrganizationId = m_nOrganizationId;
 	}
 
 	public String getM_strOrganizationName()
@@ -143,8 +134,8 @@ public class ScholarshipDetails extends MasterData
 		try
 		{
 			Document oXmlDocument = createNewXMLDocument ();
-			Element oRootElement = createRootElement (oXmlDocument, "ScholarshipDetails");			
-			addChild (oXmlDocument, oRootElement, "m_nScholarshipId", m_nScholarshipId);
+			Element oRootElement = createRootElement (oXmlDocument, "ScholarshipOrganizationDetails");			
+			addChild (oXmlDocument, oRootElement, "m_nOrganizationId", m_nOrganizationId);
 			addChild (oXmlDocument, oRootElement, "m_strOrganizationName", m_strOrganizationName);
 			addChild (oXmlDocument, oRootElement, "m_fAmount", m_fAmount);			
 			strScholarshipDetails = getXmlString (oXmlDocument);

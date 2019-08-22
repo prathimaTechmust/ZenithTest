@@ -8,7 +8,7 @@ function AcademicDetails ()
 	this.m_fAnnualFee = 0;
 	this.m_fPaidFee = 0;
 	this.m_fBalanceFee = 0;	
-	this.m_strAcademicYear = "";
+	this.m_nAcademicYearId = "";
 	this.m_arrScholarshipDetails = new Array();
 	
 }

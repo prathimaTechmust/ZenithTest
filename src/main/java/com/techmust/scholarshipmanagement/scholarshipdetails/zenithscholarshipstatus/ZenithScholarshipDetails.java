@@ -24,6 +24,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.techmust.constants.Constants;
 import com.techmust.generic.data.MasterData;
 import com.techmust.scholarshipmanagement.academicdetails.AcademicDetails;
+import com.techmust.scholarshipmanagement.academicyear.AcademicYear;
 import com.techmust.scholarshipmanagement.chequeFavourOf.ChequeInFavourOf;
 import com.techmust.scholarshipmanagement.student.StudentInformationData;
 import com.techmust.utils.Utils;
@@ -53,12 +54,7 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 	private long m_dChequeIssueDate;
 	
 	@Column(name = "studentRemarks")
-	private String m_strStudentRemarks;
-	
-	@JsonBackReference
-	@ManyToOne
-	@JoinColumn(name = "studentid")
-	private StudentInformationData m_oStudentInformationData;
+	private String m_strStudentRemarks;	
 	
 	@Column(name = "approvedamount")
 	private float m_fApprovedAmount;
@@ -73,10 +69,7 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 	private Date m_dClaimedDate;
 	
 	@Column(name = "chequeRemark")
-	private String m_strChequeRemark;
-	
-	@Column(name = "academicyear")
-	private String m_strAcademicYear;
+	private String m_strChequeRemark;	
 	
 	@Column(name = "appl_submit_date")
 	private Date m_dApplicationSubmitDate;
@@ -87,9 +80,18 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 	@Transient
 	private int m_nAcademicId;
 	
+	@JsonBackReference
+	@ManyToOne
+	@JoinColumn(name = "studentid")
+	private StudentInformationData m_oStudentInformationData;	
+	
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "cheque_InFavour_Id")
 	private ChequeInFavourOf m_oChequeInFavourOf;
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "academicyearid")
+	private AcademicYear m_oAcademicYear;
 	
 	public ZenithScholarshipDetails()
 	{
@@ -103,11 +105,21 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 		m_strImage = null;
 		m_strChequeRemark= "";
 		m_dApprovedDate = null;
-		m_dClaimedDate = null;
-		m_strAcademicYear = "";
+		m_dClaimedDate = null;		
 		m_dApplicationSubmitDate = Calendar.getInstance().getTime();
+		m_oAcademicYear = new AcademicYear();
 	}	
 	
+	public AcademicYear getM_oAcademicYear()
+	{
+		return m_oAcademicYear;
+	}
+
+	public void setM_oAcademicYear(AcademicYear m_oAcademicYear)
+	{
+		this.m_oAcademicYear = m_oAcademicYear;
+	}
+
 	public Date getM_dApplicationSubmitDate()
 	{
 		return m_dApplicationSubmitDate;
@@ -136,16 +148,6 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 	public void setM_nAcademicId(int m_nAcademicId)
 	{
 		this.m_nAcademicId = m_nAcademicId;
-	}
-
-	public String getM_strAcademicYear()
-	{
-		return m_strAcademicYear;
-	}
-
-	public void setM_strAcademicYear(String m_strAcademicYear)
-	{
-		this.m_strAcademicYear = m_strAcademicYear;
 	}
 
 	public Date getM_dClaimedDate()
