@@ -38,32 +38,32 @@ public class AcademicDetailsProcessor extends GenericIDataProcessor<AcademicDeta
 		StudentDataResponse oStudentDataResponse = new StudentDataResponse();			
 		try 
 		{			
-			if(oStudentAadharMultipartFile.getSize() > 0)
+			if(oStudentAadharMultipartFile.getSize() > 0 && oStudentAadharMultipartFile != null)
 			{				
 				oStudentDataResponse.m_bSuccess = uploadStudentAadhar(oAcademicDetails,oStudentAadharMultipartFile);
 				
 			}
-			if(oStudentElectricityBillMultipartFile.getSize() > 0)
+			if(oStudentElectricityBillMultipartFile.getSize() > 0 && oStudentElectricityBillMultipartFile != null)
 			{
 				oStudentDataResponse.m_bSuccess = uploadStudentElectricityBill(oAcademicDetails,oStudentElectricityBillMultipartFile);				
 			}
-			if(oFatherMultipartFile.getSize() > 0)
+			if(oFatherMultipartFile.getSize() > 0 && oFatherMultipartFile != null)
 			{
 				oStudentDataResponse.m_bSuccess = uploadStudentFatherAadhar(oAcademicDetails,oFatherMultipartFile);				
 			}
-			if(oMotherMultipartFile.getSize() > 0)
+			if(oMotherMultipartFile.getSize() > 0 && oMotherMultipartFile != null)
 			{
 				oStudentDataResponse.m_bSuccess = uploadStudentMotherAadhar(oAcademicDetails,oMotherMultipartFile);				
 			}
-			if(oStudentMarksCard1MultipartFile.getSize() > 0)
+			if(oStudentMarksCard1MultipartFile.getSize() > 0 && oStudentMarksCard1MultipartFile != null)
 			{
 				oStudentDataResponse.m_bSuccess = uploadStudentMarksCard1(oAcademicDetails,oStudentMarksCard1MultipartFile);				
 			}			
-			if(oStudentMarksCard2MultipartFile.getSize() > 0)
+			if(oStudentMarksCard2MultipartFile.getSize() > 0 && oStudentMarksCard2MultipartFile != null)
 			{
 				oStudentDataResponse.m_bSuccess = uploadStudentMarksCard2(oAcademicDetails,oStudentMarksCard2MultipartFile);				
 			}
-			if(oOtherDocumentsMultipartFile.getSize() > 0)
+			if(oOtherDocumentsMultipartFile.getSize() > 0 && oOtherDocumentsMultipartFile != null)
 			{
 				oStudentDataResponse.m_bSuccess = uploadOtherDocuments(oAcademicDetails,oOtherDocumentsMultipartFile);				
 			}
