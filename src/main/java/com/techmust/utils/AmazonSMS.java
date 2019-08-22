@@ -27,7 +27,7 @@ public class AmazonSMS
 	public static AmazonSNS getClient ()
     {
 		m_oLogger.info("getClientDetails");
-		 BasicAWSCredentials oBasicAWSCredentials = new BasicAWSCredentials (System.getProperty("AWS_ACCESS_KEY"), System.getProperty("AWS_SECRET_KEY"));
+		 BasicAWSCredentials oBasicAWSCredentials = new BasicAWSCredentials (System.getProperty("AWS_ACCESS_KEY"), System.getProperty("AWS_SECRET_KEY")); // Fetch AWS env propperties
 		 AmazonSNS oAmazonSNSClient = AmazonSNSClient
 		         .builder()
 		         .withRegion("ap-southeast-1")
