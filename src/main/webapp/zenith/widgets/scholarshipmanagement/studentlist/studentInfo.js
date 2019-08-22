@@ -753,6 +753,7 @@ function studentInfo_createAndPrintResponse(oResponse)
 			var oForm = $('#studentInfo_form_id')[0];
 			var oFormData = new FormData (oForm);
 			oFormData.append('studentId',oResponse.m_arrStudentInformationData[0].m_nStudentId);
+			oFormData.append('academicId',oResponse.m_arrStudentInformationData[0].m_oAcademicDetails[0].m_nAcademicId);
 			StudentInformationDataProcessor.setImagetoS3bucket (oFormData, student_image_createdAndPrintResponse);
 		}
 		catch(oException){}

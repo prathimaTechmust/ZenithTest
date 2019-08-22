@@ -973,21 +973,21 @@ function printDocument ()
 }
 
 //StudentDetails Filters Based on StudentName,PhoneNumber,Student AadharNumber
-function studentListInfo_filter (gridId,applicationStatus)
+function studentListInfo_filter (gridId,applicationStatus,academicYearDropdownId)
 {
 	
-	var oStudentFilterData = validateFilterBoxes (gridId.id,applicationStatus);
+	var oStudentFilterData = validateFilterBoxes (gridId.id,applicationStatus,academicYearDropdownId);
 	if(oStudentFilterData.m_bSuccess)
 		StudentInformationDataProcessor.filterStudentData(oStudentFilterData,studentFilteredResponse);
 	else
 		alert("Enter Any One Of the Filter Box ");
 }
 
-function validateFilterBoxes (gridId,status,academicYearId)
+function validateFilterBoxes (gridId,status,academicYearDropdownId)
 {
 	m_oZenithMemberData.m_gridId = gridId;
 	var oStudentFilterData = new StudentInformationData();
-	oStudentFilterData.m_nAcademicYearId = $("#"+academicYearId).val();
+	oStudentFilterData.m_nAcademicYearId = $("#"+academicYearDropdownId).val();
 	oStudentFilterData.m_strStatus = status;
 	oStudentFilterData.m_bSuccess = false;
 	if($("#filterStudentInfo_input_studentName").val() != "")
