@@ -17,29 +17,29 @@
                   <td class="zenith" style="width:15%">
                     <input 
                         class="filterTextBox"
-                        id="filterTatkalStudentListInfo_input_studentName"
+                        id="filterStudentInfo_input_studentName"
                         onkeypress="handleFilter('tatkalStudentListInfo_filter()','#filterTatkalStudentListInfo_input_studentName')"
                         placeholder="Student Name"/>
+                  </td>
+                   <td class="zenith" style="width:15%">
+                    <input 
+                        class="filterTextBox"
+                        id="filterStudentInfo_input_phonenumber"
+                        onkeypress="handleFilter('tatkalStudentListInfo_filter()','#filterTatkalStudentListInfo_input_PhoneNumber')"
+                        placeholder = "Phone Number"/>
                   </td>
                   <td class="zenith" style="width:15%">
                      <input 
                         class="filterTextBox"
-                        id="filterTatkalStudentListInfo_input_studentAadhar"
+                        id="filterStudentInfo_input_aadhar"
                         onkeypress="handleFilter('tatkalStudentListInfo_filter()','#filterTatkalStudentListInfo_input_studentAadhar')"
                         placeholder="Student Aadhar"/>
-                  </td>
-                  <td class="zenith" style="width:15%">
-                    <input 
-                        class="filterTextBox"
-                        id="filterTatkalStudentListInfo_input_PhoneNumber"
-                        onkeypress="handleFilter('tatkalStudentListInfo_filter()','#filterTatkalStudentListInfo_input_PhoneNumber')"
-                        placeholder = "Phone Number"/>
                   </td>
                   <td class="zenith" style="width: 5%">
                   	<select id = "selectTatkalAcademicYear" style="width: 100px;"></select>
                   </td>                  
                   <td class="zenith" style="width:5%">
-                    <button class="zenith filterButton" type="button" onclick="tatkalStudentListInfo_filter (tatkalStudentListInformation, null,'selectTatkalAcademicYear')">
+                    <button class="zenith filterButton" type="button" onclick="studentListInfo_filter (tatkalStudentListInformation, null,'selectTatkalAcademicYear')">
                       Filter
                     </button>
                   </td>
