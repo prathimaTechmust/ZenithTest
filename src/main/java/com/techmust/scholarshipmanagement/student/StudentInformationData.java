@@ -116,6 +116,9 @@ public class StudentInformationData  extends MasterData implements Serializable
 	@Column(name="applicationpriority")
 	private int m_nApplicationPriority;
 	
+	@Column(name="category")
+	private String m_strCategory;
+	
 	@Transient	
 	private int m_nAcademicYearId;
 	
@@ -166,6 +169,7 @@ public class StudentInformationData  extends MasterData implements Serializable
 		m_strAlternateNumber = "";
 		m_strParentalStatus = "";
 		m_strReligion = "";
+		m_strCategory = "";
 		m_strCurrentAddress = "";
 		m_strCity = "";
 		m_strState = "";
@@ -178,6 +182,16 @@ public class StudentInformationData  extends MasterData implements Serializable
 		m_oZenithScholarshipDetails = new HashSet<ZenithScholarshipDetails>();
 		m_oSibilingDetails = new HashSet<SibilingDetails>();
 	}	
+
+	public String getM_strCategory() 
+	{
+		return m_strCategory;
+	}
+
+	public void setM_strCategory(String m_strCategory) 
+	{
+		this.m_strCategory = m_strCategory;
+	}
 
 	public Set<SibilingDetails> getM_oSibilingDetails()
 	{
@@ -596,6 +610,7 @@ public class StudentInformationData  extends MasterData implements Serializable
 			addChild (oXmlDocument, oRootElement, "m_strCity", m_strCity);
 			addChild (oXmlDocument, oRootElement, "m_strState", m_strState);
 			addChild (oXmlDocument, oRootElement, "m_nPincode", m_nPincode);
+			addChild (oXmlDocument, oRootElement, "m_strCategory", m_strCategory);
 			addChild (oXmlDocument, oRootElement, "m_nApplicationPriority", getApplicationPriority(m_nApplicationPriority));
 			addChild (oXmlDocument, oRootElement, "m_strStudentImageId", m_strStudentImageId);					
 			addChild (oXmlDocument, oRootElement, "m_strStudentImageUrl", getStudentImageURL(m_strStudentImageId));
