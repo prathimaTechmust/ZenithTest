@@ -76,28 +76,23 @@
 			<Action>
 				<ActionName>Student List</ActionName>
 				<Target>navigate ('Studentlist','widgets/scholarshipmanagement/studentlist/listStudent.js')</Target>
-				<SequenceId>30</SequenceId>
+				<SequenceId>20</SequenceId>
 			</Action>
 			<Action>
 				<ActionName>Institution List</ActionName>
 				<Target>navigate ('listinstitution','widgets/scholarshipmanagement/institutionslist/listInstitution.js')</Target>
-				<SequenceId>40</SequenceId>
+				<SequenceId>30</SequenceId>
 			</Action>
 			<Action>
 				<ActionName>Course List</ActionName>
 				<Target>navigate ('courselist','widgets/scholarshipmanagement/courselist/listCourses.js')</Target>
-				<SequenceId>50</SequenceId>
+				<SequenceId>40</SequenceId>
 			</Action>
 			<Action>
 				<ActionName>Scholarship List</ActionName>
 				<Target>navigate ('scholarshiplist','widgets/scholarshipmanagement/scholarshiplist/scholarshiplist.js')</Target>
-				<SequenceId>60</SequenceId>
-			</Action>
-			<Action>
-			    <ActionName>Transaction</ActionName>
-			    <Target>navigate('transactionlist','widgets/scholarshipmanagement/transaction/transactionlist.js')</Target>
-			    <SequenceId>70</SequenceId>
-			</Action>						
+				<SequenceId>50</SequenceId>
+			</Action>							
 		</Actions> 
 	</ActionArea>
 	<ActionArea name = "Application Status"  SequenceId="30">
@@ -145,23 +140,18 @@
 			<Action>
 				<ActionName>Counseling List</ActionName>
 				<Target>navigate ('counseling','widgets/applicationstatus/counseling/counseling.js')</Target>
-				<SequenceId>80</SequenceId>
+				<SequenceId>90</SequenceId>
 			</Action>
 			<Action>
 				<ActionName>Activity Log</ActionName>
 				<Target>navigate ('activitylog','widgets/activitylog/activityLogList.js')</Target>
-				<SequenceId>90</SequenceId>
+				<SequenceId>100</SequenceId>
 			</Action>
 			<Action>
 				<ActionName>Rejected List</ActionName>
 				<Target>navigate ('rejected','widgets/applicationstatus/rejectedlist/rejectedlist.js')</Target>
-				<SequenceId>100</SequenceId>
-			</Action>
-			<Action>
-				<ActionName>Activity Log</ActionName>
-				<Target>navigate ('activitylog','widgets/activitylog/activityLogList.js')</Target>
 				<SequenceId>110</SequenceId>
-			</Action>											
+			</Action>													
 		</Actions> 
 	</ActionArea>
 	<ActionArea name="Reports" SequenceId="40">
