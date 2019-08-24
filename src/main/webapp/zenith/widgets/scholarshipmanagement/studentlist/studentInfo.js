@@ -84,6 +84,7 @@ function studentInfo_init ()
 	document.getElementById("defaultOpen").click();		
 	calculate_Student_CourseFee ();
 	studentReligionDropDown();
+	studentCategoryDropDown();
 	studentParentalStatusDropDown();
 	studentScoreDropDown();
 	getDropDownValues ();	
@@ -192,6 +193,16 @@ function studentReligionDropDown ()
 	for (var i = 0; i < religionArray.length; ++i)
 	{	    
 	    dropdown[dropdown.length] = new Option(religionArray[i], religionArray[i]);
+	}
+}
+
+function studentCategoryDropDown ()
+{
+	var categoryArray = new Array("New","Old","Re-Jionee");
+	var dropdown = document.getElementById("StudentInfo_SelectCategory");	
+	for (var i = 0; i < categoryArray.length; ++i)
+	{	    
+	    dropdown[dropdown.length] = new Option(categoryArray[i], categoryArray[i]);
 	}
 }
 
@@ -354,6 +365,7 @@ function studentInfo_getFormData ()
 	oStudentInformationData.m_nFamilyIncome = $("#studentInfo_input_income").val();	
 	oStudentInformationData.m_strEmailAddress = $("#studentInfo_input_email").val();	
 	oStudentInformationData.m_strReligion = $("#studentInfo_input_religion :selected").val();
+	oStudentInformationData.m_strCategory = $("#StudentInfo_SelectCategory :selected").val();
 	oStudentInformationData.m_strParentalStatus = $("#select_input_studentParentalStatus").val();
 	oStudentInformationData.m_strCurrentAddress = $("#studentInfo_textarea_address").val();
 	oStudentInformationData.m_strCity = $("#studentInfo_input_cityName").val();
@@ -591,6 +603,7 @@ function studentInfo_gotData (oStudentInfoResponse)
 	 $("#studentInfo_input_phoneNumber2").val(oStudentInfoData.m_strAlternateNumber);
 	 $("#select_input_studentParentalStatus").val(oStudentInfoData.m_strParentalStatus);
 	 $("#studentInfo_input_religion").val(oStudentInfoData.m_strReligion);
+	 $("#StudentInfo_SelectCategory").val(oStudentInfoData.m_strCategory);
 	 $("#studentInfo_input_email").val(oStudentInfoData.m_strEmailAddress);
 	 $("#studentInfo_textarea_address").val(oStudentInfoData.m_strCurrentAddress);
 	 $("#studentInfo_input_cityName").val(oStudentInfoData.m_strCity);
