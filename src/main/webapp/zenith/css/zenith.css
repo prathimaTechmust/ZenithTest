@@ -424,8 +424,8 @@ form.imagePreview
 
 img.imagePreview
 {
-	max-width: 900px;
-	max-height: 1400px;
+	max-width: 500px;
+	max-height: 1200px;
 }
 
 img.itemDetailImage
