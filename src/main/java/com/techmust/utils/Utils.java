@@ -128,7 +128,7 @@ public class Utils
 		 }
 		 if(oStudentDocuments.getM_strOtherDocuments() != null)
 		 {
-			 String strStudentOtherDocumentsURL = Constants.S3BUCKETURL + Constants.STUDENTOTHERDOCUMENTS + oStudentDocuments.getM_strOtherDocuments() + Constants.IMAGE_DEFAULT_EXTENSION;
+			 String strStudentOtherDocumentsURL = Constants.S3BUCKETURL + Constants.STUDENTOTHERDOCUMENTS + oStudentDocuments.getM_strOtherDocuments() + Constants.PDF_DEFAULT_EXTENSION;
 			 oStudentDocuments.setM_strOtherDocuments(strStudentOtherDocumentsURL);
 		 }
 		 if(oStudentDocuments.getM_strVerifyScanDocument() != null)

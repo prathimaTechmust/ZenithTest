@@ -118,8 +118,8 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 														@RequestParam(name = "fatheraadhar",required = false) MultipartFile oFatherMultipartFile,
 														@RequestParam(name = "motheraadhar",required = false) MultipartFile oMotherMultipartFile,
 														@RequestParam(name = "studentMarksCard1",required = false) MultipartFile oStudentMarksCard1MultipartFile,
-														@RequestParam(name = "studentmarkscard2",required = false) MultipartFile oStudentMarksCard2MultipartFile,
-														@RequestParam(name = "otherdocuments",required = false) MultipartFile oOtherDocumentsMultipartFile,
+														@RequestParam(name = "studentMarksCard2",required = false) MultipartFile oStudentMarksCard2MultipartFile,
+														@RequestParam(name = "additionalDocuments",required = false) MultipartFile oOtherDocumentsMultipartFile,
 														@RequestParam("studentId") int nStudentId,
 														@RequestParam(name = "academicId",required = false) int nAcademicId) throws Exception
     {

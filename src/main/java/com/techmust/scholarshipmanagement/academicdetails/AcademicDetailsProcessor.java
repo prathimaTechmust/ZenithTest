@@ -84,7 +84,7 @@ public class AcademicDetailsProcessor extends GenericIDataProcessor<AcademicDeta
 		{
 			oAcademicDetails = (AcademicDetails) populateObject(oAcademicDetails);
 			String strUUID = Utils.getUUID();
-			String strFileName = Constants.STUDENTOTHERDOCUMENTS + strUUID + Constants.IMAGE_DEFAULT_EXTENSION;
+			String strFileName = Constants.STUDENTOTHERDOCUMENTS + strUUID + Constants.PDF_DEFAULT_EXTENSION;
 			AWSUtils.UploadToStudentOtherDocumentsFolder(strFileName, oOtherDocumentsMultipartFile);
 			if(oAcademicDetails.getM_arrStudentDocuments().size() > 0)
 				oStudentDocuments = oAcademicDetails.getM_arrStudentDocuments().get(0);
