@@ -5,6 +5,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<iframe id="pdf_iframe" style="display:none;"></iframe>
 	<form class="zenith" id="documentViewForm" style="width: 500px;">
 		<table class="zenith" summary="">
 			<tr>
@@ -41,9 +42,9 @@
 								</td>
 							</tr>
 							<tr>
-								<td><b>StudentAadhar</b></td>
-								<td><b>FatherAadhar</b></td>
-								<td><b>MotherAadhar</b></td>
+								<td><b>Student Aadhar</b></td>
+								<td><b>Father Aadhar</b></td>
+								<td><b>Mother Aadhar</b></td>
 							</tr>
 							<!--second row -->
 							<tr>
@@ -73,22 +74,12 @@
 								</td>
 							</tr>
 							<tr>
-								<td><b>ElectricityBill</b></td>
-								<td><b>Markscard1</b></td>
-								<td><b>Markscard2</b></td>
+								<td><b>Electricity Bill</b></td>
+								<td><b>Marks card 1</b></td>
+								<td><b>Marks card 2</b></td>
 							</tr>
 							<!--Third row -->
-							<tr>
-								<td valign="top" width="33.3%">
-									<a
-										href="javascript:studentDocumentView_documentPreview (additionalDocumentId);">
-										<img src=" "
-										onerror="this.onerror=null; this.src='images/NoImage.png'"
-										alt="additionalDocument" id="additionalDocumentId"
-										class="imagesize" />
-									</a>
-								</td>
-								
+							<tr>				
 								<td valign="top" width="33.3%">
 								 	<a
 								 		href="javascript:studentDocumentView_documentPreview (scanDocumentId);">
@@ -98,10 +89,20 @@
 										class="imagesize" />
 								 	</a>
 								 </td>
+								 
+ 								<td valign="top" width="33.3%">
+									<a
+										href="javascript:pdfDownload();">
+										<img src=" "
+										onerror="this.onerror=null; this.src='images/default_pdf_image.jpg'"
+										alt="additionalDocument" id="additionalDocumentId"
+										class="imagesize" />
+									</a>
+								</td>
 							</tr>
 							<tr>
-								<td><b>AdditionalDocument</b></td>
-								<td><b>VerifyScanDocument</b></td> 
+								<td><b>Verified Scan Document</b></td> 
+								<td><b>Additional Document</b></td>
 							</tr>
 						</table>
 				 	 </fieldset>

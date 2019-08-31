@@ -891,6 +891,23 @@ function showImage(oFileSource,studentInfo_input_document)
      fr.readAsDataURL(oFileSource.files[0]);
     
 }
+
+
+function showPDFUploadButton( divId)
+{
+	if(m_oStudentInfoMemberData.b_IsNewStudent)	
+	{
+		document.getElementById(divId.id).style.display = "none";
+	}
+	else
+	{
+		document.getElementById(divId.id).style.display = "block";
+	}
+	 studentInfo_input_document.src= "images/default_pdf_image.jpg";
+}
+
+
+
 function studentupload_documentPreview (studentInfo_input_previewimageId)
 {
     

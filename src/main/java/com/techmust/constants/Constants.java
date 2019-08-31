@@ -15,6 +15,7 @@ public class Constants
 	public static final String TENANT_COOKIE_NAME = "TRADEMUST_TENANT";
 	public static final String ADMIN_ROLE = "ROLE_ADMIN";
 	public static final String IMAGE_DEFAULT_EXTENSION = ".jpeg";
+	public static final String PDF_DEFAULT_EXTENSION = ".pdf";
 	public static final String TENANT_ID = "tenant_id";
 	public static final String kAdmin = "admin";
 	public static final String kTenantAdminRole = "tenantadmin";

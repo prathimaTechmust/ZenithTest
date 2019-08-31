@@ -10,6 +10,7 @@ function zenith_MemberData ()
 	var m_strTenantName = "";
 	var m_strImageUrl = "";
 	var selectAcademicYearDropDownId = "";
+	var oPdfsrc="";
 }
 
 var m_strLocationURL = window.location.origin;
@@ -1066,6 +1067,7 @@ function viewStudentDocuments_init()
 
 function setUploadedDocuments(oStudentDocuments)
 {
+	m_oZenithMemberData.oPdfsrc = "";
 	if(oStudentDocuments != null && oStudentDocuments.m_strStudentAadhar != null)
 		$("#studentAadharId").attr('src',oStudentDocuments.m_strStudentAadhar);
 	if(oStudentDocuments != null && oStudentDocuments.m_strFatherAadharImageId != null)
@@ -1079,7 +1081,10 @@ function setUploadedDocuments(oStudentDocuments)
 	if(oStudentDocuments != null && oStudentDocuments.m_strStudentMarksCard2 !=null)
 		$("#marksCard2Id").attr('src',oStudentDocuments.m_strStudentMarksCard2);
 	if(oStudentDocuments != null && oStudentDocuments.m_strOtherDocuments !=null)
-		$("#additionalDocumentId").attr('src',oStudentDocuments.m_strOtherDocuments);	
+		{
+			m_oZenithMemberData.oPdfsrc = oStudentDocuments.m_strOtherDocuments;
+			$("#additionalDocumentId").attr('src',oStudentDocuments.m_strOtherDocuments);				
+		}	
 	if(oStudentDocuments != null && oStudentDocuments.m_strVerifyScanDocument !=null)
 		$("#scanDocumentId").attr('src', oStudentDocuments.m_strVerifyScanDocument);
 }
@@ -1094,6 +1099,21 @@ function studentDocumentView_documentPreview (imageId)
 	var imageSrc = document.getElementById(imageId.id).src;
 	m_oZenithMemberData.m_strImagePreviewUrl = imageSrc;
 	loadPage("applicationstatus/documentView/uploadDocumentView.html","secondDialog", "documentList_showImagePreview()");
+}
+
+function pdfDownload()
+{
+	if( m_oZenithMemberData.oPdfsrc != "" &&  m_oZenithMemberData.oPdfsrc != null)
+	{
+			//document.getElementById('pdf_iframe').src = "http://docs.google.com/gview?url="+m_oZenithMemberData.oPdfsrc+"&embedded=true";
+			// var win = window.open("http://docs.google.com/gview?url="+m_oZenithMemberData.oPdfsrc+"&embedded=true", '_blank');
+			var win = window.open("https://docs.google.com/viewerng/viewer?url="+m_oZenithMemberData.oPdfsrc+"", '_blank');
+			win.focus();				
+	}
+	else
+	{
+		alert("please upload AdditionalDocument pdf file!")
+	}
 }
 
 function documentList_showImagePreview() 
