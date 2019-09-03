@@ -18,6 +18,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -254,13 +255,23 @@ public class InstitutionInformationData extends MasterData
 	{
 		Predicate oConjunct = oCriteriaBuilder.conjunction();
 		if (getM_nInstitutionId() > 0)
+		{
 			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_nInstitutionId"), m_nInstitutionId));
+		}
 		if (!m_strInstitutionName.isEmpty())
-			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_strInstitutionName"), m_strInstitutionName));
+		{
+			Expression<String> oExpression = oRootObject.get("m_strInstitutionName");
+			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.like(oExpression,"%"+m_strInstitutionName+"%"));
+		}
 		if (!m_strPhoneNumber.isEmpty())
+		{
 			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_strPhoneNumber"), m_strPhoneNumber));
+		}		
 		if (!m_strCity.isEmpty())
-			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_strCity"), m_strCity));
+		{
+			Expression<String> oExpression = oRootObject.get("m_strCity");
+			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.like(oExpression,""+m_strCity+"%"));
+		}
 		return oConjunct;
 	}
 	

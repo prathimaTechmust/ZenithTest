@@ -18,6 +18,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -547,7 +548,10 @@ public class StudentInformationData  extends MasterData implements Serializable
 		if (getM_nStudentId() > 0)
 			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_nStudentId"), m_nStudentId));				
 		if (!m_strStudentName.isEmpty())
-			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_strStudentName"), m_strStudentName));
+		{
+			Expression<String> oExpression = oRootObject.get("m_strStudentName");
+			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.like(oExpression,"%"+m_strStudentName+"%"));
+		}
 		if(!m_strPhoneNumber.isEmpty())
 			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_strPhoneNumber"), m_strPhoneNumber));
 		if(getM_nStudentAadharNumber() > 0)
