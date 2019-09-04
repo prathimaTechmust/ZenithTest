@@ -29,17 +29,13 @@ function listStudentInfo_loaded ()
 function listStudentInfo_init ()
 {
 	populateAcademicYearDropDown('selectStudentListAcademicYear');
-	listStudentInfo_createDataGrid ();	
+	listStudentInfo_createDataGrid ();
+	//checkAcademicYearChange ();
 }
 
-/*function academicyear ()
-{	
-		  var oDate = new Date();
-		  var ocurrentAcademicYear = oDate.getFullYear();
-		  var selectyear = document.getElementById("selectacademicyearwiseStudents");
-		  var option = document.createElement('option');
-		  option.text = option.value = ocurrentAcademicYear +"-"+(++ocurrentAcademicYear);
-		  selectyear.add(option,0);		
+/*function checkAcademicYearChange ()
+{
+	$(document).ready(function )
 }*/
 
 function listStudentInfo_createDataGrid ()
@@ -161,9 +157,9 @@ function listStudentInfo_progressbarLoaded ()
 {
 	createPopup('dialog', '', '', true);
 	var oStudentInformationData = new StudentInformationData ();
-	//StudentInformationDataProcessor.list(oStudentInformationData, m_oStudentInfoListMemberData.m_strSortColumn, m_oStudentInfoListMemberData.m_strOrderBy, m_oStudentInfoListMemberData.m_nPageNumber, m_oStudentInfoListMemberData.m_nPageSize, listStudentInfo_listed);
 	oStudentInformationData.m_nAcademicYearId = $("#selectStudentListAcademicYear").val();
-	StudentInformationDataProcessor.studentTatkalList(oStudentInformationData,listStudentInfo_listed);
+	//StudentInformationDataProcessor.list(oStudentInformationData, m_oStudentInfoListMemberData.m_strSortColumn, m_oStudentInfoListMemberData.m_strOrderBy, m_oStudentInfoListMemberData.m_nPageNumber, m_oStudentInfoListMemberData.m_nPageSize, listStudentInfo_listed);	
+	StudentInformationDataProcessor.studentList(oStudentInformationData,listStudentInfo_listed);
 	
 }
 
@@ -223,5 +219,12 @@ function printStudentDetails()
 {
 	populateXMLData (m_oStudentInfoListMemberData.m_PrintData , "applicationstatus/chequeDetails/claimedCheque/PrintClaimedList.xslt", 'printdetailsInfo');
 	printDocument();	
+}
+
+function getChangedAcademicYearData ()
+{
+	var oStudentData = new StudentInformationData ();
+	oStudentData.m_nAcademicYearId = $("#selectStudentListAcademicYear").val();
+	StudentInformationDataProcessor.studentList(oStudentData,listStudentInfo_listed);	
 }
 

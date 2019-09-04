@@ -41,6 +41,7 @@ import com.techmust.generic.listener.ITradeMustEventListener;
 import com.techmust.generic.util.GenericUtil;
 import com.techmust.generic.util.HibernateUtil;
 import com.techmust.scholarshipmanagement.academicdetails.AcademicDetails;
+import com.techmust.scholarshipmanagement.academicyear.AcademicYear;
 import com.techmust.scholarshipmanagement.scholarshipdetails.zenithscholarshipstatus.ZenithScholarshipDetails;
 import com.techmust.scholarshipmanagement.sholarshipaccounts.StudentScholarshipAccount;
 import com.techmust.scholarshipmanagement.student.StudentInformationData;
@@ -601,7 +602,8 @@ public abstract class GenericData implements IGenericData, Serializable
 	        oCriteriaQuery.where(oCriteriaBuilder.equal(oAcademicDetailsRoot.get("m_oAcademicYear"), oStudentData.getM_nAcademicYearId()),
 	        		oCriteriaBuilder.equal(oAcademicDetailsRoot.get("m_oStudentInformationData"), oStudentData.getM_nStudentId()));	        				
 	        oAcademicDetails =  (ArrayList<AcademicDetails>) oEntityManager.createQuery(oCriteriaQuery).getResultList();
-	        oAcademicDetails = getCurrentYearActiveCheque(oAcademicDetails);
+	        if(oAcademicDetails.size() > 0)
+	        	oAcademicDetails = getCurrentYearActiveCheque(oAcademicDetails);
 	        arrAcademicDetails = new HashSet<AcademicDetails>(oAcademicDetails);
 		} 
 		catch (Exception oException)
@@ -654,21 +656,32 @@ public abstract class GenericData implements IGenericData, Serializable
 	}
 
 
+	@SuppressWarnings({ "unchecked" })
 	public ArrayList<StudentInformationData> getStatusStudentsList(StudentInformationData oStudentInformationData)
 	{
 		ArrayList<StudentInformationData> arrStudentInformationData = null;
+		AcademicYear oAcademicYear = new AcademicYear();
+		oAcademicYear.setM_nAcademicYearId(oStudentInformationData.getM_nAcademicYearId());
 		EntityManager oEntityManager = _getEntityManager();
 		try
 		{
 			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
 			CriteriaQuery<StudentInformationData> oCriteriaQuery = oCriteriaBuilder.createQuery(StudentInformationData.class);
 			Root<StudentInformationData> oStudentInformationDataRoot = oCriteriaQuery.from(StudentInformationData.class);
+			//Join the SubEntities to Root Object
+			Join<Object, Object> oZenithJoin = (Join<Object, Object>) oStudentInformationDataRoot.fetch("m_oZenithScholarshipDetails");
+			Join<Object, Object> oAcademicJoin = (Join<Object, Object>) oStudentInformationDataRoot.fetch("m_oAcademicDetails");
+			//Predicate List(Where Conditions)
+			List<Predicate> m_arrPredicateList = new ArrayList<Predicate>();
+			m_arrPredicateList.add(oCriteriaBuilder.equal(oAcademicJoin.get("m_oAcademicYear"),oStudentInformationData.getM_nAcademicYearId()));
+			m_arrPredicateList.add(oCriteriaBuilder.equal(oZenithJoin.get("m_strStatus"), oStudentInformationData.getM_strStatus()));
+			m_arrPredicateList.add(oCriteriaBuilder.equal(oZenithJoin.get("m_oAcademicYear"),oStudentInformationData.getM_nAcademicYearId()));			
+			oCriteriaQuery.select(oStudentInformationDataRoot);
 			oCriteriaQuery.orderBy(oCriteriaBuilder.asc(oStudentInformationDataRoot.get("m_nApplicationPriority")));
-			Join<StudentInformationData,ZenithScholarshipDetails> oJoinTable = oStudentInformationDataRoot.join("m_oZenithScholarshipDetails",JoinType.INNER);
-			oCriteriaQuery.where(oCriteriaBuilder.equal(oJoinTable.get("m_strStatus"), oStudentInformationData.getM_strStatus()),
-								oCriteriaBuilder.equal(oJoinTable.get("m_oAcademicYear"),oStudentInformationData.getM_nAcademicYearId()));
+			oCriteriaQuery.where(m_arrPredicateList.toArray(new Predicate[] {}));
 			TypedQuery<StudentInformationData> typedquery = oEntityManager.createQuery(oCriteriaQuery);
 			arrStudentInformationData = (ArrayList<StudentInformationData>) typedquery.getResultList();
+			
 		}
 		catch (Exception oException)
 		{
@@ -1062,6 +1075,7 @@ public abstract class GenericData implements IGenericData, Serializable
 				oAccount = listAccount.get(0);
 				oAccount.setM_strChequeStatus("InActive");
 				oAccount.setM_strChequeRemarks(strChequeRemark);
+				oAccount.setM_bChequeValid(false);
 				oAccount.updateObject();
 			}			
 		}

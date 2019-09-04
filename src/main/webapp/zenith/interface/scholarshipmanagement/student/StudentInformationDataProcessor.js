@@ -29,8 +29,10 @@ var StudentInformationDataProcessor = (function __StudentInformationDataProcesso
 	}
 	
 	function list(oStudentData, strSortColumn, strSortOrder, nPageNo, nPageSize, callback)
-	{		
-		 ajaxCall(oStudentData, "/studentInfoList", callback);		 
+	{
+		/*var oZenithHelper = new ZenithHelper ();
+		oZenithHelper.m_oStudentInformationData = oStudentData;*/
+		ajaxCall(oStudentData, "/studentInfoList", callback);		 
 	}
 	
 	function update (oStudentData,callback)
@@ -87,9 +89,9 @@ var StudentInformationDataProcessor = (function __StudentInformationDataProcesso
 		ajaxCall(oStudentFilterData,"/getStudentFilterData",callback);		
 	}
 	
-	function studentTatkalList(oStudentData,callback)
+	function studentList(oStudentData,callback)
 	{
-		ajaxCall(oStudentData,"/getTatkalStudentList",callback);
+		ajaxCall(oStudentData,"/getStudentList",callback);
 	}
 	
 	function updateTatkalPriority (oStudentTakalData,callback)
@@ -97,6 +99,22 @@ var StudentInformationDataProcessor = (function __StudentInformationDataProcesso
 		ajaxCall(oStudentTakalData,"/updateApplicationPriority",callback);
 		
 	}	
+	
+	function getCityNames (oStudentData,callback)
+	{
+		ajaxCall(oStudentData,"/getStudentCityNames",callback);
+	}
+	
+	function getParentalOccupations (oStudentData,callback)
+	{
+		ajaxCall(oStudentData,"/getStudentParentalOccupations",callback);
+	}
+	
+	function downloadReports (oStudentReportsData,callback)
+	{		
+		ajaxCall(oStudentReportsData,"/downloadStudentReports",callback);
+	}
+	
 	return { 
 		create : create,
 		createandprint:createandprint,
@@ -114,7 +132,10 @@ var StudentInformationDataProcessor = (function __StudentInformationDataProcesso
 		getStudentDataUID:getStudentDataUID,
 		getFacilitatorWiseStudent:getFacilitatorWiseStudent,
 		filterStudentData:filterStudentData,
-		studentTatkalList:studentTatkalList,
-		updateTatkalPriority:updateTatkalPriority
+		studentList:studentList,
+		updateTatkalPriority:updateTatkalPriority,		
+		getCityNames : getCityNames,
+		getParentalOccupations:getParentalOccupations,
+		downloadReports :downloadReports
 	};
 })();

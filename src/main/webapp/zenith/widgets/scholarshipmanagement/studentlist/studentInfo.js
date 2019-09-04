@@ -547,7 +547,7 @@ function studentInfo_displayInfo (strMessage)
 {
 	HideDialog ("dialog");
 	informUser(strMessage, "kSuccess");
-	navigate("studentList", "widgets/scholarshipmanagement/studentlist/listStudent.js")
+	navigate("studentListInformation", "widgets/scholarshipmanagement/studentlist/listStudent.js")
 }
 
 function student_displayInfo(strMessage)

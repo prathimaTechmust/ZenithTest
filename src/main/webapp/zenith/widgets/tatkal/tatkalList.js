@@ -124,7 +124,7 @@ function tatkalStudentListInfo_progressbarLoaded ()
 	createPopup('dialog', '', '', true);
 	var oStudentInformation = new StudentInformationData ();
 	oStudentInformation.m_nAcademicYearId = $("#selectTatkalAcademicYear").val();
-	StudentInformationDataProcessor.studentTatkalList(oStudentInformation,tatkalStudentListResponse);
+	StudentInformationDataProcessor.studentList(oStudentInformation,tatkalStudentListResponse);
 }
 
 function tatkalStudentListResponse (oTatkalStudentResponse)

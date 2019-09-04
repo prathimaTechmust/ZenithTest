@@ -12,7 +12,7 @@ public class Constants
 	public static final String CONNECTION_PASSWORD = "hibernate.connection.password";
 	public static final String HBM2DDL = "hibernate.hbm2ddl.auto";
 	public static final String SHOW_SQL = "show_sql";	
-	public static final String TENANT_COOKIE_NAME = "TRADEMUST_TENANT";
+	public static final String TENANT_COOKIE_NAME = "ZENITH_TENANT";
 	public static final String ADMIN_ROLE = "ROLE_ADMIN";
 	public static final String IMAGE_DEFAULT_EXTENSION = ".jpeg";
 	public static final String PDF_DEFAULT_EXTENSION = ".pdf";

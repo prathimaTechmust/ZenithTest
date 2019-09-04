@@ -118,8 +118,25 @@ public class StudentInformationData  extends MasterData implements Serializable
 	private int m_nApplicationPriority;
 	
 	@Column(name="category")
-	private String m_strCategory;
+	private String m_strCategory;	
 	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "facilitatorid")
+	private FacilitatorInformationData m_oFacilitatorInformationData;
+	
+	@JsonManagedReference
+	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER, mappedBy = "m_oStudentInformationData",orphanRemoval = true)
+	private Set<AcademicDetails> m_oAcademicDetails;
+	
+	@JsonManagedReference
+	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "m_oStudentInformationData",orphanRemoval = true)
+	private Set<ZenithScholarshipDetails> m_oZenithScholarshipDetails ;
+	
+	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	@JoinColumn(name = "student_id")
+	private Set<SibilingDetails> m_oSibilingDetails;	
+	
+	//Transient Variables
 	@Transient	
 	private int m_nAcademicYearId;
 	
@@ -129,21 +146,11 @@ public class StudentInformationData  extends MasterData implements Serializable
 	@Transient
 	private int m_nFacilitatorId;
 	
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "facilitatorid")
-	private FacilitatorInformationData m_oFacilitatorInformationData;
+	@Transient
+	private int m_nCourseId;
 	
-	@JsonManagedReference
-	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "m_oStudentInformationData",orphanRemoval = true)
-	private Set<AcademicDetails> m_oAcademicDetails;
-	
-	@JsonManagedReference
-	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "m_oStudentInformationData",orphanRemoval = true)
-	private Set<ZenithScholarshipDetails> m_oZenithScholarshipDetails ;
-	
-	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-	@JoinColumn(name = "student_id")
-	private Set<SibilingDetails> m_oSibilingDetails;
+	@Transient
+	private int m_nInstitutionId;
 	
 	@Transient
 	public AcademicDetails[] m_arrAcademicDetails;
@@ -183,15 +190,35 @@ public class StudentInformationData  extends MasterData implements Serializable
 		m_oZenithScholarshipDetails = new HashSet<ZenithScholarshipDetails>();
 		m_oSibilingDetails = new HashSet<SibilingDetails>();
 	}	
+	
+	public int getM_nCourseId()
+	{
+		return m_nCourseId;
+	}
+	
+	public void setM_nCourseId(int nCourseId)
+	{
+		this.m_nCourseId = nCourseId;
+	}
+
+	public int getM_nInstitutionId()
+	{
+		return m_nInstitutionId;
+	}
+
+	public void setM_nInstitutionId(int nInstitutionId)
+	{
+		this.m_nInstitutionId = nInstitutionId;
+	}
 
 	public String getM_strCategory() 
 	{
 		return m_strCategory;
 	}
 
-	public void setM_strCategory(String m_strCategory) 
+	public void setM_strCategory(String strCategory) 
 	{
-		this.m_strCategory = m_strCategory;
+		this.m_strCategory = strCategory;
 	}
 
 	public Set<SibilingDetails> getM_oSibilingDetails()

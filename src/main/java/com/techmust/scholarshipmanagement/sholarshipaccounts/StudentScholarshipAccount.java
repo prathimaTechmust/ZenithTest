@@ -62,6 +62,9 @@ public class StudentScholarshipAccount extends MasterData
 	@Column(name = "chequestatus")
 	private String m_strChequeStatus;
 	
+	@Column(name = "")
+	private boolean m_bChequeValid;
+	
 	@Transient
 	private int m_nStudentId;
 	
@@ -86,6 +89,17 @@ public class StudentScholarshipAccount extends MasterData
 		m_nDDNumber = 0;
 		m_strChequeRemarks = "";
 		m_strChequeStatus = "Active";
+		m_bChequeValid = true;
+	}
+	
+	public boolean isM_bChequeValid()
+	{
+		return m_bChequeValid;
+	}
+
+	public void setM_bChequeValid(boolean m_bChequeValid)
+	{
+		this.m_bChequeValid = m_bChequeValid;
 	}
 
 	public String getM_strChequeRemarks()
