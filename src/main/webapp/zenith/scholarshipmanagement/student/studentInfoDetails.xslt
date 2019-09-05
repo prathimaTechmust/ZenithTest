@@ -70,7 +70,6 @@
 								<td class="xslt_fieldData" id="m_strApplicationStatus">
 								<xsl:value-of select="StudentInformationData/m_oZenithScholarshipDetails/ZenithScholarshipDetails/m_strStatus"/>								
 								</td>
-								
 							</tr>
 						</table>
 					</td>
