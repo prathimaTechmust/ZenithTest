@@ -22,6 +22,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
@@ -235,8 +236,11 @@ public abstract class GenericIDataProcessor<T extends IGenericData>
 			if(oStudentData.getM_strPhoneNumber() != "")
 				m_PredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_strPhoneNumber"),oStudentData.getM_strPhoneNumber()));
 			if(oStudentData.getM_strStudentName() != "")
-				m_PredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_strStudentName"),oStudentData.getM_strStudentName()));
-			if(oStudentData.getM_nStudentAadharNumber() >0)
+			{
+				Expression<String> oExpression = oStudentRoot.get("m_strStudentName");
+				m_PredicateList.add( oCriteriaBuilder.like(oExpression,"%"+oStudentData.getM_strStudentName()+"%"));
+			}	
+			if(oStudentData.getM_nStudentAadharNumber() > 0)
 				m_PredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_nStudentAadharNumber"),oStudentData.getM_nStudentAadharNumber()));
 			oQuery.select(oStudentRoot).where(m_PredicateList.toArray(new Predicate[] {}));
 			TypedQuery<StudentInformationData> typedQuery = oEntityManager.createQuery(oQuery);
