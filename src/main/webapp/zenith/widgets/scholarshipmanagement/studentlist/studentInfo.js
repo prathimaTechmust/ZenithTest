@@ -219,7 +219,6 @@ function calculate_Student_CourseFee ()
 
 function substraction ()
 {
-	
 	var annualFee = document.getElementById('academicInfo_input_annualfee').value;
     var paidFee = document.getElementById('academicInfo_input_paidfee').value;
 	var balance = annualFee - paidFee;
@@ -295,26 +294,36 @@ function validateUIDField ()
 	 return bIsValid;
 }
 
-function studentInfo_submit ()
-{
+function studentInfo_submit (tdId)
+{	
+
 	if (studentInfo_validate())
-		loadPage ("include/process.html", "ProcessDialog", "student_progressbarLoaded ()");
+		{
+		 document.getElementById("progress").style.display = "block";
+		 document.getElementById("studentInfo_button_submit").style.display = "none";
+		 document.getElementById("studentInfo_button_print").style.display = "none";
+		 document.getElementById("studentInfoButton_button_cancel").style.display = "none";
+		 setTimeout(function(){student_progressbarLoaded ()}, 1000);
+		}
 	else
 	{
 		alert("Please Fill Mandiatory Fields");
 		$('#studentInfo_form_id').focus();
 	}
-		
 }
 
 function student_progressbarLoaded ()
 {
-	createPopup('ProcessDialog', '', '', true);
+
 	oStudentInformationData = studentInfo_getFormData ();
 	if(document.getElementById("studentInfo_button_submit").getAttribute('update') == "false")
+		{
 		StudentInformationDataProcessor.create(oStudentInformationData, studentInfo_created);
+		}
 	else
+		{
 		StudentInformationDataProcessor.update (oStudentInformationData,studentInfo_updated);
+		}
 }
 
 function studentInfo_edit ()
@@ -484,7 +493,7 @@ function getAddScolarshipOrganizationDetails ()
 }
 function studentInfo_created (oStudentInfoResponse)
 {
-	HideDialog ("ProcessDialog");
+
 	if (oStudentInfoResponse.m_bSuccess)
 	{
 		studentInfo_displayInfo("student created successfully", "kSuccess");
@@ -495,6 +504,7 @@ function studentInfo_created (oStudentInfoResponse)
 			oFormData.append('studentId',oStudentInfoResponse.m_arrStudentInformationData[0].m_nStudentId);
 			oFormData.append('academicId',oStudentInfoResponse.m_arrStudentInformationData[0].m_oAcademicDetails[0].m_nAcademicId);
 			StudentInformationDataProcessor.setImagetoS3bucket (oFormData, student_image_created);
+			
 		}
 		catch(oException){}
 	}
@@ -504,7 +514,7 @@ function studentInfo_created (oStudentInfoResponse)
 
 function studentInfo_updated (oStudentInfoResponse)
 {
-	HideDialog ("ProcessDialog");
+
 	if(oStudentInfoResponse.m_bSuccess)
 	{
 		studentInfo_displayInfo ("student updated successfully");
@@ -530,11 +540,19 @@ function studentInfo_updated (oStudentInfoResponse)
 
 function student_image_created ()
 {
+//	HideDialog ("Processloader");
+//	document.getElementById("Processloader").style.position = "none";
+//	document.getElementById("Processloader").style.display = "none";
+//	alert("stop");
 	HideDialog ("secondDialog");
 }
 
 function student_details_updated ()
 {
+//	HideDialog ("Processloader");
+//	document.getElementById("Processloader").style.position = "none";
+//	document.getElementById("Processloader").style.display = "none";
+//	alert("stop");
 	HideDialog ("secondDialog");
 }
 
@@ -769,7 +787,10 @@ function studentInfo_createAndPrintResponse(oResponse)
 			oFormData.append('academicId',oResponse.m_arrStudentInformationData[0].m_oAcademicDetails[0].m_nAcademicId);
 			StudentInformationDataProcessor.setImagetoS3bucket (oFormData, student_image_createdAndPrintResponse);
 		}
-		catch(oException){}
+		catch(oException){
+			
+			alert("student creation failed", "kError")
+		}
 	}
 	else
 		studentInfo_displayInfo("student creation failed", "kError");   
