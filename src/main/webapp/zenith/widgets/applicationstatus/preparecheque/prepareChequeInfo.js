@@ -32,6 +32,7 @@ function prepareChequeInfo_new ()
 	 	$("#accountInfo_input_AccountPayeeName").val(m_oPrepareChequeInfoMemberData.m_oStudentInformationData.m_strStudentName);
 	}
 	$("#accountInfo_input_SanctionedAmount").val(m_oPrepareChequeInfoMemberData.m_oStudentInformationData.m_oZenithScholarshipDetails[0].m_fApprovedAmount);
+	$("#chequeInfo_input_Cheque_DD").val(m_oPrepareChequeInfoMemberData.m_oStudentInformationData.m_oZenithScholarshipDetails[0].m_strPaymentType);
 	var approveDate = convertTimestampToDate(m_oPrepareChequeInfoMemberData.m_oStudentInformationData.m_oZenithScholarshipDetails[0].m_dApprovedDate);
 	$("#accountInfo_input_SanctionedDate").val(approveDate);
 	initFormValidateBoxes ("prepareChequeInfo_form_id");
@@ -145,22 +146,15 @@ function chequeDetails_getFormData ()
 	oScholarshipAccountsInformationData.m_strPayeeName = $("#accountInfo_input_AccountPayeeName").val();
 	oScholarshipAccountsInformationData.m_fSanctionedAmount = $("#accountInfo_input_SanctionedAmount").val();
 	oScholarshipAccountsInformationData.m_dSanctionDate = $("#accountInfo_input_SanctionedDate").val();
+	oScholarshipAccountsInformationData.m_strPaymentType = $("#chequeInfo_input_Cheque_DD").val();
+	oScholarshipAccountsInformationData.m_nChequeNumber = $("#chequeddInfo_input_ChequeDDNumber").val();
 	if(document.getElementById("selectapplication_fresh").checked)
 		oScholarshipAccountsInformationData.m_strApplicationType = document.getElementById("selectapplication_fresh").value;
 	else
 		oScholarshipAccountsInformationData.m_strApplicationType = document.getElementById("selectapplication_reissue").value;
-	if(document.getElementById("select_radio_Cheque").checked)
-		oScholarshipAccountsInformationData.m_strPaymentType = document.getElementById("select_radio_Cheque").value;
-	else
-		oScholarshipAccountsInformationData.m_strPaymentType = document.getElementById("select_radio_DD").value;
 	oScholarshipAccountsInformationData.m_nAcademicYearId = $("#selectChequePreparedAcademicYear").val();
-	if(document.getElementById("select_radio_Cheque").checked == true)
-		oScholarshipAccountsInformationData.m_nChequeNumber = $("#chequeddInfo_input_ChequeDDNumber").val();
-	else
-		oScholarshipAccountsInformationData.m_nDDNumber = $("#chequeddInfo_input_ChequeDDNumber").val();	
 	return oScholarshipAccountsInformationData;
 }
-
 function prepareChequeInfo_cancel ()
 {
 	HideDialog ("dialog");

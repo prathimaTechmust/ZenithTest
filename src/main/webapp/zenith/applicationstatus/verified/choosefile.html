@@ -5,8 +5,13 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form class="zenith" id="chooseFileForm" style="width: 500px;">
+	<form class="zenith" id="chooseFileForm" style="width: 469px;">
 		<table class="zenith" summary="">
+			<tr>
+ 				<td class="formHeading" style="width: 469px;">
+ 					Verify Student 
+ 				</td>
+ 			</tr>
 			<tr>
 				<td class="zenith">
 					<fieldset>
@@ -22,8 +27,22 @@
 	 			       		  </td>
 							</tr>
 							<tr>
+				              <td class="fieldHeading">Payment Type <em>*</em></td>
+				               <td>
+				                  <input type="radio" id="select_radio_Cheque" name="select_radio" value="Cheque" data-options="required:true" checked="checked"/>Cheque                    		
+				                  <input type="radio" id="select_radio_DD" name="select_radio" value="DD" data-options="required:true" style="margin-left: 25px;"/>DD
+				               </td>
+				           </tr>
+				           <tr>
 								<td class="fieldHeading">Cheque Favourof<em>*</em></td>
 								<td><select id="select_cheque_inFavour_of"></select></td>
+							</tr>
+							<tr style="text-align: right;">
+		     					 <td id="verifyProgress" style="display:none">
+                  					 <div class="progress">
+		            					 <img src="images/processing.gif">
+		           					</div>                      
+		    						</td>
 							</tr>
 							<tr>
 								<td>

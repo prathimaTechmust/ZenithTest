@@ -141,7 +141,14 @@ function printStudentDetails()
 
 function verifyStudentInfo_Student()
 {	
-	createPopup('dialog', '', '', true);
+	document.getElementById("verifyProgress").style.display = "block";
+	document.getElementById("verifyStudent").style.display = "none";
+	document.getElementById("chooseFileDocument_button_cancel").style.display = "none";
+	setTimeout(function(){verifyGetFormData()},500);
+}
+
+function verifyGetFormData()
+{
 	var oFormData = new FormData ();
 	oFormData.append('scancopy',$("#ScanCopy")[0].files[0]);
 	oFormData.append('studentId',m_overifiedStudentList_Info_MemberData.m_nStudentId);
@@ -149,6 +156,10 @@ function verifyStudentInfo_Student()
 	{
 		oFormData.append('chequefavourId',$("#select_cheque_inFavour_of").val());
 	}
+	if(document.getElementById("select_radio_Cheque").checked)
+		oFormData.append('strPaymentType',$("#select_radio_Cheque").val());
+	else
+		oFormData.append('strPaymentType',$("#select_radio_DD").val());
 	ZenithStudentInformationDataProcessor.verifiedStatusUpdate(oFormData,studentverifiedResponse);
 }
 

@@ -714,6 +714,7 @@ public abstract class GenericData implements IGenericData, Serializable
 				oZenith.setM_strStatus(Constants.STUDENTVERIFIED);
 				oZenith.setM_strImage(oZenithScholarshipDetails.getM_strImage());
 				oZenith.setM_oChequeInFavourOf(oZenithScholarshipDetails.getM_oChequeInFavourOf());
+				oZenith.setM_strPaymentType(oZenithScholarshipDetails.getM_strPaymentType());
 				IsUpdate = oZenith.updateObject();
 			}
 		}
