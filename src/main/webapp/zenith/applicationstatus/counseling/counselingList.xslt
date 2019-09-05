@@ -440,16 +440,32 @@
 							<td class="organization">Amount(₹)</td>
 						</tr>																			
 						<tr>
-						<xsl:for-each select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oScholarshipDetails/ScholarshipDetails">
-						<tr>
-							<td class="organization organizationData" >
-								<xsl:value-of select="m_strOrganizationName" />
-							</td>
-							<td class="organization organizationData">
-								<xsl:value-of select="format-number(m_fAmount, '##,##,##0')"/>
-							</td>											
-						</tr>									
-						</xsl:for-each>									
+						<xsl:choose>
+							          <xsl:when test="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oScholarshipOrganizationDetails/ScholarshipOrganizationDetails !=''" >
+							           	<tr>
+										<xsl:for-each select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oScholarshipOrganizationDetails/ScholarshipOrganizationDetails">
+											<tr>
+											<td class="organization organizationData" >
+												<xsl:value-of select="m_strOrganizationName" />
+											</td>
+											<td class="organization organizationData">
+												<xsl:value-of select="format-number(m_fAmount, '##,##,##0')"/>
+											</td>											
+										</tr>									
+										</xsl:for-each>								
+										</tr>		
+							         </xsl:when>
+							         <xsl:otherwise>
+				         			 <tr>
+										<td class="organization organizationData" >
+											--
+										</td>
+										<td class="organization organizationData">
+											--
+										</td>											
+									</tr>										
+						         	</xsl:otherwise>
+					      	 </xsl:choose>										
 						</tr>								
 					</table>						
 				</td>					
