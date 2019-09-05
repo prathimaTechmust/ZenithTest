@@ -89,9 +89,7 @@
 		<tr>			
            <td align="right" colspan="2">
              <hr>
-             <div id="myProgress">
-                <div id="myBar"></div>
-              </div>
+             
              <button id="prepareChequeInfo_button_submit" type="button" class="zenith" update="false" onclick="prepareChequeInfo_submit()">
                Prepare
              </button>
@@ -99,6 +97,13 @@
                Cancel
              </button>
            </td>        	
+		</tr>
+			<tr style="text-align: center;">
+		      <td id="chequeProgress" style="display:none">
+                   <div class="progress">
+		             <img src="images/processing.gif">
+		           	</div>                      
+		    </td>
 		</tr>			
 	</table>
 </form>

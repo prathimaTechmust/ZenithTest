@@ -47,7 +47,12 @@ function prepareCheque_init ()
 function prepareChequeInfo_submit ()
 {
 	if (chequeInfo_validate())
-		loadPage ("include/process.html", "ProcessDialog", "cheque_progressbarLoaded ()");
+		{
+		  document.getElementById("chequeProgress").style.display = "block";
+		  document.getElementById("prepareChequeInfo_button_submit").style.display = "none";
+		  document.getElementById("prepareChequeInfo_button_cancel").style.display = "none";
+		  setTimeout(function(){cheque_progressbarLoaded ()},1000);
+		}
 	else
 	{
 		alert("Please Fill Mandiatory Fields");
@@ -58,7 +63,6 @@ function prepareChequeInfo_submit ()
 
 function cheque_progressbarLoaded ()
 {
-	createPopup('ProcessDialog', '', '', true);
 	var chequeInfoData = chequeDetails_getFormData();
 	StudentScholarshipAccountsProcessor.create(chequeInfoData,chequeCreatedResponse);
 }
