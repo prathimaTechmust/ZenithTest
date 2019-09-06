@@ -8,5 +8,6 @@ function ScholarshipAccountsInformationData ()
 	this.m_nAcademicYearId = "";
 	this.m_nChequeNumber = 0;
 	this.m_nDDNumber = 0;
+    this.m_strChequePrepredBy = " ";
 }
 dataObjectLoaded ();

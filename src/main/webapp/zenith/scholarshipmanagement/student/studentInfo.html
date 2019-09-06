@@ -429,7 +429,7 @@
 						                 onclick="openNextTab(event, 'Scholarship_details', Scholarship_details_btn)">
 						               Next
 						             </button>
-						             <button id="studentInfo_button_cancel" type="button" class="zenith" onclick="studentInfo_cancel()">
+						             <button id="studentInfo_button_cancel" type="button" class="zenith" onclick="studentInfo_cancel()"> 
 						               Cancel
 						             </button>
 						           </td>        	
@@ -635,7 +635,6 @@
 								</tr>
 							</td>
 						</tr>
-						
 						<table style="padding-left: 36%;"> 	
 						<tr>
 							<td width="50%" valign="top">									
@@ -645,13 +644,19 @@
 									</td>
 									<td class="documentImagePrwview">								
 									</td>
+									<td id="progress" style="display:none">
+                                   <div class="progress">
+            						   <img src="images/processing.gif">
+           						   </div>
+                                   
+                                    </td>
 									<td>
 						             <button 
 						                 id="studentInfo_button_submit"
 						                 type="button"
 						                 class="zenith"
 						                 update="false"
-						                 onclick="studentInfo_submit()">
+						                 onclick="studentInfo_submit(progress)">
 						               Create
 						             </button>
 						             </td>
@@ -661,15 +666,14 @@
 	                                     </button>
 						             </td>
 						             <td>
-									 <button id="studentInfo_button_cancel" type="button" class="zenith" onclick="studentInfo_cancel()">
+									 <button id="studentInfoButton_button_cancel" type="button" class="zenith" onclick="studentInfo_cancel()">
 						               Cancel
 						             </button>
 									</td>
-								</tr>										
+								</tr>									
 							</td>
 						</tr>				
-						</table>
-					  			
+						</table>			
 					 </table>
 				</div>	                                             
                  </td>
@@ -681,9 +685,3 @@
 </form>
 </body>
 </html>
-
-
-
-
-
-

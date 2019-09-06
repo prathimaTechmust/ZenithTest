@@ -62,6 +62,12 @@ public class StudentScholarshipAccount extends MasterData
 	@Column(name = "chequestatus")
 	private String m_strChequeStatus;
 	
+	@Column(name = "chequevalid")
+	private boolean m_bChequeValid;
+	
+	@Column(name="ChequePrepredBy")
+	private String m_strChequePrepredBy;
+	
 	@Transient
 	private int m_nStudentId;
 	
@@ -85,7 +91,29 @@ public class StudentScholarshipAccount extends MasterData
 		m_nChequeNumber = 0;
 		m_nDDNumber = 0;
 		m_strChequeRemarks = "";
+		m_strChequePrepredBy = " ";
 		m_strChequeStatus = "Active";
+		m_bChequeValid = true;
+	}
+	
+	public String getM_strChequePrepredBy() 
+	{
+		return m_strChequePrepredBy;
+	}
+
+	public void setM_strChequePrepredBy(String m_strChequePrepredBy) 
+	{
+		this.m_strChequePrepredBy = m_strChequePrepredBy;
+	}
+
+	public boolean isM_bChequeValid()
+	{
+		return m_bChequeValid;
+	}
+
+	public void setM_bChequeValid(boolean m_bChequeValid)
+	{
+		this.m_bChequeValid = m_bChequeValid;
 	}
 
 	public String getM_strChequeRemarks()
@@ -254,7 +282,8 @@ public class StudentScholarshipAccount extends MasterData
 			addChild(oXmlDocument, oRootElement, "m_dSanctionDate",m_dSanctionDate != null ? getSanctionDate(m_dSanctionDate.toString()) :"");
 			addChild(oXmlDocument, oRootElement, "m_strPayeeName", m_strPayeeName);
 			addChild(oXmlDocument, oRootElement, "m_fSanctionedAmount", m_fSanctionedAmount);
-			addChild(oXmlDocument, oRootElement, "m_nChequeNumber", m_nChequeNumber);
+			addChild(oXmlDocument, oRootElement, "m_nChequeNumber", m_nChequeNumber); 
+			addChild(oXmlDocument, oRootElement, "m_strChequePrepredBy", m_strChequePrepredBy);
 			addChild(oXmlDocument, oRootElement, "m_nDDNumber", m_nDDNumber);
 			strChequeInfoXML = getXmlString(oXmlDocument);
 		}

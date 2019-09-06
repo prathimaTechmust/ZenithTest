@@ -464,32 +464,32 @@
 							<td class="organization">Amount(₹)</td>
 						</tr>																			
 						<tr>	
-						 <xsl:choose>
-						         <xsl:when test="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oScholarshipDetails/ScholarshipDetails !=''" >
-						           	<tr>
-									<xsl:for-each select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oScholarshipDetails/ScholarshipDetails">
-									<tr>
+						<xsl:choose>
+							          <xsl:when test="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oScholarshipOrganizationDetails/ScholarshipOrganizationDetails !=''" >
+							           	<tr>
+										<xsl:for-each select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oScholarshipOrganizationDetails/ScholarshipOrganizationDetails">
+											<tr>
+											<td class="organization organizationData" >
+												<xsl:value-of select="m_strOrganizationName" />
+											</td>
+											<td class="organization organizationData">
+												<xsl:value-of select="format-number(m_fAmount, '##,##,##0')"/>
+											</td>											
+										</tr>									
+										</xsl:for-each>								
+										</tr>		
+							         </xsl:when>
+							         <xsl:otherwise>
+				         			 <tr>
 										<td class="organization organizationData" >
-											<xsl:value-of select="m_strOrganizationName" />
+											--
 										</td>
 										<td class="organization organizationData">
-											<xsl:value-of select="format-number(m_fAmount, '##,##,##0')"/>
+											--
 										</td>											
-									</tr>									
-									</xsl:for-each>								
-									</tr>		
-						         </xsl:when>
-						         <xsl:otherwise>
-			         			 <tr>
-									<td class="organization organizationData" >
-										--
-									</td>
-									<td class="organization organizationData">
-										--
-									</td>											
-								</tr>										
-					         	</xsl:otherwise>
-				      	 </xsl:choose>														      	 						
+									</tr>										
+						         	</xsl:otherwise>
+					      	 </xsl:choose>														      	 						
 						</tr>												
 					</table>						
 				</td>					
@@ -510,7 +510,7 @@
 					</td>
 					<td>:</td>
 					<td class="xslt_fieldData">
-						<xsl:value-of select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oInstitutionInformationData/InstitutionInformationData/m_strInstitutionName">
+						<xsl:value-of select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oStudentScholarshipAccount/StudentScholarshipAccount/m_strPayeeName">
 	                      </xsl:value-of>
 					</td>									
 				</tr>		

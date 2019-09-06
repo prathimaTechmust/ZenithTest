@@ -463,10 +463,10 @@
 							</tr>																			
 							<tr>	
 							 <xsl:choose>
-							         <xsl:when test="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oScholarshipDetails/ScholarshipDetails !=''" >
+							          <xsl:when test="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oScholarshipOrganizationDetails/ScholarshipOrganizationDetails !=''" >
 							           	<tr>
-										<xsl:for-each select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oScholarshipDetails/ScholarshipDetails">
-										<tr>
+										<xsl:for-each select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oScholarshipOrganizationDetails/ScholarshipOrganizationDetails">
+											<tr>
 											<td class="organization organizationData" >
 												<xsl:value-of select="m_strOrganizationName" />
 											</td>
@@ -508,7 +508,7 @@
 					</td>
 					<td>:</td>
 					<td class="xslt_fieldData">
-						<xsl:value-of select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oInstitutionInformationData/InstitutionInformationData/m_strInstitutionName">
+						<xsl:value-of select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oStudentScholarshipAccount/StudentScholarshipAccount/m_strPayeeName">
 	                      </xsl:value-of>
 					</td>									
 				</tr>		

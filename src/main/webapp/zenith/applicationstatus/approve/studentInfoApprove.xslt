@@ -468,9 +468,9 @@
 						</tr>																			
 						<tr>	
 						 <xsl:choose>
-						         <xsl:when test="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oScholarshipDetails/ScholarshipDetails !=''" >
-						           	<tr>
-									<xsl:for-each select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oScholarshipDetails/ScholarshipDetails">
+							  <xsl:when test="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oScholarshipOrganizationDetails/ScholarshipOrganizationDetails !=''" >
+					           	<tr>
+									<xsl:for-each select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oScholarshipOrganizationDetails/ScholarshipOrganizationDetails">
 									<tr>
 										<td class="organization organizationData" >
 											<xsl:value-of select="m_strOrganizationName" />
@@ -480,7 +480,7 @@
 										</td>											
 									</tr>									
 									</xsl:for-each>								
-									</tr>		
+								 </tr>		
 						         </xsl:when>
 						         <xsl:otherwise>
 			         			 <tr>

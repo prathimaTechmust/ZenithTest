@@ -28,7 +28,7 @@ public class ZenithScholarshipInformationDataProcessor extends GenericIDataProce
 
 	@RequestMapping(value="/studentStatusInfoUpdate", method = RequestMethod.POST)
 	@ResponseBody
-	public GenericResponse toBeVerifiedStatusUpdate(@RequestParam(name = "scancopy",required = false)MultipartFile oScanCopyMultipartFile,@RequestParam("studentId") int nStudentId,@RequestParam(value="chequefavourId",required = false) Integer nFavourid) throws Exception
+	public GenericResponse toBeVerifiedStatusUpdate(@RequestParam(name = "scancopy",required = false)MultipartFile oScanCopyMultipartFile,@RequestParam("studentId") int nStudentId,@RequestParam(value="chequefavourId",required = false) Integer nFavourid,@RequestParam(value="strPaymentType",required = false) String strPaymentType) throws Exception
 	{
 		
 		m_oLogger.info ("toBeVerifiedStatusUpdate");
@@ -41,6 +41,7 @@ public class ZenithScholarshipInformationDataProcessor extends GenericIDataProce
 			oChequeInFavourOf.setM_nChequeFavourId(nFavourid);
 			oZenithScholarshipDetails.setM_oChequeInFavourOf(oChequeInFavourOf);
 		}
+		oZenithScholarshipDetails.setM_strPaymentType(strPaymentType);
 		oZenithScholarshipDetails.setM_nStudentId(nStudentId);
 		try
 		{	

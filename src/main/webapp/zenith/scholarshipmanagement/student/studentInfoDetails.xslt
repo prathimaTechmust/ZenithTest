@@ -70,7 +70,6 @@
 								<td class="xslt_fieldData" id="m_strApplicationStatus">
 								<xsl:value-of select="StudentInformationData/m_oZenithScholarshipDetails/ZenithScholarshipDetails/m_strStatus"/>								
 								</td>
-								
 							</tr>
 						</table>
 					</td>
@@ -444,9 +443,9 @@
 					</tr>																			
 					<tr>	
 					 <xsl:choose>
-					         <xsl:when test="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oScholarshipDetails/ScholarshipDetails !=''" >
+					         <xsl:when test="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oScholarshipOrganizationDetails/ScholarshipOrganizationDetails !=''" >
 					           	<tr>
-								<xsl:for-each select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oScholarshipDetails/ScholarshipDetails">
+								<xsl:for-each select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oScholarshipOrganizationDetails/ScholarshipOrganizationDetails">
 								<tr>
 									<td class="organization organizationData" >
 										<xsl:value-of select="m_strOrganizationName" />

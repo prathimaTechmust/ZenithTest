@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+     <title>
+      Student Reports Information
+     </title>
+ </head>
+ <body>
+ 
+ <iframe id="my_iframe" style="display:none;"></iframe>
+
+
+ 	<form class ="zenith" id="studentReportsForm" style="width: 700px;">
+ 		<table class="zenith" summary="">
+ 			<tr>
+ 				<td class="formHeading" style="width: 500px;">
+ 					Student Reports Information
+ 				</td>
+ 			</tr>
+			<tr>
+			 <td class="zenith">
+ 					<fieldset>
+ 						<legend>
+ 							Reports Details
+ 						</legend>
+ 							<table cellspacing="10px" summary="">
+							   <tr>
+							     <td>AcademicYear</td>
+								 <td>Class/Course</td>
+								 <td>Institution Name</td>
+							   </tr>
+							   <tr>
+							    <td style="width:100px">
+                  					<select id="reportAcademicYear" class="zenith"></select>
+                 				</td>
+								<td style="width:120px">
+                 				 	<div id = "courseListInfo_input_name"></div>
+                 				</td>
+								<td>
+                 				 	<div id = "institutionNameInfo_input_name"></div>
+                 				 </td>
+							   </tr>
+							   <tr>
+							    <td>Gender</td>
+							    <td>Facilitator Name</td>
+								
+							   </tr>
+							   <tr>
+							    <td style="width:100px">
+                  					 <div id="studentReport_input_gender"></div>
+                 				 </td>
+							    <td style="width:140px">
+								<div id = "facilitatorListInfo_input_name"></div>
+								</td>
+							   </tr>
+							   <tr>
+							    <td>City</td>
+								<td> Religion</td>
+							   </tr>
+							   <tr>
+							    <td style="width:100px">
+	 							<div id = "cityListInfo_input_name"></div>
+	 							</td >
+	 							<td tyle="width:100px">
+	 							<div id="studentReport_input_religion"></div>
+	 							</td>								
+								
+								</tr>
+								<tr>								
+								 <td>Parent Occupation</td>
+								</tr>
+								<tr>
+								<td>
+                 				 	<div id = "parentOccupationInfo_input_name"></div>
+                 				 </td>
+								</tr>
+							</table>
+ 					</fieldset>
+ 				</td>
+			</tr>
+			<tr>
+ 				<td align="right" colspan="2">
+ 					<hr>
+ 					<button	id="reportsInfo_button_submit" type="button" class="zenith"	style="width: 140px;" onclick="studentReportsInfo_Download()">
+				  		Download Report
+					</button>
+					<button id="reportsInfo_button_cancel" type="button" class="zenith" style="width: 110px;" onclick="studentReportsInfo_cancel()">
+				  		Cancel
+					</button>
+ 				</td>
+ 			</tr> 		
+ 		</table>
+ 	</form> 
+ </body>
+</html>

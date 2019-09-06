@@ -1,11 +1,14 @@
 package com.techmust.utils;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,6 +25,7 @@ import com.amazonaws.services.s3.transfer.TransferManagerBuilder;
 import com.amazonaws.services.s3.transfer.Upload;
 import com.amazonaws.util.IOUtils;
 import com.techmust.config.AwsS3ConfigProperties;
+import com.techmust.constants.Constants;
 
 @Component
 public class AWSUtils 
@@ -171,5 +175,41 @@ public class AWSUtils
 		}
 	   return strUploadedFile;
 	}	
+	
+	public static String UploadExcelReport (String strFileName, File oFile) throws AmazonServiceException,AmazonClientException,IOException,InterruptedException
+	{
+		String strUploadFolder = "";
+		InputStream oInputStream = null;
+		if(oFile != null)
+			oInputStream = new FileInputStream(oFile);
+		try 
+		{
+			//Getting S3 Details
+			AmazonS3 oAmazonS3Client = AmazonS3ClientBuilder.standard().withRegion(m_oAwsS3ConfigProperties.getClientRegion()).build();
+			TransferManager oTransferManager = TransferManagerBuilder.standard().withS3Client(oAmazonS3Client).build();
+			//Calculate File Length
+			byte[] arrFileBytes = IOUtils.toByteArray(oInputStream);
+			ObjectMetadata oObjectMetadata = new ObjectMetadata();
+			oObjectMetadata.setContentLength(arrFileBytes.length);
+			ByteArrayInputStream oByteArrayInputStream = new ByteArrayInputStream(arrFileBytes);
+			
+			//Set S3Bucket Object Default
+			PutObjectRequest oPutObjectRequest = new PutObjectRequest(m_oAwsS3ConfigProperties.getBucketName(), strFileName, oByteArrayInputStream, oObjectMetadata);
+			oPutObjectRequest.setCannedAcl(CannedAccessControlList.PublicRead);
+			
+			//Upload file to S3
+			Upload oUpload = oTransferManager.upload(oPutObjectRequest);
+			System.out.println("Object Upload Started");
+			oUpload.waitForCompletion();
+			System.out.println("Object Uploaded Completed");
+			strUploadFolder = oAmazonS3Client.getUrl(m_oAwsS3ConfigProperties.getBucketName(), strFileName).toString();
+		}
+		catch (Exception oException)
+		{
+			oException.printStackTrace();
+		}
+		return strUploadFolder;
+		
+	}
 		
 }

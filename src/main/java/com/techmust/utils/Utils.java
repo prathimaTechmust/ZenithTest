@@ -146,11 +146,8 @@ public class Utils
 		ActivityLogDataProcessor oActivityLogDataProcessor = new ActivityLogDataProcessor ();
 		try
 		{
-			ServletRequestAttributes oServletRequestAttr = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-			HttpServletRequest oHttpServletRequest = oServletRequestAttr.getRequest();		
-			HttpSession oHttpSession = oHttpServletRequest.getSession();
-			String strLoginUser = (String) oHttpSession.getAttribute(Constants.LOGINUSERNAME);
-			oActivityLog.setM_strLoginUserName(strLoginUser);
+			String strLogedUser = getLoginUser();
+			oActivityLog.setM_strLoginUserName(strLogedUser);
 			oActivityLog.setM_strTaskPerformed(strFunctionName);
 			oActivityLog.setM_dDate(Calendar.getInstance().getTime());
 			String strXMLData = oGenericData.generateXML();
@@ -161,6 +158,23 @@ public class Utils
 		{
 			m_oLogger.error("createLog - oException : " + oException);
 		}		
+	}
+
+	public static String getLoginUser()
+	{
+		String strLoginUser = "";
+		try
+		{
+			ServletRequestAttributes oServletRequestAttr = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+			HttpServletRequest oHttpServletRequest = oServletRequestAttr.getRequest();		
+			HttpSession oHttpSession = oHttpServletRequest.getSession();
+			strLoginUser = (String) oHttpSession.getAttribute(Constants.LOGINUSERNAME);
+		} 
+		catch (Exception oException) 
+		{
+			m_oLogger.error("getLoginUser - oException"+oException);
+		}
+		return strLoginUser;
 	}
 
 }
