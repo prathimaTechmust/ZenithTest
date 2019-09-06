@@ -244,10 +244,10 @@ function getReportFormData ()
 function downloadReportResponse (oDownloadResponse)
 {
 	if(oDownloadResponse.m_bSuccess)
-	{
-		informUser("Reports Downloading","kSuccess");
+	{		
 		var strExcelURL = oDownloadResponse.m_strStudentDownloadReportURL;
 		document.getElementById('my_iframe').src = strExcelURL;
+		informUser("Reports Downloading","kSuccess");
 		HideDialog("dialog");
 	}		
 	else
