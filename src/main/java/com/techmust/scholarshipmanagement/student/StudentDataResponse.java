@@ -12,11 +12,13 @@ public class StudentDataResponse extends GenericResponse
 	public Object m_nRowCount;
 	public StudentDocuments m_oStudentDocuments;
 	public String m_strStudentXMLData;
+	public String m_strStudentDownloadReportURL;
     public StudentDataResponse ()
 	{
     	m_arrStudentInformationData = new ArrayList<StudentInformationData> ();
     	m_nRowCount = 0;
     	m_oStudentDocuments = new StudentDocuments();
     	m_strStudentXMLData = "";
+    	m_strStudentDownloadReportURL = "";
 	}
 }

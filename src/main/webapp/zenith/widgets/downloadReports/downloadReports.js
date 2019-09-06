@@ -64,22 +64,40 @@ function studentReportsInfo_cancel ()
 
 function populateStudentReligionDropDown ()
 {
-	var religionArray = new Array("Muslim","Non-Muslim","Memon");
-	var dropdown = document.getElementById("studentReport_input_religion");	
+	var religionArray = new Array({religionId:1,religionValue:"Muslim"},{religionId:2,religionValue:"Non-Muslim"},{religionId:3,religionValue:"Memon"});
+	/*var dropdown = document.getElementById("studentReport_input_religion");	
 	for (var i = 0; i < religionArray.length; ++i)
 	{	    
 	    dropdown[dropdown.length] = new Option(religionArray[i], religionArray[i]);
-	}
+	}*/
+	$("#studentReport_input_religion").jqxComboBox({   source:religionArray,
+													   displayMember:"religionValue",
+													   valueMember:"religionValue",
+													   autoComplete:true,
+													   searchMode :"startswithignorecase",
+													   placeHolder:"Select Religion",
+													   width :"200px",
+													   height:"25px",																				
+});
 }
 
 function populateStudentGenderDropdown ()
 {
-	var gender = new Array("Male","Female","Other");
-	var dropdown = document.getElementById("studentReport_input_gender");
+	var genderArray = new Array({genderId:1,genderValue:"Male"},{genderId:2,genderValue:"Female"},{genderId:3,genderValue:"Other"});
+	/*var dropdown = document.getElementById("studentReport_input_gender");
 	for(var i = 0; i < gender.length; ++i)
 	{
 		 dropdown[dropdown.length] = new Option(gender[i], gender[i]);
-    }
+    }*/
+	$("#studentReport_input_gender").jqxComboBox({  source:genderArray,
+												   displayMember:"genderValue",
+												   valueMember:"genderValue",
+												   autoComplete:true,
+												   searchMode :"startswithignorecase",
+												   placeHolder:"Select Gender",
+												   width :"200px",
+												   height:"25px",																				
+	  });
 }
 
 function populateCourseNameDropDown ()
@@ -226,9 +244,16 @@ function getReportFormData ()
 function downloadReportResponse (oDownloadResponse)
 {
 	if(oDownloadResponse.m_bSuccess)
-		informUser("Reports Download Successfuly",kSuccess);
+	{
+		informUser("Reports Downloading","kSuccess");
+		var strExcelURL = oDownloadResponse.m_strStudentDownloadReportURL;
+		document.getElementById('my_iframe').src = strExcelURL;
+		HideDialog("dialog");
+	}		
 	else
-		informUser("Reports Download Failed",kError);
+	{
+		informUser("Reports Download Failed","kError");
+	}
 	
 }
 

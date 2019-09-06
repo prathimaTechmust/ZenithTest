@@ -1,26 +1,34 @@
 package com.techmust.utils;
 
+import java.io.File;
 import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.techmust.constants.Constants;
 
 public class Reports
 {
 	public static final Logger m_logger = Logger.getLogger(Reports.class);
 	
 	
-	public static XSSFWorkbook createWorkBook (Map<Integer, Object[]> excelData)
+	public static String createWorkBook (Map<Integer, Object[]> excelData)
 	{
 		m_logger.info("createWorkBook");
+		String strDownloadPath="";
 		XSSFWorkbook oXssfWorkbook = new XSSFWorkbook();
 		XSSFSheet oXssfSheet = oXssfWorkbook.createSheet("StudentInformation Data");
 		try
@@ -41,20 +49,37 @@ public class Reports
 						oCell.setCellValue((Integer)oObject);
 					else
 						oCell.setCellValue((Long)oObject);
-				}
-				
-			}			
-			FileOutputStream oCreateExcelFile = new FileOutputStream("C:/Program Files/Apache Software Foundation/Tomcat 9.0/webapps/logs/report.xlsx");
-			oXssfWorkbook.write(oCreateExcelFile);
-			oCreateExcelFile.close();			
+				}				
+			}
+			strDownloadPath = downloadStudentReports(oXssfWorkbook);						
 		}
 		catch (Exception oException)
 		{
 			m_logger.error("createWorkBook - oException"+oException);
 		}
-		return oXssfWorkbook;	
+		return strDownloadPath;	
 	}	
-	
+
+	@SuppressWarnings("unused")
+	private static String downloadStudentReports(XSSFWorkbook oXssfWorkbook)
+	{
+		String strDownloadPath="";
+		try 
+		{	String strExcelTempPath = System.getProperty("java.io.tmpdir")+"/"+Constants.REPORTFILENAME+".xlsx";
+			FileOutputStream oCreateExcelFile = new FileOutputStream(strExcelTempPath);
+			oXssfWorkbook.write(oCreateExcelFile);			
+			oCreateExcelFile.close();
+			File oFile = new File(strExcelTempPath);
+			String strS3ReportsFolderPath = Constants.STUDENTREPORTSFOLDER+Constants.REPORTFILENAME+".xlsx";
+			strDownloadPath = AWSUtils.UploadExcelReport(strS3ReportsFolderPath,oFile);
+		}
+		catch (Exception oException)
+		{
+			m_logger.error("downloadStudentReports - oException"+oException);
+		}	
+		return strDownloadPath;
+	}
+
 	@SuppressWarnings({ "rawtypes", "unchecked"})
 	public static Object[] getColumnHeader ()
 	{

@@ -62,7 +62,7 @@ public class StudentScholarshipAccount extends MasterData
 	@Column(name = "chequestatus")
 	private String m_strChequeStatus;
 	
-	@Column(name = "")
+	@Column(name = "chequevalid")
 	private boolean m_bChequeValid;
 	
 	@Column(name="ChequePrepredBy")

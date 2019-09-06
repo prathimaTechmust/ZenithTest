@@ -7,6 +7,10 @@
      </title>
  </head>
  <body>
+ 
+ <iframe id="my_iframe" style="display:none;"></iframe>
+
+
  	<form class ="zenith" id="studentReportsForm" style="width: 700px;">
  		<table class="zenith" summary="">
  			<tr>
@@ -39,35 +43,37 @@
 							   </tr>
 							   <tr>
 							    <td>Gender</td>
-								<td>Parent Occupation</td> 
+							    <td>Facilitator Name</td>
+								
 							   </tr>
 							   <tr>
 							    <td style="width:100px">
-                  					 <select id="studentReport_input_gender" class="zenith"></select>
+                  					 <div id="studentReport_input_gender"></div>
                  				 </td>
-							    <td>
-                 				 	<div id = "parentOccupationInfo_input_name"></div>
-                 				 </td>
+							    <td style="width:140px">
+								<div id = "facilitatorListInfo_input_name"></div>
+								</td>
 							   </tr>
 							   <tr>
 							    <td>City</td>
-								<td>Facilitator Name</td> 
+								<td> Religion</td>
 							   </tr>
 							   <tr>
 							    <td style="width:100px">
 	 							<div id = "cityListInfo_input_name"></div>
 	 							</td >
-								<td style="width:140px">
-								<div id = "facilitatorListInfo_input_name"></div>
-								</td>
+	 							<td tyle="width:100px">
+	 							<div id="studentReport_input_religion"></div>
+	 							</td>								
+								
+								</tr>
+								<tr>								
+								 <td>Parent Occupation</td>
 								</tr>
 								<tr>
-								<td> Religion</td>
-								</tr>
-								<tr>
-								<td tyle="width:100px">
-	 							<select id="studentReport_input_religion" class="zenith"> </select>
-	 							</td>
+								<td>
+                 				 	<div id = "parentOccupationInfo_input_name"></div>
+                 				 </td>
 								</tr>
 							</table>
  					</fieldset>

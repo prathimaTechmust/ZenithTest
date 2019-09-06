@@ -48,5 +48,7 @@ public class Constants
 	public static final String NUMBERPREFIX = "+91";
 	public static final String LOGINUSERNAME = "login_username";
 	public static final String CHEQUESTATUS = "Active";
+	public static final String REPORTFILENAME = "StudentReports";
+	public static final String STUDENTREPORTSFOLDER = "reports/";
 	
 }

@@ -7,17 +7,11 @@ import java.util.Map;
 import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Fetch;
 import javax.persistence.criteria.Join;
-import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import javax.persistence.criteria.Subquery;
-import javax.persistence.metamodel.SingularAttribute;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,7 +27,6 @@ import com.techmust.generic.util.HibernateUtil;
 import com.techmust.helper.ZenithHelper;
 import com.techmust.scholarshipmanagement.academicdetails.AcademicDetails;
 import com.techmust.scholarshipmanagement.academicdetails.AcademicDetailsProcessor;
-import com.techmust.scholarshipmanagement.academicyear.AcademicYear;
 import com.techmust.scholarshipmanagement.scholarshipdetails.zenithscholarshipstatus.ZenithScholarshipDetails;
 import com.techmust.scholarshipmanagement.sholarshipaccounts.StudentScholarshipAccount;
 import com.techmust.scholarshipmanagement.studentdocuments.StudentDocuments;
@@ -516,7 +509,7 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		}
 		return oStudentDataResponse;		
 	}
-	
+	// Populate DropDown values in Reports Form
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/getStudentCityNames",method = RequestMethod.POST,headers = {"Content-type=application/json"})
 	@ResponseBody
@@ -568,13 +561,87 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		return oDataResponse;
 		
 	}	
-
-	@SuppressWarnings({ "rawtypes", "unused", "unchecked" })
-	public static void studentExcelData (ArrayList<StudentInformationData> arrStudentInformationData)
+	
+	//Download Reports Based on Particular Parameters	
+	@RequestMapping(value = "/downloadStudentReports",method = RequestMethod.POST,headers = {"Content-type=application/json"})
+	@ResponseBody
+	public GenericResponse downloadReports (@RequestBody StudentInformationData oInformationData)
 	{
-		
+		m_oLogger.info("downloadReports");
+		StudentDataResponse oDataResponse = new StudentDataResponse();
 		try
 		{
+			ArrayList<StudentInformationData> StudentReportList = getDownloadReportData(oInformationData);
+			String strReportURL = studentExcelData(StudentReportList);
+			if(strReportURL != "")
+			{
+				oDataResponse.m_strStudentDownloadReportURL = strReportURL;			
+				oDataResponse.m_bSuccess = true;
+			}
+		}
+		catch (Exception oException)
+		{
+			m_oLogger.error("downloadReports - oException"+oException);
+		}
+		return oDataResponse;		
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static ArrayList<StudentInformationData> getDownloadReportData (StudentInformationData oStudentData)
+	{
+		EntityManager oEntityManager = oStudentData._getEntityManager();
+		ArrayList<StudentInformationData> m_arrStudentList = null;
+		try
+		{
+			//CriteriaBuilder,CriteriaQuery and Root Object
+			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
+			CriteriaQuery<StudentInformationData> oCriteriaQuery = oCriteriaBuilder.createQuery(StudentInformationData.class);
+			Root<StudentInformationData> oStudentRoot = oCriteriaQuery.from(StudentInformationData.class);
+			//Predicate List
+			List<Predicate> m_PredicateList = new ArrayList<Predicate>();
+			//Join Objects
+			Join<Object, Object> oJoinStudentAcademicRoot = (Join<Object, Object>) oStudentRoot.fetch("m_oAcademicDetails");
+			Join<Object, Object> oZenithStudentRoot = (Join<Object, Object>) oStudentRoot.fetch("m_oZenithScholarshipDetails");
+			m_PredicateList.add(oCriteriaBuilder.equal(oJoinStudentAcademicRoot.get("m_oAcademicYear"),oStudentData.getM_nAcademicYearId()));
+			m_PredicateList.add(oCriteriaBuilder.equal(oZenithStudentRoot.get("m_oAcademicYear"),oStudentData.getM_nAcademicYearId()));
+			//Checking Input Request
+			if(oStudentData.getM_nCourseId() > 0)
+				m_PredicateList.add(oCriteriaBuilder.equal(oJoinStudentAcademicRoot.get("m_oCourseInformationData"),oStudentData.getM_nCourseId()));
+			if(oStudentData.getM_nInstitutionId() > 0)
+				m_PredicateList.add(oCriteriaBuilder.equal(oJoinStudentAcademicRoot.get("m_oInstitutionInformationData"), oStudentData.getM_nInstitutionId()));
+			if(oStudentData.getM_strGender() != "")
+				m_PredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_strGender"), oStudentData.getM_strGender()));
+			if(oStudentData.getM_nFacilitatorId() > 0)
+				m_PredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_oFacilitatorInformationData"), oStudentData.getM_nFacilitatorId()));
+			if(oStudentData.getM_strCity() != "")
+				m_PredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_strCity"), oStudentData.getM_strCity()));
+			if(oStudentData.getM_strReligion() != "")
+				m_PredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_strReligion"), oStudentData.getM_strReligion()));
+			oCriteriaQuery.select(oStudentRoot);
+			oCriteriaQuery.orderBy(oCriteriaBuilder.asc(oStudentRoot.get("m_nApplicationPriority")));
+			oCriteriaQuery.where(m_PredicateList.toArray(new Predicate[] {}));
+			List<StudentInformationData> studentList = oEntityManager.createQuery(oCriteriaQuery).getResultList();
+			m_arrStudentList = new ArrayList<>(studentList);			
+		} 
+		catch (Exception oException)
+		{
+			m_oLogger.error("getDownloadReportData - oException"+oException);
+		}
+		finally
+		{
+			oEntityManager.close();
+			HibernateUtil.removeConnection();
+		}
+		return m_arrStudentList;		
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unused", "unchecked" })
+	public static String studentExcelData (ArrayList<StudentInformationData> arrStudentInformationData)
+	{		
+		boolean isExcelDownloaded = true;
+		String strDownloadPath = "";
+		try
+		{			
 			Map<Integer,Object[]> oMapData = new HashMap<Integer,Object[]> ();
 			oMapData.put(0, Reports.getColumnHeader());						
 			for(int nIndex = 0; nIndex < arrStudentInformationData.size(); nIndex++)
@@ -606,95 +673,49 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 				listArray.add(oAccount.getM_nChequeNumber());
 				listArray.add(oZenith.getM_strStudentRemarks());
 				oObject = listArray.toArray();
-				oMapData = addObject(oMapData,nIndex, oObject);
-								
+				oMapData = addObject(oMapData,nIndex, oObject);							
 			}
-			Reports.createWorkBook(oMapData);
+			strDownloadPath = Reports.createWorkBook(oMapData);
 		}
 		catch (Exception oException)
 		{
 			m_oLogger.error("studentExcelData - oException"+oException);
+			isExcelDownloaded = false;
 		}
+		return strDownloadPath;
 	}
-
-	private static ZenithScholarshipDetails getZenithScholarshipData(Set<ZenithScholarshipDetails> oZenithScholarshipDetails) 
-	{
-		List<ZenithScholarshipDetails> listZenith = new ArrayList<ZenithScholarshipDetails>(oZenithScholarshipDetails);
-		return listZenith.get(0);
-	}
-
+	
 	private static Map<Integer, Object[]> addObject(Map<Integer, Object[]> oMapObjectData, int keyCount, Object[] oObject)
 	{		
 		oMapObjectData.put(++keyCount, oObject);		
 		return oMapObjectData;		
 	}
-
+	
+	private static ZenithScholarshipDetails getZenithScholarshipData(Set<ZenithScholarshipDetails> oZenithScholarshipDetails) 
+	{
+		List<ZenithScholarshipDetails> listZenith = new ArrayList<ZenithScholarshipDetails>(oZenithScholarshipDetails);
+		ZenithScholarshipDetails oScholarshipDetails = new ZenithScholarshipDetails();
+		if(listZenith.size() > 0)
+			oScholarshipDetails = listZenith.get(0);
+		return oScholarshipDetails;
+	}
+	
 	private static StudentScholarshipAccount getScholarshipAccount(Set<StudentScholarshipAccount> set)
 	{
-		List<StudentScholarshipAccount> liStudentScholarshipAccounts = new ArrayList<StudentScholarshipAccount>(set);		
-		return liStudentScholarshipAccounts.get(0);
+		List<StudentScholarshipAccount> liStudentScholarshipAccounts = new ArrayList<StudentScholarshipAccount>(set);
+		StudentScholarshipAccount oScholarshipAccount = new StudentScholarshipAccount();
+		if(liStudentScholarshipAccounts.size() > 0)
+			oScholarshipAccount = liStudentScholarshipAccounts.get(0);
+		return oScholarshipAccount;
 	}
 	
 	private static AcademicDetails getAcademicDetails(Set<AcademicDetails> set)
 	{
 		List<AcademicDetails> listAcademic = new ArrayList<AcademicDetails>(set);
-		AcademicDetails AcademicDetails = listAcademic.get(0);
-		return AcademicDetails;		
-	}
-	
-	//Download Reports Based on Particular Parameters
-	
-	@RequestMapping(value = "/downloadStudentReports",method = RequestMethod.POST,headers = {"Content-type=application/json"})
-	@ResponseBody
-	public GenericResponse downloadReports (@RequestBody StudentInformationData oInformationData)
-	{
-		m_oLogger.info("downloadReports");
-		StudentDataResponse oDataResponse = new StudentDataResponse();
-		try
-		{
-			getDownloadReportData(oInformationData);
-		}
-		catch (Exception oException)
-		{
-			m_oLogger.error("downloadReports - oException"+oException);
-		}
-		return oDataResponse;		
-	}
-	
-	public static ArrayList<StudentInformationData> getDownloadReportData (StudentInformationData oStudentData)
-	{
-		EntityManager oEntityManager = oStudentData._getEntityManager();
-		try
-		{
-			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
-			CriteriaQuery<StudentInformationData> oCriteriaQuery = oCriteriaBuilder.createQuery(StudentInformationData.class);
-			Root<StudentInformationData> oStudentRoot = oCriteriaQuery.from(StudentInformationData.class);
-			Root<AcademicDetails> oAcademicRoot = oCriteriaQuery.from(AcademicDetails.class);
-			Join<StudentInformationData, AcademicDetails> oJoinStudentAcademicRoot = oStudentRoot.join("m_oAcademicDetails",JoinType.INNER);
-			Join<AcademicDetails,StudentInformationData> oJoinAcademicStudentRoot = oAcademicRoot.join("m_oStudentInformationData",JoinType.INNER);
-			List<Predicate> m_PredicateList = new ArrayList<Predicate>();
-			m_PredicateList.add(oCriteriaBuilder.equal(oJoinStudentAcademicRoot.get("m_oAcademicYear").get("m_nAcademicYearId"),oStudentData.getM_nAcademicYearId()));
-			//getData from Student Entity
-			if(oStudentData.getM_strGender() != "")
-				m_PredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_strGender"),oStudentData.getM_strGender()));
-			if(oStudentData.getM_strReligion() != "")
-				m_PredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_strReligion"),oStudentData.getM_strReligion()));
-			if(oStudentData.getM_nFacilitatorId() > 0)
-				m_PredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_oFacilitatorInformationData"),oStudentData.getM_nFacilitatorId()));
-			//getData from Academic Entity
-			if(oStudentData.getM_nCourseId() > 0)
-				m_PredicateList.add(oCriteriaBuilder.equal(oAcademicRoot.get("m_oCourseInformationData"),oStudentData.getM_nCourseId()));			
-		} 
-		catch (Exception oException)
-		{
-			m_oLogger.error("getDownloadReportData - oException"+oException);
-		}
-		finally
-		{
-			oEntityManager.close();
-			HibernateUtil.removeConnection();
-		}
-		return null;		
+		AcademicDetails oAcademicDetails = new AcademicDetails();
+		if(listAcademic.size() > 0)
+			 oAcademicDetails = listAcademic.get(0);
+		return oAcademicDetails;		
 	}
 	
 	@Override	
