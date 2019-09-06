@@ -47,6 +47,7 @@ import com.techmust.scholarshipmanagement.sholarshipaccounts.StudentScholarshipA
 import com.techmust.scholarshipmanagement.student.StudentInformationData;
 import com.techmust.scholarshipmanagement.studentdocuments.StudentDocuments;
 import com.techmust.usermanagement.userinfo.UserInformationData;
+import com.techmust.utils.Utils;
 
 public abstract class GenericData implements IGenericData, Serializable
 {
@@ -747,6 +748,8 @@ public abstract class GenericData implements IGenericData, Serializable
 			{
 				ZenithScholarshipDetails oZenith = arrZenithScholarshipDetails.get(0);
 				oZenith.setM_strStatus(Constants.STUDENTAPPROVED);
+				String strLogedUser = Utils.getLoginUser();
+				oZenith.setM_strApprovedBy(strLogedUser);
 				oZenith.setM_fApprovedAmount(oZenithScholarshipDetails.getM_fApprovedAmount());
 				oZenith.setM_dApprovedDate(Calendar.getInstance().getTime());
 				IsUpdate = oZenith.updateObject();
@@ -868,6 +871,8 @@ public abstract class GenericData implements IGenericData, Serializable
 			if(list.size() > 0)
 			{
 				ZenithScholarshipDetails oDetails = list.get(0);
+				String strLogedUser = Utils.getLoginUser();
+				oDetails.setM_strChequeDisburseBy(strLogedUser);
 				oDetails.setM_strReceiverName(oZenithScholarshipDetails.getM_strReceiverName());
 				oDetails.setM_strReceiverContactNumber(oZenithScholarshipDetails.getM_strReceiverContactNumber());				
 				oDetails.setM_dChequeIssueDate(oZenithScholarshipDetails.getM_dChequeIssueDate());
@@ -903,7 +908,7 @@ public abstract class GenericData implements IGenericData, Serializable
 			if(list.size() > 0)
 			{
 				ZenithScholarshipDetails oDetails = list.get(0);
-				oDetails.setM_strStatus(Constants.CHEQUEPREPARED);				
+				oDetails.setM_strStatus(Constants.CHEQUEPREPARED);
 				bIsStatusUpdate = oDetails.updateObject();				
 			}
 		}

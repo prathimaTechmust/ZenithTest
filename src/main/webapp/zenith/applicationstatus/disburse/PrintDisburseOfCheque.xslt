@@ -459,7 +459,7 @@
 																		</td>
 																		<td>:</td>
 																		<td class="dataValue">
-																			<xsl:value-of select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oInstitutionInformationData/InstitutionInformationData/m_strInstitutionName">
+																			<xsl:value-of select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oStudentScholarshipAccount/StudentScholarshipAccount/m_strPayeeName">
 													                  </xsl:value-of>	
 																		
 																		</td>									

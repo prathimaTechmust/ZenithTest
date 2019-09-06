@@ -10,5 +10,7 @@ function ZenithScholarshipDetails ()
 	this.m_strImage = "";	
 	this.m_dClaimedDate = "";
 	this.m_strChequeRemark = "";
+	this.m_strApprovedBy = " ";
+	this.m_strChequeDisburseBy = " ";
 }
 dataObjectLoaded();
