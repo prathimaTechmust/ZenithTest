@@ -540,19 +540,11 @@ function studentInfo_updated (oStudentInfoResponse)
 
 function student_image_created ()
 {
-//	HideDialog ("Processloader");
-//	document.getElementById("Processloader").style.position = "none";
-//	document.getElementById("Processloader").style.display = "none";
-//	alert("stop");
 	HideDialog ("secondDialog");
 }
 
 function student_details_updated ()
 {
-//	HideDialog ("Processloader");
-//	document.getElementById("Processloader").style.position = "none";
-//	document.getElementById("Processloader").style.display = "none";
-//	alert("stop");
 	HideDialog ("secondDialog");
 }
 
@@ -927,8 +919,6 @@ function showPDFUploadButton( divId)
 	 studentInfo_input_document.src= "images/default_pdf_image.jpg";
 }
 
-
-
 function studentupload_documentPreview (studentInfo_input_previewimageId)
 {
     
@@ -945,7 +935,6 @@ function showDocumentPreview ()
     document.getElementById('secondDialog').style.position = "fixed";
     $(".imagePreview").attr('src', m_oStudentInfoMemberData.m_strDocUploadURL);    
 }
-
 
 function studentDocument_cancelImagePreview ()
 {    

@@ -77,6 +77,12 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 	@Column(name="paymentType")
 	private String m_strPaymentType;
 	
+	@Column(name="approvedBy")
+	private String m_strApprovedBy;
+	
+	@Column(name = "chequeDisburseBy")
+	private String m_strChequeDisburseBy;
+	
 	@Transient
 	private int m_nStudentId;
 	
@@ -108,12 +114,34 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 		m_strImage = null;
 		m_strChequeRemark= "";
 		m_dApprovedDate = null;
+		m_strApprovedBy = " ";
 		m_dClaimedDate = null;	
 		m_strPaymentType = null;
+		m_strChequeDisburseBy = "";
 		m_dApplicationSubmitDate = Calendar.getInstance().getTime();
 		m_oAcademicYear = new AcademicYear();
 	}	
 	
+	public String getM_strChequeDisburseBy() 
+	{
+		return m_strChequeDisburseBy;
+	}
+
+	public void setM_strChequeDisburseBy(String m_strChequeDisburseBy) 
+	{
+		this.m_strChequeDisburseBy = m_strChequeDisburseBy;
+	}
+
+	public String getM_strApprovedBy() 
+	{
+		return m_strApprovedBy;
+	}
+
+	public void setM_strApprovedBy(String m_strApprovedBy) 
+	{
+		this.m_strApprovedBy = m_strApprovedBy;
+	}
+
 	public String getM_strPaymentType() 
 	{
 		return m_strPaymentType;
@@ -318,6 +346,8 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 			addChild (oXmlDocument, oRootElement, "m_strScanCopyImageURL",getScanCopyImageURL(m_strImage));	
 			addChild(oXmlDocument, oRootElement, "m_strChequeRemark", m_strChequeRemark);
 			addChild(oXmlDocument, oRootElement, "m_strPaymentType", m_strPaymentType);
+			addChild(oXmlDocument, oRootElement, "m_strApprovedBy", m_strApprovedBy);
+			addChild(oXmlDocument, oRootElement, "m_strChequeDisburseBy", m_strChequeDisburseBy);
 			addChild (oXmlDocument, oRootElement, "m_dClaimedDate",m_dClaimedDate != null ? getDate(m_dClaimedDate.toString()) :"");
 			addChild (oXmlDocument, oRootElement, "m_dApplicationSubmitDate",m_dApplicationSubmitDate != null ? getDate(m_dApplicationSubmitDate.toString()) :"");
 			
