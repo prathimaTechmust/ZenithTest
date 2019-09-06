@@ -450,7 +450,18 @@
 							<td class="xslt_fieldData">
 								<xsl:value-of select="format-number(StudentInformationData/m_oZenithScholarshipDetails/ZenithScholarshipDetails/m_fApprovedAmount, '##,##,##0')" ></xsl:value-of>
 							</td>									
-						</tr>							
+						</tr>
+									<tr>
+					<td class="xslt_fieldHeading">
+					      Amount Approved By
+					</td>
+					<td>:</td>
+					<td class="xslt_fieldData">
+						<xsl:value-of select="StudentInformationData/m_oZenithScholarshipDetails/ZenithScholarshipDetails/m_strApprovedBy">
+						</xsl:value-of>
+					
+					</td>									
+				</tr>								
 					</table>
 					<table border="1" cellSpacing="5px" class="organization" >	
 						<tr>
@@ -498,13 +509,24 @@
 				<tr>
 					<td class = "xslt_zenithFieldHeader">Cheque Details</td>	
 				</tr>
+					<tr>
+					<td class="xslt_fieldHeading">
+						Cheque / DD Number 
+					</td>
+					<td>:</td>
+					<td class="xslt_fieldData">
+						<xsl:value-of select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oStudentScholarshipAccount/StudentScholarshipAccount/m_nChequeNumber">
+						</xsl:value-of>
+					
+					</td>									
+				</tr>
 				<tr>
 					<td class="xslt_fieldHeading">
 						In favour of 
 					</td>
 					<td>:</td>
 					<td class="xslt_fieldData">
-						<xsl:value-of select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oInstitutionInformationData/InstitutionInformationData/m_strInstitutionName">
+						<xsl:value-of select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oStudentScholarshipAccount/StudentScholarshipAccount/m_strPayeeName">
 	                      </xsl:value-of>
 					</td>									
 				</tr>		
@@ -527,26 +549,26 @@
 						<xsl:value-of select="StudentInformationData/m_oZenithScholarshipDetails/ZenithScholarshipDetails/m_dClaimedDate" >
 						</xsl:value-of>				
 					</td>									
-				</tr>				
+				</tr>
+				<tr>
+					<td class="xslt_fieldHeading">
+						Cheque Prepared By 
+					</td>
+					<td>:</td>
+					<td class="xslt_fieldData">
+						<xsl:value-of select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oStudentScholarshipAccount/StudentScholarshipAccount/m_strChequePreparedBy">
+						</xsl:value-of>
+					
+					</td>									
+				</tr>					
 			</table>		
 		</td>
 		<!--Collected By -->
-		<td  class="topAlign">
+				<td  class="topAlign">
 			<table class="xslt_trademust" cellSpacing="5px">
 				<tr>
 					<td class = "xslt_zenithFieldHeader">Collected By</td>	
 				</tr>
-				<tr>
-					<td class="xslt_fieldHeading">
-						Cheque / DD Number 
-					</td>
-					<td>:</td>
-					<td class="xslt_fieldData">
-						<xsl:value-of select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oStudentScholarshipAccount/StudentScholarshipAccount/m_nChequeNumber">
-						</xsl:value-of>
-					
-					</td>									
-				</tr>	
 				<tr>
 					<td class="xslt_fieldHeading">
 						Receiver name 
@@ -576,6 +598,17 @@
 					<td class="xslt_fieldData">
 						<xsl:value-of select="StudentInformationData/m_oZenithScholarshipDetails/ZenithScholarshipDetails/m_dChequeIssueDate" >
 						</xsl:value-of>					
+					</td>									
+				</tr>
+					<tr>
+					<td class="xslt_fieldHeading">
+						Cheque Disburse By
+					</td>
+					<td>:</td>
+					<td class="xslt_fieldData">
+						<xsl:value-of select="StudentInformationData/m_oZenithScholarshipDetails/ZenithScholarshipDetails/m_strChequeDisburseBy">
+						</xsl:value-of>
+					
 					</td>									
 				</tr>				
 			</table>			
