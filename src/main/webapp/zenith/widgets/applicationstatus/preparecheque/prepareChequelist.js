@@ -96,6 +96,7 @@ function listPrepareChequeInfo_initDGPagination ()
 				m_oPrepareChequeListMemberData.m_nPageNumber = nPageNumber;
 				listPrepareChequeInfo_list (m_oPrepareChequeListMemberData.m_strSortColumn, m_oPrepareChequeListMemberData.m_strSortOrder, nPageNumber, nPageSize);
 				document.getElementById("listPrepareCheque_div_listDetail").innerHTML = "";
+				clearFilterBoxes ();
 			},
 			onSelectPage:function (nPageNumber, nPageSize)
 			{

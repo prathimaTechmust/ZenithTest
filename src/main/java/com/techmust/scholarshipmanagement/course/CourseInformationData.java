@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -91,11 +92,19 @@ public class CourseInformationData extends MasterData
 	{
 		Predicate oConjunct = oCriteriaBuilder.conjunction();
 		if (getM_nCourseId() > 0)
+		{
 			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_nCourseId"), m_nCourseId));
+		}
 		if (!m_strShortCourseName.isEmpty())
-			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_strShortCourseName"), m_strShortCourseName));
+		{
+			Expression<String> oExpression = oRootObject.get("m_strShortCourseName"); 
+			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.like(oExpression,"%"+m_strShortCourseName+"%"));
+		}
 		if (!m_strLongCourseName.isEmpty())
-			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_strLongCourseName"), m_strLongCourseName));
+		{
+			Expression<String> oExpression = oRootObject.get("m_strLongCourseName"); 
+			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.like(oExpression,"%"+m_strLongCourseName+"%"));
+		}
 		return oConjunct;
 	}
 	

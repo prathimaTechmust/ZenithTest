@@ -96,6 +96,7 @@ function rejectedStudentList_initDGPagination ()
 				m_oRejectedStudentList_Info_MemberData.m_nPageNumber = nPageNumber;
 				rejectedStudentListInfo_list (m_oRejectedStudentList_Info_MemberData.m_strSortColumn, m_oRejectedStudentList_Info_MemberData.m_strSortOrder, nPageNumber, nPageSize);
 				document.getElementById("rejectedStudentsList_div_listDetail").innerHTML = "";
+				clearFilterBoxes ();
 			},
 			onSelectPage:function (nPageNumber, nPageSize)
 			{

@@ -207,7 +207,7 @@ public abstract class GenericIDataProcessor<T extends IGenericData>
 			}
 			else
 			{
-				m_arrStudentDataList = (ArrayList<StudentInformationData>) populateFilterObjectData(oStudentData);					
+				m_arrStudentDataList = getStudentListFilterObjectData(oStudentData);					
 			}
 		}
 		catch (Exception oException)
@@ -257,7 +257,47 @@ public abstract class GenericIDataProcessor<T extends IGenericData>
 		}
 		return m_arrFilterStudentList;
 	}
-
+	
+	@SuppressWarnings("unchecked")
+	private static ArrayList<StudentInformationData> getStudentListFilterObjectData(StudentInformationData oStudentInformationData)
+	{
+		m_oLogger.info("populateFilterObjectData");
+		m_oLogger.debug("populateFilterObjectData - StudentInformationData" + oStudentInformationData);
+		EntityManager oEntityManager = oStudentInformationData._getEntityManager();
+		ArrayList<StudentInformationData> m_arrGenericDataList = new ArrayList<StudentInformationData>();
+		try
+		{
+			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
+			CriteriaQuery<StudentInformationData> oCriteriaQuery = oCriteriaBuilder.createQuery(StudentInformationData.class);
+			Root<StudentInformationData> oRootObject = oCriteriaQuery.from(StudentInformationData.class);
+			Join<Object, Object> oJoin = (Join<Object, Object>) oRootObject.fetch("m_oAcademicDetails");
+			oCriteriaQuery.select(oRootObject);
+			List<Predicate>m_arrPredicateList = new ArrayList<Predicate>();
+			m_arrPredicateList.add(oCriteriaBuilder.equal(oJoin.get("m_oAcademicYear"), oStudentInformationData.getM_nAcademicYearId()));
+			if(oStudentInformationData.getM_strStudentName() != "")
+			{
+				Expression<String> oExpression = oRootObject.get("m_strStudentName");
+				m_arrPredicateList.add( oCriteriaBuilder.like(oExpression,"%"+oStudentInformationData.getM_strStudentName()+"%"));
+			}				
+			if(oStudentInformationData.getM_strPhoneNumber() != "")
+				m_arrPredicateList.add(oCriteriaBuilder.equal(oRootObject.get("m_strPhoneNumber"),oStudentInformationData.getM_strPhoneNumber()));
+			if(oStudentInformationData.getM_nStudentAadharNumber() > 0)
+				m_arrPredicateList.add(oCriteriaBuilder.equal(oRootObject.get("m_nStudentAadharNumber"),oStudentInformationData.getM_nStudentAadharNumber()));
+			oCriteriaQuery.where(m_arrPredicateList.toArray(new Predicate[] {}));
+			m_arrGenericDataList = (ArrayList<StudentInformationData>) oEntityManager.createQuery(oCriteriaQuery).getResultList();			
+		}
+		catch (Exception oException)
+		{
+			m_oLogger.error("populateFilterObjectData - oException"+ oException);
+		}
+		finally
+		{
+			oEntityManager.close();
+			HibernateUtil.removeConnection();
+		}
+		return m_arrGenericDataList;
+	}
+	
 	public static long getRowCount (GenericData  oGenericData)
 	{
 		return oGenericData.getRowCount(oGenericData);

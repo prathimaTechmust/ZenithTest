@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -130,11 +131,23 @@ public class FacilitatorInformationData extends MasterData
 	{
 		Predicate oConjunct = oCriteriaBuilder.conjunction();
 		if (getM_nFacilitatorId() > 0)
+		{
 			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_nFacilitatorId"), m_nFacilitatorId));
+		}
+		if(!m_strPhoneNumber.isEmpty())	
+		{
+			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_strPhoneNumber"), m_strPhoneNumber));
+		}
 		if (!m_strFacilitatorName.isEmpty())
 		{
-			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_strFacilitatorName"), m_strFacilitatorName));
+			Expression<String> oExpression = oRootObject.get("m_strFacilitatorName");
+			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.like(oExpression, "%"+m_strFacilitatorName+"%"));
 		}
+		if (!m_strCity.isEmpty())
+		{
+			Expression<String> oExpression = oRootObject.get("m_strCity");
+			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.like(oExpression, "%"+m_strCity+"%"));
+		}		
 		return oConjunct;
 	}
 	
