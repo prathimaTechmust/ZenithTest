@@ -86,6 +86,7 @@ function verifiedStudentList_initDGPagination ()
 				m_overifiedStudentList_Info_MemberData.m_nPageNumber = nPageNumber;
 				verifiedStudentListInfo_list (m_overifiedStudentList_Info_MemberData.m_strSortColumn, m_overifiedStudentList_Info_MemberData.m_strSortOrder, nPageNumber, nPageSize);
 				document.getElementById("listVerifiedStudents_div_listDetail").innerHTML = "";
+				clearFilterBoxes ();
 			},
 			onSelectPage:function (nPageNumber, nPageSize)
 			{

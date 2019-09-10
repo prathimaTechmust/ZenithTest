@@ -82,6 +82,7 @@ function listFacilitatorInfo_initDGPagination ()
 				m_oFacilitatorInfoListMemberData.m_nPageNumber = nPageNumber;
 				listFacililtatorInfo_list (m_oFacilitatorInfoListMemberData.m_strSortColumn, m_oFacilitatorInfoListMemberData.m_strSortOrder, nPageNumber, nPageSize);
 				document.getElementById("listFacilitatorInfo_div_listDetail").innerHTML = "";
+				clearFacilitatorFilterBoxes ();
 			},
 			onSelectPage:function (nPageNumber, nPageSize)
 			{
@@ -189,18 +190,27 @@ function listFacilitatorInfo_showAddPopup ()
 
 function listFacilitatorInfo_filter ()
 {
+	var bSuccess = false;
 	var oFacililtatorFilteredData = new FacilitatorInformationData ();
 	if($("#filterFacilitatorInfo_input_facilitatorName").val() != "")
 	{
 		oFacililtatorFilteredData.m_strFacilitatorName = $("#filterFacilitatorInfo_input_facilitatorName").val();
+		bSuccess = true;
 	}
 	else if($("#filterFacilitatorInfo_input_phoneNumber").val() != "")
 	{
 		oFacililtatorFilteredData.m_strPhoneNumber = $("#filterFacilitatorInfo_input_phoneNumber").val();
+		bSuccess = true;
 	}
-	else
+	else if($("#filterFacilitatorInfo_input_city").val() != "")
+	{
 		oFacililtatorFilteredData.m_strCity = $("#filterFacilitatorInfo_input_city").val();
-	FacilitatorInformationDataProcessor.filterFacilitatorData(oFacililtatorFilteredData,facililtatorFilteredDataResponse);
+		bSuccess = true;
+	}
+	if(bSuccess)
+		FacilitatorInformationDataProcessor.filterFacilitatorData(oFacililtatorFilteredData,facililtatorFilteredDataResponse);
+	else
+		alert("Please Enter any one of textbox to Filter");
 }
 
 
@@ -208,9 +218,7 @@ function facililtatorFilteredDataResponse(oFacilitatorResponse)
 {
 	if(oFacilitatorResponse.m_bSuccess)
 	{
-		document.getElementById("filterFacilitatorInfo_input_facilitatorName").value = "";
-		document.getElementById("filterFacilitatorInfo_input_phoneNumber").value = "";
-		document.getElementById("filterFacilitatorInfo_input_city").value = "";
+		
 		clearGridData ("#listFacilitatorInfo_table_facilitators");
 		for (var nIndex = 0; nIndex < oFacilitatorResponse.m_arrFacilitatorInformationData.length; nIndex++)
 			$('#listFacilitatorInfo_table_facilitators').datagrid('appendRow',oFacilitatorResponse.m_arrFacilitatorInformationData[nIndex]);
@@ -219,4 +227,11 @@ function facililtatorFilteredDataResponse(oFacilitatorResponse)
 	else
 		informUser("no search result found","kError");
 	
+}
+
+function clearFacilitatorFilterBoxes ()
+{
+	document.getElementById("filterFacilitatorInfo_input_facilitatorName").value = "";
+	document.getElementById("filterFacilitatorInfo_input_phoneNumber").value = "";
+	document.getElementById("filterFacilitatorInfo_input_city").value = "";
 }

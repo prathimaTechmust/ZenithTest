@@ -78,6 +78,7 @@ function listInstitutionsInfo_initDGPagination ()
 				m_oInstitutionsInfoListMemberData.m_nPageNumber = nPageNumber;
 				listInstitutionsInfo_list (m_oInstitutionsInfoListMemberData.m_strSortColumn, m_oInstitutionsInfoListMemberData.m_strSortOrder, nPageNumber, nPageSize);
 				document.getElementById("listInstitutionsInfo_div_listDetail").innerHTML = "";
+				clearInstitutionFilterBoxes ();
 			},
 			onSelectPage:function (nPageNumber, nPageSize)
 			{
@@ -187,23 +188,33 @@ function listInstitutionsInfo_showAddPopup ()
 
 function institutionsListInfo_filter ()
 {
+	var bSuccess = false;
 	var oInstitutionsInformationData = new InstitutionInformationData () ;
 	if($("#filterInstitutionsInfo_input_institutionName").val() != "")
+	{
 		oInstitutionsInformationData.m_strInstitutionName = $("#filterInstitutionsInfo_input_institutionName").val();
+		bSuccess = true;
+	}		
 	else if($("#filterInstitutionsInfo_input_phonenumber").val() != "")
+	{
 		oInstitutionsInformationData.m_strPhoneNumber = $("#filterInstitutionsInfo_input_phonenumber").val();
-	else
+		bSuccess = true;
+	}		
+	else if($("#filterInstitutionsInfo_input_city").val() != "")
+	{
 		oInstitutionsInformationData.m_strCity = $("#filterInstitutionsInfo_input_city").val();
-	InstitutionInformationDataProcessor.institutionFilterData(oInstitutionsInformationData, institutionFilteredResponse);	
+		bSuccess = true;
+	}
+	if(bSuccess)
+		InstitutionInformationDataProcessor.institutionFilterData(oInstitutionsInformationData, institutionFilteredResponse);
+	else
+		alert("Please Enter any one of textBox to Filter");
 }
 
 function institutionFilteredResponse(oResponse)
 {
 	if(oResponse.m_bSuccess)
-	{
-		document.getElementById("filterInstitutionsInfo_input_institutionName").value = "";
-		document.getElementById("filterInstitutionsInfo_input_phonenumber").value = "";
-		document.getElementById("filterInstitutionsInfo_input_city").value = "";
+	{		
 		clearGridData ("#listInstitutionsInfo_table_institutions");
 		for (var nIndex = 0; nIndex < oResponse.m_arrInstitutionInformationData.length; nIndex++)
 			$('#listInstitutionsInfo_table_institutions').datagrid('appendRow',oResponse.m_arrInstitutionInformationData[nIndex]);
@@ -212,4 +223,11 @@ function institutionFilteredResponse(oResponse)
 	else
 		informUser("no search result found","kError");
 	
+}
+
+function clearInstitutionFilterBoxes ()
+{
+	document.getElementById("filterInstitutionsInfo_input_institutionName").value = "";
+	document.getElementById("filterInstitutionsInfo_input_phonenumber").value = "";
+	document.getElementById("filterInstitutionsInfo_input_city").value = "";
 }

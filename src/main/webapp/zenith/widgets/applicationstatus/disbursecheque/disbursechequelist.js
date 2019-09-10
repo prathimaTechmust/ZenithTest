@@ -90,6 +90,7 @@ function disburseChequeListInfo_createDataGrid ()
 			}
 	)
 	applicationPriorityGridColor('disburseChequeList_table_students');
+	disburseChequeListInfo_initDGPagination();
 	disburseChequeListInfo_list(m_odisburseChequeList_Info_MemberData.m_strSortColumn, m_odisburseChequeList_Info_MemberData.m_strSortOrder, 1, 10);
 }
 
@@ -103,6 +104,31 @@ function disburseChequeListInfo_createDataGrid ()
 		document.getElementById("StudentInfo_input_uid").value = "";		
 	}
 }*/
+
+function disburseChequeListInfo_initDGPagination()
+{
+	$('#disburseChequeList_table_students').datagrid('getPager').pagination
+	(
+		{ 
+			onRefresh:function (nPageNumber, nPageSize)
+			{
+				m_odisburseChequeList_Info_MemberData.m_nPageNumber = nPageNumber;
+				disburseChequeListInfo_list (m_odisburseChequeList_Info_MemberData.m_strSortColumn, m_odisburseChequeList_Info_MemberData.m_strSortOrder, nPageNumber, nPageSize);
+				document.getElementById("disburseChequeList_div_listDetail").innerHTML = "";
+				clearFilterBoxes ();
+			},
+			onSelectPage:function (nPageNumber, nPageSize)
+			{
+				m_odisburseChequeList_Info_MemberData.m_nPageNumber = nPageNumber;
+				m_odisburseChequeList_Info_MemberData.m_nPageSize = nPageSize;
+				disburseChequeListInfo_list (m_odisburseChequeList_Info_MemberData.m_strSortColumn, m_odisburseChequeList_Info_MemberData.m_strSortOrder, nPageNumber, nPageSize);
+				document.getElementById("disburseChequeList_div_listDetail").innerHTML = "";
+			}
+		}
+	)
+}
+
+
 
 function disburseChequeListInfo_list (strColumn,strOrder,nPageNumber,nPageSize)
 {

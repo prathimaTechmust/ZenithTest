@@ -9,6 +9,11 @@ includeDataObjects(claimedChequesInfo_includeDataObjects,"claimedChequesInfo_Loa
 
 function claimedChequeList_MemberData ()
 {
+	this.m_nIndex = -1;
+	this.m_nPageNumber = 1;
+    this.m_nPageSize = 10;    
+    this.m_strSortColumn = "m_strStudentName";
+    this.m_strSortOrder = "asc";
 	this.m_strStatus = "cheque claimed";
 }
 
@@ -91,12 +96,44 @@ function createClaimedChequeList_DataGrid()
 		}
 	)
 	applicationPriorityGridColor('claimedChequeList_table');
-	claimedChequeList();
+	claimedChequeInfo_initDGPagination();
+	claimedCheque_List(m_oClaimedChequeListMemberData.m_strSortColumn, m_oClaimedChequeListMemberData.m_strSortOrder, 1, 10);
 	
 }
 
-function claimedChequeList()
+function claimedChequeInfo_initDGPagination()
 {
+	$('#claimedChequeList_table').datagrid('getPager').pagination
+	(
+		{ 
+			onRefresh:function (nPageNumber, nPageSize)
+			{
+				m_oClaimedChequeListMemberData.m_nPageNumber = nPageNumber;
+				claimedCheque_List(m_oClaimedChequeListMemberData.m_strSortColumn, m_oClaimedChequeListMemberData.m_strSortOrder, nPageNumber, nPageSize);
+				document.getElementById("claimedChequeList_div_listDetail").innerHTML = "";
+				clearFilterBoxes ();
+			},
+			onSelectPage:function (nPageNumber, nPageSize)
+			{
+				m_oClaimedChequeListMemberData.m_nPageNumber = nPageNumber;
+				m_oClaimedChequeListMemberData.m_nPageSize = nPageSize;
+				claimedCheque_List(m_oClaimedChequeListMemberData.m_strSortColumn, m_oClaimedChequeListMemberData.m_strSortOrder, nPageNumber, nPageSize);
+				document.getElementById("claimedChequeList_div_listDetail").innerHTML = "";
+			}
+		}
+	)
+}
+
+function claimedCheque_List(strColumn,strOrder,nPageNumber,nPageSize)
+{
+	assert.isString(strColumn, "strColumn is expected to be of type string.");
+	assert.isString(strOrder, "strOrder is expected to be of type string.");
+	assert.isNumber(nPageNumber, "nPageNumber is expected to be of type number");
+	assert.isNumber(nPageSize, "nPageSize is expected to be of type number");
+	m_oClaimedChequeListMemberData.m_strSortColumn = strColumn;
+	m_oClaimedChequeListMemberData.m_strSortOrder = strOrder;
+	m_oClaimedChequeListMemberData.m_nPageNumber = nPageNumber;
+	m_oClaimedChequeListMemberData.m_nPageSize = nPageSize;
 	loadPage ("progressbarmanagement/progressbar.html", "dialog", "claimedChequeListInfo_progressbarLoaded ()");
 }
 

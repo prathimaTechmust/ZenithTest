@@ -9,6 +9,11 @@ includeDataObjects(toBeClaimChequesInfo_includeDataObjects,"toBeClaimChequesInfo
 
 function toBeClaimChequeList_MemberData ()
 {
+	this.m_nIndex = -1;
+	this.m_nPageNumber = 1;
+    this.m_nPageSize = 10;    
+    this.m_strSortColumn = "m_strStudentName";
+    this.m_strSortOrder = "asc";
 	this.m_strapplicationStatus = "cheque disbursed";
 }
 
@@ -82,11 +87,42 @@ function createToBeClaimChequeList_DataGrid()
 		}
 	)
 	applicationPriorityGridColor('toBeClaimChequeList_table');
-	toBeClaimChequeList();	
+	toBeClaimChequeInfo_initDGPagination();
+	toBeClaimCheque_List(m_oToBeClaimChequeListMemberData.m_strSortColumn, m_oToBeClaimChequeListMemberData.m_strSortOrder, 1, 10);	
 }
 
-function toBeClaimChequeList()
+function toBeClaimChequeInfo_initDGPagination() 
 {
+	$('#toBeClaimChequeList_table').datagrid('getPager').pagination
+	(
+		{ 
+			onRefresh:function (nPageNumber, nPageSize)
+			{
+				m_oToBeClaimChequeListMemberData.m_nPageNumber = nPageNumber;
+				toBeClaimCheque_List(m_oToBeClaimChequeListMemberData.m_strSortColumn, m_oToBeClaimChequeListMemberData.m_strSortOrder, nPageNumber, nPageSize);
+				document.getElementById("toBeClaimChequeList_div_listDetail").innerHTML = "";
+				clearFilterBoxes ();
+			},
+			onSelectPage:function (nPageNumber, nPageSize)
+			{
+				m_oToBeClaimChequeListMemberData.m_nPageNumber = nPageNumber;
+				m_oToBeClaimChequeListMemberData.m_nPageSize = nPageSize;
+				toBeClaimCheque_List(m_oToBeClaimChequeListMemberData.m_strSortColumn, m_oToBeClaimChequeListMemberData.m_strSortOrder, nPageNumber, nPageSize);
+				document.getElementById("toBeClaimChequeList_div_listDetail").innerHTML = "";
+			}
+		}
+	)
+}
+function toBeClaimCheque_List(strColumn,strOrder,nPageNumber,nPageSize)
+{
+	assert.isString(strColumn, "strColumn is expected to be of type string.");
+	assert.isString(strOrder, "strOrder is expected to be of type string.");
+	assert.isNumber(nPageNumber, "nPageNumber is expected to be of type number");
+	assert.isNumber(nPageSize, "nPageSize is expected to be of type number");
+	m_oToBeClaimChequeListMemberData.m_strSortColumn = strColumn;
+	m_oToBeClaimChequeListMemberData.m_strSortOrder = strOrder;
+	m_oToBeClaimChequeListMemberData.m_nPageNumber = nPageNumber;
+	m_oToBeClaimChequeListMemberData.m_nPageSize = nPageSize;
 	loadPage ("progressbarmanagement/progressbar.html", "dialog", "toBeClaimChequeListInfo_progressbarLoaded ()");
 }
 

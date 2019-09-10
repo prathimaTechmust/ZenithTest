@@ -91,6 +91,7 @@ function approveStudentList_initDGPagination ()
 				m_oApproveStudentList_Info_MemberData.m_nPageNumber = nPageNumber;
 				approveStudentListInfo_list (m_oApproveStudentList_Info_MemberData.m_strSortColumn, m_oApproveStudentList_Info_MemberData.m_strSortOrder, nPageNumber, nPageSize);
 				document.getElementById("listApproveStudents_div_listDetail").innerHTML = "";
+				clearFilterBoxes ();
 			},
 			onSelectPage:function (nPageNumber, nPageSize)
 			{

@@ -194,6 +194,7 @@ public class FacilitatorInformationDataProcessor extends GenericIDataProcessor <
 		return oFacilitatorDataResponse;
 	}	
 	
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/getFilterFacilitatorData", method = RequestMethod.POST, headers = {"Content-type=application/json"})
 	@ResponseBody
 	public GenericResponse getFilterFacilitatorData (@RequestBody FacilitatorInformationData oFacilitatorInformationData) throws Exception
@@ -201,37 +202,16 @@ public class FacilitatorInformationDataProcessor extends GenericIDataProcessor <
 		m_oLogger.info("getFilterFacilitatorData");
 		m_oLogger.debug("getFilterFacilitatorData FacilitatorInformationData-"+oFacilitatorInformationData);
 		FacilitatorDataResponse oFacilitatorDataResponse = new FacilitatorDataResponse();
-		EntityManager oEntityManager = oFacilitatorInformationData._getEntityManager();
 		try 
 		{
-			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
-			CriteriaQuery<FacilitatorInformationData> oCriteriaQuery = oCriteriaBuilder.createQuery(FacilitatorInformationData.class);
-			Root<FacilitatorInformationData> oFacilitatorRoot = oCriteriaQuery.from(FacilitatorInformationData.class);   
-			List<Predicate> m_arrPredicateList = new ArrayList<Predicate>();
-			if(oFacilitatorInformationData.getM_strFacilitatorName() != "")
-					m_arrPredicateList.add(oCriteriaBuilder.equal(oFacilitatorRoot.get("m_strFacilitatorName"), oFacilitatorInformationData.getM_strFacilitatorName()));
-			if(oFacilitatorInformationData.getM_strPhoneNumber() != "")
-				m_arrPredicateList.add(oCriteriaBuilder.equal(oFacilitatorRoot.get("m_strPhoneNumber"), oFacilitatorInformationData.getM_strPhoneNumber()));
-			if(oFacilitatorInformationData.getM_strCity() != "")
-				m_arrPredicateList.add(oCriteriaBuilder.equal(oFacilitatorRoot.get("m_strCity"), oFacilitatorInformationData.getM_strCity()));
-			 oCriteriaQuery.select(oFacilitatorRoot).where(m_arrPredicateList.toArray(new Predicate[]{}));
-			List<FacilitatorInformationData> facilitatorList = oEntityManager.createQuery(oCriteriaQuery).getResultList();
-			if(facilitatorList.size() > 0)
-			{	
-				oFacilitatorDataResponse.m_arrFacilitatorInformationData = new ArrayList<FacilitatorInformationData>(facilitatorList);
+			oFacilitatorDataResponse.m_arrFacilitatorInformationData = (ArrayList<FacilitatorInformationData>) populateFilterObjectData (oFacilitatorInformationData);
+			if(oFacilitatorDataResponse.m_arrFacilitatorInformationData.size() > 0)			
 				oFacilitatorDataResponse.m_bSuccess = true;				
-			}			
-			
 		}
 		catch (Exception oException)
 		{
 			m_oLogger.debug("getFilterFacilitatorData - oException"+oException);
-		}
-		finally
-		{
-			oEntityManager.close();
-			HibernateUtil.removeConnection();
-		}
+		}		
 		return oFacilitatorDataResponse;		
 	}
 

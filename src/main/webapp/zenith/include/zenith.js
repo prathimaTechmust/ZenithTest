@@ -1013,7 +1013,7 @@ function studentFilteredResponse(oResponse)
 {
 	if(oResponse.m_bSuccess)
 	{
-		clearFilterBoxes ();
+		//clearFilterBoxes ();
 		clearGridData ('#'+m_oZenithMemberData.m_gridId);
 		for (var nIndex = 0; nIndex < oResponse.m_arrStudentInformationData.length; nIndex++)
 			$('#'+m_oZenithMemberData.m_gridId).datagrid('appendRow',oResponse.m_arrStudentInformationData[nIndex]);
@@ -1021,7 +1021,7 @@ function studentFilteredResponse(oResponse)
 	}
 	else
 	{
-		clearFilterBoxes ();
+		//clearFilterBoxes ();
 		informUser("no search result found","kError");
 	}	
 	

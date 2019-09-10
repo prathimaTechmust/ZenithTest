@@ -76,6 +76,7 @@ function listCourseInfo_initDGPagination ()
 				m_oCourseInfoListMemberData.m_nPageNumber = nPageNumber;
 				listCourseInfo_list (m_oCourseInfoListMemberData.m_strSortColumn, m_oCourseInfoListMemberData.m_strSortOrder, nPageNumber, nPageSize);
 				document.getElementById("listCourseInfo_div_listDetail").innerHTML = "";
+				clearCourseFilterBoxes ();
 			},
 			onSelectPage:function (nPageNumber, nPageSize)
 			{
@@ -185,26 +186,39 @@ function listCourseInfo_showAddPopup ()
 
 function courseLitInfo_filter ()
 {
+	var bSuccess = false;
 	var oCourseInformationData = new CourseInformationData () ;
 	if($("#filterCourseInfo_input_shortcourseName").val() !="")
+	{
 		oCourseInformationData.m_strShortCourseName = $("#filterCourseInfo_input_shortcourseName").val();
+		bSuccess = true;
+	}		
 	else
+	{
 		oCourseInformationData.m_strLongCourseName = $("#filterCourseInfo_input_longcourseName").val();
-	CourseInformationDataProcessor.courseFilterData(oCourseInformationData,filteredCourseResponse);
+		bSuccess = true;
+	}	
+	if(bSuccess)
+		CourseInformationDataProcessor.courseFilterData(oCourseInformationData,filteredCourseResponse);
+	else
+		alert("Enter any one of textBox to Filter");
 }
 
 function filteredCourseResponse(oCourseInfoResponse)
 {
 	if(oCourseInfoResponse.m_bSuccess)
-	{
-		document.getElementById("filterCourseInfo_input_shortcourseName").value = "";
-		document.getElementById("filterCourseInfo_input_longcourseName").value = "";
+	{		
 		clearGridData ("#listCourseInfo_table_courses");
 		for (var nIndex = 0; nIndex < oCourseInfoResponse.m_arrCourseInformationData.length; nIndex++)
 			$('#listCourseInfo_table_courses').datagrid('appendRow',oCourseInfoResponse.m_arrCourseInformationData[nIndex]);
 		$('#listCourseInfo_table_courses').datagrid('getPager').pagination ({total:oCourseInfoResponse.m_nRowCount, pageNumber:oCourseInfoResponse.m_nPageNumber});
 	}
 	else
-		informUser("no search result found","kError");
-	
+		informUser("no search result found","kError");	
+}
+
+function clearCourseFilterBoxes ()
+{
+	document.getElementById("filterCourseInfo_input_shortcourseName").value = "";
+	document.getElementById("filterCourseInfo_input_longcourseName").value = "";
 }

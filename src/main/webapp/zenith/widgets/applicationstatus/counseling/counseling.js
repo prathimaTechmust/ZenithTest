@@ -86,6 +86,7 @@ function counselingStudentList_initDGPagination ()
 				m_oCounselingStudentList_Info_MemberData.m_nPageNumber = nPageNumber;
 				counselingStudentListInfo_list (m_oCounselingStudentList_Info_MemberData.m_strSortColumn, m_oCounselingStudentList_Info_MemberData.m_strSortOrder, nPageNumber, nPageSize);
 				document.getElementById("CounselingStudents_div_listDetail").innerHTML = "";
+				clearFilterBoxes ();
 			},
 			onSelectPage:function (nPageNumber, nPageSize)
 			{
