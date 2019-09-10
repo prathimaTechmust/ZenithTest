@@ -32,7 +32,7 @@ function toBeClaimChequeList_init ()
 
 function createToBeClaimChequeList_DataGrid()
 {
-	initHorizontalSplitter("#toBeClaimChequeList_div_horizontalSplitter", "#toBeClaimChequeList_div_horizontalSplitter");
+	initHorizontalSplitter("#toBeClaimChequeList_div_horizontalSplitter", "#toBeClaimChequeList_table");
 	
 	$("#toBeClaimChequeList_table").datagrid
 	(
