@@ -28,7 +28,7 @@ function populateReportDropDowns ()
 	populateCourseNameDropDown ();
 	populateInstitutionNameDropDown ();
 	populateCityNameDropDown ();
-	populateParentOccupationDropDown ();
+	//populateParentOccupationDropDown ();
 	populateFacilitatorNameDropDown ();
 	populateStudentReligionDropDown ();
 	populateStudentGenderDropdown ();
@@ -118,11 +118,11 @@ function populateCityNameDropDown ()
 	StudentInformationDataProcessor.getCityNames(oStudentDataObject,reportCityNameDropDown);
 }
 
-function populateParentOccupationDropDown ()
-{
-	var oStudentObject = new StudentInformationData ();
-	StudentInformationDataProcessor.getParentalOccupations(oStudentObject,reportParentOccupationDropDown);
-}
+//function populateParentOccupationDropDown ()
+//{
+//	var oStudentObject = new StudentInformationData ();
+//	StudentInformationDataProcessor.getParentalOccupations(oStudentObject,reportParentOccupationDropDown);
+//}
 
 function populateFacilitatorNameDropDown ()
 {
@@ -181,21 +181,21 @@ function reportCityNameDropDown (oCityNamesResponse)
 }
 
 
-function reportParentOccupationDropDown (oParentalOccupationResponse)
-{
-	$(document).ready(function ()
-					  {
-							$("#parentOccupationInfo_input_name").jqxComboBox({	 source:oParentalOccupationResponse.m_arrStudentInformationData,
-																				 displayMember:"m_strFatherOccupation",
-																				 valueMember:"m_strFatherOccupation",
-																				 autoComplete:true,
-					                                                             searchMode :"startswithignorecase",
-					                                                             placeHolder:"Select Occupation",
-																                 width:"200px",
-																                 height:"25px",							
-																			 });
-					  });
-}
+//function reportParentOccupationDropDown (oParentalOccupationResponse)
+//{
+//	$(document).ready(function ()
+//					  {
+//							$("#parentOccupationInfo_input_name").jqxComboBox({	 source:oParentalOccupationResponse.m_arrStudentInformationData,
+//																				 displayMember:"m_strFatherOccupation",
+//																				 valueMember:"m_strFatherOccupation",
+//																				 autoComplete:true,
+//					                                                             searchMode :"startswithignorecase",
+//					                                                             placeHolder:"Select Occupation",
+//																                 width:"200px",
+//																                 height:"25px",							
+//																			 });
+//					  });
+//}
 
 function reportFacilitatorNameDropDown (oFacilitatorResponse)
 {
