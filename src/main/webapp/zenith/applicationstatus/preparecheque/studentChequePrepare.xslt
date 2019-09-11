@@ -440,14 +440,34 @@
 						</tr>
 						<tr>
 							<td class="xslt_fieldHeading">
-								<label class="dataLabel">Required amount(₹) : </label>
+								<label class="dataLabel">Required amount(₹)</label>
 							</td>
+							<td>:</td>
 							<td class="xslt_fieldData">
 								<xsl:variable name="annualFee" select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_fAnnualFee"></xsl:variable>
 								<xsl:variable name="paidFee" select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_fPaidFee"></xsl:variable>
 								<xsl:value-of select="format-number($annualFee - $paidFee, '##,##,##0')"/>
 							</td>									
-						</tr>						
+						</tr>	
+						<tr> 
+							<td class="xslt_fieldHeading">
+								Sanctioned amount(₹)
+							</td>
+							<td>:</td>
+							<td class="xslt_fieldData">
+								<xsl:value-of select="format-number(StudentInformationData/m_oZenithScholarshipDetails/ZenithScholarshipDetails/m_fApprovedAmount, '##,##,##0')" ></xsl:value-of>
+							</td>									
+						</tr>
+						<tr>
+							<td class="xslt_fieldHeading">
+					      Amount Approved By
+							</td>
+						<td>:</td>
+						<td class="xslt_fieldData">
+						<xsl:value-of select="StudentInformationData/m_oZenithScholarshipDetails/ZenithScholarshipDetails/m_strApprovedBy">
+						</xsl:value-of>
+					</td>									
+				</tr>					
 					</table>
 					<table border="1" cellSpacing="5px" class="organization" >	
 						<tr>
