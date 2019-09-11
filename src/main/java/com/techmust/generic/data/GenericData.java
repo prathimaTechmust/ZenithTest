@@ -1107,7 +1107,8 @@ public abstract class GenericData implements IGenericData, Serializable
 			CriteriaQuery<StudentScholarshipAccount> oCriteriaQuery = oCriteriaBuilder.createQuery(StudentScholarshipAccount.class);
 			Root<StudentScholarshipAccount> oAccountRoot = oCriteriaQuery.from(StudentScholarshipAccount.class);
 			oCriteriaQuery.select(oAccountRoot);
-			oCriteriaQuery.where(oCriteriaBuilder.equal(oAccountRoot.get("m_oAcademicDetails"),nAcademicId));
+			oCriteriaQuery.where(oCriteriaBuilder.equal(oAccountRoot.get("m_oAcademicDetails"),nAcademicId),
+								 oCriteriaBuilder.equal(oAccountRoot.get("m_strChequeStatus"),Constants.CHEQUESTATUS));
 			List<StudentScholarshipAccount> listAccount = oEntityManager.createQuery(oCriteriaQuery).getResultList();
 			if(listAccount.size() > 0)
 			{

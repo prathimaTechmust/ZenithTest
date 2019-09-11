@@ -47,7 +47,13 @@ function createClaimedChequeList_DataGrid()
 		        		return row.m_oAcademicDetails[0].m_oInstitutionInformationData.m_strInstitutionName;
 		        	}					
 				},
-				{field:'m_nChequeNumber',title:'Cheque Number',sortable:true,width:200,
+				{field:'m_strPaymentType',title:'Payment Type',sortable:true,width:200,
+					formatter:function(value,row,index)
+					{
+						return row.m_oZenithScholarshipDetails[0].m_strPaymentType;
+					}					
+				},
+				{field:'m_nChequeNumber',title:'Cheque/DD Number',sortable:true,width:200,
 					formatter:function(value,row,index)
 		        	{
 		        		return row.m_oAcademicDetails[0].m_oStudentScholarshipAccount[0].m_nChequeNumber;

@@ -50,11 +50,11 @@ public class StudentScholarshipAccount extends MasterData
 	@Column(name = "sanctiondate")
 	private Date m_dSanctionDate;
 	
-	@Column(name = "chequenumber")
+	@Column(name = "cheque_DDnumber")
 	private int m_nChequeNumber;
 	
-	@Column(name = "ddnumber")
-	private int m_nDDNumber;
+//	@Column(name = "ddnumber")
+//	private int m_nDDNumber;
 	
 	@Column(name = "remarks")
 	private String m_strChequeRemarks;
@@ -89,7 +89,7 @@ public class StudentScholarshipAccount extends MasterData
 		m_dSanctionDate = null;	
 		m_oAcademicDetails = new AcademicDetails();
 		m_nChequeNumber = 0;
-		m_nDDNumber = 0;
+		//m_nDDNumber = 0;
 		m_strChequeRemarks = "";
 		m_strChequePreparedBy = " ";
 		m_strChequeStatus = "Active";
@@ -149,15 +149,15 @@ public class StudentScholarshipAccount extends MasterData
 		this.m_nChequeNumber = nChequeNumber;
 	}
 	
-	public int getM_nDDNumber()
-	{
-		return m_nDDNumber;
-	}
-
-	public void setM_nDDNumber(int nDDNumber)
-	{
-		this.m_nDDNumber = nDDNumber;
-	}
+//	public int getM_nDDNumber()
+//	{
+//		return m_nDDNumber;
+//	}
+//
+//	public void setM_nDDNumber(int nDDNumber)
+//	{
+//		this.m_nDDNumber = nDDNumber;
+//	}
 	
 	public int getM_nStudentId() 
 	{
@@ -287,7 +287,7 @@ public class StudentScholarshipAccount extends MasterData
 			addChild(oXmlDocument, oRootElement, "m_fSanctionedAmount", m_fSanctionedAmount);
 			addChild(oXmlDocument, oRootElement, "m_nChequeNumber", m_nChequeNumber); 
 			addChild(oXmlDocument, oRootElement, "m_strChequePreparedBy", m_strChequePreparedBy);
-			addChild(oXmlDocument, oRootElement, "m_nDDNumber", m_nDDNumber);
+			//addChild(oXmlDocument, oRootElement, "m_nDDNumber", m_nDDNumber);
 			strChequeInfoXML = getXmlString(oXmlDocument);
 		}
 		catch (Exception oException) 
