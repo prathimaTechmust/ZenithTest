@@ -19,6 +19,7 @@ import javax.persistence.Transient;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Order;
@@ -657,7 +658,7 @@ public abstract class GenericData implements IGenericData, Serializable
 	}
 
 
-	@SuppressWarnings({ "unchecked" })
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public ArrayList<StudentInformationData> getStatusStudentsList(StudentInformationData oStudentInformationData)
 	{
 		ArrayList<StudentInformationData> arrStudentInformationData = null;
@@ -676,13 +677,19 @@ public abstract class GenericData implements IGenericData, Serializable
 			List<Predicate> m_arrPredicateList = new ArrayList<Predicate>();
 			m_arrPredicateList.add(oCriteriaBuilder.equal(oAcademicJoin.get("m_oAcademicYear"),oStudentInformationData.getM_nAcademicYearId()));
 			m_arrPredicateList.add(oCriteriaBuilder.equal(oZenithJoin.get("m_strStatus"), oStudentInformationData.getM_strStatus()));
-			m_arrPredicateList.add(oCriteriaBuilder.equal(oZenithJoin.get("m_oAcademicYear"),oStudentInformationData.getM_nAcademicYearId()));			
+			m_arrPredicateList.add(oCriteriaBuilder.equal(oZenithJoin.get("m_oAcademicYear"),oStudentInformationData.getM_nAcademicYearId()));
+			boolean bIsSuccess = getApplicationStatus(oStudentInformationData.getM_strStatus());
+			if(bIsSuccess)
+			{
+				//Join If Account Details Exists of Application And Get Active Cheque Details
+				Join oJoin = (Join) oAcademicJoin.fetch("m_oStudentScholarshipAccount");
+				m_arrPredicateList.add(oCriteriaBuilder.equal(oJoin.get("m_strChequeStatus"),Constants.CHEQUESTATUS));
+			}					
 			oCriteriaQuery.select(oStudentInformationDataRoot);
 			oCriteriaQuery.orderBy(oCriteriaBuilder.asc(oStudentInformationDataRoot.get("m_nApplicationPriority")));
 			oCriteriaQuery.where(m_arrPredicateList.toArray(new Predicate[] {}));
 			TypedQuery<StudentInformationData> typedquery = oEntityManager.createQuery(oCriteriaQuery);
-			arrStudentInformationData = (ArrayList<StudentInformationData>) typedquery.getResultList();
-			
+			arrStudentInformationData = (ArrayList<StudentInformationData>) typedquery.getResultList();			
 		}
 		catch (Exception oException)
 		{
@@ -696,6 +703,32 @@ public abstract class GenericData implements IGenericData, Serializable
 		}		
 		return arrStudentInformationData;		
 	}
+	
+	private boolean getApplicationStatus(String strStatus)
+	{
+		boolean bIsSuccess = false;
+		try
+		{
+			if(Constants.CHEQUEPREPARED.equals(strStatus))
+			{
+				bIsSuccess = true;
+			}
+			else if(Constants.CHEQUEDISBURSED.equals(strStatus))
+			{
+				bIsSuccess = true;
+			}
+			else if(Constants.CHEQUECLAIMED.equals(strStatus))
+			{
+				bIsSuccess = true;
+			}
+		} 
+		catch (Exception oException)
+		{
+			m_oLogger.error("getApplicationStatus - oException"+oException);
+		}
+		return bIsSuccess;
+	}
+// Student Application Status Update Functions
 	
 	public boolean updateStudentApplicationVerifiedStatus(ZenithScholarshipDetails oZenithScholarshipDetails) throws Exception
 	{
@@ -1074,7 +1107,8 @@ public abstract class GenericData implements IGenericData, Serializable
 			CriteriaQuery<StudentScholarshipAccount> oCriteriaQuery = oCriteriaBuilder.createQuery(StudentScholarshipAccount.class);
 			Root<StudentScholarshipAccount> oAccountRoot = oCriteriaQuery.from(StudentScholarshipAccount.class);
 			oCriteriaQuery.select(oAccountRoot);
-			oCriteriaQuery.where(oCriteriaBuilder.equal(oAccountRoot.get("m_oAcademicDetails"),nAcademicId));
+			oCriteriaQuery.where(oCriteriaBuilder.equal(oAccountRoot.get("m_oAcademicDetails"),nAcademicId),
+								 oCriteriaBuilder.equal(oAccountRoot.get("m_strChequeStatus"),Constants.CHEQUESTATUS));
 			List<StudentScholarshipAccount> listAccount = oEntityManager.createQuery(oCriteriaQuery).getResultList();
 			if(listAccount.size() > 0)
 			{

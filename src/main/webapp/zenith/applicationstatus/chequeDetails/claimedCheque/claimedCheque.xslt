@@ -509,7 +509,18 @@
 		<td  class="topAlign">
 			<table class="xslt_trademust" cellSpacing="5px">
 				<tr>
-					<td class = "xslt_zenithFieldHeader">Cheque Details</td>	
+					<td class = "xslt_zenithFieldHeader">Cheque/DD Details</td>	
+				</tr>
+				<tr>
+					<td class="xslt_fieldHeading">
+						Payment Type
+					</td>
+					<td>:</td>
+					<td class="xslt_fieldData">
+						<xsl:value-of select="StudentInformationData/m_oZenithScholarshipDetails/ZenithScholarshipDetails/m_strPaymentType">
+						</xsl:value-of>
+					
+					</td>									
 				</tr>
 					<tr>
 					<td class="xslt_fieldHeading">
@@ -554,7 +565,7 @@
 				</tr>
 				<tr>
 					<td class="xslt_fieldHeading">
-						Cheque Prepared By 
+						Cheque / DD Prepared By 
 					</td>
 					<td>:</td>
 					<td class="xslt_fieldData">
@@ -604,7 +615,7 @@
 				</tr>
 					<tr>
 					<td class="xslt_fieldHeading">
-						Cheque Disburse By
+						Cheque / DD Disburse By
 					</td>
 					<td>:</td>
 					<td class="xslt_fieldData">
