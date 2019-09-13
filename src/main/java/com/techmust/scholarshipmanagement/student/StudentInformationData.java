@@ -153,6 +153,9 @@ public class StudentInformationData  extends MasterData implements Serializable
 	private int m_nInstitutionId;
 	
 	@Transient
+	private String m_strSortBy;
+	
+	@Transient
 	public AcademicDetails[] m_arrAcademicDetails;
 	
 	@Transient
@@ -191,6 +194,16 @@ public class StudentInformationData  extends MasterData implements Serializable
 		m_oSibilingDetails = new HashSet<SibilingDetails>();
 	}	
 	
+	public String getM_strSortBy() 
+	{
+		return m_strSortBy;
+	}
+
+	public void setM_strSortBy(String m_strSortBy) 
+	{
+		this.m_strSortBy = m_strSortBy;
+	}
+
 	public int getM_nCourseId()
 	{
 		return m_nCourseId;

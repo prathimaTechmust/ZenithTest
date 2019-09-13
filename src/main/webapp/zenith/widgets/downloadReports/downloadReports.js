@@ -224,6 +224,10 @@ function getReportFormData ()
 {
 	var oStudentData = new StudentInformationData ();
 	oStudentData.m_nAcademicYearId = $("#reportAcademicYear").val();
+	if(document.getElementById("studentReport_input_uid").checked)
+		oStudentData.m_strSortBy = document.getElementById("studentReport_input_uid").value;
+	else
+		oStudentData.m_strSortBy = document.getElementById("studentReport_input_name").value;
 	if($("#cityListInfo_input_name").val() != "")
 		oStudentData.m_strCity = $("#cityListInfo_input_name").val();
 	if($("#courseListInfo_input_name").val() != "")

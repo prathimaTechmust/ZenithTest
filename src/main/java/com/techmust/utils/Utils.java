@@ -4,10 +4,12 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.TimeZone;
 import java.util.UUID;
 
 import javax.servlet.http.Cookie;
@@ -90,6 +92,7 @@ public class Utils
 	public static String convertTimeStampToDate(long dLongTimeStamp)
 	{	        
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        formatter.setTimeZone(TimeZone.getTimeZone(ZoneId.of("Asia/Kolkata")));
         Date date = new Date(dLongTimeStamp);
         return formatter.format(date);
 	}
