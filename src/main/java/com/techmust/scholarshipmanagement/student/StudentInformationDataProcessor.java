@@ -618,7 +618,10 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 			if(oStudentData.getM_strReligion() != "")
 				m_PredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_strReligion"), oStudentData.getM_strReligion()));
 			oCriteriaQuery.select(oStudentRoot);
-			oCriteriaQuery.orderBy(oCriteriaBuilder.asc(oStudentRoot.get("m_nApplicationPriority")));
+			if(oStudentData.getM_strSortBy().equals("m_nUID"))
+			   oCriteriaQuery.orderBy(oCriteriaBuilder.asc(oStudentRoot.get("m_nUID")));
+			else
+				 oCriteriaQuery.orderBy(oCriteriaBuilder.asc(oStudentRoot.get("m_strStudentName")));
 			oCriteriaQuery.where(m_PredicateList.toArray(new Predicate[] {}));
 			List<StudentInformationData> studentList = oEntityManager.createQuery(oCriteriaQuery).getResultList();
 			m_arrStudentList = new ArrayList<>(studentList);			
