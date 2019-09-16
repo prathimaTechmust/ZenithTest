@@ -68,6 +68,9 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 	@Column(name = "claimed_date")
 	private Date m_dClaimedDate;
 	
+	@Column(name = "counseling_date")
+	private Date m_dCounselingDate;
+	
 	@Column(name = "chequeRemark")
 	private String m_strChequeRemark;	
 	
@@ -116,6 +119,7 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 		m_dApprovedDate = null;
 		m_strApprovedBy = " ";
 		m_dClaimedDate = null;	
+		m_dCounselingDate = null;
 		m_strPaymentType = null;
 		m_strChequeDisburseBy = "";
 		m_dApplicationSubmitDate = Calendar.getInstance().getTime();
@@ -130,6 +134,16 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 	public void setM_strChequeDisburseBy(String m_strChequeDisburseBy) 
 	{
 		this.m_strChequeDisburseBy = m_strChequeDisburseBy;
+	}
+
+	public Date getM_dCounselingDate() 
+	{
+		return m_dCounselingDate;
+	}
+
+	public void setM_dCounselingDate(Date m_dCounselingDate) 
+	{
+		this.m_dCounselingDate = m_dCounselingDate;
 	}
 
 	public String getM_strApprovedBy() 
@@ -349,6 +363,7 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 			addChild(oXmlDocument, oRootElement, "m_strApprovedBy", m_strApprovedBy);
 			addChild(oXmlDocument, oRootElement, "m_strChequeDisburseBy", m_strChequeDisburseBy);
 			addChild (oXmlDocument, oRootElement, "m_dClaimedDate",m_dClaimedDate != null ? getDate(m_dClaimedDate.toString()) :"");
+			addChild (oXmlDocument, oRootElement, "m_dCounselingDate",m_dCounselingDate != null ? getDate(m_dCounselingDate.toString()) :"");
 			addChild (oXmlDocument, oRootElement, "m_dApplicationSubmitDate",m_dApplicationSubmitDate != null ? getDate(m_dApplicationSubmitDate.toString()) :"");
 			
 		

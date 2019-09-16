@@ -1,6 +1,7 @@
 package com.techmust.utils;
 
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -20,7 +21,7 @@ public class AmazonSMS
 	public static String strFacilitatorBodyMessage = "Your following student application of scholarship with Zenith Foundation has been processed and cheque prepared.Please come and collect cheque from our office";							
 	public static String strStudentBodyHeading = "Congratulations ";							
 	public static String strStudentBodyMessage = "Your application of scholarship with Zenith Foundation has been processed and cheque prepared.Please come and collect cheque from our office";
-	public static String strCounselingBodyHeading = "Dear ";
+	public static String strCounselingBodyHeading = "Dear Student you have been called for Counseling in Zenith.";
 		
 	
 	
@@ -67,13 +68,13 @@ public class AmazonSMS
 		}
 		
 	} 
-	 public  static void sendSmsToCounselingCandidate(String strPhoneNumber,String strStudentName, String strStudentRemarks) 
+	 public  static void sendSmsToCounselingCandidate(String strPhoneNumber, Date dCounselingDate) 
 	 {
 		 try
 		 {
 			 AmazonSNSClient oAmazonSNSClient = (AmazonSNSClient) getClient();
 			 PublishResult oPublishResult = oAmazonSNSClient.publish(new PublishRequest()
-					 .withMessage(strCounselingBodyHeading+strStudentName+"," + strStudentRemarks)
+					 .withMessage(strCounselingBodyHeading + dCounselingDate)
 					 .withPhoneNumber(strPhoneNumber));
 					 
 		 }
