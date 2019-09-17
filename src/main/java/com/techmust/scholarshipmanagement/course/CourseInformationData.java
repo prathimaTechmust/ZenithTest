@@ -39,12 +39,15 @@ public class CourseInformationData extends MasterData
 	@Column(name = "longcoursename")
 	private String m_strLongCourseName;
 	
+	@Column(name="finalYear")
+	private String m_strFinalYear;
 	
 	public CourseInformationData()
 	{
 		m_nCourseId = -1;
 		m_strShortCourseName = "";
 		m_strLongCourseName  = "";
+		m_strFinalYear = "";
 	
 	}	
 
@@ -78,6 +81,16 @@ public class CourseInformationData extends MasterData
 		this.m_strLongCourseName = m_strLongCourseName;
 	}
 	
+	public String getM_strFinalYear()
+	{
+		return m_strFinalYear;
+	}
+
+	public void setM_strFinalYear(String m_strFinalYear) 
+	{
+		this.m_strFinalYear = m_strFinalYear;
+	}
+
 	@Override
 	protected Predicate listCriteria(CriteriaBuilder oCriteriaBuilder, Root<GenericData> oRootObject) 
 	{
@@ -119,7 +132,9 @@ public class CourseInformationData extends MasterData
 			Element oRootElement = createRootElement(oXmlDocument, "CourseInformationData");
 			addChild (oXmlDocument, oRootElement, "m_nCourseId", m_nCourseId);
 			addChild (oXmlDocument, oRootElement, "m_strShortCourseName", m_strShortCourseName);
-			addChild (oXmlDocument, oRootElement, "m_strLongCourseName", m_strLongCourseName);			
+			addChild (oXmlDocument, oRootElement, "m_strLongCourseName", m_strLongCourseName);	
+			addChild (oXmlDocument, oRootElement, "m_strFinalYear", m_strFinalYear);
+			
 			strCourseInfoXML = getXmlString (oXmlDocument);
 		}
 		catch (Exception oException) 

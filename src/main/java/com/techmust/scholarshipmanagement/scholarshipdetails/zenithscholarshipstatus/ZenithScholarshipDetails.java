@@ -121,6 +121,7 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 		m_dClaimedDate = null;	
 		m_dCounselingDate = null;
 		m_strPaymentType = null;
+		m_strStudentRemarks = "";
 		m_strChequeDisburseBy = "";
 		m_dApplicationSubmitDate = Calendar.getInstance().getTime();
 		m_oAcademicYear = new AcademicYear();
@@ -361,7 +362,8 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 			addChild(oXmlDocument, oRootElement, "m_strChequeRemark", m_strChequeRemark);
 			addChild(oXmlDocument, oRootElement, "m_strPaymentType", m_strPaymentType);
 			addChild(oXmlDocument, oRootElement, "m_strApprovedBy", m_strApprovedBy);
-			addChild(oXmlDocument, oRootElement, "m_strChequeDisburseBy", m_strChequeDisburseBy);
+			addChild(oXmlDocument, oRootElement, "m_strChequeDisburseBy", m_strChequeDisburseBy); 
+			addChild(oXmlDocument, oRootElement, "m_strStudentRemarks", m_strStudentRemarks);
 			addChild (oXmlDocument, oRootElement, "m_dClaimedDate",m_dClaimedDate != null ? getDate(m_dClaimedDate.toString()) :"");
 			addChild (oXmlDocument, oRootElement, "m_dCounselingDate",m_dCounselingDate != null ? getDate(m_dCounselingDate.toString()) :"");
 			addChild (oXmlDocument, oRootElement, "m_dApplicationSubmitDate",m_dApplicationSubmitDate != null ? getDate(m_dApplicationSubmitDate.toString()) :"");
