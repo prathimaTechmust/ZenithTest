@@ -86,6 +86,9 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 	@Column(name = "chequeDisburseBy")
 	private String m_strChequeDisburseBy;
 	
+	@Column(name="verifyRemarks")
+	private String m_strVerifyRemarks;
+	
 	@Transient
 	private int m_nStudentId;
 	
@@ -123,10 +126,24 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 		m_strPaymentType = null;
 		m_strStudentRemarks = "";
 		m_strChequeDisburseBy = "";
+		m_strVerifyRemarks = "";
 		m_dApplicationSubmitDate = Calendar.getInstance().getTime();
 		m_oAcademicYear = new AcademicYear();
 	}	
 	
+	
+	public String getM_strVerifyRemarks()
+	{
+		return m_strVerifyRemarks;
+	}
+
+
+	public void setM_strVerifyRemarks(String m_strVerifyRemarks) 
+	{
+		this.m_strVerifyRemarks = m_strVerifyRemarks;
+	}
+
+
 	public String getM_strChequeDisburseBy() 
 	{
 		return m_strChequeDisburseBy;
@@ -364,6 +381,7 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 			addChild(oXmlDocument, oRootElement, "m_strApprovedBy", m_strApprovedBy);
 			addChild(oXmlDocument, oRootElement, "m_strChequeDisburseBy", m_strChequeDisburseBy); 
 			addChild(oXmlDocument, oRootElement, "m_strStudentRemarks", m_strStudentRemarks);
+			addChild(oXmlDocument, oRootElement, "m_strVerifyRemarks", m_strVerifyRemarks);
 			addChild (oXmlDocument, oRootElement, "m_dClaimedDate",m_dClaimedDate != null ? getDate(m_dClaimedDate.toString()) :"");
 			addChild (oXmlDocument, oRootElement, "m_dCounselingDate",m_dCounselingDate != null ? getDate(m_dCounselingDate.toString()) :"");
 			addChild (oXmlDocument, oRootElement, "m_dApplicationSubmitDate",m_dApplicationSubmitDate != null ? getDate(m_dApplicationSubmitDate.toString()) :"");

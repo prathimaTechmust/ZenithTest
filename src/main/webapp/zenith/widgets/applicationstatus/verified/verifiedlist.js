@@ -161,6 +161,8 @@ function verifyGetFormData()
 		oFormData.append('strPaymentType',$("#select_radio_Cheque").val());
 	else
 		oFormData.append('strPaymentType',$("#select_radio_DD").val());
+	
+	oFormData.append('strVerifyRemarks', $("#studentVerify_input_remarks").val());
 	ZenithStudentInformationDataProcessor.verifiedStatusUpdate(oFormData,studentverifiedResponse);
 }
 
