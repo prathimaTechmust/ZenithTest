@@ -47,7 +47,12 @@
 				.rightParagraph {
 					text-align:right;
 					float: right;
-				}	
+					font-size: 20px;
+				}
+						
+				.fontSize15px{
+					font-size: 20px;
+				}
 				
 				.thick{
 					font-weight:600;
@@ -104,7 +109,27 @@
 						<table width="100%">
 							<tbody>
 							<tr>
-									<td><img class="leftimage" src="images/zenithLogo.png"/></td>
+									<td>
+										<table>
+											<tr>
+												<td class="dataLabel">
+													<img class="leftimage" src="images/zenithLogo.png"/>
+												</td>
+											</tr>
+											<tr>
+												<td class="dataLabel">
+													<p>
+														35/1-2 Spencer Road,<br/>
+														Behind Santhosh Hospital,<br/>
+														Frazer Town<br/>
+														Bangalore-05<br/>
+														Cell : 8553743750<br/>
+														Ph: 080-41120865 | 080-43708826<br/>
+													</p>
+												</td>
+											</tr>
+										</table>
+									</td>
 									<td><img class="rightimage" src="{StudentInformationData/m_strStudentImageUrl}"/></td>
 							</tr>
 							</tbody>
@@ -391,7 +416,7 @@
 												 is a student of our institution studying in the class 
 												 <label id="instituteName" class="thick">  <xsl:value-of select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oCourseInformationData/CourseInformationData/m_strShortCourseName"> </xsl:value-of></label> 
 												 During the academic year 
-												 <label id="academicyear" class="thick"><xsl:value-of select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_strAcademicYear"></xsl:value-of></label>
+												 <label id="academicyear" class="thick"><xsl:value-of select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oAcademicYear/AcademicYear/m_strAcademicYear"></xsl:value-of></label>
 											 </p>
 											</td>
 										</tr>
@@ -402,7 +427,7 @@
 										</tr>									
 										<tr>
 											<td>
-												<p> Name of the school/ college / institute / Trust on which cheque/ DD needs to be Issued.</p>
+												<p> Name of the school/ college / institute / Trust on which <span class="headRow"> cheque/ DD </span> needs to be Issued.</p>
 											</td>										
 										</tr>
 										<tr>

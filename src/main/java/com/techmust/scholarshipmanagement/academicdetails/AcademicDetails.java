@@ -297,11 +297,15 @@ public class AcademicDetails extends MasterData implements Serializable
 			Document oScholarshipDetalsXmlDoc = getXmlDocument ("<m_oScholarshipOrganizationDetails>"+buildScholarshipDetails (m_oScholarshipOrganizationDetails)+"</m_oScholarshipOrganizationDetails>");
 			Node oScholarshipNode = oXmlDocument.importNode(oScholarshipDetalsXmlDoc.getFirstChild(), true);
 			oRootElement.appendChild(oScholarshipNode);
+			/*Academic year child node */
+			Document oAcademicYearXmlDoc = getXmlDocument("<m_oAcademicYear>"+buildAcademicYearDetails(m_oAcademicYear)+"</m_oAcademicYear>");
+            Node oAcademicYearNode = oXmlDocument.importNode(oAcademicYearXmlDoc.getFirstChild(), true);
+            oRootElement.appendChild(oAcademicYearNode);
 		   /*ScholarshipAccount child Node*/
 			Document oScholarshipAccountDetalsXmlDoc = getXmlDocument ("<m_oStudentScholarshipAccount>"+buildAccountDetails (m_oStudentScholarshipAccount)+"</m_oStudentScholarshipAccount>");
 			Node oAccountNode = oXmlDocument.importNode(oScholarshipAccountDetalsXmlDoc.getFirstChild(), true);
 			oRootElement.appendChild(oAccountNode);
-			
+		
 			addChild (oXmlDocument, oRootElement, "m_nAcademicId", m_nAcademicId);			
 			addChild (oXmlDocument, oRootElement, "m_strSpecialization", m_strSpecialization);
 			addChild (oXmlDocument, oRootElement, "m_strStudentScore", m_strStudentScore);
@@ -316,6 +320,11 @@ public class AcademicDetails extends MasterData implements Serializable
 		return strAcademicDetails;		
 	}	
 
+	private String buildAcademicYearDetails(AcademicYear oAcademicYearData)
+	{
+        return oAcademicYearData.generateXML();
+    }
+	
     private String buildAccountDetails(Set<StudentScholarshipAccount> m_oStudentScholarshipAccount)
     {
 		String strXML = "";
