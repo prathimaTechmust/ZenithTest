@@ -132,12 +132,14 @@ function toBeClaimCheque_List(strColumn,strOrder,nPageNumber,nPageSize)
 	loadPage ("progressbarmanagement/progressbar.html", "dialog", "toBeClaimChequeListInfo_progressbarLoaded ()");
 }
 
+
 function toBeClaimChequeListInfo_progressbarLoaded ()
 {
 	createPopup('dialog', '', '', true);
 	var oStudentInformationData = new StudentInformationData ();
 	oStudentInformationData.m_nAcademicYearId = $("#selectToBeClaimAcademicYear").val();
 	oStudentInformationData.m_strStatus = m_oToBeClaimChequeListMemberData.m_strapplicationStatus;
+	oStudentInformationData.m_nStudentId = m_oToBeClaimChequeListMemberData.m_nStudentId;
 	StudentInformationDataProcessor.getStudentStatuslist(oStudentInformationData,toBeClaimChequeListInfo_listed);
 }
 
@@ -160,6 +162,7 @@ function toBeClaimChequeListInfo_selectedRowData(oRowData,nIndex)
 	oStudentInformationData.m_nStudentId = oRowData.m_nStudentId;
 	oStudentInformationData.m_nAcademicYearId = $("#selectToBeClaimAcademicYear").val();
 	m_oToBeClaimChequeListMemberData.m_nStudentId = oRowData.m_nStudentId;
+	m_oToBeClaimChequeListMemberData.m_oStudentInformationData = oRowData;
 	StudentInformationDataProcessor.getXML (oStudentInformationData,toBeClaimChequeListInfo_gotXML);
 }
 
@@ -221,6 +224,7 @@ function claimCheque_progressbarLoaded()
 	createPopup('ProcessDialog', '', '', true);
 	var oZenithScholarshipDetails = new ZenithScholarshipDetails ();
 	oZenithScholarshipDetails.m_nStudentId = m_oToBeClaimChequeListMemberData.m_nStudentId;
+	oZenithScholarshipDetails.m_nAcademicYearId = $("#selectToBeClaimAcademicYear").val();
 	oZenithScholarshipDetails.m_dClaimedDate = $("#studentChequeInfo_input_chequeDate").val();
 	ZenithStudentInformationDataProcessor.claimCheque(oZenithScholarshipDetails,toBeClaimChequeResponse);		
 }
@@ -276,6 +280,71 @@ function studentUIDInformation (oResponse)
 		document.getElementById("StudentInfo_input_uid").value = "";
 	}
 }
+
+function reIssueCheque_Details() 
+{	
+	loadPage("applicationstatus/reIssueCheque/reIssueChequeRemark.html","dialog","reIssueCheque_init()");		
+}
+
+//function reIssueCheque_new() 
+//{
+//	reIssueCheque_init();
+//}
+
+function reIssueCheque_init()
+{	
+	createPopup('dialog','#chequeRemarkInfo_button_submit','chequeRemarkInfo_button_cancel', true);
+	initFormValidateBoxes('chequeRemarkForm');
+	m_oToBeClaimChequeListMemberData.m_nStudentId = m_oToBeClaimChequeListMemberData.m_oStudentInformationData.m_nStudentId;
+	m_oToBeClaimChequeListMemberData.m_nAcademicId =  m_oToBeClaimChequeListMemberData.m_oStudentInformationData.m_oAcademicDetails[0].m_nAcademicId;
+}
+
+function chequeRemarkInfo_submit()
+{
+	
+	if(chequeRemarkValidate ())
+		loadPage ("include/process.html", "ProcessDialog", "chequeRemark_progressbarLoaded ()");
+	else
+	{
+		alert("Please Enter Remarks");
+		$("#chequeRemarkForm").focus();
+	}	
+}
+function chequeRemarkValidate ()
+{
+	return validateForm("chequeRemarkForm");
+}
+
+function chequeRemarkInfo_cancel() {
+	
+	HideDialog("dialog");
+}
+
+function chequeRemark_progressbarLoaded() {
+	
+	createPopup('dialog','','',true);
+	var oZenith = new ZenithScholarshipDetails ();	
+	oZenith.m_nStudentId = m_oToBeClaimChequeListMemberData.m_nStudentId;
+	oZenith.m_nAcademicId = m_oToBeClaimChequeListMemberData.m_nAcademicId;
+	oZenith.m_strChequeRemark = $("#chequeRemarkInfo_input_Remark").val();
+	ZenithStudentInformationDataProcessor.reIssueChequeStatusUpdate(oZenith,reIssueChequeResponse);
+}
+
+function reIssueChequeResponse (oResponse)
+{
+		
+		if(oResponse.m_bSuccess)
+		{
+			informUser("Application Status Sent to prepareCheque Successfully","kSuccess");
+			HideDialog("dialog");
+			navigate("reIssueCheque","widgets/applicationstatus/disbursecheque/disbursechequelist.js");
+		}
+		else
+			informUser("Application Status Sent to prepareCheque Failed","kError");
+		
+	}
+
+
 
 function printToBeClaimedChequeList()
 {

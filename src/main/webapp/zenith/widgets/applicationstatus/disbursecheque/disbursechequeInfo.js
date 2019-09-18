@@ -21,7 +21,7 @@ function disburseCheque_new ()
 {
 	disburseStudentChequeInfo_init ();
 	disburseStudentChequeInfo_Loaded();	
-}
+}  
 
 function disburseStudentChequeInfo_Loaded ()
 {
