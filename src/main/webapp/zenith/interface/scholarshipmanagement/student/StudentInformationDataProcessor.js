@@ -110,6 +110,16 @@ var StudentInformationDataProcessor = (function __StudentInformationDataProcesso
 		ajaxCall(oStudentData,"/getStudentParentalOccupations",callback);
 	}
 	
+	function getMotherOccupations (oStudentData,callback)
+	{
+		ajaxCall(oStudentData,"/getStudentMotherOccupations",callback);
+	}
+	
+	function getParentalStatus (oStudentData,callback)
+	{
+		ajaxCall(oStudentData,"/getStudentParentalStatus",callback);
+	}
+	
 	function downloadReports (oStudentReportsData,callback)
 	{		
 		ajaxCall(oStudentReportsData,"/downloadStudentReports",callback);
@@ -136,6 +146,8 @@ var StudentInformationDataProcessor = (function __StudentInformationDataProcesso
 		updateTatkalPriority:updateTatkalPriority,		
 		getCityNames : getCityNames,
 		getParentalOccupations:getParentalOccupations,
+		getMotherOccupations:getMotherOccupations,
+		getParentalStatus:getParentalStatus,
 		downloadReports :downloadReports
 	};
 })();
