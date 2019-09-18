@@ -560,6 +560,57 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		}
 		return oDataResponse;
 		
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/getStudentMotherOccupations",method = RequestMethod.POST,headers = {"Content-type=application/json"})
+	@ResponseBody
+	public GenericResponse getMotherOccupations(@RequestBody StudentInformationData oStudentInformationData)
+	{
+		m_oLogger.info("getMotherOccupations");
+		m_oLogger.debug("getMotherOccupations - StudentInformationData"+oStudentInformationData);
+		StudentDataResponse oDataResponse = new StudentDataResponse();
+		EntityManager oEntityManager = oStudentInformationData._getEntityManager();
+		try 
+		{
+			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
+			CriteriaQuery<StudentInformationData> oCriteriaQuery = oCriteriaBuilder.createQuery(StudentInformationData.class);
+			Root<StudentInformationData> oStudentRoot = oCriteriaQuery.from(StudentInformationData.class);
+			oCriteriaQuery.select(oStudentRoot.get("m_strMotherOccupation")).distinct(true);
+			Query oQuery = oEntityManager.createQuery(oCriteriaQuery);
+			oDataResponse.m_arrStudentInformationData = (ArrayList<StudentInformationData>)oQuery.getResultList();			
+		}
+		catch (Exception oException)
+		{
+			m_oLogger.debug("getMotherOccupations - oException"+oException);
+		}
+		return oDataResponse;		
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/getStudentParentalStatus",method = RequestMethod.POST,headers = {"Content-type=application/json"})
+	@ResponseBody
+	public GenericResponse getParentalStatus(@RequestBody StudentInformationData oStudentInformationData)
+	{
+		m_oLogger.info("getStudentParentalStatus");
+		m_oLogger.debug("getStudentParentalStatus - StudentInformationData"+oStudentInformationData);
+		StudentDataResponse oDataResponse = new StudentDataResponse();
+		EntityManager oEntityManager = oStudentInformationData._getEntityManager();
+		try 
+		{
+			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
+			CriteriaQuery<StudentInformationData> oCriteriaQuery = oCriteriaBuilder.createQuery(StudentInformationData.class);
+			Root<StudentInformationData> oStudentRoot = oCriteriaQuery.from(StudentInformationData.class);
+			oCriteriaQuery.select(oStudentRoot.get("m_strParentalStatus")).distinct(true);
+			Query oQuery = oEntityManager.createQuery(oCriteriaQuery);
+			oDataResponse.m_arrStudentInformationData = (ArrayList<StudentInformationData>)oQuery.getResultList();			
+		}
+		catch (Exception oException)
+		{
+			m_oLogger.debug("getStudentParentalStatus - oException"+oException);
+		}
+		return oDataResponse;
+		
 	}	
 	
 	//Download Reports Based on Particular Parameters	
@@ -607,21 +658,35 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 			//Checking Input Request
 			if(oStudentData.getM_nCourseId() > 0)
 				m_PredicateList.add(oCriteriaBuilder.equal(oJoinStudentAcademicRoot.get("m_oCourseInformationData"),oStudentData.getM_nCourseId()));
+			
 			if(oStudentData.getM_nInstitutionId() > 0)
 				m_PredicateList.add(oCriteriaBuilder.equal(oJoinStudentAcademicRoot.get("m_oInstitutionInformationData"), oStudentData.getM_nInstitutionId()));
+			
 			if(oStudentData.getM_strGender() != "")
 				m_PredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_strGender"), oStudentData.getM_strGender()));
+			
 			if(oStudentData.getM_nFacilitatorId() > 0)
 				m_PredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_oFacilitatorInformationData"), oStudentData.getM_nFacilitatorId()));
+			
 			if(oStudentData.getM_strCity() != "")
 				m_PredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_strCity"), oStudentData.getM_strCity()));
+			
 			if(oStudentData.getM_strReligion() != "")
 				m_PredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_strReligion"), oStudentData.getM_strReligion()));
+			
+			if(oStudentData.getM_strMotherOccupation() != "")
+				m_PredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_strMotherOccupation"), oStudentData.getM_strMotherOccupation()));
+			
+			if(oStudentData.getM_strParentalStatus() != "")
+				m_PredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_strParentalStatus"), oStudentData.getM_strParentalStatus()));
+				
 			oCriteriaQuery.select(oStudentRoot);
+			
 			if(oStudentData.getM_strSortBy().equals("m_nUID"))
 			   oCriteriaQuery.orderBy(oCriteriaBuilder.asc(oStudentRoot.get("m_nUID")));
 			else
 				 oCriteriaQuery.orderBy(oCriteriaBuilder.asc(oStudentRoot.get("m_strStudentName")));
+			
 			oCriteriaQuery.where(m_PredicateList.toArray(new Predicate[] {}));
 			List<StudentInformationData> studentList = oEntityManager.createQuery(oCriteriaQuery).getResultList();
 			m_arrStudentList = new ArrayList<>(studentList);			

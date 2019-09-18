@@ -28,11 +28,12 @@ function populateReportDropDowns ()
 	populateCourseNameDropDown ();
 	populateInstitutionNameDropDown ();
 	populateCityNameDropDown ();
-	//populateParentOccupationDropDown ();
 	populateFacilitatorNameDropDown ();
 	populateStudentReligionDropDown ();
 	populateStudentGenderDropdown ();
-	
+	populateParentOccupationDropDown ();
+	populateMotherOccupationDropDown ();
+	populateParentalStatusDropDown ();
 }
 
 function studentReportsInfo_submit ()
@@ -118,11 +119,24 @@ function populateCityNameDropDown ()
 	StudentInformationDataProcessor.getCityNames(oStudentDataObject,reportCityNameDropDown);
 }
 
-//function populateParentOccupationDropDown ()
-//{
-//	var oStudentObject = new StudentInformationData ();
-//	StudentInformationDataProcessor.getParentalOccupations(oStudentObject,reportParentOccupationDropDown);
-//}
+function populateParentOccupationDropDown ()
+{
+	var oStudentObject = new StudentInformationData ();
+	StudentInformationDataProcessor.getParentalOccupations(oStudentObject,reportParentOccupationDropDown);
+}
+
+function populateMotherOccupationDropDown ()
+{
+	var oStudentObject = new StudentInformationData ();
+	StudentInformationDataProcessor.getMotherOccupations(oStudentObject,reportMotheOccupationDropDown);
+}
+
+function populateParentalStatusDropDown ()
+{
+	var oStudentObject = new StudentInformationData ();
+	StudentInformationDataProcessor.getParentalStatus(oStudentObject,reportParentalStatusDropDown);
+}
+
 
 function populateFacilitatorNameDropDown ()
 {
@@ -181,21 +195,55 @@ function reportCityNameDropDown (oCityNamesResponse)
 }
 
 
-//function reportParentOccupationDropDown (oParentalOccupationResponse)
-//{
-//	$(document).ready(function ()
-//					  {
-//							$("#parentOccupationInfo_input_name").jqxComboBox({	 source:oParentalOccupationResponse.m_arrStudentInformationData,
-//																				 displayMember:"m_strFatherOccupation",
-//																				 valueMember:"m_strFatherOccupation",
-//																				 autoComplete:true,
-//					                                                             searchMode :"startswithignorecase",
-//					                                                             placeHolder:"Select Occupation",
-//																                 width:"200px",
-//																                 height:"25px",							
-//																			 });
-//					  });
-//}
+function reportParentOccupationDropDown (oParentalOccupationResponse)
+{
+$(document).ready(function ()
+				  {
+						$("#parentOccupationInfo_input_name").jqxComboBox({	 source:oParentalOccupationResponse.m_arrStudentInformationData,
+																			 displayMember:"m_strFatherOccupation",
+																			 valueMember:"m_strFatherOccupation",
+																			 autoComplete:true,
+				                                                             searchMode :"startswithignorecase",
+				                                                             placeHolder:"Select Occupation",
+															                 width:"200px",
+															                 height:"25px",							
+																		 });
+					  });
+}
+
+function reportMotheOccupationDropDown (oMotherOccupationResponse)
+{
+$(document).ready(function ()
+				  {
+						$("#motherOccupationInfo_input_name").jqxComboBox({	 source:oMotherOccupationResponse.m_arrStudentInformationData,
+																			 displayMember:"m_strMotherOccupation",
+																			 valueMember:"m_strMotherOccupation",
+																			 autoComplete:true,
+				                                                             searchMode :"startswithignorecase",
+				                                                             placeHolder:"Select Occupation",
+															                 width:"200px",
+															                 height:"25px",							
+																		 });
+					  });
+}
+
+
+function reportParentalStatusDropDown (oParentalStatusResponse)
+{
+$(document).ready(function ()
+				  {
+						$("#parentalStatusInfo_input_name").jqxComboBox({	 source:oParentalStatusResponse.m_arrStudentInformationData,
+																			 displayMember:"m_strParentalStatus",
+																			 valueMember:"m_strParentalStatus",
+																			 autoComplete:true,
+				                                                             searchMode :"startswithignorecase",
+				                                                             placeHolder:"Select parental status",
+															                 width:"200px",
+															                 height:"25px",							
+																		 });
+					  });
+}
+
 
 function reportFacilitatorNameDropDown (oFacilitatorResponse)
 {
@@ -234,8 +282,12 @@ function getReportFormData ()
 		oStudentData.m_nCourseId = $("#courseListInfo_input_name").val();
 	if($("#facilitatorListInfo_input_name").val() != "")
 		oStudentData.m_nFacilitatorId = $("#facilitatorListInfo_input_name").val();
-	if($("#parentOccupationInfo_input_name").val() != "")
-		oStudentData.m_strFatherOccupation = $("#parentOccupationInfo_input_name").val();
+	if($("#fatherOccupationInfo_input_name").val() != "")
+		oStudentData.m_strFatherOccupation = $("#fatherOccupationInfo_input_name").val();
+	if($("#motherOccupationInfo_input_name").val() != "")
+		oStudentData.m_strMotherOccupation = $("#motherOccupationInfo_input_name").val();
+	if($("#parentalStatusInfo_input_name").val() != "")
+		oStudentData.m_strParentalStatus = $("#parentalStatusInfo_input_name").val();
 	if($("#institutionNameInfo_input_name").val() != "")
 		oStudentData.m_nInstitutionId = $("#institutionNameInfo_input_name").val();
 	if($("#studentReport_input_gender").val() != "")
