@@ -28,7 +28,7 @@ public class ZenithScholarshipInformationDataProcessor extends GenericIDataProce
 
 	@RequestMapping(value="/studentStatusInfoUpdate", method = RequestMethod.POST)
 	@ResponseBody
-	public GenericResponse toBeVerifiedStatusUpdate(@RequestParam(name = "scancopy",required = false)MultipartFile oScanCopyMultipartFile,@RequestParam("studentId") int nStudentId,@RequestParam(value="chequefavourId",required = false) Integer nFavourid,@RequestParam(value="strPaymentType",required = false) String strPaymentType) throws Exception
+	public GenericResponse toBeVerifiedStatusUpdate(@RequestParam(name = "scancopy",required = false)MultipartFile oScanCopyMultipartFile,@RequestParam("studentId") int nStudentId,@RequestParam(value="chequefavourId",required = false) Integer nFavourid,@RequestParam(value="strPaymentType",required = false) String strPaymentType,@RequestParam(value="strVerifyRemarks",required = false) String strVerifyRemarks) throws Exception
 	{
 		
 		m_oLogger.info ("toBeVerifiedStatusUpdate");
@@ -43,7 +43,8 @@ public class ZenithScholarshipInformationDataProcessor extends GenericIDataProce
 		}
 		oZenithScholarshipDetails.setM_strPaymentType(strPaymentType);
 		oZenithScholarshipDetails.setM_nStudentId(nStudentId);
-		try
+		oZenithScholarshipDetails.setM_strVerifyRemarks(strVerifyRemarks);
+		try                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
 		{	
 			String strUUID = Utils.getUUID();
 			String strFileName = Constants.VERIFIEDAPPLICATION + strUUID + Constants.IMAGE_DEFAULT_EXTENSION;
@@ -143,7 +144,7 @@ public class ZenithScholarshipInformationDataProcessor extends GenericIDataProce
 			    oStudentInformationData.setM_nStudentId(oZenithScholarshipDetails.getM_nStudentId());
 			    oStudentInformationData= (StudentInformationData) populateObject(oStudentInformationData);
 			    List<ZenithScholarshipDetails> oDetails = new ArrayList<ZenithScholarshipDetails>(oStudentInformationData.getM_oZenithScholarshipDetails());
-			    AmazonSMS.sendSmsToCounselingCandidate(Constants.NUMBERPREFIX+oStudentInformationData.getM_strPhoneNumber(),oStudentInformationData.getM_strStudentName(),oDetails.get(0).getM_strStudentRemarks());	
+			    AmazonSMS.sendSmsToCounselingCandidate(Constants.NUMBERPREFIX+oStudentInformationData.getM_strPhoneNumber(),oDetails.get(0).getM_dCounselingDate());	
 				Utils.createActivityLog("ZenithScholarshipInformationDataProcessor::counselingStatusApplication", oZenithScholarshipDetails);			
 			} 
 		}

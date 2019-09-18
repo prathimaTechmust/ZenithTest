@@ -52,7 +52,19 @@ function counselingStudentListInfo_createDataGrid ()
 		        		return row.m_oZenithScholarshipDetails[0].m_strStatus;
 		        	}
 				},	
-				{field:'m_nCounselingDate',title:'Counseling Date',sortable:true,width:200},
+				{field:'m_nCounselingDate',title:'Counseling Date',sortable:true,width:200,
+					formatter:function(value,row,index)
+		        	{
+		        		return convertTimestampToDayMonthYear(row.m_oZenithScholarshipDetails[0].m_dCounselingDate);
+		        	}
+				},
+				
+				{field:'m_strStudentRemarks',title:'Remarks',sortable:true,width:200,
+					formatter:function(value,row,index)
+		        	{
+		        		return row.m_oZenithScholarshipDetails[0].m_strStudentRemarks;
+		        	}
+				},
 			]],				
 		}
 	);

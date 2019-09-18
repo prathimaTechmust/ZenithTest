@@ -749,6 +749,7 @@ public abstract class GenericData implements IGenericData, Serializable
 				oZenith.setM_strImage(oZenithScholarshipDetails.getM_strImage());
 				oZenith.setM_oChequeInFavourOf(oZenithScholarshipDetails.getM_oChequeInFavourOf());
 				oZenith.setM_strPaymentType(oZenithScholarshipDetails.getM_strPaymentType());
+				oZenith.setM_strVerifyRemarks(oZenithScholarshipDetails.getM_strVerifyRemarks());
 				IsUpdate = oZenith.updateObject();
 			}
 		}
@@ -977,6 +978,7 @@ public abstract class GenericData implements IGenericData, Serializable
 				ZenithScholarshipDetails oDetails = list.get(0);
 				oDetails.setM_strStatus(Constants.APPLICATIONCOUNSELING);
 				oDetails.setM_strStudentRemarks(oZenithData.getM_strStudentRemarks());
+				oDetails.setM_dCounselingDate(oZenithData.getM_dCounselingDate());
 				bIsStatusReVerify = oDetails.updateObject();
 			}
 		}

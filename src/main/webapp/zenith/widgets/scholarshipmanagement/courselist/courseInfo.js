@@ -53,7 +53,11 @@ function courseInfo_getFormData ()
 	var oCourseInformationData = new CourseInformationData ();
 	oCourseInformationData.m_nCourseId = m_oCourseInfoMemberData.m_nCourseId;
 	oCourseInformationData.m_strShortCourseName = $("#courseInfo_input_shortcourseName").val();
-	oCourseInformationData.m_strLongCourseName = $("#courseInfo_input_longcourseName").val();	
+	oCourseInformationData.m_strLongCourseName = $("#courseInfo_input_longcourseName").val();
+	if(document.getElementById("courseInfo_input_finalYear_yes").checked)
+		oCourseInformationData.m_strFinalYear = $("#courseInfo_input_finalYear_yes").val();
+	else
+		oCourseInformationData.m_strFinalYear = $("#courseInfo_input_finalYear_no").val();
 	return oCourseInformationData;
 }
 
@@ -96,6 +100,17 @@ function courseInfo_gotData (oCourseInfoResponse)
 	m_oCourseInfoMemberData.m_nCourseId = oCourseInfoData.m_nCourseId;	
 	 $("#courseInfo_input_shortcourseName").val(oCourseInfoData.m_strShortCourseName);
 	 $("#courseInfo_input_longcourseName").val(oCourseInfoData.m_strLongCourseName);
+	 if(oCourseInformationData.m_strFinalYear == "yes")
+		 {
+		 var radiobutton = document.getElementById("courseInfo_input_finalYear_yes");
+			radiobutton.checked = true;
+		 }
+	 else
+		 {
+		 
+		 var radiobutton = document.getElementById("courseInfo_input_finalYear_no");
+			radiobutton.checked = true;
+		 }
 	 initFormValidateBoxes ("courseInfo_form_id");
 }
 

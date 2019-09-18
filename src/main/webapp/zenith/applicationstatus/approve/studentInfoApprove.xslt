@@ -28,7 +28,7 @@
 <body>
 	<table border="1" width="100%" >
 		<tr>	
-			<td style="width: 50%;" >
+			<td style="width: 55%;" >
 				<table>
 					<tr>
 						<td align="left">
@@ -52,6 +52,12 @@
 									<td class="xslt_fieldData" id="m_strStudentName">
 										<xsl:value-of select="StudentInformationData/m_strStudentName" />
 									</td>
+								</tr>
+								<tr>
+									<td class="xslt_fieldHeading">Category :</td>
+									<td class="xslt_fieldData" id="m_strCategory">
+									<xsl:value-of select="StudentInformationData/m_strCategory"/>								
+									</td>						
 								</tr>
 								<tr>
 									<td class="xslt_fieldHeading">Priority Status :</td>
@@ -85,7 +91,14 @@
 									<xsl:variable name="paidFee" select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_fPaidFee"></xsl:variable>
 									<xsl:value-of select="format-number($annualFee - $paidFee, '##,##,##0')"/>
 								</td>									
-							</tr>		
+							</tr>
+							<tr>
+								<td class ="xslt_fieldHeading">Remarks:</td>
+								<td class ="xslt_fieldData" id = "m_strVerifyRemarks">
+									<xsl:value-of select="StudentInformationData/m_oZenithScholarshipDetails/ZenithScholarshipDetails/m_strVerifyRemarks"/>
+								</td>
+								
+							</tr>	
 							</table>
 							<table class="zenith">
 								<tr>
@@ -115,7 +128,7 @@
 									<td style="padding-top: 3%;"> 
 					     				<button type="button" width="120px" align="center" class="zenith addButton" style="width:120px;" id="documentView" title="documentView" onclick="viewStudentDocument('{StudentInformationData/m_oAcademicDetails/AcademicDetails/m_nAcademicId}')">View Documents </button>
 	       			                </td>	
-								</tr>									
+								</tr>								
 							</table>										
 						</td>																					
 					</tr>								

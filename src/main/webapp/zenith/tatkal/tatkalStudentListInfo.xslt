@@ -30,7 +30,7 @@
 <body>
 <table border="1" width="100%" >
 	<tr>	
-		<td style="width: 50%;" >
+		<td style="width: 55%;" >
 			<table>
 				<tr>
 					<td align="left">
@@ -52,6 +52,12 @@
 								<td class="xslt_fieldData" id="m_strStudentName">
 									<xsl:value-of select="StudentInformationData/m_strStudentName" />
 								</td>
+							</tr>
+							<tr>
+								<td class="xslt_fieldHeading">Category :</td>
+								<td class="xslt_fieldData" id="m_strCategory">
+								<xsl:value-of select="StudentInformationData/m_strCategory"/>								
+								</td>						
 							</tr>
 							<tr>
 								<td class="xslt_fieldHeading">Priority Status :</td>

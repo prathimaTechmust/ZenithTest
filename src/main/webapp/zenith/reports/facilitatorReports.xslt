@@ -377,6 +377,7 @@
 									<td>
 										<table border="1" cellSpacing="5px" class="organization" >	
 											<tr>
+											    <td class="organization">UID</td>
 												<td class="organization">Name</td>
 												<td class="organization">Studying</td>
 												<td class="organization">School/College</td>
@@ -386,6 +387,13 @@
 										           	<tr>
 														<xsl:for-each select="StudentInformationData/m_oSibilingDetails/SiblingsDetails">
 															<tr>
+															 <td class="organization organizationData" >
+															    <xsl:choose>
+															      <xsl:when test="m_nZenithUID !='0'" >
+																	<xsl:value-of select="m_nZenithUID" /> 
+																  </xsl:when>
+																 </xsl:choose>
+																</td>
 																<td class="organization organizationData" >
 																	<xsl:value-of select="m_strSiblingName" />
 																</td>
@@ -409,7 +417,10 @@
 													</td>
 													<td class="organization organizationData">
 														--
-													</td>												
+													</td>	
+													<td class="organization organizationData">
+														--
+													</td>											
 												</tr>										
 									         	</xsl:otherwise>
 									      	 </xsl:choose>											

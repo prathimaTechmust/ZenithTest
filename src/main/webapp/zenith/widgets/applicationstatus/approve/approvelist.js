@@ -164,6 +164,7 @@ function rejectStudentRemarks_init()
 	initFormValidateBoxes('studentRemarkForm');
 }
 
+
 function studentRemarkInfo_submit ()
 {
 	if(studentRemarkValidate ())
@@ -274,9 +275,21 @@ function counselingStudentInfo_Student()
  function counselingRemarks_init()
  {
 	 createPopup('dialog','#counselingRemarkInfo_Submit','counselingRemarkInfo_cancel',true);
+	 validateDate();
 	initFormValidateBoxes ("counselingRemarkForm");
  }
 
+ function validateDate() 
+ {
+ 	var date = new Date();
+ 	var day = date.getDate();
+ 	var month = date.getMonth() + 1;
+ 	var year = date.getFullYear();
+ 	if (month < 10) month = "0" + month;
+ 	if (day < 10) day = "0" + day;
+ 	var today = year + "-" + month + "-" + day;
+ 	document.getElementById('studentInfo_input_counselingDate').value = today;
+ }
  
 function counselingRemarkInfo_Submit()
 {	
@@ -301,6 +314,7 @@ function counselingremark_progressbarLoaded()
 	var oZenith = new ZenithScholarshipDetails ();
 	oZenith.m_nStudentId = m_oApproveStudentList_Info_MemberData.m_nStudentId;
 	oZenith.m_strStudentRemarks = $("#counselingRemarkInfo_input_Remark").val();
+	oZenith.m_dCounselingDate = $("#studentInfo_input_counselingDate").val();
 	ZenithStudentInformationDataProcessor.counselingStatusUpdate(oZenith,studentCounselingResponse);	
 }
 
