@@ -3,6 +3,7 @@ package com.techmust.scholarshipmanagement.academicdetails;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -40,6 +41,7 @@ import com.techmust.scholarshipmanagement.scholarshipdetails.scholarshiporganiza
 import com.techmust.scholarshipmanagement.sholarshipaccounts.StudentScholarshipAccount;
 import com.techmust.scholarshipmanagement.student.StudentInformationData;
 import com.techmust.scholarshipmanagement.studentdocuments.StudentDocuments;
+import com.techmust.usermanagement.userinfo.UserInformationData;
 
 @Entity
 @Table(name = "academicdetails")
@@ -65,9 +67,22 @@ public class AcademicDetails extends MasterData implements Serializable
 	@Column(name = "paidfee")
 	private float m_fPaidFee;	
 	
-	@Column(name = "date")
-	private Calendar m_dDate;	
+	//Mandatory Columns
+	@Column(name = "created_on")
+	private Date m_dCreatedOn;
 	
+	@Column(name = "updated_on")
+	private Date m_UpdatedOn;
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "created_by")	
+	private UserInformationData m_oUserCreatedBy;
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name ="updated_by")
+	private UserInformationData m_oUserUpdatedBy;
+	
+	//Mappings
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "academicyearid")
 	private AcademicYear m_oAcademicYear;
@@ -98,6 +113,7 @@ public class AcademicDetails extends MasterData implements Serializable
 	@JoinColumn(name = "academic_id")
 	private List<StudentDocuments> m_arrStudentDocuments;
 	
+	//Transient Variables
 	@Transient
 	public ScholarshipOrganizationDetails[] m_arrScholarshipOrganizationDetails;	
 	
@@ -108,7 +124,8 @@ public class AcademicDetails extends MasterData implements Serializable
 		m_strStudentScore = "";
 		m_fAnnualFee = 0;
 		m_fPaidFee = 0;		
-		m_dDate = Calendar.getInstance();
+		m_dCreatedOn = Calendar.getInstance().getTime();
+		m_UpdatedOn = Calendar.getInstance().getTime();
 		m_oStudentInformationData = new StudentInformationData ();
 		m_oInstitutionInformationData = new InstitutionInformationData();
 		m_oCourseInformationData = new CourseInformationData();	
@@ -116,6 +133,8 @@ public class AcademicDetails extends MasterData implements Serializable
 		m_oStudentScholarshipAccount = new HashSet<StudentScholarshipAccount> ();
 		m_arrStudentDocuments = new ArrayList<StudentDocuments>();
 		m_oAcademicYear = new AcademicYear();
+		m_oUserCreatedBy = new UserInformationData();
+		m_oUserUpdatedBy = new UserInformationData();
 	}
 	
 	public AcademicYear getM_oAcademicYear()
@@ -247,17 +266,47 @@ public class AcademicDetails extends MasterData implements Serializable
 	{
 		this.m_fPaidFee = m_fPaidFee;
 	}	
-
-	public Calendar getM_dDate() 
+	
+	public Date getM_dCreatedOn()
 	{
-		return m_dDate;
+		return m_dCreatedOn;
 	}
 
-	public void setM_dDate(Calendar m_dDate)
+	public void setM_dCreatedOn(Date m_dCreatedOn)
 	{
-		this.m_dDate = m_dDate;
-	}	
-	
+		this.m_dCreatedOn = m_dCreatedOn;
+	}
+
+	public Date getM_UpdatedOn()
+	{
+		return m_UpdatedOn;
+	}
+
+	public void setM_UpdatedOn(Date m_UpdatedOn)
+	{
+		this.m_UpdatedOn = m_UpdatedOn;
+	}
+
+	public UserInformationData getM_oUserCreatedBy()
+	{
+		return m_oUserCreatedBy;
+	}
+
+	public void setM_oUserCreatedBy(UserInformationData m_oUserCreatedBy)
+	{
+		this.m_oUserCreatedBy = m_oUserCreatedBy;
+	}
+
+	public UserInformationData getM_oUserUpdatedBy()
+	{
+		return m_oUserUpdatedBy;
+	}
+
+	public void setM_oUserUpdatedBy(UserInformationData m_oUserUpdatedBy)
+	{
+		this.m_oUserUpdatedBy = m_oUserUpdatedBy;
+	}
+
 	@Override
 	protected Predicate listCriteria(CriteriaBuilder oCriteriaBuilder, Root<GenericData> oRootObject) 
 	{

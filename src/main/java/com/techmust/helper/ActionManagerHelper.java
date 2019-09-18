@@ -31,7 +31,7 @@ public class ActionManagerHelper extends ActionManagerDataProcessor
 		ActionManagerResponse oActionManagerResponse = super.get(oData);
 		if(oActionManagerResponse.m_bSuccess == true)
 		{
-			UserInformationData oLoginUserData = getLoginUserInfpormationData(oActionManagerResponse.m_strUser);
+			UserInformationData oLoginUserData = getLoginUserInformationData(oActionManagerResponse.m_strUser);
 			m_oSession = setLoginUserToSession (oLoginUserData);
 			Utils.createActivityLog("ActionManagerDataProcessor::login",oLoginUserData);
 		}
@@ -44,7 +44,7 @@ public class ActionManagerHelper extends ActionManagerDataProcessor
 		return m_oSession;		
 	}
 
-	private UserInformationData getLoginUserInfpormationData(String strLoginUser)
+	private UserInformationData getLoginUserInformationData(String strLoginUser)
 	{
 		UserInformationData oInformationData = new UserInformationData();
 		try
@@ -59,6 +59,7 @@ public class ActionManagerHelper extends ActionManagerDataProcessor
 		return oInformationData;
 	}
 
+	
 	private static HttpSession setLoginUserToSession(UserInformationData oLoginUserData) 
 	{
 		m_oLogger.info ("SetLoginUserToSession");
@@ -66,10 +67,24 @@ public class ActionManagerHelper extends ActionManagerDataProcessor
 		HttpServletRequest oHttpServletRequest = oServletRequestAttr.getRequest();		
 		HttpSession oSession = oHttpServletRequest.getSession();
 		m_oLogger.info("Session Id"+oSession.getId());
-		oSession.setAttribute(Constants.LOGINUSERNAME, oLoginUserData.getM_strUserName());
-		String strLoginUserName = (String) oSession.getAttribute(Constants.LOGINUSERNAME);
-		Utils.saveCookie(Constants.LOGINUSERNAME, strLoginUserName, oServletRequestAttr.getResponse());
-		String strUser = Utils.getCookie(oHttpServletRequest, Constants.LOGINUSERNAME);
+		String strUserName = "";
+		String strLoginUserId = "";
+		try
+		{
+			oSession.setAttribute(Constants.LOGINUSERID, oLoginUserData.getM_nUserId());
+			oSession.setAttribute(Constants.LOGINUSERNAME, oLoginUserData.getM_strUserName());
+			Integer nLoginUserId = (Integer) oSession.getAttribute(Constants.LOGINUSERID);
+			String strLoginUserName = (String) oSession.getAttribute(Constants.LOGINUSERNAME);
+			String strLoginId = Integer.toString(nLoginUserId);
+			Utils.saveCookie(Constants.LOGINUSERID, strLoginId, oServletRequestAttr.getResponse());
+			Utils.saveCookie(Constants.LOGINUSERNAME, strLoginUserName, oServletRequestAttr.getResponse());
+			strUserName = Utils.getCookie(oHttpServletRequest, Constants.LOGINUSERNAME);
+			strLoginUserId = Utils.getCookie(oHttpServletRequest, Constants.LOGINUSERID);
+		} 
+		catch (Exception oException)
+		{
+			m_oLogger.error("SetLoginUserToSession - oException"+oException);
+		}		
 		return oSession;	
 	}
 

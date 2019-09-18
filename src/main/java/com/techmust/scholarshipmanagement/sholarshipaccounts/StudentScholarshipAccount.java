@@ -1,14 +1,17 @@
 package com.techmust.scholarshipmanagement.sholarshipaccounts;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -22,6 +25,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.techmust.generic.data.GenericData;
 import com.techmust.generic.data.MasterData;
 import com.techmust.scholarshipmanagement.academicdetails.AcademicDetails;
+import com.techmust.usermanagement.userinfo.UserInformationData;
 
 @Entity
 @Table(name = "scholarshipaccount")
@@ -63,21 +67,39 @@ public class StudentScholarshipAccount extends MasterData
 	private String m_strChequeStatus;
 	
 	@Column(name = "chequevalid")
-	private boolean m_bChequeValid;
+	private boolean m_bChequeValid;	
 	
-	@Column(name="ChequePreparedBy")
-	private String m_strChequePreparedBy;
+	//Mandatory Columns
+	@Column(name = "created_on")
+	private Date m_dCreatedOn;
 	
+	@Column(name = "updated_on")
+	private Date m_dUpdatedOn;
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "created_by")
+	private UserInformationData m_oUserCreatedBy;
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "update_by")
+	private UserInformationData m_oUserUpdatedBy;	
+	
+	//Mappings
+	@JsonBackReference
+	@ManyToOne
+	@JoinColumn(name = "academicId")
+	private AcademicDetails m_oAcademicDetails;
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="ChequePreparedBy")
+	private UserInformationData m_oChequePreparedBy;
+	
+	//Transient Variables
 	@Transient
 	private int m_nStudentId;
 	
 	@Transient
 	private int m_nAcademicYearId;
-	
-	@JsonBackReference
-	@ManyToOne
-	@JoinColumn(name = "academicId")
-	private AcademicDetails m_oAcademicDetails;
 	
 	public StudentScholarshipAccount()
 	{
@@ -91,23 +113,64 @@ public class StudentScholarshipAccount extends MasterData
 		m_nChequeNumber = 0;
 		//m_nDDNumber = 0;
 		m_strChequeRemarks = "";
-		m_strChequePreparedBy = " ";
+		m_oChequePreparedBy = new UserInformationData();
 		m_strChequeStatus = "Active";
 		m_bChequeValid = true;
+		m_dCreatedOn = Calendar.getInstance().getTime();
+		m_dUpdatedOn = Calendar.getInstance().getTime();
+		m_oUserCreatedBy = new UserInformationData();
+		m_oUserUpdatedBy = new UserInformationData();
 	}
 	
-
-	public String getM_strChequePreparedBy()
+	public Date getM_dCreatedOn()
 	{
-		return m_strChequePreparedBy;
+		return m_dCreatedOn;
 	}
 
-
-	public void setM_strChequePreparedBy(String m_strChequePreparedBy) 
+	public void setM_dCreatedOn(Date m_dCreatedOn)
 	{
-		this.m_strChequePreparedBy = m_strChequePreparedBy;
+		this.m_dCreatedOn = m_dCreatedOn;
 	}
 
+	public Date getM_dUpdatedOn()
+	{
+		return m_dUpdatedOn;
+	}
+
+	public void setM_dUpdatedOn(Date m_dUpdatedOn) 
+	{
+		this.m_dUpdatedOn = m_dUpdatedOn;
+	}
+
+	public UserInformationData getM_oUserCreatedBy() 
+	{
+		return m_oUserCreatedBy;
+	}
+
+	public void setM_oUserCreatedBy(UserInformationData m_oUserCreatedBy)
+	{
+		this.m_oUserCreatedBy = m_oUserCreatedBy;
+	}
+	
+	public UserInformationData getM_oUserUpdatedBy()
+	{
+		return m_oUserUpdatedBy;
+	}
+
+	public void setM_oUserUpdatedBy(UserInformationData m_oUserUpdatedBy) 
+	{
+		this.m_oUserUpdatedBy = m_oUserUpdatedBy;
+	}	
+
+	public UserInformationData getM_oChequePreparedBy()
+	{
+		return m_oChequePreparedBy;
+	}
+
+	public void setM_oChequePreparedBy(UserInformationData m_oChequePreparedBy)
+	{
+		this.m_oChequePreparedBy = m_oChequePreparedBy;
+	}
 
 	public boolean isM_bChequeValid()
 	{
@@ -248,6 +311,7 @@ public class StudentScholarshipAccount extends MasterData
 	{
 		this.m_dSanctionDate = dSanctionDate;
 	}
+	
 	@Override
 	protected Predicate listCriteria(CriteriaBuilder oCriteriaBuilder, Root<GenericData> oRootObject) 
 	{
@@ -286,7 +350,7 @@ public class StudentScholarshipAccount extends MasterData
 			addChild(oXmlDocument, oRootElement, "m_strPayeeName", m_strPayeeName);
 			addChild(oXmlDocument, oRootElement, "m_fSanctionedAmount", m_fSanctionedAmount);
 			addChild(oXmlDocument, oRootElement, "m_nChequeNumber", m_nChequeNumber); 
-			addChild(oXmlDocument, oRootElement, "m_strChequePreparedBy", m_strChequePreparedBy);
+			//addChild(oXmlDocument, oRootElement, "m_strChequePreparedBy", m_strChequePreparedBy);
 			//addChild(oXmlDocument, oRootElement, "m_nDDNumber", m_nDDNumber);
 			strChequeInfoXML = getXmlString(oXmlDocument);
 		}

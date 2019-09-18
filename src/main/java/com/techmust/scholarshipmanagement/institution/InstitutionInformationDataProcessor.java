@@ -150,7 +150,7 @@ public class InstitutionInformationDataProcessor extends GenericIDataProcessor<I
 			oInstitutionDataResponse.m_bSuccess = oInstitutionInformationData.updateObject();
 			if(oInstitutionDataResponse.m_bSuccess)
 			{
-				oInstitutionDataResponse.m_arrInstitutionInformationData.add(oInstitutionInformationData);
+				//oInstitutionDataResponse.m_arrInstitutionInformationData.add(oInstitutionInformationData);
 				Utils.createActivityLog("InstitutionInformationDataProcessor::update", oInstitutionInformationData);
 			}
 		}

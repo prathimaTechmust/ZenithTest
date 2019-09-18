@@ -151,7 +151,7 @@ public class CourseInformationDataProcessor extends GenericIDataProcessor <Cours
 			oCourseDataResponse.m_bSuccess = oCourseInformationData.updateObject();
 			if(oCourseDataResponse.m_bSuccess)
 			{
-				oCourseDataResponse.m_arrCourseInformationData.add(oCourseInformationData);
+				//oCourseDataResponse.m_arrCourseInformationData.add(oCourseInformationData);
 				Utils.createActivityLog("CourseInformationDataProcessor::update", oCourseInformationData);
 			}
 		}

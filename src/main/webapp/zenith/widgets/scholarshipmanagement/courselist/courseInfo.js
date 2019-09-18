@@ -58,7 +58,19 @@ function courseInfo_getFormData ()
 		oCourseInformationData.m_strFinalYear = $("#courseInfo_input_finalYear_yes").val();
 	else
 		oCourseInformationData.m_strFinalYear = $("#courseInfo_input_finalYear_no").val();
-	return oCourseInformationData;
+	var oUserData = getLoginUserData ()
+	if(m_oCourseInfoMemberData.m_nCourseId != -1)
+	{
+		oCourseInformationData.m_dCreatedOn = m_oCourseInfoMemberData.dCreatedOn;
+		oCourseInformationData.m_oUserCreatedBy = m_oCourseInfoMemberData.oUserCreatedBy;
+		oCourseInformationData.m_oUserUpdatedBy = oUserData;
+	}
+	else
+	{
+		oCourseInformationData.m_oUserCreatedBy = oUserData;
+		oCourseInformationData.m_oUserUpdatedBy = oUserData;		
+	}
+	return oCourseInformationData;	
 }
 
 function courseInfo_created (oCourseInfoResponse)
@@ -91,13 +103,13 @@ function courseInfo_displayInfo (strMessage)
 {
 	HideDialog ("dialog");
 	informUser(strMessage, "kSuccess");
-	navigate("courseList", "widgets/scholarshipmanagement/courselist/listCourses.js")
+	navigate("courseList", "widgets/scholarshipmanagement/courselist/listCourses.js");
 }
 
 function courseInfo_gotData (oCourseInfoResponse)
 {	
 	var oCourseInfoData = oCourseInfoResponse.m_arrCourseInformationData[0];
-	m_oCourseInfoMemberData.m_nCourseId = oCourseInfoData.m_nCourseId;	
+	m_oCourseInfoMemberData.m_nCourseId = oCourseInfoData.m_nCourseId;
 	 $("#courseInfo_input_shortcourseName").val(oCourseInfoData.m_strShortCourseName);
 	 $("#courseInfo_input_longcourseName").val(oCourseInfoData.m_strLongCourseName);
 	 if(oCourseInformationData.m_strFinalYear == "yes")
@@ -112,6 +124,13 @@ function courseInfo_gotData (oCourseInfoResponse)
 			radiobutton.checked = true;
 		 }
 	 initFormValidateBoxes ("courseInfo_form_id");
+	m_oCourseInfoMemberData.dCreatedOn = oCourseInfoData.m_dCreatedOn;
+	m_oCourseInfoMemberData.dUpdatedOn = oCourseInfoData.m_dUpdatedOn;
+	m_oCourseInfoMemberData.oUserCreatedBy = oCourseInfoData.m_oUserCreatedBy;
+	m_oCourseInfoMemberData.oUserUpdatedBy = oCourseInfoData.m_oUserUpdatedBy;
+	$("#courseInfo_input_shortcourseName").val(oCourseInfoData.m_strShortCourseName);
+	$("#courseInfo_input_longcourseName").val(oCourseInfoData.m_strLongCourseName);
+	initFormValidateBoxes ("courseInfo_form_id");
 }
 
 function courseInfo_cancel()

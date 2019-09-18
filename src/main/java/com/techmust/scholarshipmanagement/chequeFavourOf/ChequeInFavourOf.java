@@ -1,12 +1,17 @@
 package com.techmust.scholarshipmanagement.chequeFavourOf;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -20,6 +25,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.techmust.generic.data.GenericData;
 import com.techmust.generic.data.MasterData;
 import com.techmust.scholarshipmanagement.institution.InstitutionInformationData;
+import com.techmust.usermanagement.userinfo.UserInformationData;
 
 @Entity
 @Table(name = "cheque_infavour_of")
@@ -35,6 +41,22 @@ public class ChequeInFavourOf extends MasterData
 	@Column(name = "favour_of")
 	private String m_strChequeFavourOf;
 	
+	//Mandatory Columns
+	@Column(name = "created_on")
+	private Date m_dCreatedOn;
+	
+	@Column(name = "updated_on")
+	private Date m_dUpdatedOn;
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "created_by")
+	private UserInformationData m_oUserCreatedBy;
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "updated_by")
+	private UserInformationData m_oUserUpdatedBy;
+	
+	//Mappings
 	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "institution_id")
@@ -45,8 +67,52 @@ public class ChequeInFavourOf extends MasterData
 		m_nChequeFavourId = -1;
 		m_strChequeFavourOf = "";
 		m_oInstitutionInformationData = new InstitutionInformationData();
+		m_dCreatedOn = Calendar.getInstance().getTime();
+		m_dUpdatedOn = Calendar.getInstance().getTime();
+		m_oUserCreatedBy = new UserInformationData();
+		m_oUserUpdatedBy = new UserInformationData();
 	}
 	
+	public Date getM_dCreatedOn() 
+	{
+		return m_dCreatedOn;
+	}
+	
+	public void setM_dCreatedOn(Date m_dCreatedOn) 
+	{
+		this.m_dCreatedOn = m_dCreatedOn;
+	}
+
+	public Date getM_dUpdatedOn()
+	{
+		return m_dUpdatedOn;
+	}
+
+	public void setM_dUpdatedOn(Date m_dUpdatedOn) 
+	{
+		this.m_dUpdatedOn = m_dUpdatedOn;
+	}
+
+	public UserInformationData getM_oUserCreatedBy()
+	{
+		return m_oUserCreatedBy;
+	}
+	
+	public void setM_oUserCreatedBy(UserInformationData m_oUserCreatedBy)
+	{
+		this.m_oUserCreatedBy = m_oUserCreatedBy;
+	}
+
+	public UserInformationData getM_oUserUpdatedBy() 
+	{
+		return m_oUserUpdatedBy;
+	}
+
+	public void setM_oUserUpdatedBy(UserInformationData m_oUserUpdatedBy)
+	{
+		this.m_oUserUpdatedBy = m_oUserUpdatedBy;
+	}
+
 	public InstitutionInformationData getM_oInstitutionInformationData()
 	{
 		return m_oInstitutionInformationData;

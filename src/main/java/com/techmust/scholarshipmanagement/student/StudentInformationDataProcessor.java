@@ -30,6 +30,7 @@ import com.techmust.scholarshipmanagement.academicdetails.AcademicDetailsProcess
 import com.techmust.scholarshipmanagement.scholarshipdetails.zenithscholarshipstatus.ZenithScholarshipDetails;
 import com.techmust.scholarshipmanagement.sholarshipaccounts.StudentScholarshipAccount;
 import com.techmust.scholarshipmanagement.studentdocuments.StudentDocuments;
+import com.techmust.usermanagement.userinfo.UserInformationData;
 import com.techmust.utils.AWSUtils;
 import com.techmust.utils.Reports;
 import com.techmust.utils.Utils;
@@ -48,7 +49,7 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		m_oLogger.debug ("create - oStudentInformationData [IN] : " + oStudentInformationData);
 		StudentDataResponse oStudentDataResponse = new StudentDataResponse();
 		try
-		{
+		{			
 			oStudentDataResponse.m_bSuccess = oStudentInformationData.saveObject();
 			if(oStudentDataResponse.m_bSuccess)
 			{
@@ -265,7 +266,7 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		return oStudentDataResponse;
 	}
 
-	@SuppressWarnings("unused")
+	@SuppressWarnings({ "unused", "unchecked" })
 	@Override
 	@RequestMapping(value="/studentInfoUpdate", method = RequestMethod.POST, headers = {"Content-type=application/json"})
 	@ResponseBody
@@ -282,8 +283,12 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 			oStudentDataResponse.m_bSuccess = oStudentInformationData.updateObject();
 			if(oStudentDataResponse.m_bSuccess)
 			{
-				oStudentDataResponse.m_arrStudentInformationData.add(oStudentInformationData);
 				Utils.createActivityLog("StudentInformationDataProcessor::update", oStudentInformationData);
+				//oStudentDataResponse.m_arrStudentInformationData.add(oStudentInformationData);
+				oStudentDataResponse.m_nStudentId = oStudentInformationData.getM_nStudentId();
+				oStudentDataResponse.m_strStudentImageId = oStudentInformationData.getM_strStudentImageId();
+				List<AcademicDetails> m_arrAcademicList = new ArrayList(oStudentInformationData.getM_oAcademicDetails());
+				oStudentDataResponse.m_nAcademicId = m_arrAcademicList.get(0).getM_nAcademicId();				
 			}			
 		}
 		catch (Exception oException)

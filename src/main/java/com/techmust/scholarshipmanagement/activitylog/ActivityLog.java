@@ -1,24 +1,25 @@
 package com.techmust.scholarshipmanagement.activitylog;
 
 import java.io.StringReader;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -26,7 +27,7 @@ import org.xml.sax.InputSource;
 
 import com.techmust.generic.data.GenericData;
 import com.techmust.generic.data.MasterData;
-import com.techmust.utils.Utils;
+import com.techmust.usermanagement.userinfo.UserInformationData;
 
 @Entity
 @Table(name = "activitylog")
@@ -46,12 +47,25 @@ public class ActivityLog  extends MasterData
 	@Column(name = "taskPerformed")
 	private String m_strTaskPerformed;
 	
-	@Column(name = "Date")
-	private Date m_dDate;
-	
 	@Column(name = "xmlparameter",columnDefinition = "TEXT")
 	private String m_strXMLString;
 	
+	//Mandatory Columns	
+	@Column(name = "created_on")
+	private Date m_dCreatedOn;
+	
+	@Column(name = "updated_on")
+	private Date m_dUpdatedOn;
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "created_by")
+	private UserInformationData m_oUserCreatedBy;
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "updated_by")
+	private UserInformationData m_oUserUpdatedBy;
+	
+	//Transient Variables
 	@Transient
 	private Date m_dFromDate;
 	
@@ -62,9 +76,12 @@ public class ActivityLog  extends MasterData
 	{
 		m_nActivityId = -1;
 		m_strLoginUserName = "";
-		m_strTaskPerformed = "";
-		m_dDate = null;
-		m_strXMLString = "";		
+		m_strTaskPerformed = "";		
+		m_strXMLString = "";
+		m_dCreatedOn = Calendar.getInstance().getTime();
+		m_dUpdatedOn = Calendar.getInstance().getTime();
+		/*m_oUserCreatedBy = new UserInformationData();
+		m_oUserUpdatedBy = new UserInformationData();*/
 	}	
 	
 	public Date getM_dFromDate()
@@ -115,17 +132,7 @@ public class ActivityLog  extends MasterData
 	public void setM_strTaskPerformed(String strTaskPerformed)
 	{
 		this.m_strTaskPerformed = strTaskPerformed;
-	}
-
-	public Date getM_dDate()
-	{
-		return m_dDate;
-	}
-
-	public void setM_dDate(Date dDate)
-	{
-		this.m_dDate = dDate;
-	}
+	}	
 
 	public String getM_strXMLString()
 	{
@@ -135,8 +142,48 @@ public class ActivityLog  extends MasterData
 	public void setM_strXMLString(String strXMLString)
 	{
 		this.m_strXMLString = strXMLString;
-	}
+	}	
 	
+	public Date getM_dCreatedOn() 
+	{
+		return m_dCreatedOn;
+	}
+
+	public void setM_dCreatedOn(Date m_dCreatedOn) 
+	{
+		this.m_dCreatedOn = m_dCreatedOn;
+	}
+
+	public Date getM_dUpdatedOn()
+	{
+		return m_dUpdatedOn;
+	}
+
+	public void setM_dUpdatedOn(Date m_dUpdatedOn)
+	{
+		this.m_dUpdatedOn = m_dUpdatedOn;
+	}
+
+	public UserInformationData getM_oUserCreatedBy() 
+	{
+		return m_oUserCreatedBy;
+	}
+
+	public void setM_oUserCreatedBy(UserInformationData m_oUserCreatedBy) 
+	{
+		this.m_oUserCreatedBy = m_oUserCreatedBy;
+	}
+
+	public UserInformationData getM_oUserUpdatedBy() 
+	{
+		return m_oUserUpdatedBy;
+	}
+
+	public void setM_oUserUpdatedBy(UserInformationData m_oUserUpdatedBy)
+	{
+		this.m_oUserUpdatedBy = m_oUserUpdatedBy;
+	}
+
 	@Override
 	public Predicate prepareCriteria(Root<GenericData> oRootObject, CriteriaQuery<GenericData> oCriteriaQuery,CriteriaBuilder oCriteriaBuilder)
 	{
@@ -181,7 +228,6 @@ public class ActivityLog  extends MasterData
 			addChild (oXmlDocument, oRootElement, "m_nActivityId", m_nActivityId);
 			addChild (oXmlDocument, oRootElement, "m_strLoginUserName", m_strLoginUserName);
 			addChild (oXmlDocument, oRootElement, "m_strTaskPerformed", m_strTaskPerformed);
-			addChild (oXmlDocument, oRootElement, "m_dDate", m_dDate != null ? m_dDate.toString(): "");
 			strActivityInfoXML = getXmlString (oXmlDocument);
 		}
 		catch (Exception oException) 

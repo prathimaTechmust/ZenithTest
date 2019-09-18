@@ -1,5 +1,8 @@
 package com.techmust.usermanagement.action;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -52,6 +56,21 @@ public class ActionData extends MasterData
 	@Column(name = "ACTION_SEQUENCENUMBER")
 	private int m_nSequenceNumber;
 	
+	//Mandatory Columns	
+	@Column(name = "CREATED_ON")
+	private Date m_dCreatedOn;
+	
+	@Column(name = "UPDATED_ON")
+	private Date m_dUpdatedOn;
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "CREATED_BY")
+	private UserInformationData m_oUserCreateBy;
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "UPDATED_BY")
+	private UserInformationData m_oUserUpdatedBy;
+	
 	/**
 	  * Constructor
 	 */
@@ -62,8 +81,50 @@ public class ActionData extends MasterData
 		m_strActionTarget = "";
 		m_nSequenceNumber = -1;
 		m_oActionArea = new ActionAreaData ();
-	}
+		m_dCreatedOn = Calendar.getInstance().getTime();
+		m_dUpdatedOn = Calendar.getInstance().getTime();		
+	}	
 	
+	public UserInformationData getM_oUserCreateBy() 
+	{
+		return m_oUserCreateBy;
+	}
+
+	public void setM_oUserCreateBy(UserInformationData m_oUserCreateBy)
+	{
+		this.m_oUserCreateBy = m_oUserCreateBy;
+	}
+
+	public UserInformationData getM_oUserUpdatedBy() 
+	{
+		return m_oUserUpdatedBy;
+	}
+
+	public void setM_oUserUpdatedBy(UserInformationData m_oUserUpdatedBy)
+	{
+		this.m_oUserUpdatedBy = m_oUserUpdatedBy;
+	}
+
+	public Date getM_dCreatedOn() 
+	{
+		return m_dCreatedOn;
+	}
+
+	public void setM_dCreatedOn(Date m_dCreatedOn)
+	{
+		this.m_dCreatedOn = m_dCreatedOn;
+	}
+
+	public Date getM_dUpdatedOn()
+	{
+		return m_dUpdatedOn;
+	}
+
+	public void setM_dUpdatedOn(Date m_dUpdatedOn) 
+	{
+		this.m_dUpdatedOn = m_dUpdatedOn;
+	}
+
 	/**
 	  * Sets the ActionAreaData
 	  *@param oActionArea - Instance of ActionAreaData

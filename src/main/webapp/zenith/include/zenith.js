@@ -1200,3 +1200,52 @@ function setdefaultAcademicYear (arrAcademicYear,dropDownId)
 	}	
 }
 
+// Getting Login User Details from Cookie
+
+function loginUserId ()
+{
+	var nLoginUserId = getLoginUser ();
+	return nLoginUserId;
+}
+
+function getLoginUser ()
+{
+	var oCookie = document.cookie.split(";");
+	var nUserId = -1;
+	for(var nIndex = 0; nIndex < oCookie.length; nIndex++)
+	{
+		var selectUserId = oCookie[nIndex].split("=");
+		if(selectUserId[0] == " LoginUserId")
+		{
+			nUserId = selectUserId[1];
+			break;
+		}
+	}
+	return nUserId;
+}
+
+function getLoginUserData ()
+{
+	var oUserInformationData = new UserInformationData ();
+	var nUserId = loginUserId ();	
+	oUserInformationData.m_nUserId = nUserId;
+	return oUserInformationData;
+}
+
+// Validate AcademicYear Form
+
+function validateAcademicYear ()
+{
+	var bValid = false;
+	var arrElements = document.getElementById("academicyeartableid");	
+	for (var nIndex=0; nIndex < arrElements.rows.length; nIndex++)
+	{
+		var bDefault = document.getElementById("select_academic_year"+nIndex).checked;
+		if (bDefault)
+		{
+			bValid = true;
+			break;
+		}			
+	}		
+	return bValid;
+}
