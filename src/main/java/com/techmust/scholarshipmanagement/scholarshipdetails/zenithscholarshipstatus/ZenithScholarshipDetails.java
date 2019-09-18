@@ -90,9 +90,6 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 	@Column(name="verifyRemarks")
 	private String m_strVerifyRemarks;
 	
-	@Transient
-	private int m_nStudentId;
-
 	//Mandatory Columns
 	@Column(name = "created_on")
 	private Date m_dCreatedOn;

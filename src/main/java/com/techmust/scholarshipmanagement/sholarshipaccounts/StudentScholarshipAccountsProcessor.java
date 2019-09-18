@@ -45,9 +45,7 @@ public class StudentScholarshipAccountsProcessor extends GenericIDataProcessor<S
 			oStudentInformationData = oStudentInformationData.getStudentDetails(oStudentInformationData);
 			List<AcademicDetails> list = new ArrayList<AcademicDetails>(oStudentInformationData.getM_oAcademicDetails());
 			if(list.size() > 0)
-			{
-				//String strLogedUser = Utils.getLoginUser();
-				//oStudentScholarshipAccount.setM_strChequePreparedBy(strLogedUser);
+			{				
 				oStudentScholarshipAccount.setM_oAcademicDetails(list.get(0));
 				oAccountsDataResponse.m_bSuccess = oStudentScholarshipAccount.saveObject();
 				Utils.createActivityLog("StudentScholarshipAccountsProcessor::create", oStudentScholarshipAccount);
