@@ -59,6 +59,8 @@
 				.rightParagraph {
 					text-align:right;
 					float: right;
+					font-size: 20px;
+					font-weight:600;
 				}	
 				
 				.thick{
@@ -120,8 +122,38 @@
 						<table width="100%">
 							<tbody>
 							<tr>
-									<td><img class="leftimage" src="images/zenithLogo.png"/></td>
-									<td><img class="rightimage" src="{StudentInformationData/m_strStudentImageUrl}"/></td>
+								<td>
+									<table>
+										<tr>
+											<td class="dataLabel">
+												<img class="leftimage" src="images/zenithLogo.png"/>
+											</td>
+										</tr>
+										<tr>
+											<td class="dataLabel">
+												<p>
+													35/1-2 Spencer Road,<br/>
+													Behind Santhosh Hospital,<br/>
+													Frazer Town<br/>
+													Bangalore-05<br/>
+													Cell : 8553743750<br/>
+													Ph: 080-41120865 | 080-43708826<br/>
+												</p>
+											</td>
+										</tr>
+									</table>
+								</td>
+								<td>
+									<table class="rightParagraph">
+										<tr>
+											<td><img class="rightimage" src="{StudentInformationData/m_strStudentImageUrl}"/></td>
+											
+										</tr>
+										<tr>
+											<td><span class="rightParagraph">UID : <xsl:value-of select="StudentInformationData/m_nUID" /></span></td>
+										</tr>
+									</table>
+								</td>
 							</tr>
 							</tbody>
 						</table>
@@ -130,7 +162,7 @@
 				<!-- Form Head Row -->
 				<tr>
 					<td>
-						<p class="centerParagraph headRow">Educational Scholarship Form <span class="rightParagraph">UID : <xsl:value-of select="StudentInformationData/m_nUID" /></span></p>
+						<p class="centerParagraph headRow">Educational Scholarship Form</p>
 						<table><tbody><tr></tr></tbody></table>
 					</td>
 				</tr>
