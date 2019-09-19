@@ -657,7 +657,7 @@ function studentInfo_gotData (oStudentInfoResponse)
 	 if(oStudentInfoData.m_bStudentMedicalCondition)
 	 {
 		document.getElementById("studentInfo_input_MedicalConditionYes").checked = true;
-		studentMedicalConditionYes(studentMedicalIssue);
+		studentMedicalConditionYes(studentMedicalIssueLable, studentMedicalIssueData);
 	 }
 	 else
 	 {
@@ -669,7 +669,7 @@ function studentInfo_gotData (oStudentInfoResponse)
 	 if(oStudentInfoData.m_bParentMedicalCondition)
 	 {
 		 document.getElementById("parentInfo_input_MedicalConditionYes").checked = true;
-		 parentInfoMedicalIssueYes(parentMedicalIssue);
+		 parentInfoMedicalIssueYes(parentMedicalIssueLable,parentMedicalIssueData);
 	 }
 	 else
 	 {
@@ -1321,22 +1321,26 @@ function studentInfo_setSiblingsData(oResponse)
 
 } 
 
-function studentMedicalConditionYes(divId)                              
+function studentMedicalConditionYes(divId,tdId)                              
 {
 	document.getElementById(divId.id).style.display = "block";
+	document.getElementById(tdId.id).style.display = "block";
 }
 
-function studentMedicalConditionNo(divId)
+function studentMedicalConditionNo(divId,tdId)
 {
 	document.getElementById(divId.id).style.display = "none";
+	document.getElementById(tdId.id).style.display = "none";
 }
 
-function parentInfoMedicalIssueYes(divId)
+function parentInfoMedicalIssueYes(divId,tdId)
 {
 	document.getElementById(divId.id).style.display = "block";
+	document.getElementById(tdId.id).style.display = "block";
 }
 
-function parentInfoMedicalIssueNo(divId)
+function parentInfoMedicalIssueNo(divId,tdId)
 {
 	document.getElementById(divId.id).style.display = "none";
+	document.getElementById(tdId.id).style.display = "none";
 }
