@@ -30,6 +30,7 @@ import com.techmust.generic.dataprocessor.GenericIDataProcessor;
 import com.techmust.scholarshipmanagement.activitylog.ActivityLog;
 import com.techmust.scholarshipmanagement.activitylog.ActivityLogDataProcessor;
 import com.techmust.scholarshipmanagement.studentdocuments.StudentDocuments;
+import com.techmust.usermanagement.userinfo.UserInformationData;
 
 
 public class Utils 
@@ -147,20 +148,44 @@ public class Utils
 		m_oLogger.debug("createLog - oLoginUserData.getM_strUserName() :" );
 		ActivityLog oActivityLog = new ActivityLog();
 		ActivityLogDataProcessor oActivityLogDataProcessor = new ActivityLogDataProcessor ();
+		UserInformationData oUserInformationData = new UserInformationData();
 		try
 		{
 			Integer nLogedUserId = getLoginUser();
-			//oActivityLog.setM_strLoginUserName(strLogedUser);
-			oActivityLog.setM_strTaskPerformed(strFunctionName);
-			//oActivityLog.setM_dDate(Calendar.getInstance().getTime());
-			String strXMLData = oGenericData.generateXML();
-			oActivityLog.setM_strXMLString(strXMLData);
-			oActivityLogDataProcessor.create(oActivityLog);
+			String strLoginUserName = getLoginUserName();
+			if(nLogedUserId != null)
+			{
+				oUserInformationData.setM_nUserId(nLogedUserId);			
+				oActivityLog.setM_strTaskPerformed(strFunctionName);
+				oActivityLog.setM_strLoginUserName(strLoginUserName);
+				oActivityLog.setM_oUserCreatedBy(oUserInformationData);
+				oActivityLog.setM_oUserUpdatedBy(oUserInformationData);
+				String strXMLData = oGenericData.generateXML();
+				oActivityLog.setM_strXMLString(strXMLData);
+				oActivityLogDataProcessor.create(oActivityLog);
+			}
 		}
 		catch (Exception oException)
 		{
 			m_oLogger.error("createLog - oException : " + oException);
 		}		
+	}
+
+	private static String getLoginUserName()
+	{
+		String strUserName = null;
+		try 
+		{
+			ServletRequestAttributes oServletRequestAttr = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+			HttpServletRequest oHttpServletRequest = oServletRequestAttr.getRequest();		
+			HttpSession oHttpSession = oHttpServletRequest.getSession();
+			strUserName = (String) oHttpSession.getAttribute(Constants.LOGINUSERNAME);
+		}
+		catch (Exception oException) 
+		{
+			m_oLogger.error("getLoginUserName - oException"+oException);
+		}
+		return strUserName;
 	}
 
 	public static Integer getLoginUser()

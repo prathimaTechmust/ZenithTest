@@ -151,6 +151,7 @@ function verifyStudentInfo_Student()
 function verifyGetFormData()
 {
 	var oFormData = new FormData ();
+	var oLoginUser = loginUserId ();
 	oFormData.append('scancopy',$("#ScanCopy")[0].files[0]);
 	oFormData.append('studentId',m_overifiedStudentList_Info_MemberData.m_nStudentId);
 	if(checkInFavour ())
@@ -163,6 +164,7 @@ function verifyGetFormData()
 		oFormData.append('strPaymentType',$("#select_radio_DD").val());
 	
 	oFormData.append('strVerifyRemarks', $("#studentVerify_input_remarks").val());
+	oFormData.append('nLoginUserId',oLoginUser);
 	ZenithStudentInformationDataProcessor.verifiedStatusUpdate(oFormData,studentverifiedResponse);
 }
 

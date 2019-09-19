@@ -312,7 +312,13 @@ function getReportFormData ()
 	if($("#motherOccupationInfo_input_name").val() != "")
 		oStudentData.m_strMotherOccupation = $("#motherOccupationInfo_input_name").val();
 	if($("#parentalStatusInfo_input_name").val() != "")
-		oStudentData.m_strParentalStatus = $("#parentalStatusInfo_input_name").val();
+		oStudentData.m_strParentalStatus = $("#parentalStatusInfo_input_name").val();		
+	if($("#studentReport_input_Graduated_Students").prop("checked") == true)
+		oStudentData.m_bStudentGraduate = $("#studentReport_input_Graduated_Students").val();
+	if($("#studentReport_input_Student_Medical_condition").prop("checked") == true)
+		oStudentData.m_bStudentMedicalCondition  = $("#studentReport_input_Student_Medical_condition").val();
+	if($("#studentReport_input_Parent_Medical_condition").prop("checked") == true)
+		oStudentData.m_bParentMedicalCondition = $("#studentReport_input_Parent_Medical_condition").val();
 	if($("#institutionNameInfo_input_name").val() != "")
 		oStudentData.m_nInstitutionId = $("#institutionNameInfo_input_name").val();
 	if($("#studentReport_input_gender").val() != "")

@@ -43,8 +43,8 @@ public class CourseInformationData extends MasterData
 	@Column(name = "longcoursename")
 	private String m_strLongCourseName;	
 
-	@Column(name="finalYear")
-	private String m_strFinalYear;
+	@Column(name="finalyear")
+	private boolean m_bFinalYear;
 
 	//Mandatory Columns
 	@Column(name = "created_on")
@@ -67,12 +67,22 @@ public class CourseInformationData extends MasterData
 		m_nCourseId = -1;
 		m_strShortCourseName = "";
 		m_strLongCourseName  = "";
-		m_strFinalYear = "";
+		m_bFinalYear = false;
 		m_dCreatedOn = Calendar.getInstance().getTime();
 		m_dUpdatedOn = Calendar.getInstance().getTime();
 		m_oUserCreatedBy = new UserInformationData();
 		m_oUserUpdatedBy = new UserInformationData();
 	}	
+
+	public boolean isM_bFinalYear()
+	{
+		return m_bFinalYear;
+	}
+
+	public void setM_bFinalYear(boolean m_bFinalYear)
+	{
+		this.m_bFinalYear = m_bFinalYear;
+	}
 
 	public Date getM_dCreatedOn()
 	{
@@ -142,17 +152,7 @@ public class CourseInformationData extends MasterData
 	public void setM_strLongCourseName(String m_strLongCourseName)
 	{
 		this.m_strLongCourseName = m_strLongCourseName;
-	}
-	
-	public String getM_strFinalYear()
-	{
-		return m_strFinalYear;
-	}
-
-	public void setM_strFinalYear(String m_strFinalYear) 
-	{
-		this.m_strFinalYear = m_strFinalYear;
-	}
+	}	
 
 	@Override
 	protected Predicate listCriteria(CriteriaBuilder oCriteriaBuilder, Root<GenericData> oRootObject) 
@@ -195,9 +195,7 @@ public class CourseInformationData extends MasterData
 			Element oRootElement = createRootElement(oXmlDocument, "CourseInformationData");
 			addChild (oXmlDocument, oRootElement, "m_nCourseId", m_nCourseId);
 			addChild (oXmlDocument, oRootElement, "m_strShortCourseName", m_strShortCourseName);
-			addChild (oXmlDocument, oRootElement, "m_strLongCourseName", m_strLongCourseName);	
-			addChild (oXmlDocument, oRootElement, "m_strFinalYear", m_strFinalYear);
-			
+			addChild (oXmlDocument, oRootElement, "m_strLongCourseName", m_strLongCourseName);			
 			strCourseInfoXML = getXmlString (oXmlDocument);
 		}
 		catch (Exception oException) 
