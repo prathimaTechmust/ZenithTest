@@ -28,6 +28,7 @@ function populateReportDropDowns ()
 	populateCourseNameDropDown ();
 	populateInstitutionNameDropDown ();
 	populateCityNameDropDown ();
+	populateCategoryDropDown();
 	populateFacilitatorNameDropDown ();
 	populateStudentReligionDropDown ();
 	populateStudentGenderDropdown ();
@@ -119,6 +120,12 @@ function populateCityNameDropDown ()
 	StudentInformationDataProcessor.getCityNames(oStudentDataObject,reportCityNameDropDown);
 }
 
+function populateCategoryDropDown ()
+{
+	var oStudentDataObject = new StudentInformationData ();
+	StudentInformationDataProcessor.getStudentCategory(oStudentDataObject,reportCategoryDropDown);
+}
+
 function populateParentOccupationDropDown ()
 {
 	var oStudentObject = new StudentInformationData ();
@@ -145,6 +152,22 @@ function populateFacilitatorNameDropDown ()
 }
 
 //response functions
+
+function reportCategoryDropDown (oCategoryResponse)
+{
+	$(document).ready(function ()
+					  {
+					       $("#categoryListInfo_input_name").jqxComboBox({  source:oCategoryResponse.m_arrStudentInformationData,
+																    	displayMember:"m_strCategory",
+																		valueMember:"m_strCategory",
+					    	   											autoComplete:true,
+			                                                            searchMode :"startswithignorecase",
+			                                                            placeHolder:"Select Category",
+														                width:"200px",
+														                height:"25px",					    	   
+					       											});					
+					 });	
+}
 
 function reportCourseNameDropDown (oCourseNamesResponse) 
 {
@@ -276,6 +299,8 @@ function getReportFormData ()
 		oStudentData.m_strSortBy = document.getElementById("studentReport_input_uid").value;
 	else
 		oStudentData.m_strSortBy = document.getElementById("studentReport_input_name").value;
+	if($("#categoryListInfo_input_name").val() != "")
+		oStudentData.m_strCategory = $("#categoryListInfo_input_name").val();
 	if($("#cityListInfo_input_name").val() != "")
 		oStudentData.m_strCity = $("#cityListInfo_input_name").val();
 	if($("#courseListInfo_input_name").val() != "")
@@ -288,15 +313,6 @@ function getReportFormData ()
 		oStudentData.m_strMotherOccupation = $("#motherOccupationInfo_input_name").val();
 	if($("#parentalStatusInfo_input_name").val() != "")
 		oStudentData.m_strParentalStatus = $("#parentalStatusInfo_input_name").val();
-	
-	if($("#studentReport_input_Graduated_Students").prop("checked") == true)
-		var ex = $("#studentReport_input_Graduated_Students").val();
-	if($("#studentReport_input_Student_Medical_condition").prop("checked") == true)
-		var ex2  = $("#studentReport_input_Student_Medical_condition").val();
-	if($("#studentReport_input_Parent_Medical_condition").prop("checked") == true)
-		oStudentData.m_strParentalStatus = $("#studentReport_input_Parent_Medical_condition").val();
-	
-	
 	if($("#institutionNameInfo_input_name").val() != "")
 		oStudentData.m_nInstitutionId = $("#institutionNameInfo_input_name").val();
 	if($("#studentReport_input_gender").val() != "")

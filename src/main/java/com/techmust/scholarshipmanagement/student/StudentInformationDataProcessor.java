@@ -542,6 +542,33 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 	}
 	
 	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/getStudentCategory",method = RequestMethod.POST,headers = {"Content-type=application/json"})
+	@ResponseBody
+	public GenericResponse getStudentCategory(@RequestBody StudentInformationData oStudentInformationData)
+	{
+		m_oLogger.info("getStudentCategory");
+		m_oLogger.debug("getStudentCategory - StudentInformationData"+oStudentInformationData);
+		StudentDataResponse oDataResponse = new StudentDataResponse();
+		EntityManager oEntityManager = oStudentInformationData._getEntityManager();
+		try 
+		{
+			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
+			CriteriaQuery<StudentInformationData> oCriteriaQuery = oCriteriaBuilder.createQuery(StudentInformationData.class);
+			Root<StudentInformationData> oStudentRoot = oCriteriaQuery.from(StudentInformationData.class);
+			oCriteriaQuery.select(oStudentRoot.get("m_strCategory")).distinct(true);
+			Query oQuery = oEntityManager.createQuery(oCriteriaQuery);
+			oDataResponse.m_arrStudentInformationData = (ArrayList<StudentInformationData>)oQuery.getResultList();		
+		}
+		catch (Exception oException)
+		{
+			m_oLogger.debug("getStudentCategory - oException"+oException);
+		}
+		return oDataResponse;
+		
+	}
+	
+	
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/getStudentParentalOccupations",method = RequestMethod.POST,headers = {"Content-type=application/json"})
 	@ResponseBody
 	public GenericResponse getParentalOccupations(@RequestBody StudentInformationData oStudentInformationData)
@@ -666,6 +693,9 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 			
 			if(oStudentData.getM_nInstitutionId() > 0)
 				m_PredicateList.add(oCriteriaBuilder.equal(oJoinStudentAcademicRoot.get("m_oInstitutionInformationData"), oStudentData.getM_nInstitutionId()));
+			
+			if(oStudentData.getM_strCategory() != "")
+				m_PredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_strCategory"),oStudentData.getM_strCategory()));
 			
 			if(oStudentData.getM_strGender() != "")
 				m_PredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_strGender"), oStudentData.getM_strGender()));

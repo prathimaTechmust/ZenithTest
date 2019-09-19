@@ -105,6 +105,10 @@ var StudentInformationDataProcessor = (function __StudentInformationDataProcesso
 		ajaxCall(oStudentData,"/getStudentCityNames",callback);
 	}
 	
+	function getStudentCategory (oStudentData,callback)
+	{
+		ajaxCall(oStudentData,"/getStudentCategory",callback);
+	}
 	function getParentalOccupations (oStudentData,callback)
 	{
 		ajaxCall(oStudentData,"/getStudentParentalOccupations",callback);
@@ -145,6 +149,7 @@ var StudentInformationDataProcessor = (function __StudentInformationDataProcesso
 		studentList:studentList,
 		updateTatkalPriority:updateTatkalPriority,		
 		getCityNames : getCityNames,
+		getStudentCategory : getStudentCategory,
 		getParentalOccupations:getParentalOccupations,
 		getMotherOccupations:getMotherOccupations,
 		getParentalStatus:getParentalStatus,
