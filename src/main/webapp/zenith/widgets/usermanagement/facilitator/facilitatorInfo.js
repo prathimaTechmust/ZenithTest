@@ -1,6 +1,6 @@
 var facilitatorInfo_includeDataObjects = 
 [	
-	'widgets/usermanagement/facilitator/FacilitatorInformationData.js'
+	'widgets/usermanagement/facilitator/FacilitatorInformationData.js'	
 ];
 
  includeDataObjects (facilitatorInfo_includeDataObjects, "facilitatorInfo_loaded()");
@@ -57,7 +57,19 @@ function facilitatorInfo_getFormData ()
 	oFacilitatorInformationData.m_strEmail = $("#facilitatorInfo_input_email").val();
 	oFacilitatorInformationData.m_strPhoneNumber = $("#facilitatorInfo_input_phoneNumber").val();
 	oFacilitatorInformationData.m_strCity = $("#facilitatorInfo_input_city").val();
-	oFacilitatorInformationData.m_strState = $("#facilatatorInfo_input_state").val();
+	oFacilitatorInformationData.m_strState = $("#facilatatorInfo_input_state").val();	
+	var oUserData = getLoginUserData ();
+	if(m_oFacilitatorInfoMemberData.m_FacilitatorId != -1)
+	{
+		oFacilitatorInformationData.m_dCreatedOn = m_oFacilitatorInfoMemberData.dCreatedOn;
+		oFacilitatorInformationData.m_oUserCreatedBy = m_oFacilitatorInfoMemberData.oUserCreatedBy;
+		oFacilitatorInformationData.m_oUserUpdatedBy = oUserData;
+	}
+	else
+	{
+		oFacilitatorInformationData.m_oUserCreatedBy = oUserData;
+		oFacilitatorInformationData.m_oUserUpdatedBy = oUserData;		
+	}
 	return oFacilitatorInformationData;
 }
 
@@ -95,6 +107,10 @@ function facilitatorInfo_gotData (oFacilitatorInfoResponse)
 {	
 	var oFacilitatorInfoData = oFacilitatorInfoResponse.m_arrFacilitatorInformationData[0];
 	oFacilitatorInfoData.m_nFaclitatorId = oFacilitatorInfoData.m_nFaclitatorId;
+	m_oFacilitatorInfoMemberData.dCreatedOn = oFacilitatorInfoData.m_dCreatedOn;
+	m_oFacilitatorInfoMemberData.dUpdatedOn = oFacilitatorInfoData.m_dUpdatedOn;
+	m_oFacilitatorInfoMemberData.oUserCreatedBy = oFacilitatorInfoData.m_oUserCreatedBy;
+	m_oFacilitatorInfoMemberData.oUserUpdatedBy = oFacilitatorInfoData.m_oUserUpdatedBy;
 	$("#facilitatorInfo_input_facilitatorName").val(oFacilitatorInfoData.m_strFacilitatorName);
 	$("#facilitatorInfo_input_phoneNumber").val(oFacilitatorInfoData.m_strPhoneNumber);
 	$("#facilitatorInfo_input_email").val(oFacilitatorInfoData.m_strEmail);

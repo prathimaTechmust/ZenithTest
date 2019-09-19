@@ -18,7 +18,14 @@
                     	<select id="selectClaimedChequeAcademicYear" class="zenith">                    		
                     	</select>
                   </td>
-                        <td class="zenith" style="width:15%">
+                    <td class="zenith" style="width:15%">
+                    <input 
+                        class="filterTextBox"
+                        id="filterStudentInfo_input_studentUID"
+                        onkeypress="handleFilter('studentListInfo_filter()','#filterStudentInfo_input_studentUID')"
+                        placeholder="Student UID"/>
+                  </td>
+                   <td class="zenith" style="width:15%">
                     <input 
                         class="filterTextBox"
                         id="filterStudentInfo_input_studentName"

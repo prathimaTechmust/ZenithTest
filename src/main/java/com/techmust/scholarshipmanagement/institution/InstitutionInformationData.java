@@ -1,8 +1,8 @@
 package com.techmust.scholarshipmanagement.institution;
 
-import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -30,15 +31,13 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.techmust.generic.data.GenericData;
 import com.techmust.generic.data.MasterData;
 import com.techmust.scholarshipmanagement.chequeFavourOf.ChequeInFavourOf;
+import com.techmust.usermanagement.userinfo.UserInformationData;
 
 @Entity
 @Table(name = "institutions")
 public class InstitutionInformationData extends MasterData
 {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -79,10 +78,27 @@ public class InstitutionInformationData extends MasterData
 	@Column(name = "cheque_favourof")
 	private boolean m_bChequeFavouOf;
 	
+	//Mandatory Columns
+	@Column(name = "created_on")
+	private Date m_dCreatedOn;
+	
+	@Column(name = "updated_on")
+	private Date m_dUpdatedOn;
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "created_by")
+	private UserInformationData m_oUserCreatedBy;
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "updated_by")
+	private UserInformationData m_oUserUpdatedBy;
+	
+	//Mappings
 	@JsonManagedReference
 	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "m_oInstitutionInformationData")	
 	private Set<ChequeInFavourOf> m_oChequeInFavourOf;
 	
+	//Transient Variables
 	@Transient
 	public ChequeInFavourOf[] m_arrChequeFavourof;	
 
@@ -101,8 +117,52 @@ public class InstitutionInformationData extends MasterData
 		m_nPincode = -1;
 		m_bChequeFavouOf = false;
 		m_oChequeInFavourOf = new HashSet<ChequeInFavourOf>();
+		m_dCreatedOn = Calendar.getInstance().getTime();
+		m_dUpdatedOn = Calendar.getInstance().getTime();
+		m_oUserCreatedBy = new UserInformationData();
+		m_oUserUpdatedBy = new UserInformationData();
 	}	
 	
+	public Date getM_dCreatedOn()
+	{
+		return m_dCreatedOn;
+	}
+
+	public void setM_dCreatedOn(Date m_dCreatedOn)
+	{
+		this.m_dCreatedOn = m_dCreatedOn;
+	}
+	
+	public Date getM_dUpdatedOn()
+	{
+		return m_dUpdatedOn;
+	}
+
+	public void setM_dUpdatedOn(Date m_dUpdatedOn) 
+	{
+		this.m_dUpdatedOn = m_dUpdatedOn;
+	}
+
+	public UserInformationData getM_oUserCreatedBy()
+	{
+		return m_oUserCreatedBy;
+	}
+
+	public void setM_oUserCreatedBy(UserInformationData m_oUserCreatedBy) 
+	{
+		this.m_oUserCreatedBy = m_oUserCreatedBy;
+	}
+
+	public UserInformationData getM_oUserUpdatedBy()
+	{
+		return m_oUserUpdatedBy;
+	}
+
+	public void setM_oUserUpdatedBy(UserInformationData m_oUserUpdatedBy)
+	{
+		this.m_oUserUpdatedBy = m_oUserUpdatedBy;
+	}
+
 	public ChequeInFavourOf[] getM_arrChequeFavourof()
 	{
 		return m_arrChequeFavourof;
@@ -193,11 +253,13 @@ public class InstitutionInformationData extends MasterData
 		this.m_strContactPersonEmail = m_strContactPersonEmail;
 	}
 	
-	public String getM_strInstitutionType() {
+	public String getM_strInstitutionType() 
+	{
 		return m_strInstitutionType;
 	}
 
-	public void setM_strInstitutionType(String m_strInstitutionType) {
+	public void setM_strInstitutionType(String m_strInstitutionType)
+	{
 		this.m_strInstitutionType = m_strInstitutionType;
 	}
 
@@ -270,7 +332,7 @@ public class InstitutionInformationData extends MasterData
 		if (!m_strCity.isEmpty())
 		{
 			Expression<String> oExpression = oRootObject.get("m_strCity");
-			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.like(oExpression,""+m_strCity+"%"));
+			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.like(oExpression,"%"+m_strCity+"%"));
 		}
 		return oConjunct;
 	}

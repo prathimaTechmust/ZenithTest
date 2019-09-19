@@ -34,28 +34,6 @@ function academicyear_populate()
 	AcademicYearProcessor.list(oAcademicYear,"m_strAcademicYear","asc",0,0,academicyearResponse);
 }
 
-function academicyear_getFormData ()
-{
-	var oAcademicYear = new AcademicYear ();
-	var rowCount = document.getElementById("academicyeartableid");
-	for(var nIndex = 0; nIndex < rowCount.rows.length; nIndex++)
-	{
-		var strYear = $("#academicyearInfo_input"+nIndex).val();
-		var bDefault = document.getElementById("select_academic_year"+nIndex).checked;
-		if(strYear != "" && bDefault)
-		{			
-			oAcademicYear.m_strAcademicYear = $("#academicyearInfo_input"+nIndex).val();
-			oAcademicYear.m_bDefaultYear = bDefault;
-		}				
-	}	
-	return oAcademicYear;
-}
-
-function academicyear_validate ()
-{
-	return validateForm ("AcademicYear_form_id");
-}
-
 function academicYearInfo_submit ()
 {
 	if (academicyear_validate())
@@ -64,8 +42,11 @@ function academicYearInfo_submit ()
 		if(document.getElementById("academicYear_button_submit").getAttribute('update') == "false")
 			AcademicYearProcessor.create(oAcademicYear, academicyear_created);
 		else					
-			AcademicYearProcessor.createAndUpdate(oAcademicYear, academicyear_update);
-		
+			AcademicYearProcessor.createAndUpdate(oAcademicYear, academicyear_update);		
+	}
+	else
+	{
+		alert("Please Select default");
 	}
 }
 
@@ -77,6 +58,32 @@ function academicyear_update (oAcademicyearResponse)
 		HideDialog ("dialog");
 	}
 }
+
+function academicyear_getFormData ()
+{
+	var oAcademicYear = new AcademicYear ();
+	var rowCount = document.getElementById("academicyeartableid");
+	var oLoginUser = getLoginUserData ();
+	for(var nIndex = 0; nIndex < rowCount.rows.length; nIndex++)
+	{
+		var strYear = $("#academicyearInfo_input"+nIndex).val();
+		var bDefault = document.getElementById("select_academic_year"+nIndex).checked;
+		if(strYear != "" && bDefault)
+		{			
+			oAcademicYear.m_strAcademicYear = $("#academicyearInfo_input"+nIndex).val();
+			oAcademicYear.m_bDefaultYear = bDefault;
+			oAcademicYear.m_oUserCreatedBy = oLoginUser;
+			oAcademicYear.m_oUserUpdatedBy = oLoginUser;
+		}		
+	}	
+	return oAcademicYear;
+}
+
+function academicyear_validate ()
+{
+	return validateAcademicYear ();
+}
+
 
 function addNewAcademicYear()
 {	
@@ -134,6 +141,10 @@ function academicyear_updated (oAcademicyearResponse)
 function academicyear_gotData (oAcademicyearResponse)
 {	
 	var oAcademicyear = oAcademicyearResponse.m_arrAcademicYear[0];
+	m_oAcademicyearInfoMemberData.dCreatedOn = oAcademicyear.m_dCreatedOn;
+	m_oAcademicyearInfoMemberData.dUpdatedOn = oAcademicyear.m_dUpdatedOn;
+	m_oAcademicyearInfoMemberData.oUserCreatedBy = oAcademicyear.m_oUserCreatedBy;	
+	m_oAcademicyearInfoMemberData.oUserUpdatedBy = oAcademicyear.m_oUserUpdatedBy;
 	$("#academicyearInfo_input").val(oAcademicyear);
 	$("#academicyearInfo_inputradio").val(oAcademicyear);	
 }

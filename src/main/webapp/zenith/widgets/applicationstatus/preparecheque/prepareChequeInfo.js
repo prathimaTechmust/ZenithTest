@@ -142,6 +142,7 @@ function smsAndEmailSentResponse (oSMSSentResponse)
 function chequeDetails_getFormData ()
 {
 	var oScholarshipAccountsInformationData = new ScholarshipAccountsInformationData();
+	var oUserLoginData = getLoginUserData ();
 	oScholarshipAccountsInformationData.m_nStudentId = m_oPrepareChequeInfoMemberData.m_nStudentId;
 	oScholarshipAccountsInformationData.m_strPayeeName = $("#accountInfo_input_AccountPayeeName").val();
 	oScholarshipAccountsInformationData.m_fSanctionedAmount = $("#accountInfo_input_SanctionedAmount").val();
@@ -153,6 +154,9 @@ function chequeDetails_getFormData ()
 	else
 		oScholarshipAccountsInformationData.m_strApplicationType = document.getElementById("selectapplication_reissue").value;
 	oScholarshipAccountsInformationData.m_nAcademicYearId = $("#selectChequePreparedAcademicYear").val();
+	oScholarshipAccountsInformationData.m_oChequePreparedBy = oUserLoginData;
+	oScholarshipAccountsInformationData.m_oUserCreatedBy = oUserLoginData;
+	oScholarshipAccountsInformationData.m_oUserUpdatedBy = oUserLoginData;
 	return oScholarshipAccountsInformationData;
 }
 function prepareChequeInfo_cancel ()

@@ -50,5 +50,6 @@ public class Constants
 	public static final String CHEQUESTATUS = "Active";
 	public static final String REPORTFILENAME = "StudentReports";
 	public static final String STUDENTREPORTSFOLDER = "reports/";
+	public static final String LOGINUSERID = "LoginUserId";
 	
 }

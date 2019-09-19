@@ -364,6 +364,24 @@ function studentInfo_getFormData ()
 	if($("#student_input_dateofbirth").val() == '')
 		oStudentInformationData.m_dDateOfBirth = m_oStudentInfoMemberData.m_studentDateofBirth;
 	oStudentInformationData.m_strFatherName = $("#studentInfo_input_fathername").val();
+	
+	
+	if(document.getElementById("studentInfo_input_MedicalConditionYes").checked)
+		 oStudentInformationData.m_bStudentMedicalCondition = document.getElementById("studentInfo_input_MedicalConditionYes").value;
+	 else 
+		 oStudentInformationData.m_bStudentMedicalCondition = document.getElementById("studentInfo_input_MedicalConditionNo").value;
+	
+	oStudentInformationData.m_strStudentMedicalIssue = document.getElementById("StudentInfo_Input_MedicalIssue").value;
+	
+	
+	
+	if(document.getElementById("parentInfo_input_MedicalConditionYes").checked)
+		 oStudentInformationData.m_bParentMedicalCondition = document.getElementById("parentInfo_input_MedicalConditionYes").value;
+	 else 
+		 oStudentInformationData.m_bParentMedicalCondition = document.getElementById("parentInfo_input_MedicalConditionNo").value;
+	
+	oStudentInformationData.m_strParentMedicalIssue = document.getElementById("parentInfo_Input_MedicalIssue").value;
+	
 	oStudentInformationData.m_strFatherOccupation = $("#studentInfo_input_fatheroccupation").val();
 	oStudentInformationData.m_nFatherAadharNumber = $("#studentInfo_input_fatherAadharNumber").val();
 	oStudentInformationData.m_strMotherName = $("#studentInfo_input_mothername").val();
@@ -385,20 +403,43 @@ function studentInfo_getFormData ()
 	      /*Academic details*/
 	oStudentInformationData.m_oAcademicDetails = getAcademicDetails ();
 	if(document.getElementById("studentInfo_input_yes").checked)
-		oStudentInformationData.m_oSibilingDetails = getSiblingsDetails();	
+		oStudentInformationData.m_oSibilingDetails = getSiblingsDetails();
+	var loginUser = getLoginUserData ();
+	if(m_oStudentInfoMemberData.m_nStudentId != -1)
+	{
+		oStudentInformationData.m_dCreatedOn = m_oStudentInfoMemberData.dCreatedOn;
+		oStudentInformationData.m_oUserCreatedBy = m_oStudentInfoMemberData.oUserCreatedBy;
+		oStudentInformationData.m_oUserUpdatedBy = loginUser;	
+	}
+	else
+	{
+		oStudentInformationData.m_oUserCreatedBy = loginUser;
+		oStudentInformationData.m_oUserUpdatedBy = loginUser;
+	}
 	return oStudentInformationData;
 }
 
 function getAcademicDetails ()
 {
 	var oArrAcademicDetails = new Array();	
-	var oAcademicDetails = new AcademicDetails ();	
+	var oAcademicDetails = new AcademicDetails ();
+	var oUserData = getLoginUserData ();
 	oAcademicDetails.m_oInstitutionInformationData = new InstitutionInformationData ();
 	oAcademicDetails.m_oInstitutionInformationData.m_nInstitutionId = $("#select_input_academic_name").val();
 	oAcademicDetails.m_oCourseInformationData = new CourseInformationData();
 	oAcademicDetails.m_oCourseInformationData.m_nCourseId = $("#select_input_studentcourse").val();	
 	if(m_oStudentInfoMemberData.m_nAcademicYearId == $("#selectacademicyear").val())
-		oAcademicDetails.m_nAcademicId = m_oStudentInfoMemberData.m_nAcademicId ;	
+	{
+		oAcademicDetails.m_nAcademicId = m_oStudentInfoMemberData.m_nAcademicId ;
+		oAcademicDetails.m_dCreatedOn = m_oStudentInfoMemberData.dCreatedOn;
+		oAcademicDetails.m_oUserCreatedBy = m_oStudentInfoMemberData.oUserCreatedBy;
+		oAcademicDetails.m_oUserUpdatedBy = oUserData;	
+	}
+	else
+	{
+		oAcademicDetails.m_oUserCreatedBy = oUserData;
+		oAcademicDetails.m_oUserUpdatedBy = oUserData;
+	}
 	oAcademicDetails.m_oAcademicYear = getAcademicYear ();
 	oAcademicDetails.m_strStudentScore = $("#studentInfo_input_studentScore :selected").val();
 	oAcademicDetails.m_strSpecialization = $("#select_input_studentSpecialization").val();
@@ -418,8 +459,11 @@ function getAcademicDetails ()
 function getZenithstatus()
 {
 	var oArrScholarshipStatus = new Array();
+	var oUserData = getLoginUserData ();
 	var oZenithSholarshipstatus = new ZenithScholarshipDetails ();
 	oZenithSholarshipstatus.m_oAcademicYear = getAcademicYear ();
+	oZenithSholarshipstatus.m_oUserCreatedBy = oUserData;
+	oZenithSholarshipstatus.m_oUserUpdatedBy = oUserData;
 	oArrScholarshipStatus.push(oZenithSholarshipstatus);
 	return oArrScholarshipStatus;
 }
@@ -434,7 +478,8 @@ function getAcademicYear ()
 function getNewScholarshipOrganizationDetails ()
 {
 	var oArrScholarshipOrganizationDetails = new Array();
-		checkRowCount();			
+		checkRowCount();
+		var oLoginUserData = getLoginUserData ();
 	    for(var nIndex = 0; nIndex < m_oStudentInfoMemberData.m_nUpdatedOrgRowCount; nIndex++)
 	    {
 	    	var oScholarshipOrganizationDetails = new ScholarshipOrganizationDetails();
@@ -442,6 +487,8 @@ function getNewScholarshipOrganizationDetails ()
 	    	{		   
 	    		oScholarshipOrganizationDetails.m_strOrganizationName = $("#scholarshipInfo_input_organization"+nIndex).val();
 	    		oScholarshipOrganizationDetails.m_fAmount = $("#scholarshipInfo_input_organizationamount"+nIndex).val();
+	    		oScholarshipOrganizationDetails.m_oUserCreatedBy = oLoginUserData;
+	    		oScholarshipOrganizationDetails.m_oUserUpdatedBy = oLoginUserData;
 	    		oArrScholarshipOrganizationDetails.push(oScholarshipOrganizationDetails);
 	    	}
 	    }
@@ -460,6 +507,7 @@ function getAddScolarshipOrganizationDetails ()
 	var oArrScholarshipOrganizationDetails = new Array();
 	var arrAddScholarshipOrganizationDetails = m_oStudentInfoMemberData.m_arrScholarshipOrganizationDetails;	
 	var scholarshiporganizations = document.getElementById("scholarship_Organization");
+	var oLoginUserData = getLoginUserData ();
 	if(scholarshiporganizations.rows.length == arrAddScholarshipOrganizationDetails.length)
 	{
 		for(var nIndex = 0; nIndex < arrAddScholarshipOrganizationDetails.length; nIndex++)
@@ -469,6 +517,9 @@ function getAddScolarshipOrganizationDetails ()
 		    	oScholarshipOrganizationDetails.m_nOrganizationId = arrAddScholarshipOrganizationDetails[nIndex].m_nOrganizationId;				
 		    oScholarshipOrganizationDetails.m_strOrganizationName = $("#scholarshipInfo_input_organization"+nIndex).val();
 		    oScholarshipOrganizationDetails.m_fAmount = $("#scholarshipInfo_input_organizationamount"+nIndex).val();
+		    oScholarshipOrganizationDetails.m_dCreatedOn = m_oStudentInfoMemberData.dCreatedOn;
+		    oScholarshipOrganizationDetails.m_oUserCreatedBy = m_oStudentInfoMemberData.oUserCreatedBy;
+		    oScholarshipOrganizationDetails.m_oUserUpdatedBy = oLoginUserData;
 			oArrScholarshipOrganizationDetails.push(oScholarshipOrganizationDetails);
 		}
 	}
@@ -486,6 +537,14 @@ function getAddScolarshipOrganizationDetails ()
 			if((nIndex < arrAddScholarshipOrganizationDetails.length) && (m_oStudentInfoMemberData.m_nAcademicYearId == $("#selectacademicyear").val()))
 			{
 				oScholarshipOrganizationDetails.m_nOrganizationId = arrAddScholarshipOrganizationDetails[nIndex].m_nOrganizationId;
+				oScholarshipOrganizationDetails.m_dCreatedOn = m_oStudentInfoMemberData.dCreatedOn;
+			    oScholarshipOrganizationDetails.m_oUserCreatedBy = m_oStudentInfoMemberData.oUserCreatedBy;
+			    oScholarshipOrganizationDetails.m_oUserUpdatedBy = oLoginUserData;
+			}
+			else
+			{
+				oScholarshipOrganizationDetails.m_oUserCreatedBy = oLoginUserData;
+			    oScholarshipOrganizationDetails.m_oUserUpdatedBy = oLoginUserData;
 			}
 		}		
 	}	
@@ -502,7 +561,7 @@ function studentInfo_created (oStudentInfoResponse)
 			var oForm = $('#studentInfo_form_id')[0];
 			var oFormData = new FormData (oForm);
 			oFormData.append('studentId',oStudentInfoResponse.m_arrStudentInformationData[0].m_nStudentId);
-			oFormData.append('academicId',oStudentInfoResponse.m_arrStudentInformationData[0].m_oAcademicDetails[0].m_nAcademicId);
+			oFormData.append('academicId',oStudentInfoResponse.m_arrStudentInformationData[0].m_oAcademicDetails[0].m_nAcademicId);			
 			StudentInformationDataProcessor.setImagetoS3bucket (oFormData, student_image_created);
 			
 		}
@@ -527,10 +586,11 @@ function studentInfo_updated (oStudentInfoResponse)
 			{
 				student_details_updated();
 			}
-			else if(oStudentInfoResponse.m_arrStudentInformationData[0].m_strStudentImageId == "" || m_oStudentInfoMemberData.m_strImageId != strImageFile.name)
+			else if(oStudentInfoResponse.m_strStudentImageId == "" || m_oStudentInfoMemberData.m_strImageId != strImageFile.name)
 			{
-				oFormData.append('studentId',oStudentInfoResponse.m_arrStudentInformationData[0].m_nStudentId);	
-				oFormData.append('academicId',oStudentInfoResponse.m_arrStudentInformationData[0].m_oAcademicDetails[0].m_nAcademicId);
+				oFormData.append('studentId',oStudentInfoResponse.m_nStudentId);	
+				//oFormData.append('academicId',oStudentInfoResponse.m_arrStudentInformationData[0].m_oAcademicDetails[0].m_nAcademicId);
+				oFormData.append('academicId',oStudentInfoResponse.m_nAcademicId);
 				StudentInformationDataProcessor.setImagetoS3bucket (oFormData, student_details_updated);
 			}			
 		}
@@ -569,18 +629,9 @@ function studentInfo_gotData (oStudentInfoResponse)
 {	
 	
 	var oStudentInfoData = oStudentInfoResponse.m_arrStudentInformationData[0];	
-	m_oStudentInfoMemberData.m_strImageId = oStudentInfoData.m_strStudentImageId;
-	m_oStudentInfoMemberData.m_studentDateofBirth = oStudentInfoData.m_dDateOfBirth;
-	m_oStudentInfoMemberData.m_nAcademicId = oStudentInfoData.m_oAcademicDetails[0].m_nAcademicId;
-	m_oStudentInfoMemberData.m_nAcademicYearId = oStudentInfoData.m_oAcademicDetails[0].m_oAcademicYear.m_nAcademicYearId;
-	m_oStudentInfoMemberData.m_nInstitutionId = oStudentInfoData.m_oAcademicDetails[0].m_oInstitutionInformationData.m_nInstitutionId;
-	m_oStudentInfoMemberData.m_nCourseId = oStudentInfoData.m_oAcademicDetails[0].m_oCourseInformationData.m_nCourseId;
-	m_oStudentInfoMemberData.m_arrSiblingsDetails = oStudentInfoData.m_oSibilingDetails;
-	m_oStudentInfoMemberData.m_arrScholarshipOrganizationDetails = 	oStudentInfoData.m_oAcademicDetails[0].m_oScholarshipOrganizationDetails;
-	m_oStudentInfoMemberData.m_nRowOrgCount = m_oStudentInfoMemberData.m_arrScholarshipOrganizationDetails.length;
-	m_oStudentInfoMemberData.m_nRowOrgAmountCount = m_oStudentInfoMemberData.m_arrScholarshipOrganizationDetails.length;
-	m_oStudentInfoMemberData.m_nStudentId = oStudentInfoData.m_nStudentId;
-	m_oStudentInfoMemberData.m_nApplicationPriority = oStudentInfoData.m_nApplicationPriority;
+	//Assigning Data to MemberVariable
+	assignDataToMemberVariable (oStudentInfoData);	
+	//Load Values in Form respectively
 	 $("#studentInfo_input_studentUIDNumber").val(oStudentInfoData.m_nUID);
 	 $("#studentInfo_input_studentAadharNumber").val(oStudentInfoData.m_nStudentAadharNumber);
 	 $("#studentInfo_input_studentName").val(oStudentInfoData.m_strStudentName);
@@ -603,6 +654,28 @@ function studentInfo_gotData (oStudentInfoResponse)
 	 }
 	 document.getElementById("student_input_dateofbirth").value = convertTimestampToDate(oStudentInfoData.m_dDateOfBirth);
 	 $("#studentInfo_input_fathername").val(oStudentInfoData.m_strFatherName);
+	 if(oStudentInfoData.m_bStudentMedicalCondition)
+	 {
+		document.getElementById("studentInfo_input_MedicalConditionYes").checked = true;
+		studentMedicalConditionYes(studentMedicalIssue);
+	 }
+	 else
+	 {
+		 document.getElementById("studentInfo_input_MedicalConditionNo").checked = true;
+	 }
+	 
+	 $("#StudentInfo_Input_MedicalIssue").val(oStudentInfoData.m_strStudentMedicalIssue);
+	 
+	 if(oStudentInfoData.m_bParentMedicalCondition)
+	 {
+		 document.getElementById("parentInfo_input_MedicalConditionYes").checked = true;
+		 parentInfoMedicalIssueYes(parentMedicalIssue);
+	 }
+	 else
+	 {
+		 document.getElementById("parentInfo_input_MedicalConditionNo").checked = true;
+	 } 
+	 $("#parentInfo_Input_MedicalIssue").val(oStudentInfoData.m_strParentMedicalIssue);
 	 $("#studentInfo_input_fatheroccupation").val(oStudentInfoData.m_strFatherOccupation);
 	 $("#studentInfo_input_fatherAadharNumber").val(oStudentInfoData.m_nFatherAadharNumber);
 	 $("#studentInfo_input_mothername").val(oStudentInfoData.m_strMotherName);
@@ -638,6 +711,27 @@ function studentInfo_gotData (oStudentInfoResponse)
 	 initFormValidateBoxes ("studentInfo_form_id");
 	 siblingsRowCount(m_oStudentInfoMemberData.m_arrSiblingsDetails);
 }
+
+function assignDataToMemberVariable (oStudentInfoData)
+{
+	m_oStudentInfoMemberData.dCreatedOn = oStudentInfoData.m_dCreatedOn;
+	m_oStudentInfoMemberData.dUpdatedon = oStudentInfoData.m_dUpdatedOn;
+	m_oStudentInfoMemberData.oUserCreatedBy = oStudentInfoData.m_oUserCreatedBy;
+	m_oStudentInfoMemberData.oUserUpdatedBy = oStudentInfoData.m_oUserUpdatedBy;
+	m_oStudentInfoMemberData.m_strImageId = oStudentInfoData.m_strStudentImageId;
+	m_oStudentInfoMemberData.m_studentDateofBirth = oStudentInfoData.m_dDateOfBirth;
+	m_oStudentInfoMemberData.m_nAcademicId = oStudentInfoData.m_oAcademicDetails[0].m_nAcademicId;
+	m_oStudentInfoMemberData.m_nAcademicYearId = oStudentInfoData.m_oAcademicDetails[0].m_oAcademicYear.m_nAcademicYearId;
+	m_oStudentInfoMemberData.m_nInstitutionId = oStudentInfoData.m_oAcademicDetails[0].m_oInstitutionInformationData.m_nInstitutionId;
+	m_oStudentInfoMemberData.m_nCourseId = oStudentInfoData.m_oAcademicDetails[0].m_oCourseInformationData.m_nCourseId;
+	m_oStudentInfoMemberData.m_arrSiblingsDetails = oStudentInfoData.m_oSibilingDetails;
+	m_oStudentInfoMemberData.m_arrScholarshipOrganizationDetails = 	oStudentInfoData.m_oAcademicDetails[0].m_oScholarshipOrganizationDetails;
+	m_oStudentInfoMemberData.m_nRowOrgCount = m_oStudentInfoMemberData.m_arrScholarshipOrganizationDetails.length;
+	m_oStudentInfoMemberData.m_nRowOrgAmountCount = m_oStudentInfoMemberData.m_arrScholarshipOrganizationDetails.length;
+	m_oStudentInfoMemberData.m_nStudentId = oStudentInfoData.m_nStudentId;
+	m_oStudentInfoMemberData.m_nApplicationPriority = oStudentInfoData.m_nApplicationPriority;
+}
+
 /*siblings details*/
 function siblingsRowCount(siblingsEditRowCount) {
 	
@@ -1123,6 +1217,7 @@ function addSibilingsDetails ()
 	var oArrSiblingsDetails = new Array();
 	var arrSiblingDetails = m_oStudentInfoMemberData.m_arrSiblingsDetails;	
 	var siblingDetails = document.getElementById("siblings");
+	var oLoginUserData = getLoginUserData ();
 	if(siblingDetails.rows.length == arrSiblingDetails.length)
 	{
 		for(var nIndex = 0; nIndex < arrSiblingDetails.length; nIndex++)
@@ -1133,7 +1228,10 @@ function addSibilingsDetails ()
 			oSiblingsDeatils.m_strSibilingName = $("#studentInfo_input_SiblingsName"+nIndex).val();
 			oSiblingsDeatils.m_strStudying = $("#studentInfo_input_SiblingsStudying"+nIndex).val();
 			oSiblingsDeatils.m_strStudyingInstitution = $("#studentInfo_input_SiblingsSchoolCollege"+nIndex).val();
-			oArrSiblingsDetails.push(oSiblingsDeatils);
+			oSiblingsDeatils.m_dCreatedOn = m_oStudentInfoMemberData.dCreatedOn;
+			oSiblingsDeatils.m_oUserCreatedBy = m_oStudentInfoMemberData.oUserCreatedBy;
+			oSiblingsDeatils.m_oUserUpdatedBy = oLoginUserData;
+			oArrSiblingsDetails.push(oSiblingsDeatils);			
 		}
 	}
 	else
@@ -1151,7 +1249,15 @@ function addSibilingsDetails ()
 	    	}
 			if((nIndex < arrSiblingDetails.length))
 			{
-				oSiblingsDeatils.m_nSiblingId = arrSiblingDetails[nIndex].m_nSiblingId;	
+				oSiblingsDeatils.m_nSiblingId = arrSiblingDetails[nIndex].m_nSiblingId;
+				oSiblingsDeatils.m_dCreatedOn = m_oStudentInfoMemberData.dCreatedOn;
+				oSiblingsDeatils.m_oUserCreatedBy = m_oStudentInfoMemberData.oUserCreatedBy;
+				oSiblingsDeatils.m_oUserUpdatedBy = oLoginUserData;
+			}
+			else
+			{
+				oSiblingsDeatils.m_oUserCreatedBy = oLoginUserData;
+				oSiblingsDeatils.m_oUserUpdatedBy = oLoginUserData;
 			}
 		}		
 	}	
@@ -1161,6 +1267,7 @@ function getNewSiblingsDetails ()
 {
 	var oArrSiblingsDetails = new Array();
 	checkSiblingsRowCount();
+	var oUserData = getLoginUserData ();
 	for(var nIndex=0; nIndex < m_oStudentInfoMemberData.m_nUpdatedSiblingsUIDIdRowCount; nIndex++)
 	{
 		var oSiblingsDeatils = new SiblingsDetails();
@@ -1170,6 +1277,8 @@ function getNewSiblingsDetails ()
 			oSiblingsDeatils.m_strSibilingName = $("#studentInfo_input_SiblingsName"+nIndex).val();
 			oSiblingsDeatils.m_strStudying = $("#studentInfo_input_SiblingsStudying"+nIndex).val();
 			oSiblingsDeatils.m_strStudyingInstitution = $("#studentInfo_input_SiblingsSchoolCollege"+nIndex).val();
+			oSiblingsDeatils.m_oUserCreatedBy = oUserData;
+			oSiblingsDeatils.m_oUserUpdatedBy = oUserData;
 			oArrSiblingsDetails.push(oSiblingsDeatils);			
 		}		
 	}	
@@ -1212,3 +1321,22 @@ function studentInfo_setSiblingsData(oResponse)
 
 } 
 
+function studentMedicalConditionYes(divId)                              
+{
+	document.getElementById(divId.id).style.display = "block";
+}
+
+function studentMedicalConditionNo(divId)
+{
+	document.getElementById(divId.id).style.display = "none";
+}
+
+function parentInfoMedicalIssueYes(divId)
+{
+	document.getElementById(divId.id).style.display = "block";
+}
+
+function parentInfoMedicalIssueNo(divId)
+{
+	document.getElementById(divId.id).style.display = "none";
+}

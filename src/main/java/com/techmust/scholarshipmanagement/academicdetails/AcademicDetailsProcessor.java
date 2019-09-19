@@ -89,6 +89,9 @@ public class AcademicDetailsProcessor extends GenericIDataProcessor<AcademicDeta
 			if(oAcademicDetails.getM_arrStudentDocuments().size() > 0)
 				oStudentDocuments = oAcademicDetails.getM_arrStudentDocuments().get(0);
 			oStudentDocuments.setM_strOtherDocuments(strUUID);
+			oStudentDocuments.setM_strStudentAadhar(strUUID);
+			oStudentDocuments.setM_oUserCreatedBy(oAcademicDetails.getM_oUserCreatedBy());
+			oStudentDocuments.setM_oUserUpdatedBy(oAcademicDetails.getM_oUserUpdatedBy());
 			m_arrDocuments.add(oStudentDocuments);
 			oAcademicDetails.setM_arrStudentDocuments(m_arrDocuments);
 			bIsOtherDocumentsUpload = oAcademicDetails.updateObject();
@@ -114,6 +117,9 @@ public class AcademicDetailsProcessor extends GenericIDataProcessor<AcademicDeta
 			if(oAcademicDetails.getM_arrStudentDocuments().size() > 0)
 				oStudentDocuments = oAcademicDetails.getM_arrStudentDocuments().get(0);
 			oStudentDocuments.setM_strStudentMarksCard2(strUUID);
+			oStudentDocuments.setM_strStudentAadhar(strUUID);
+			oStudentDocuments.setM_oUserCreatedBy(oAcademicDetails.getM_oUserCreatedBy());
+			oStudentDocuments.setM_oUserUpdatedBy(oAcademicDetails.getM_oUserUpdatedBy());
 			m_arrDocuments.add(oStudentDocuments);
 			oAcademicDetails.setM_arrStudentDocuments(m_arrDocuments);
 			bIsMarksCard2Upload = oAcademicDetails.updateObject();
@@ -139,6 +145,9 @@ public class AcademicDetailsProcessor extends GenericIDataProcessor<AcademicDeta
 			if(oAcademicDetails.getM_arrStudentDocuments().size() > 0)
 				oStudentDocuments = oAcademicDetails.getM_arrStudentDocuments().get(0);
 			oStudentDocuments.setM_strStudentMarksCard1(strUUID);
+			oStudentDocuments.setM_strStudentAadhar(strUUID);
+			oStudentDocuments.setM_oUserCreatedBy(oAcademicDetails.getM_oUserCreatedBy());
+			oStudentDocuments.setM_oUserUpdatedBy(oAcademicDetails.getM_oUserUpdatedBy());
 			m_arrDocuments.add(oStudentDocuments);
 			oAcademicDetails.setM_arrStudentDocuments(m_arrDocuments);
 			bIsMarksCard1Upload = oAcademicDetails.updateObject();
@@ -163,6 +172,9 @@ public class AcademicDetailsProcessor extends GenericIDataProcessor<AcademicDeta
 			if(oAcademicDetails.getM_arrStudentDocuments().size() > 0)
 				oStudentDocuments = oAcademicDetails.getM_arrStudentDocuments().get(0);
 			oStudentDocuments.setM_strMotherAadharImageId(strUUID);
+			oStudentDocuments.setM_strStudentAadhar(strUUID);
+			oStudentDocuments.setM_oUserCreatedBy(oAcademicDetails.getM_oUserCreatedBy());
+			oStudentDocuments.setM_oUserUpdatedBy(oAcademicDetails.getM_oUserUpdatedBy());
 			m_arrDocuments.add(oStudentDocuments);
 			oAcademicDetails.setM_arrStudentDocuments(m_arrDocuments);
 			bIsMotherAadharUpload = oAcademicDetails.updateObject();
@@ -188,6 +200,9 @@ public class AcademicDetailsProcessor extends GenericIDataProcessor<AcademicDeta
 			if(oAcademicDetails.getM_arrStudentDocuments().size() > 0)
 				oStudentDocuments = oAcademicDetails.getM_arrStudentDocuments().get(0);
 			oStudentDocuments.setM_strFatherAadharImageId(strUUID);
+			oStudentDocuments.setM_strStudentAadhar(strUUID);
+			oStudentDocuments.setM_oUserCreatedBy(oAcademicDetails.getM_oUserCreatedBy());
+			oStudentDocuments.setM_oUserUpdatedBy(oAcademicDetails.getM_oUserUpdatedBy());
 			m_arrDocuments.add(oStudentDocuments);
 			oAcademicDetails.setM_arrStudentDocuments(m_arrDocuments);
 			bIsFatherAadharUpload = oAcademicDetails.updateObject();
@@ -213,6 +228,9 @@ public class AcademicDetailsProcessor extends GenericIDataProcessor<AcademicDeta
 			if(oAcademicDetails.getM_arrStudentDocuments().size() > 0)
 				oStudentDocuments = oAcademicDetails.getM_arrStudentDocuments().get(0);				
 			oStudentDocuments.setM_strStudentElectricityBill(strUUID);
+			oStudentDocuments.setM_strStudentAadhar(strUUID);
+			oStudentDocuments.setM_oUserCreatedBy(oAcademicDetails.getM_oUserCreatedBy());
+			oStudentDocuments.setM_oUserUpdatedBy(oAcademicDetails.getM_oUserUpdatedBy());
 			m_arrDocuments.add(oStudentDocuments);
 			oAcademicDetails.setM_arrStudentDocuments(m_arrDocuments);
 			bIsElectricityBillUpload = oAcademicDetails.updateObject();
@@ -238,6 +256,8 @@ public class AcademicDetailsProcessor extends GenericIDataProcessor<AcademicDeta
 			if(oAcademicDetails.getM_arrStudentDocuments().size() > 0)
 				oStudentDocuments = oAcademicDetails.getM_arrStudentDocuments().get(0);
 			oStudentDocuments.setM_strStudentAadhar(strUUID);
+			oStudentDocuments.setM_oUserCreatedBy(oAcademicDetails.getM_oUserCreatedBy());
+			oStudentDocuments.setM_oUserUpdatedBy(oAcademicDetails.getM_oUserUpdatedBy());
 			m_arrDocuments.add(oStudentDocuments);
 			oAcademicDetails.setM_arrStudentDocuments(m_arrDocuments);
 			bIsStudentAadharUpload = oAcademicDetails.updateObject();

@@ -27,6 +27,7 @@ import com.techmust.scholarshipmanagement.academicdetails.AcademicDetails;
 import com.techmust.scholarshipmanagement.academicyear.AcademicYear;
 import com.techmust.scholarshipmanagement.chequeFavourOf.ChequeInFavourOf;
 import com.techmust.scholarshipmanagement.student.StudentInformationData;
+import com.techmust.usermanagement.userinfo.UserInformationData;
 import com.techmust.utils.Utils;
 
 @Entity
@@ -89,12 +90,22 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 	@Column(name="verifyRemarks")
 	private String m_strVerifyRemarks;
 	
-	@Transient
-	private int m_nStudentId;
+	//Mandatory Columns
+	@Column(name = "created_on")
+	private Date m_dCreatedOn;
 	
-	@Transient
-	private int m_nAcademicId;
+	@Column(name = "updated_on")
+	private Date m_dUpdatedOn;
 	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "created_by")
+	private UserInformationData m_oUserCreatedBy;
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "updated_by")
+	private UserInformationData m_oUserUpdatedBy;
+	
+	//Mappings
 	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "studentid")
@@ -107,6 +118,14 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "academicyearid")
 	private AcademicYear m_oAcademicYear;
+	
+	//Transient Variables
+	@Transient
+	private int m_nStudentId;
+	
+	@Transient
+	private int m_nAcademicId;
+	
 	
 	public ZenithScholarshipDetails()
 	{
@@ -129,8 +148,12 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 		m_strVerifyRemarks = "";
 		m_dApplicationSubmitDate = Calendar.getInstance().getTime();
 		m_oAcademicYear = new AcademicYear();
+		m_dCreatedOn = Calendar.getInstance().getTime();
+		m_dUpdatedOn = Calendar.getInstance().getTime();
+		m_oUserCreatedBy = new UserInformationData();
+		m_oUserUpdatedBy = new UserInformationData();
 	}	
-	
+
 	
 	public String getM_strVerifyRemarks()
 	{
@@ -141,6 +164,46 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 	public void setM_strVerifyRemarks(String m_strVerifyRemarks) 
 	{
 		this.m_strVerifyRemarks = m_strVerifyRemarks;
+	}
+
+	public Date getM_dCreatedOn()
+	{
+		return m_dCreatedOn;
+	}
+
+	public void setM_dCreatedOn(Date m_dCreatedOn) 
+	{
+		this.m_dCreatedOn = m_dCreatedOn;
+	}
+
+	public Date getM_dUpdatedOn() 
+	{
+		return m_dUpdatedOn;
+	}
+
+	public void setM_dUpdatedOn(Date m_dUpdatedOn) 
+	{
+		this.m_dUpdatedOn = m_dUpdatedOn;
+	}
+
+	public UserInformationData getM_oUserCreatedBy()
+	{
+		return m_oUserCreatedBy;
+	}
+
+	public void setM_oUserCreatedBy(UserInformationData m_oUserCreatedBy)
+	{
+		this.m_oUserCreatedBy = m_oUserCreatedBy;
+	}
+
+	public UserInformationData getM_oUserUpdatedBy() 
+	{
+		return m_oUserUpdatedBy;
+	}
+
+	public void setM_oUserUpdatedBy(UserInformationData m_oUserUpdatedBy) 
+	{
+		this.m_oUserUpdatedBy = m_oUserUpdatedBy;
 	}
 
 

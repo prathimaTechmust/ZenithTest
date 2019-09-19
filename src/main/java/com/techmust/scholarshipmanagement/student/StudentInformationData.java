@@ -1,5 +1,6 @@
 package com.techmust.scholarshipmanagement.student;
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -35,6 +36,7 @@ import com.techmust.scholarshipmanagement.academicdetails.AcademicDetails;
 import com.techmust.scholarshipmanagement.scholarshipdetails.zenithscholarshipstatus.ZenithScholarshipDetails;
 import com.techmust.scholarshipmanagement.siblingdetails.SibilingDetails;
 import com.techmust.usermanagement.facilitator.FacilitatorInformationData;
+import com.techmust.usermanagement.userinfo.UserInformationData;
 import com.techmust.utils.Utils;
 
 @Entity
@@ -117,8 +119,22 @@ public class StudentInformationData  extends MasterData implements Serializable
 	@Column(name="applicationpriority")
 	private int m_nApplicationPriority;
 	
+	
+	
 	@Column(name="category")
 	private String m_strCategory;	
+	
+	@Column(name="studentmedicalcondition")
+	private boolean m_bStudentMedicalCondition;
+	
+	@Column(name = "studentmedicalissue")
+	private String m_strStudentMedicalIssue;
+	
+	@Column(name = "parentmedicalcondition")
+	private boolean m_bParentMedicalCondition;
+	
+	@Column(name="parentmedicalissue")
+	private String m_strParentMedicalIssue;
 	
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "facilitatorid")
@@ -134,7 +150,22 @@ public class StudentInformationData  extends MasterData implements Serializable
 	
 	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	@JoinColumn(name = "student_id")
-	private Set<SibilingDetails> m_oSibilingDetails;	
+	private Set<SibilingDetails> m_oSibilingDetails;
+	
+	//Mandatory Columns
+	@Column(name = "created_on")
+	private Date m_dCreatedOn;
+	
+	@Column(name = "update_on")
+	private Date m_dUpdatedOn;
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "created_by")
+	private UserInformationData m_oUserCreatedBy;
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "updated_by")
+	private UserInformationData m_oUserUpdatedBy;
 	
 	//Transient Variables
 	@Transient	
@@ -180,6 +211,10 @@ public class StudentInformationData  extends MasterData implements Serializable
 		m_strAlternateNumber = "";
 		m_strParentalStatus = "";
 		m_strReligion = "";
+		m_bStudentMedicalCondition = false;
+		m_strStudentMedicalIssue = "";
+	    m_bParentMedicalCondition = false;
+	    m_strParentMedicalIssue = "";
 		m_strCategory = "";
 		m_strCurrentAddress = "";
 		m_strCity = "";
@@ -192,8 +227,52 @@ public class StudentInformationData  extends MasterData implements Serializable
 		m_oFacilitatorInformationData = new FacilitatorInformationData();
 		m_oZenithScholarshipDetails = new HashSet<ZenithScholarshipDetails>();
 		m_oSibilingDetails = new HashSet<SibilingDetails>();
+		m_dCreatedOn = Calendar.getInstance().getTime();
+		m_dUpdatedOn = Calendar.getInstance().getTime();
+		m_oUserCreatedBy = new UserInformationData ();
+		m_oUserUpdatedBy = new UserInformationData ();
 	}	
-	
+
+	public boolean isM_bStudentMedicalCondition() 
+	{
+		return m_bStudentMedicalCondition;
+	}
+
+	public void setM_bStudentMedicalCondition(boolean m_bStudentMedicalCondition) 
+	{
+		this.m_bStudentMedicalCondition = m_bStudentMedicalCondition;
+	}
+
+	public String getM_strStudentMedicalIssue()
+	{
+		return m_strStudentMedicalIssue;
+	}
+
+	public void setM_strStudentMedicalIssue(String m_strStudentMedicalIssue) 
+	{
+		this.m_strStudentMedicalIssue = m_strStudentMedicalIssue;
+	}
+
+	public boolean isM_bParentMedicalCondition() 
+	{
+		return m_bParentMedicalCondition;
+	}
+
+	public void setM_bParentMedicalCondition(boolean m_bParentMedicalCondition) 
+	{
+		this.m_bParentMedicalCondition = m_bParentMedicalCondition;
+	}
+
+	public String getM_strParentMedicalIssue() 
+	{
+		return m_strParentMedicalIssue;
+	}
+
+	public void setM_strParentMedicalIssue(String m_strParentMedicalIssue)
+	{
+		this.m_strParentMedicalIssue = m_strParentMedicalIssue;
+	}
+
 	public String getM_strSortBy() 
 	{
 		return m_strSortBy;
@@ -203,6 +282,46 @@ public class StudentInformationData  extends MasterData implements Serializable
 	{
 		this.m_strSortBy = m_strSortBy;
 	}
+
+	public UserInformationData getM_oUserCreatedBy()
+	{
+		return m_oUserCreatedBy;
+	}
+
+	public void setM_oUserCreatedBy(UserInformationData m_oUserCreatedBy)
+	{
+		this.m_oUserCreatedBy = m_oUserCreatedBy;
+	}
+
+	public UserInformationData getM_oUserUpdatedBy()
+	{
+		return m_oUserUpdatedBy;
+	}
+
+	public void setM_oUserUpdatedBy(UserInformationData m_oUserUpdatedBy)
+	{
+		this.m_oUserUpdatedBy = m_oUserUpdatedBy;
+	}
+
+	public Date getM_dUpdatedOn()
+	{
+		return m_dUpdatedOn;
+	}
+
+	public void setM_dUpdatedOn(Date m_dUpdatedOn)
+	{
+		this.m_dUpdatedOn = m_dUpdatedOn;
+	}
+
+	public Date getM_dCreatedOn()
+	{
+		return m_dCreatedOn;
+	}
+
+	public void setM_dCreatedOn(Date m_dCreatedOn)
+	{
+		this.m_dCreatedOn = m_dCreatedOn;
+	}	
 
 	public int getM_nCourseId()
 	{

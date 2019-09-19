@@ -98,12 +98,12 @@ public class UserInformationData extends MasterData implements IUserInformationD
 	protected Blob m_oUserPhoto;	
 	
 	@Basic
-	@Temporal(TemporalType.TIME)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "CREATION_DATE")
 	protected Date m_dCreationDate;
 	
 	@Basic
-	@Temporal(TemporalType.TIME)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "UPDATION_DATE")
 	protected Date m_dUpdationDate;
 	

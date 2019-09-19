@@ -146,6 +146,7 @@ function role_gotData (oRoleResponse)
 	$("#role_input_roleName").val(oRoleResponse.m_arrRoleData[0].m_strRoleName);
 	m_oRoleMemberData.m_strCurrentRoleName = oRoleResponse.m_arrRoleData[0].m_strRoleName;
 	role_selectRoles (oRoleResponse.m_arrRoleData[0].m_oActions);
+	initFormValidateBoxes ("role_form_id");
 }
 
 function role_buildActionList ()

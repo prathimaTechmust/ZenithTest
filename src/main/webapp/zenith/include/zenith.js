@@ -991,7 +991,12 @@ function validateFilterBoxes (gridId,status,academicYearDropdownId)
 	oStudentFilterData.m_nAcademicYearId = $("#"+academicYearDropdownId).val();
 	oStudentFilterData.m_strStatus = status;
 	oStudentFilterData.m_bSuccess = false;
-	if($("#filterStudentInfo_input_studentName").val() != "")
+	if($("#filterStudentInfo_input_studentUID").val() != "")
+	{
+		oStudentFilterData.m_nUID = $("#filterStudentInfo_input_studentUID").val();
+		oStudentFilterData.m_bSuccess = true;
+	}
+	else if($("#filterStudentInfo_input_studentName").val() != "")
 	{
 		oStudentFilterData.m_strStudentName = $("#filterStudentInfo_input_studentName").val();
 		oStudentFilterData.m_bSuccess = true;
@@ -1028,7 +1033,7 @@ function studentFilteredResponse(oResponse)
 }
 
 function clearFilterBoxes ()
-{
+{	document.getElementById("filterStudentInfo_input_studentUID").value = "";
 	document.getElementById("filterStudentInfo_input_studentName").value = "";
 	document.getElementById("filterStudentInfo_input_phonenumber").value = "";
 	document.getElementById("filterStudentInfo_input_aadhar").value = "";
@@ -1200,3 +1205,52 @@ function setdefaultAcademicYear (arrAcademicYear,dropDownId)
 	}	
 }
 
+// Getting Login User Details from Cookie
+
+function loginUserId ()
+{
+	var nLoginUserId = getLoginUser ();
+	return nLoginUserId;
+}
+
+function getLoginUser ()
+{
+	var oCookie = document.cookie.split(";");
+	var nUserId = -1;
+	for(var nIndex = 0; nIndex < oCookie.length; nIndex++)
+	{
+		var selectUserId = oCookie[nIndex].split("=");
+		if(selectUserId[0] == " LoginUserId")
+		{
+			nUserId = selectUserId[1];
+			break;
+		}
+	}
+	return nUserId;
+}
+
+function getLoginUserData ()
+{
+	var oUserInformationData = new UserInformationData ();
+	var nUserId = loginUserId ();	
+	oUserInformationData.m_nUserId = nUserId;
+	return oUserInformationData;
+}
+
+// Validate AcademicYear Form
+
+function validateAcademicYear ()
+{
+	var bValid = false;
+	var arrElements = document.getElementById("academicyeartableid");	
+	for (var nIndex=0; nIndex < arrElements.rows.length; nIndex++)
+	{
+		var bDefault = document.getElementById("select_academic_year"+nIndex).checked;
+		if (bDefault)
+		{
+			bValid = true;
+			break;
+		}			
+	}		
+	return bValid;
+}

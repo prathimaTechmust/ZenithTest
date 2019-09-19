@@ -23,6 +23,10 @@ function StudentInformationData ()
 	this.m_strState = "";
 	this.m_nPincode = -1;
 	this.m_nUID = -1;	
+	this.m_bStudentMedicalCondition = false;
+	this.m_strStudentMedicalIssue = "";
+    this.m_bParentMedicalCondition = false;
+    this.m_strParentMedicalIssue = "";
 	this.m_nAcademicYearId = -1;
 	this.m_strStatus = "";
 	this.m_arrAcademicDetails = new Array();

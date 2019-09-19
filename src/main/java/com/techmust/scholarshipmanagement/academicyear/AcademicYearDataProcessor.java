@@ -1,14 +1,8 @@
 package com.techmust.scholarshipmanagement.academicyear;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +11,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.techmust.generic.dataprocessor.GenericIDataProcessor;
 import com.techmust.generic.response.GenericResponse;
-import com.techmust.generic.util.HibernateUtil;
 import com.techmust.helper.ZenithHelper;
 import com.techmust.utils.Utils;
 
@@ -90,7 +83,7 @@ public class AcademicYearDataProcessor extends GenericIDataProcessor<AcademicYea
 			}				
 			else
 			{
-				updateOldAcademicValue();
+				updateOldAcademicValue(oAcademicYear);
 				oAcademicYearResponse.m_bSuccess = oAcademicYear.saveObject();
 			}
 				
@@ -108,11 +101,14 @@ public class AcademicYearDataProcessor extends GenericIDataProcessor<AcademicYea
 		m_oLogger.debug("updateAcademicYearData - AcademicYear"+oData);
 		boolean bIsUpdate = false;
 		AcademicYear oAcademicYear = new AcademicYear();
+		oAcademicYear.setM_strAcademicYear(oData.getM_strAcademicYear());
 		try
 		{
-			AcademicYear oYear = (AcademicYear) populateObject(oData);			
+			AcademicYear oYear = (AcademicYear) populateObject(oAcademicYear);			
 			oYear.setM_bDefaultYear(oData.isM_bDefaultYear());
-			updateOldAcademicValue();
+			oYear.setM_dUpdatedOn(Calendar.getInstance().getTime());
+			oYear.setM_oUserUpdatedBy(oData.getM_oUserUpdatedBy());
+			updateOldAcademicValue(oData);
 			bIsUpdate = oYear.updateObject();
 		}
 		catch (Exception oException)
@@ -122,63 +118,42 @@ public class AcademicYearDataProcessor extends GenericIDataProcessor<AcademicYea
 		return bIsUpdate;		
 	}
 
-	private void updateOldAcademicValue()
+	private void updateOldAcademicValue(AcademicYear oData)
 	{
 		AcademicYear oYear = new AcademicYear();
-		EntityManager oEntityManager = oYear._getEntityManager();
+		oYear.setM_bDefaultYear(true);
 		try
 		{
-			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
-			CriteriaQuery<AcademicYear> oCriteriaQuery = oCriteriaBuilder.createQuery(AcademicYear.class);
-			Root<AcademicYear> oRoot = oCriteriaQuery.from(AcademicYear.class);
-			oCriteriaQuery.select(oRoot);
-			oCriteriaQuery.where(oCriteriaBuilder.equal(oRoot.get("m_bDefaultYear"), true));
-			List<AcademicYear> m_YearList = oEntityManager.createQuery(oCriteriaQuery).getResultList();
-			if(m_YearList.size() > 0)
-			{
-				oYear = m_YearList.get(0);
-				oYear.setM_bDefaultYear(false);
-				boolean isUpdate = oYear.updateObject();
-			}
+			oYear = (AcademicYear) populateObject(oYear);
+			oYear.setM_bDefaultYear(false);
+			oYear.setM_dUpdatedOn(Calendar.getInstance().getTime());
+			oYear.setM_oUserUpdatedBy(oData.getM_oUserUpdatedBy());
+			boolean isUpdate = oYear.updateObject();			
 		}
 		catch (Exception oException)
 		{
 			m_oLogger.error("updateOldAcademicValue - oException"+oException);
-		}
-		finally
-		{
-			oEntityManager.close();
-			HibernateUtil.removeConnection();
-		}
+		}		
 	}
 
 
-	private boolean checkAcademicExists(AcademicYear oAcademicYear)
+	private boolean checkAcademicExists(AcademicYear oAcademicYearData)
 	{
 		boolean bIsExists = false;
 		m_oLogger.info("checkAcademicExists");
-		m_oLogger.debug("checkAcademicExists - AcademicYear"+oAcademicYear);
-		EntityManager oEntityManager = oAcademicYear._getEntityManager();
+		m_oLogger.debug("checkAcademicExists - AcademicYear"+oAcademicYearData);
+		AcademicYear oAcademicYear = new AcademicYear();
+		oAcademicYear.setM_strAcademicYear(oAcademicYearData.getM_strAcademicYear());
 		try
-		{
-			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
-			CriteriaQuery<AcademicYear> oCriteriaQuery = oCriteriaBuilder.createQuery(AcademicYear.class);
-			Root<AcademicYear> oAcademicRoot = oCriteriaQuery.from(AcademicYear.class);
-			oCriteriaQuery.select(oAcademicRoot);
-			oCriteriaQuery.where(oCriteriaBuilder.equal(oAcademicRoot.get("m_strAcademicYear"), oAcademicYear.getM_strAcademicYear()));
-			List<AcademicYear> m_AcademicYearList = oEntityManager.createQuery(oCriteriaQuery).getResultList();
-			if(m_AcademicYearList.size() > 0)
+		{			
+			AcademicYear oYear = (AcademicYear) populateObject(oAcademicYear);
+			if(oYear != null)
 				bIsExists = true;
 		} 
 		catch (Exception oException)
 		{
 			m_oLogger.error("checkAcademicExists - oException"+oException);
-		}
-		finally
-		{
-			oEntityManager.close();
-			HibernateUtil.removeConnection();
-		}
+		}		
 		return bIsExists;		
 	}
 

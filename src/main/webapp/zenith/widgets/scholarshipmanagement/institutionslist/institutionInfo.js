@@ -61,13 +61,13 @@ function institutionInfo_getFormData ()
 	oInstitutionInformationData.m_strInstitutionName = $("#institutionInfo_input_institutionName").val();
 	oInstitutionInformationData.m_strInstitutionEmailAddress = $("#institutionInfo_input_institutionemail").val();
 	if(document.getElementById("institutionInfo_input_institutionPrivate").checked)
-		{
+	{
         oInstitutionInformationData.m_strInstitutionType = $("#institutionInfo_input_institutionPrivate").val();
-		}
+	}
     else
-    	{
+    {
         oInstitutionInformationData.m_strInstitutionType = $("#institutionInfo_input_institutionGovernment").val();
-    	}
+    }
 	oInstitutionInformationData.m_strInstitutionAddress = $("#institutionInfo_textarea_address").val();
 	oInstitutionInformationData.m_strContactPersonName = $("#institutionInfo_input_contactpersonname").val();
 	oInstitutionInformationData.m_strContactPersonEmail = $("#institutionInfo_input_contactpersonemail").val();
@@ -79,12 +79,19 @@ function institutionInfo_getFormData ()
 	{
 		oInstitutionInformationData.m_oChequeInFavourOf = getDetailsChequeInFavourOf ();
 		oInstitutionInformationData.m_bChequeFavouOf = true;
-	}		
-//	else
-//	{
-//		oInstitutionInformationData.m_oChequeInFavourOf = getDetailsChequeFavourOfStudent();
-//	}
-	
+	}
+	var oLoginUserData = getLoginUserData ();
+	if(m_oInstitutionInfoMemberData.m_nInstitutionId != -1)
+	{
+		oInstitutionInformationData.m_dCreatedOn = m_oInstitutionInfoMemberData.dCreatedOn;
+		oInstitutionInformationData.m_oUserCreatedBy = m_oInstitutionInfoMemberData.oUserCreatedBy;
+		oInstitutionInformationData.m_oUserUpdatedBy = oLoginUserData;
+	}
+	else
+	{
+		oInstitutionInformationData.m_oUserCreatedBy = oLoginUserData;
+		oInstitutionInformationData.m_oUserUpdatedBy = oLoginUserData;
+	}	
 	return oInstitutionInformationData;
 }
 
@@ -128,21 +135,25 @@ function institutionInfo_gotData (oInstitutionInfoResponse)
 {	
 	var oInstitutionInfoData = oInstitutionInfoResponse.m_arrInstitutionInformationData[0];
 	m_oInstitutionInfoMemberData.m_nInstitutionId = oInstitutionInfoData.m_nInstitutionId;
-   arrChequeFavourOf = m_oInstitutionInfoMemberData.arrChequeFavourOf = oInstitutionInfoData.m_oChequeInFavourOf;
-   m_oInstitutionInfoMemberData.m_nEditRowCount = m_oInstitutionInfoMemberData.arrChequeFavourOf.length;
-	 $("#institutionInfo_input_institutionName").val(oInstitutionInfoData.m_strInstitutionName);
-	 m_oInstitutionInfoMemberData.m_arrChequeFavourDetails = oInstitutionInfoData.m_oChequeInFavourOf;
-	 $("#institutionInfo_input_institutionemail").val(oInstitutionInfoData.m_strInstitutionEmailAddress);
-	 if(oInstitutionInfoData.m_strInstitutionType == "Government")
-		 {
-			var radiobutton = document.getElementById("institutionInfo_input_institutionGovernment");
-			radiobutton.checked = true;
-		 }
-	 else
-		 {
-			var radiobutton = document.getElementById("institutionInfo_input_institutionPrivate");
-			radiobutton.checked = true;
-		 }
+	arrChequeFavourOf = m_oInstitutionInfoMemberData.arrChequeFavourOf = oInstitutionInfoData.m_oChequeInFavourOf;   
+	m_oInstitutionInfoMemberData.dCreatedOn = oInstitutionInfoData.m_dCreatedOn;
+	m_oInstitutionInfoMemberData.dUpdatedOn = oInstitutionInfoData.m_dUpdatedOn;
+	m_oInstitutionInfoMemberData.oUserCreatedBy = oInstitutionInfoData.m_oUserCreatedBy;
+	m_oInstitutionInfoMemberData.oUserUpdatedBy = oInstitutionInfoData.m_oUserUpdatedBy;
+	m_oInstitutionInfoMemberData.m_nEditRowCount = m_oInstitutionInfoMemberData.arrChequeFavourOf.length;
+	$("#institutionInfo_input_institutionName").val(oInstitutionInfoData.m_strInstitutionName);
+	m_oInstitutionInfoMemberData.m_arrChequeFavourDetails = oInstitutionInfoData.m_oChequeInFavourOf;
+	$("#institutionInfo_input_institutionemail").val(oInstitutionInfoData.m_strInstitutionEmailAddress);
+	if(oInstitutionInfoData.m_strInstitutionType == "Government")
+	{
+		var radiobutton = document.getElementById("institutionInfo_input_institutionGovernment");
+		radiobutton.checked = true;
+	}
+	else
+	{
+		var radiobutton = document.getElementById("institutionInfo_input_institutionPrivate");
+		radiobutton.checked = true;
+	}
 	 $("#institutionInfo_input_institutionType").val(oInstitutionInfoData.m_strInstitutionType);
 	 $("#institutionInfo_textarea_address").val(oInstitutionInfoData.m_strInstitutionAddress);
 	 $("#institutionInfo_input_contactpersonname").val(oInstitutionInfoData.m_strContactPersonName);
@@ -156,14 +167,12 @@ function institutionInfo_gotData (oInstitutionInfoResponse)
 	 {
 		 document.getElementById("chequefavourofInstitution_input_radio").checked = true;
 		 displayCheque(cheque);
-		 gotChequeInFavourof (arrChequeFavourOf);
-				 
+		 gotChequeInFavourof (arrChequeFavourOf);				 
 	 }
     else
      {
          document.getElementById("chequefavourofStudent_input_radio").checked = true;
-    	 gotChequeInFavourof (arrChequeFavourOf);
-    	 //document.getElementById("chequeInFavourOf").deleteRow(0);
+    	 gotChequeInFavourof (arrChequeFavourOf);    	
      }
 
 }
@@ -221,18 +230,22 @@ function getAddNewChequeFavours ()
 	var oArray = new Array ();
 	var arrChequeFavourData = m_oInstitutionInfoMemberData.arrChequeFavourOf;
 	var chequeFavours = document.getElementById("chequeInFavourOf");
+	var oLoginUser = getLoginUserData ();
 	if(chequeFavours.rows.length == arrChequeFavourData.length)
 	{
 		for(var nIndex = 0; nIndex < arrChequeFavourData.length; nIndex++)
 		{
 			var oChequeFavour = new ChequeInFavourOf ();
 			oChequeFavour.m_nChequeFavourId = arrChequeFavourData[nIndex].m_nChequeFavourId;
+			oChequeFavour.m_oUserCreatedBy = m_oInstitutionInfoMemberData.oUserCreatedBy;
+			oChequeFavour.m_dCreatedOn = m_oInstitutionInfoMemberData.dCreatedOn;
+			oChequeFavour.m_oUserUpdatedBy = oLoginUser;
 			oChequeFavour.m_strChequeFavourOf = $("#chequeInFavourOf"+nIndex).val();
 			oArray.push(oChequeFavour);
 		}
 	}
 	else
-	{
+	{		
 		for(var nIndex = 0; nIndex <= m_oInstitutionInfoMemberData.UpdateEditCountChequeInFavourOfId; nIndex++)
 		{
 			var oChequeFavour = new ChequeInFavourOf ();
@@ -243,7 +256,18 @@ function getAddNewChequeFavours ()
 				oArray.push(oChequeFavour);
 			}
 			if(nIndex < arrChequeFavourData.length)
+			{
 				oChequeFavour.m_nChequeFavourId = arrChequeFavourData[nIndex].m_nChequeFavourId;
+				oChequeFavour.m_dCreatedOn = m_oInstitutionInfoMemberData.dCreatedOn;
+				oChequeFavour.m_oUserCreatedBy = m_oInstitutionInfoMemberData.oUserCreatedBy;
+				oChequeFavour.m_oUserUpdatedBy = oLoginUser;
+			}
+			else
+			{
+				oChequeFavour.m_oUserCreatedBy = oLoginUser;
+				oChequeFavour.m_oUserUpdatedBy = oLoginUser;
+			}
+				
 		}
 	}	
 	return oArray;
@@ -253,12 +277,15 @@ function getNewChequeFavours ()
 {
 	var oArray = new Array ();
 	checkRowCount();
+	var oLoginUser = getLoginUserData ();
 	for(var nIndex = 0; nIndex < m_oInstitutionInfoMemberData.UpdateCountChequeInFavourOfId;nIndex++)
 	{
 		if(($("#chequeInFavourOf"+nIndex).val() != '')&&($("#chequeInFavourOf"+nIndex).val() != undefined ))
 		{
 			var oChequeInFavourOf = new ChequeInFavourOf ();
 			oChequeInFavourOf.m_strChequeFavourOf = $("#chequeInFavourOf"+nIndex).val();
+			oChequeInFavourOf.m_oUserCreatedBy = oLoginUser;
+			oChequeInFavourOf.m_oUserUpdatedBy = oLoginUser;
 			oArray.push(oChequeInFavourOf);
 		}		
 	}

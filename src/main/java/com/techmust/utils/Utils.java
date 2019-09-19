@@ -1,11 +1,12 @@
 package com.techmust.utils;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+
 import java.time.ZoneId;
 import java.util.Calendar;
+
 import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -29,7 +30,6 @@ import com.techmust.generic.dataprocessor.GenericIDataProcessor;
 import com.techmust.scholarshipmanagement.activitylog.ActivityLog;
 import com.techmust.scholarshipmanagement.activitylog.ActivityLogDataProcessor;
 import com.techmust.scholarshipmanagement.studentdocuments.StudentDocuments;
-import com.techmust.usermanagement.userinfo.UserInformationData;
 
 
 public class Utils 
@@ -149,10 +149,10 @@ public class Utils
 		ActivityLogDataProcessor oActivityLogDataProcessor = new ActivityLogDataProcessor ();
 		try
 		{
-			String strLogedUser = getLoginUser();
-			oActivityLog.setM_strLoginUserName(strLogedUser);
+			Integer nLogedUserId = getLoginUser();
+			//oActivityLog.setM_strLoginUserName(strLogedUser);
 			oActivityLog.setM_strTaskPerformed(strFunctionName);
-			oActivityLog.setM_dDate(Calendar.getInstance().getTime());
+			//oActivityLog.setM_dDate(Calendar.getInstance().getTime());
 			String strXMLData = oGenericData.generateXML();
 			oActivityLog.setM_strXMLString(strXMLData);
 			oActivityLogDataProcessor.create(oActivityLog);
@@ -163,21 +163,43 @@ public class Utils
 		}		
 	}
 
-	public static String getLoginUser()
+	public static Integer getLoginUser()
 	{
-		String strLoginUser = "";
+		Integer nLoginUserId = null;
 		try
 		{
 			ServletRequestAttributes oServletRequestAttr = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
 			HttpServletRequest oHttpServletRequest = oServletRequestAttr.getRequest();		
 			HttpSession oHttpSession = oHttpServletRequest.getSession();
-			strLoginUser = (String) oHttpSession.getAttribute(Constants.LOGINUSERNAME);
+			nLoginUserId = (Integer) oHttpSession.getAttribute(Constants.LOGINUSERID);
 		} 
 		catch (Exception oException) 
 		{
 			m_oLogger.error("getLoginUser - oException"+oException);
 		}
-		return strLoginUser;
+		return nLoginUserId;
+	}
+
+	public static long convertDateTimetoTimeStamp(Date time)
+	{
+		
+		return 0;
+	}
+
+	public static long getSystemDateTime()
+	{
+		long timeStamp = 0;		
+		try
+		{
+			Date getDate = Calendar.getInstance().getTime();
+			Date oDate = new Date();
+			timeStamp = oDate.getTime();			
+		} 
+		catch (Exception oException)
+		{
+			m_oLogger.error("getSystemDateTime - oException"+oException);
+		}
+		return timeStamp;
 	}
 
 }

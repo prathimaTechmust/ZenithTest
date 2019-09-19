@@ -30,6 +30,7 @@ import com.techmust.scholarshipmanagement.academicdetails.AcademicDetailsProcess
 import com.techmust.scholarshipmanagement.scholarshipdetails.zenithscholarshipstatus.ZenithScholarshipDetails;
 import com.techmust.scholarshipmanagement.sholarshipaccounts.StudentScholarshipAccount;
 import com.techmust.scholarshipmanagement.studentdocuments.StudentDocuments;
+import com.techmust.usermanagement.userinfo.UserInformationData;
 import com.techmust.utils.AWSUtils;
 import com.techmust.utils.Reports;
 import com.techmust.utils.Utils;
@@ -48,7 +49,7 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		m_oLogger.debug ("create - oStudentInformationData [IN] : " + oStudentInformationData);
 		StudentDataResponse oStudentDataResponse = new StudentDataResponse();
 		try
-		{
+		{			
 			oStudentDataResponse.m_bSuccess = oStudentInformationData.saveObject();
 			if(oStudentDataResponse.m_bSuccess)
 			{
@@ -265,7 +266,7 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		return oStudentDataResponse;
 	}
 
-	@SuppressWarnings("unused")
+	@SuppressWarnings({ "unused", "unchecked" })
 	@Override
 	@RequestMapping(value="/studentInfoUpdate", method = RequestMethod.POST, headers = {"Content-type=application/json"})
 	@ResponseBody
@@ -282,8 +283,12 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 			oStudentDataResponse.m_bSuccess = oStudentInformationData.updateObject();
 			if(oStudentDataResponse.m_bSuccess)
 			{
-				oStudentDataResponse.m_arrStudentInformationData.add(oStudentInformationData);
 				Utils.createActivityLog("StudentInformationDataProcessor::update", oStudentInformationData);
+				//oStudentDataResponse.m_arrStudentInformationData.add(oStudentInformationData);
+				oStudentDataResponse.m_nStudentId = oStudentInformationData.getM_nStudentId();
+				oStudentDataResponse.m_strStudentImageId = oStudentInformationData.getM_strStudentImageId();
+				List<AcademicDetails> m_arrAcademicList = new ArrayList(oStudentInformationData.getM_oAcademicDetails());
+				oStudentDataResponse.m_nAcademicId = m_arrAcademicList.get(0).getM_nAcademicId();				
 			}			
 		}
 		catch (Exception oException)
@@ -537,6 +542,33 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 	}
 	
 	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/getStudentCategory",method = RequestMethod.POST,headers = {"Content-type=application/json"})
+	@ResponseBody
+	public GenericResponse getStudentCategory(@RequestBody StudentInformationData oStudentInformationData)
+	{
+		m_oLogger.info("getStudentCategory");
+		m_oLogger.debug("getStudentCategory - StudentInformationData"+oStudentInformationData);
+		StudentDataResponse oDataResponse = new StudentDataResponse();
+		EntityManager oEntityManager = oStudentInformationData._getEntityManager();
+		try 
+		{
+			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
+			CriteriaQuery<StudentInformationData> oCriteriaQuery = oCriteriaBuilder.createQuery(StudentInformationData.class);
+			Root<StudentInformationData> oStudentRoot = oCriteriaQuery.from(StudentInformationData.class);
+			oCriteriaQuery.select(oStudentRoot.get("m_strCategory")).distinct(true);
+			Query oQuery = oEntityManager.createQuery(oCriteriaQuery);
+			oDataResponse.m_arrStudentInformationData = (ArrayList<StudentInformationData>)oQuery.getResultList();		
+		}
+		catch (Exception oException)
+		{
+			m_oLogger.debug("getStudentCategory - oException"+oException);
+		}
+		return oDataResponse;
+		
+	}
+	
+	
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/getStudentParentalOccupations",method = RequestMethod.POST,headers = {"Content-type=application/json"})
 	@ResponseBody
 	public GenericResponse getParentalOccupations(@RequestBody StudentInformationData oStudentInformationData)
@@ -661,6 +693,9 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 			
 			if(oStudentData.getM_nInstitutionId() > 0)
 				m_PredicateList.add(oCriteriaBuilder.equal(oJoinStudentAcademicRoot.get("m_oInstitutionInformationData"), oStudentData.getM_nInstitutionId()));
+			
+			if(oStudentData.getM_strCategory() != "")
+				m_PredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_strCategory"),oStudentData.getM_strCategory()));
 			
 			if(oStudentData.getM_strGender() != "")
 				m_PredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_strGender"), oStudentData.getM_strGender()));
