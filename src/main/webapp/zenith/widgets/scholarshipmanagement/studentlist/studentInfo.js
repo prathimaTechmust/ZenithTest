@@ -364,6 +364,24 @@ function studentInfo_getFormData ()
 	if($("#student_input_dateofbirth").val() == '')
 		oStudentInformationData.m_dDateOfBirth = m_oStudentInfoMemberData.m_studentDateofBirth;
 	oStudentInformationData.m_strFatherName = $("#studentInfo_input_fathername").val();
+	
+	
+	if(document.getElementById("studentInfo_input_MedicalConditionYes").checked)
+		 oStudentInformationData.m_bStudentMedicalCondition = document.getElementById("studentInfo_input_MedicalConditionYes").value;
+	 else 
+		 oStudentInformationData.m_bStudentMedicalCondition = document.getElementById("studentInfo_input_MedicalConditionNo").value;
+	
+	oStudentInformationData.m_strStudentMedicalIssue = document.getElementById("StudentInfo_Input_MedicalIssue").value;
+	
+	
+	
+	if(document.getElementById("parentInfo_input_MedicalConditionYes").checked)
+		 oStudentInformationData.m_bParentMedicalCondition = document.getElementById("parentInfo_input_MedicalConditionYes").value;
+	 else 
+		 oStudentInformationData.m_bParentMedicalCondition = document.getElementById("parentInfo_input_MedicalConditionNo").value;
+	
+	oStudentInformationData.m_strParentMedicalIssue = document.getElementById("parentInfo_Input_MedicalIssue").value;
+	
 	oStudentInformationData.m_strFatherOccupation = $("#studentInfo_input_fatheroccupation").val();
 	oStudentInformationData.m_nFatherAadharNumber = $("#studentInfo_input_fatherAadharNumber").val();
 	oStudentInformationData.m_strMotherName = $("#studentInfo_input_mothername").val();
@@ -636,6 +654,34 @@ function studentInfo_gotData (oStudentInfoResponse)
 	 }
 	 document.getElementById("student_input_dateofbirth").value = convertTimestampToDate(oStudentInfoData.m_dDateOfBirth);
 	 $("#studentInfo_input_fathername").val(oStudentInfoData.m_strFatherName);
+	 
+	 
+	 if(oStudentInfoData.m_bStudentMedicalCondition = "true")
+	 {
+		var radiobutton = document.getElementById("studentInfo_input_MedicalConditionYes");
+		radiobutton.checked = true;
+	 }
+	 else
+	 {
+		 var radiobutton = document.getElementById("studentInfo_input_MedicalConditionNo");
+			radiobutton.checked = true;
+	 }
+	 
+	 $("#StudentInfo_Input_MedicalIssue").val(oStudentInfoData.m_strStudentMedicalIssue);
+	 
+	 if(oStudentInfoData.m_bParentMedicalCondition = "true")
+	 {
+			var radiobutton = document.getElementById("parentInfo_input_MedicalConditionYes");
+			radiobutton.checked = true;
+	 }
+	 else
+	{
+			 var radiobutton = document.getElementById("parentInfo_input_MedicalConditionNo");
+				radiobutton.checked = true;
+	}
+	 
+	 $("#parentInfo_Input_MedicalIssue").val(oStudentInfoData.m_strParentMedicalIssue);
+	 
 	 $("#studentInfo_input_fatheroccupation").val(oStudentInfoData.m_strFatherOccupation);
 	 $("#studentInfo_input_fatherAadharNumber").val(oStudentInfoData.m_nFatherAadharNumber);
 	 $("#studentInfo_input_mothername").val(oStudentInfoData.m_strMotherName);
@@ -1281,3 +1327,22 @@ function studentInfo_setSiblingsData(oResponse)
 
 } 
 
+function studentMedicalConditionYes(divId)
+{
+	document.getElementById(divId.id).style.display = "block";
+}
+
+function studentMedicalConditionNo(divId)
+{
+	document.getElementById(divId.id).style.display = "none";
+}
+
+function parentInfoMedicalIssueYes(divId)
+{
+	document.getElementById(divId.id).style.display = "block";
+}
+
+function parentInfoMedicalIssueNo(divId)
+{
+	document.getElementById(divId.id).style.display = "none";
+}

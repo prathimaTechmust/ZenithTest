@@ -119,8 +119,22 @@ public class StudentInformationData  extends MasterData implements Serializable
 	@Column(name="applicationpriority")
 	private int m_nApplicationPriority;
 	
+	
+	
 	@Column(name="category")
 	private String m_strCategory;	
+	
+	@Column(name="studentmedicalcondition")
+	private boolean m_bStudentMedicalCondition;
+	
+	@Column(name = "studentmedicalissue")
+	private String m_strStudentMedicalIssue;
+	
+	@Column(name = "parentmedicalcondition")
+	private boolean m_bParentMedicalCondition;
+	
+	@Column(name="parentmedicalissue")
+	private String m_strParentMedicalIssue;
 	
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "facilitatorid")
@@ -197,6 +211,10 @@ public class StudentInformationData  extends MasterData implements Serializable
 		m_strAlternateNumber = "";
 		m_strParentalStatus = "";
 		m_strReligion = "";
+		m_bStudentMedicalCondition = false;
+		m_strStudentMedicalIssue = "";
+	    m_bParentMedicalCondition = false;
+	    m_strParentMedicalIssue = "";
 		m_strCategory = "";
 		m_strCurrentAddress = "";
 		m_strCity = "";
@@ -214,6 +232,46 @@ public class StudentInformationData  extends MasterData implements Serializable
 		m_oUserCreatedBy = new UserInformationData ();
 		m_oUserUpdatedBy = new UserInformationData ();
 	}	
+
+	public boolean isM_bStudentMedicalCondition() 
+	{
+		return m_bStudentMedicalCondition;
+	}
+
+	public void setM_bStudentMedicalCondition(boolean m_bStudentMedicalCondition) 
+	{
+		this.m_bStudentMedicalCondition = m_bStudentMedicalCondition;
+	}
+
+	public String getM_strStudentMedicalIssue()
+	{
+		return m_strStudentMedicalIssue;
+	}
+
+	public void setM_strStudentMedicalIssue(String m_strStudentMedicalIssue) 
+	{
+		this.m_strStudentMedicalIssue = m_strStudentMedicalIssue;
+	}
+
+	public boolean isM_bParentMedicalCondition() 
+	{
+		return m_bParentMedicalCondition;
+	}
+
+	public void setM_bParentMedicalCondition(boolean m_bParentMedicalCondition) 
+	{
+		this.m_bParentMedicalCondition = m_bParentMedicalCondition;
+	}
+
+	public String getM_strParentMedicalIssue() 
+	{
+		return m_strParentMedicalIssue;
+	}
+
+	public void setM_strParentMedicalIssue(String m_strParentMedicalIssue)
+	{
+		this.m_strParentMedicalIssue = m_strParentMedicalIssue;
+	}
 
 	public String getM_strSortBy() 
 	{

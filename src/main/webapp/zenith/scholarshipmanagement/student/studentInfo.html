@@ -144,8 +144,29 @@
 													</option>
 												</select>
 											</td> 
+										</tr>
+									 <tr>
+	      								<td class="fieldHeading">Having Medical Condition</td>
+	 										<td>
+												<input type="radio" id="studentInfo_input_MedicalConditionYes" name="studentInfo_input_MedicalCondition" value="true" data-options="required:true"
+							                            class="easyui-validatebox" onchange="studentMedicalConditionYes(studentMedicalIssue)">Yes
+												<input type="radio" id="studentInfo_input_MedicalConditionNo" name="studentInfo_input_MedicalCondition" value="false" checked  data-options="required:true"
+							                            class="easyui-validatebox" onchange="studentMedicalConditionNo(studentMedicalIssue)">No
+  											</td>
+ 									  </tr>
+										 <tr>
+										  <td>
+										   <div id="studentMedicalIssue" style="display:none">
+										     <table>
+										    	 <tr>
+										     		<td class="fieldHeading">Medical Issue<td>
+										            <td> <textarea type="text"  rows="4" cols="25" maxlength="200" id="StudentInfo_Input_MedicalIssue" name="student_MedicalIssue"></textarea></td>
+										    	 </tr>
+										     </table>
+										     </div>
+										   </td>
 										</tr>							
-										<tr>
+									 <tr>
 											<td class="fieldHeading"> Family Income Per Annum(Rupees)</td>
 						                     <td>
 						                          <input type="text" id="studentInfo_input_income"  class="zenith" onkeyup="validateNumber (this)"/>
@@ -290,7 +311,29 @@
 															onchange="motherAadharValidate();" /></td>
 														<td style="padding-right: 15px"></td>
 													</tr>
-													
+														 <tr>
+												 <tr>
+	      											<td class="fieldHeading">Parent Medical Condition</td>
+	 													<td>
+															<input type="radio" id="parentInfo_input_MedicalConditionYes" name="parentInfo_input_MedicalCondition" value="true" data-options="required:true"
+							                            		class="easyui-validatebox" onchange="parentInfoMedicalIssueYes(parentMedicalIssue)">Yes
+															<input type="radio" id="parentInfo_input_MedicalConditionNo" name="parentInfo_input_MedicalCondition" value="false" checked  data-options="required:true"
+							                            		class="easyui-validatebox" onchange="parentInfoMedicalIssueNo(parentMedicalIssue)">No
+  														</td>
+ 									 			</tr>
+										 		 <tr>  
+										 	 		<td>
+													   <div id="parentMedicalIssue" style="display:none">
+													     <table>
+													    	 <tr>
+													     		<td class="fieldHeading">Medical Issue<td>
+													            <td> <textarea type="text"  rows="4" cols="25" maxlength="200" id="parentInfo_Input_MedicalIssue" name="parent_MedicalIssue"></textarea></td>
+													    	 </tr>
+													     </table>
+													     </div>
+													   </td>
+													</tr>	
+													</tr>
 													<tr>	
 														<td class="fieldHeading">Have Siblings</td>
 														<td><input 	type="radio"
