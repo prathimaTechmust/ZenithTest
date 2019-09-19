@@ -108,22 +108,21 @@ function courseInfo_displayInfo (strMessage)
 
 function courseInfo_gotData (oCourseInfoResponse)
 {	
-	var oCourseInfoData = oCourseInfoResponse.m_arrCourseInformationData[0];
-	m_oCourseInfoMemberData.m_nCourseId = oCourseInfoData.m_nCourseId;
+	 var oCourseInfoData = oCourseInfoResponse.m_arrCourseInformationData[0];
+	 m_oCourseInfoMemberData.m_nCourseId = oCourseInfoData.m_nCourseId;
 	 $("#courseInfo_input_shortcourseName").val(oCourseInfoData.m_strShortCourseName);
 	 $("#courseInfo_input_longcourseName").val(oCourseInfoData.m_strLongCourseName);
-	 if(oCourseInformationData.m_strFinalYear == "yes")
-		 {
+	 if(oCourseInfoData.m_bFinalYear)
+	 {
 		 var radiobutton = document.getElementById("courseInfo_input_finalYear_yes");
-			radiobutton.checked = true;
-		 }
+		 radiobutton.checked = true;
+	 }
 	 else
-		 {
+	 {
 		 
 		 var radiobutton = document.getElementById("courseInfo_input_finalYear_no");
-			radiobutton.checked = true;
-		 }
-	 initFormValidateBoxes ("courseInfo_form_id");
+		 radiobutton.checked = true;
+	 }
 	m_oCourseInfoMemberData.dCreatedOn = oCourseInfoData.m_dCreatedOn;
 	m_oCourseInfoMemberData.dUpdatedOn = oCourseInfoData.m_dUpdatedOn;
 	m_oCourseInfoMemberData.oUserCreatedBy = oCourseInfoData.m_oUserCreatedBy;

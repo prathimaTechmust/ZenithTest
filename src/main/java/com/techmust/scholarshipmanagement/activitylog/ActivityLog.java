@@ -79,9 +79,7 @@ public class ActivityLog  extends MasterData
 		m_strTaskPerformed = "";		
 		m_strXMLString = "";
 		m_dCreatedOn = Calendar.getInstance().getTime();
-		m_dUpdatedOn = Calendar.getInstance().getTime();
-		/*m_oUserCreatedBy = new UserInformationData();
-		m_oUserUpdatedBy = new UserInformationData();*/
+		m_dUpdatedOn = Calendar.getInstance().getTime();		
 	}	
 	
 	public Date getM_dFromDate()

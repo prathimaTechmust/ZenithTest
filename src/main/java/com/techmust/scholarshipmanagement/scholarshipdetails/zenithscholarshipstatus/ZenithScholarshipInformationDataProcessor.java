@@ -18,6 +18,7 @@ import com.techmust.generic.dataprocessor.GenericIDataProcessor;
 import com.techmust.generic.response.GenericResponse;
 import com.techmust.scholarshipmanagement.chequeFavourOf.ChequeInFavourOf;
 import com.techmust.scholarshipmanagement.student.StudentInformationData;
+import com.techmust.usermanagement.userinfo.UserInformationData;
 import com.techmust.utils.AWSUtils;
 import com.techmust.utils.AmazonSMS;
 import com.techmust.utils.Utils;
@@ -28,13 +29,15 @@ public class ZenithScholarshipInformationDataProcessor extends GenericIDataProce
 
 	@RequestMapping(value="/studentStatusInfoUpdate", method = RequestMethod.POST)
 	@ResponseBody
-	public GenericResponse toBeVerifiedStatusUpdate(@RequestParam(name = "scancopy",required = false)MultipartFile oScanCopyMultipartFile,@RequestParam("studentId") int nStudentId,@RequestParam(value="chequefavourId",required = false) Integer nFavourid,@RequestParam(value="strPaymentType",required = false) String strPaymentType,@RequestParam(value="strVerifyRemarks",required = false) String strVerifyRemarks) throws Exception
+	public GenericResponse toBeVerifiedStatusUpdate(@RequestParam(name = "scancopy",required = false)MultipartFile oScanCopyMultipartFile,@RequestParam("studentId") int nStudentId,@RequestParam(value="chequefavourId",required = false) Integer nFavourid,@RequestParam(value="strPaymentType",required = false) String strPaymentType,@RequestParam(value="strVerifyRemarks",required = false) String strVerifyRemarks,@RequestParam(name = "nLoginUserId",required = false) Integer nLoginUserId) throws Exception
 	{
 		
 		m_oLogger.info ("toBeVerifiedStatusUpdate");
 		m_oLogger.debug ("toBeVerifiedStatusUpdate - ScanCopy [IN] : " + oScanCopyMultipartFile);
 		ZenithScholarshipDetailsDataResponse oZenithScholarshipDetailsDataResponse = new ZenithScholarshipDetailsDataResponse();
 		ZenithScholarshipDetails oZenithScholarshipDetails = new ZenithScholarshipDetails();
+		UserInformationData oUserInformationData = new UserInformationData();
+		oUserInformationData.setM_nUserId(nLoginUserId);
 		ChequeInFavourOf oChequeInFavourOf = new ChequeInFavourOf();
 		if(nFavourid != null)
 		{
@@ -43,6 +46,7 @@ public class ZenithScholarshipInformationDataProcessor extends GenericIDataProce
 		}
 		oZenithScholarshipDetails.setM_strPaymentType(strPaymentType);
 		oZenithScholarshipDetails.setM_nStudentId(nStudentId);
+		oZenithScholarshipDetails.setM_oUserUpdatedBy(oUserInformationData);
 		oZenithScholarshipDetails.setM_strVerifyRemarks(strVerifyRemarks);
 		try                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
 		{	

@@ -149,23 +149,22 @@
 	      								<td class="fieldHeading">Having Medical Condition</td>
 	 										<td>
 												<input type="radio" id="studentInfo_input_MedicalConditionYes" name="studentInfo_input_MedicalCondition" value="true" data-options="required:true"
-							                            class="easyui-validatebox" onchange="studentMedicalConditionYes(studentMedicalIssue)">Yes
+							                            class="easyui-validatebox" onchange="studentMedicalConditionYes(studentMedicalIssueLable, studentMedicalIssueData)">Yes
 												<input type="radio" id="studentInfo_input_MedicalConditionNo" name="studentInfo_input_MedicalCondition" value="false" checked  data-options="required:true"
-							                            class="easyui-validatebox" onchange="studentMedicalConditionNo(studentMedicalIssue)">No
+							                            class="easyui-validatebox" onchange="studentMedicalConditionNo(studentMedicalIssueLable, studentMedicalIssueData)">No
   											</td>
- 									  </tr>
-										 <tr>
-										  <td>
-										   <div id="studentMedicalIssue" style="display:none">
-										     <table>
-										    	 <tr>
-										     		<td class="fieldHeading">Medical Issue<td>
-										            <td> <textarea type="text"  rows="2" cols="20" maxlength="200" id="StudentInfo_Input_MedicalIssue" name="student_MedicalIssue"></textarea></td>
-										    	 </tr>
-										     </table>
-										     </div>
-										   </td>
-										</tr>							
+								  	</tr>
+									  	<tr>
+										  	<td class="fieldHeading"> 
+										  	<div id="studentMedicalIssueLable" style="display:none"> Medical Issue</div>
+										  	</td>
+								            <td> 
+								            <div id="studentMedicalIssueData" style="display:none">
+								           	 <textarea type="text"  rows="2" cols="35" maxlength="200" id="StudentInfo_Input_MedicalIssue" name="student_MedicalIssue"></textarea>
+								          
+								            </div>
+								            </td>
+								    	 </tr>
 									 <tr>
 											<td class="fieldHeading"> Family Income Per Annum(Rupees)</td>
 						                     <td>
@@ -316,24 +315,22 @@
 	      											<td class="fieldHeading">Parent Medical Condition</td>
 	 													<td>
 															<input type="radio" id="parentInfo_input_MedicalConditionYes" name="parentInfo_input_MedicalCondition" value="true" data-options="required:true"
-							                            		class="easyui-validatebox" onchange="parentInfoMedicalIssueYes(parentMedicalIssue)">Yes
+							                            		class="easyui-validatebox" onchange="parentInfoMedicalIssueYes(parentMedicalIssueLable,parentMedicalIssueData)">Yes
 															<input type="radio" id="parentInfo_input_MedicalConditionNo" name="parentInfo_input_MedicalCondition" value="false" checked  data-options="required:true"
-							                            		class="easyui-validatebox" onchange="parentInfoMedicalIssueNo(parentMedicalIssue)">No
+							                            		class="easyui-validatebox" onchange="parentInfoMedicalIssueNo(parentMedicalIssueLable,parentMedicalIssueData)">No
   														</td>
- 									 			</tr>
-										 		 <tr>  
-										 	 		<td>
-													   <div id="parentMedicalIssue" style="display:none">
-													     <table>
-													    	 <tr>
-													     		<td class="fieldHeading">Medical Issue<td>
-													            <td> <textarea type="text"  rows="2" cols="20" maxlength="200" id="parentInfo_Input_MedicalIssue" name="parent_MedicalIssue"></textarea></td>
-													    	 </tr>
-													     </table>
-													     </div>
-													   </td>
-													</tr>	
-													</tr>
+ 									 			</tr>	
+												<tr>
+										  	      <td class="fieldHeading"> 
+										  	          <div id="parentMedicalIssueLable" style="display:none"> Medical Issue</div>
+										  	     </td>
+								                 <td> 
+								                      <div id="parentMedicalIssueData" style="display:none">
+								           	         <textarea type="text"  rows="2" cols="35" maxlength="200" id="parentInfo_Input_MedicalIssue" name="parent_MedicalIssue"></textarea>
+								          
+								                    </div>
+								            </td>
+								    	 </tr>
 													<tr>	
 														<td class="fieldHeading">Have Siblings</td>
 														<td><input 	type="radio"

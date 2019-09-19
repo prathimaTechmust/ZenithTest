@@ -119,8 +119,6 @@ public class StudentInformationData  extends MasterData implements Serializable
 	@Column(name="applicationpriority")
 	private int m_nApplicationPriority;
 	
-	
-	
 	@Column(name="category")
 	private String m_strCategory;	
 	
@@ -187,6 +185,9 @@ public class StudentInformationData  extends MasterData implements Serializable
 	private String m_strSortBy;
 	
 	@Transient
+	private boolean m_bStudentGraduate;	 
+	
+	@Transient
 	public AcademicDetails[] m_arrAcademicDetails;
 	
 	@Transient
@@ -232,6 +233,11 @@ public class StudentInformationData  extends MasterData implements Serializable
 		m_oUserCreatedBy = new UserInformationData ();
 		m_oUserUpdatedBy = new UserInformationData ();
 	}	
+	
+	public boolean isM_bStudentGraduate() 
+	{
+		return m_bStudentGraduate;
+	}
 
 	public boolean isM_bStudentMedicalCondition() 
 	{
@@ -271,6 +277,11 @@ public class StudentInformationData  extends MasterData implements Serializable
 	public void setM_strParentMedicalIssue(String m_strParentMedicalIssue)
 	{
 		this.m_strParentMedicalIssue = m_strParentMedicalIssue;
+	}
+
+	public void setM_bStudentGraduate(boolean m_bStudentGraduate)
+	{
+		this.m_bStudentGraduate = m_bStudentGraduate;
 	}
 
 	public String getM_strSortBy() 

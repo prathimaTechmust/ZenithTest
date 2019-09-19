@@ -690,15 +690,27 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 			Join<Object, Object> oZenithStudentRoot = (Join<Object, Object>) oStudentRoot.fetch("m_oZenithScholarshipDetails");
 			m_PredicateList.add(oCriteriaBuilder.equal(oJoinStudentAcademicRoot.get("m_oAcademicYear"),oStudentData.getM_nAcademicYearId()));
 			m_PredicateList.add(oCriteriaBuilder.equal(oZenithStudentRoot.get("m_oAcademicYear"),oStudentData.getM_nAcademicYearId()));
-			//Checking Input Request
+			//Checking Input Request and Joined Parameters
 			if(oStudentData.getM_nCourseId() > 0)
 				m_PredicateList.add(oCriteriaBuilder.equal(oJoinStudentAcademicRoot.get("m_oCourseInformationData"),oStudentData.getM_nCourseId()));
 			
+			if(oStudentData.isM_bStudentGraduate())
+				m_PredicateList.add(oCriteriaBuilder.equal(oJoinStudentAcademicRoot.get("m_oCourseInformationData").get("m_bFinalYear"),oStudentData.isM_bStudentGraduate()));
+			
 			if(oStudentData.getM_nInstitutionId() > 0)
 				m_PredicateList.add(oCriteriaBuilder.equal(oJoinStudentAcademicRoot.get("m_oInstitutionInformationData"), oStudentData.getM_nInstitutionId()));
-			
+
 			if(oStudentData.getM_strCategory() != "")
 				m_PredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_strCategory"),oStudentData.getM_strCategory()));
+			//Checking Sibiling Details(Count)
+			
+			
+			//StudentData Parameters
+			if(oStudentData.isM_bStudentMedicalCondition())
+				m_PredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_bStudentMedicalCondition"),oStudentData.isM_bStudentMedicalCondition()));
+			
+			if(oStudentData.isM_bParentMedicalCondition())
+				m_PredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_bParentMedicalCondition"),oStudentData.isM_bParentMedicalCondition()));
 			
 			if(oStudentData.getM_strGender() != "")
 				m_PredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_strGender"), oStudentData.getM_strGender()));
@@ -717,13 +729,14 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 			
 			if(oStudentData.getM_strParentalStatus() != "")
 				m_PredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_strParentalStatus"), oStudentData.getM_strParentalStatus()));
+			
 				
 			oCriteriaQuery.select(oStudentRoot);
 			
 			if(oStudentData.getM_strSortBy().equals("m_nUID"))
 			   oCriteriaQuery.orderBy(oCriteriaBuilder.asc(oStudentRoot.get("m_nUID")));
 			else
-				 oCriteriaQuery.orderBy(oCriteriaBuilder.asc(oStudentRoot.get("m_strStudentName")));
+				oCriteriaQuery.orderBy(oCriteriaBuilder.asc(oStudentRoot.get("m_strStudentName")));
 			
 			oCriteriaQuery.where(m_PredicateList.toArray(new Predicate[] {}));
 			List<StudentInformationData> studentList = oEntityManager.createQuery(oCriteriaQuery).getResultList();
@@ -744,7 +757,7 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 	@SuppressWarnings({ "rawtypes", "unused", "unchecked" })
 	public static String studentExcelData (ArrayList<StudentInformationData> arrStudentInformationData)
 	{		
-		boolean isExcelDownloaded = true;
+		
 		String strDownloadPath = "";
 		try
 		{			
@@ -762,6 +775,7 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 				listArray.add(oExcelData.getM_oFacilitatorInformationData().getM_strFacilitatorName());
 				listArray.add(oExcelData.getM_strGender());
 				listArray.add(oExcelData.getM_strReligion());
+				//Getting SubEntities Data
 				AcademicDetails oDetails = getAcademicDetails(oExcelData.getM_oAcademicDetails());
 				StudentScholarshipAccount oAccount = getScholarshipAccount(oDetails.getM_oStudentScholarshipAccount());
 				ZenithScholarshipDetails oZenith = getZenithScholarshipData(oExcelData.getM_oZenithScholarshipDetails());
@@ -785,8 +799,7 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		}
 		catch (Exception oException)
 		{
-			m_oLogger.error("studentExcelData - oException"+oException);
-			isExcelDownloaded = false;
+			m_oLogger.error("studentExcelData - oException"+oException);			
 		}
 		return strDownloadPath;
 	}
@@ -810,8 +823,14 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 	{
 		List<StudentScholarshipAccount> liStudentScholarshipAccounts = new ArrayList<StudentScholarshipAccount>(set);
 		StudentScholarshipAccount oScholarshipAccount = new StudentScholarshipAccount();
-		if(liStudentScholarshipAccounts.size() > 0)
-			oScholarshipAccount = liStudentScholarshipAccounts.get(0);
+		for(int nIndex = 0;nIndex < liStudentScholarshipAccounts.size(); nIndex++)
+		{
+			StudentScholarshipAccount oActiveCheque = liStudentScholarshipAccounts.get(nIndex);
+			if(oActiveCheque.getM_strChequeStatus().equals(Constants.CHEQUESTATUS))
+			{
+				oScholarshipAccount = liStudentScholarshipAccounts.get(nIndex);
+			}
+		}		
 		return oScholarshipAccount;
 	}
 	
