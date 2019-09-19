@@ -654,34 +654,28 @@ function studentInfo_gotData (oStudentInfoResponse)
 	 }
 	 document.getElementById("student_input_dateofbirth").value = convertTimestampToDate(oStudentInfoData.m_dDateOfBirth);
 	 $("#studentInfo_input_fathername").val(oStudentInfoData.m_strFatherName);
-	 
-	 
-	 if(oStudentInfoData.m_bStudentMedicalCondition = "true")
+	 if(oStudentInfoData.m_bStudentMedicalCondition)
 	 {
-		var radiobutton = document.getElementById("studentInfo_input_MedicalConditionYes");
-		radiobutton.checked = true;
+		document.getElementById("studentInfo_input_MedicalConditionYes").checked = true;
+		studentMedicalConditionYes(studentMedicalIssue);
 	 }
 	 else
 	 {
-		 var radiobutton = document.getElementById("studentInfo_input_MedicalConditionNo");
-			radiobutton.checked = true;
+		 document.getElementById("studentInfo_input_MedicalConditionNo").checked = true;
 	 }
 	 
 	 $("#StudentInfo_Input_MedicalIssue").val(oStudentInfoData.m_strStudentMedicalIssue);
 	 
-	 if(oStudentInfoData.m_bParentMedicalCondition = "true")
+	 if(oStudentInfoData.m_bParentMedicalCondition)
 	 {
-			var radiobutton = document.getElementById("parentInfo_input_MedicalConditionYes");
-			radiobutton.checked = true;
+		 document.getElementById("parentInfo_input_MedicalConditionYes").checked = true;
+		 parentInfoMedicalIssueYes(parentMedicalIssue);
 	 }
 	 else
-	{
-			 var radiobutton = document.getElementById("parentInfo_input_MedicalConditionNo");
-				radiobutton.checked = true;
-	}
-	 
+	 {
+		 document.getElementById("parentInfo_input_MedicalConditionNo").checked = true;
+	 } 
 	 $("#parentInfo_Input_MedicalIssue").val(oStudentInfoData.m_strParentMedicalIssue);
-	 
 	 $("#studentInfo_input_fatheroccupation").val(oStudentInfoData.m_strFatherOccupation);
 	 $("#studentInfo_input_fatherAadharNumber").val(oStudentInfoData.m_nFatherAadharNumber);
 	 $("#studentInfo_input_mothername").val(oStudentInfoData.m_strMotherName);
@@ -1327,7 +1321,7 @@ function studentInfo_setSiblingsData(oResponse)
 
 } 
 
-function studentMedicalConditionYes(divId)
+function studentMedicalConditionYes(divId)                              
 {
 	document.getElementById(divId.id).style.display = "block";
 }
