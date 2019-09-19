@@ -55,9 +55,9 @@ function courseInfo_getFormData ()
 	oCourseInformationData.m_strShortCourseName = $("#courseInfo_input_shortcourseName").val();
 	oCourseInformationData.m_strLongCourseName = $("#courseInfo_input_longcourseName").val();
 	if(document.getElementById("courseInfo_input_finalYear_yes").checked)
-		oCourseInformationData.m_strFinalYear = $("#courseInfo_input_finalYear_yes").val();
+		oCourseInformationData.m_bFinalYear = $("#courseInfo_input_finalYear_yes").val();
 	else
-		oCourseInformationData.m_strFinalYear = $("#courseInfo_input_finalYear_no").val();
+		oCourseInformationData.m_bFinalYear = $("#courseInfo_input_finalYear_no").val();
 	var oUserData = getLoginUserData ()
 	if(m_oCourseInfoMemberData.m_nCourseId != -1)
 	{
