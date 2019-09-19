@@ -309,9 +309,12 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		{
 			StudentDocuments oStudentDocuments = oStudentInformationData.getStudentUploadDocuments(oAcademic);
 			List<StudentDocuments> listDocuments = new ArrayList<StudentDocuments>();
-			listDocuments.add(oStudentDocuments);
-			oAcademic.setM_arrStudentDocuments(listDocuments);
-			arrAcademics.add(oAcademic);
+			if(oStudentDocuments.getM_nDocumentId() > 0)
+			{
+				listDocuments.add(oStudentDocuments);
+				oAcademic.setM_arrStudentDocuments(listDocuments);
+				arrAcademics.add(oAcademic);
+			}
 			oStudentInformationData.setM_oAcademicDetails(arrAcademics);
 		}		
 		return oStudentInformationData;	
