@@ -14,6 +14,13 @@
             <div class="zenith" id="tatkalStudentListInfo_div_dataGridToolbar">
               <table class="zenith" cellpadding="2" cellspacing="2" summary="">
                 <tr>
+                   <td class="zenith" style="width:15%">
+                    <input 
+                        class="filterTextBox"
+                        id="filterStudentInfo_input_studentUID"
+                        onkeypress="handleFilter('studentListInfo_filter()','#filterStudentInfo_input_studentUID')"
+                        placeholder="Student UID"/>
+                  </td>
                   <td class="zenith" style="width:15%">
                     <input 
                         class="filterTextBox"

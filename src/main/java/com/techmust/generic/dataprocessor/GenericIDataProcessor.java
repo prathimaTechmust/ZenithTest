@@ -231,6 +231,9 @@ public abstract class GenericIDataProcessor<T extends IGenericData>
 			Join<StudentInformationData,ZenithScholarshipDetails> oRootJoin = oStudentRoot.join("m_oZenithScholarshipDetails",JoinType.INNER);
 			List<Predicate> m_PredicateList = new ArrayList<Predicate>();
 			m_PredicateList.add(oCriteriaBuilder.equal(oRootJoin.get("m_oAcademicYear"), oStudentData.getM_nAcademicYearId()));
+			
+			if(oStudentData.getM_nUID() >  0)
+				m_PredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_nUID"),oStudentData.getM_nUID()));
 			if(oStudentData.getM_strStatus() != null)
 				m_PredicateList.add(oCriteriaBuilder.equal(oRootJoin.get("m_strStatus"),oStudentData.getM_strStatus()));
 			if(oStudentData.getM_strPhoneNumber() != "")
@@ -278,7 +281,9 @@ public abstract class GenericIDataProcessor<T extends IGenericData>
 			{
 				Expression<String> oExpression = oRootObject.get("m_strStudentName");
 				m_arrPredicateList.add( oCriteriaBuilder.like(oExpression,"%"+oStudentInformationData.getM_strStudentName()+"%"));
-			}				
+			}
+			if(oStudentInformationData.getM_nUID() > 0 )
+				m_arrPredicateList.add(oCriteriaBuilder.equal(oRootObject.get("m_nUID"),oStudentInformationData.getM_nUID()));
 			if(oStudentInformationData.getM_strPhoneNumber() != "")
 				m_arrPredicateList.add(oCriteriaBuilder.equal(oRootObject.get("m_strPhoneNumber"),oStudentInformationData.getM_strPhoneNumber()));
 			if(oStudentInformationData.getM_nStudentAadharNumber() > 0)

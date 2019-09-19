@@ -991,7 +991,12 @@ function validateFilterBoxes (gridId,status,academicYearDropdownId)
 	oStudentFilterData.m_nAcademicYearId = $("#"+academicYearDropdownId).val();
 	oStudentFilterData.m_strStatus = status;
 	oStudentFilterData.m_bSuccess = false;
-	if($("#filterStudentInfo_input_studentName").val() != "")
+	if($("#filterStudentInfo_input_studentUID").val() != "")
+	{
+		oStudentFilterData.m_nUID = $("#filterStudentInfo_input_studentUID").val();
+		oStudentFilterData.m_bSuccess = true;
+	}
+	else if($("#filterStudentInfo_input_studentName").val() != "")
 	{
 		oStudentFilterData.m_strStudentName = $("#filterStudentInfo_input_studentName").val();
 		oStudentFilterData.m_bSuccess = true;
@@ -1028,7 +1033,7 @@ function studentFilteredResponse(oResponse)
 }
 
 function clearFilterBoxes ()
-{
+{	document.getElementById("filterStudentInfo_input_studentUID").value = "";
 	document.getElementById("filterStudentInfo_input_studentName").value = "";
 	document.getElementById("filterStudentInfo_input_phonenumber").value = "";
 	document.getElementById("filterStudentInfo_input_aadhar").value = "";
