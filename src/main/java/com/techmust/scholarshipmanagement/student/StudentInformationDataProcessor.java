@@ -688,7 +688,6 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 			//Join Objects
 			Join<Object, Object> oJoinStudentAcademicRoot = (Join<Object, Object>) oStudentRoot.fetch("m_oAcademicDetails");
 			Join<Object, Object> oZenithStudentRoot = (Join<Object, Object>) oStudentRoot.fetch("m_oZenithScholarshipDetails");
-			Join<Object, Object> oSibilingStudentRoot = (Join<Object, Object>) oStudentRoot.fetch("m_oSibilingDetails");
 			m_PredicateList.add(oCriteriaBuilder.equal(oJoinStudentAcademicRoot.get("m_oAcademicYear"),oStudentData.getM_nAcademicYearId()));
 			m_PredicateList.add(oCriteriaBuilder.equal(oZenithStudentRoot.get("m_oAcademicYear"),oStudentData.getM_nAcademicYearId()));
 			//Checking Input Request and Joined Parameters
