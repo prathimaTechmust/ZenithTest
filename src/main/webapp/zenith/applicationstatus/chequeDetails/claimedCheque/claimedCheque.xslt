@@ -39,7 +39,7 @@
 <body>
 	<table border="1" width="100%" >
 		<tr>	
-			<td style="width: 50%;" >
+			<td style="width: 55%;" >
 				<table>
 					<tr>
 						<td align="left">
