@@ -140,10 +140,12 @@ function approveStudentInfo_Student()
 {
 	createPopup('dialog', '', '', true);	
 	var oZenith = new ZenithScholarshipDetails ();
+	var oApproveUserInfo = getLoginUserData ();
 	if($("#zenithInfo_approvedamount").val() != 0)
 	{
 		oZenith.m_fApprovedAmount = $("#zenithInfo_approvedamount").val();
 		oZenith.m_nStudentId = m_oApproveStudentList_Info_MemberData.m_nStudentId;
+		oZenith.m_oApprovedBy = oApproveUserInfo;
 		ZenithStudentInformationDataProcessor.approvedStatusUpdate(oZenith,studentapproveResponse);
 	}
 	else

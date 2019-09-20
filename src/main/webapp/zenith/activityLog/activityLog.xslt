@@ -46,8 +46,8 @@
 								</tr>
 								<tr>
 									<td class="xslt_fieldHeading">Date :</td>
-									<td class="xslt_fieldData" id="m_dDate">
-										<xsl:value-of select="ActivityLog/m_dDate"/>
+									<td class="xslt_fieldData" id="m_dCreatedOn">
+										<xsl:value-of select="ActivityLog/m_dCreatedOn"/>
 									</td>
 								</tr>
 							</table>

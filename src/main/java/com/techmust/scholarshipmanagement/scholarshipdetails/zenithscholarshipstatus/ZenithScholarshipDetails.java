@@ -81,12 +81,6 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 	@Column(name="paymentType")
 	private String m_strPaymentType;
 	
-	@Column(name="approvedBy")
-	private String m_strApprovedBy;
-	
-	@Column(name = "chequeDisburseBy")
-	private String m_strChequeDisburseBy;
-	
 	@Column(name="verifyRemarks")
 	private String m_strVerifyRemarks;
 	
@@ -119,6 +113,15 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 	@JoinColumn(name = "academicyearid")
 	private AcademicYear m_oAcademicYear;
 	
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="approvedBy")
+	private UserInformationData m_oApprovedBy;
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "chequeDisburseBy")
+	private UserInformationData m_oChequeDisburseBy;
+	
 	//Transient Variables
 	@Transient
 	private int m_nStudentId;
@@ -139,12 +142,10 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 		m_strImage = null;
 		m_strChequeRemark= "";
 		m_dApprovedDate = null;
-		m_strApprovedBy = " ";
 		m_dClaimedDate = null;	
 		m_dCounselingDate = null;
 		m_strPaymentType = null;
 		m_strStudentRemarks = "";
-		m_strChequeDisburseBy = "";
 		m_strVerifyRemarks = "";
 		m_dApplicationSubmitDate = Calendar.getInstance().getTime();
 		m_oAcademicYear = new AcademicYear();
@@ -152,9 +153,28 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 		m_dUpdatedOn = Calendar.getInstance().getTime();
 		m_oUserCreatedBy = new UserInformationData();
 		m_oUserUpdatedBy = new UserInformationData();
-	}	
+	}
 
-	
+	public UserInformationData getM_oApprovedBy()
+	{
+		return m_oApprovedBy;
+	}
+
+	public void setM_oApprovedBy(UserInformationData m_oApprovedBy) 
+	{
+		this.m_oApprovedBy = m_oApprovedBy;
+	}
+
+	public UserInformationData getM_oChequeDisburseBy() 
+	{
+		return m_oChequeDisburseBy;
+	}
+
+	public void setM_oChequeDisburseBy(UserInformationData m_oChequeDisburseBy)
+	{
+		this.m_oChequeDisburseBy = m_oChequeDisburseBy;
+	}
+
 	public String getM_strVerifyRemarks()
 	{
 		return m_strVerifyRemarks;
@@ -206,17 +226,6 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 		this.m_oUserUpdatedBy = m_oUserUpdatedBy;
 	}
 
-
-	public String getM_strChequeDisburseBy() 
-	{
-		return m_strChequeDisburseBy;
-	}
-
-	public void setM_strChequeDisburseBy(String m_strChequeDisburseBy) 
-	{
-		this.m_strChequeDisburseBy = m_strChequeDisburseBy;
-	}
-
 	public Date getM_dCounselingDate() 
 	{
 		return m_dCounselingDate;
@@ -225,16 +234,6 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 	public void setM_dCounselingDate(Date m_dCounselingDate) 
 	{
 		this.m_dCounselingDate = m_dCounselingDate;
-	}
-
-	public String getM_strApprovedBy() 
-	{
-		return m_strApprovedBy;
-	}
-
-	public void setM_strApprovedBy(String m_strApprovedBy) 
-	{
-		this.m_strApprovedBy = m_strApprovedBy;
 	}
 
 	public String getM_strPaymentType() 
@@ -429,7 +428,19 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 		try
 		{
 			Document oXmlDocument = createNewXMLDocument ();
-			Element oRootElement = createRootElement(oXmlDocument, "ZenithScholarshipDetails");			
+			Element oRootElement = createRootElement(oXmlDocument, "ZenithScholarshipDetails");
+			if(m_oApprovedBy != null)
+			{
+				Document oApproveUserInformationDataXmlDoc = getXmlDocument ("<m_oApprovedBy>"+buildUserDetails (m_oApprovedBy)+"</m_oApprovedBy>");
+				Node oApproveBuildUserDetailsDataNode = oXmlDocument.importNode(oApproveUserInformationDataXmlDoc.getFirstChild(), true);
+				oRootElement.appendChild(oApproveBuildUserDetailsDataNode);
+			}
+			if(m_oChequeDisburseBy != null)
+			{
+				Document oDisburseUserInformationDataXmlDoc = getXmlDocument ("<m_oChequeDisburseBy>"+buildUserDetails (m_oChequeDisburseBy)+"</m_oChequeDisburseBy>");
+				Node oDisburseBuildUserDetailsDataNode = oXmlDocument.importNode(oDisburseUserInformationDataXmlDoc.getFirstChild(), true);
+				oRootElement.appendChild(oDisburseBuildUserDetailsDataNode);
+			}		
 			addChild (oXmlDocument, oRootElement, "m_nZenithScholarshipId",m_nZenithScholarshipId);
 			addChild (oXmlDocument, oRootElement, "m_strStatus",m_strStatus);
 			addChild (oXmlDocument, oRootElement, "m_fApprovedAmount",m_fApprovedAmount);
@@ -441,8 +452,6 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 			addChild (oXmlDocument, oRootElement, "m_strScanCopyImageURL",getScanCopyImageURL(m_strImage));	
 			addChild(oXmlDocument, oRootElement, "m_strChequeRemark", m_strChequeRemark);
 			addChild(oXmlDocument, oRootElement, "m_strPaymentType", m_strPaymentType);
-			addChild(oXmlDocument, oRootElement, "m_strApprovedBy", m_strApprovedBy);
-			addChild(oXmlDocument, oRootElement, "m_strChequeDisburseBy", m_strChequeDisburseBy); 
 			addChild(oXmlDocument, oRootElement, "m_strStudentRemarks", m_strStudentRemarks);
 			addChild(oXmlDocument, oRootElement, "m_strVerifyRemarks", m_strVerifyRemarks);
 			addChild (oXmlDocument, oRootElement, "m_dClaimedDate",m_dClaimedDate != null ? getDate(m_dClaimedDate.toString()) :"");
@@ -458,6 +467,13 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 		}
 		return strZenithScholarshipDetailsInfoXML;
 	}
+
+	private String buildUserDetails(UserInformationData oUserDetails) 
+	{
+		
+		return oUserDetails.generateXML();
+	}
+
 
 	private String getDate(String string)
 	{

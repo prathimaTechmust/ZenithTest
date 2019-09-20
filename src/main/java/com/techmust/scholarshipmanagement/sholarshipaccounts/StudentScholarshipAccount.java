@@ -21,6 +21,8 @@ import javax.persistence.criteria.Root;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.techmust.generic.data.GenericData;
 import com.techmust.generic.data.MasterData;
@@ -113,7 +115,7 @@ public class StudentScholarshipAccount extends MasterData
 		m_nChequeNumber = 0;
 		//m_nDDNumber = 0;
 		m_strChequeRemarks = "";
-		m_oChequePreparedBy = new UserInformationData();
+		//m_oChequePreparedBy = new UserInformationData();
 		m_strChequeStatus = "Active";
 		m_bChequeValid = true;
 		m_dCreatedOn = Calendar.getInstance().getTime();
@@ -343,6 +345,11 @@ public class StudentScholarshipAccount extends MasterData
 		{
 			Document oXmlDocument = createNewXMLDocument();
 			Element oRootElement = createRootElement(oXmlDocument, "StudentScholarshipAccount");
+			
+			Document oUserInformationDataXmlDoc = getXmlDocument ("<m_oChequePreparedBy>"+buildUserDetails (m_oChequePreparedBy)+"</m_oChequePreparedBy>");
+			Node oBuildUserDetailsDataNode = oXmlDocument.importNode(oUserInformationDataXmlDoc.getFirstChild(), true);
+			oRootElement.appendChild(oBuildUserDetailsDataNode);
+			
 			addChild(oXmlDocument, oRootElement, "m_nAccountId", m_nAccountId);
 			addChild(oXmlDocument, oRootElement, "m_strApplicationType", m_strApplicationType);
 			addChild(oXmlDocument, oRootElement, "m_strPaymentType", m_strPaymentType);		
@@ -359,6 +366,12 @@ public class StudentScholarshipAccount extends MasterData
 			m_oLogger.error("generateXML - oException : " + oException);
 		}		
 		return strChequeInfoXML;
+	}
+
+	private String buildUserDetails(UserInformationData oChequePreparedBy)
+	{
+	
+		return oChequePreparedBy.generateXML();
 	}
 
 	private String getSanctionDate(String strSanctionDate)

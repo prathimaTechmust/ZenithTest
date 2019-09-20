@@ -784,9 +784,10 @@ public abstract class GenericData implements IGenericData, Serializable
 			{
 				ZenithScholarshipDetails oZenith = arrZenithScholarshipDetails.get(0);
 				oZenith.setM_strStatus(Constants.STUDENTAPPROVED);
-			//	String strLogedUser = Utils.getLoginUser();
-			//	oZenith.setM_strApprovedBy(strLogedUser);
 				oZenith.setM_fApprovedAmount(oZenithScholarshipDetails.getM_fApprovedAmount());
+				oZenith.setM_oApprovedBy(oZenithScholarshipDetails.getM_oApprovedBy());
+				oZenith.setM_oUserUpdatedBy(oZenithScholarshipDetails.getM_oApprovedBy());
+				oZenith.setM_dUpdatedOn(Calendar.getInstance().getTime());
 				oZenith.setM_dApprovedDate(Calendar.getInstance().getTime());
 				IsUpdate = oZenith.updateObject();
 			}
@@ -912,6 +913,9 @@ public abstract class GenericData implements IGenericData, Serializable
 				oDetails.setM_strReceiverName(oZenithScholarshipDetails.getM_strReceiverName());
 				oDetails.setM_strReceiverContactNumber(oZenithScholarshipDetails.getM_strReceiverContactNumber());				
 				oDetails.setM_dChequeIssueDate(oZenithScholarshipDetails.getM_dChequeIssueDate());
+				oDetails.setM_oChequeDisburseBy(oZenithScholarshipDetails.getM_oChequeDisburseBy());
+				oDetails.setM_oUserUpdatedBy(oZenithScholarshipDetails.getM_oChequeDisburseBy());
+				oDetails.setM_dUpdatedOn(Calendar.getInstance().getTime());
 				oDetails.setM_strStatus(Constants.CHEQUEDISBURSED);
 				bIsChequeIssue = oDetails.updateObject();
 			}

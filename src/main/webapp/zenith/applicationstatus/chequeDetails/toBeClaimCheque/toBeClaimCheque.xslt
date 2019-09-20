@@ -481,7 +481,7 @@
 					</td>
 					<td>:</td>
 					<td class="xslt_fieldData">
-						<xsl:value-of select="StudentInformationData/m_oZenithScholarshipDetails/ZenithScholarshipDetails/m_strApprovedBy">
+						<xsl:value-of select="StudentInformationData/m_oZenithScholarshipDetails/ZenithScholarshipDetails/m_oApprovedBy/UserInformationData/m_strUserName">
 						</xsl:value-of>
 					
 					</td>									
@@ -591,7 +591,7 @@
 					</td>
 					<td>:</td>
 					<td class="xslt_fieldData">
-						<xsl:value-of select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oStudentScholarshipAccount/StudentScholarshipAccount/m_strChequePreparedBy">
+						<xsl:value-of select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oStudentScholarshipAccount/StudentScholarshipAccount/m_oChequePreparedBy/UserInformationData/m_strUserName">
 						</xsl:value-of>
 					
 					</td>									
@@ -641,7 +641,7 @@
 					</td>
 					<td>:</td>
 					<td class="xslt_fieldData">
-						<xsl:value-of select="StudentInformationData/m_oZenithScholarshipDetails/ZenithScholarshipDetails/m_strChequeDisburseBy">
+						<xsl:value-of select="StudentInformationData/m_oZenithScholarshipDetails/ZenithScholarshipDetails/m_oChequeDisburseBy/UserInformationData/m_strUserName">
 						</xsl:value-of>
 					
 					</td>									
