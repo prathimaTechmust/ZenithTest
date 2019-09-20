@@ -216,6 +216,12 @@ function printStudentDetails()
 	printDocument();	
 }
 
+function printStudentVerificatonForumDetails()
+{
+	populateXMLData (m_oStudentInfoListMemberData.m_PrintData, "applicationstatus/verified/printStudentDetails.xslt", 'printdetailsInfo');
+	printDocument();	
+}
+
 function getChangedAcademicYearData ()
 {
 	var oStudentData = new StudentInformationData ();

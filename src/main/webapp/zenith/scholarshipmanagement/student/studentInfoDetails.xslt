@@ -89,7 +89,8 @@
 					<td>
 					 <button type="button" width="120px" align="center" class="zenith addButton" style="width:120px;" id="documentView" title="documentView" onclick="viewStudentDocument('{StudentInformationData/m_oAcademicDetails/AcademicDetails/m_nAcademicId}')">View Documents 
 					 </button>
-					 <button type="button" width="20" align="center" class = "zenith addButton" style="width:100px;" id="printStudent" title="Print" onClick="printStudentDetails()">Print</button>
+					 <button type="button" width="20" align="center" class = "zenith addButton" style="width:120px;" id="printStudent" title="Print" onClick="printStudentDetails()">Print office copy</button>
+					 <button type="button" width="20" align="center" class = "zenith addButton" style="width:165px;" id="printStudent" title="Print" onClick="printStudentVerificatonForumDetails()">Print Verification form </button>
 					</td>
 				</tr>
 			</table>				
