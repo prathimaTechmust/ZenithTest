@@ -185,6 +185,15 @@ public class StudentInformationData  extends MasterData implements Serializable
 	private String m_strSortBy;
 	
 	@Transient
+	private Date m_dFromDate;
+	
+	@Transient
+	private Date m_dToDate;
+	
+	@Transient
+	private String m_strScore;
+
+	@Transient
 	private boolean m_bStudentGraduate;	 
 	
 	@Transient
@@ -232,8 +241,38 @@ public class StudentInformationData  extends MasterData implements Serializable
 		m_dUpdatedOn = Calendar.getInstance().getTime();
 		m_oUserCreatedBy = new UserInformationData ();
 		m_oUserUpdatedBy = new UserInformationData ();
-	}	
+	}
 	
+	
+
+	public String getM_strScore() 
+	{
+		return m_strScore;
+	}
+	public void setM_strScore(String m_strScore)
+	{
+		this.m_strScore = m_strScore;
+	}
+	
+	public Date getM_dFromDate()
+	{
+		return m_dFromDate;
+	}
+
+	public void setM_dFromDate(Date m_dFromDate) 
+	{
+		this.m_dFromDate = m_dFromDate;
+	}
+	public Date getM_dToDate() 
+	{
+		return m_dToDate;
+	}
+
+	public void setM_dToDate(Date m_dToDate) 
+	{
+		this.m_dToDate = m_dToDate;
+	}
+
 	public boolean isM_bStudentGraduate() 
 	{
 		return m_bStudentGraduate;

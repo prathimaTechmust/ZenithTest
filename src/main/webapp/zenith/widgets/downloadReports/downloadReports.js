@@ -35,6 +35,7 @@ function populateReportDropDowns ()
 	populateParentOccupationDropDown ();
 	populateMotherOccupationDropDown ();
 	populateParentalStatusDropDown ();
+	populateStudentScore(); 
 }
 
 function studentReportsInfo_submit ()
@@ -101,6 +102,24 @@ function populateStudentGenderDropdown ()
 												   height:"25px",																				
 	  });
 }
+
+function populateStudentScore()
+{
+	var scoreArray = new Array({scoreId:1,scoreValue:"Exemplary"},{scoreId:1,scoreValue:"Star"},{scoreId:1,scoreValue:"Distinction"},{scoreId:1,scoreValue:"First Class"},{scoreId:1,scoreValue:"Second Class"},{scoreId:1,scoreValue:"Third Class"},{scoreId:1,scoreValue:"Repeater"},{scoreId:1,scoreValue:"Fail"})
+	
+	$("#studentReport_input_Score").jqxComboBox({  source:scoreArray,
+													   displayMember:"scoreValue",
+													   valueMember:"scoreValue",
+													   autoComplete:true,
+													   searchMode :"startswithignorecase",
+													   placeHolder:"Select Score",
+													   width :"200px",
+													   height:"25px",																				
+});
+	
+}
+
+
 
 function populateCourseNameDropDown ()
 {
@@ -284,6 +303,7 @@ function reportFacilitatorNameDropDown (oFacilitatorResponse)
 					  });	
 }
 
+
 function studentReportsInfo_Download ()
 {
 	var oReportsInformation = getReportFormData ();
@@ -294,6 +314,7 @@ function studentReportsInfo_Download ()
 function getReportFormData ()
 {
 	var oStudentData = new StudentInformationData ();
+
 	oStudentData.m_nAcademicYearId = $("#reportAcademicYear").val();
 	if(document.getElementById("studentReport_input_uid").checked)
 		oStudentData.m_strSortBy = document.getElementById("studentReport_input_uid").value;
@@ -325,9 +346,38 @@ function getReportFormData ()
 		oStudentData.m_strGender = $("#studentReport_input_gender").val();
 	if($("#studentReport_input_religion").val() != "")
 		oStudentData.m_strReligion = $("#studentReport_input_religion").val();
+	if($("#studentReport_input_FromDate").val() != "")
+		oStudentData.m_dFromDate = $("#studentReport_input_FromDate").val();
+	if($("#studentReport_input_ToDate").val() != "")
+		oStudentData.m_dToDate = $("#studentReport_input_ToDate").val();
+	if($("#studentReport_input_Score").val() != "")
+		oStudentData.m_strScore = $("#studentReport_input_Score").val();
 	return oStudentData;
 }
 
+function fromDateReport() 
+{
+	var checkBox = document.getElementById("StudentReport_input_ReportDate");
+	var fromDate = document.getElementById("studentReport_input_fromDateDiv");
+	var toDate = document.getElementById("studentReport_input_toDateDiv");
+	 if (checkBox.checked == true){
+		 fromDate.style.display = "block";
+		 toDate.style.display = "block";
+	  } 
+	   else
+	   {
+		   fromDate.style.display = "none";
+	    toDate.style.display = "none";
+	  }
+	 
+	 $('#studentReport_input_FromDate').validatebox({
+		    required: true,
+		});
+	 $('#studentReport_input_ToDate').validatebox({
+		    required: true,
+		});
+
+}
 function downloadReportResponse (oDownloadResponse)
 {
 	if(oDownloadResponse.m_bSuccess)

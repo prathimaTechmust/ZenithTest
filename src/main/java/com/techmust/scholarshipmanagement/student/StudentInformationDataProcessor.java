@@ -1,6 +1,7 @@
 package com.techmust.scholarshipmanagement.student;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+
+import org.joda.time.DateTime;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.amazonaws.services.dynamodbv2.xspec.BetweenCondition;
 import com.techmust.constants.Constants;
 import com.techmust.generic.dataprocessor.GenericIDataProcessor;
 import com.techmust.generic.response.GenericResponse;
@@ -690,6 +694,10 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 			Join<Object, Object> oZenithStudentRoot = (Join<Object, Object>) oStudentRoot.fetch("m_oZenithScholarshipDetails");
 			m_PredicateList.add(oCriteriaBuilder.equal(oJoinStudentAcademicRoot.get("m_oAcademicYear"),oStudentData.getM_nAcademicYearId()));
 			m_PredicateList.add(oCriteriaBuilder.equal(oZenithStudentRoot.get("m_oAcademicYear"),oStudentData.getM_nAcademicYearId()));
+			
+			if(oStudentData.getM_dFromDate() != null && oStudentData.getM_dToDate() != null ) 
+				m_PredicateList.add(oCriteriaBuilder.between(oZenithStudentRoot.<Date>get("m_dApprovedDate"), oStudentData.getM_dFromDate(), oStudentData.getM_dToDate()));
+
 			//Checking Input Request and Joined Parameters
 			if(oStudentData.getM_nCourseId() > 0)
 				m_PredicateList.add(oCriteriaBuilder.equal(oJoinStudentAcademicRoot.get("m_oCourseInformationData"),oStudentData.getM_nCourseId()));
@@ -730,13 +738,15 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 			if(oStudentData.getM_strParentalStatus() != "")
 				m_PredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_strParentalStatus"), oStudentData.getM_strParentalStatus()));
 			
+			if(oStudentData.getM_strScore() != null)
+			    m_PredicateList.add(oCriteriaBuilder.equal(oJoinStudentAcademicRoot.get("m_strStudentScore"), oStudentData.getM_strScore()));
 				
 			oCriteriaQuery.select(oStudentRoot);
 			
 			if(oStudentData.getM_strSortBy().equals("m_nUID"))
 			   oCriteriaQuery.orderBy(oCriteriaBuilder.asc(oStudentRoot.get("m_nUID")));
 			else
-				oCriteriaQuery.orderBy(oCriteriaBuilder.asc(oStudentRoot.get("m_strStudentName")));
+				oCriteriaQuery.orderBy(oCriteriaBuilder.asc(oStudentRoot.get("m_strStudentName"))); 
 			
 			oCriteriaQuery.where(m_PredicateList.toArray(new Predicate[] {}));
 			List<StudentInformationData> studentList = oEntityManager.createQuery(oCriteriaQuery).getResultList();
