@@ -101,7 +101,7 @@ function listPrepareChequeInfo_initDGPagination ()
 			onSelectPage:function (nPageNumber, nPageSize)
 			{
 				m_oPrepareChequeListMemberData.m_nPageNumber = nPageNumber;
-				m_oPrepareChequeListMemberData.m_nPageSize = nPageSize;
+				m_oPrepareChequeListMemberData.m_nPageSize = nPageSize;				
 				listPrepareChequeInfo_list (m_oPrepareChequeListMemberData.m_strSortColumn, m_oPrepareChequeListMemberData.m_strSortOrder, nPageNumber, nPageSize);
 				document.getElementById("listPrepareCheque_div_listDetail").innerHTML = "";
 			}
@@ -194,7 +194,7 @@ function listPrepareChequeInfo_progressbarLoaded ()
 	var oStudentInformationData = new StudentInformationData();
 	oStudentInformationData.m_nAcademicYearId = $("#selectPrepareChequeacademicYear").val();
 	oStudentInformationData.m_strStatus = m_oPrepareChequeListMemberData.m_strStatus;
-	StudentInformationDataProcessor.getStudentStatuslist(oStudentInformationData,listPrepareChequeInfo_listed);
+	StudentInformationDataProcessor.getStudentStatuslist(oStudentInformationData,m_oPrepareChequeListMemberData.m_strSortColumn, m_oPrepareChequeListMemberData.m_strSortOrder,m_oPrepareChequeListMemberData.m_nPageNumber,m_oPrepareChequeListMemberData.m_nPageSize,listPrepareChequeInfo_listed);
 }
 
 function listPrepareChequeInfo_listed (oStudentPrepareChequeInfoResponse)
@@ -202,7 +202,7 @@ function listPrepareChequeInfo_listed (oStudentPrepareChequeInfoResponse)
 	clearGridData ("#listPrepareCheque_table_students");
 	for (var nIndex = 0; nIndex < oStudentPrepareChequeInfoResponse.m_arrStudentInformationData.length; nIndex++)
 		$('#listPrepareCheque_table_students').datagrid('appendRow',oStudentPrepareChequeInfoResponse.m_arrStudentInformationData[nIndex]);
-	$('#listPrepareCheque_table_students').datagrid('getPager').pagination ({total:oStudentPrepareChequeInfoResponse.m_nRowCount, pageNumber:oStudentPrepareChequeInfoResponse.m_nPageNumber});
+	$('#listPrepareCheque_table_students').datagrid('getPager').pagination ({total:oStudentPrepareChequeInfoResponse.m_nRowCount, pageNumber:m_oPrepareChequeListMemberData.m_nPageNumber});
 	HideDialog("dialog");
 }
 

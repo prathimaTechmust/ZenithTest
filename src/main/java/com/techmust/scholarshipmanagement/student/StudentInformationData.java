@@ -32,6 +32,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.techmust.constants.Constants;
 import com.techmust.generic.data.GenericData;
 import com.techmust.generic.data.MasterData;
+import com.techmust.helper.ZenithHelper;
 import com.techmust.scholarshipmanagement.academicdetails.AcademicDetails;
 import com.techmust.scholarshipmanagement.scholarshipdetails.zenithscholarshipstatus.ZenithScholarshipDetails;
 import com.techmust.scholarshipmanagement.siblingdetails.SibilingDetails;
@@ -197,6 +198,12 @@ public class StudentInformationData  extends MasterData implements Serializable
 	private boolean m_bStudentGraduate;	 
 	
 	@Transient
+	private int m_nFamilyCount;
+	
+	@Transient
+	private ZenithHelper m_oZenithHelper;
+	
+	@Transient
 	public AcademicDetails[] m_arrAcademicDetails;
 	
 	@Transient
@@ -253,7 +260,7 @@ public class StudentInformationData  extends MasterData implements Serializable
 	{
 		this.m_strScore = m_strScore;
 	}
-	
+
 	public Date getM_dFromDate()
 	{
 		return m_dFromDate;
@@ -271,6 +278,25 @@ public class StudentInformationData  extends MasterData implements Serializable
 	public void setM_dToDate(Date m_dToDate) 
 	{
 		this.m_dToDate = m_dToDate;
+	}
+	public ZenithHelper getM_oZenithHelper()
+	{
+		return m_oZenithHelper;
+	}
+
+	public void setM_oZenithHelper(ZenithHelper m_oZenithHelper) 
+	{
+		this.m_oZenithHelper = m_oZenithHelper;
+	}
+
+	public int getM_nFamilyCount()
+	{
+		return m_nFamilyCount;
+	}
+
+	public void setM_nFamilyCount(int m_nFamilyCount) 
+	{
+		this.m_nFamilyCount = m_nFamilyCount;
 	}
 
 	public boolean isM_bStudentGraduate() 

@@ -69,8 +69,14 @@ var StudentInformationDataProcessor = (function __StudentInformationDataProcesso
 		ajaxCall(oStudentData, "/isAadharnumberExist", callback);
 	}
 	
-	function getStudentStatuslist(oStudentData,callback)
+	function getStudentStatuslist(oStudentData,strSortColumn, strSortOrder, nPageNo, nPageSize,callback)
 	{
+		var oZenithHelper = new ZenithHelper ();
+		oZenithHelper.m_nPageNo = nPageNo;
+		oZenithHelper.m_nPageSize = nPageSize;
+		oZenithHelper.m_strSortColumn = strSortColumn;
+		oZenithHelper.m_strOrderBy = strSortOrder;
+		oStudentData.m_oZenithHelper = oZenithHelper;
 		ajaxCall(oStudentData,"/studentStatusInfoList",callback);
 	}
 	
@@ -89,8 +95,14 @@ var StudentInformationDataProcessor = (function __StudentInformationDataProcesso
 		ajaxCall(oStudentFilterData,"/getStudentFilterData",callback);		
 	}
 	
-	function studentList(oStudentData,callback)
+	function studentList(oStudentData,strSortColumn, strSortOrder, nPageNo, nPageSize,callback)
 	{
+		var oZenithHelper = new ZenithHelper ();
+		oZenithHelper.m_nPageNo = nPageNo;
+		oZenithHelper.m_nPageSize = nPageSize;
+		oZenithHelper.m_strSortColumn = strSortColumn;
+		oZenithHelper.m_strOrderBy = strSortOrder;
+		oStudentData.m_oZenithHelper = oZenithHelper;
 		ajaxCall(oStudentData,"/getStudentList",callback);
 	}
 	

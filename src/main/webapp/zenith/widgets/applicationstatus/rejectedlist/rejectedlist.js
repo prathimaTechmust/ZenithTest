@@ -101,7 +101,7 @@ function rejectedStudentList_initDGPagination ()
 			onSelectPage:function (nPageNumber, nPageSize)
 			{
 				m_oRejectedStudentList_Info_MemberData.m_nPageNumber = nPageNumber;
-				m_oRejectedStudentList_Info_MemberData.m_nPageSize = nPageSize;
+				m_oRejectedStudentList_Info_MemberData.m_nPageSize = nPageSize;				
 				rejectedStudentListInfo_list (m_oRejectedStudentList_Info_MemberData.m_strSortColumn, m_oRejectedStudentList_Info_MemberData.m_strSortOrder, nPageNumber, nPageSize);
 				document.getElementById("rejectedStudentsList_div_listDetail").innerHTML = "";
 			}
@@ -191,7 +191,7 @@ function rejectedStudentListInfo_progressbarLoaded ()
 	var oStudentInformationData = new StudentInformationData ();
 	oStudentInformationData.m_nAcademicYearId = $("#selectRejectListAcademicYear").val();
 	oStudentInformationData.m_strStatus = m_oRejectedStudentList_Info_MemberData.m_strapplicationStatus;
-	StudentInformationDataProcessor.getStudentStatuslist(oStudentInformationData,rejectedStudentListInfo_listed);
+	StudentInformationDataProcessor.getStudentStatuslist(oStudentInformationData,m_oRejectedStudentList_Info_MemberData.m_strSortColumn, m_oRejectedStudentList_Info_MemberData.m_strSortOrder,m_oRejectedStudentList_Info_MemberData.m_nPageNumber,m_oRejectedStudentList_Info_MemberData.m_nPageSize,rejectedStudentListInfo_listed);
 }
 
 function rejectedStudentListInfo_listed(oStudentResponseData)
@@ -199,7 +199,7 @@ function rejectedStudentListInfo_listed(oStudentResponseData)
 	clearGridData ("#rejectedStudentsList_table_students");
 	for (var nIndex = 0; nIndex < oStudentResponseData.m_arrStudentInformationData.length; nIndex++)
 		$('#rejectedStudentsList_table_students').datagrid('appendRow',oStudentResponseData.m_arrStudentInformationData[nIndex]);
-	$('#rejectedStudentsList_table_students').datagrid('getPager').pagination ({total:oStudentResponseData.m_nRowCount, pageNumber:oStudentResponseData.m_nPageNumber});
+	$('#rejectedStudentsList_table_students').datagrid('getPager').pagination ({total:oStudentResponseData.m_nRowCount, pageNumber:m_oRejectedStudentList_Info_MemberData.m_nPageNumber});
 	HideDialog("dialog");
 }
 

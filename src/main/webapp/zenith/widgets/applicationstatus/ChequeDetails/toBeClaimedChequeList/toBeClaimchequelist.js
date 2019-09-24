@@ -112,7 +112,7 @@ function toBeClaimChequeInfo_initDGPagination()
 			onSelectPage:function (nPageNumber, nPageSize)
 			{
 				m_oToBeClaimChequeListMemberData.m_nPageNumber = nPageNumber;
-				m_oToBeClaimChequeListMemberData.m_nPageSize = nPageSize;
+				m_oToBeClaimChequeListMemberData.m_nPageSize = nPageSize;				
 				toBeClaimCheque_List(m_oToBeClaimChequeListMemberData.m_strSortColumn, m_oToBeClaimChequeListMemberData.m_strSortOrder, nPageNumber, nPageSize);
 				document.getElementById("toBeClaimChequeList_div_listDetail").innerHTML = "";
 			}
@@ -140,7 +140,7 @@ function toBeClaimChequeListInfo_progressbarLoaded ()
 	oStudentInformationData.m_nAcademicYearId = $("#selectToBeClaimAcademicYear").val();
 	oStudentInformationData.m_strStatus = m_oToBeClaimChequeListMemberData.m_strapplicationStatus;
 	oStudentInformationData.m_nStudentId = m_oToBeClaimChequeListMemberData.m_nStudentId;
-	StudentInformationDataProcessor.getStudentStatuslist(oStudentInformationData,toBeClaimChequeListInfo_listed);
+	StudentInformationDataProcessor.getStudentStatuslist(oStudentInformationData,m_oToBeClaimChequeListMemberData.m_strSortColumn, m_oToBeClaimChequeListMemberData.m_strSortOrder,m_oToBeClaimChequeListMemberData.m_nPageNumber,m_oToBeClaimChequeListMemberData.m_nPageSize,toBeClaimChequeListInfo_listed);
 }
 
 function toBeClaimChequeListInfo_listed (oResponseData)
@@ -148,7 +148,7 @@ function toBeClaimChequeListInfo_listed (oResponseData)
 	clearGridData ("#toBeClaimChequeList_table");
 	for (var nIndex = 0; nIndex < oResponseData.m_arrStudentInformationData.length; nIndex++)
 		$('#toBeClaimChequeList_table').datagrid('appendRow',oResponseData.m_arrStudentInformationData[nIndex]);
-	//$('#claimChequeList_table').datagrid('getPager').pagination ({total:oStudentResponseData.m_nRowCount, pageNumber:oStudentResponseData.m_nPageNumber});
+	$('#toBeClaimChequeList_table').datagrid('getPager').pagination ({total:oResponseData.m_nRowCount, pageNumber:m_oToBeClaimChequeListMemberData.m_nPageNumber});
 	HideDialog("dialog");
 }
 

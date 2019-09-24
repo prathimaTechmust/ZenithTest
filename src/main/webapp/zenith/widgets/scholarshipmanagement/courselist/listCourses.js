@@ -143,7 +143,7 @@ function listCourseInfo_listed (oCourseInfoResponse)
 	clearGridData ("#listCourseInfo_table_courses");
 	for (var nIndex = 0; nIndex < oCourseInfoResponse.m_arrCourseInformationData.length; nIndex++)
 		$('#listCourseInfo_table_courses').datagrid('appendRow',oCourseInfoResponse.m_arrCourseInformationData[nIndex]);
-	$('#listCourseInfo_table_courses').datagrid('getPager').pagination ({total:oCourseInfoResponse.m_nRowCount, pageNumber:oCourseInfoResponse.m_nPageNumber});
+	$('#listCourseInfo_table_courses').datagrid('getPager').pagination ({total:oCourseInfoResponse.m_nRowCount, pageNumber:m_oCourseInfoListMemberData.m_nPageNumber});
 	HideDialog("dialog");
 }
 
