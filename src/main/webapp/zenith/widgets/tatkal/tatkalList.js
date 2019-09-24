@@ -85,6 +85,13 @@ function tatkalStudentListInfo_initDGPagination ()
 				tatkalStudentListInfo_List (m_oTatkalStudentListInfo_memberData.m_strSortColumn, m_oTatkalStudentListInfo_memberData.m_strOrderBy, nPageNumber, nPageSize);
 				document.getElementById("tatkalStudentListInfo_div_listStudentDetails").innerHTML = "";
 			},
+			onSelectPage:function (nPageNumber, nPageSize)
+			{
+				m_oTatkalStudentListInfo_memberData.m_nPageNumber = nPageNumber;
+				m_oTatkalStudentListInfo_memberData.m_nPageSize = nPageSize;				
+				tatkalStudentListInfo_List (m_oTatkalStudentListInfo_memberData.m_strSortColumn, m_oTatkalStudentListInfo_memberData.m_strOrderBy, nPageNumber, nPageSize);
+				document.getElementById("tatkalStudentListInfo_div_listStudentDetails").innerHTML = "";
+			}
 		}
 	)
 }
@@ -124,7 +131,7 @@ function tatkalStudentListInfo_progressbarLoaded ()
 	createPopup('dialog', '', '', true);
 	var oStudentInformation = new StudentInformationData ();
 	oStudentInformation.m_nAcademicYearId = $("#selectTatkalAcademicYear").val();
-	StudentInformationDataProcessor.studentList(oStudentInformation,tatkalStudentListResponse);
+	StudentInformationDataProcessor.studentList(oStudentInformation,m_oTatkalStudentListInfo_memberData.m_strSortColumn, m_oTatkalStudentListInfo_memberData.m_strOrderBy,m_oTatkalStudentListInfo_memberData.m_nPageNumber,m_oTatkalStudentListInfo_memberData.m_nPageSize,tatkalStudentListResponse);
 }
 
 function tatkalStudentListResponse (oTatkalStudentResponse)
@@ -132,6 +139,7 @@ function tatkalStudentListResponse (oTatkalStudentResponse)
 	clearGridData("tatkalStudentListInformation");
 	for(var nIndex = 0; nIndex < oTatkalStudentResponse.m_arrStudentInformationData.length; nIndex++)
 		$("#tatkalStudentListInformation").datagrid('appendRow',oTatkalStudentResponse.m_arrStudentInformationData[nIndex]);
+	$('#tatkalStudentListInformation').datagrid('getPager').pagination ({total:oTatkalStudentResponse.m_nRowCount, pageNumber:m_oTatkalStudentListInfo_memberData.m_nPageNumber});
 	HideDialog("dialog");	
 }
 
