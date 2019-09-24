@@ -32,6 +32,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.techmust.constants.Constants;
 import com.techmust.generic.data.GenericData;
 import com.techmust.generic.data.MasterData;
+import com.techmust.helper.ZenithHelper;
 import com.techmust.scholarshipmanagement.academicdetails.AcademicDetails;
 import com.techmust.scholarshipmanagement.scholarshipdetails.zenithscholarshipstatus.ZenithScholarshipDetails;
 import com.techmust.scholarshipmanagement.siblingdetails.SibilingDetails;
@@ -185,7 +186,22 @@ public class StudentInformationData  extends MasterData implements Serializable
 	private String m_strSortBy;
 	
 	@Transient
+	private Date m_dFromDate;
+	
+	@Transient
+	private Date m_dToDate;
+	
+	@Transient
+	private String m_strScore;
+
+	@Transient
 	private boolean m_bStudentGraduate;	 
+	
+	@Transient
+	private int m_nFamilyCount;
+	
+	@Transient
+	private ZenithHelper m_oZenithHelper;
 	
 	@Transient
 	public AcademicDetails[] m_arrAcademicDetails;
@@ -232,8 +248,57 @@ public class StudentInformationData  extends MasterData implements Serializable
 		m_dUpdatedOn = Calendar.getInstance().getTime();
 		m_oUserCreatedBy = new UserInformationData ();
 		m_oUserUpdatedBy = new UserInformationData ();
-	}	
+	}
 	
+	
+
+	public String getM_strScore() 
+	{
+		return m_strScore;
+	}
+	public void setM_strScore(String m_strScore)
+	{
+		this.m_strScore = m_strScore;
+	}
+
+	public Date getM_dFromDate()
+	{
+		return m_dFromDate;
+	}
+
+	public void setM_dFromDate(Date m_dFromDate) 
+	{
+		this.m_dFromDate = m_dFromDate;
+	}
+	public Date getM_dToDate() 
+	{
+		return m_dToDate;
+	}
+
+	public void setM_dToDate(Date m_dToDate) 
+	{
+		this.m_dToDate = m_dToDate;
+	}
+	public ZenithHelper getM_oZenithHelper()
+	{
+		return m_oZenithHelper;
+	}
+
+	public void setM_oZenithHelper(ZenithHelper m_oZenithHelper) 
+	{
+		this.m_oZenithHelper = m_oZenithHelper;
+	}
+
+	public int getM_nFamilyCount()
+	{
+		return m_nFamilyCount;
+	}
+
+	public void setM_nFamilyCount(int m_nFamilyCount) 
+	{
+		this.m_nFamilyCount = m_nFamilyCount;
+	}
+
 	public boolean isM_bStudentGraduate() 
 	{
 		return m_bStudentGraduate;

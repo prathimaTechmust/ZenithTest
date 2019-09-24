@@ -76,7 +76,7 @@
 							   <tr>
    									<td>Gender</td>
 								    <td>City</td>
-								    <td>SortBy</td>
+								    <td>Score</td>
 							   </tr>	   
 							   <tr>
 							   		 <td style="width:100px">
@@ -85,18 +85,49 @@
 								    <td style="width:100px">
 		 								<div id = "cityListInfo_input_name"></div>
 		 							</td>
-	 								<td>
-			 							<input type="radio" id="studentReport_input_uid" checked data-options="required:true" name="studentReportButton" value="m_nUID">UID 
-			 					         <input type="radio" id="studentReport_input_name" data-options="required:true" name="studentReportButton"value="m_strStudentName">Name
-	 				        	   </td>
+		 							<td style="width:100px">
+		 							     <div id="studentReport_input_Score"></div>
+		 							</td>
 								</tr>
+								
 								<tr>
 									<td>
 										<input type="checkbox" id="studentReport_input_Graduated_Students" value="true"> Graduated Students <br/>
-										<input type="checkbox" id="studentReport_input_Student_Medical_condition" value="true"> Student Medical condition <br/>
-										<input type="checkbox" id="studentReport_input_Parent_Medical_condition" value="true"> Parent Medical condition <br/>
 									</td>
+									<td>
+										<input type="checkbox" id="studentReport_input_Student_Medical_condition" value="true"> Student Medical condition <br/>
+									</td>
+									<td>	
+									    <input type="checkbox" id="studentReport_input_Parent_Medical_condition" value="true"> Parent Medical condition <br/>
+								   </td>
 								</tr> 
+
+
+								 <tr>
+								  <td> Sanctioned Student To Date</td>
+								  <td><input type="checkbox" id="StudentReport_input_ReportDate" name="StudentReportDate" onclick="fromDateReport()"/></td>
+								 </tr> 
+								  
+								  <tr>
+								 	<td>
+								 	<div id="studentReport_input_fromDateDiv" style="display:none">
+	 				        	     From <input type="date" id="studentReport_input_FromDate" name="reportFromDate">
+	 				        	     </div>
+	 				        	    </td>
+	 				        	   <td>
+	 				        	    <div id="studentReport_input_toDateDiv" style="display:none">
+	 				        	     To <input type="date" id="studentReport_input_ToDate" name="reportFromDate">
+	 				        	    </div>
+	 				        	   </td>
+								 </tr>
+								 <tr>
+								 <td>SortBy</td>
+								 <td>
+			 							<input type="radio" id="studentReport_input_uid" checked data-options="required:true" name="studentReportButton" value="m_nUID">UID 
+			 					         <input type="radio" id="studentReport_input_name" data-options="required:true" name="studentReportButton"value="m_strStudentName">Name
+	 				        	   </td>
+								 </tr>
+
 							</table>
  					</fieldset>
  				</td>

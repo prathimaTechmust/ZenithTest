@@ -122,7 +122,7 @@ function claimedChequeInfo_initDGPagination()
 			onSelectPage:function (nPageNumber, nPageSize)
 			{
 				m_oClaimedChequeListMemberData.m_nPageNumber = nPageNumber;
-				m_oClaimedChequeListMemberData.m_nPageSize = nPageSize;
+				m_oClaimedChequeListMemberData.m_nPageSize = nPageSize;				
 				claimedCheque_List(m_oClaimedChequeListMemberData.m_strSortColumn, m_oClaimedChequeListMemberData.m_strSortOrder, nPageNumber, nPageSize);
 				document.getElementById("claimedChequeList_div_listDetail").innerHTML = "";
 			}
@@ -149,7 +149,7 @@ function claimedChequeListInfo_progressbarLoaded ()
 	var oStudentInformationData = new StudentInformationData ();
 	oStudentInformationData.m_nAcademicYearId = $("#selectClaimedChequeAcademicYear").val();
 	oStudentInformationData.m_strStatus = m_oClaimedChequeListMemberData.m_strStatus;
-	StudentInformationDataProcessor.getStudentStatuslist(oStudentInformationData,claimedChequeListInfo_listed);
+	StudentInformationDataProcessor.getStudentStatuslist(oStudentInformationData,m_oClaimedChequeListMemberData.m_strSortColumn, m_oClaimedChequeListMemberData.m_strSortOrder,m_oClaimedChequeListMemberData.m_nPageNumber,m_oClaimedChequeListMemberData.m_nPageSize,claimedChequeListInfo_listed);
 }
 
 function claimedChequeListInfo_listed (oStudentResponseData)
@@ -157,7 +157,7 @@ function claimedChequeListInfo_listed (oStudentResponseData)
 	clearGridData ("#claimedChequeList_table");
 	for (var nIndex = 0; nIndex < oStudentResponseData.m_arrStudentInformationData.length; nIndex++)
 		$('#claimedChequeList_table').datagrid('appendRow',oStudentResponseData.m_arrStudentInformationData[nIndex]);
-	//$('#claimChequeList_table').datagrid('getPager').pagination ({total:oStudentResponseData.m_nRowCount, pageNumber:oStudentResponseData.m_nPageNumber});
+	$('#claimedChequeList_table').datagrid('getPager').pagination ({total:oStudentResponseData.m_nRowCount, pageNumber:m_oClaimedChequeListMemberData.m_nPageNumber});
 	HideDialog("dialog");
 }
 

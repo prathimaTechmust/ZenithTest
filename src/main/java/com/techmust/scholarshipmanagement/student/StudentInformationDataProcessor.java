@@ -1,17 +1,22 @@
 package com.techmust.scholarshipmanagement.student;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+
+import org.joda.time.DateTime;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.amazonaws.services.dynamodbv2.xspec.BetweenCondition;
 import com.techmust.constants.Constants;
 import com.techmust.generic.dataprocessor.GenericIDataProcessor;
 import com.techmust.generic.response.GenericResponse;
@@ -375,8 +381,8 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		StudentDataResponse oStudentDataResponse = new StudentDataResponse();
 		try
 		{
+			oStudentDataResponse.m_nRowCount = getStudentRowCount(oStudentInformationData);
 			oStudentDataResponse.m_arrStudentInformationData = new ArrayList(oStudentInformationData.getStatusStudentsList(oStudentInformationData));			
-			oStudentDataResponse.m_nRowCount = oStudentDataResponse.m_arrStudentInformationData.size();
 		}
 		catch (Exception oException)
 		{
@@ -440,22 +446,28 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 	{
 		EntityManager oEntityManager = oStudentInformationData._getEntityManager();
 		StudentDataResponse oStudentDataResponse = new StudentDataResponse();
+		oStudentDataResponse.m_nRowCount = getStudentRowCount(oStudentInformationData);
 		try 
-		{		
+		{	//Criteriabuilder,CriteriaQuery,Root Objects	
 			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
 			CriteriaQuery<StudentInformationData> oCriteriaQuery = oCriteriaBuilder.createQuery(StudentInformationData.class);
 			Root<StudentInformationData> oStudentRoot = oCriteriaQuery.from(StudentInformationData.class);
+			//Join the Child Enitities
 			Join<Object, Object> oAcademicJoin = (Join<Object, Object>) oStudentRoot.fetch("m_oAcademicDetails");
 			Join<Object,Object> oZenithJoin = (Join<Object, Object>) oStudentRoot.fetch("m_oZenithScholarshipDetails");
 			oCriteriaQuery.select(oStudentRoot);
 			oCriteriaQuery.orderBy(oCriteriaBuilder.asc(oStudentRoot.get("m_nApplicationPriority")),oCriteriaBuilder.asc(oStudentRoot.get("m_nUID")));
+			//Predicate List
 			List<Predicate> m_arrPredicateList = new ArrayList<Predicate>();
 			m_arrPredicateList.add(oCriteriaBuilder.equal(oAcademicJoin.get("m_oAcademicYear"), oStudentInformationData.getM_nAcademicYearId()));
 			m_arrPredicateList.add(oCriteriaBuilder.equal(oZenithJoin.get("m_oAcademicYear"), oStudentInformationData.getM_nAcademicYearId()));
 			oCriteriaQuery.where(m_arrPredicateList.toArray(new Predicate[] {}));
-			List<StudentInformationData> oList = oEntityManager.createQuery(oCriteriaQuery).getResultList();
+			//Get the Result List
+			TypedQuery<StudentInformationData> oTypedQuery = oEntityManager.createQuery(oCriteriaQuery);
+			oTypedQuery.setFirstResult((oStudentInformationData.getM_oZenithHelper().getM_nPageNo()-1)*oStudentInformationData.getM_oZenithHelper().getM_nPageSize());
+			oTypedQuery.setMaxResults(oStudentInformationData.getM_oZenithHelper().getM_nPageSize());
+			List<StudentInformationData> oList = oTypedQuery.getResultList();
 			oStudentDataResponse.m_arrStudentInformationData = new ArrayList<>(oList);			
-			
 		}
 		catch (Exception oException)
 		{
@@ -469,7 +481,7 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		}		
 		return oStudentDataResponse;
 	}	
-	
+
 	@RequestMapping(value = "/getFacilitatorWiseData", method = RequestMethod.POST, headers = {"content-type=application/json"})
 	@ResponseBody
 	public  GenericResponse getFacilitatorWiseStudent(@RequestBody StudentInformationData oStudentInformationData)
@@ -517,6 +529,47 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		}
 		return oStudentDataResponse;		
 	}
+	
+	@SuppressWarnings("unchecked")
+	private static long getStudentRowCount(StudentInformationData oStudentInformationData) 
+	{
+		long nStudentRowCount = 0;
+		EntityManager oEntityManager = oStudentInformationData._getEntityManager();
+		try 
+		{
+			//Criteriabuilder,CriteriaQuery,Root Objects	
+			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
+			CriteriaQuery<StudentInformationData> oCriteriaQuery = oCriteriaBuilder.createQuery(StudentInformationData.class);
+			Root<StudentInformationData> oStudentRoot = oCriteriaQuery.from(StudentInformationData.class);
+			//Join the Child Enitities
+			Join<Object, Object> oAcademicJoin = (Join<Object, Object>) oStudentRoot.fetch("m_oAcademicDetails");
+			Join<Object,Object> oZenithJoin = (Join<Object, Object>) oStudentRoot.fetch("m_oZenithScholarshipDetails");
+			oCriteriaQuery.select(oStudentRoot);
+			oCriteriaQuery.orderBy(oCriteriaBuilder.asc(oStudentRoot.get("m_nApplicationPriority")),oCriteriaBuilder.asc(oStudentRoot.get("m_nUID")));
+			//Predicate List
+			List<Predicate> m_arrPredicateList = new ArrayList<Predicate>();
+			m_arrPredicateList.add(oCriteriaBuilder.equal(oAcademicJoin.get("m_oAcademicYear"), oStudentInformationData.getM_nAcademicYearId()));
+			m_arrPredicateList.add(oCriteriaBuilder.equal(oZenithJoin.get("m_oAcademicYear"), oStudentInformationData.getM_nAcademicYearId()));
+			if(oStudentInformationData.getM_strStatus() != "")
+				m_arrPredicateList.add(oCriteriaBuilder.equal(oZenithJoin.get("m_strStatus"), oStudentInformationData.getM_strStatus()));
+			oCriteriaQuery.where(m_arrPredicateList.toArray(new Predicate[] {}));
+			//Get the Result List Size
+			nStudentRowCount = oEntityManager.createQuery(oCriteriaQuery).getResultList().size();
+		}
+		catch (Exception oException)
+		{
+			m_oLogger.error("getStudentRowCount - oException"+oException);
+		}
+		finally 
+		{
+			oEntityManager.close();
+			HibernateUtil.removeConnection();
+		}
+		return nStudentRowCount;
+	}
+	
+	
+	
 	// Populate DropDown values in Reports Form
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/getStudentCityNames",method = RequestMethod.POST,headers = {"Content-type=application/json"})
@@ -687,9 +740,13 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 			List<Predicate> m_PredicateList = new ArrayList<Predicate>();
 			//Join Objects
 			Join<Object, Object> oJoinStudentAcademicRoot = (Join<Object, Object>) oStudentRoot.fetch("m_oAcademicDetails");
-			Join<Object, Object> oZenithStudentRoot = (Join<Object, Object>) oStudentRoot.fetch("m_oZenithScholarshipDetails");
+			Join<Object, Object> oZenithStudentRoot = (Join<Object, Object>) oStudentRoot.fetch("m_oZenithScholarshipDetails");			
 			m_PredicateList.add(oCriteriaBuilder.equal(oJoinStudentAcademicRoot.get("m_oAcademicYear"),oStudentData.getM_nAcademicYearId()));
 			m_PredicateList.add(oCriteriaBuilder.equal(oZenithStudentRoot.get("m_oAcademicYear"),oStudentData.getM_nAcademicYearId()));
+			
+			if(oStudentData.getM_dFromDate() != null && oStudentData.getM_dToDate() != null ) 
+				m_PredicateList.add(oCriteriaBuilder.between(oZenithStudentRoot.<Date>get("m_dApprovedDate"), oStudentData.getM_dFromDate(), oStudentData.getM_dToDate()));
+
 			//Checking Input Request and Joined Parameters
 			if(oStudentData.getM_nCourseId() > 0)
 				m_PredicateList.add(oCriteriaBuilder.equal(oJoinStudentAcademicRoot.get("m_oCourseInformationData"),oStudentData.getM_nCourseId()));
@@ -698,46 +755,16 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 				m_PredicateList.add(oCriteriaBuilder.equal(oJoinStudentAcademicRoot.get("m_oCourseInformationData").get("m_bFinalYear"),oStudentData.isM_bStudentGraduate()));
 			
 			if(oStudentData.getM_nInstitutionId() > 0)
-				m_PredicateList.add(oCriteriaBuilder.equal(oJoinStudentAcademicRoot.get("m_oInstitutionInformationData"), oStudentData.getM_nInstitutionId()));
-
-			if(oStudentData.getM_strCategory() != "")
-				m_PredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_strCategory"),oStudentData.getM_strCategory()));
-			//Checking Sibiling Details(Count)
+				m_PredicateList.add(oCriteriaBuilder.equal(oJoinStudentAcademicRoot.get("m_oInstitutionInformationData"), oStudentData.getM_nInstitutionId()));	
+			if(oStudentData.getM_strScore() != null)
+				m_PredicateList.add(oCriteriaBuilder.equal(oJoinStudentAcademicRoot.get("m_strStudentScore"), oStudentData.getM_strScore()));		
 			
-			
-			//StudentData Parameters
-			if(oStudentData.isM_bStudentMedicalCondition())
-				m_PredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_bStudentMedicalCondition"),oStudentData.isM_bStudentMedicalCondition()));
-			
-			if(oStudentData.isM_bParentMedicalCondition())
-				m_PredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_bParentMedicalCondition"),oStudentData.isM_bParentMedicalCondition()));
-			
-			if(oStudentData.getM_strGender() != "")
-				m_PredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_strGender"), oStudentData.getM_strGender()));
-			
-			if(oStudentData.getM_nFacilitatorId() > 0)
-				m_PredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_oFacilitatorInformationData"), oStudentData.getM_nFacilitatorId()));
-			
-			if(oStudentData.getM_strCity() != "")
-				m_PredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_strCity"), oStudentData.getM_strCity()));
-			
-			if(oStudentData.getM_strReligion() != "")
-				m_PredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_strReligion"), oStudentData.getM_strReligion()));
-			
-			if(oStudentData.getM_strMotherOccupation() != "")
-				m_PredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_strMotherOccupation"), oStudentData.getM_strMotherOccupation()));
-			
-			if(oStudentData.getM_strParentalStatus() != "")
-				m_PredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_strParentalStatus"), oStudentData.getM_strParentalStatus()));
-			
-				
-			oCriteriaQuery.select(oStudentRoot);
-			
+			m_PredicateList = addPredicateList(m_PredicateList,oCriteriaBuilder,oStudentRoot,oStudentData);
+			oCriteriaQuery.select(oStudentRoot);			
 			if(oStudentData.getM_strSortBy().equals("m_nUID"))
 			   oCriteriaQuery.orderBy(oCriteriaBuilder.asc(oStudentRoot.get("m_nUID")));
 			else
-				oCriteriaQuery.orderBy(oCriteriaBuilder.asc(oStudentRoot.get("m_strStudentName")));
-			
+				oCriteriaQuery.orderBy(oCriteriaBuilder.asc(oStudentRoot.get("m_strStudentName")));			
 			oCriteriaQuery.where(m_PredicateList.toArray(new Predicate[] {}));
 			List<StudentInformationData> studentList = oEntityManager.createQuery(oCriteriaQuery).getResultList();
 			m_arrStudentList = new ArrayList<>(studentList);			
@@ -754,6 +781,45 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		return m_arrStudentList;		
 	}
 	
+	private static List<Predicate> addPredicateList(List<Predicate> arrPredicateList, CriteriaBuilder oCriteriaBuilder,Root<StudentInformationData> oStudentRoot, StudentInformationData oStudentData)
+	{
+		try 
+		{
+			if(oStudentData.getM_strCategory() != "")
+				arrPredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_strCategory"),oStudentData.getM_strCategory()));					
+			
+			//StudentData Parameters
+			if(oStudentData.isM_bStudentMedicalCondition())
+				arrPredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_bStudentMedicalCondition"),oStudentData.isM_bStudentMedicalCondition()));
+			
+			if(oStudentData.isM_bParentMedicalCondition())
+				arrPredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_bParentMedicalCondition"),oStudentData.isM_bParentMedicalCondition()));
+			
+			if(oStudentData.getM_strGender() != "")
+				arrPredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_strGender"), oStudentData.getM_strGender()));
+			
+			if(oStudentData.getM_nFacilitatorId() > 0)
+				arrPredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_oFacilitatorInformationData"), oStudentData.getM_nFacilitatorId()));
+			
+			if(oStudentData.getM_strCity() != "")
+				arrPredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_strCity"), oStudentData.getM_strCity()));
+			
+			if(oStudentData.getM_strReligion() != "")
+				arrPredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_strReligion"), oStudentData.getM_strReligion()));
+			
+			if(oStudentData.getM_strMotherOccupation() != "")
+				arrPredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_strMotherOccupation"), oStudentData.getM_strMotherOccupation()));
+			
+			if(oStudentData.getM_strParentalStatus() != "")
+				arrPredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_strParentalStatus"), oStudentData.getM_strParentalStatus()));				
+		} 
+		catch (Exception oException) 
+		{
+			m_oLogger.error("addPredicateList - oException"+oException);
+		}
+		return arrPredicateList;
+	}
+
 	@SuppressWarnings({ "rawtypes", "unused", "unchecked" })
 	public static String studentExcelData (ArrayList<StudentInformationData> arrStudentInformationData)
 	{		

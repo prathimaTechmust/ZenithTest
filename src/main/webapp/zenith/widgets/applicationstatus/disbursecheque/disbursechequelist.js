@@ -126,7 +126,7 @@ function disburseChequeListInfo_initDGPagination()
 			onSelectPage:function (nPageNumber, nPageSize)
 			{
 				m_odisburseChequeList_Info_MemberData.m_nPageNumber = nPageNumber;
-				m_odisburseChequeList_Info_MemberData.m_nPageSize = nPageSize;
+				m_odisburseChequeList_Info_MemberData.m_nPageSize = nPageSize;				
 				disburseChequeListInfo_list (m_odisburseChequeList_Info_MemberData.m_strSortColumn, m_odisburseChequeList_Info_MemberData.m_strSortOrder, nPageNumber, nPageSize);
 				document.getElementById("disburseChequeList_div_listDetail").innerHTML = "";
 			}
@@ -155,7 +155,7 @@ function disburseChequeListInfo_progressbarLoaded ()
 	var oStudentInformationData = new StudentInformationData ();
 	oStudentInformationData.m_nAcademicYearId = $("#selectDisburseacademicyear").val();
 	oStudentInformationData.m_strStatus = m_odisburseChequeList_Info_MemberData.m_strStatus;
-	StudentInformationDataProcessor.getStudentStatuslist(oStudentInformationData,disburseChequeListInfo_listed);
+	StudentInformationDataProcessor.getStudentStatuslist(oStudentInformationData,m_odisburseChequeList_Info_MemberData.m_strSortColumn, m_odisburseChequeList_Info_MemberData.m_strSortOrder,m_odisburseChequeList_Info_MemberData.m_nPageNumber,m_odisburseChequeList_Info_MemberData.m_nPageSize,disburseChequeListInfo_listed);
 }
 
 function disburseChequeListInfo_selectedRowData (oRowData, nIndex)
@@ -222,7 +222,7 @@ function disburseChequeListInfo_listed (oStudentResponseData)
 	clearGridData ("#disburseChequeList_table_students");
 	for (var nIndex = 0; nIndex < oStudentResponseData.m_arrStudentInformationData.length; nIndex++)
 		$('#disburseChequeList_table_students').datagrid('appendRow',oStudentResponseData.m_arrStudentInformationData[nIndex]);
-	$('#disburseChequeList_table_students').datagrid('getPager').pagination ({total:oStudentResponseData.m_nRowCount, pageNumber:oStudentResponseData.m_nPageNumber});
+	$('#disburseChequeList_table_students').datagrid('getPager').pagination ({total:oStudentResponseData.m_nRowCount, pageNumber:m_odisburseChequeList_Info_MemberData.m_nPageNumber});
 	HideDialog("dialog");
 }
 

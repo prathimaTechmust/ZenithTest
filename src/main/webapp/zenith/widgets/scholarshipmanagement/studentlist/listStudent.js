@@ -154,7 +154,7 @@ function listStudentInfo_progressbarLoaded ()
 	var oStudentInformationData = new StudentInformationData ();
 	oStudentInformationData.m_nAcademicYearId = $("#selectStudentListAcademicYear").val();
 	//StudentInformationDataProcessor.list(oStudentInformationData, m_oStudentInfoListMemberData.m_strSortColumn, m_oStudentInfoListMemberData.m_strOrderBy, m_oStudentInfoListMemberData.m_nPageNumber, m_oStudentInfoListMemberData.m_nPageSize, listStudentInfo_listed);	
-	StudentInformationDataProcessor.studentList(oStudentInformationData,listStudentInfo_listed);
+	StudentInformationDataProcessor.studentList(oStudentInformationData,m_oStudentInfoListMemberData.m_strSortColumn, m_oStudentInfoListMemberData.m_strOrderBy, m_oStudentInfoListMemberData.m_nPageNumber, m_oStudentInfoListMemberData.m_nPageSize,listStudentInfo_listed);
 	
 }
 
@@ -163,7 +163,7 @@ function listStudentInfo_listed (oStudentInfoResponse)
 	clearGridData ("#listStudentInfo_table_students");
 	for (var nIndex = 0; nIndex < oStudentInfoResponse.m_arrStudentInformationData.length; nIndex++)
 		$('#listStudentInfo_table_students').datagrid('appendRow',oStudentInfoResponse.m_arrStudentInformationData[nIndex]);
-	$('#listStudentInfo_table_students').datagrid('getPager').pagination ({total:oStudentInfoResponse.m_nRowCount, pageNumber:oStudentInfoResponse.m_nPageNumber});
+	$('#listStudentInfo_table_students').datagrid('getPager').pagination ({total:oStudentInfoResponse.m_nRowCount, pageNumber:m_oStudentInfoListMemberData.m_nPageNumber});
 	HideDialog("dialog");
 }
 
@@ -226,6 +226,6 @@ function getChangedAcademicYearData ()
 {
 	var oStudentData = new StudentInformationData ();
 	oStudentData.m_nAcademicYearId = $("#selectStudentListAcademicYear").val();
-	StudentInformationDataProcessor.studentList(oStudentData,listStudentInfo_listed);	
+	StudentInformationDataProcessor.studentList(oStudentData,m_oStudentInfoListMemberData.m_strSortColumn, m_oStudentInfoListMemberData.m_strOrderBy, m_oStudentInfoListMemberData.m_nPageNumber, m_oStudentInfoListMemberData.m_nPageSize,listStudentInfo_listed);	
 }
 

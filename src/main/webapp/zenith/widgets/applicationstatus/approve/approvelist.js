@@ -96,7 +96,7 @@ function approveStudentList_initDGPagination ()
 			onSelectPage:function (nPageNumber, nPageSize)
 			{
 				m_oApproveStudentList_Info_MemberData.m_nPageNumber = nPageNumber;
-				m_oApproveStudentList_Info_MemberData.m_nPageSize = nPageSize;
+				m_oApproveStudentList_Info_MemberData.m_nPageSize = nPageSize;				
 				approveStudentListInfo_list (m_oApproveStudentList_Info_MemberData.m_strSortColumn, m_oApproveStudentList_Info_MemberData.m_strSortOrder, nPageNumber, nPageSize);
 				document.getElementById("listApproveStudents_div_listDetail").innerHTML = "";
 			}
@@ -258,7 +258,7 @@ function approveStudentListInfo_progressbarLoaded ()
 	var oStudentInformationData = new StudentInformationData ();
 	oStudentInformationData.m_nAcademicYearId = $("#selectApproveAcademicYear").val();
 	oStudentInformationData.m_strStatus = m_oApproveStudentList_Info_MemberData.m_strapplicationStatus;
-	StudentInformationDataProcessor.getStudentStatuslist(oStudentInformationData,approveStudentListInfo_listed);
+	StudentInformationDataProcessor.getStudentStatuslist(oStudentInformationData,m_oApproveStudentList_Info_MemberData.m_strSortColumn, m_oApproveStudentList_Info_MemberData.m_strSortOrder,m_oApproveStudentList_Info_MemberData.m_nPageNumber,m_oApproveStudentList_Info_MemberData.m_nPageSize,approveStudentListInfo_listed);
 }
 
 function approveStudentListInfo_listed(oStudentResponseData)
@@ -266,7 +266,7 @@ function approveStudentListInfo_listed(oStudentResponseData)
 	clearGridData ("#listApproveStudents_table_students");
 	for (var nIndex = 0; nIndex < oStudentResponseData.m_arrStudentInformationData.length; nIndex++)
 		$('#listApproveStudents_table_students').datagrid('appendRow',oStudentResponseData.m_arrStudentInformationData[nIndex]);
-	$('#listApproveStudents_table_students').datagrid('getPager').pagination ({total:oStudentResponseData.m_nRowCount, pageNumber:oStudentResponseData.m_nPageNumber});
+	$('#listApproveStudents_table_students').datagrid('getPager').pagination ({total:oStudentResponseData.m_nRowCount, pageNumber:m_oApproveStudentList_Info_MemberData.m_nPageNumber});
 	HideDialog("dialog");
 }
 function counselingStudentInfo_Student() 

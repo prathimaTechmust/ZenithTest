@@ -102,8 +102,8 @@ function counselingStudentList_initDGPagination ()
 			},
 			onSelectPage:function (nPageNumber, nPageSize)
 			{
-				m_overifiedStudentList_Info_MemberData.m_nPageNumber = nPageNumber;
-				m_overifiedStudentList_Info_MemberData.m_nPageSize = nPageSize;
+				m_oCounselingStudentList_Info_MemberData.m_nPageNumber = nPageNumber;
+				m_oCounselingStudentList_Info_MemberData.m_nPageSize = nPageSize;				
 				counselingStudentListInfo_list (m_oCounselingStudentList_Info_MemberData.m_strSortColumn, m_oCounselingStudentList_Info_MemberData.m_strSortOrder, nPageNumber, nPageSize);
 				document.getElementById("CounselingStudents_div_listDetail").innerHTML = "";
 			}
@@ -149,7 +149,7 @@ function counselingStudentListInfo_progressbarLoaded ()
 	var oStudentInformationData = new StudentInformationData ();
 	oStudentInformationData.m_nAcademicYearId = $("#selectCounselingAcademicyear").val();
 	oStudentInformationData.m_strStatus = m_oCounselingStudentList_Info_MemberData.m_strapplicationStatus;
-	StudentInformationDataProcessor.getStudentStatuslist(oStudentInformationData,counselingStudentListInfo_listed);
+	StudentInformationDataProcessor.getStudentStatuslist(oStudentInformationData,m_oCounselingStudentList_Info_MemberData.m_strSortColumn, m_oCounselingStudentList_Info_MemberData.m_strSortOrder,m_oCounselingStudentList_Info_MemberData.m_nPageNumber,m_oCounselingStudentList_Info_MemberData.m_nPageSize,counselingStudentListInfo_listed);
 }
 
 function counselingStudentListInfo_listed(oStudentResponseData)
@@ -157,7 +157,7 @@ function counselingStudentListInfo_listed(oStudentResponseData)
 	clearGridData ("#CounselingStudents_table_students");
 	for (var nIndex = 0; nIndex < oStudentResponseData.m_arrStudentInformationData.length; nIndex++)
 		$('#CounselingStudents_table_students').datagrid('appendRow',oStudentResponseData.m_arrStudentInformationData[nIndex]);
-	$('#CounselingStudents_table_students').datagrid('getPager').pagination ({total:oStudentResponseData.m_nRowCount, pageNumber:oStudentResponseData.m_nPageNumber});
+	$('#CounselingStudents_table_students').datagrid('getPager').pagination ({total:oStudentResponseData.m_nRowCount, pageNumber:m_oCounselingStudentList_Info_MemberData.m_nPageNumber});
 	HideDialog("dialog");
 }
 

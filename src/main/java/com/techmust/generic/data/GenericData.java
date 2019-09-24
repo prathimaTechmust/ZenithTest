@@ -257,8 +257,9 @@ public abstract class GenericData implements IGenericData, Serializable
 			Root<GenericData> root = oCriteria.from(oClass );
 			CriteriaQuery<GenericData> select = oCriteria.select(root);
 			TypedQuery<GenericData> typedQuery = oEntityManager.createQuery(select);
-			typedQuery.setFirstResult(nPageNumber * nPageSize);
-			typedQuery.setMaxResults(nPageSize);
+			//typedQuery.setFirstResult(nPageNumber * nPageSize);
+			//typedQuery.setMaxResults(nPageSize);
+			typedQuery.setMaxResults(nPageNumber * nPageSize);
 			oCriteria.where(listCriteria(builder, root));
 			arrGenericData = (ArrayList<GenericData>) oEntityManager.createQuery( oCriteria ).getResultList();
 		}
@@ -689,6 +690,8 @@ public abstract class GenericData implements IGenericData, Serializable
 			oCriteriaQuery.orderBy(oCriteriaBuilder.asc(oStudentInformationDataRoot.get("m_nApplicationPriority")),oCriteriaBuilder.asc(oStudentInformationDataRoot.get("m_nUID")));
 			oCriteriaQuery.where(m_arrPredicateList.toArray(new Predicate[] {}));
 			TypedQuery<StudentInformationData> typedquery = oEntityManager.createQuery(oCriteriaQuery);
+			typedquery.setFirstResult((oStudentInformationData.getM_oZenithHelper().getM_nPageNo()-1)*oStudentInformationData.getM_oZenithHelper().getM_nPageSize());
+			typedquery.setMaxResults(oStudentInformationData.getM_oZenithHelper().getM_nPageSize());
 			arrStudentInformationData = (ArrayList<StudentInformationData>) typedquery.getResultList();			
 		}
 		catch (Exception oException)

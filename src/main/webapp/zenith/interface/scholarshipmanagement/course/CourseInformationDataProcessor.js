@@ -12,7 +12,13 @@ var CourseInformationDataProcessor = (function __CourseInformationDataProcessor 
 	
 	function list(oCourseData, strSortColumn, strSortOrder, nPageNo, nPageSize, callback)
 	{
-		 ajaxCall(oCourseData, "/courseInfoList", callback);		 
+		var oZenithHelper = new ZenithHelper ();
+		oZenithHelper.m_nPageNo = nPageNo;
+		oZenithHelper.m_nPageSize = nPageSize;
+		oZenithHelper.m_strSortColumn = strSortColumn;
+		oZenithHelper.m_strOrderBy = strSortOrder;
+		oZenithHelper.m_oCourseInformationData = oCourseData;
+		ajaxCall(oZenithHelper, "/courseInfoList", callback);		 
 	}
 	
 	function update (oCourseData,callback)

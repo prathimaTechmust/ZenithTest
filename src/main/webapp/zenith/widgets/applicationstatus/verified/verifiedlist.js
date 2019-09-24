@@ -110,8 +110,7 @@ function verifiedStudentlistInfo_selectedRowData (oRowData, nIndex)
 	oStudentInformationData.m_nAcademicYearId = $("#selectVerifiedAcademicyear").val();
 	m_overifiedStudentList_Info_MemberData.m_nStudentId = oRowData.m_nStudentId;
 	m_overifiedStudentList_Info_MemberData.m_nInstitutionId = oRowData.m_oAcademicDetails[0].m_oInstitutionInformationData.m_nInstitutionId;
-	m_overifiedStudentList_Info_MemberData.m_bChequeFavouOf  = oRowData.m_oAcademicDetails[0].m_oInstitutionInformationData.m_bChequeFavouOf;
-	
+	m_overifiedStudentList_Info_MemberData.m_bChequeFavouOf  = oRowData.m_oAcademicDetails[0].m_oInstitutionInformationData.m_bChequeFavouOf;	
 	StudentInformationDataProcessor.getXML (oStudentInformationData,verifiedStudentListInfo_gotXML);	
 }
 
@@ -226,8 +225,8 @@ function verifiedStudentListInfo_progressbarLoaded ()
 	createPopup('dialog', '', '', true);
 	var oStudentInformationData = new StudentInformationData ();
 	oStudentInformationData.m_nAcademicYearId = $("#selectVerifiedAcademicyear").val();
-	oStudentInformationData.m_strStatus = m_overifiedStudentList_Info_MemberData.m_strapplicationStatus;
-	StudentInformationDataProcessor.getStudentStatuslist(oStudentInformationData,verifiedStudentListInfo_listed);
+	oStudentInformationData.m_strStatus = m_overifiedStudentList_Info_MemberData.m_strapplicationStatus;	
+	StudentInformationDataProcessor.getStudentStatuslist(oStudentInformationData,m_overifiedStudentList_Info_MemberData.m_strSortColumn, m_overifiedStudentList_Info_MemberData.m_strOrderBy, m_overifiedStudentList_Info_MemberData.m_nPageNumber, m_overifiedStudentList_Info_MemberData.m_nPageSize,verifiedStudentListInfo_listed);
 }
 
 function verifiedStudentListInfo_listed(oStudentResponseData)
@@ -235,7 +234,7 @@ function verifiedStudentListInfo_listed(oStudentResponseData)
 	clearGridData ("#listVerifiedStudents_table_students");
 	for (var nIndex = 0; nIndex < oStudentResponseData.m_arrStudentInformationData.length; nIndex++)
 		$('#listVerifiedStudents_table_students').datagrid('appendRow',oStudentResponseData.m_arrStudentInformationData[nIndex]);
-	$('#listVerifiedStudents_table_students').datagrid('getPager').pagination ({total:oStudentResponseData.m_nRowCount, pageNumber:oStudentResponseData.m_nPageNumber});
+	$('#listVerifiedStudents_table_students').datagrid('getPager').pagination ({total:oStudentResponseData.m_nRowCount, pageNumber:m_overifiedStudentList_Info_MemberData.m_nPageNumber});
 	HideDialog("dialog");
 }
 
