@@ -1223,7 +1223,7 @@ function addSibilingsDetails ()
 		for(var nIndex = 0; nIndex < arrSiblingDetails.length; nIndex++)
 		{
 			var oSiblingsDeatils = new SiblingsDetails();				    
-			oSiblingsDeatils.m_nSiblingId = arrSiblingDetails[nIndex].m_nSiblingId;				
+			oSiblingsDeatils.m_nSibilingId = arrSiblingDetails[nIndex].m_nSibilingId;				
 			oSiblingsDeatils.m_nZenithUID = $("#studentInfo_input_SiblingsUID"+nIndex).val();
 			oSiblingsDeatils.m_strSibilingName = $("#studentInfo_input_SiblingsName"+nIndex).val();
 			oSiblingsDeatils.m_strStudying = $("#studentInfo_input_SiblingsStudying"+nIndex).val();
@@ -1249,7 +1249,7 @@ function addSibilingsDetails ()
 	    	}
 			if((nIndex < arrSiblingDetails.length))
 			{
-				oSiblingsDeatils.m_nSiblingId = arrSiblingDetails[nIndex].m_nSiblingId;
+				oSiblingsDeatils.m_nSibilingId = arrSiblingDetails[nIndex].m_nSibilingId;
 				oSiblingsDeatils.m_dCreatedOn = m_oStudentInfoMemberData.dCreatedOn;
 				oSiblingsDeatils.m_oUserCreatedBy = m_oStudentInfoMemberData.oUserCreatedBy;
 				oSiblingsDeatils.m_oUserUpdatedBy = oLoginUserData;
