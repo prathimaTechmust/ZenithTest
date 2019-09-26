@@ -17,11 +17,19 @@ import com.techmust.generic.data.GenericData;
 public class AmazonSMS 
 {
 	public static Logger m_oLogger = Logger.getLogger(GenericData.class);
-	public static String strFacilitatorBodyHeading = "Dear ";
+	public static String strDearHeading = "Dear ";
 	public static String strFacilitatorBodyMessage = "Your following student application of scholarship with Zenith Foundation has been processed and cheque prepared.Please come and collect cheque from our office";							
 	public static String strStudentBodyHeading = "Congratulations ";							
-	public static String strStudentBodyMessage = "Your application of scholarship with Zenith Foundation has been processed and cheque prepared.Please come and collect cheque from our office";
-	public static String strCounselingBodyHeading = "Dear Student you have been called for Counseling in Zenith.";
+	public static String strStudentBodyMessage = ", your application of scholarship with Zenith Foundation has been processed and cheque prepared. Kindly collect your cheque from the office after 4 working days.\r\n" + 
+												"\r\n" + 
+												"Thanks & Regards\r\n" + 
+												"\r\n" + 
+												"Zenith Foundation";
+	public static String strCounselingBodyHeading = "Dear (name of the student), you have been called for counsellig at Zenith Foundation on (Date and Time).\r\n" + 
+													"\r\n" + 
+													"Thanks & Regards\r\n" + 
+													"\r\n" + 
+													"Zenith Foundation";
 		
 	
 	
@@ -50,7 +58,6 @@ public class AmazonSMS
 		{
 			m_oLogger.error("sendSMS - oException"+oException);
 		}
-		
 	}
 	
 	public static void sendSMSToFacilitator (String strPhoneNumber,String strFacilitatorName)
@@ -59,7 +66,7 @@ public class AmazonSMS
 		{
 			AmazonSNSClient oAmazonSNSClient = (AmazonSNSClient) getClient();
 			PublishResult oPublishResult = oAmazonSNSClient.publish(new PublishRequest()
-	                 .withMessage(strFacilitatorBodyHeading+strFacilitatorName+","+strFacilitatorBodyMessage)
+	                 .withMessage(strDearHeading+strFacilitatorName+","+strFacilitatorBodyMessage)
 	                 .withPhoneNumber(strPhoneNumber));
 		}
 		catch (Exception oException)
@@ -68,13 +75,13 @@ public class AmazonSMS
 		}
 		
 	} 
-	 public  static void sendSmsToCounselingCandidate(String strPhoneNumber, Date dCounselingDate) 
+	 public  static void sendSmsToCounselingCandidate(String strStudentName, String strPhoneNumber, Date dCounselingDate) 
 	 {
 		 try
 		 {
 			 AmazonSNSClient oAmazonSNSClient = (AmazonSNSClient) getClient();
 			 PublishResult oPublishResult = oAmazonSNSClient.publish(new PublishRequest()
-					 .withMessage(strCounselingBodyHeading + dCounselingDate)
+					 .withMessage(strDearHeading+strStudentName+","+strCounselingBodyHeading+"," + dCounselingDate)
 					 .withPhoneNumber(strPhoneNumber));
 					 
 		 }
