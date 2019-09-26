@@ -20,7 +20,7 @@ public class AmazonSMS
 	public static String strDearHeading = "Dear ";
 	public static String strFacilitatorBodyMessage = "Your following student application of scholarship with Zenith Foundation has been processed and cheque prepared.Please come and collect cheque from our office";							
 	public static String strStudentBodyHeading = "Congratulations ";							
-	public static String strStudentBodyMessage = ", your application of scholarship with Zenith Foundation has been processed and cheque prepared. Kindly collect your cheque from the office after 4 working days.\r\n" + 
+	public static String strStudentBodyMessage = "your application of scholarship with Zenith Foundation has been processed and cheque prepared. Kindly collect your cheque from the office after 4 working days.\r\n" + 
 												"\r\n" + 
 												"Thanks & Regards\r\n" + 
 												"\r\n" + 

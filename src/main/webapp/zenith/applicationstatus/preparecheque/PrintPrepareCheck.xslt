@@ -136,8 +136,8 @@
 													Behind Santhosh Hospital,<br/>
 													Frazer Town<br/>
 													Bangalore-05<br/>
-													Cell : 8553743750<br/>
 													Ph: 080-41120865 | 080-43708826<br/>
+													Email:admin@thezenithfoundation.com<br/>
 												</p>
 											</td>
 										</tr>
