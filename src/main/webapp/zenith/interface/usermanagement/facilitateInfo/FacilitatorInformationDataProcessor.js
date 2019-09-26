@@ -13,8 +13,14 @@ var FacilitatorInformationDataProcessor = (function __FacilitatorInformationData
 	}
 	
 	function list(oFacilitatorData, strSortColumn, strSortOrder, nPageNo, nPageSize, callback)
-	{		
-		 ajaxCall(oFacilitatorData, "/facilitatorInfoList", callback);		 
+	{	
+		var oZenithHelper = new ZenithHelper ();
+		oZenithHelper.m_oFacilitatorInformationData = oFacilitatorData;
+		oZenithHelper.m_strSortColumn = strSortColumn;
+		oZenithHelper.m_strOrderBy = strSortOrder;
+		oZenithHelper.m_nPageNo = nPageNo;
+		oZenithHelper.m_nPageSize = nPageSize;			
+		ajaxCall(oZenithHelper, "/facilitatorInfoList", callback);		 
 	}
 	
 	function update (oFacilitatorData,callback)

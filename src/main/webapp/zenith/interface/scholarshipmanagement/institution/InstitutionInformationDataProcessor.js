@@ -12,8 +12,13 @@ var InstitutionInformationDataProcessor = (function __InstitutionInformationData
 	
 	function list(oInstitutionData, strSortColumn, strSortOrder, nPageNo, nPageSize, callback)
 	{
-		
-		 ajaxCall(oInstitutionData, "/institutionInfoList", callback);		 
+		var oZenithHelper = new ZenithHelper ();
+		oZenithHelper.m_oInstitutionInformationData = oInstitutionData;
+		oZenithHelper.m_nPageNo = nPageNo;
+		oZenithHelper.m_nPageSize = nPageSize;
+		oZenithHelper.m_strSortColumn = strSortColumn;
+		oZenithHelper.m_strOrderBy = strSortOrder;
+		ajaxCall(oZenithHelper, "/institutionInfoList", callback);		 
 	}
 	
 	function update (oInstitutionData,callback)

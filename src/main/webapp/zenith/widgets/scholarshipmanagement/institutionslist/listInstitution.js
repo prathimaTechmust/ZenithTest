@@ -145,7 +145,7 @@ function listInstitutionsInfo_listed (oInstitutionsInfoResponse)
 	clearGridData ("#listInstitutionsInfo_table_institutions");
 	for (var nIndex = 0; nIndex < oInstitutionsInfoResponse.m_arrInstitutionInformationData.length; nIndex++)
 		$('#listInstitutionsInfo_table_institutions').datagrid('appendRow',oInstitutionsInfoResponse.m_arrInstitutionInformationData[nIndex]);
-	$('#listInstitutionsInfo_table_institutions').datagrid('getPager').pagination ({total:oInstitutionsInfoResponse.m_nRowCount, pageNumber:oInstitutionsInfoResponse.m_nPageNumber});
+	$('#listInstitutionsInfo_table_institutions').datagrid('getPager').pagination ({total:oInstitutionsInfoResponse.m_nRowCount, pageNumber:m_oInstitutionsInfoListMemberData.m_nPageNumber});
 	HideDialog("dialog");
 }
 

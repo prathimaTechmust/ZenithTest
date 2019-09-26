@@ -11,7 +11,7 @@ function listFacilitatorInfo_memberData ()
 	this.m_nSelectedFacilitatorId = -1;
 	this.m_nIndex = -1;
 	this.m_nPageNumber = 1;
-    this.m_nPageSize =10;
+    this.m_nPageSize = 10;
     this.m_strSortColumn = "m_strFacilitatorName";
     this.m_strSortOrder = "asc";
 }
@@ -87,7 +87,7 @@ function listFacilitatorInfo_initDGPagination ()
 			onSelectPage:function (nPageNumber, nPageSize)
 			{
 				m_oFacilitatorInfoListMemberData.m_nPageNumber = nPageNumber;
-				m_oFacilitatorInfoListMemberData.m_nPageSize = nPageSize;
+				m_oFacilitatorInfoListMemberData.m_nPageSize = nPageSize;				
 				listFacililtatorInfo_list (m_oFacilitatorInfoListMemberData.m_strSortColumn, m_oFacilitatorInfoListMemberData.m_strSortOrder, nPageNumber, nPageSize);
 				document.getElementById("listFacilitatorInfo_div_listDetail").innerHTML = "";
 			}
@@ -149,7 +149,7 @@ function listFacilitatorInfo_listed (oFacilitatorInfoResponse)
 	clearGridData ("#listFacilitatorInfo_table_facilitators");
 	for (var nIndex = 0; nIndex < oFacilitatorInfoResponse.m_arrFacilitatorInformationData.length; nIndex++)
 		$('#listFacilitatorInfo_table_facilitators').datagrid('appendRow',oFacilitatorInfoResponse.m_arrFacilitatorInformationData[nIndex]);
-	$('#listFacilitatorInfo_table_facilitators').datagrid('getPager').pagination ({total:oFacilitatorInfoResponse.m_nRowCount, pageNumber:oFacilitatorInfoResponse.m_nPageNumber});
+	$('#listFacilitatorInfo_table_facilitators').datagrid('getPager').pagination ({total:oFacilitatorInfoResponse.m_nRowCount, pageNumber:m_oFacilitatorInfoListMemberData.m_nPageNumber});
 	HideDialog("dialog");
 }
 

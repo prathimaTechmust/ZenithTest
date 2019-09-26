@@ -13,7 +13,7 @@ var ActionAreaDataProcessor = (function __ActionAreaDataProcessor ()
 	function list(oActionAreaData, strSortColumn, strSortOrder, nPageNo, nPageSize, callback)
 	{
 		var oZenithHelper = new ZenithHelper ();
-		 var oTradeMustHelper = {
+		 var oZenithHelper = {
 				 m_oActionArea:oActionAreaData,
 				 m_strColumn:strSortColumn, 
 				 m_strOrderBy:strSortOrder,
