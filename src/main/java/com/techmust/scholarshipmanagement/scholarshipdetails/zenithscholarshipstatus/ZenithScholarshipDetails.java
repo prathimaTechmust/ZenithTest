@@ -1,6 +1,8 @@
 package com.techmust.scholarshipmanagement.scholarshipdetails.zenithscholarshipstatus;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -447,7 +449,7 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 			addChild (oXmlDocument, oRootElement, "m_strReceiverName",m_strReceiverName);
 			addChild (oXmlDocument, oRootElement, "m_strReceiverContactNumber",m_strReceiverContactNumber);	
 			addChild (oXmlDocument, oRootElement, "m_dChequeIssueDate",m_dChequeIssueDate != 0 ? getChequeIssueDate(m_dChequeIssueDate) : "");
-			addChild (oXmlDocument, oRootElement, "m_dApprovedDate",m_dApprovedDate != null ? getApproveDate(m_dApprovedDate.toString()) :"");
+			addChild (oXmlDocument, oRootElement, "m_dApprovedDate",m_dApprovedDate != null ? getDate(m_dApprovedDate.toString()) :"");
 			addChild (oXmlDocument, oRootElement, "m_strImage",m_strImage);
 			addChild (oXmlDocument, oRootElement, "m_strScanCopyImageURL",getScanCopyImageURL(m_strImage));	
 			addChild(oXmlDocument, oRootElement, "m_strChequeRemark", m_strChequeRemark);
@@ -457,8 +459,6 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 			addChild (oXmlDocument, oRootElement, "m_dClaimedDate",m_dClaimedDate != null ? getDate(m_dClaimedDate.toString()) :"");
 			addChild (oXmlDocument, oRootElement, "m_dCounselingDate",m_dCounselingDate != null ? getDate(m_dCounselingDate.toString()) :"");
 			addChild (oXmlDocument, oRootElement, "m_dApplicationSubmitDate",m_dApplicationSubmitDate != null ? getDate(m_dApplicationSubmitDate.toString()) :"");
-			
-		
 			strZenithScholarshipDetailsInfoXML = getXmlString (oXmlDocument);			 
 		}
 		catch (Exception oException) 
@@ -470,21 +470,14 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 
 	private String buildUserDetails(UserInformationData oUserDetails) 
 	{
-		
 		return oUserDetails.generateXML();
 	}
-
-
-	private String getDate(String string)
+	
+	private String getDate(String strDate)
 	{
-		return string.substring(0, 10);
+		return Utils.formatDate(strDate);
 	}
-
-	private String getApproveDate(String string)
-	{		
-		return string.substring(0, 10);
-	}	
-
+	
 	private String getScanCopyImageURL(String strImage)
 	{
 		String strImageURL = Constants.S3BUCKETURL + Constants.VERIFIEDAPPLICATION + strImage + Constants.IMAGE_DEFAULT_EXTENSION;

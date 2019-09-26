@@ -226,5 +226,22 @@ public class Utils
 		}
 		return timeStamp;
 	}
+	
+	public static String formatDate(String stringdate) 
+	{
+		String date = "";
+		try 
+		{
+			String formatDate = stringdate.substring(0,10);
+			SimpleDateFormat dbFormat = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat convertFormat = new SimpleDateFormat("dd-MM-yyyy");
+			date = convertFormat.format(dbFormat.parse(formatDate));
+		} 
+		catch (Exception oException) 
+		{
+			m_oLogger.error("formatDate - oException"+oException);
+		}
+		return date;
+	}
 
 }

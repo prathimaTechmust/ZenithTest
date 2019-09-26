@@ -59,7 +59,7 @@ public class AcademicYearDataProcessor extends GenericIDataProcessor<AcademicYea
 		try 
 		{
 			oAcademicYearResponse.m_nRowCount = getRowCount(oAcademicYear);
-			oAcademicYearResponse.m_arrAcademicYear = new ArrayList (oAcademicYear.list (arrOrderBy, nPageNumber, nPageSize));
+			oAcademicYearResponse.m_arrAcademicYear = new ArrayList (oAcademicYear.listCustomData(this));
 		} 
 		catch (Exception oException) 
 		{

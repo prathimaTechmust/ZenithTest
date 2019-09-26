@@ -7,7 +7,7 @@ includeDataObjects (activityLogListInfo_includeDataObjects, "activityLogListInfo
 
 function activityLogInfo_memberData ()
 {
-	this.m_nPageNumber = 0;
+	this.m_nPageNumber = 1;
 	this.m_nPageSize = 10;
 	this.m_strSortColumn = "m_strLoginUserName";
 	this.m_strOrderBy = "asc";
@@ -77,6 +77,13 @@ function activityLogListInfo_initDGPagination ()
 				activityLogListInfo_List (m_oActivityLogInfo_memberData.m_strSortColumn, m_oActivityLogInfo_memberData.m_strOrderBy, nPageNumber, nPageSize);
 				document.getElementById("activityLogInfo_div_listDetail").innerHTML = "";
 			},
+			onSelectPage:function (nPageNumber, nPageSize)
+			{
+				m_oActivityLogInfo_memberData.m_nPageNumber = nPageNumber;
+				m_oActivityLogInfo_memberData.m_nPageSize = nPageSize;
+				activityLogListInfo_List (m_oActivityLogInfo_memberData.m_strSortColumn, m_oActivityLogInfo_memberData.m_strOrderBy, nPageNumber, nPageSize);
+				document.getElementById("activityLogInfo_div_listDetail").innerHTML = "";
+			}
 		}
 	)
 }
@@ -124,6 +131,7 @@ function activityLogListResponse (oActivityLogResponse)
 	clearGridData("#activityLogInfo_table_logs");
 	for(var nIndex = 0; nIndex < oActivityLogResponse.m_arrActivityLog.length; nIndex++)
 		$("#activityLogInfo_table_logs").datagrid('appendRow',oActivityLogResponse.m_arrActivityLog[nIndex]);
+	$('#activityLogInfo_table_logs').datagrid('getPager').pagination ({total:oActivityLogResponse.m_nRowCount, pageNumber:m_oActivityLogInfo_memberData.m_nPageNumber});
 	HideDialog("dialog");	
 }
 

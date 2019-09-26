@@ -10,7 +10,7 @@ function tatkalStudentInfo_memberData ()
 {
 	this.m_nPageNumber = 1;
 	this.m_nPageSize = 10;
-	this.m_strSortColumn = "";
+	this.m_strSortColumn = "m_strStudentName";
 	this.m_strOrderBy = "asc";
 }
 
