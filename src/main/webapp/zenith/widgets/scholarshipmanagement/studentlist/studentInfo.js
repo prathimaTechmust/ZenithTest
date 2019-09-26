@@ -29,7 +29,7 @@ function studentInfo_memberData ()
 	this.m_arrScholarshipOrganizationDetails = new Array ();
 	this.m_arrSiblingsDetails = new Array();
 	
-	this.m_nRowOrgCount = -1; 
+	this.m_nRowOrgCount = 0; 
 	this.m_nRowOrgAmountCount = -1;
 	this.m_nOrgId = 1;
 	this.m_nOrgAmount = 1;
@@ -41,7 +41,7 @@ function studentInfo_memberData ()
 	this.m_nInstitutionId = -1;
 	this.m_nCourseId = -1;
 	
-	this.m_nRowSiblingsUIDIdCount = -1;
+	this.m_nRowSiblingsUIDIdCount = 0;
 	this.m_nRowSiblingsNameCount= -1;
 	this.m_nRowSiblingsStudying = -1;
 	this.m_nRowSiblingsSchoolCollege = -1;
@@ -227,9 +227,11 @@ function substraction ()
 
 function scholarship_addNewOrganization ()
 {	
-	if(m_oStudentInfoMemberData.m_nRowOrgCount != -1)
+	if(m_oStudentInfoMemberData.m_nRowOrgCount != 0)
 	{
 		$("#scholarship_Organization").append('<tr><td class="fieldHeading">Organization</td><td style="padding-right: 10px"> </td><td><input  type="text" id="scholarshipInfo_input_organization'+(m_oStudentInfoMemberData.m_nRowOrgCount++)+'" class="zenith"/></td><td style="padding-right: 10px"> </td><td class="fieldHeading">Amount(Rs)</td><td style="padding-right: 10px"> </td><td><input  type="text" id="scholarshipInfo_input_organizationamount'+(m_oStudentInfoMemberData.m_nRowOrgAmountCount++)+'" class="zenith" onkeyup="validateNumber(this)"/></td><td style="padding-right: 10px"> </td><td> <img src="images/delete.png" width="20" align="center" id="deleteImageId" title="Delete Organization" class = "removeOrganization" onClick="scholarship_removeEditOrganizationrow()"/> </td></tr>');		
+		
+		m_oStudentInfoMemberData.m_nUpdatedOrgRowCount = m_oStudentInfoMemberData.m_nRowOrgCount;
 		m_oStudentInfoMemberData.m_nUpdatedEditOrgRowCount = m_oStudentInfoMemberData.m_nRowOrgCount;
 		m_oStudentInfoMemberData.m_nUpdatedEditAmountRowCount = m_oStudentInfoMemberData.m_nRowOrgAmountCount;
 	}
@@ -498,6 +500,7 @@ function getNewScholarshipOrganizationDetails ()
 function checkRowCount ()
 {
 	var result = m_oStudentInfoMemberData.m_nUpdatedOrgRowCount;
+	var scholarshiporganizations = document.getElementById("scholarship_Organization");
 	if(result == 0)
 		m_oStudentInfoMemberData.m_nUpdatedOrgRowCount = 1;
 }
@@ -733,8 +736,8 @@ function assignDataToMemberVariable (oStudentInfoData)
 }
 
 /*siblings details*/
-function siblingsRowCount(siblingsEditRowCount) {
-	
+function siblingsRowCount(siblingsEditRowCount) 
+{
 	m_oStudentInfoMemberData.m_nRowSiblingsUIDIdCount = siblingsEditRowCount.length;
 	m_oStudentInfoMemberData.m_nRowSiblingsNameCount = siblingsEditRowCount.length;
 	m_oStudentInfoMemberData.m_nRowSiblingStudyingCount = siblingsEditRowCount.length;
@@ -1145,9 +1148,10 @@ function hideSiblings(divId)
 
 function siblingsAddSiblings () 
 {
-	if(m_oStudentInfoMemberData.m_nRowSiblingsUIDIdCount != -1)
+	if(m_oStudentInfoMemberData.m_nRowSiblingsUIDIdCount != 0)
 	{
 		$("#siblings").append('<tr id=rowCountId><td class="fieldHeading">UID</td> <td><input type="text"id="studentInfo_input_SiblingsUID'+(m_oStudentInfoMemberData.m_nRowSiblingsUIDIdCount++)+'" class="zenith" style="margin-right: 60px" maxlength = "4"  onchange="scarchSiblingsUID(rowCountId)"/></td><td class="fieldHeading">Name</td><td><input type="text"id="studentInfo_input_SiblingsName'+(m_oStudentInfoMemberData.m_nRowSiblingsNameCount++)+'" class="zenith" /></td><td class="fieldHeading">Studying</td><td><input type="text" id="studentInfo_input_SiblingsStudying'+(m_oStudentInfoMemberData.m_nRowSiblingStudyingCount++)+'" class="zenith" /></td><td class="fieldHeading">School/College</td><td><input type="text" id="studentInfo_input_SiblingsSchoolCollege'+(m_oStudentInfoMemberData.m_nRowSiblingSchoolCollegeCount++)+'" class="zenith" /></td><td> <img src="images/delete.png" width="20" align="center" id="deleteImageId" title="Delete Siblings" class = "removeSiblings" onClick="deletSiblings()"/> </td></tr>');
+		m_oStudentInfoMemberData.m_nUpdatedSiblingsUIDIdRowCount = m_oStudentInfoMemberData.m_nRowSiblingsUIDIdCount;
 		m_oStudentInfoMemberData.m_nNewSiblingRowCount = m_oStudentInfoMemberData.m_nUpdatedEditSiblingsUIDIdRowCount = m_oStudentInfoMemberData.m_nRowSiblingsUIDIdCount;
 		m_oStudentInfoMemberData.m_nUpdatedEditSiblingsNameRowCount = m_oStudentInfoMemberData.m_nRowSiblingsNameCount;
 		m_oStudentInfoMemberData.m_nUpdatedEditSiblingsStudyingRowCount = m_oStudentInfoMemberData.m_nRowSiblingsStudyingCount;
@@ -1288,6 +1292,7 @@ function getNewSiblingsDetails ()
 function checkSiblingsRowCount ()
 {
 	var result = m_oStudentInfoMemberData.m_nUpdatedSiblingsUIDIdRowCount;
+	var siblingDetails = document.getElementById("siblings");
 	if(result == 0)
 		 m_oStudentInfoMemberData.m_nUpdatedSiblingsUIDIdRowCount = 1;
 }
