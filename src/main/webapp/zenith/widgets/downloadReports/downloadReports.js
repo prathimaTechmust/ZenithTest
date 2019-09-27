@@ -36,6 +36,7 @@ function populateReportDropDowns ()
 	populateMotherOccupationDropDown ();
 	populateParentalStatusDropDown ();
 	populateStudentScore(); 
+	familyCountDropDown();
 }
 
 function studentReportsInfo_submit ()
@@ -392,5 +393,17 @@ function downloadReportResponse (oDownloadResponse)
 		informUser("Reports Download Failed","kError");
 	}
 	
+}
+
+
+function familyCountDropDown ()
+{
+	var categoryArray = new Array("F1","F2","F3","F4","F5","F6","F7","F8","F9","F10");
+	var categoryArrayValue = new Array("1","2","3","4","5","6","7","8","9","10");
+	var dropdown = document.getElementById("StudentInfo_SelectFamilyCategory");	
+	for (var i = 0; i < categoryArray.length; ++i)
+	{	    
+	    dropdown[dropdown.length] = new Option(categoryArray[i], categoryArrayValue[i]);
+	}
 }
 

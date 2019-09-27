@@ -104,8 +104,16 @@
 
 
 								 <tr>
-								  <td> Sanctioned Student To Date</td>
-								  <td><input type="checkbox" id="StudentReport_input_ReportDate" name="StudentReportDate" onclick="fromDateReport()"/></td>
+								  <td>
+							  		<input type="checkbox" id="StudentReport_input_ReportDate" name="StudentReportDate" onclick="fromDateReport()" > Sanctioned Student To Date<br/>
+								  </td>
+								  <td>
+									<select id ="StudentInfo_SelectFamilyCategory" class ="zenith easyui-validatebox" data-options="required:true" style="width:165px;" required>
+										<option>
+											Select Family Category
+										</option>
+									</select>
+									</td> 
 								 </tr> 
 								  
 								  <tr>
@@ -121,13 +129,12 @@
 	 				        	   </td>
 								 </tr>
 								 <tr>
-								 <td>SortBy</td>
-								 <td>
-			 							<input type="radio" id="studentReport_input_uid" checked data-options="required:true" name="studentReportButton" value="m_nUID">UID 
-			 					         <input type="radio" id="studentReport_input_name" data-options="required:true" name="studentReportButton"value="m_strStudentName">Name
-	 				        	   </td>
+									 <td>SortBy : <input type="radio" id="studentReport_input_uid" checked data-options="required:true" name="studentReportButton" value="m_nUID">UID 
+			 					      			 <input type="radio" id="studentReport_input_name" data-options="required:true" name="studentReportButton"value="m_strStudentName">Name      									
+									 </td>
+									 <td>
+	 				        	   	</td>
 								 </tr>
-
 							</table>
  					</fieldset>
  				</td>
