@@ -161,24 +161,28 @@ function activityLogListInfo_gotXML(strXMLData)
 
 function activityLogListInfo_filter ()
 {
+	var bIsEmpty = true;
 	var oActivityLogInformation = new ActivityLogInformation ();
 	if($("#filterActivityLogInfo_select_loginUser").val() != '')
 	{
+		bIsEmpty = false;
 		oActivityLogInformation.m_strLoginUserName = $("#filterActivityLogInfo_select_loginUser").val();
 	}	
 	 if ($("#filterActivityLogInfo_input_functionName").val() != '')
 	{
+		 bIsEmpty = false;
 		oActivityLogInformation.m_strTaskPerformed = $("#filterActivityLogInfo_input_functionName").val();
 	}	
 	if($("#filterActivityLogInfo_input_fromdate").val() != '' && $("#filterActivityLogInfo_input_todate").val() != '')
-		{
-			oActivityLogInformation.m_dFromDate = $("#filterActivityLogInfo_input_fromdate").val();
-			oActivityLogInformation.m_dToDate	= $("#filterActivityLogInfo_input_todate").val();
-		}
-		else
-			alert("Please Enter Valid From And To Date");
-			
-	ActivityLogInformationDataProcessor.getFilteredActivityLog(oActivityLogInformation,activityLogFilteredResponse);
+	{
+		bIsEmpty = false;
+		oActivityLogInformation.m_dFromDate = $("#filterActivityLogInfo_input_fromdate").val();
+		oActivityLogInformation.m_dToDate	= $("#filterActivityLogInfo_input_todate").val();
+	}
+	if(bIsEmpty)
+		alert("Please Enter Valid Data!");
+	else
+		ActivityLogInformationDataProcessor.getFilteredActivityLog(oActivityLogInformation,activityLogFilteredResponse);
 }
 
 function activityLogFilteredResponse(oFilteredActivityLogResponse)
