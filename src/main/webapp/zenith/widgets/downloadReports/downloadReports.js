@@ -36,6 +36,7 @@ function populateReportDropDowns ()
 	populateMotherOccupationDropDown ();
 	populateParentalStatusDropDown ();
 	populateStudentScore(); 
+	familyCountDropDown();
 }
 
 function studentReportsInfo_submit ()
@@ -67,12 +68,7 @@ function studentReportsInfo_cancel ()
 
 function populateStudentReligionDropDown ()
 {
-	var religionArray = new Array({religionId:1,religionValue:"Muslim"},{religionId:2,religionValue:"Non-Muslim"},{religionId:3,religionValue:"Memon"});
-	/*var dropdown = document.getElementById("studentReport_input_religion");	
-	for (var i = 0; i < religionArray.length; ++i)
-	{	    
-	    dropdown[dropdown.length] = new Option(religionArray[i], religionArray[i]);
-	}*/
+	var religionArray = new Array({religionId:1,religionValue:"Muslim"},{religionId:2,religionValue:"Non-Muslim"},{religionId:3,religionValue:"Memon"});	
 	$("#studentReport_input_religion").jqxComboBox({   source:religionArray,
 													   displayMember:"religionValue",
 													   valueMember:"religionValue",
@@ -86,12 +82,7 @@ function populateStudentReligionDropDown ()
 
 function populateStudentGenderDropdown ()
 {
-	var genderArray = new Array({genderId:1,genderValue:"Male"},{genderId:2,genderValue:"Female"},{genderId:3,genderValue:"Other"});
-	/*var dropdown = document.getElementById("studentReport_input_gender");
-	for(var i = 0; i < gender.length; ++i)
-	{
-		 dropdown[dropdown.length] = new Option(gender[i], gender[i]);
-    }*/
+	var genderArray = new Array({genderId:1,genderValue:"Male"},{genderId:2,genderValue:"Female"},{genderId:3,genderValue:"Other"});	
 	$("#studentReport_input_gender").jqxComboBox({  source:genderArray,
 												   displayMember:"genderValue",
 												   valueMember:"genderValue",
@@ -105,21 +96,17 @@ function populateStudentGenderDropdown ()
 
 function populateStudentScore()
 {
-	var scoreArray = new Array({scoreId:1,scoreValue:"Exemplary"},{scoreId:1,scoreValue:"Star"},{scoreId:1,scoreValue:"Distinction"},{scoreId:1,scoreValue:"First Class"},{scoreId:1,scoreValue:"Second Class"},{scoreId:1,scoreValue:"Third Class"},{scoreId:1,scoreValue:"Repeater"},{scoreId:1,scoreValue:"Fail"})
-	
+	var scoreArray = new Array({scoreId:1,scoreValue:"Exemplary"},{scoreId:1,scoreValue:"Star"},{scoreId:1,scoreValue:"Distinction"},{scoreId:1,scoreValue:"First Class"},{scoreId:1,scoreValue:"Second Class"},{scoreId:1,scoreValue:"Third Class"},{scoreId:1,scoreValue:"Repeater"},{scoreId:1,scoreValue:"Fail"})	
 	$("#studentReport_input_Score").jqxComboBox({  source:scoreArray,
-													   displayMember:"scoreValue",
-													   valueMember:"scoreValue",
-													   autoComplete:true,
-													   searchMode :"startswithignorecase",
-													   placeHolder:"Select Score",
-													   width :"200px",
-													   height:"25px",																				
-});
-	
+												   displayMember:"scoreValue",
+												   valueMember:"scoreValue",
+												   autoComplete:true,
+												   searchMode :"startswithignorecase",
+												   placeHolder:"Select Score",
+												   width :"200px",
+												   height:"25px",																				
+												});	
 }
-
-
 
 function populateCourseNameDropDown ()
 {
@@ -352,6 +339,8 @@ function getReportFormData ()
 		oStudentData.m_dToDate = $("#studentReport_input_ToDate").val();
 	if($("#studentReport_input_Score").val() != "")
 		oStudentData.m_strScore = $("#studentReport_input_Score").val();
+	if($("#StudentInfo_SelectFamilyCategory").val() != "")
+		oStudentData.m_nFamilyCount = $("#StudentInfo_SelectFamilyCategory").val();
 	return oStudentData;
 }
 
@@ -392,5 +381,28 @@ function downloadReportResponse (oDownloadResponse)
 		informUser("Reports Download Failed","kError");
 	}
 	
+}
+
+function familyCountDropDown ()
+{	
+	var categoryArrayValue = new Array({familyCountCategory:"F1",countValue:1},
+									   {familyCountCategory:"F2",countValue:2},
+									   {familyCountCategory:"F3",countValue:3},
+									   {familyCountCategory:"F4",countValue:4},
+									   {familyCountCategory:"F5",countValue:5},
+									   {familyCountCategory:"F6",countValue:6},
+									   {familyCountCategory:"F7",countValue:7},
+									   {familyCountCategory:"F8",countValue:8},
+									   {familyCountCategory:"F9",countValue:9},
+									   {familyCountCategory:"F10",countValue:10});
+	$("#StudentInfo_SelectFamilyCategory").jqxComboBox({  source:categoryArrayValue,
+														  displayMember:"familyCountCategory",
+														  valueMember:"countValue",
+														  autoComplete:true,
+														  searchMode :"startswithignorecase",
+														  placeHolder:"Select Family Category",
+														  width :"200px",
+														  height:"25px",																				
+												        });
 }
 

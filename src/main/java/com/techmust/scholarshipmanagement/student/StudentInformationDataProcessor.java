@@ -70,29 +70,7 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 			throw oException;
 		}
 		return oStudentDataResponse;
-	}
-	
-	/*@RequestMapping(value = "/studentInfoCreateAndPrint",method = RequestMethod.POST)
-	@ResponseBody
-	public GenericResponse createAndPrint(@RequestParam(name = "studentimage",required = false)MultipartFile oStudentMultipartFile,@RequestParam("studentObject") String oStudentData) throws Exception
-	{
-		m_oLogger.info ("createAndPrint");
-		m_oLogger.debug ("createAndPrint - oStudentInformationData [IN] : " + oStudentData);
-		StudentDataResponse oStudentDataResponse = new StudentDataResponse();
-		try
-		{
-			StudentInformationData oStudentInformationData = new Gson().fromJson(oStudentData, StudentInformationData.class);
-			oStudentDataResponse.m_bSuccess = oStudentInformationData.saveObject();
-			oStudentDataResponse.m_arrStudentInformationData.add(oStudentInformationData);			
-		}
-		catch (Exception oException)
-		{
-			m_oLogger.error ("createAndPrint - oException : " + oException);
-			throw oException;
-		}
-		return oStudentDataResponse;
-		
-	}*/
+	}	
 	
 	@Override
 	@RequestMapping(value = "/studentInfoDelete",method = RequestMethod.POST, headers = {"Content-type=application/json"})
@@ -290,7 +268,6 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 			if(oStudentDataResponse.m_bSuccess)
 			{
 				Utils.createActivityLog("StudentInformationDataProcessor::update", oStudentInformationData);
-				//oStudentDataResponse.m_arrStudentInformationData.add(oStudentInformationData);
 				oStudentDataResponse.m_nStudentId = oStudentInformationData.getM_nStudentId();
 				oStudentDataResponse.m_strStudentImageId = oStudentInformationData.getM_strStudentImageId();
 				List<AcademicDetails> m_arrAcademicList = new ArrayList(oStudentInformationData.getM_oAcademicDetails());
@@ -704,7 +681,7 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 	//Download Reports Based on Particular Parameters	
 	@RequestMapping(value = "/downloadStudentReports",method = RequestMethod.POST,headers = {"Content-type=application/json"})
 	@ResponseBody
-	public GenericResponse downloadReports (@RequestBody StudentInformationData oInformationData)
+	public GenericResponse downloadReports (@RequestBody StudentInformationData oInformationData) 
 	{
 		m_oLogger.info("downloadReports");
 		StudentDataResponse oDataResponse = new StudentDataResponse();
@@ -725,7 +702,7 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		return oDataResponse;		
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes", "unused" })
 	public static ArrayList<StudentInformationData> getDownloadReportData (StudentInformationData oStudentData)
 	{
 		EntityManager oEntityManager = oStudentData._getEntityManager();
@@ -757,21 +734,30 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 			if(oStudentData.getM_nInstitutionId() > 0)
 				m_PredicateList.add(oCriteriaBuilder.equal(oJoinStudentAcademicRoot.get("m_oInstitutionInformationData"), oStudentData.getM_nInstitutionId()));	
 			if(oStudentData.getM_strScore() != null)
-				m_PredicateList.add(oCriteriaBuilder.equal(oJoinStudentAcademicRoot.get("m_strStudentScore"), oStudentData.getM_strScore()));		
-			
+				m_PredicateList.add(oCriteriaBuilder.equal(oJoinStudentAcademicRoot.get("m_strStudentScore"), oStudentData.getM_strScore()));			
 			m_PredicateList = addPredicateList(m_PredicateList,oCriteriaBuilder,oStudentRoot,oStudentData);
+			if(oStudentData.getM_nFamilyCount() > 0)
+			{
+				Join oJoinRoot = (Join) oStudentRoot.fetch("m_oSibilingDetails");
+				Expression sibilingCount = oCriteriaBuilder.count(oJoinRoot);
+				oCriteriaQuery.groupBy(oStudentRoot.get("m_nStudentId"));				
+				oCriteriaQuery.having(oCriteriaBuilder.and(oCriteriaBuilder.equal(sibilingCount,oStudentData.getM_nFamilyCount()),
+														   oCriteriaBuilder.notEqual(oJoinRoot.get("m_nZenithUID"),0)));
+			}
 			oCriteriaQuery.select(oStudentRoot);			
 			if(oStudentData.getM_strSortBy().equals("m_nUID"))
 			   oCriteriaQuery.orderBy(oCriteriaBuilder.asc(oStudentRoot.get("m_nUID")));
 			else
 				oCriteriaQuery.orderBy(oCriteriaBuilder.asc(oStudentRoot.get("m_strStudentName")));			
 			oCriteriaQuery.where(m_PredicateList.toArray(new Predicate[] {}));
+			TypedQuery<StudentInformationData>oTypedQuery = oEntityManager.createQuery(oCriteriaQuery);
 			List<StudentInformationData> studentList = oEntityManager.createQuery(oCriteriaQuery).getResultList();
 			m_arrStudentList = new ArrayList<>(studentList);			
 		} 
 		catch (Exception oException)
 		{
 			m_oLogger.error("getDownloadReportData - oException"+oException);
+			throw oException;
 		}
 		finally
 		{
@@ -816,6 +802,7 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		catch (Exception oException) 
 		{
 			m_oLogger.error("addPredicateList - oException"+oException);
+			throw oException;
 		}
 		return arrPredicateList;
 	}
@@ -865,7 +852,8 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		}
 		catch (Exception oException)
 		{
-			m_oLogger.error("studentExcelData - oException"+oException);			
+			m_oLogger.error("studentExcelData - oException"+oException);
+			throw oException;
 		}
 		return strDownloadPath;
 	}
