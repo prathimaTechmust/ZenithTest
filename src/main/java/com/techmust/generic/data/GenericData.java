@@ -910,9 +910,7 @@ public abstract class GenericData implements IGenericData, Serializable
 			List<ZenithScholarshipDetails> list = oEntityManager.createQuery(oCriteriaQuery).getResultList();
 			if(list.size() > 0)
 			{
-				ZenithScholarshipDetails oDetails = list.get(0);
-				//String strLogedUser = Utils.getLoginUser();
-				//oDetails.setM_strChequeDisburseBy(strLogedUser);
+				ZenithScholarshipDetails oDetails = list.get(0);				
 				oDetails.setM_strReceiverName(oZenithScholarshipDetails.getM_strReceiverName());
 				oDetails.setM_strReceiverContactNumber(oZenithScholarshipDetails.getM_strReceiverContactNumber());				
 				oDetails.setM_dChequeIssueDate(oZenithScholarshipDetails.getM_dChequeIssueDate());
@@ -1021,7 +1019,6 @@ public abstract class GenericData implements IGenericData, Serializable
 
 				ZenithScholarshipDetails oDetails = list.get(0);
 				oDetails.setM_strStatus(Constants.APPLICATIONREVERIFICATION);
-				//oDetails.setM_strStudentRemarks(oZenithData.getM_strStudentRemarks());
 				bIsStatusReVerify = oDetails.updateObject();
 			}
 		}

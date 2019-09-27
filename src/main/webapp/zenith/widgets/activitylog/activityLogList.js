@@ -37,7 +37,7 @@ function createActivityLog_dataGrid ()
 			[[
 				{field:'m_strLoginUserName',title:'User Name',sortable:true,width:300},
 				{field:'m_strTaskPerformed',title:'Function Name',sortable:true,width:300},
-				{field:'m_dDate',title:'Date',sortable:true,width:200,
+				{field:'m_dCreatedOn',title:'Date',sortable:true,width:200,
 					formatter:function(row,value,index)
 					{
 						return convertTimestampToDateTime(row);
@@ -75,6 +75,7 @@ function activityLogListInfo_initDGPagination ()
 				m_oActivityLogInfo_memberData.m_nPageNumber = nPageNumber;
 				activityLogListInfo_List (m_oActivityLogInfo_memberData.m_strSortColumn, m_oActivityLogInfo_memberData.m_strOrderBy, nPageNumber, nPageSize);
 				document.getElementById("activityLogInfo_div_listDetail").innerHTML = "";
+				clearFilterBoxes ();
 			},
 			onSelectPage:function (nPageNumber, nPageSize)
 			{
@@ -122,7 +123,7 @@ function activityLogListInfo_progressbarLoaded ()
 {
 	createPopup('dialog', '', '', true);
 	var oActivityLogInformation = new ActivityLogInformation ();
-	ActivityLogInformationDataProcessor.list(oActivityLogInformation, m_oActivityLogInfo_memberData.m_strSortColumn, m_oActivityLogInfo_memberData.m_strOrderBy,1,10,activityLogListResponse)
+	ActivityLogInformationDataProcessor.list(oActivityLogInformation, m_oActivityLogInfo_memberData.m_strSortColumn, m_oActivityLogInfo_memberData.m_strOrderBy,m_oActivityLogInfo_memberData.m_nPageNumber,m_oActivityLogInfo_memberData.m_nPageSize,activityLogListResponse)
 }
 
 function activityLogListResponse (oActivityLogResponse)
@@ -139,14 +140,9 @@ function activityLogListInfo_SortList(strColumn,strOrderBy,nPageNumber,nPageSize
 	var oZenithHelper = new ZenithHelper ();
 	oZenithHelper.m_strSortColumn = strColumn;
 	oZenithHelper.m_strOrderBy = strOrderBy;
-	ActivityLogInformationDataProcessor.sortingList(oZenithHelper,sortActivityLogListResponse);
-}
-
-function sortActivityLogListResponse (oResponse)
-{
-	clearGridData("#activityLogInfo_table_logs");
-	for(var nIndex = 0; nIndex < oActivityLogResponse.m_arrActivityLog.length; nIndex++)
-		$("#activityLogInfo_table_logs").datagrid('appendRow',oActivityLogResponse.m_arrActivityLog[nIndex]);
+	oZenithHelper.m_nPageNo = nPageNumber;
+	oZenithHelper.m_nPageSize = nPageSize;
+	ActivityLogInformationDataProcessor.sortingList(oZenithHelper,activityLogListResponse);
 }
 
 function activityLogListInfo_selectedRowData (oRowData, rowIndex)
@@ -190,16 +186,19 @@ function activityLogListInfo_filter ()
 function activityLogFilteredResponse(oFilteredActivityLogResponse)
 {
 	if(oFilteredActivityLogResponse.m_bSuccess)
-	{
-		$("#filterActivityLogInfo_select_loginUser").jqxComboBox('clearSelection');
-		document.getElementById("filterActivityLogInfo_input_functionName").value = "";
-		document.getElementById("filterActivityLogInfo_input_fromdate").value = "";
-		document.getElementById("filterActivityLogInfo_input_todate").value = "";
+	{		
 		clearGridData("#activityLogInfo_table_logs");
 		for(var nIndex = 0; nIndex < oFilteredActivityLogResponse.m_arrActivityLog.length; nIndex++)
 			$("#activityLogInfo_table_logs").datagrid('appendRow',oFilteredActivityLogResponse.m_arrActivityLog[nIndex]);
 	}
 	else
 		informUser("no search result found","kError");
+}
 
+function clearFilterBoxes ()
+{
+	$("#filterActivityLogInfo_select_loginUser").jqxComboBox('clearSelection');
+	document.getElementById("filterActivityLogInfo_input_functionName").value = "";
+	document.getElementById("filterActivityLogInfo_input_fromdate").value = "";
+	document.getElementById("filterActivityLogInfo_input_todate").value = "";
 }

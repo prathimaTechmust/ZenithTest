@@ -192,11 +192,8 @@ public class ActivityLog  extends MasterData
 			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.equal(oRootObject.get("m_strLoginUserName"), m_strLoginUserName));
 		if(!m_strTaskPerformed.isEmpty())
 			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.like(oRootObject.<String>get("m_strTaskPerformed"), "%"+m_strTaskPerformed+"%"));
-		if(m_dFromDate != null && m_dToDate != null)
-		{
-			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.greaterThanOrEqualTo(oRootObject.<Date>get("m_dDate"),m_dFromDate));
-			oConjunct = oCriteriaBuilder.and(oConjunct, oCriteriaBuilder.lessThanOrEqualTo(oRootObject.<Date>get("m_dDate"), m_dToDate));
-		}			
+		if(m_dFromDate != null && m_dToDate != null)		
+			oConjunct = oCriteriaBuilder.and(oConjunct,oCriteriaBuilder.between(oRootObject.<Date>get("m_dCreatedOn"),m_dFromDate,m_dToDate));					
 		return oConjunct;
 	}
 	

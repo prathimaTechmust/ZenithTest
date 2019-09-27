@@ -3,7 +3,13 @@ var ActivityLogInformationDataProcessor = (function __ActivityLogInformationData
 	
 	function list(oActivityLogData,strSortColumn, strSortOrder, nPageNo, nPageSize,callback)
 	{
-		ajaxCall(oActivityLogData, "/activityLogListInfo", callback);
+		var oZenithHelper = new ZenithHelper ();
+		oZenithHelper.m_oActivityLog = oActivityLogData;
+		oZenithHelper.m_nPageNo = nPageNo;
+		oZenithHelper.m_nPageSize = nPageSize;
+		oZenithHelper.m_strSortColumn = strSortColumn;
+		oZenithHelper.m_strOrderBy = strSortOrder;
+		ajaxCall(oZenithHelper, "/activityLogListInfo", callback);
 	}
 	
 	function sortingList(oZenithHelperData,callback)
