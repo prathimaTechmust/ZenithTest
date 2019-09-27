@@ -166,20 +166,18 @@ function activityLogListInfo_filter ()
 	{
 		oActivityLogInformation.m_strLoginUserName = $("#filterActivityLogInfo_select_loginUser").val();
 	}	
-	else if ($("#filterActivityLogInfo_input_functionName").val() != '')
+	 if ($("#filterActivityLogInfo_input_functionName").val() != '')
 	{
 		oActivityLogInformation.m_strTaskPerformed = $("#filterActivityLogInfo_input_functionName").val();
 	}	
-	else
-	{
-		if($("#filterActivityLogInfo_input_fromdate").val() != '' && $("#filterActivityLogInfo_input_todate").val() != '')
+	if($("#filterActivityLogInfo_input_fromdate").val() != '' && $("#filterActivityLogInfo_input_todate").val() != '')
 		{
 			oActivityLogInformation.m_dFromDate = $("#filterActivityLogInfo_input_fromdate").val();
 			oActivityLogInformation.m_dToDate	= $("#filterActivityLogInfo_input_todate").val();
 		}
 		else
 			alert("Please Enter Valid From And To Date");
-	}		
+			
 	ActivityLogInformationDataProcessor.getFilteredActivityLog(oActivityLogInformation,activityLogFilteredResponse);
 }
 
