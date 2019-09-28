@@ -68,6 +68,7 @@ function getDisburseChequeFormData ()
 	oZenithScholarshipDetails.m_dChequeIssueDate = convertDateToTimeStamp($("#chequeInfo_input_IssueDate").val());
 	oZenithScholarshipDetails.m_nStudentId = m_oDisburseStudentChequeInfo_MemberData.m_nStudentId;
 	oZenithScholarshipDetails.m_oChequeDisburseBy = oChequeDisburseBy;
+	oZenithScholarshipDetails.m_nAcademicYearId = $("#selectDisburseacademicyear").val();
 	return oZenithScholarshipDetails;
 }
 
@@ -131,10 +132,13 @@ function chequeRemarkInfo_cancel() {
 function chequeRemark_progressbarLoaded() {
 	
 	createPopup('dialog','','',true);
+	var oReissueChequeBy = getLoginUserData ();
 	var oZenith = new ZenithScholarshipDetails ();	
 	oZenith.m_nStudentId = m_oDisburseStudentChequeInfo_MemberData.m_nStudentId;
 	oZenith.m_nAcademicId = m_oDisburseStudentChequeInfo_MemberData.m_nAcademicId;
 	oZenith.m_strChequeRemark = $("#chequeRemarkInfo_input_Remark").val();
+	oZenith.m_nAcademicYearId = $("#selectDisburseacademicyear").val();	
+	oZenith.m_oUserUpdatedBy = oReissueChequeBy;
 	ZenithStudentInformationDataProcessor.reIssueChequeStatusUpdate(oZenith,reIssueChequeResponse);
 }
 

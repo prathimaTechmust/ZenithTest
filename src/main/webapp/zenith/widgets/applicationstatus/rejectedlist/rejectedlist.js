@@ -168,8 +168,11 @@ function studentUIDResponse(oStudentUIDResponse)
 
 function reVerifyStudentInfo_Student ()
 {
+	var oUserReVerifyBy = getLoginUserData ();
 	var oZenith = new ZenithScholarshipDetails ();
 	oZenith.m_nStudentId = m_oRejectedStudentList_Info_MemberData.m_nStudentId;
+	oZenith.m_nAcademicYearId = $("#selectRejectListAcademicYear").val();
+	oZenith.m_oUserUpdatedBy = oUserReVerifyBy;
 	ZenithStudentInformationDataProcessor.reVerifiedStatusUpdate(oZenith,studentReVerifiedResponse);
 }
 

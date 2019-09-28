@@ -151,6 +151,7 @@ function verifyGetFormData()
 {
 	var oFormData = new FormData ();
 	var oLoginUser = loginUserId ();
+	var nAcademicYearId = $("#selectVerifiedAcademicyear").val();
 	oFormData.append('scancopy',$("#ScanCopy")[0].files[0]);
 	oFormData.append('studentId',m_overifiedStudentList_Info_MemberData.m_nStudentId);
 	if(checkInFavour ())
@@ -164,6 +165,7 @@ function verifyGetFormData()
 	
 	oFormData.append('strVerifyRemarks', $("#studentVerify_input_remarks").val());
 	oFormData.append('nLoginUserId',oLoginUser);
+	oFormData.append('nAcademicyearId',nAcademicYearId);
 	ZenithStudentInformationDataProcessor.verifiedStatusUpdate(oFormData,studentverifiedResponse);
 }
 

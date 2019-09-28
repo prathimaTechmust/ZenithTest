@@ -55,6 +55,8 @@ public class StudentScholarshipAccountsProcessor extends GenericIDataProcessor<S
 			if(oAccountsDataResponse.m_bSuccess  == true)
 			{
 				oZenithScholarshipDetails.setM_nStudentId(oStudentScholarshipAccount.getM_nStudentId());
+				oZenithScholarshipDetails.setM_nAcademicYearId(oStudentScholarshipAccount.getM_nAcademicYearId());
+				oZenithScholarshipDetails.setM_oUserUpdatedBy(oStudentScholarshipAccount.getM_oUserUpdatedBy());
 				boolean m_bSuccess = oZenithScholarshipDetails.applicationStatusUpdate(oZenithScholarshipDetails);
 				Utils.createActivityLog("StudentScholarshipAccountsProcessor::applicationStatusUpdate", oZenithScholarshipDetails);
 			}			

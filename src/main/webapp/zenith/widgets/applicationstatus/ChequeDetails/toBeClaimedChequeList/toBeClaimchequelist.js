@@ -222,10 +222,12 @@ function claimChequeInfo_validate()
 function claimCheque_progressbarLoaded()
 {
 	createPopup('ProcessDialog', '', '', true);
+	var oUserClaimedBy = getLoginUserData ();
 	var oZenithScholarshipDetails = new ZenithScholarshipDetails ();
 	oZenithScholarshipDetails.m_nStudentId = m_oToBeClaimChequeListMemberData.m_nStudentId;
 	oZenithScholarshipDetails.m_nAcademicYearId = $("#selectToBeClaimAcademicYear").val();
 	oZenithScholarshipDetails.m_dClaimedDate = $("#studentChequeInfo_input_chequeDate").val();
+	oZenithScholarshipDetails.m_oUserUpdatedBy = oUserClaimedBy;
 	ZenithStudentInformationDataProcessor.claimCheque(oZenithScholarshipDetails,toBeClaimChequeResponse);		
 }
 
@@ -286,11 +288,6 @@ function reIssueCheque_Details()
 	loadPage("applicationstatus/reIssueCheque/reIssueChequeRemark.html","dialog","reIssueCheque_init()");		
 }
 
-//function reIssueCheque_new() 
-//{
-//	reIssueCheque_init();
-//}
-
 function reIssueCheque_init()
 {	
 	createPopup('dialog','#chequeRemarkInfo_button_submit','chequeRemarkInfo_button_cancel', true);
@@ -323,27 +320,28 @@ function chequeRemarkInfo_cancel() {
 function chequeRemark_progressbarLoaded() {
 	
 	createPopup('dialog','','',true);
+	var oUserChequeReissuedBy = getLoginUserData ();
 	var oZenith = new ZenithScholarshipDetails ();	
 	oZenith.m_nStudentId = m_oToBeClaimChequeListMemberData.m_nStudentId;
 	oZenith.m_nAcademicId = m_oToBeClaimChequeListMemberData.m_nAcademicId;
 	oZenith.m_strChequeRemark = $("#chequeRemarkInfo_input_Remark").val();
+	oZenith.m_oUserUpdatedBy = oUserChequeReissuedBy;
 	ZenithStudentInformationDataProcessor.reIssueChequeStatusUpdate(oZenith,reIssueChequeResponse);
 }
 
 function reIssueChequeResponse (oResponse)
 {
 		
-		if(oResponse.m_bSuccess)
-		{
-			informUser("Application Status Sent to prepareCheque Successfully","kSuccess");
-			HideDialog("dialog");
-			navigate("reIssueCheque","widgets/applicationstatus/disbursecheque/disbursechequelist.js");
-		}
-		else
-			informUser("Application Status Sent to prepareCheque Failed","kError");
-		
+	if(oResponse.m_bSuccess)
+	{
+		informUser("Application Status Sent to prepareCheque Successfully","kSuccess");
+		HideDialog("dialog");
+		navigate("reIssueCheque","widgets/applicationstatus/disbursecheque/disbursechequelist.js");
 	}
-
+	else
+		informUser("Application Status Sent to prepareCheque Failed","kError");
+		
+}
 
 
 function printToBeClaimedChequeList()
