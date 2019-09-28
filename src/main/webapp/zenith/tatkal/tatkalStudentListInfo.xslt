@@ -75,7 +75,7 @@
 						<table align="right"> 
 							<tr>
 								<td>
-									 <button type="button" width="120px" align="center" class="zenith addButton" style="width:120px;" id="makeTatkal" title="Change Priority" onclick="changePriority('{StudentInformationData/m_nStudentId}','{StudentInformationData/m_nApplicationPriority}')">Change Priority
+									 <button type="button" width="120px" align="center" class="zenith addButton" style="width:120px;" id="makeTatkal" title="Change Priority" onclick="changePriority('{StudentInformationData/m_nStudentId}','{StudentInformationData/m_nApplicationPriority}','{StudentInformationData/m_oAcademicDetails/AcademicDetails/m_nAcademicYearId}')">Change Priority
 									 </button>
 								</td>
 							</tr>
@@ -89,7 +89,7 @@
 			<table >
 				<tr>
 					<td>
-					 <button type="button" width="120px" align="center" class="zenith addButton" style="width:120px;" id="documentView" title="documentView" onclick="viewStudentDocument('{StudentInformationData/m_oAcademicDetails/AcademicDetails/m_nAcademicId}')">View Documents 
+					 <button type="button" width="120px" align="center" class="zenith addButton" style="width:120px;" id="documentView" title="documentView" onclick="viewStudentDocument('{StudentInformationData/m_oAcademicDetails/AcademicDetails/m_nAcademicId}','{StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oAcademicYear/AcademicYear/m_nAcademicYearId}')">View Documents 
 					 </button>
 					 <button type="button" width="20" align="center" class = "zenith addButton" style="width:100px;" id="printStudent" title="Print" onClick="printTatkal()">Print</button>
 					</td>

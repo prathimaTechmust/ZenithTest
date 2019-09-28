@@ -575,7 +575,9 @@ public abstract class GenericData implements IGenericData, Serializable
 	        oCriteriaQuery.where(oCriteriaBuilder.equal(oStudentInformationRoot.get("m_nStudentId"), oStudentData.getM_nStudentId()));
 	        oStudentInformationData = oEntityManager.createQuery(oCriteriaQuery).getSingleResult();
 	        if(oStudentData.getM_nAcademicYearId() > 0)
-	        	oStudentInformationData.setM_oAcademicDetails(getAcademicDetails(oStudentData));						
+	        	oStudentInformationData.setM_oAcademicDetails(getAcademicDetails(oStudentData));
+	        if(oStudentData.getM_nAcademicYearId() > 0)
+	        	oStudentInformationData.setM_oZenithScholarshipDetails(getZenithScholarshipDetails(oStudentData));
 		}
 		catch (Exception oException)
 		{
@@ -588,6 +590,34 @@ public abstract class GenericData implements IGenericData, Serializable
 			HibernateUtil.removeConnection();
 		}		
 		return oStudentInformationData;
+	}
+
+	private Set<ZenithScholarshipDetails> getZenithScholarshipDetails(StudentInformationData oStudentData)
+	{
+		EntityManager oEntityManager = _getEntityManager();
+		List<ZenithScholarshipDetails> oZenithScholarshipDetails = null;
+		Set<ZenithScholarshipDetails> oSetZenithScholarshipDetails = null;
+		try 
+		{
+			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
+	        CriteriaQuery<ZenithScholarshipDetails> oCriteriaQuery = oCriteriaBuilder.createQuery(ZenithScholarshipDetails.class);
+	        Root<ZenithScholarshipDetails> oZenithRoot = oCriteriaQuery.from(ZenithScholarshipDetails.class);   
+	        oCriteriaQuery.select(oZenithRoot);
+	        oCriteriaQuery.where(oCriteriaBuilder.equal(oZenithRoot.get("m_oAcademicYear"), oStudentData.getM_nAcademicYearId()),
+	        					 oCriteriaBuilder.equal(oZenithRoot.get("m_oStudentInformationData"), oStudentData.getM_nStudentId()));
+	        oZenithScholarshipDetails =  (ArrayList<ZenithScholarshipDetails>) oEntityManager.createQuery(oCriteriaQuery).getResultList();
+	        oSetZenithScholarshipDetails = new HashSet<ZenithScholarshipDetails>(oZenithScholarshipDetails);		
+		}
+		catch (Exception oException) 
+		{
+			m_oLogger.error("getZenithScholarshipDetails -oException"+oException);
+		}
+		finally
+		{
+			oEntityManager.close();
+			HibernateUtil.removeConnection();
+		}
+		return oSetZenithScholarshipDetails;
 	}
 
 
@@ -657,8 +687,64 @@ public abstract class GenericData implements IGenericData, Serializable
 		}
 		return oAcademicDetails;
 	}
-
-
+	
+	public boolean doesCourseHaveAcademic(int nCourseId)
+	{
+		boolean IsHaveAcademic = false;
+		EntityManager oEntityManager = _getEntityManager();
+		try 
+		{
+			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
+			CriteriaQuery<AcademicDetails> oCriteriaQuery = oCriteriaBuilder.createQuery(AcademicDetails.class);
+			Root<AcademicDetails> oAcademicDetails = oCriteriaQuery.from(AcademicDetails.class);
+			oCriteriaQuery.select(oAcademicDetails);
+			oCriteriaQuery.where(oCriteriaBuilder.equal(oAcademicDetails.get("m_oCourseInformationData"),nCourseId));
+			List<AcademicDetails> list = oEntityManager.createQuery(oCriteriaQuery).getResultList();
+			if(list.size() > 0)
+				IsHaveAcademic = true;
+		}
+		catch (Exception oException) 
+		{
+			m_oLogger.error("doesCourseHaveAcademic - oException : " +oException);
+			throw oException;
+		}
+		finally 
+		{
+			oEntityManager.close();
+			HibernateUtil.removeConnection();
+		}		
+		return IsHaveAcademic;		
+	}
+	
+	public boolean doesInstitutionHaveAcademic(int nInstitutionId)
+	{
+		boolean IsHaveAcademic = false;
+		EntityManager oEntityManager = _getEntityManager();
+		try 
+		{
+			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
+			CriteriaQuery<AcademicDetails> oCriteriaQuery = oCriteriaBuilder.createQuery(AcademicDetails.class);
+			Root<AcademicDetails> oAcademicDetails = oCriteriaQuery.from(AcademicDetails.class);
+			oCriteriaQuery.select(oAcademicDetails);
+			oCriteriaQuery.where(oCriteriaBuilder.equal(oAcademicDetails.get("m_oInstitutionInformationData"),nInstitutionId));
+			List<AcademicDetails> list = oEntityManager.createQuery(oCriteriaQuery).getResultList();
+			if(list.size() > 0)
+				IsHaveAcademic = true;
+		} 
+		catch (Exception oException)
+		{
+			m_oLogger.error("doesCourseHaveAcademic - oException : " +oException);
+			throw oException;
+		}
+		finally 
+		{
+			oEntityManager.close();
+			HibernateUtil.removeConnection();
+		}		
+		return IsHaveAcademic;	
+	}	
+	
+	//Student List Based on Application Status 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public ArrayList<StudentInformationData> getStatusStudentsList(StudentInformationData oStudentInformationData)
 	{
@@ -731,20 +817,13 @@ public abstract class GenericData implements IGenericData, Serializable
 		}
 		return bIsSuccess;
 	}
-// Student Application Status Update Functions
-	
+// Student Application Status Update Functions	
 	public boolean updateStudentApplicationVerifiedStatus(ZenithScholarshipDetails oZenithScholarshipDetails) throws Exception
 	{
 		boolean IsUpdate = false;
-		EntityManager oEntityManager = _getEntityManager();
 		try
-		{
-			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
-			CriteriaQuery<ZenithScholarshipDetails> oCriteriaQuery = oCriteriaBuilder.createQuery(ZenithScholarshipDetails.class);
-			Root<ZenithScholarshipDetails> oZenithStatusRoot = oCriteriaQuery.from(ZenithScholarshipDetails.class);
-			oCriteriaQuery.select(oZenithStatusRoot);
-			oCriteriaQuery.where(oCriteriaBuilder.equal(oZenithStatusRoot.get("m_oStudentInformationData"),oZenithScholarshipDetails.getM_nStudentId()));
-			ArrayList<ZenithScholarshipDetails> arrZenithScholarshipDetails =  (ArrayList<ZenithScholarshipDetails>) oEntityManager.createQuery(oCriteriaQuery).getResultList();
+		{			
+			List<ZenithScholarshipDetails> arrZenithScholarshipDetails =  populateStudentApplicationToUpdate(oZenithScholarshipDetails);
 			if(arrZenithScholarshipDetails.size() > 0)
 			{
 				ZenithScholarshipDetails oZenith = arrZenithScholarshipDetails.get(0);
@@ -762,27 +841,16 @@ public abstract class GenericData implements IGenericData, Serializable
 		{
 			m_oLogger.error("updateStudentApplicationVerifiedStatus - oException : " +oException);
 			throw oException;
-		}
-		finally
-		{
-			oEntityManager.close();
-			HibernateUtil.removeConnection();
-		}		
+		}			
 		return IsUpdate;		
 	}
 	
 	public boolean updateStudentApplicationApprovedStatus(ZenithScholarshipDetails oZenithScholarshipDetails) throws Exception
 	{
 		boolean IsUpdate = false;
-		EntityManager oEntityManager = _getEntityManager();
 		try 
-		{
-			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
-			CriteriaQuery<ZenithScholarshipDetails> oCriteriaQuery = oCriteriaBuilder.createQuery(ZenithScholarshipDetails.class);
-			Root<ZenithScholarshipDetails> oZenithStatusRoot = oCriteriaQuery.from(ZenithScholarshipDetails.class);
-			oCriteriaQuery.select(oZenithStatusRoot);
-			oCriteriaQuery.where(oCriteriaBuilder.equal(oZenithStatusRoot.get("m_oStudentInformationData"),oZenithScholarshipDetails.getM_nStudentId()));
-			ArrayList<ZenithScholarshipDetails> arrZenithScholarshipDetails =  (ArrayList<ZenithScholarshipDetails>) oEntityManager.createQuery(oCriteriaQuery).getResultList();
+		{			
+			List<ZenithScholarshipDetails> arrZenithScholarshipDetails =  populateStudentApplicationToUpdate(oZenithScholarshipDetails);
 			if(arrZenithScholarshipDetails.size() > 0)
 			{
 				ZenithScholarshipDetails oZenith = arrZenithScholarshipDetails.get(0);
@@ -799,87 +867,50 @@ public abstract class GenericData implements IGenericData, Serializable
 		{
 			m_oLogger.error("updateStudentApplicationVerifiedStatus - oException : " +oException);
 			throw oException;
-		}
-		finally 
-		{
-			oEntityManager.close();
-			HibernateUtil.removeConnection();
 		}		
 		return IsUpdate;
 	}
 	
-	public boolean doesCourseHaveAcademic(int nCourseId)
+	public boolean counselingStatusUpdate(ZenithScholarshipDetails oZenithData) throws Exception
 	{
-		boolean IsHaveAcademic = false;
-		EntityManager oEntityManager = _getEntityManager();
-		try 
+		boolean bIsStatusReVerify = false;
+		try
 		{
-			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
-			CriteriaQuery<AcademicDetails> oCriteriaQuery = oCriteriaBuilder.createQuery(AcademicDetails.class);
-			Root<AcademicDetails> oAcademicDetails = oCriteriaQuery.from(AcademicDetails.class);
-			oCriteriaQuery.select(oAcademicDetails);
-			oCriteriaQuery.where(oCriteriaBuilder.equal(oAcademicDetails.get("m_oCourseInformationData"),nCourseId));
-			List<AcademicDetails> list = oEntityManager.createQuery(oCriteriaQuery).getResultList();
-			if(list.size() > 0)
-				IsHaveAcademic = true;
-		}
-		catch (Exception oException) 
-		{
-			m_oLogger.error("doesCourseHaveAcademic - oException : " +oException);
-			throw oException;
-		}
-		finally 
-		{
-			oEntityManager.close();
-			HibernateUtil.removeConnection();
-		}		
-		return IsHaveAcademic;		
-	}
-	public boolean doesInstitutionHaveAcademic(int nInstitutionId)
-	{
-		boolean IsHaveAcademic = false;
-		EntityManager oEntityManager = _getEntityManager();
-		try 
-		{
-			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
-			CriteriaQuery<AcademicDetails> oCriteriaQuery = oCriteriaBuilder.createQuery(AcademicDetails.class);
-			Root<AcademicDetails> oAcademicDetails = oCriteriaQuery.from(AcademicDetails.class);
-			oCriteriaQuery.select(oAcademicDetails);
-			oCriteriaQuery.where(oCriteriaBuilder.equal(oAcademicDetails.get("m_oInstitutionInformationData"),nInstitutionId));
-			List<AcademicDetails> list = oEntityManager.createQuery(oCriteriaQuery).getResultList();
-			if(list.size() > 0)
-				IsHaveAcademic = true;
-		} 
-		catch (Exception oException)
-		{
-			m_oLogger.error("doesCourseHaveAcademic - oException : " +oException);
-			throw oException;
-		}
-		finally 
-		{
-			oEntityManager.close();
-			HibernateUtil.removeConnection();
-		}		
-		return IsHaveAcademic;	
-	}
-	
-	public boolean updateStudentApplicationRejectedStatus(ZenithScholarshipDetails oZenithScholarshipDetails) throws Exception
-	{
-		boolean bIsUpdate = false;
-		EntityManager oEntityManager = _getEntityManager();
-		try 
-		{
-			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
-			CriteriaQuery<ZenithScholarshipDetails> oCriteriaQuery = oCriteriaBuilder.createQuery(ZenithScholarshipDetails.class);
-			Root<ZenithScholarshipDetails> oZenithRoot = oCriteriaQuery.from(ZenithScholarshipDetails.class);
-			oCriteriaQuery.select(oZenithRoot);
-			oCriteriaQuery.where(oCriteriaBuilder.equal(oZenithRoot.get("m_oStudentInformationData"),oZenithScholarshipDetails.getM_nStudentId()));
-			List<ZenithScholarshipDetails> list = oEntityManager.createQuery(oCriteriaQuery).getResultList();
+			List<ZenithScholarshipDetails> list = populateStudentApplicationToUpdate(oZenithData);
 			if(list.size() > 0)
 			{
+
 				ZenithScholarshipDetails oDetails = list.get(0);
+				oDetails.setM_strStatus(Constants.APPLICATIONCOUNSELING);
+				oDetails.setM_strStudentRemarks(oZenithData.getM_strStudentRemarks());
+				oDetails.setM_dCounselingDate(oZenithData.getM_dCounselingDate());
+				oDetails.setM_dUpdatedOn(Calendar.getInstance().getTime());
+				oDetails.setM_oUserUpdatedBy(oZenithData.getM_oUserUpdatedBy());
+				bIsStatusReVerify = oDetails.updateObject();
+			}
+		}
+		catch (Exception oException)
+		{
+			m_oLogger.error("applicationReverify - oException"+oException);
+			throw oException;
+		}		
+		return bIsStatusReVerify;		
+	}	
+	
+	@SuppressWarnings("unchecked")
+	public boolean updateStudentApplicationRejectedStatus(ZenithScholarshipDetails oZenithScholarshipDetails) throws Exception
+	{
+		boolean bIsUpdate = false;		
+		try 
+		{			
+			List<ZenithScholarshipDetails> studentList = populateStudentApplicationToUpdate(oZenithScholarshipDetails);
+			if(studentList.size() > 0)
+			{
+				ZenithScholarshipDetails oDetails = studentList.get(0);
 				oDetails.setM_strStatus(Constants.STUDENTREJECTED);
 				oDetails.setM_strStudentRemarks(oZenithScholarshipDetails.getM_strStudentRemarks());
+				oDetails.setM_dUpdatedOn(Calendar.getInstance().getTime());
+				oDetails.setM_oUserUpdatedBy(oZenithScholarshipDetails.getM_oUserUpdatedBy());
 				bIsUpdate = oDetails.updateObject();
 			}
 		}
@@ -887,27 +918,40 @@ public abstract class GenericData implements IGenericData, Serializable
 		{
 			m_oLogger.error("updateRejectStatus - oException" + oException);
 			throw oException;
-		}
-		finally
-		{
-			oEntityManager.close();
-			HibernateUtil.removeConnection();
-		}
+		}		
 		return bIsUpdate;		
-	}
+	}	
+	
+	public boolean applicationStatusUpdate(ZenithScholarshipDetails oZenithScholarshipDetails) throws Exception
+	{
+		boolean bIsStatusUpdate = false;
+		try
+		{
+			List<ZenithScholarshipDetails> list = populateStudentApplicationToUpdate(oZenithScholarshipDetails);
+			if(list.size() > 0)
+			{
+				ZenithScholarshipDetails oDetails = list.get(0);
+				oDetails.setM_strStatus(Constants.CHEQUEPREPARED);
+				oDetails.setM_dUpdatedOn(Calendar.getInstance().getTime());
+				oDetails.setM_oUserUpdatedBy(oZenithScholarshipDetails.getM_oUserUpdatedBy());
+				bIsStatusUpdate = oDetails.updateObject();				
+			}
+		}
+		catch (Exception oException)
+		{
+			m_oLogger.error("chequeprepared - oException"+oException);
+			throw oException;
+		}
+		return bIsStatusUpdate;
+		
+	}	
 	
 	public boolean disburseCheque (ZenithScholarshipDetails oZenithScholarshipDetails) throws Exception
 	{
 		boolean bIsChequeIssue = false;
-		EntityManager oEntityManager = _getEntityManager();
 		try
 		{
-			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
-			CriteriaQuery<ZenithScholarshipDetails> oCriteriaQuery = oCriteriaBuilder.createQuery(ZenithScholarshipDetails.class);
-			Root<ZenithScholarshipDetails> oZenithRoot = oCriteriaQuery.from(ZenithScholarshipDetails.class);
-			oCriteriaQuery.select(oZenithRoot);
-			oCriteriaQuery.where(oCriteriaBuilder.equal(oZenithRoot.get("m_oStudentInformationData"),oZenithScholarshipDetails.getM_nStudentId()));
-			List<ZenithScholarshipDetails> list = oEntityManager.createQuery(oCriteriaQuery).getResultList();
+			List<ZenithScholarshipDetails> list = populateStudentApplicationToUpdate(oZenithScholarshipDetails);
 			if(list.size() > 0)
 			{
 				ZenithScholarshipDetails oDetails = list.get(0);				
@@ -925,67 +969,46 @@ public abstract class GenericData implements IGenericData, Serializable
 		{
 			m_oLogger.error("IssueCheque - oException"+oException);
 			throw oException;
-		}
-		finally 
-		{
-			oEntityManager.close();
-			HibernateUtil.removeConnection();
-		}
+		}		
 		return bIsChequeIssue;		
-	}
-	
-	public boolean applicationStatusUpdate(ZenithScholarshipDetails oZenithScholarshipDetails) throws Exception
-	{
-		boolean bIsStatusUpdate = false;
-		EntityManager oEntityManager = _getEntityManager();
-		try
-		{
-			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
-			CriteriaQuery<ZenithScholarshipDetails> oCriteriaQuery = oCriteriaBuilder.createQuery(ZenithScholarshipDetails.class);
-			Root<ZenithScholarshipDetails> oZenithRoot = oCriteriaQuery.from(ZenithScholarshipDetails.class);
-			oCriteriaQuery.select(oZenithRoot);
-			oCriteriaQuery.where(oCriteriaBuilder.equal(oZenithRoot.get("m_oStudentInformationData"),oZenithScholarshipDetails.getM_nStudentId()));
-			List<ZenithScholarshipDetails> list = oEntityManager.createQuery(oCriteriaQuery).getResultList();
-			if(list.size() > 0)
-			{
-				ZenithScholarshipDetails oDetails = list.get(0);
-				oDetails.setM_strStatus(Constants.CHEQUEPREPARED);
-				bIsStatusUpdate = oDetails.updateObject();				
-			}
-		}
-		catch (Exception oException)
-		{
-			m_oLogger.error("chequeprepared - oException"+oException);
-			throw oException;
-		}
-		finally
-		{
-			oEntityManager.close();
-			HibernateUtil.removeConnection();
-		}
-		return bIsStatusUpdate;
-		
 	}	
-
-	public boolean counselingListApplication(ZenithScholarshipDetails oZenithData) throws Exception
+	
+	public boolean claimCheque(ZenithScholarshipDetails oZenithData) throws Exception
+	 {
+			boolean bIsChequeClaimed = false;
+			try
+			{
+				List<ZenithScholarshipDetails> list = populateStudentApplicationToUpdate(oZenithData);
+				if(list.size() > 0)
+				{
+					ZenithScholarshipDetails oDetails = list.get(0);
+					oDetails.setM_strStatus(Constants.CHEQUECLAIMED);
+					oDetails.setM_dClaimedDate(oZenithData.getM_dClaimedDate());
+					oDetails.setM_dUpdatedOn(Calendar.getInstance().getTime());
+					oDetails.setM_oUserUpdatedBy(oZenithData.getM_oUserUpdatedBy());
+					bIsChequeClaimed = oDetails.updateObject();
+				}
+			}
+			catch (Exception oException)
+			{
+				m_oLogger.error("Claimed Cheque - oException"+oException);
+				throw oException;
+			}
+			return bIsChequeClaimed;		
+	 }
+	
+	public boolean approveCounselingStudentApplication(ZenithScholarshipDetails oZenithData) throws Exception
 	{
 		boolean bIsStatusReVerify = false;
-		EntityManager oEntityManager = _getEntityManager();
 		try
-		{
-			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
-			CriteriaQuery<ZenithScholarshipDetails> oCriteriaQuery = oCriteriaBuilder.createQuery(ZenithScholarshipDetails.class);
-			Root<ZenithScholarshipDetails> oZenithRoot = oCriteriaQuery.from(ZenithScholarshipDetails.class);
-			oCriteriaQuery.select(oZenithRoot);
-			oCriteriaQuery.where(oCriteriaBuilder.equal(oZenithRoot.get("m_oStudentInformationData"),oZenithData.getM_nStudentId()));
-			List<ZenithScholarshipDetails> list = oEntityManager.createQuery(oCriteriaQuery).getResultList();
+		{			
+			List<ZenithScholarshipDetails> list = populateStudentApplicationToUpdate(oZenithData);
 			if(list.size() > 0)
 			{
-
 				ZenithScholarshipDetails oDetails = list.get(0);
-				oDetails.setM_strStatus(Constants.APPLICATIONCOUNSELING);
-				oDetails.setM_strStudentRemarks(oZenithData.getM_strStudentRemarks());
-				oDetails.setM_dCounselingDate(oZenithData.getM_dCounselingDate());
+				oDetails.setM_strStatus(Constants.COUNSELINGSTUDENTVERIFIED);
+				oDetails.setM_dUpdatedOn(Calendar.getInstance().getTime());
+				oDetails.setM_oUserUpdatedBy(oZenithData.getM_oUserUpdatedBy());
 				bIsStatusReVerify = oDetails.updateObject();
 			}
 		}
@@ -993,32 +1016,22 @@ public abstract class GenericData implements IGenericData, Serializable
 		{
 			m_oLogger.error("applicationReverify - oException"+oException);
 			throw oException;
-		}
-		finally
-		{
-			oEntityManager.close();
-			HibernateUtil.removeConnection();
-		}
-		return bIsStatusReVerify;		
+		}		
+		return bIsStatusReVerify;	
 	}
 	
 	public boolean reVerifyStudentApplication(ZenithScholarshipDetails oZenithData) throws Exception
 	{
 		boolean bIsStatusReVerify = false;
-		EntityManager oEntityManager = _getEntityManager();
 		try
 		{
-			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
-			CriteriaQuery<ZenithScholarshipDetails> oCriteriaQuery = oCriteriaBuilder.createQuery(ZenithScholarshipDetails.class);
-			Root<ZenithScholarshipDetails> oZenithRoot = oCriteriaQuery.from(ZenithScholarshipDetails.class);
-			oCriteriaQuery.select(oZenithRoot);
-			oCriteriaQuery.where(oCriteriaBuilder.equal(oZenithRoot.get("m_oStudentInformationData"),oZenithData.getM_nStudentId()));
-			List<ZenithScholarshipDetails> list = oEntityManager.createQuery(oCriteriaQuery).getResultList();
+			List<ZenithScholarshipDetails> list = populateStudentApplicationToUpdate(oZenithData);
 			if(list.size() > 0)
 			{
-
 				ZenithScholarshipDetails oDetails = list.get(0);
 				oDetails.setM_strStatus(Constants.APPLICATIONREVERIFICATION);
+				oDetails.setM_dUpdatedOn(Calendar.getInstance().getTime());
+				oDetails.setM_oUserUpdatedBy(oZenithData.getM_oUserUpdatedBy());
 				bIsStatusReVerify = oDetails.updateObject();
 			}
 		}
@@ -1026,84 +1039,37 @@ public abstract class GenericData implements IGenericData, Serializable
 		{
 			m_oLogger.error("applicationReverify - oException"+oException);
 			throw oException;
-		}
-		finally
-		{
-			oEntityManager.close();
-			HibernateUtil.removeConnection();
-		}
+		}		
 		return bIsStatusReVerify;		
 	}
-
-	public boolean approveCounselingStudentApplication(ZenithScholarshipDetails oZenithData) throws Exception
+	
+	public boolean reIssueCheckDetails(ZenithScholarshipDetails oZenithData) throws Exception
 	{
-		boolean bIsStatusReVerify = false;
-		EntityManager oEntityManager = _getEntityManager();
-		try
-		{
-			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
-			CriteriaQuery<ZenithScholarshipDetails> oCriteriaQuery = oCriteriaBuilder.createQuery(ZenithScholarshipDetails.class);
-			Root<ZenithScholarshipDetails> oZenithRoot = oCriteriaQuery.from(ZenithScholarshipDetails.class);
-			oCriteriaQuery.select(oZenithRoot);
-			oCriteriaQuery.where(oCriteriaBuilder.equal(oZenithRoot.get("m_oStudentInformationData"),oZenithData.getM_nStudentId()));
-			List<ZenithScholarshipDetails> list = oEntityManager.createQuery(oCriteriaQuery).getResultList();
-			if(list.size() > 0)
-			{
-
-				ZenithScholarshipDetails oDetails = list.get(0);
-				oDetails.setM_strStatus(Constants.COUNSELINGSTUDENTVERIFIED);
-				bIsStatusReVerify = oDetails.updateObject();
-			}
-		}
-		catch (Exception oException)
-		{
-			m_oLogger.error("applicationReverify - oException"+oException);
-			throw oException;
-		}
-		finally
-		{
-			oEntityManager.close();
-			HibernateUtil.removeConnection();
-		}
-		return bIsStatusReVerify;	
-	}
-	 public boolean reIssueCheckDetails(ZenithScholarshipDetails oZenithData) throws Exception
-	  {
 		 boolean bIsStatusReVerify = false;
-		 EntityManager oEntityManager = _getEntityManager();
 		 try
 		 {
-			 CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
-			 CriteriaQuery<ZenithScholarshipDetails> oCriteriaQuery = oCriteriaBuilder.createQuery(ZenithScholarshipDetails.class);
-			 Root<ZenithScholarshipDetails> oZenithRoot = oCriteriaQuery.from(ZenithScholarshipDetails.class);
-			 oCriteriaQuery.select(oZenithRoot);
-			 oCriteriaQuery.where(oCriteriaBuilder.equal(oZenithRoot.get("m_oStudentInformationData"),oZenithData.getM_nStudentId()));
-			 List<ZenithScholarshipDetails> list = oEntityManager.createQuery(oCriteriaQuery).getResultList();
+			 List<ZenithScholarshipDetails> list = populateStudentApplicationToUpdate(oZenithData);
 			 if(list.size() > 0)
 			 {
 				 ZenithScholarshipDetails oDetails = list.get(0);
 				 oDetails.setM_strStatus(Constants.REISSUECHEQUE);
 				 oDetails.setM_strChequeRemark(oZenithData.getM_strChequeRemark());
+				 oDetails.setM_dUpdatedOn(Calendar.getInstance().getTime());
+				 oDetails.setM_oUserUpdatedBy(oZenithData.getM_oUserUpdatedBy());
 				 bIsStatusReVerify = oDetails.updateObject();
 			 }
 			 if(bIsStatusReVerify)
-				 changeChequeStatus(oZenithData.getM_nAcademicId(),oZenithData.getM_strChequeRemark());
+				 changeChequeStatus(oZenithData.getM_nAcademicId(),oZenithData.getM_strChequeRemark(),oZenithData.getM_oUserUpdatedBy());
 		 }
 		  catch (Exception oException)
 		 {
 			 m_oLogger.error("CHEQUEDREISSUED - oException"+oException); 
 			 throw oException;
 		}
-			finally 
-			{
-				oEntityManager.close();
-				HibernateUtil.removeConnection();
-			 
-		    }
 		return bIsStatusReVerify;
-	  }
-
-	private void changeChequeStatus(int nAcademicId,String strChequeRemark)
+	 }	 
+	
+	private void changeChequeStatus(int nAcademicId,String strChequeRemark, UserInformationData oUserUpdateBy)
 	{
 		m_oLogger.info("Change Cheque Status");
 		m_oLogger.debug("Change Cheque Status - AcademicId"+ nAcademicId);
@@ -1124,12 +1090,14 @@ public abstract class GenericData implements IGenericData, Serializable
 				oAccount.setM_strChequeStatus("InActive");
 				oAccount.setM_strChequeRemarks(strChequeRemark);
 				oAccount.setM_bChequeValid(false);
+				oAccount.setM_dUpdatedOn(Calendar.getInstance().getTime());
+				oAccount.setM_oUserUpdatedBy(oUserUpdateBy);
 				oAccount.updateObject();
 			}			
 		}
 		catch (Exception oException)
 		{
-			m_oLogger.error("Change Cheque Status"+ oException);
+			m_oLogger.error("Change Cheque Status"+ oException);			
 		}
 		finally
 		{
@@ -1137,7 +1105,35 @@ public abstract class GenericData implements IGenericData, Serializable
 			HibernateUtil.removeConnection();
 		}
 	}
-
+	
+	
+	// Populate Student Status List To Update
+	private List<ZenithScholarshipDetails> populateStudentApplicationToUpdate(ZenithScholarshipDetails oZenithScholarshipDetails) 
+	{
+		EntityManager oEntityManager = _getEntityManager();
+		List<ZenithScholarshipDetails> studentStatuslist = null;
+		try
+		{
+			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
+			CriteriaQuery<ZenithScholarshipDetails> oCriteriaQuery = oCriteriaBuilder.createQuery(ZenithScholarshipDetails.class);
+			Root<ZenithScholarshipDetails> oZenithRoot = oCriteriaQuery.from(ZenithScholarshipDetails.class);
+			oCriteriaQuery.select(oZenithRoot);
+			oCriteriaQuery.where(oCriteriaBuilder.equal(oZenithRoot.get("m_oStudentInformationData"),oZenithScholarshipDetails.getM_nStudentId()),
+								 oCriteriaBuilder.equal(oZenithRoot.get("m_oAcademicYear"),oZenithScholarshipDetails.getM_nAcademicYearId()));
+			studentStatuslist = oEntityManager.createQuery(oCriteriaQuery).getResultList();
+		} 
+		catch (Exception oException)
+		{
+			m_oLogger.error("populateStudentStatusList- oException"+oException);
+			throw oException;
+		}
+		finally 
+		{
+			oEntityManager.close();
+			HibernateUtil.removeConnection();
+		}
+		return studentStatuslist;
+	}
 
 	public boolean checkChequePrepared(Set<AcademicDetails> oAcademicDetails)
 	{
@@ -1168,6 +1164,7 @@ public abstract class GenericData implements IGenericData, Serializable
 		return bIsCheckPrepared;
 	}
 	
+	// Search Student Based on UID	
 	public StudentInformationData getSearchUIDStudentData(StudentInformationData oStudentData)
 	{
 		EntityManager oEntityManager = _getEntityManager();
@@ -1229,41 +1226,8 @@ public abstract class GenericData implements IGenericData, Serializable
 			HibernateUtil.removeConnection();
 		}
 		return oZenithScholarshipDetails;
-	}
-	
-	public boolean claimCheque(ZenithScholarshipDetails oZenithData) throws Exception
-	{
-		boolean bIsChequeClaimed = false;
-		EntityManager oEntityManager = _getEntityManager();
-		try
-		{
-			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
-			CriteriaQuery<ZenithScholarshipDetails> oCriteriaQuery = oCriteriaBuilder.createQuery(ZenithScholarshipDetails.class);
-			Root<ZenithScholarshipDetails> oZenithRoot = oCriteriaQuery.from(ZenithScholarshipDetails.class);
-			oCriteriaQuery.select(oZenithRoot);
-			oCriteriaQuery.where(oCriteriaBuilder.equal(oZenithRoot.get("m_oStudentInformationData"),oZenithData.getM_nStudentId()));
-			List<ZenithScholarshipDetails> list = oEntityManager.createQuery(oCriteriaQuery).getResultList();
-			if(list.size() > 0)
-			{
-				ZenithScholarshipDetails oDetails = list.get(0);
-				oDetails.setM_strStatus(Constants.CHEQUECLAIMED);
-				oDetails.setM_dClaimedDate(oZenithData.getM_dClaimedDate());
-				bIsChequeClaimed = oDetails.updateObject();
-			}
-		}
-		catch (Exception oException)
-		{
-			m_oLogger.error("Claimed Cheque - oException"+oException);
-			throw oException;
-		}
-		finally
-		{
-			oEntityManager.close();
-			HibernateUtil.removeConnection();
-		}
-		return bIsChequeClaimed;		
-	}
-	
+	}	
+	//Get Student Uploaded Documents
 	public StudentDocuments getStudentUploadDocuments(AcademicDetails oAcademicDetails)
 	{
 		List<StudentDocuments> m_arrStudentDocuments = null;
@@ -1278,12 +1242,14 @@ public abstract class GenericData implements IGenericData, Serializable
 			oCriteriaQuery.where(oCriteriaBuilder.equal(oRoot.get("m_nAcademicId"),oAcademicDetails.getM_nAcademicId()));
 			List<AcademicDetails> documentList = oEntityManager.createQuery(oCriteriaQuery).getResultList();
 			AcademicDetails oAcademicData = documentList.get(0);
+			StudentInformationData oStudentData = oAcademicData.getM_oStudentInformationData();
+			oStudentData.setM_nAcademicYearId(oAcademicDetails.getM_nAcademicYearId());
 			if(oAcademicData.getM_arrStudentDocuments().size() > 0)
 			{
 				m_arrStudentDocuments = documentList.get(0).getM_arrStudentDocuments();
 				oStudentDocuments = m_arrStudentDocuments.get(0);
 			}
-			oStudentDocuments.setM_strVerifyScanDocument(getStudentVerifiedDocument(oAcademicData.getM_oStudentInformationData()));
+			oStudentDocuments.setM_strVerifyScanDocument(getStudentVerifiedDocument(oStudentData));
 		} 
 		catch (Exception oException)
 		{
@@ -1308,9 +1274,9 @@ public abstract class GenericData implements IGenericData, Serializable
 			CriteriaQuery<ZenithScholarshipDetails> oCriteriaQuery = oCriteriaBuilder.createQuery(ZenithScholarshipDetails.class);
 			Root<ZenithScholarshipDetails> oZenithRoot = oCriteriaQuery.from(ZenithScholarshipDetails.class);
 			oCriteriaQuery.select(oZenithRoot);
-			oCriteriaQuery.where(oCriteriaBuilder.equal(oZenithRoot.get("m_oStudentInformationData"),oData.getM_nStudentId()));
+			oCriteriaQuery.where(oCriteriaBuilder.equal(oZenithRoot.get("m_oStudentInformationData"),oData.getM_nStudentId()),oCriteriaBuilder.equal(oZenithRoot.get("m_oAcademicYear"), oData.getM_nAcademicYearId()));
 			List<ZenithScholarshipDetails> documentList = oEntityManager.createQuery(oCriteriaQuery).getResultList();
-			strVerifiedDocument = documentList.get(0).getM_strImage();
+			strVerifiedDocument = documentList.size() > 0 ? documentList.get(0).getM_strImage():"";
 		}
 		catch (Exception oException)
 		{
@@ -1324,7 +1290,7 @@ public abstract class GenericData implements IGenericData, Serializable
 		return strVerifiedDocument;		
 	}
 
-
+	//Get Student UID And Student Aadhar Number
 	public StudentInformationData getUIDAndAadharFormData(StudentInformationData oData)
 	{
 		EntityManager oEntityManager = _getEntityManager();

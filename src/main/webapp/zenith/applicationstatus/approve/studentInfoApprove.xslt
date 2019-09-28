@@ -126,7 +126,7 @@
 										</fieldset>													
 									</td>
 									<td style="padding-top: 3%;"> 
-					     				<button type="button" width="120px" align="center" class="zenith addButton" style="width:120px;" id="documentView" title="documentView" onclick="viewStudentDocument('{StudentInformationData/m_oAcademicDetails/AcademicDetails/m_nAcademicId}')">View Documents </button>
+					     				<button type="button" width="120px" align="center" class="zenith addButton" style="width:120px;" id="documentView" title="documentView" onclick="viewStudentDocument('{StudentInformationData/m_oAcademicDetails/AcademicDetails/m_nAcademicId}','{StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oAcademicYear/AcademicYear/m_nAcademicYearId}')">View Documents </button>
 	       			                </td>	
 								</tr>								
 							</table>										

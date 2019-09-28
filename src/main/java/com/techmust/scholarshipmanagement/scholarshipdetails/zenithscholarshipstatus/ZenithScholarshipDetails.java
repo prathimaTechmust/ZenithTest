@@ -17,13 +17,19 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
+import org.hibernate.Criteria;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.techmust.constants.Constants;
+import com.techmust.generic.data.GenericData;
 import com.techmust.generic.data.MasterData;
 import com.techmust.scholarshipmanagement.academicdetails.AcademicDetails;
 import com.techmust.scholarshipmanagement.academicyear.AcademicYear;
@@ -131,6 +137,9 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 	@Transient
 	private int m_nAcademicId;
 	
+	@Transient
+	private int m_nAcademicYearId;
+	
 	
 	public ZenithScholarshipDetails()
 	{
@@ -155,6 +164,16 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 		m_dUpdatedOn = Calendar.getInstance().getTime();
 		m_oUserCreatedBy = new UserInformationData();
 		m_oUserUpdatedBy = new UserInformationData();
+	}	
+
+	public int getM_nAcademicYearId()
+	{
+		return m_nAcademicYearId;
+	}
+
+	public void setM_nAcademicYearId(int m_nAcademicYearId)
+	{
+		this.m_nAcademicYearId = m_nAcademicYearId;
 	}
 
 	public UserInformationData getM_oApprovedBy()
@@ -419,7 +438,20 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 	public void setM_oStudentInformationData(StudentInformationData m_oStudentInformationData) 
 	{
 		this.m_oStudentInformationData = m_oStudentInformationData;
+	}	
+
+	@Override
+	protected Predicate listCriteria(CriteriaBuilder oCriteriaBuilder, Root<GenericData> root) 
+	{					
+		return null;
 	}
+	
+	@Override
+	public Predicate prepareCriteria(Root<GenericData> oRootObject, CriteriaQuery<GenericData> ocCriteriaQuery,CriteriaBuilder oCriteriaBuilder)
+	{		
+		return null;
+	}
+
 	
 	@Override
 	public String generateXML()

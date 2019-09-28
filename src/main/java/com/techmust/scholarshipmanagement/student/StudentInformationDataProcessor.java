@@ -16,7 +16,6 @@ import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.joda.time.DateTime;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.amazonaws.services.dynamodbv2.xspec.BetweenCondition;
 import com.techmust.constants.Constants;
 import com.techmust.generic.dataprocessor.GenericIDataProcessor;
 import com.techmust.generic.response.GenericResponse;
@@ -36,7 +34,6 @@ import com.techmust.scholarshipmanagement.academicdetails.AcademicDetailsProcess
 import com.techmust.scholarshipmanagement.scholarshipdetails.zenithscholarshipstatus.ZenithScholarshipDetails;
 import com.techmust.scholarshipmanagement.sholarshipaccounts.StudentScholarshipAccount;
 import com.techmust.scholarshipmanagement.studentdocuments.StudentDocuments;
-import com.techmust.usermanagement.userinfo.UserInformationData;
 import com.techmust.utils.AWSUtils;
 import com.techmust.utils.Reports;
 import com.techmust.utils.Utils;

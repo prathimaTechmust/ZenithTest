@@ -185,9 +185,12 @@ function studentRemarkInfo_submit ()
 function studentremark_progressbarLoaded ()
 {
 	createPopup('dialog','','',true);
+	var oUserRejectedBy = getLoginUserData ();
 	var oZenith = new ZenithScholarshipDetails ();		
 	oZenith.m_nStudentId = m_oCounselingStudentList_Info_MemberData.m_nStudentId;
 	oZenith.m_strStudentRemarks = $("#studentRemarkInfo_input_Remark").val();
+	oZenith.m_nAcademicYearId = $("#selectCounselingAcademicyear").val();
+	oZenith.m_oUserUpdatedBy = oUserRejectedBy;
 	ZenithStudentInformationDataProcessor.rejectStatusUpdate(oZenith,studentrejectResponse);
 }
 
@@ -216,7 +219,10 @@ function studentRemarkInfo_cancel ()
 function approve_counselingStudent ()
 {
 	var oZenith = new ZenithScholarshipDetails ();
+	var oUserApproveBy = getLoginUserData ();
 	oZenith.m_nStudentId = m_oCounselingStudentList_Info_MemberData.m_nStudentId;
+	oZenith.m_nAcademicYearId = $("#selectCounselingAcademicyear").val();
+	oZenith.m_oUserUpdatedBy = oUserApproveBy;
 	ZenithStudentInformationDataProcessor.aproveCounselingStudentUpdate(oZenith,studentCounselingResponse);
 }
 

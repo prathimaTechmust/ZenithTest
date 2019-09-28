@@ -1033,17 +1033,19 @@ function studentFilteredResponse(oResponse)
 }
 
 function clearFilterBoxes ()
-{	document.getElementById("filterStudentInfo_input_studentUID").value = "";
+{	
+	document.getElementById("filterStudentInfo_input_studentUID").value = "";
 	document.getElementById("filterStudentInfo_input_studentName").value = "";
 	document.getElementById("filterStudentInfo_input_phonenumber").value = "";
 	document.getElementById("filterStudentInfo_input_aadhar").value = "";
 }
 
 //Getting Student Upload Documents
-function viewStudentDocument(academicId) 
+function viewStudentDocument(academicId,academicyearId) 
 {
 	var oAcademicDetails = new AcademicDetails ();
 	oAcademicDetails.m_nAcademicId = academicId;
+	oAcademicDetails.m_nAcademicYearId = academicyearId;
 	AcademicDetailsDataProcessor.getStudentDocuments(oAcademicDetails,studentUploadedDocumentsResponse);
 	
 }

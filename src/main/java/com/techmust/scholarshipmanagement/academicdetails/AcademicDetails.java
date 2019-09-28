@@ -115,7 +115,10 @@ public class AcademicDetails extends MasterData implements Serializable
 	
 	//Transient Variables
 	@Transient
-	public ScholarshipOrganizationDetails[] m_arrScholarshipOrganizationDetails;	
+	public ScholarshipOrganizationDetails[] m_arrScholarshipOrganizationDetails;
+	
+	@Transient
+	private int m_nAcademicYearId;
 	
 	public AcademicDetails()
 	{
@@ -137,6 +140,16 @@ public class AcademicDetails extends MasterData implements Serializable
 		m_oUserUpdatedBy = new UserInformationData();
 	}
 	
+	public int getM_nAcademicYearId() 
+	{
+		return m_nAcademicYearId;
+	}
+
+	public void setM_nAcademicYearId(int m_nAcademicYearId)
+	{
+		this.m_nAcademicYearId = m_nAcademicYearId;
+	}
+
 	public AcademicYear getM_oAcademicYear()
 	{
 		return m_oAcademicYear;

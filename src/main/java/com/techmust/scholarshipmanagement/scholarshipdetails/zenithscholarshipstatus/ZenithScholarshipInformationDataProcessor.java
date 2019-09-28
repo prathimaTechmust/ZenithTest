@@ -29,7 +29,13 @@ public class ZenithScholarshipInformationDataProcessor extends GenericIDataProce
 
 	@RequestMapping(value="/studentStatusInfoUpdate", method = RequestMethod.POST)
 	@ResponseBody
-	public GenericResponse toBeVerifiedStatusUpdate(@RequestParam(name = "scancopy",required = false)MultipartFile oScanCopyMultipartFile,@RequestParam("studentId") int nStudentId,@RequestParam(value="chequefavourId",required = false) Integer nFavourid,@RequestParam(value="strPaymentType",required = false) String strPaymentType,@RequestParam(value="strVerifyRemarks",required = false) String strVerifyRemarks,@RequestParam(name = "nLoginUserId",required = false) Integer nLoginUserId) throws Exception
+	public GenericResponse toBeVerifiedStatusUpdate(@RequestParam(name = "scancopy",required = false)MultipartFile oScanCopyMultipartFile,
+													@RequestParam("studentId") int nStudentId,
+													@RequestParam(value="chequefavourId",required = false) Integer nFavourid,
+													@RequestParam(value="strPaymentType",required = false) String strPaymentType,
+													@RequestParam(value="strVerifyRemarks",required = false) String strVerifyRemarks,
+													@RequestParam(name = "nLoginUserId",required = false) Integer nLoginUserId,
+													@RequestParam(name = "nAcademicyearId",required = false)Integer nAcademicyearId) throws Exception
 	{
 		
 		m_oLogger.info ("toBeVerifiedStatusUpdate");
@@ -44,6 +50,7 @@ public class ZenithScholarshipInformationDataProcessor extends GenericIDataProce
 			oChequeInFavourOf.setM_nChequeFavourId(nFavourid);
 			oZenithScholarshipDetails.setM_oChequeInFavourOf(oChequeInFavourOf);
 		}
+		oZenithScholarshipDetails.setM_nAcademicYearId(nAcademicyearId);
 		oZenithScholarshipDetails.setM_strPaymentType(strPaymentType);
 		oZenithScholarshipDetails.setM_nStudentId(nStudentId);
 		oZenithScholarshipDetails.setM_oUserUpdatedBy(oUserInformationData);
@@ -133,14 +140,14 @@ public class ZenithScholarshipInformationDataProcessor extends GenericIDataProce
 	
 	@RequestMapping(value="/counselingStatusUpdate",method = RequestMethod.POST, headers = {"Content-type=application/json"})
 	@ResponseBody
-	public GenericResponse counselingListApplication(@RequestBody ZenithScholarshipDetails oZenithScholarshipDetails) throws Exception
+	public GenericResponse counselingStatusUpdate(@RequestBody ZenithScholarshipDetails oZenithScholarshipDetails) throws Exception
 	{
 		m_oLogger.info("counselingStatusApplication");
 		m_oLogger.debug("counselingStatusApplication - ZenithScholarshipDetails [IN] : " + oZenithScholarshipDetails);
 		ZenithScholarshipDetailsDataResponse oZenithScholarshipDetailsDataResponse = new ZenithScholarshipDetailsDataResponse();
 		try 
 		{
-			oZenithScholarshipDetailsDataResponse.m_bSuccess = oZenithScholarshipDetails.counselingListApplication(oZenithScholarshipDetails);
+			oZenithScholarshipDetailsDataResponse.m_bSuccess = oZenithScholarshipDetails.counselingStatusUpdate(oZenithScholarshipDetails);
 			if(oZenithScholarshipDetailsDataResponse.m_bSuccess) 
 			{
 				
