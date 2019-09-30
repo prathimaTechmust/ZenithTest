@@ -19,9 +19,13 @@ public class MailService
 	
 	public static String strSubject = "Cheque is Prepared";
 	public static String strFacilitatorBodyHeading = "Dear ";
-	public static String strFacilitatorBodyMessage = "your following student application of scholarship with Zenith Foundation has been processed and cheque prepared.Please come and collect cheque from our office";							
+	public static String strFacilitatorBodyMessage = "your following student application of scholarship with Zenith Foundation has been processed and cheque prepared";							
 	public static String strStudentBodyHeading = "Congratulations ";							
-	public static String strStudentBodyMessage = "your application of scholarship with Zenith Foundation has been processed and cheque prepared.Please come and collect cheque from our office";													
+	public static String strStudentBodyMessage = "your application of scholarship with Zenith Foundation has been processed and cheque prepared. Kindly collect your cheque from the office after 4 working days.\r\n" + 
+													"\r\n" + 
+													"Thanks & Regards\r\n" + 
+													"\r\n" + 
+													"Zenith Foundation";													
 	
 	private Properties setEmailProperties()
 	{

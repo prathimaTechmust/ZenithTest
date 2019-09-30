@@ -15,15 +15,15 @@ import com.techmust.generic.data.GenericData;
 public class AmazonSMS 
 {
 	public static Logger m_oLogger = Logger.getLogger(GenericData.class);
-	public static String strDearHeading = "Dear ";
-	public static String strFacilitatorBodyMessage = "Your following student application of scholarship with Zenith Foundation has been processed and cheque prepared.Please come and collect cheque from our office";							
+	public static String strDearHeading = "Dear";
+	public static String strFacilitatorBodyMessage = " Your following student application of scholarship with Zenith Foundation has been processed and cheque prepared.Please come and collect cheque from our office";							
 	public static String strStudentBodyHeading = "Congratulations ";							
-	public static String strStudentBodyMessage = "your application of scholarship with Zenith Foundation has been processed and cheque prepared. Kindly collect your cheque from the office after 4 working days.\r\n" + 
+	public static String strStudentBodyMessage = " your application of scholarship with Zenith Foundation has been processed and cheque prepared. Kindly collect your cheque from the office after 4 working days.\r\n" + 
 												"\r\n" + 
 												"Thanks & Regards\r\n" + 
 												"\r\n" + 
 												"Zenith Foundation";
-	public static String strCounselingBodyHeading = "Dear (name of the student), you have been called for counsellig at Zenith Foundation on (Date and Time).\r\n" + 
+	public static String strCounselingBodyHeading = " you have been called for counsellig at Zenith Foundation on (Date and Time).\r\n" + 
 													"\r\n" + 
 													"Thanks & Regards\r\n" + 
 													"\r\n" + 
