@@ -21,7 +21,6 @@ import javax.persistence.criteria.Root;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.techmust.generic.data.GenericData;
 import com.techmust.generic.data.MasterData;
 import com.techmust.usermanagement.userinfo.UserInformationData;
@@ -204,5 +203,4 @@ public class CourseInformationData extends MasterData
 		}
 		return strCourseInfoXML;		
 	}
-
 }

@@ -15,5 +15,4 @@ public class AcademicYearResponse extends GenericResponse
     	m_arrAcademicYear = new ArrayList<AcademicYear> ();
     	m_nRowCount = 0;
 	}
-
 }

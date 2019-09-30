@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.mail.MessagingException;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +26,7 @@ import com.techmust.utils.Utils;
 public class StudentScholarshipAccountsProcessor extends GenericIDataProcessor<StudentScholarshipAccount>
 {
 
+	@SuppressWarnings("unused")
 	@RequestMapping(value = "/studentAccountDataCreate",method = RequestMethod.POST,headers = {"Content-type=application/json"})
 	@ResponseBody
 	@Override
@@ -156,7 +155,7 @@ public class StudentScholarshipAccountsProcessor extends GenericIDataProcessor<S
 		return list (oData.getM_oStudentScholarshipAccount(), oOrderBy, oData.getM_nPageNo(), oData.getM_nPageSize());
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private GenericResponse list(StudentScholarshipAccount oStudentScholarshipAccount, HashMap<String, String> arrOrderBy, int nPageNumber, int nPageSize)
 	{
 		m_oLogger.info ("list");

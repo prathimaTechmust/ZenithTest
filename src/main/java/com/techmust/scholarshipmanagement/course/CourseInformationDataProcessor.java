@@ -1,17 +1,7 @@
 package com.techmust.scholarshipmanagement.course;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import javax.servlet.http.HttpSession;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,11 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.techmust.constants.Constants;
 import com.techmust.generic.dataprocessor.GenericIDataProcessor;
 import com.techmust.generic.response.GenericResponse;
-import com.techmust.generic.util.HibernateUtil;
-import com.techmust.helper.ActionManagerHelper;
 import com.techmust.helper.ZenithHelper;
-import com.techmust.scholarshipmanagement.activitylog.ActivityLog;
-import com.techmust.scholarshipmanagement.activitylog.ActivityLogDataProcessor;
 import com.techmust.utils.Utils;
 
 @Controller
@@ -69,7 +55,7 @@ public class CourseInformationDataProcessor extends GenericIDataProcessor <Cours
 			oCourseDataResponse.m_bSuccess = oCourseInformationData.doesCourseHaveAcademic(oCourseInformationData.getM_nCourseId());
 			if(oCourseDataResponse.m_bSuccess == true)
 			{
-				oCourseDataResponse.m_strError_Desc = "Students are part of this course";
+				oCourseDataResponse.m_strError_Desc = Constants.COURSEDELETEDESC;
 				oCourseDataResponse.m_bSuccess = false;
 			}				
 			else
@@ -118,7 +104,7 @@ public class CourseInformationDataProcessor extends GenericIDataProcessor <Cours
 		return list (oData.getM_oCourseInformationData(), oOrderBy, oData.getM_nPageNo(), oData.getM_nPageSize());
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private GenericResponse list(CourseInformationData oCourseInformationData, HashMap<String, String> arrOrderBy, int nPageNumber, int nPageSize)
 	{
 		m_oLogger.info ("list");
@@ -191,6 +177,7 @@ public class CourseInformationDataProcessor extends GenericIDataProcessor <Cours
 		return  getCoursesSuggestions(oData.getM_oCourseInformationData(),oData.getM_strSortColumn(),oData.getM_strOrderBy());
 	}	
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public CourseDataResponse getCoursesSuggestions(CourseInformationData oCourseInformationData, String strColumn,String strOrderBy) throws Exception
 	{
 		m_oLogger.info ("getCoursesSuggestions");

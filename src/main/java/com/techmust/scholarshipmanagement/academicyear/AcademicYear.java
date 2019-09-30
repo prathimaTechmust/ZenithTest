@@ -27,10 +27,8 @@ import com.techmust.usermanagement.userinfo.UserInformationData;
 @Entity
 @Table(name = "academicyear")
 public class AcademicYear extends MasterData
-{
-	
-	private static final long serialVersionUID = 1L;
-	
+{	
+	private static final long serialVersionUID = 1L;	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "academicyearid")
@@ -181,5 +179,4 @@ public class AcademicYear extends MasterData
 		}
 		return strAcademicInfoXML;
 	}
-
 }

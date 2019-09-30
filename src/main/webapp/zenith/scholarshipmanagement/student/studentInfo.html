@@ -410,7 +410,7 @@
 											<td style="padding-right: 16px"> </td>  
 						                    <td class="fieldHeading">Academic Year<em>*</em> </td>
 						                    <td>
-						                    	<select id = "selectacademicyear" name="selectacademicyear"  class="zenith validate_box">
+						                    	<select id = "selectacademicyear" name="selectacademicyear"  class="zenith validate_box" onchange="studentNewAcademic()">
 						                    	</select>			                    
 						                    </td>						
 										</tr>								
@@ -696,8 +696,16 @@
 						                 type="button"
 						                 class="zenith"
 						                 update="false"
-						                 onclick="studentInfo_submit(progress)">
+						                 onclick="studentInfo_submit()">
 						               Create
+						             </button>
+						             </td>
+						             <td id="studentInfo_button_newAcademicYear" style="display:none"> 
+						             <button 
+						                 id="studentInfo_NewAcademicYear"
+						                 type="button"
+						                 class="zenith" style="width: 100%" onclick="studentInfo_newAcademicYear()">
+						               Update
 						             </button>
 						             </td>
 						             <td>

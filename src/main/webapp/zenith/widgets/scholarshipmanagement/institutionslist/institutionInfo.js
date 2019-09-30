@@ -10,7 +10,7 @@ function institutionInfo_memberData ()
 {
 	this.m_nInstitutionId = -1;
 	this.chequeInFavourOfId = 1;
-	this.m_nEditRowCount = -1;
+	this.m_nEditRowCount = 0;
 	this.UpdateCountChequeInFavourOfId = 0;
 	this.UpdateEditCountChequeInFavourOfId = 0;
 }
@@ -200,7 +200,7 @@ function deleteChequeInFavourOf ()
 
 function addNewChequeInFavourOf ()
 {
-	if(m_oInstitutionInfoMemberData.m_nEditRowCount != -1)
+	if(m_oInstitutionInfoMemberData.m_nEditRowCount != 0)
 	{
 		$('#chequeInFavourOf').append('<tr><td class="fieldHeading">Cheque Favourof<td><input type="text" id="chequeInFavourOf'+(m_oInstitutionInfoMemberData.m_nEditRowCount++)+'" class="zenith"/></td><td><img src ="images/delete.png" align = "center" style="width:21px;padding-left:10px" id="deletechequefavour" class= "deleteChequeInFavourOf" onclick = "deleteChequeInFavourOf (this)"/></td></tr>');
 

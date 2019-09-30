@@ -23,7 +23,6 @@ import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.apache.commons.io.FilenameUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -250,8 +249,6 @@ public class StudentInformationData  extends MasterData implements Serializable
 		m_oUserUpdatedBy = new UserInformationData ();
 	}
 	
-	
-
 	public String getM_strScore() 
 	{
 		return m_strScore;
@@ -824,8 +821,7 @@ public class StudentInformationData  extends MasterData implements Serializable
 			//Siblings Details
 			Document oSiblingsDetailsDataXmlDoc = getXmlDocument ("<m_oSibilingDetails>"+buildSiblingsDetails (m_oSibilingDetails)+"</m_oSibilingDetails>");
 			Node oSiblingsDetailssDataNode = oXmlDocument.importNode(oSiblingsDetailsDataXmlDoc.getFirstChild(), true);
-			oRootElement.appendChild(oSiblingsDetailssDataNode);
-			
+			oRootElement.appendChild(oSiblingsDetailssDataNode);			
 			addChild (oXmlDocument, oRootElement, "m_nStudentId", m_nStudentId);
 			addChild (oXmlDocument, oRootElement, "m_nUID", m_nUID);
 			addChild (oXmlDocument, oRootElement, "m_nStudentAadharNumber", m_nStudentAadharNumber);

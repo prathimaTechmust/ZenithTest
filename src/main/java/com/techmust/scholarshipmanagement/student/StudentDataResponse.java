@@ -1,8 +1,6 @@
 package com.techmust.scholarshipmanagement.student;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import com.techmust.generic.response.GenericResponse;
 import com.techmust.scholarshipmanagement.studentdocuments.StudentDocuments;
 

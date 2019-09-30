@@ -29,8 +29,7 @@ public class AcademicYearDataProcessor extends GenericIDataProcessor<AcademicYea
 		try
 		{
 			oAcademicYearResponse.m_bSuccess = oAcademicYear.saveObject();
-			Utils.createActivityLog("AcademicYearDataProcessor::create", oAcademicYear);
-			
+			Utils.createActivityLog("AcademicYearDataProcessor::create", oAcademicYear);			
 		}
 		catch (Exception oException)
 		{
@@ -39,7 +38,6 @@ public class AcademicYearDataProcessor extends GenericIDataProcessor<AcademicYea
 		}
 		return oAcademicYearResponse;
 	}
-
 	
 	@RequestMapping(value="/academicyearInfoList", method = RequestMethod.POST, headers = {"Content-type=application/json"})
 	@ResponseBody
@@ -50,7 +48,7 @@ public class AcademicYearDataProcessor extends GenericIDataProcessor<AcademicYea
 		return list(oZenithHelper.getM_oAcademicYear(),oOrderBy,oZenithHelper.getM_nPageNo(),oZenithHelper.getM_nPageSize());
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private GenericResponse list(AcademicYear oAcademicYear, HashMap<String, String> arrOrderBy, int nPageNumber,	int nPageSize)
 	{
 		m_oLogger.info ("list");
@@ -85,8 +83,7 @@ public class AcademicYearDataProcessor extends GenericIDataProcessor<AcademicYea
 			{
 				updateOldAcademicValue(oAcademicYear);
 				oAcademicYearResponse.m_bSuccess = oAcademicYear.saveObject();
-			}
-				
+			}				
 		}
 		catch (Exception oException)
 		{
@@ -118,6 +115,7 @@ public class AcademicYearDataProcessor extends GenericIDataProcessor<AcademicYea
 		return bIsUpdate;		
 	}
 
+	@SuppressWarnings("unused")
 	private void updateOldAcademicValue(AcademicYear oData)
 	{
 		AcademicYear oYear = new AcademicYear();
@@ -135,7 +133,6 @@ public class AcademicYearDataProcessor extends GenericIDataProcessor<AcademicYea
 			m_oLogger.error("updateOldAcademicValue - oException"+oException);
 		}		
 	}
-
 
 	private boolean checkAcademicExists(AcademicYear oAcademicYearData)
 	{
@@ -157,8 +154,6 @@ public class AcademicYearDataProcessor extends GenericIDataProcessor<AcademicYea
 		return bIsExists;		
 	}
 
-
-	@RequestMapping(value = "/academicyearupdate",method = RequestMethod.POST,headers = {"Content-type=application/json"})
 	@ResponseBody	
 	public GenericResponse update(@RequestBody ZenithHelper oZenithHelper) throws Exception
 	{		

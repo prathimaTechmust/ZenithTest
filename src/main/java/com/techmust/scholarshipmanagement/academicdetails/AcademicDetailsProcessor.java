@@ -16,6 +16,7 @@ import com.techmust.constants.Constants;
 import com.techmust.generic.dataprocessor.GenericIDataProcessor;
 import com.techmust.generic.response.GenericResponse;
 import com.techmust.scholarshipmanagement.student.StudentDataResponse;
+import com.techmust.scholarshipmanagement.student.StudentInformationDataProcessor;
 import com.techmust.scholarshipmanagement.studentdocuments.StudentDocuments;
 import com.techmust.utils.AWSUtils;
 import com.techmust.utils.Utils;
@@ -23,7 +24,6 @@ import com.techmust.utils.Utils;
 @Controller
 public class AcademicDetailsProcessor extends GenericIDataProcessor<AcademicDetails>
 {	
-	
 
 	public static GenericResponse uploadStudentDocumentstoS3bucket(MultipartFile oStudentAadharMultipartFile,
 																   MultipartFile oStudentElectricityBillMultipartFile,
@@ -280,19 +280,25 @@ public class AcademicDetailsProcessor extends GenericIDataProcessor<AcademicDeta
 	@RequestMapping(value="/uploadStudentDocuments", method = RequestMethod.POST)
 	@ResponseBody
 	public GenericResponse uploadStudentNewDocumentstoS3bucket(@RequestParam(name = "studentaadhar",required = false) MultipartFile oStudentAadharMultipartFile,
-															@RequestParam(name = "studentelectricitybill",required = false) MultipartFile oStudentElectricityBillMultipartFile,
-															@RequestParam(name = "fatheraadhar",required = false) MultipartFile oFatherMultipartFile,
-															@RequestParam(name = "motheraadhar",required = false) MultipartFile oMotherMultipartFile,
-															@RequestParam(name = "studentmarkscard1",required = false) MultipartFile oStudentMarksCard1MultipartFile,
-															@RequestParam(name = "studentmarkscard2",required = false) MultipartFile oStudentMarksCard2MultipartFile,
-															@RequestParam(name = "otherdocuments",required = false) MultipartFile oOtherDocumentsMultipartFile,
-															@RequestParam("academicId") int nAcademicId) throws Exception
+															   @RequestParam(name = "studentelectricitybill",required = false) MultipartFile oStudentElectricityBillMultipartFile,
+															   @RequestParam(name = "fatheraadhar",required = false) MultipartFile oFatherMultipartFile,
+															   @RequestParam(name = "motheraadhar",required = false) MultipartFile oMotherMultipartFile,
+															   @RequestParam(name = "studentmarkscard1",required = false) MultipartFile oStudentMarksCard1MultipartFile,
+															   @RequestParam(name = "studentmarkscard2",required = false) MultipartFile oStudentMarksCard2MultipartFile,
+															   @RequestParam(name = "otherdocuments",required = false) MultipartFile oOtherDocumentsMultipartFile,
+															   @RequestParam(name = "studentimage",required = false) MultipartFile oStudentMultipartFile,
+															   @RequestParam(name = "studentId",required = false) Integer nStudentId,
+															   @RequestParam("academicId") int nAcademicId) throws Exception
     {
 		AcademicDetails oAcademicDetails = new AcademicDetails();
 		oAcademicDetails.setM_nAcademicId(nAcademicId);
 		StudentDataResponse oStudentDataResponse = new StudentDataResponse();			
 		try 
-		{			
+		{	
+			if(oStudentMultipartFile != null)
+			{
+				oStudentDataResponse.m_bSuccess = StudentInformationDataProcessor.uploadStudentImage(oStudentMultipartFile,nStudentId);
+			}
 			if(oStudentAadharMultipartFile != null)
 			{				
 				oStudentDataResponse.m_bSuccess = uploadStudentAadhar(oAcademicDetails,oStudentAadharMultipartFile);				

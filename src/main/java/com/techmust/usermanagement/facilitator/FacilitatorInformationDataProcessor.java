@@ -2,14 +2,6 @@ package com.techmust.usermanagement.facilitator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,9 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.techmust.generic.dataprocessor.GenericIDataProcessor;
 import com.techmust.generic.response.GenericResponse;
-import com.techmust.generic.util.HibernateUtil;
 import com.techmust.helper.ZenithHelper;
-import com.techmust.scholarshipmanagement.student.StudentInformationData;
 import com.techmust.utils.Utils;
 
 @Controller
@@ -103,7 +93,7 @@ public class FacilitatorInformationDataProcessor extends GenericIDataProcessor <
 		return list (oData.getM_oFacilitatorInformationData(), oOrderBy, oData.getM_nPageNo(), oData.getM_nPageSize());
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private GenericResponse list(FacilitatorInformationData oFacilitatorInformationData, HashMap<String, String> arrOrderBy, int nPageNumber, int nPageSize)
 	{
 		m_oLogger.info ("list");
@@ -175,6 +165,7 @@ public class FacilitatorInformationDataProcessor extends GenericIDataProcessor <
 	}
 	
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public FacilitatorDataResponse getFacilitatorSuggestions(FacilitatorInformationData oFacilitatorInformationData,String strColumn, String strOrderBy) throws Exception
 	{
 		m_oLogger.info ("getFacilitatorSuggestions");
