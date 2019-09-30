@@ -41,8 +41,6 @@ import com.techmust.utils.Utils;
 @Controller
 public class StudentInformationDataProcessor extends GenericIDataProcessor <StudentInformationData>
 {
-	
-
 	@Override
 	@RequestMapping(value = "/studentInfoCreate",method = RequestMethod.POST, headers = {"Content-type=application/json"})
 	@ResponseBody
@@ -59,7 +57,6 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 				oStudentDataResponse.m_arrStudentInformationData.add(oStudentInformationData);
 				Utils.createActivityLog("StudentInformationDataProcessor::create", oStudentInformationData);				
 			}			
-			
 		}
 		catch (Exception oException)
 		{
@@ -82,12 +79,12 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 			oStudentInformationData = (StudentInformationData) populateObject (oStudentInformationData);
 			oStudentDataResponse.m_bSuccess = oStudentInformationData.deleteObject();
 			if(oStudentDataResponse.m_bSuccess)
-				Utils.createActivityLog("StudentInformationDataProcessor::deleteData", oStudentInformationData);
+				Utils.createActivityLog("StudentInformationDataProcessor::deleteData", oStudentInformationData);				
 		}
 		catch (Exception oException)
 		{
 			m_oLogger.error ("deleteData - oException : " + oException);
-		throw oException;
+			oStudentDataResponse.m_strError_Desc = Constants.DELETEERRORDESC;			
 		}
 		return oStudentDataResponse;
 	}
@@ -163,7 +160,7 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 			Set<AcademicDetails> m_setAcademicDetails = oStudentInformationData.getM_oAcademicDetails();
 			List<AcademicDetails>m_arrAcademicDetails = new ArrayList<AcademicDetails>(m_setAcademicDetails);
 			AcademicDetails oAcademicDetails = m_arrAcademicDetails.get(0);
-			oStudentDataResponse.m_oStudentDocuments = getStudentDocuments(oAcademicDetails);			
+			oStudentDataResponse.m_oStudentDocuments = getStudentUploadDocuments(oAcademicDetails);			
 			oStudentDataResponse.m_arrStudentInformationData.add (oStudentInformationData);
 		} 
 		catch (Exception oException) 
@@ -174,10 +171,10 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		return oStudentDataResponse;
 	}	
 
-	private StudentDocuments getStudentDocuments(AcademicDetails oAcademicDetails)
+	private StudentDocuments getStudentUploadDocuments(AcademicDetails oAcademicDetails)
 	{
 		StudentDocuments oStudentDocuments = null;
-		if(oAcademicDetails.getM_arrStudentDocuments().size() >0)
+		if(oAcademicDetails != null && oAcademicDetails.getM_arrStudentDocuments().size() >0)
 		{
 			oStudentDocuments = oAcademicDetails.getM_arrStudentDocuments().get(0);
 			oStudentDocuments = Utils.getStudentDocuments(oStudentDocuments);
@@ -229,7 +226,7 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		return list (oData.getM_oStudentInformationData(), oOrderBy, oData.getM_nPageNo(), oData.getM_nPageSize());
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private GenericResponse list(StudentInformationData oStudentInformationData, HashMap<String, String> arrOrderBy, int nPageNumber, int nPageSize)
 	{
 		m_oLogger.info ("list");
@@ -247,7 +244,7 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		return oStudentDataResponse;
 	}
 
-	@SuppressWarnings({ "unused", "unchecked" })
+	@SuppressWarnings({ "unused", "unchecked", "rawtypes" })
 	@Override
 	@RequestMapping(value="/studentInfoUpdate", method = RequestMethod.POST, headers = {"Content-type=application/json"})
 	@ResponseBody
@@ -342,10 +339,10 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 			m_oLogger.error ("getStudentUID - oException : "  + oException);
 			throw oException;
 		}
-		return oStudentDataResponse;
-		
+		return oStudentDataResponse;		
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "/studentStatusInfoList",method = RequestMethod.POST,headers = {"Content-type=application/json"})
 	@ResponseBody
 	public GenericResponse getStatusStudentsList(@RequestBody StudentInformationData oStudentInformationData)
@@ -380,7 +377,7 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 			{
 				oStudentDataResponse.m_arrStudentInformationData.add(oStudentInformationData);
 				List<AcademicDetails> m_arrAcademicList = new ArrayList<AcademicDetails>(oStudentInformationData.getM_oAcademicDetails());				
-				oStudentDataResponse.m_oStudentDocuments = getStudentDocuments(m_arrAcademicList.get(0));
+				oStudentDataResponse.m_oStudentDocuments = getStudentUploadDocuments(m_arrAcademicList.size() > 0 ? m_arrAcademicList.get(0):null);
 				oStudentDataResponse.m_bSuccess = true;
 			}
 		}
@@ -413,7 +410,7 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		return oStudentDataResponse;
 	}
 	
-	@SuppressWarnings({ "unused", "rawtypes", "unchecked"})
+	@SuppressWarnings({ "unchecked"})
 	@RequestMapping(value = "/getStudentList",method = RequestMethod.POST,headers = {"Content-type=application/json"})
 	@ResponseBody
 	public static GenericResponse  getStudentList (@RequestBody StudentInformationData oStudentInformationData)
@@ -422,11 +419,11 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		StudentDataResponse oStudentDataResponse = new StudentDataResponse();
 		oStudentDataResponse.m_nRowCount = getStudentRowCount(oStudentInformationData);
 		try 
-		{	//Criteriabuilder,CriteriaQuery,Root Objects	
+		{	//CriteriaBuilder,CriteriaQuery,Root Objects	
 			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
 			CriteriaQuery<StudentInformationData> oCriteriaQuery = oCriteriaBuilder.createQuery(StudentInformationData.class);
 			Root<StudentInformationData> oStudentRoot = oCriteriaQuery.from(StudentInformationData.class);
-			//Join the Child Enitities
+			//Join the Child Entities
 			Join<Object, Object> oAcademicJoin = (Join<Object, Object>) oStudentRoot.fetch("m_oAcademicDetails");
 			Join<Object,Object> oZenithJoin = (Join<Object, Object>) oStudentRoot.fetch("m_oZenithScholarshipDetails");
 			oCriteriaQuery.select(oStudentRoot);
@@ -511,11 +508,11 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		EntityManager oEntityManager = oStudentInformationData._getEntityManager();
 		try 
 		{
-			//Criteriabuilder,CriteriaQuery,Root Objects	
+			//CriteriaBuilder,CriteriaQuery,Root Objects	
 			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
 			CriteriaQuery<StudentInformationData> oCriteriaQuery = oCriteriaBuilder.createQuery(StudentInformationData.class);
 			Root<StudentInformationData> oStudentRoot = oCriteriaQuery.from(StudentInformationData.class);
-			//Join the Child Enitities
+			//Join the Child Entities
 			Join<Object, Object> oAcademicJoin = (Join<Object, Object>) oStudentRoot.fetch("m_oAcademicDetails");
 			Join<Object,Object> oZenithJoin = (Join<Object, Object>) oStudentRoot.fetch("m_oZenithScholarshipDetails");
 			oCriteriaQuery.select(oStudentRoot);
@@ -540,9 +537,7 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 			HibernateUtil.removeConnection();
 		}
 		return nStudentRowCount;
-	}
-	
-	
+	}	
 	
 	// Populate DropDown values in Reports Form
 	@SuppressWarnings("unchecked")
@@ -597,7 +592,6 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		
 	}
 	
-	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/getStudentParentalOccupations",method = RequestMethod.POST,headers = {"Content-type=application/json"})
 	@ResponseBody
@@ -620,8 +614,7 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		{
 			m_oLogger.debug("getParentalOccupations - oException"+oException);
 		}
-		return oDataResponse;
-		
+		return oDataResponse;		
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -671,8 +664,7 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		{
 			m_oLogger.debug("getStudentParentalStatus - oException"+oException);
 		}
-		return oDataResponse;
-		
+		return oDataResponse;		
 	}	
 	
 	//Download Reports Based on Particular Parameters	
@@ -804,7 +796,7 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		return arrPredicateList;
 	}
 
-	@SuppressWarnings({ "rawtypes", "unused", "unchecked" })
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static String studentExcelData (ArrayList<StudentInformationData> arrStudentInformationData)
 	{		
 		
@@ -863,34 +855,56 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 	
 	private static ZenithScholarshipDetails getZenithScholarshipData(Set<ZenithScholarshipDetails> oZenithScholarshipDetails) 
 	{
-		List<ZenithScholarshipDetails> listZenith = new ArrayList<ZenithScholarshipDetails>(oZenithScholarshipDetails);
 		ZenithScholarshipDetails oScholarshipDetails = new ZenithScholarshipDetails();
-		if(listZenith.size() > 0)
-			oScholarshipDetails = listZenith.get(0);
+		try
+		{
+			List<ZenithScholarshipDetails> listZenith = new ArrayList<ZenithScholarshipDetails>(oZenithScholarshipDetails);			
+			if(listZenith.size() > 0)
+				oScholarshipDetails = listZenith.get(0);
+		}
+		catch 
+		(Exception oException) 
+		{
+			m_oLogger.error("getZenithScholarshipData- oException"+oException);
+		}		
 		return oScholarshipDetails;
 	}
 	
 	private static StudentScholarshipAccount getScholarshipAccount(Set<StudentScholarshipAccount> set)
 	{
-		List<StudentScholarshipAccount> liStudentScholarshipAccounts = new ArrayList<StudentScholarshipAccount>(set);
 		StudentScholarshipAccount oScholarshipAccount = new StudentScholarshipAccount();
-		for(int nIndex = 0;nIndex < liStudentScholarshipAccounts.size(); nIndex++)
+		try 
 		{
-			StudentScholarshipAccount oActiveCheque = liStudentScholarshipAccounts.get(nIndex);
-			if(oActiveCheque.getM_strChequeStatus().equals(Constants.CHEQUESTATUS))
+			List<StudentScholarshipAccount> liStudentScholarshipAccounts = new ArrayList<StudentScholarshipAccount>(set);			
+			for(int nIndex = 0;nIndex < liStudentScholarshipAccounts.size(); nIndex++)
 			{
-				oScholarshipAccount = liStudentScholarshipAccounts.get(nIndex);
-			}
+				StudentScholarshipAccount oActiveCheque = liStudentScholarshipAccounts.get(nIndex);
+				if(oActiveCheque.getM_strChequeStatus().equals(Constants.CHEQUESTATUS))
+				{
+					oScholarshipAccount = liStudentScholarshipAccounts.get(nIndex);
+				}
+			}		
+		} 
+		catch (Exception oException)
+		{
+			m_oLogger.debug("getScholarshipAccount - oException"+oException);
 		}		
 		return oScholarshipAccount;
 	}
 	
 	private static AcademicDetails getAcademicDetails(Set<AcademicDetails> set)
 	{
-		List<AcademicDetails> listAcademic = new ArrayList<AcademicDetails>(set);
 		AcademicDetails oAcademicDetails = new AcademicDetails();
-		if(listAcademic.size() > 0)
-			 oAcademicDetails = listAcademic.get(0);
+		try 
+		{
+			List<AcademicDetails> listAcademic = new ArrayList<AcademicDetails>(set);			
+			if(listAcademic.size() > 0)
+				 oAcademicDetails = listAcademic.get(0);
+		} 
+		catch (Exception oException) 
+		{
+			m_oLogger.debug("getAcademicDetails - oException"+oException);
+		}		
 		return oAcademicDetails;		
 	}
 	

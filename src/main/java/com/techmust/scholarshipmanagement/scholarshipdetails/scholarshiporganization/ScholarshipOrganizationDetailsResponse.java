@@ -14,6 +14,4 @@ public class ScholarshipOrganizationDetailsResponse extends GenericResponse
     	m_arrScholarshipOrganizationDetailsData = new ArrayList<ScholarshipOrganizationDetails> ();
     	m_nRowCount = 0;
 	}
-
-
 }

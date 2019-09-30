@@ -1,14 +1,10 @@
 package com.techmust.scholarshipmanagement.activitylog;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Controller;
@@ -17,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.techmust.constants.Constants;
 import com.techmust.generic.dataprocessor.GenericIDataProcessor;
 import com.techmust.generic.response.GenericResponse;
 import com.techmust.generic.util.HibernateUtil;
@@ -54,7 +49,7 @@ public class ActivityLogDataProcessor  extends GenericIDataProcessor<ActivityLog
 		return list (oData.getM_oActivityLog(), oOrderBy, oData.getM_nPageNo(), oData.getM_nPageSize());
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private GenericResponse list(ActivityLog oActivityLog, HashMap<String, String> arrOrderBy, int nPageNumber, int nPageSize)
 	{
 		m_oLogger.info ("list");
@@ -72,6 +67,7 @@ public class ActivityLogDataProcessor  extends GenericIDataProcessor<ActivityLog
 		return oActivityLogResponse;
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "/sortActivityLogListInfo",method = RequestMethod.POST,headers = {"Content-type=application/json"})
 	@ResponseBody
 	public GenericResponse sortingList(@RequestBody ZenithHelper oZenithHelper)
@@ -93,6 +89,7 @@ public class ActivityLogDataProcessor  extends GenericIDataProcessor<ActivityLog
 		
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "/getLoginUsersList",method = RequestMethod.POST,headers = {"Content-type=application/json"})
 	@ResponseBody
 	public GenericResponse getLoginUsersList(@RequestBody ActivityLog oActivityLog)
@@ -173,17 +170,14 @@ public class ActivityLogDataProcessor  extends GenericIDataProcessor<ActivityLog
 	{
 		// TODO Auto-generated method stub
 		return null;
-	}
-	
+	}	
 
 	@Override
 	public GenericResponse update(ActivityLog oActivityLog) throws Exception
 	{
 		// TODO Auto-generated method stub
 		return null;
-	}
-	
-	
+	}	
 
 	@Override
 	public GenericResponse list(ActivityLog oActivityLog, HashMap<String, String> arrOrderBy) throws Exception

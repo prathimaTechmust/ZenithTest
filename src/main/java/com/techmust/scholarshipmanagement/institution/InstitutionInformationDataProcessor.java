@@ -2,14 +2,9 @@ package com.techmust.scholarshipmanagement.institution;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.JoinType;
-import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Controller;
@@ -18,14 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.amazonaws.services.codecommit.model.transform.PostCommentForPullRequestResultJsonUnmarshaller;
 import com.techmust.generic.dataprocessor.GenericIDataProcessor;
 import com.techmust.generic.response.GenericResponse;
 import com.techmust.generic.util.HibernateUtil;
 import com.techmust.helper.ZenithHelper;
 import com.techmust.scholarshipmanagement.chequeFavourOf.ChequeInFavourOf;
-import com.techmust.scholarshipmanagement.course.CourseDataResponse;
-import com.techmust.scholarshipmanagement.course.CourseInformationData;
 import com.techmust.utils.Utils;
 
 @Controller
@@ -117,7 +109,7 @@ public class InstitutionInformationDataProcessor extends GenericIDataProcessor<I
 		return list (oData.getM_oInstitutionInformationData(), oOrderBy, oData.getM_nPageNo(), oData.getM_nPageSize());
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private GenericResponse list(InstitutionInformationData oInstitutionInformationData, HashMap<String, String> arrOrderBy, int nPageNumber, int nPageSize)
 	{
 		m_oLogger.info ("list");
@@ -135,7 +127,6 @@ public class InstitutionInformationDataProcessor extends GenericIDataProcessor<I
 		return oInstitutionDataResponse;
 	}
 
-
 	@Override
 	@RequestMapping(value="/institutionInfoUpdate", method = RequestMethod.POST, headers = {"Content-type=application/json"})
 	@ResponseBody
@@ -150,7 +141,6 @@ public class InstitutionInformationDataProcessor extends GenericIDataProcessor<I
 			oInstitutionDataResponse.m_bSuccess = oInstitutionInformationData.updateObject();
 			if(oInstitutionDataResponse.m_bSuccess)
 			{
-				//oInstitutionDataResponse.m_arrInstitutionInformationData.add(oInstitutionInformationData);
 				Utils.createActivityLog("InstitutionInformationDataProcessor::update", oInstitutionInformationData);
 			}
 		}
@@ -191,6 +181,7 @@ public class InstitutionInformationDataProcessor extends GenericIDataProcessor<I
 		return getInstitutionsSuggestions(oData.getM_oInstitutionInformationData(),oData.getM_strSortColumn(),oData.getM_strOrderBy());
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public InstitutionDataResponse getInstitutionsSuggestions(InstitutionInformationData oInstitutionInformationData,String strColumn, String strOrderBy) throws Exception
 	{
 		m_oLogger.info ("getInstitutionSuggestions");
@@ -208,9 +199,7 @@ public class InstitutionInformationDataProcessor extends GenericIDataProcessor<I
 			throw oException;
 		}
 		return oInstitutionDataResponse;
-	}
-	
-	
+	}	
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/getInstitutionInfoFilterData", method = RequestMethod.POST, headers = {"Content-type=application/json"})
@@ -236,6 +225,7 @@ public class InstitutionInformationDataProcessor extends GenericIDataProcessor<I
 		
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "/getChequeFavourData",method = RequestMethod.POST,headers = {"Content-type=application/json"})
 	@ResponseBody
 	public GenericResponse getChequeInFavourOf (@RequestBody InstitutionInformationData oInstitutionInformationData)
@@ -264,8 +254,7 @@ public class InstitutionInformationDataProcessor extends GenericIDataProcessor<I
 			oEntityManager.close();
 			HibernateUtil.removeConnection();
 		}
-		return oInstitutionDataResponse;
-		
+		return oInstitutionDataResponse;		
 	}
 	
 	@Override

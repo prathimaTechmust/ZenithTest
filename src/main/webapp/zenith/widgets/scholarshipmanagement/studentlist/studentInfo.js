@@ -699,21 +699,29 @@ function studentInfo_gotData (oStudentInfoResponse)
 	  /*Academic Details*/
 	 institutionPopulateCombobox(oStudentInfoData);
 	 coursePopulateCombobox(oStudentInfoData);
-	 $("#select_input_academic_name").jqxComboBox('val',oStudentInfoData.m_oAcademicDetails[0].m_oInstitutionInformationData.m_nInstitutionId);	
-	 $("#select_input_studentcourse").jqxComboBox('val',oStudentInfoData.m_oAcademicDetails[0].m_oCourseInformationData.m_nCourseId);
-	 $("#select_input_studentSpecialization").val(oStudentInfoData.m_oAcademicDetails[0].m_strSpecialization);
-	 $("#studentInfo_input_studentScore").val(oStudentInfoData.m_oAcademicDetails[0].m_strStudentScore);
-	 $("#academicInfo_input_annualfee").val(oStudentInfoData.m_oAcademicDetails[0].m_fAnnualFee);
-	 $("#academicInfo_input_paidfee").val(oStudentInfoData.m_oAcademicDetails[0].m_fPaidFee);	 
-	 substraction();
-	 /* Scholarship Details*/	
-	 gotScholarshipdata(m_oStudentInfoMemberData.m_arrScholarshipOrganizationDetails);	 
-	 gotStudentDocuments(oStudentInfoResponse.m_oStudentDocuments);
+	 gotAcademicDetails (oStudentInfoData.m_oAcademicDetails);		 
+	 substraction();	
 	 setReadableFields();
 	 if(m_oStudentInfoMemberData.m_arrSiblingsDetails.length > 0)
 		 gotSiblingDetails(m_oStudentInfoMemberData.m_arrSiblingsDetails);
 	 initFormValidateBoxes ("studentInfo_form_id");
+	 gotStudentDocuments(oStudentInfoResponse.m_oStudentDocuments);
 	 siblingsRowCount(m_oStudentInfoMemberData.m_arrSiblingsDetails);
+}
+
+function gotAcademicDetails (arrAcademicDetails)
+{
+	if(arrAcademicDetails.length > 0 && arrAcademicDetails != undefined)
+	{
+		 $("#select_input_academic_name").jqxComboBox('val',arrAcademicDetails[0].m_oInstitutionInformationData.m_nInstitutionId);	
+		 $("#select_input_studentcourse").jqxComboBox('val',arrAcademicDetails[0].m_oCourseInformationData.m_nCourseId);
+		 $("#select_input_studentSpecialization").val(arrAcademicDetails[0].m_strSpecialization);
+		 $("#studentInfo_input_studentScore").val(arrAcademicDetails[0].m_strStudentScore);
+		 $("#academicInfo_input_annualfee").val(arrAcademicDetails[0].m_fAnnualFee);
+		 $("#academicInfo_input_paidfee").val(arrAcademicDetails[0].m_fPaidFee);
+		 /* Scholarship Details*/	
+		 gotScholarshipdata(m_oStudentInfoMemberData.m_arrScholarshipOrganizationDetails);		 
+	}
 }
 
 function assignDataToMemberVariable (oStudentInfoData)
@@ -724,14 +732,17 @@ function assignDataToMemberVariable (oStudentInfoData)
 	m_oStudentInfoMemberData.oUserUpdatedBy = oStudentInfoData.m_oUserUpdatedBy;
 	m_oStudentInfoMemberData.m_strImageId = oStudentInfoData.m_strStudentImageId;
 	m_oStudentInfoMemberData.m_studentDateofBirth = oStudentInfoData.m_dDateOfBirth;
-	m_oStudentInfoMemberData.m_nAcademicId = oStudentInfoData.m_oAcademicDetails[0].m_nAcademicId;
-	m_oStudentInfoMemberData.m_nAcademicYearId = oStudentInfoData.m_oAcademicDetails[0].m_oAcademicYear.m_nAcademicYearId;
-	m_oStudentInfoMemberData.m_nInstitutionId = oStudentInfoData.m_oAcademicDetails[0].m_oInstitutionInformationData.m_nInstitutionId;
-	m_oStudentInfoMemberData.m_nCourseId = oStudentInfoData.m_oAcademicDetails[0].m_oCourseInformationData.m_nCourseId;
+	if(oStudentInfoData.m_oAcademicDetails[0] != null)
+	{
+		m_oStudentInfoMemberData.m_nAcademicId = oStudentInfoData.m_oAcademicDetails[0].m_nAcademicId;
+		m_oStudentInfoMemberData.m_nAcademicYearId = oStudentInfoData.m_oAcademicDetails[0].m_oAcademicYear.m_nAcademicYearId;
+		m_oStudentInfoMemberData.m_nInstitutionId = oStudentInfoData.m_oAcademicDetails[0].m_oInstitutionInformationData.m_nInstitutionId;
+		m_oStudentInfoMemberData.m_nCourseId = oStudentInfoData.m_oAcademicDetails[0].m_oCourseInformationData.m_nCourseId;
+		m_oStudentInfoMemberData.m_arrScholarshipOrganizationDetails = 	oStudentInfoData.m_oAcademicDetails[0].m_oScholarshipOrganizationDetails;
+		m_oStudentInfoMemberData.m_nRowOrgCount = m_oStudentInfoMemberData.m_arrScholarshipOrganizationDetails.length;
+		m_oStudentInfoMemberData.m_nRowOrgAmountCount = m_oStudentInfoMemberData.m_arrScholarshipOrganizationDetails.length;
+	}	
 	m_oStudentInfoMemberData.m_arrSiblingsDetails = oStudentInfoData.m_oSibilingDetails;
-	m_oStudentInfoMemberData.m_arrScholarshipOrganizationDetails = 	oStudentInfoData.m_oAcademicDetails[0].m_oScholarshipOrganizationDetails;
-	m_oStudentInfoMemberData.m_nRowOrgCount = m_oStudentInfoMemberData.m_arrScholarshipOrganizationDetails.length;
-	m_oStudentInfoMemberData.m_nRowOrgAmountCount = m_oStudentInfoMemberData.m_arrScholarshipOrganizationDetails.length;
 	m_oStudentInfoMemberData.m_nStudentId = oStudentInfoData.m_nStudentId;
 	m_oStudentInfoMemberData.m_nApplicationPriority = oStudentInfoData.m_nApplicationPriority;
 }

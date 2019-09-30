@@ -70,5 +70,4 @@ public class ScholarshipOrganizationDetailsProcessor extends GenericIDataProcess
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

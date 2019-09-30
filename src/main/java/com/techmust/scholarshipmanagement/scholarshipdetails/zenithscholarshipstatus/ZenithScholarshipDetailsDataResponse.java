@@ -6,7 +6,6 @@ import com.techmust.generic.response.GenericResponse;
 
 public class ZenithScholarshipDetailsDataResponse extends GenericResponse
 {
-
 	private static final long serialVersionUID = 1L;
 	public ArrayList<ZenithScholarshipDetails> m_arrZenithScholarshipDetails;
 	public Object m_nRowCount;

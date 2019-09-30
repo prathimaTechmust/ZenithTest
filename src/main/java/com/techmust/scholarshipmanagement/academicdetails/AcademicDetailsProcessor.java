@@ -24,7 +24,6 @@ import com.techmust.utils.Utils;
 @Controller
 public class AcademicDetailsProcessor extends GenericIDataProcessor<AcademicDetails>
 {	
-	
 
 	public static GenericResponse uploadStudentDocumentstoS3bucket(MultipartFile oStudentAadharMultipartFile,
 																   MultipartFile oStudentElectricityBillMultipartFile,

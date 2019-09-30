@@ -16,6 +16,5 @@ public class InstitutionDataResponse extends GenericResponse
     	m_arrInstitutionInformationData = new ArrayList<InstitutionInformationData> ();
     	m_nRowCount = 0;
     	m_arrChequeInFavourOf = new ArrayList<ChequeInFavourOf>();
-	}
-	
+	}	
 }

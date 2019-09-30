@@ -3,8 +3,6 @@ package com.techmust.scholarshipmanagement.scholarshipdetails.zenithscholarships
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -133,9 +131,8 @@ public class ZenithScholarshipInformationDataProcessor extends GenericIDataProce
 		{
 			m_oLogger.error("disburseCheque- oException"+oException);
 			throw oException;
-		}
-				
-		return oZenithScholarshipDetailsDataResponse;		
+		}				
+		return oZenithScholarshipDetailsDataResponse;	
 	}
 	
 	@RequestMapping(value="/counselingStatusUpdate",method = RequestMethod.POST, headers = {"Content-type=application/json"})
@@ -164,8 +161,7 @@ public class ZenithScholarshipInformationDataProcessor extends GenericIDataProce
 			m_oLogger.error("counselingStatusApplication- oException"+oException);
 			throw oException;
 		}				
-		return oZenithScholarshipDetailsDataResponse;
-		
+		return oZenithScholarshipDetailsDataResponse;		
 	}	
 	
 	@RequestMapping(value="/reverifyapplication",method = RequestMethod.POST, headers = {"Content-type=application/json"})
@@ -177,18 +173,17 @@ public class ZenithScholarshipInformationDataProcessor extends GenericIDataProce
 		ZenithScholarshipDetailsDataResponse oZenithScholarshipDetailsDataResponse = new ZenithScholarshipDetailsDataResponse();
 		try 
 		{
-	    oZenithScholarshipDetailsDataResponse.m_bSuccess = oZenithScholarshipDetails.reVerifyStudentApplication(oZenithScholarshipDetails);
-	    if(oZenithScholarshipDetailsDataResponse.m_bSuccess)
-			Utils.createActivityLog("ZenithScholarshipInformationDataProcessor::reVerifyStudentApplication", oZenithScholarshipDetails);			
-	} 
-	catch (Exception oException)
-	{
-		m_oLogger.error("reVerfyStudentApplication- oException"+oException);
-		throw oException;
-	}				
-	return oZenithScholarshipDetailsDataResponse;
-	
-}	
+		    oZenithScholarshipDetailsDataResponse.m_bSuccess = oZenithScholarshipDetails.reVerifyStudentApplication(oZenithScholarshipDetails);
+		    if(oZenithScholarshipDetailsDataResponse.m_bSuccess)
+				Utils.createActivityLog("ZenithScholarshipInformationDataProcessor::reVerifyStudentApplication", oZenithScholarshipDetails);			
+		} 
+		catch (Exception oException)
+		{
+			m_oLogger.error("reVerfyStudentApplication- oException"+oException);
+			throw oException;
+		}				
+		return oZenithScholarshipDetailsDataResponse;	
+	}	
 	
 	@RequestMapping(value="/approveCounselingStudent",method = RequestMethod.POST, headers = {"Content-type=application/json"})
 	@ResponseBody
@@ -199,18 +194,17 @@ public class ZenithScholarshipInformationDataProcessor extends GenericIDataProce
 		ZenithScholarshipDetailsDataResponse oZenithScholarshipDetailsDataResponse = new ZenithScholarshipDetailsDataResponse();
 		try 
 		{
-	    oZenithScholarshipDetailsDataResponse.m_bSuccess = oZenithScholarshipDetails.approveCounselingStudentApplication(oZenithScholarshipDetails);
-	    if(oZenithScholarshipDetailsDataResponse.m_bSuccess)
-			Utils.createActivityLog("ZenithScholarshipInformationDataProcessor::approveCounselingStudentApplication", oZenithScholarshipDetails);			
-	} 
-	catch (Exception oException)
-	{
-		m_oLogger.error("approveCounselingStudentApplication- oException"+oException);
-		throw oException;
-	}				
-	return oZenithScholarshipDetailsDataResponse;
-	
-}	
+		    oZenithScholarshipDetailsDataResponse.m_bSuccess = oZenithScholarshipDetails.approveCounselingStudentApplication(oZenithScholarshipDetails);
+		    if(oZenithScholarshipDetailsDataResponse.m_bSuccess)
+				Utils.createActivityLog("ZenithScholarshipInformationDataProcessor::approveCounselingStudentApplication", oZenithScholarshipDetails);			
+		} 
+		catch (Exception oException)
+		{
+			m_oLogger.error("approveCounselingStudentApplication- oException"+oException);
+			throw oException;
+		}				
+		return oZenithScholarshipDetailsDataResponse;	
+	}	
 	
 	@RequestMapping(value="/claimChequeUpdate",method = RequestMethod.POST, headers = {"Content-type=application/json"})
 	@ResponseBody
@@ -230,8 +224,7 @@ public class ZenithScholarshipInformationDataProcessor extends GenericIDataProce
 			m_oLogger.error("claimCheque - oException"+oException);
 			throw oException;
 		}				
-		return oZenithScholarshipDetailsDataResponse;
-		
+		return oZenithScholarshipDetailsDataResponse;		
 	}
 	
 	@RequestMapping(value = "/reIssueCheque", method = RequestMethod.POST, headers = {"Content-type=application/json"})
@@ -253,8 +246,7 @@ public class ZenithScholarshipInformationDataProcessor extends GenericIDataProce
 			throw oException;
 		}				
 		return oZenithScholarshipDetailsDataResponse; 
-	}
-	
+	}	
 	
 	@Override
 	public GenericResponse create(ZenithScholarshipDetails oGenericData) throws Exception 

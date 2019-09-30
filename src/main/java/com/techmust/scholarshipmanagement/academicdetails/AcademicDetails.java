@@ -47,9 +47,7 @@ import com.techmust.usermanagement.userinfo.UserInformationData;
 @Table(name = "academicdetails")
 public class AcademicDetails extends MasterData implements Serializable
 {
-
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = 1L;	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "academicid")
@@ -366,8 +364,7 @@ public class AcademicDetails extends MasterData implements Serializable
 		   /*ScholarshipAccount child Node*/
 			Document oScholarshipAccountDetalsXmlDoc = getXmlDocument ("<m_oStudentScholarshipAccount>"+buildAccountDetails (m_oStudentScholarshipAccount)+"</m_oStudentScholarshipAccount>");
 			Node oAccountNode = oXmlDocument.importNode(oScholarshipAccountDetalsXmlDoc.getFirstChild(), true);
-			oRootElement.appendChild(oAccountNode);
-		
+			oRootElement.appendChild(oAccountNode);		
 			addChild (oXmlDocument, oRootElement, "m_nAcademicId", m_nAcademicId);			
 			addChild (oXmlDocument, oRootElement, "m_strSpecialization", m_strSpecialization);
 			addChild (oXmlDocument, oRootElement, "m_strStudentScore", m_strStudentScore);

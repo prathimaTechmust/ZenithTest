@@ -15,8 +15,6 @@ import javax.persistence.Table;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-
 import com.techmust.generic.data.MasterData;
 import com.techmust.usermanagement.userinfo.UserInformationData;
 
@@ -161,6 +159,7 @@ public class SibilingDetails extends MasterData
 	{
 		this.m_strStudyingInstitution = strStudyingInstitution;
 	}	
+	
 	@Override
 	public String generateXML() 
 	{

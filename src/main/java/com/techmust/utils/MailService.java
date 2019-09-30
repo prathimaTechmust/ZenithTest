@@ -1,6 +1,5 @@
 package com.techmust.utils;
 
-import java.util.List;
 import java.util.Properties;
 
 import javax.mail.Authenticator;

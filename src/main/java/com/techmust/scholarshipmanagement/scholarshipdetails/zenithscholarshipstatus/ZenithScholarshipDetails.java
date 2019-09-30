@@ -1,8 +1,6 @@
 package com.techmust.scholarshipmanagement.scholarshipdetails.zenithscholarshipstatus;
 
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -22,7 +20,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.hibernate.Criteria;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -31,7 +28,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.techmust.constants.Constants;
 import com.techmust.generic.data.GenericData;
 import com.techmust.generic.data.MasterData;
-import com.techmust.scholarshipmanagement.academicdetails.AcademicDetails;
 import com.techmust.scholarshipmanagement.academicyear.AcademicYear;
 import com.techmust.scholarshipmanagement.chequeFavourOf.ChequeInFavourOf;
 import com.techmust.scholarshipmanagement.student.StudentInformationData;
@@ -138,8 +134,7 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 	private int m_nAcademicId;
 	
 	@Transient
-	private int m_nAcademicYearId;
-	
+	private int m_nAcademicYearId;	
 	
 	public ZenithScholarshipDetails()
 	{
@@ -335,8 +330,7 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 	public void setM_strStudentRemarks(String strStudentRemarks)
 	{
 		this.m_strStudentRemarks = strStudentRemarks;
-	}
-	
+	}	
 	
 	public long getM_dChequeIssueDate()
 
@@ -451,7 +445,6 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 	{		
 		return null;
 	}
-
 	
 	@Override
 	public String generateXML()

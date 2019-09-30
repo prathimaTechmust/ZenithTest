@@ -24,7 +24,6 @@ import org.w3c.dom.Element;
 import com.techmust.generic.data.GenericData;
 import com.techmust.generic.data.MasterData;
 import com.techmust.usermanagement.userinfo.UserInformationData;
-import com.techmust.utils.Utils;
 @Entity
 @Table(name = "facilitators")
 public class FacilitatorInformationData extends MasterData

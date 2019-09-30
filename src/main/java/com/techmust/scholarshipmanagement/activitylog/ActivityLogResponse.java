@@ -15,5 +15,4 @@ public class ActivityLogResponse extends GenericResponse
     	m_arrActivityLog = new ArrayList<ActivityLog> ();
     	m_nRowCount = 0;
 	}
-
 }

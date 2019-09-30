@@ -2,8 +2,6 @@ package com.techmust.utils;
 
 
 import java.util.Date;
-import java.util.List;
-
 import org.apache.log4j.Logger;
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
@@ -45,6 +43,7 @@ public class AmazonSMS
 		 return oAmazonSNSClient;
     }
 	 
+	@SuppressWarnings("unused")
 	public static void sendSMSToStudent (String strPhoneNumber,String strStudentName)
 	{
 		try
@@ -60,6 +59,7 @@ public class AmazonSMS
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	public static void sendSMSToFacilitator (String strPhoneNumber,String strFacilitatorName)
 	{
 		try
@@ -72,10 +72,11 @@ public class AmazonSMS
 		catch (Exception oException)
 		{
 			m_oLogger.error("sendSMS - oException"+oException);
-		}
-		
+		}		
 	} 
-	 public  static void sendSmsToCounselingCandidate(String strStudentName, String strPhoneNumber, Date dCounselingDate) 
+	
+    @SuppressWarnings("unused")
+	public  static void sendSmsToCounselingCandidate(String strStudentName, String strPhoneNumber, Date dCounselingDate) 
 	 {
 		 try
 		 {
@@ -88,7 +89,6 @@ public class AmazonSMS
 		 catch (Exception oException) 
 		 {
 			 m_oLogger.error("sendSMS - oException"+oException);
-		}
-		
+		 }		
 	}
 }

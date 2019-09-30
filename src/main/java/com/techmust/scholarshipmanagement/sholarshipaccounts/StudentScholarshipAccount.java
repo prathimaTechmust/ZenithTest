@@ -113,9 +113,7 @@ public class StudentScholarshipAccount extends MasterData
 		m_dSanctionDate = null;	
 		m_oAcademicDetails = new AcademicDetails();
 		m_nChequeNumber = 0;
-		//m_nDDNumber = 0;
 		m_strChequeRemarks = "";
-		//m_oChequePreparedBy = new UserInformationData();
 		m_strChequeStatus = "Active";
 		m_bChequeValid = true;
 		m_dCreatedOn = Calendar.getInstance().getTime();
@@ -213,16 +211,6 @@ public class StudentScholarshipAccount extends MasterData
 	{
 		this.m_nChequeNumber = nChequeNumber;
 	}
-	
-//	public int getM_nDDNumber()
-//	{
-//		return m_nDDNumber;
-//	}
-//
-//	public void setM_nDDNumber(int nDDNumber)
-//	{
-//		this.m_nDDNumber = nDDNumber;
-//	}
 	
 	public int getM_nStudentId() 
 	{
@@ -356,9 +344,7 @@ public class StudentScholarshipAccount extends MasterData
 			addChild(oXmlDocument, oRootElement, "m_dSanctionDate",m_dSanctionDate != null ? getSanctionDate(m_dSanctionDate.toString()) :"");
 			addChild(oXmlDocument, oRootElement, "m_strPayeeName", m_strPayeeName);
 			addChild(oXmlDocument, oRootElement, "m_fSanctionedAmount", m_fSanctionedAmount);
-			addChild(oXmlDocument, oRootElement, "m_nChequeNumber", m_nChequeNumber); 
-			//addChild(oXmlDocument, oRootElement, "m_strChequePreparedBy", m_strChequePreparedBy);
-			//addChild(oXmlDocument, oRootElement, "m_nDDNumber", m_nDDNumber);
+			addChild(oXmlDocument, oRootElement, "m_nChequeNumber", m_nChequeNumber); 			
 			strChequeInfoXML = getXmlString(oXmlDocument);
 		}
 		catch (Exception oException) 
