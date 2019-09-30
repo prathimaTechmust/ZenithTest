@@ -380,9 +380,11 @@ function studentrejectResponse (oResponse)
 {
 	if(oResponse.m_bSuccess)
 	{
+		HideDialog("dialog");
 		informUser ("student rejected successfully", "kSuccess");
-		document.getElementById("listVerifiedStudents_div_listDetail").innerHTML = "";		
+		document.getElementById("listVerifiedStudents_div_listDetail").innerHTML = "";	
 		navigate("approvedlist","widgets/applicationstatus/verified/verifiedlist.js");
+		
 	}
 	else
 		informUser ("student reject Failed", "kError");
