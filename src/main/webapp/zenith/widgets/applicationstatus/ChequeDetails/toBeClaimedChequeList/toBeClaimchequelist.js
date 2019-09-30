@@ -325,6 +325,7 @@ function chequeRemark_progressbarLoaded() {
 	oZenith.m_nStudentId = m_oToBeClaimChequeListMemberData.m_nStudentId;
 	oZenith.m_nAcademicId = m_oToBeClaimChequeListMemberData.m_nAcademicId;
 	oZenith.m_strChequeRemark = $("#chequeRemarkInfo_input_Remark").val();
+	oZenith.m_nAcademicYearId = $("#selectToBeClaimAcademicYear").val();
 	oZenith.m_oUserUpdatedBy = oUserChequeReissuedBy;
 	ZenithStudentInformationDataProcessor.reIssueChequeStatusUpdate(oZenith,reIssueChequeResponse);
 }

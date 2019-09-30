@@ -899,4 +899,29 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 	{		
 		return null;
 	}
+
+	public static boolean uploadStudentImage(MultipartFile oStudentMultipartFile, int nStudentId) 
+	{
+		StudentInformationData oStudentInformationData = new StudentInformationData();
+		oStudentInformationData.setM_nStudentId(nStudentId);
+		boolean isUpdate = false;
+		try 
+		{
+			if(oStudentMultipartFile.getSize() > 0)
+			{
+				oStudentInformationData = (StudentInformationData) populateObject(oStudentInformationData);	
+		        String strUUID = Utils.getUUID();
+		        String strFileExtension = Constants.IMAGE_DEFAULT_EXTENSION;
+				String strStudentImagePath = Constants.STUDENTIMAGEFOLDER + strUUID + strFileExtension;
+			    AWSUtils.UploadToStudentImagesFolder(strStudentImagePath, oStudentMultipartFile);
+			    oStudentInformationData.setM_strStudentImageId(strUUID);
+			    isUpdate = oStudentInformationData.updateObject();
+			}
+		} 
+		catch (Exception oException)
+		{
+			m_oLogger.error("uploadStudentImage - oException"+oException);
+		}
+		return isUpdate;
+	}
 }

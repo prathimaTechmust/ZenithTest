@@ -60,6 +60,7 @@ function studentInfo_memberData ()
 	
 	this.m_nSiblingRowId=-1;
 	this.b_IsNewStudent = true;
+	this.b_IsNewAcademicYear = false;
 }
 
 var m_oStudentInfoMemberData = new studentInfo_memberData ();
@@ -296,17 +297,17 @@ function validateUIDField ()
 	 return bIsValid;
 }
 
-function studentInfo_submit (tdId)
+function studentInfo_submit ()
 {	
 
 	if (studentInfo_validate())
-		{
+	{
 		 document.getElementById("progress").style.display = "block";
 		 document.getElementById("studentInfo_button_submit").style.display = "none";
 		 document.getElementById("studentInfo_button_print").style.display = "none";
 		 document.getElementById("studentInfoButton_button_cancel").style.display = "none";
 		 setTimeout(function(){student_progressbarLoaded ()}, 1000);
-		}
+	}
 	else
 	{
 		alert("Please Fill Mandiatory Fields");
@@ -319,13 +320,13 @@ function student_progressbarLoaded ()
 
 	oStudentInformationData = studentInfo_getFormData ();
 	if(document.getElementById("studentInfo_button_submit").getAttribute('update') == "false")
-		{
+	{
 		StudentInformationDataProcessor.create(oStudentInformationData, studentInfo_created);
-		}
+	}
 	else
-		{
+	{
 		StudentInformationDataProcessor.update (oStudentInformationData,studentInfo_updated);
-		}
+	}
 }
 
 function studentInfo_edit ()
@@ -978,7 +979,7 @@ function openNextTab(oEvent, TabName, oNextBtn )
 
 function getImage(studentInfo_input_image,fileInputTypeID, divId)
 {
-	if(m_oStudentInfoMemberData.b_IsNewStudent)	
+	if(m_oStudentInfoMemberData.b_IsNewStudent || m_oStudentInfoMemberData.b_IsNewAcademicYear)	
 	{
 		document.getElementById(divId.id).style.display = "none";
 	}
@@ -986,6 +987,7 @@ function getImage(studentInfo_input_image,fileInputTypeID, divId)
 	{
 		document.getElementById(divId.id).style.display = "block";
 	}
+	
 	var oFileSource = document.getElementById(fileInputTypeID.id);
 	var studentInfo_input_document = document.getElementById(studentInfo_input_image.id);
 	showImage(oFileSource, studentInfo_input_document);
@@ -1348,4 +1350,67 @@ function parentInfoMedicalIssueNo(divId,tdId)
 {
 	document.getElementById(divId.id).style.display = "none";
 	document.getElementById(tdId.id).style.display = "none";
+}
+
+function studentNewAcademic()
+{
+
+	m_oStudentInfoMemberData.b_IsNewAcademicYear = true;
+	document.getElementById("studentInfo_input_studentScore").value = "";
+	document.getElementById("academicInfo_input_annualfee").value="";
+	document.getElementById("academicInfo_input_paidfee").value="";
+    document.getElementById("academicInfo_input_balancefee").value="";
+	document.getElementById("studentInfo_input_studentaadhar").src="images/NoImage.png";
+	document.getElementById("studentInfo_input_fatheraadhar").src="images/NoImage.png";
+	document.getElementById("studentInfo_input_motheraadhar").src="images/NoImage.png";
+	document.getElementById("studentInfo_input_studentElectricityBill").src="images/NoImage.png";
+	document.getElementById("studentInfo_input_studentMarksCard1").src="images/NoImage.png";
+	document.getElementById("studentInfo_input_studentMarksCard2").src="images/NoImage.png";
+	document.getElementById("studentInfo_button_submit").style.display="none";
+	document.getElementById("studentInfo_button_newAcademicYear").style.display="block";
+}
+
+function studentInfo_newAcademicYear() 
+{
+	if (studentInfo_validate())
+	{
+		 document.getElementById("progress").style.display = "block";
+		 document.getElementById("studentInfo_NewAcademicYear").style.display = "none";
+		 document.getElementById("studentInfoButton_button_cancel").style.display = "none";
+		 setTimeout(function(){student_newAcademicProgressbarLoad ()}, 1000);
+	}
+	else
+	{
+		alert("Please Fill Mandiatory Fields");
+		$('#studentInfo_form_id').focus();
+	}
+	
+}
+
+function student_newAcademicProgressbarLoad()
+{
+	oStudentInformationData = studentInfo_getFormData ();
+	StudentInformationDataProcessor.update (oStudentInformationData,studentInfoNewAcademic_updatedResponse);
+}
+
+function studentInfoNewAcademic_updatedResponse(oStudentInfoResponse) 
+{
+	if(oStudentInfoResponse.m_bSuccess)
+	{
+		studentInfo_displayInfo ("student updated successfully");
+		try
+		{
+			var oForm = $('#studentInfo_form_id')[0];
+			var oFormData = new FormData (oForm);
+			oFormData.append('studentId',oStudentInfoResponse.m_nStudentId);	
+			oFormData.append('academicId',oStudentInfoResponse.m_nAcademicId);
+			AcademicDetailsDataProcessor.uploadDocumentstoS3bucket(oFormData,documentResponse);				
+		}
+		catch(oException){}		
+	}	
+}
+
+function documentResponse(oDocumentResponse)
+{
+	 HideDialog ("secondDialog");
 }
