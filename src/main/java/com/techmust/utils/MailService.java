@@ -45,7 +45,7 @@ public class MailService
 																					@Override
 																					protected PasswordAuthentication getPasswordAuthentication()
 																					{
-																						return new PasswordAuthentication("techmust49@gmail.com", "tmspl5629D!");
+																						return new PasswordAuthentication(System.getProperty("EMAIL_ID").toString(),System.getProperty("EMAIL_PASSWORD").toString());
 																					}
 																				});
 			JavaMailSenderImpl oSender = new JavaMailSenderImpl();			
@@ -75,7 +75,7 @@ public class MailService
 																					@Override
 																					protected PasswordAuthentication getPasswordAuthentication()
 																					{
-																						return new PasswordAuthentication("techmust49@gmail.com", "tmspl5629D!");
+																						return new PasswordAuthentication(System.getProperty("EMAIL_ID").toString(),System.getProperty("EMAIL_PASSWORD").toString());
 																					}
 																				});
 			JavaMailSenderImpl oSender = new JavaMailSenderImpl();			
