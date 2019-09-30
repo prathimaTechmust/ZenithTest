@@ -367,9 +367,12 @@ function studentRemarkInfo_submit ()
 function studentremark_progressbarLoaded ()
 {
 	createPopup('dialog','','',true);
+	var oUserRejectBy = getLoginUserData ();
 	var oZenith = new ZenithScholarshipDetails ();		
 	oZenith.m_nStudentId = m_overifiedStudentList_Info_MemberData.m_nStudentId;
 	oZenith.m_strStudentRemarks = $("#studentRemarkInfo_input_Remark").val();
+	oZenith.m_nAcademicYearId = $("#selectVerifiedAcademicyear").val();
+	oZenith.m_oUserUpdatedBy = oUserRejectBy;
 	ZenithStudentInformationDataProcessor.rejectStatusUpdate(oZenith,studentrejectResponse);
 }
 
