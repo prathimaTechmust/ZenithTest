@@ -22,9 +22,9 @@ public class Constants
 	
 	//S3 BUCKET DETAILS
 	public static final String CLIENTREGION = "ap-southeast-1";
-	public static final String BUCKETNAME = "zenithfoundation";	
-	public static final String STUDENTIMAGEURL = "https://s3-ap-southeast-1.amazonaws.com/zenithfoundation/";	
-	public static final String USERIMAGEURL = "https://s3-ap-southeast-1.amazonaws.com/zenithfoundation/";
+	public static final String BUCKETNAME = "zenithfoundationBucket";	
+	public static final String STUDENTIMAGEURL = "https://s3-ap-southeast-1.amazonaws.com/zenithfoundationBucket/";	
+	public static final String USERIMAGEURL = "https://s3-ap-southeast-1.amazonaws.com/zenithfoundationBucket/";
 	
 	//STUDENT APPLICATION STATUS
 	public static final String STUDENTVERIFIED = "verified";
@@ -44,7 +44,7 @@ public class Constants
 	public static final String STUDENTIMAGEFOLDER = "images/student/";
 	public static final String STUDENTAADHARDOCUMENTFOLDER = "images/studentaadhar/";
 	public static final String STUDENTELECTRICITYBILLDOCUMENTFOLDER = "images/studentelectricitybill/";
-	public static final String S3BUCKETURL = "https://s3-ap-southeast-1.amazonaws.com/zenithfoundation/";
+	public static final String S3BUCKETURL = "https://s3-ap-southeast-1.amazonaws.com/zenithfoundationBucket/";
 	public static final String STUDENTFATHERAADHAR = "images/studentfatheraadhar/";
 	public static final String STUDENTMOTHERAADHAR = "images/studentmotheraadhar/";
 	public static final String STUDENTMARKSCARD1 = "images/studentmarkscard1/";
