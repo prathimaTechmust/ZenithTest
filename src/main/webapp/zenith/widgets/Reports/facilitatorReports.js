@@ -34,7 +34,7 @@ function facilitatorWise_init ()
 function facilitatorListToDropDown()
 {
 	var oFacilitatorInformationData = new FacilitatorInformationData();
-	FacilitatorInformationDataProcessor.list(oFacilitatorInformationData,"","",1,10, loadFacilitatorWiseDropDownResponse);
+	FacilitatorInformationDataProcessor.list(oFacilitatorInformationData,"","",0,0, loadFacilitatorWiseDropDownResponse);
 
 }
 

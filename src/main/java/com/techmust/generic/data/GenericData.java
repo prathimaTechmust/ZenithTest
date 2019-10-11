@@ -257,8 +257,11 @@ public abstract class GenericData implements IGenericData, Serializable
 			Root<GenericData> root = oCriteria.from(oClass );
 			CriteriaQuery<GenericData> select = oCriteria.select(root);
 			TypedQuery<GenericData> typedQuery = oEntityManager.createQuery(select);
-			typedQuery.setFirstResult((nPageNumber-1) * nPageSize);
-			typedQuery.setMaxResults(nPageSize);
+			if(nPageNumber > 0 && nPageSize > 0 ) 
+			{
+				typedQuery.setFirstResult((nPageNumber-1) * nPageSize);
+				typedQuery.setMaxResults(nPageSize);
+			}				
 			oCriteria.where(listCriteria(builder, root));
 			//arrGenericData = (ArrayList<GenericData>) oEntityManager.createQuery( oCriteria ).getResultList();
 			arrGenericData = (ArrayList<GenericData>) typedQuery.getResultList();

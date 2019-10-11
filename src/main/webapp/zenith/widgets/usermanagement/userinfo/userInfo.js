@@ -44,7 +44,7 @@ function userInfo_init ()
 function userInfo_populateRoleNameList ()
 {
 	var oRoleData = new RoleData ();
-	RoleDataProcessor.list(oRoleData, "m_strRoleName", "asc", 1, 10, 
+	RoleDataProcessor.list(oRoleData, "m_strRoleName", "asc", 0, 0, 
 			function (oRoleResponse)
 			{
 				userInfo_prepareRoleNameDD ("userInfo_select_roleName", oRoleResponse);
