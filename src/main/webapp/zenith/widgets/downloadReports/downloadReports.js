@@ -111,13 +111,13 @@ function populateStudentScore()
 function populateCourseNameDropDown ()
 {
 	var oCourseDataObject = new CourseInformationData ();
-	CourseInformationDataProcessor.list(oCourseDataObject,"","",1,10,reportCourseNameDropDown);
+	CourseInformationDataProcessor.list(oCourseDataObject,"","",0,0,reportCourseNameDropDown);
 }
 
 function populateInstitutionNameDropDown ()
 {
 	var oInstitutionDataObject = new InstitutionInformationData ();
-	InstitutionInformationDataProcessor.list(oInstitutionDataObject,"","",1,10,reportInstitutionNameDropDown);
+	InstitutionInformationDataProcessor.list(oInstitutionDataObject,"","",0,0,reportInstitutionNameDropDown);
 }
 
 function populateCityNameDropDown ()
@@ -154,7 +154,7 @@ function populateParentalStatusDropDown ()
 function populateFacilitatorNameDropDown ()
 {
 	var oFacilitatorObject = new FacilitatorInformationData ();
-	FacilitatorInformationDataProcessor.list(oFacilitatorObject,"","",1,10,reportFacilitatorNameDropDown);
+	FacilitatorInformationDataProcessor.list(oFacilitatorObject,"","",0,0,reportFacilitatorNameDropDown);
 }
 
 //response functions

@@ -76,23 +76,28 @@
 			<Action>
 				<ActionName>Student List</ActionName>
 				<Target>navigate ('Studentlist','widgets/scholarshipmanagement/studentlist/listStudent.js')</Target>
-				<SequenceId>20</SequenceId>
+				<SequenceId>30</SequenceId>
 			</Action>
 			<Action>
 				<ActionName>Institution List</ActionName>
 				<Target>navigate ('listinstitution','widgets/scholarshipmanagement/institutionslist/listInstitution.js')</Target>
-				<SequenceId>30</SequenceId>
+				<SequenceId>40</SequenceId>
 			</Action>
 			<Action>
 				<ActionName>Course List</ActionName>
 				<Target>navigate ('courselist','widgets/scholarshipmanagement/courselist/listCourses.js')</Target>
-				<SequenceId>40</SequenceId>
+				<SequenceId>50</SequenceId>
 			</Action>
 			<Action>
 				<ActionName>Scholarship List</ActionName>
 				<Target>navigate ('scholarshiplist','widgets/scholarshipmanagement/scholarshiplist/scholarshiplist.js')</Target>
-				<SequenceId>50</SequenceId>
-			</Action>							
+				<SequenceId>60</SequenceId>
+			</Action>
+			<Action>
+			    <ActionName>Transaction</ActionName>
+			    <Target>navigate('transactionlist','widgets/scholarshipmanagement/transaction/transactionlist.js')</Target>
+			    <SequenceId>70</SequenceId>
+			</Action>						
 		</Actions> 
 	</ActionArea>
 	<ActionArea name = "Application Status"  SequenceId="30">
@@ -123,41 +128,40 @@
 				<SequenceId>50</SequenceId>
 			</Action>
 			<Action>
-				<ActionName>Make Courier </ActionName>
-				<Target>navigate ('courierList','widgets/applicationstatus/courier/courierlist.js')</Target>
-				<SequenceId>60</SequenceId>
-			</Action>
-			<Action>
 				<ActionName>To Be Claimed</ActionName>
 				<Target>navigate ('tobeclaimcheque','widgets/applicationstatus/ChequeDetails/toBeClaimedChequeList/toBeClaimchequelist.js')</Target>
-				<SequenceId>70</SequenceId>
+				<SequenceId>60</SequenceId>
 			</Action>
 			<Action>
 				<ActionName>Claimed List</ActionName>
 				<Target>navigate ('claimedList','widgets/applicationstatus/ChequeDetails/claimedChequeList/claimedChequeList.js')</Target>
-				<SequenceId>80</SequenceId>
+				<SequenceId>70</SequenceId>
 			</Action>
 			<Action>
 				<ActionName>Make Tatkal</ActionName>
 				<Target>navigate ('tatkal','widgets/tatkal/tatkalList.js')</Target>
-				<SequenceId>90</SequenceId>
+				<SequenceId>80</SequenceId>
 			</Action>
 			<Action>
 				<ActionName>Counseling List</ActionName>
 				<Target>navigate ('counseling','widgets/applicationstatus/counseling/counseling.js')</Target>
+				<SequenceId>80</SequenceId>
+			</Action>
+			<Action>
+				<ActionName>Activity Log</ActionName>
+				<Target>navigate ('activitylog','widgets/activitylog/activityLogList.js')</Target>
+				<SequenceId>90</SequenceId>
+			</Action>
+			<Action>
+				<ActionName>Rejected List</ActionName>
+				<Target>navigate ('rejected','widgets/applicationstatus/rejectedlist/rejectedlist.js')</Target>
 				<SequenceId>100</SequenceId>
 			</Action>
 			<Action>
 				<ActionName>Activity Log</ActionName>
 				<Target>navigate ('activitylog','widgets/activitylog/activityLogList.js')</Target>
 				<SequenceId>110</SequenceId>
-
-			</Action>
-			<Action>
-				<ActionName>Rejected List</ActionName>
-				<Target>navigate ('rejected','widgets/applicationstatus/rejectedlist/rejectedlist.js')</Target>
-				<SequenceId>120</SequenceId>
-			</Action>													
+			</Action>											
 		</Actions> 
 	</ActionArea>
 	<ActionArea name="Reports" SequenceId="40">
@@ -166,11 +170,6 @@
 				<ActionName>Facilitator-wise</ActionName>
 				<Target>navigate ('facilitatorWise','widgets/Reports/facilitatorReports.js')</Target>
 				<SequenceId>10</SequenceId>
-			</Action>
-			<Action>
-				<ActionName>Download Reports</ActionName>
-				<Target>navigate ('reports','widgets/downloadReports/downloadReports.js')</Target> 
-				<SequenceId>20</SequenceId>
 			</Action>
 		</Actions>
 	</ActionArea>
