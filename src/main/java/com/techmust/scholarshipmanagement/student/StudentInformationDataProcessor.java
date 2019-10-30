@@ -562,6 +562,11 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		{
 			m_oLogger.debug("getStudentCityNames - oException"+oException);
 		}
+		finally 
+		{
+			oEntityManager.close();
+			HibernateUtil.removeConnection();
+		}
 		return oDataResponse;
 		
 	}
@@ -587,6 +592,11 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		catch (Exception oException)
 		{
 			m_oLogger.debug("getStudentCategory - oException"+oException);
+		}
+		finally 
+		{
+			oEntityManager.close();
+			HibernateUtil.removeConnection();
 		}
 		return oDataResponse;
 		
@@ -614,6 +624,11 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		{
 			m_oLogger.debug("getParentalOccupations - oException"+oException);
 		}
+		finally 
+		{
+			oEntityManager.close();
+			HibernateUtil.removeConnection();
+		}
 		return oDataResponse;		
 	}
 	
@@ -639,6 +654,11 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		{
 			m_oLogger.debug("getMotherOccupations - oException"+oException);
 		}
+		finally 
+		{
+			oEntityManager.close();
+			HibernateUtil.removeConnection();
+		}
 		return oDataResponse;		
 	}
 	
@@ -663,6 +683,11 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		catch (Exception oException)
 		{
 			m_oLogger.debug("getStudentParentalStatus - oException"+oException);
+		}
+		finally 
+		{
+			oEntityManager.close();
+			HibernateUtil.removeConnection();
 		}
 		return oDataResponse;		
 	}	
