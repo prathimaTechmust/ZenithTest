@@ -577,10 +577,10 @@ public abstract class GenericData implements IGenericData, Serializable
 	        oCriteriaQuery.select(oStudentInformationRoot);
 	        oCriteriaQuery.where(oCriteriaBuilder.equal(oStudentInformationRoot.get("m_nStudentId"), oStudentData.getM_nStudentId()));
 	        oStudentInformationData = oEntityManager.createQuery(oCriteriaQuery).getSingleResult();
-//	        if(oStudentData.getM_nAcademicYearId() > 0)
-//	        	//oStudentInformationData.setM_oAcademicDetails(getAcademicDetails(oStudentData));
-//	        if(oStudentData.getM_nAcademicYearId() > 0)
-//	        	//oStudentInformationData.setM_oZenithScholarshipDetails(getZenithScholarshipDetails(oStudentData));
+	        if(oStudentData.getM_nAcademicYearId() > 0)
+	        	oStudentInformationData.setM_oAcademicDetails(getAcademicDetails(oStudentData));
+	        if(oStudentData.getM_nAcademicYearId() > 0)
+	        	oStudentInformationData.setM_oZenithScholarshipDetails(getZenithScholarshipDetails(oStudentData));
 		}
 		catch (Exception oException)
 		{
@@ -1185,8 +1185,8 @@ public abstract class GenericData implements IGenericData, Serializable
 		        oStudentInformationData = arrStudentList.get(0);
 		        oStudentInformationData.setM_nAcademicYearId(oStudentData.getM_nAcademicYearId());
 		        oStudentInformationData.setM_strStatus(oStudentData.getM_strStatus());
-//		        oStudentInformationData.setM_oAcademicDetails(getAcademicDetails(oStudentInformationData));
-//		        oStudentInformationData.setM_oZenithScholarshipDetails(getSearchStudentUID(oStudentInformationData));
+		        oStudentInformationData.setM_oAcademicDetails(getAcademicDetails(oStudentInformationData));
+		        oStudentInformationData.setM_oZenithScholarshipDetails(getSearchStudentUID(oStudentInformationData));
 	        }						
 		}
 		catch (Exception oException)
