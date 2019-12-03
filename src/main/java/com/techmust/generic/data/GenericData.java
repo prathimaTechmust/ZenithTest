@@ -185,12 +185,12 @@ public abstract class GenericData implements IGenericData, Serializable
 		EntityManager oEntityManager = _getEntityManager();
 		try
 		{
- 			CriteriaBuilder builder = oEntityManager.getCriteriaBuilder();
- 			Class<GenericData> oClass = (Class<GenericData>) this.getClass();
-			CriteriaQuery<GenericData> oCriteria = builder.createQuery(oClass);
-			Root<GenericData> root = oCriteria.from(oClass );
-			oCriteria.select( root );
-			nCount = oEntityManager.createQuery( oCriteria ).getResultList().size();
+			Class<GenericData> oClass = (Class<GenericData>) this.getClass();
+			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
+		    CriteriaQuery<Long> oCriteriaQuery = oCriteriaBuilder.createQuery(Long.class);
+		    oCriteriaQuery.select(oCriteriaBuilder.count(oCriteriaQuery.from(oClass)));
+		    TypedQuery<Long> oTypedQuery = oEntityManager.createQuery(oCriteriaQuery);
+		    nCount =  oTypedQuery.getSingleResult();
 		}
 		catch (Exception oException) 
 		{

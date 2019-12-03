@@ -417,7 +417,7 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 	{
 		EntityManager oEntityManager = oStudentInformationData._getEntityManager();
 		StudentDataResponse oStudentDataResponse = new StudentDataResponse();
-		oStudentDataResponse.m_nRowCount = getStudentRowCount(oStudentInformationData);
+		//oStudentDataResponse.m_nRowCount = getStudentRowCount(oStudentInformationData);
 		try 
 		{	//CriteriaBuilder,CriteriaQuery,Root Objects	
 			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
@@ -435,8 +435,8 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 			oCriteriaQuery.where(m_arrPredicateList.toArray(new Predicate[] {}));
 			//Get the Result List
 			TypedQuery<StudentInformationData> oTypedQuery = oEntityManager.createQuery(oCriteriaQuery);
-			oTypedQuery.setFirstResult((oStudentInformationData.getM_oZenithHelper().getM_nPageNo()-1)*oStudentInformationData.getM_oZenithHelper().getM_nPageSize());
-			oTypedQuery.setMaxResults(oStudentInformationData.getM_oZenithHelper().getM_nPageSize());
+			/*oTypedQuery.setFirstResult((oStudentInformationData.getM_oZenithHelper().getM_nPageNo()-1)*oStudentInformationData.getM_oZenithHelper().getM_nPageSize());
+			oTypedQuery.setMaxResults(oStudentInformationData.getM_oZenithHelper().getM_nPageSize());*/
 			List<StudentInformationData> oList = oTypedQuery.getResultList();
 			oStudentDataResponse.m_arrStudentInformationData = new ArrayList<>(oList);			
 		}
