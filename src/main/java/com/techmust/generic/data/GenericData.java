@@ -1314,7 +1314,7 @@ public abstract class GenericData implements IGenericData, Serializable
 	        {
 		        oStudentInformationData = arrStudentList.get(0);
 		        oStudentInformationData.setM_nAcademicYearId(oData.getM_nAcademicYearId());
-		        //oStudentInformationData.setM_oAcademicDetails(getAcademicDetails(oStudentInformationData));
+		        oStudentInformationData.setM_oAcademicDetails(getAcademicDetails(oStudentInformationData));
 	        }						
 		}
 		catch (Exception oException)
