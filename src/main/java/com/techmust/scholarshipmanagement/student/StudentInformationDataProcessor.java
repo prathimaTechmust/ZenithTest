@@ -418,6 +418,7 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 	{
 		EntityManager oEntityManager = oStudentInformationData._getEntityManager();
 		StudentDataResponse oStudentDataResponse = new StudentDataResponse();
+		oStudentDataResponse.m_nRowCount = getStudentRowCount(oStudentInformationData);
 		try 
 		{	//CriteriaBuilder,CriteriaQuery,Root Objects	
 			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
