@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.techmust.constants.Constants;
+import com.techmust.generic.data.GenericData;
 import com.techmust.generic.dataprocessor.GenericIDataProcessor;
 import com.techmust.generic.response.GenericResponse;
 import com.techmust.generic.util.HibernateUtil;
@@ -506,24 +507,17 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		EntityManager oEntityManager = oStudentInformationData._getEntityManager();
 		try 
 		{
-			//CriteriaBuilder,CriteriaQuery,Root Objects	
 			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
-			CriteriaQuery<StudentInformationData> oCriteriaQuery = oCriteriaBuilder.createQuery(StudentInformationData.class);
-			Root<StudentInformationData> oStudentRoot = oCriteriaQuery.from(StudentInformationData.class);
-			//Join the Child Entities
-			Join<Object, Object> oAcademicJoin = (Join<Object, Object>) oStudentRoot.fetch("m_oAcademicDetails");
-			Join<Object,Object> oZenithJoin = (Join<Object, Object>) oStudentRoot.fetch("m_oZenithScholarshipDetails");
-			oCriteriaQuery.select(oStudentRoot);
-			oCriteriaQuery.orderBy(oCriteriaBuilder.asc(oStudentRoot.get("m_nApplicationPriority")),oCriteriaBuilder.asc(oStudentRoot.get("m_nUID")));
-			//Predicate List
+			CriteriaQuery<Long> oCriteriaQuery = oCriteriaBuilder.createQuery(Long.class);
+			Root<ZenithScholarshipDetails> oZenithRoot = oCriteriaQuery.from(ZenithScholarshipDetails.class);			
+			oCriteriaQuery.select(oCriteriaBuilder.count(oZenithRoot));
 			List<Predicate> m_arrPredicateList = new ArrayList<Predicate>();
-			m_arrPredicateList.add(oCriteriaBuilder.equal(oAcademicJoin.get("m_oAcademicYear"), oStudentInformationData.getM_nAcademicYearId()));
-			m_arrPredicateList.add(oCriteriaBuilder.equal(oZenithJoin.get("m_oAcademicYear"), oStudentInformationData.getM_nAcademicYearId()));
+			m_arrPredicateList.add(oCriteriaBuilder.equal(oZenithRoot.get("m_oAcademicYear"), oStudentInformationData.getM_nAcademicYearId()));
 			if(oStudentInformationData.getM_strStatus() != "")
-				m_arrPredicateList.add(oCriteriaBuilder.equal(oZenithJoin.get("m_strStatus"), oStudentInformationData.getM_strStatus()));
+				m_arrPredicateList.add(oCriteriaBuilder.equal(oZenithRoot.get("m_strStatus"), oStudentInformationData.getM_strStatus()));
 			oCriteriaQuery.where(m_arrPredicateList.toArray(new Predicate[] {}));
-			//Get the Result List Size
-			nStudentRowCount = oEntityManager.createQuery(oCriteriaQuery).getResultList().size();
+			TypedQuery<Long> oTypedQuery = oEntityManager.createQuery(oCriteriaQuery);
+			nStudentRowCount = oTypedQuery.getSingleResult();			
 		}
 		catch (Exception oException)
 		{
