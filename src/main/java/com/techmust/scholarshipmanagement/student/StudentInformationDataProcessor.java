@@ -417,27 +417,25 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 	{
 		EntityManager oEntityManager = oStudentInformationData._getEntityManager();
 		StudentDataResponse oStudentDataResponse = new StudentDataResponse();
-		//oStudentDataResponse.m_nRowCount = getStudentRowCount(oStudentInformationData);
 		try 
 		{	//CriteriaBuilder,CriteriaQuery,Root Objects	
 			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
 			CriteriaQuery<StudentInformationData> oCriteriaQuery = oCriteriaBuilder.createQuery(StudentInformationData.class);
 			Root<StudentInformationData> oStudentRoot = oCriteriaQuery.from(StudentInformationData.class);
 			//Join the Child Entities
-			//Join<Object, Object> oAcademicJoin = (Join<Object, Object>) oStudentRoot.fetch("m_oAcademicDetails");
 			Join<Object,Object> oZenithJoin = (Join<Object, Object>) oStudentRoot.fetch("m_oZenithScholarshipDetails");
 			oCriteriaQuery.select(oStudentRoot);
 			oCriteriaQuery.orderBy(oCriteriaBuilder.asc(oStudentRoot.get("m_nApplicationPriority")),oCriteriaBuilder.asc(oStudentRoot.get("m_nUID")));
 			//Predicate List
 			List<Predicate> m_arrPredicateList = new ArrayList<Predicate>();
-			//m_arrPredicateList.add(oCriteriaBuilder.equal(oAcademicJoin.get("m_oAcademicYear"), oStudentInformationData.getM_nAcademicYearId()));
 			m_arrPredicateList.add(oCriteriaBuilder.equal(oZenithJoin.get("m_oAcademicYear"), oStudentInformationData.getM_nAcademicYearId()));
 			oCriteriaQuery.where(m_arrPredicateList.toArray(new Predicate[] {}));
 			//Get the Result List
 			TypedQuery<StudentInformationData> oTypedQuery = oEntityManager.createQuery(oCriteriaQuery);
-			/*oTypedQuery.setFirstResult((oStudentInformationData.getM_oZenithHelper().getM_nPageNo()-1)*oStudentInformationData.getM_oZenithHelper().getM_nPageSize());
-			oTypedQuery.setMaxResults(oStudentInformationData.getM_oZenithHelper().getM_nPageSize());*/
+			oTypedQuery.setFirstResult((oStudentInformationData.getM_oZenithHelper().getM_nPageNo()-1)*oStudentInformationData.getM_oZenithHelper().getM_nPageSize());
+			oTypedQuery.setMaxResults(oStudentInformationData.getM_oZenithHelper().getM_nPageSize());
 			List<StudentInformationData> oList = oTypedQuery.getResultList();
+			oStudentDataResponse.m_nRowCount = oList.size();
 			oStudentDataResponse.m_arrStudentInformationData = new ArrayList<>(oList);			
 		}
 		catch (Exception oException)
