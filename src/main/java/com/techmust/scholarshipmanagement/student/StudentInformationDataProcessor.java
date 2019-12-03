@@ -437,7 +437,6 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 			oTypedQuery.setFirstResult((oStudentInformationData.getM_oZenithHelper().getM_nPageNo()-1)*oStudentInformationData.getM_oZenithHelper().getM_nPageSize());
 			oTypedQuery.setMaxResults(oStudentInformationData.getM_oZenithHelper().getM_nPageSize());
 			List<StudentInformationData> oList = oTypedQuery.getResultList();
-			oStudentDataResponse.m_nRowCount = oList.size();
 			oStudentDataResponse.m_arrStudentInformationData = new ArrayList<>(oList);			
 		}
 		catch (Exception oException)
