@@ -776,7 +776,7 @@ public abstract class GenericData implements IGenericData, Serializable
 				m_arrPredicateList.add(oCriteriaBuilder.equal(oJoin.get("m_strChequeStatus"),Constants.CHEQUESTATUS));
 			}					
 			oCriteriaQuery.select(oStudentInformationDataRoot); 
-			//oCriteriaQuery.orderBy(oCriteriaBuilder.asc(oStudentInformationDataRoot.get("m_nApplicationPriority")),oCriteriaBuilder.asc(oZenithJoin.get("m_dUpdatedOn")),oCriteriaBuilder.asc(oStudentInformationDataRoot.get("m_nUID")));
+			oCriteriaQuery.orderBy(oCriteriaBuilder.asc(oStudentInformationDataRoot.get("m_nApplicationPriority")),oCriteriaBuilder.asc(oZenithJoin.get("m_dUpdatedOn")),oCriteriaBuilder.asc(oStudentInformationDataRoot.get("m_nUID")));
 			oCriteriaQuery.where(m_arrPredicateList.toArray(new Predicate[] {}));
 			TypedQuery<StudentInformationData> typedquery = oEntityManager.createQuery(oCriteriaQuery);
 			typedquery.setFirstResult((oStudentInformationData.getM_oZenithHelper().getM_nPageNo()-1)*oStudentInformationData.getM_oZenithHelper().getM_nPageSize());
