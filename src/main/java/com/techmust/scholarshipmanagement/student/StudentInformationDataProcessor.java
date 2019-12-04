@@ -427,7 +427,7 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 			//Join the Child Entities
 			Join<Object,Object> oZenithJoin = (Join<Object, Object>) oStudentRoot.fetch("m_oZenithScholarshipDetails");
 			oCriteriaQuery.select(oStudentRoot);
-			oCriteriaQuery.orderBy(oCriteriaBuilder.asc(oStudentRoot.get("m_nApplicationPriority")),oCriteriaBuilder.asc(oStudentRoot.get("m_nUID")));
+			//oCriteriaQuery.orderBy(oCriteriaBuilder.asc(oStudentRoot.get("m_nApplicationPriority")),oCriteriaBuilder.asc(oStudentRoot.get("m_nUID")));
 			//Predicate List
 			List<Predicate> m_arrPredicateList = new ArrayList<Predicate>();
 			m_arrPredicateList.add(oCriteriaBuilder.equal(oZenithJoin.get("m_oAcademicYear"), oStudentInformationData.getM_nAcademicYearId()));
