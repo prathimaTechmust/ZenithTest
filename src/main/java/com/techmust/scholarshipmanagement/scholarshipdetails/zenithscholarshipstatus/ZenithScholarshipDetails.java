@@ -105,7 +105,7 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 	
 	//Mappings
 	@JsonBackReference
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "studentid")
 	private StudentInformationData m_oStudentInformationData;	
 	

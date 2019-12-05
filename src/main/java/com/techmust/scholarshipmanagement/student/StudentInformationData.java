@@ -22,12 +22,14 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.transaction.Transactional;
 
+import org.hibernate.annotations.Fetch;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.techmust.constants.Constants;
 import com.techmust.generic.data.GenericData;
 import com.techmust.generic.data.MasterData;
@@ -41,6 +43,7 @@ import com.techmust.utils.Utils;
 
 @Entity
 @Table(name = "student")
+@Transactional
 public class StudentInformationData  extends MasterData implements Serializable
 {
 	private static final long serialVersionUID = 1L;
@@ -134,19 +137,22 @@ public class StudentInformationData  extends MasterData implements Serializable
 	@Column(name="parentmedicalissue")
 	private String m_strParentMedicalIssue;
 	
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne
 	@JoinColumn(name = "facilitatorid")
 	private FacilitatorInformationData m_oFacilitatorInformationData;
 	
-	@JsonManagedReference
-	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER, mappedBy = "m_oStudentInformationData",orphanRemoval = true)
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "m_oStudentInformationData",orphanRemoval = true)
+	@JsonIgnore	
 	private Set<AcademicDetails> m_oAcademicDetails;
 	
-	@JsonManagedReference
-	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "m_oStudentInformationData",orphanRemoval = true)
+	
+	@OneToMany(fetch = FetchType.LAZY,mappedBy = "m_oStudentInformationData",orphanRemoval = true)
+	@JsonIgnore
 	private Set<ZenithScholarshipDetails> m_oZenithScholarshipDetails ;
 	
-	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.LAZY)
+	@JsonIgnore
 	@JoinColumn(name = "student_id")
 	private Set<SibilingDetails> m_oSibilingDetails;
 	
