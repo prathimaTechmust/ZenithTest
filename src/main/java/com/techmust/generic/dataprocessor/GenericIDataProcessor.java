@@ -227,8 +227,8 @@ public abstract class GenericIDataProcessor<T extends IGenericData>
 		{
 			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
 			CriteriaQuery<StudentInformationData> oQuery = oCriteriaBuilder.createQuery(StudentInformationData.class);
-			Root<StudentInformationData> oStudentRoot = oQuery.from(StudentInformationData.class);
-			Join<StudentInformationData,ZenithScholarshipDetails> oRootJoin = oStudentRoot.join("m_oZenithScholarshipDetails",JoinType.INNER);
+			Root<StudentInformationData> oStudentRoot = oQuery.from(StudentInformationData.class);			
+			Join<Object, Object> oRootJoin = (Join<Object, Object>) oStudentRoot.fetch("m_oZenithScholarshipDetails");
 			List<Predicate> m_PredicateList = new ArrayList<Predicate>();
 			m_PredicateList.add(oCriteriaBuilder.equal(oRootJoin.get("m_oAcademicYear"), oStudentData.getM_nAcademicYearId()));
 			
@@ -274,9 +274,11 @@ public abstract class GenericIDataProcessor<T extends IGenericData>
 			CriteriaQuery<StudentInformationData> oCriteriaQuery = oCriteriaBuilder.createQuery(StudentInformationData.class);
 			Root<StudentInformationData> oRootObject = oCriteriaQuery.from(StudentInformationData.class);
 			Join<Object, Object> oJoin = (Join<Object, Object>) oRootObject.fetch("m_oAcademicDetails");
+			Join<Object, Object> oZenithJoin = (Join<Object, Object>) oRootObject.fetch("m_oZenithScholarshipDetails");
 			oCriteriaQuery.select(oRootObject);
 			List<Predicate>m_arrPredicateList = new ArrayList<Predicate>();
 			m_arrPredicateList.add(oCriteriaBuilder.equal(oJoin.get("m_oAcademicYear"), oStudentInformationData.getM_nAcademicYearId()));
+			m_arrPredicateList.add(oCriteriaBuilder.equal(oZenithJoin.get("m_oAcademicYear"), oStudentInformationData.getM_nAcademicYearId()));
 			if(oStudentInformationData.getM_strStudentName() != "")
 			{
 				Expression<String> oExpression = oRootObject.get("m_strStudentName");
