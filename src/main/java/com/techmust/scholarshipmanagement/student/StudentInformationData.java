@@ -1,6 +1,7 @@
 package com.techmust.scholarshipmanagement.student;
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -23,10 +24,12 @@ import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.hibernate.Hibernate;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.techmust.constants.Constants;
 import com.techmust.generic.data.GenericData;
@@ -139,11 +142,11 @@ public class StudentInformationData  extends MasterData implements Serializable
 	private FacilitatorInformationData m_oFacilitatorInformationData;
 	
 	@JsonManagedReference
-	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER, mappedBy = "m_oStudentInformationData",orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY, mappedBy = "m_oStudentInformationData",orphanRemoval = true)
 	private Set<AcademicDetails> m_oAcademicDetails;
 	
 	@JsonManagedReference
-	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "m_oStudentInformationData",orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "m_oStudentInformationData",orphanRemoval = true)
 	private Set<ZenithScholarshipDetails> m_oZenithScholarshipDetails ;
 	
 	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
@@ -536,9 +539,11 @@ public class StudentInformationData  extends MasterData implements Serializable
 		this.m_nMotherAadharNumber = nMotherAadharNumber;
 	}
 
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	public Set<AcademicDetails> getM_oAcademicDetails()
 	{
-		return m_oAcademicDetails;
+		//return m_oAcademicDetails;
+		return Hibernate.isInitialized(this.m_oAcademicDetails) ? Collections.unmodifiableSet(this.m_oAcademicDetails):new HashSet<>();
 	}
 
 	public void setM_oAcademicDetails(Set<AcademicDetails> oAcademicDetails) 
@@ -745,10 +750,13 @@ public class StudentInformationData  extends MasterData implements Serializable
 	{
 		this.m_strStudentImageId = strStudentImageId;
 	}
-
+	
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	public Set<ZenithScholarshipDetails> getM_oZenithScholarshipDetails()
 	{
-		return m_oZenithScholarshipDetails;
+		//return m_oZenithScholarshipDetails;
+		return Hibernate.isInitialized(this.m_oZenithScholarshipDetails) ? Collections.unmodifiableSet(this.m_oZenithScholarshipDetails):new HashSet<>();
+		
 	}
 
 	public void setM_oZenithScholarshipDetails(Set<ZenithScholarshipDetails> m_oZenithScholarshipDetails) 

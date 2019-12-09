@@ -49,7 +49,7 @@ function listStudentInfo_createDataGrid ()
 				{field:'m_strStatus',title:'Application Status',sortable:true,width:200,
 					formatter:function(value,row,index)
 		        	{
-		        		return row.m_oZenithScholarshipDetails[0].m_strStatus;
+		        		return "";
 		        	}
 				},		
 				{field:'Actions',title:'Action',width:80,align:'center',

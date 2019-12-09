@@ -1,52 +1,33 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>com.aws.codestar.projecttemplates</groupId>
-    <artifactId>HelloWorld</artifactId>
-    <version>1.0</version>
-    <packaging>war</packaging>
-    <name>Sample Spring MVC Application Using AWS CodeStar</name>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.aws.codestar.projecttemplates</groupId>
+	<artifactId>ZenithFoundation</artifactId>
+	<version>1.0</version>
+	<packaging>war</packaging>
+	<name>Sample Spring MVC Application Using AWS CodeStar</name>
 
-    <properties>
-        <junit.platform.version>1.2.0</junit.platform.version>
-        <junit.jupiter.version>5.2.0</junit.jupiter.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	<properties>
+		<junit.platform.version>1.2.0</junit.platform.version>
+		<junit.jupiter.version>5.2.0</junit.jupiter.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
-	<!--  	<spring.version>5.0.7.RELEASE</spring.version>-->
+		<!-- <spring.version>5.0.7.RELEASE</spring.version> -->
 		<systemScope.path>${basedir}/lib/</systemScope.path>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.resources.targetPath>${project.build.directory}/ROOT/WEB-INF/classes/com/techmust/</project.resources.targetPath>
 		<project.resources.sourcePath>${project.basedir}/src/main/java/com/techmust/</project.resources.sourcePath>
-        
-    </properties>
+
+	</properties>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.1.0.RELEASE</version>
 	</parent>
-    <dependencies>
-
-   
-   <!--   		
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-aop</artifactId>
-            <version>5.0.7.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-            <version>5.0.7.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
-            <version>5.0.7.RELEASE</version>
-        </dependency>
--->
- 		<dependency>
+	<dependencies>
+		<!-- Spring framework Dependencies -->
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
@@ -70,13 +51,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-rest</artifactId>
-		</dependency>
-<!-- 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-		</dependency>
- -->		
+		</dependency>		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -87,74 +62,47 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
- 		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-		</dependency>
+	<!--AWS Dependencies  -->	
 		<dependency>
 			<groupId>com.amazonaws</groupId>
 			<artifactId>aws-java-sdk</artifactId>
 			<version>1.11.327</version>
-		</dependency>
-<!-- 
-         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>4.0.1</version>
-            <scope>provided</scope>
-        </dependency>
-  -->
-        <dependency>
-            <groupId>commons-fileupload</groupId>
-            <artifactId>commons-fileupload</artifactId>
-            <version>1.3.3</version>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>${junit.jupiter.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>${junit.jupiter.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.platform</groupId>
-            <artifactId>junit-platform-launcher</artifactId>
-            <version>${junit.platform.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.platform</groupId>
-            <artifactId>junit-platform-runner</artifactId>
-            <version>${junit.platform.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-		  <groupId>mysql</groupId>
-		  <artifactId>mysql-connector-java</artifactId>
-		  <version>8.0.11</version>
-		</dependency>
-<!-- 	
-	 	<dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>5.0.7.RELEASE</version>
-        </dependency> 
+		</dependency>		
 		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
-			<version>5.1.0.Final</version>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.3.3</version>
 		</dependency>
 		<dependency>
-			<groupId>org.hibernate.javax.persistence</groupId>
-			<artifactId>hibernate-jpa-2.1-api</artifactId>
-			<version>1.0.2.Final</version>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>${junit.jupiter.version}</version>
+			<scope>test</scope>
 		</dependency>
- -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>${junit.jupiter.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-launcher</artifactId>
+			<version>${junit.platform.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-runner</artifactId>
+			<version>${junit.platform.version}</version>
+			<scope>test</scope>
+		</dependency>
+	<!-- MySql Connector Dependency -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.11</version>
+		</dependency>		
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
@@ -206,19 +154,13 @@
 			<groupId>javax.transaction</groupId>
 			<artifactId>jta</artifactId>
 			<version>1.1</version>
-		</dependency>	
+		</dependency>
 
 		<dependency>
 			<groupId>ognl</groupId>
 			<artifactId>ognl</artifactId>
 			<version>2.7.3</version>
 		</dependency>
-
-		<!-- <dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi</artifactId>
-			<version>3.13</version>
-		</dependency> -->
 
 		<dependency>
 			<groupId>org.apache.poi</groupId>
@@ -244,9 +186,9 @@
 			<version>2.1.3</version>
 		</dependency>
 		<dependency>
-		    <groupId>org.directwebremoting</groupId>
-		    <artifactId>dwr</artifactId>
-		    <version>3.0.M1</version>
+			<groupId>org.directwebremoting</groupId>
+			<artifactId>dwr</artifactId>
+			<version>3.0.M1</version>
 		</dependency>
 
 		<dependency>
@@ -260,12 +202,16 @@
 			<artifactId>maven-clean-plugin</artifactId>
 			<version>2.5</version>
 		</dependency>
-		
-			<dependency>
-		        <groupId>com.fasterxml.jackson.core</groupId>
-		        <artifactId>jackson-databind</artifactId>
-		        <version>2.9.8</version>
-	    	</dependency>
+	<!-- Json Dependencies -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.9.8</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
@@ -278,101 +224,89 @@
 			<artifactId>jackson-mapper-asl</artifactId>
 			<version>1.9.13</version>
 		</dependency>
-		<!-- Mail Dependencies -->
-			<dependency>
-				<groupId>javax.mail</groupId>
-				<artifactId>mail</artifactId>
-				<version>1.4.7</version>
-			</dependency>		
-	        <dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-context-support</artifactId>
-				<version>5.1.3.RELEASE</version>
-			</dependency>
+	<!-- Mail Dependencies -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.7</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>5.1.3.RELEASE</version>
+		</dependency>
 	<!-- Maven Dependencies for Create Excel files -->
-			<dependency>
-			    <groupId>org.apache.poi</groupId>
-			    <artifactId>poi</artifactId>
-			    <version>3.17</version>
-			</dependency>
-			<dependency>
-			    <groupId>org.apache.poi</groupId>
-			    <artifactId>poi-ooxml</artifactId>
-			    <version>3.17</version>
-			</dependency>
-			<dependency>
-			    <groupId>org.apache.poi</groupId>
-			    <artifactId>poi-ooxml-schemas</artifactId>
-			    <version>3.17</version>
-			</dependency>
-			<dependency>
-			    <groupId>org.apache.xmlbeans</groupId>
-			    <artifactId>xmlbeans</artifactId>
-			    <version>2.6.0</version>
-			</dependency>								
-	    </dependencies>
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-war-plugin</artifactId>
-                    <version>3.2.2</version>
-                    <configuration>
-                        <warSourceDirectory>src/main/webapp</warSourceDirectory>
-                        <warName>ROOT</warName>
-                        <failOnMissingWebXml>false</failOnMissingWebXml>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.22.0</version>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.junit.platform</groupId>
-                            <artifactId>junit-platform-surefire-provider</artifactId>
-                            <version>${junit.platform.version}</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.junit.jupiter</groupId>
-                            <artifactId>junit-jupiter-engine</artifactId>
-                            <version>${junit.jupiter.version}</version>
-                        </dependency>
-                    </dependencies>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-        <finalName>ROOT</finalName>
-        <resources>
-			<resource>
-				<targetPath>${project.resources.targetPath}inventory/resource</targetPath>
-				<directory>${project.resources.sourcePath}inventory/resource</directory>
-				<includes>
-					<include>**/*.defaults.xml</include>
-				</includes>
-			</resource>
-			<resource>
-				<targetPath>${project.resources.targetPath}property/resource</targetPath>
-				<directory>${project.resources.sourcePath}property/resource</directory>
-				<includes>
-					<include>**/*.defaults.xml</include>
-				</includes>
-			</resource>
-			<resource>
-				<targetPath>${project.resources.targetPath}clientmanagement/resources</targetPath>
-				<directory>${project.resources.sourcePath}clientmanagement/resources</directory>
-				<includes>
-					<include>**/*.defaults.xml</include>
-				</includes>
-			</resource>
-			<resource>
-				<targetPath>${project.resources.targetPath}vendormanagement/resources</targetPath>
-				<directory>${project.resources.sourcePath}vendormanagement/resources</directory>
-				<includes>
-					<include>**/*.defaults.xml</include>
-				</includes>
-			</resource>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.17</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.17</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml-schemas</artifactId>
+			<version>3.17</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.xmlbeans</groupId>
+			<artifactId>xmlbeans</artifactId>
+			<version>2.6.0</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>3.2.2</version>
+					<configuration>
+						<warSourceDirectory>src/main/webapp</warSourceDirectory>
+						<warName>ROOT</warName>
+						<failOnMissingWebXml>false</failOnMissingWebXml>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.22.0</version>
+					<dependencies>
+						<dependency>
+							<groupId>org.junit.platform</groupId>
+							<artifactId>junit-platform-surefire-provider</artifactId>
+							<version>${junit.platform.version}</version>
+						</dependency>
+						<dependency>
+							<groupId>org.junit.jupiter</groupId>
+							<artifactId>junit-jupiter-engine</artifactId>
+							<version>${junit.jupiter.version}</version>
+						</dependency>
+					</dependencies>
+				</plugin>
+		<!-- Enabling Lazy Intialization in Hibernate by Following plugin -->
+				<plugin>
+					<groupId>org.hibernate.orm.tooling</groupId>
+			        <artifactId>hibernate-enhance-maven-plugin</artifactId>
+			        <version>5.4.9.Final</version>
+			        <executions>
+			        	<execution>
+			        		<configuration>
+			        			<enableLazyInitialization>true</enableLazyInitialization>
+			        		</configuration>
+			        		<goals>
+			        			<goal>enhance</goal>
+			        		</goals>
+			        	</execution>
+			        </executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<finalName>ROOT</finalName>
+		<resources>
 			<resource>
 				<targetPath>${project.resources.targetPath}usermanagement/resources</targetPath>
 				<directory>${project.resources.sourcePath}usermanagement/resources</directory>
@@ -388,18 +322,9 @@
 				</includes>
 			</resource>
 			<resource>
-				<targetPath>${project.resources.targetPath}traderp/resource</targetPath>
-				<directory>${project.resources.sourcePath}traderp/resource</directory>
-				<includes>
-					<include>**/*.defaults.xml</include>
-					<include>**/*.cfg.xml</include>
-				</includes>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
 			</resource>
-	
-			 <resource>
-			    <directory>src/main/resources</directory>
-			    <filtering>true</filtering>
-			 </resource>
 		</resources>
-    </build>
+	</build>
 </project>
