@@ -86,7 +86,7 @@ public class AcademicDetails extends MasterData implements Serializable
 	private AcademicYear m_oAcademicYear;
 	
 	@JsonBackReference
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "studentid")
 	private StudentInformationData m_oStudentInformationData;
 	

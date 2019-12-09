@@ -1,6 +1,7 @@
 package com.techmust.scholarshipmanagement.student;
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -22,14 +23,14 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import javax.transaction.Transactional;
 
-import org.hibernate.annotations.Fetch;
+import org.hibernate.Hibernate;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.techmust.constants.Constants;
 import com.techmust.generic.data.GenericData;
 import com.techmust.generic.data.MasterData;
@@ -43,7 +44,6 @@ import com.techmust.utils.Utils;
 
 @Entity
 @Table(name = "student")
-@Transactional
 public class StudentInformationData  extends MasterData implements Serializable
 {
 	private static final long serialVersionUID = 1L;
@@ -137,22 +137,19 @@ public class StudentInformationData  extends MasterData implements Serializable
 	@Column(name="parentmedicalissue")
 	private String m_strParentMedicalIssue;
 	
-	@OneToOne
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "facilitatorid")
 	private FacilitatorInformationData m_oFacilitatorInformationData;
 	
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "m_oStudentInformationData",orphanRemoval = true)
-	@JsonIgnore	
+	@JsonManagedReference
+	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY, mappedBy = "m_oStudentInformationData",orphanRemoval = true)
 	private Set<AcademicDetails> m_oAcademicDetails;
 	
-	
-	@OneToMany(fetch = FetchType.LAZY,mappedBy = "m_oStudentInformationData",orphanRemoval = true)
-	@JsonIgnore
+	@JsonManagedReference
+	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "m_oStudentInformationData",orphanRemoval = true)
 	private Set<ZenithScholarshipDetails> m_oZenithScholarshipDetails ;
 	
-	@OneToMany(fetch = FetchType.LAZY)
-	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	@JoinColumn(name = "student_id")
 	private Set<SibilingDetails> m_oSibilingDetails;
 	
@@ -542,9 +539,11 @@ public class StudentInformationData  extends MasterData implements Serializable
 		this.m_nMotherAadharNumber = nMotherAadharNumber;
 	}
 
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	public Set<AcademicDetails> getM_oAcademicDetails()
 	{
-		return m_oAcademicDetails;
+		//return m_oAcademicDetails;
+		return Hibernate.isInitialized(this.m_oAcademicDetails) ? Collections.unmodifiableSet(this.m_oAcademicDetails):new HashSet<>();
 	}
 
 	public void setM_oAcademicDetails(Set<AcademicDetails> oAcademicDetails) 
@@ -751,10 +750,13 @@ public class StudentInformationData  extends MasterData implements Serializable
 	{
 		this.m_strStudentImageId = strStudentImageId;
 	}
-
+	
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	public Set<ZenithScholarshipDetails> getM_oZenithScholarshipDetails()
 	{
-		return m_oZenithScholarshipDetails;
+		//return m_oZenithScholarshipDetails;
+		return Hibernate.isInitialized(this.m_oZenithScholarshipDetails) ? Collections.unmodifiableSet(this.m_oZenithScholarshipDetails):new HashSet<>();
+		
 	}
 
 	public void setM_oZenithScholarshipDetails(Set<ZenithScholarshipDetails> m_oZenithScholarshipDetails) 
