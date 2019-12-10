@@ -217,6 +217,7 @@ public abstract class GenericIDataProcessor<T extends IGenericData>
 		return m_arrStudentDataList;		
 	}
 	
+	@SuppressWarnings("unchecked")
 	private static ArrayList<StudentInformationData> getStudentStatusFilteredData(StudentInformationData oStudentData)
 	{
 		m_oLogger.info("StudentFilterObjectData");
@@ -229,9 +230,10 @@ public abstract class GenericIDataProcessor<T extends IGenericData>
 			CriteriaQuery<StudentInformationData> oQuery = oCriteriaBuilder.createQuery(StudentInformationData.class);
 			Root<StudentInformationData> oStudentRoot = oQuery.from(StudentInformationData.class);			
 			Join<Object, Object> oRootJoin = (Join<Object, Object>) oStudentRoot.fetch("m_oZenithScholarshipDetails");
+			Join<Object, Object> oAcademicJoin = (Join<Object, Object>) oStudentRoot.fetch("m_oAcademicDetails");
 			List<Predicate> m_PredicateList = new ArrayList<Predicate>();
 			m_PredicateList.add(oCriteriaBuilder.equal(oRootJoin.get("m_oAcademicYear"), oStudentData.getM_nAcademicYearId()));
-			
+			m_PredicateList.add(oCriteriaBuilder.equal(oAcademicJoin.get("m_oAcademicYear"), oStudentData.getM_nAcademicYearId()));
 			if(oStudentData.getM_nUID() >  0)
 				m_PredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_nUID"),oStudentData.getM_nUID()));
 			if(oStudentData.getM_strStatus() != null)
