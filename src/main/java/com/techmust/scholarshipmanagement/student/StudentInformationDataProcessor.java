@@ -291,7 +291,8 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 			{
 				listDocuments.add(oStudentDocuments);
 				oAcademic.setM_arrStudentDocuments(listDocuments);
-				arrAcademics.add(oAcademic);
+				oAcademicDetails.clear();
+				oAcademicDetails.add(oAcademic);
 			}
 			oStudentInformationData.setM_oAcademicDetails(arrAcademics);
 		}		
@@ -437,7 +438,7 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 			oTypedQuery.setFirstResult((oStudentInformationData.getM_oZenithHelper().getM_nPageNo()-1)*oStudentInformationData.getM_oZenithHelper().getM_nPageSize());
 			oTypedQuery.setMaxResults(oStudentInformationData.getM_oZenithHelper().getM_nPageSize());
 			List<StudentInformationData> oList = oTypedQuery.getResultList();
-			oStudentDataResponse.m_arrStudentInformationData = new ArrayList<>(oList);			
+			oStudentDataResponse.m_arrStudentInformationData = new ArrayList<>(oList);	
 		}
 		catch (Exception oException)
 		{
