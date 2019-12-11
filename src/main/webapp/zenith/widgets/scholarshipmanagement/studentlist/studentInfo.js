@@ -79,7 +79,6 @@ function studentInfo_old ()
 
 function studentInfo_init ()
 {
-
 	createPopup("dialog", "#studentInfo_button_submit", "#studentInfo_button_cancel", true);
 	populateAcademicYearDropDown('selectacademicyear');
 	document.getElementById("defaultOpen").click();		
@@ -1425,3 +1424,4 @@ function documentResponse(oDocumentResponse)
 {
 	 HideDialog ("secondDialog");
 }
+
