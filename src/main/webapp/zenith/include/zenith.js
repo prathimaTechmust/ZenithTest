@@ -840,6 +840,38 @@ function ajaxCall(oData, strURL, callback)
 	    });
 }
 
+//Fetch All Lists And Handle Spinner Until Get Response
+function ajaxCallList(oData, strURL, callback)
+{
+	var strTenantName = document.cookie.split("=")[1];
+	$.ajax({
+	    url: m_strLocationURL + strURL,
+	    beforeSend: 
+	    	function(xhr)
+	    	{
+	    		$("#dialog").show();
+	    		xhr.setRequestHeader('zenithTenantName', strTenantName);
+	    		xhr.setRequestHeader("Content-Encoding", "gzip, deflate");
+	    	},
+	    data: JSON.stringify(oData),
+	    dataType: "json",
+	    type: "POST",
+	    async:true,
+	    contentType: "application/json",
+	    success: function(oResponse){
+	    	$("#dialog").show();
+			fn = eval(callback);
+			fn(oResponse);
+		    },
+	    error:function(xhr, textStatus, errorThrown){
+	    	alert("Failed to fetch list");
+	    	console.log(xhr );
+	    	console.log(textStatus);
+	    	console.log(errorThrown);
+	    	}
+	    });
+}
+
 function multipartAjaxCall(oData, strURL, callback)
 {
 	$.ajax({

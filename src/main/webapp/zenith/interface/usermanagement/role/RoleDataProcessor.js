@@ -27,7 +27,7 @@ var RoleDataProcessor = (function __RoleDataProcessor ()
 				 m_nPageNo:nPageNo,
 				 m_nPageSize:nPageSize
 		} 
-		 ajaxCall(oZenithHelper,"/roleList",callback);
+		 ajaxCallList(oZenithHelper,"/roleList",callback);
 		 
 	}
 	

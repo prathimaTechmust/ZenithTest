@@ -20,7 +20,7 @@ var FacilitatorInformationDataProcessor = (function __FacilitatorInformationData
 		oZenithHelper.m_strOrderBy = strSortOrder;
 		oZenithHelper.m_nPageNo = nPageNo;
 		oZenithHelper.m_nPageSize = nPageSize;			
-		ajaxCall(oZenithHelper, "/facilitatorInfoList", callback);		 
+		ajaxCallList(oZenithHelper, "/facilitatorInfoList", callback);		 
 	}
 	
 	function update (oFacilitatorData,callback)
