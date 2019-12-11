@@ -79,7 +79,6 @@ function studentInfo_old ()
 
 function studentInfo_init ()
 {
-
 	createPopup("dialog", "#studentInfo_button_submit", "#studentInfo_button_cancel", true);
 	populateAcademicYearDropDown('selectacademicyear');
 	document.getElementById("defaultOpen").click();		
@@ -101,7 +100,7 @@ function getDropDownValues ()
 function getCourseNamesListDropDown ()
 {
 	var oCourseInformationData = new CourseInformationData ();
-	CourseInformationDataProcessor.list (oCourseInformationData, "", "",0,0,loadCourseListResponseToDropDown);
+	CourseInformationDataProcessor.populateDropDownList (oCourseInformationData, "", "",0,0,loadCourseListResponseToDropDown);
 }
 
 function loadCourseListResponseToDropDown(oCourseListResponse)
@@ -124,7 +123,7 @@ function loadCourseListResponseToDropDown(oCourseListResponse)
 function getInstitutionsNamesListDropDown ()
 {
 	var oInstitutionInformationData = new InstitutionInformationData ();
-	InstitutionInformationDataProcessor.list (oInstitutionInformationData, "", "",0,0, loadInstitutionListResponseToDropDown);
+	InstitutionInformationDataProcessor.populateDropDownList (oInstitutionInformationData, "", "",0,0, loadInstitutionListResponseToDropDown);
 }
 
 function loadInstitutionListResponseToDropDown (oInstitutionResponse)
@@ -147,7 +146,7 @@ function loadInstitutionListResponseToDropDown (oInstitutionResponse)
 function getFacilitatorListToDropDown ()
 {
 	var oFacilitatorInformationData = new FacilitatorInformationData ();
-	FacilitatorInformationDataProcessor.list (oFacilitatorInformationData,"","",0,0,loadFacilitatorListResponseToDropDown);			
+	FacilitatorInformationDataProcessor.populateDropDownList (oFacilitatorInformationData,"","",0,0,loadFacilitatorListResponseToDropDown);			
 }
 
 function loadFacilitatorListResponseToDropDown (oReponse)
@@ -1425,3 +1424,4 @@ function documentResponse(oDocumentResponse)
 {
 	 HideDialog ("secondDialog");
 }
+

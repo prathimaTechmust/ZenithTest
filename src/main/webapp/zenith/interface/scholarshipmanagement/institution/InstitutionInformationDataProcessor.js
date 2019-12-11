@@ -57,6 +57,18 @@ var InstitutionInformationDataProcessor = (function __InstitutionInformationData
 		ajaxCall(oChequeFavourData,"/getChequeFavourData",callback);
 	}
 	
+	function populateDropDownList(oInstitutionData, strSortColumn, strSortOrder, nPageNo, nPageSize, callback)
+	{
+		var oZenithHelper = new ZenithHelper ();
+		oZenithHelper.m_oInstitutionInformationData = oInstitutionData;
+		oZenithHelper.m_nPageNo = nPageNo;
+		oZenithHelper.m_nPageSize = nPageSize;
+		oZenithHelper.m_strSortColumn = strSortColumn;
+		oZenithHelper.m_strOrderBy = strSortOrder;
+		ajaxCall(oZenithHelper, "/institutionInfoList", callback);		 
+	}
+	
+	
 	return { 
 		create : create,
 		get : get,
@@ -67,6 +79,7 @@ var InstitutionInformationDataProcessor = (function __InstitutionInformationData
 		getXML : getXML,
 		getInstitutionSuggesstions :getInstitutionSuggesstions,
 		institutionFilterData :institutionFilterData,
-		getChequeInFavourOf :getChequeInFavourOf
+		getChequeInFavourOf :getChequeInFavourOf,
+		populateDropDownList:populateDropDownList
 	};
 })();

@@ -176,6 +176,7 @@ function changePriority_submit()
 {
 	var oStudentInformationData = new StudentInformationData();
 	oStudentInformationData.m_nStudentId = m_oTatkalStudentListInfo_memberData.m_nStudentId;
+	oStudentInformationData.m_nAcademicYearId = $("#selectTatkalAcademicYear").val();
 	if(document.getElementById("select_priority_HighRadioButton").checked)
 		oStudentInformationData.m_nApplicationPriority = $("#select_priority_HighRadioButton").val();
 	else if(document.getElementById("select_priority_MediumRadioButton").checked)

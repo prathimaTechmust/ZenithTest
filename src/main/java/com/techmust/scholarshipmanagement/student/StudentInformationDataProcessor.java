@@ -487,7 +487,7 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		StudentInformationData oStudentInformationData = new StudentInformationData();
 		try 
 		{
-			oStudentInformationData = (StudentInformationData) populateObject(oStudentData);
+			oStudentInformationData = oStudentInformationData.getStudentDetails (oStudentData);
 			oStudentInformationData = getStudentDocuments(oStudentInformationData);
 			oStudentInformationData.setM_nApplicationPriority(oStudentData.getM_nApplicationPriority());
 			oStudentDataResponse.m_bSuccess = oStudentInformationData.updateObject();
