@@ -77,7 +77,7 @@ var StudentInformationDataProcessor = (function __StudentInformationDataProcesso
 		oZenithHelper.m_strSortColumn = strSortColumn;
 		oZenithHelper.m_strOrderBy = strSortOrder;
 		oStudentData.m_oZenithHelper = oZenithHelper;
-		ajaxCall(oStudentData,"/studentStatusInfoList",callback);
+		ajaxCallList(oStudentData,"/studentStatusInfoList",callback);
 	}
 	
 	function getStudentDataUID (oStudentFormUIDData,callback)
@@ -103,7 +103,7 @@ var StudentInformationDataProcessor = (function __StudentInformationDataProcesso
 		oZenithHelper.m_strSortColumn = strSortColumn;
 		oZenithHelper.m_strOrderBy = strSortOrder;
 		oStudentData.m_oZenithHelper = oZenithHelper;
-		ajaxCall(oStudentData,"/getStudentList",callback);
+		ajaxCallList(oStudentData,"/getStudentList",callback);
 	}
 	
 	function updateTatkalPriority (oStudentTakalData,callback)

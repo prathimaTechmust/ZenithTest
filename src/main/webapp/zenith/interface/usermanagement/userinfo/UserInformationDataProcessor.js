@@ -28,7 +28,7 @@ var UserInformationDataProcessor = (function __UserInformationDataProcessor ()
 				 m_nPageNo:nPageNo,
 				 m_nPageSize:nPageSize
 		} 
-		 ajaxCall(oZenithHelper, "/userInfoList", callback);
+		 ajaxCallList(oZenithHelper, "/userInfoList", callback);
 		 
 	}
 	

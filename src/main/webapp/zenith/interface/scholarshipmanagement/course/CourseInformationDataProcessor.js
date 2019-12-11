@@ -18,7 +18,7 @@ var CourseInformationDataProcessor = (function __CourseInformationDataProcessor 
 		oZenithHelper.m_strSortColumn = strSortColumn;
 		oZenithHelper.m_strOrderBy = strSortOrder;
 		oZenithHelper.m_oCourseInformationData = oCourseData;
-		ajaxCall(oZenithHelper, "/courseInfoList", callback);		 
+		ajaxCallList(oZenithHelper, "/courseInfoList", callback);		 
 	}
 	
 	function update (oCourseData,callback)
