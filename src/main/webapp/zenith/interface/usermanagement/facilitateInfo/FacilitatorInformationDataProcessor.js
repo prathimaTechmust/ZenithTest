@@ -57,6 +57,18 @@ var FacilitatorInformationDataProcessor = (function __FacilitatorInformationData
 		 ajaxCall(oFacilitatorFilterData, "/getFilterFacilitatorData", callback);	
 	}
 	
+	function populateDropDownList(oFacilitatorData, strSortColumn, strSortOrder, nPageNo, nPageSize, callback)
+	{	
+		var oZenithHelper = new ZenithHelper ();
+		oZenithHelper.m_oFacilitatorInformationData = oFacilitatorData;
+		oZenithHelper.m_strSortColumn = strSortColumn;
+		oZenithHelper.m_strOrderBy = strSortOrder;
+		oZenithHelper.m_nPageNo = nPageNo;
+		oZenithHelper.m_nPageSize = nPageSize;			
+		ajaxCall(oZenithHelper, "/facilitatorInfoList", callback);		 
+	}
+	
+	
 	return { 
 		create : create,
 		get : get,
@@ -66,6 +78,7 @@ var FacilitatorInformationDataProcessor = (function __FacilitatorInformationData
 		getImagePreview : getImagePreview,
 		getXML : getXML,
 		getFacilitatorSuggesstions :getFacilitatorSuggesstions,
-		filterFacilitatorData :filterFacilitatorData
+		filterFacilitatorData :filterFacilitatorData,
+		populateDropDownList:populateDropDownList
 	};
 })();
