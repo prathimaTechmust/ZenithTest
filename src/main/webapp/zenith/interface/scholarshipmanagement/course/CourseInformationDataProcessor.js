@@ -18,7 +18,7 @@ var CourseInformationDataProcessor = (function __CourseInformationDataProcessor 
 		oZenithHelper.m_strSortColumn = strSortColumn;
 		oZenithHelper.m_strOrderBy = strSortOrder;
 		oZenithHelper.m_oCourseInformationData = oCourseData;
-		ajaxCall(oZenithHelper, "/courseInfoList", callback);		 
+		ajaxCallList(oZenithHelper, "/courseInfoList", callback);		 
 	}
 	
 	function update (oCourseData,callback)
@@ -55,6 +55,18 @@ var CourseInformationDataProcessor = (function __CourseInformationDataProcessor 
 		 ajaxCall(oCourseFilterData, "/courseFilterInfoData", callback);
 	}
 	
+	function populateDropDownList(oCourseData, strSortColumn, strSortOrder, nPageNo, nPageSize, callback)
+	{
+		var oZenithHelper = new ZenithHelper ();
+		oZenithHelper.m_nPageNo = nPageNo;
+		oZenithHelper.m_nPageSize = nPageSize;
+		oZenithHelper.m_strSortColumn = strSortColumn;
+		oZenithHelper.m_strOrderBy = strSortOrder;
+		oZenithHelper.m_oCourseInformationData = oCourseData;
+		ajaxCall(oZenithHelper, "/courseInfoList", callback);		 
+	}
+	
+	
 	return { 
 		create : create,
 		get : get,
@@ -64,6 +76,7 @@ var CourseInformationDataProcessor = (function __CourseInformationDataProcessor 
 		getImagePreview : getImagePreview,
 		getXML : getXML,
 		getCourseSuggesstions :getCourseSuggesstions,
-		courseFilterData :courseFilterData
+		courseFilterData :courseFilterData,
+		populateDropDownList:populateDropDownList
 	};
 })();

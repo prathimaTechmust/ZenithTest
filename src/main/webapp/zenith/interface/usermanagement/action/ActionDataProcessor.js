@@ -20,7 +20,7 @@ var ActionDataProcessor = (function __ActionDataProcessor ()
 				 m_nPageNo:nPageNo,
 				 m_nPageSize:nPageSize
 		} 
-		 ajaxCall(oZenithHelper,"/actionList",callback);
+		 ajaxCallList(oZenithHelper,"/actionList",callback);
 	}
 	
 	function update (oActionData, callback)

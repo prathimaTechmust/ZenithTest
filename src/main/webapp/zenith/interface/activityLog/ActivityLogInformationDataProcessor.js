@@ -9,7 +9,7 @@ var ActivityLogInformationDataProcessor = (function __ActivityLogInformationData
 		oZenithHelper.m_nPageSize = nPageSize;
 		oZenithHelper.m_strSortColumn = strSortColumn;
 		oZenithHelper.m_strOrderBy = strSortOrder;
-		ajaxCall(oZenithHelper, "/activityLogListInfo", callback);
+		ajaxCallList(oZenithHelper, "/activityLogListInfo", callback);
 	}
 	
 	function sortingList(oZenithHelperData,callback)

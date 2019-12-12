@@ -150,9 +150,10 @@ public class ZenithScholarshipInformationDataProcessor extends GenericIDataProce
 				
 				StudentInformationData	oStudentInformationData = new StudentInformationData();
 			    oStudentInformationData.setM_nStudentId(oZenithScholarshipDetails.getM_nStudentId());
-			    oStudentInformationData= (StudentInformationData) populateObject(oStudentInformationData);
-			    List<ZenithScholarshipDetails> oDetails = new ArrayList<ZenithScholarshipDetails>(oStudentInformationData.getM_oZenithScholarshipDetails());
-			    AmazonSMS.sendSmsToCounselingCandidate(oStudentInformationData.getM_strStudentName(),Constants.NUMBERPREFIX+oStudentInformationData.getM_strPhoneNumber(),oDetails.get(0).getM_dCounselingDate());	
+			    oStudentInformationData.setM_nAcademicYearId(oZenithScholarshipDetails.getM_nAcademicYearId());
+			    StudentInformationData  oStudentData= oStudentInformationData.getStudentDetails(oStudentInformationData);
+			    List<ZenithScholarshipDetails> oDetails = new ArrayList<ZenithScholarshipDetails>(oStudentData.getM_oZenithScholarshipDetails());
+			    AmazonSMS.sendSmsToCounselingCandidate(oStudentData.getM_strStudentName(),Constants.NUMBERPREFIX+oStudentData.getM_strPhoneNumber(),oDetails.get(0).getM_dCounselingDate());	
 				Utils.createActivityLog("ZenithScholarshipInformationDataProcessor::counselingStatusApplication", oZenithScholarshipDetails);			
 			} 
 		}

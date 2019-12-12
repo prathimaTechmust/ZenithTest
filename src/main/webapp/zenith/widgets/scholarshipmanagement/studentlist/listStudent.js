@@ -153,7 +153,6 @@ function listStudentInfo_progressbarLoaded ()
 	createPopup('dialog', '', '', true);
 	var oStudentInformationData = new StudentInformationData ();
 	oStudentInformationData.m_nAcademicYearId = $("#selectStudentListAcademicYear").val();
-	//StudentInformationDataProcessor.list(oStudentInformationData, m_oStudentInfoListMemberData.m_strSortColumn, m_oStudentInfoListMemberData.m_strOrderBy, m_oStudentInfoListMemberData.m_nPageNumber, m_oStudentInfoListMemberData.m_nPageSize, listStudentInfo_listed);	
 	StudentInformationDataProcessor.studentList(oStudentInformationData,m_oStudentInfoListMemberData.m_strSortColumn, m_oStudentInfoListMemberData.m_strOrderBy, m_oStudentInfoListMemberData.m_nPageNumber, m_oStudentInfoListMemberData.m_nPageSize,listStudentInfo_listed);
 	
 }
