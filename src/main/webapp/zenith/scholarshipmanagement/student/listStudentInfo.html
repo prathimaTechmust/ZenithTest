@@ -28,7 +28,8 @@
                     <input 
                         class="filterTextBox"
                         id="filterStudentInfo_input_studentUID"
-                        onkeypress="handleFilter('studentListInfo_filter()','#filterStudentInfo_input_studentUID')"
+                        maxlength="4"
+                        onkeypress="handleFilter('studentListInfo_filter()','#filterStudentInfo_input_studentUID');validateNumber(this)"
                         placeholder="Student UID"/>
                   </td>
                   <td class="zenith" style="width:15%">
@@ -50,8 +51,9 @@
                     <input 
                         class="filterTextBox"
                         id="filterStudentInfo_input_aadhar"
-                        onkeypress="handleFilter('studentListInfo_filter()','#filterStudentInfo_input_aadhar')"
-                        placeholder="Student Aadhar"/>
+                        onkeypress="handleFilter('studentListInfo_filter()','#filterStudentInfo_input_aadhar');validateNumber(this)"
+                        placeholder="Student Aadhar"
+                        maxlength="16"/>
                   </td>
                   <td class="zenith" style="width:5%">
                     	<select id="selectStudentListAcademicYear" class="filterTextBox" style="width: 100px;" onchange="getChangedAcademicYearData ()">                    		
