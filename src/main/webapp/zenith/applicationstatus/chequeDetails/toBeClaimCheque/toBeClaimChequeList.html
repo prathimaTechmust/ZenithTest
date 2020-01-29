@@ -22,8 +22,9 @@
                     <input 
                         class="filterTextBox"
                         id="filterStudentInfo_input_studentUID"
-                        onkeypress="handleFilter('studentListInfo_filter()','#filterStudentInfo_input_studentUID')"
-                        placeholder="Student UID"/>
+                        onkeypress="handleFilter('studentListInfo_filter()','#filterStudentInfo_input_studentUID');validateNumber(this)"
+                        placeholder="Student UID"
+                        maxlength="4"/>
                   </td>
                    <td class="zenith" style="width:15%">
                     <input 
@@ -44,8 +45,9 @@
                     <input 
                         class="filterTextBox"
                         id="filterStudentInfo_input_aadhar"
-                        onkeypress="handleFilter('studentListInfo_filter()','#filterStudentInfo_input_aadhar')"
-                        placeholder="Student Aadhar"/>
+                        onkeypress="handleFilter('studentListInfo_filter()','#filterStudentInfo_input_aadhar');validateNumber(this)"
+                        placeholder="Student Aadhar"
+                        maxlength="16"/>
                   </td>
                   <td class="zenith" style="width:5%">
                     <button class="zenith filterButton" type="button" onclick="studentListInfo_filter (toBeClaimChequeList_table,'cheque disbursed','selectToBeClaimAcademicYear')">

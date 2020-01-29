@@ -402,7 +402,10 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		{			
 			oStudentDataResponse.m_arrStudentInformationData = (ArrayList<StudentInformationData>) populateStudentFilterObjectData(oStudentInformationData);
 			if(oStudentDataResponse.m_arrStudentInformationData.size() > 0)
+			{
 				oStudentDataResponse.m_bSuccess = true;
+				oStudentDataResponse.m_nRowCount = oStudentDataResponse.m_arrStudentInformationData.size();
+			}
 		}
 		catch (Exception oException)
 		{
@@ -831,6 +834,7 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 								
 				listArray.add(oExcelData.getM_nUID());
 				listArray.add(oExcelData.getM_strStudentName());
+				listArray.add(String.valueOf(oExcelData.getM_nStudentAadharNumber()));
 				listArray.add(oExcelData.getM_strCategory());				
 				listArray.add(oExcelData.getM_oFacilitatorInformationData().getM_strFacilitatorName());
 				listArray.add(oExcelData.getM_strGender());
@@ -844,12 +848,16 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 				listArray.add(oDetails.getM_strStudentScore());
 				listArray.add(oExcelData.getM_strParentalStatus());
 				listArray.add(oExcelData.getM_strFatherName());
+				listArray.add(String.valueOf(oExcelData.getM_nFatherAadharNumber()));
 				listArray.add(oExcelData.getM_strFatherOccupation());
 				listArray.add(oExcelData.getM_strPhoneNumber());
 				listArray.add(oExcelData.getM_strMotherName());
+				listArray.add(String.valueOf(oExcelData.getM_nMotherAadharNumber()));
 				listArray.add(oExcelData.getM_strMotherOccupation());
 				listArray.add(oExcelData.getM_strCity());
 				listArray.add(oExcelData.getM_strState());
+				listArray.add(oExcelData.getM_nPincode());
+				listArray.add(oZenith.getM_fApprovedAmount());
 				listArray.add(oAccount.getM_nChequeNumber());
 				listArray.add(oZenith.getM_strStudentRemarks());
 				oObject = listArray.toArray();
