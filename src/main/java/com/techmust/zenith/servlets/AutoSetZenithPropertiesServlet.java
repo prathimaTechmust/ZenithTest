@@ -36,8 +36,8 @@ public class AutoSetZenithPropertiesServlet extends HttpServlet
 			AppProperties.setProperty("ONLINE_MENU_XSLT_FILE", strContextPath+File.separator + "ZenithOnlineMenu.xslt");
 			AppProperties.setProperty("OFFCANVAS_XSLT_FILE", strContextPath+File.separator + "ZenithOffcanvas.xslt");
 			AppProperties.setProperty("MAIL_PROPERTY_FILE", strContextPath + File.separator + "Zenithmail.properties");
-			System.out.println ("AutoSetZenithPropertiesServlet : strContextPath : " + strContextPath + File.separator + "log4jZenith.properties");
-			PropertyConfigurator.configure (strContextPath + File.separator+"log4jZenith.properties");
+			/*System.out.println ("AutoSetZenithPropertiesServlet : strContextPath : " + strContextPath + File.separator + "log4jZenith.properties");
+			PropertyConfigurator.configure (strContextPath + File.separator+"log4jZenith.properties");*/
 			AppProperties.setProperty ("UserManagement.defaults", strContextPath + File.separator + "UserManagement.defaults.xml");
 			initialize ();
 		} 
@@ -49,7 +49,7 @@ public class AutoSetZenithPropertiesServlet extends HttpServlet
 
 	private void initialize() throws Exception
     {
-		System.out.println ("AutoSetTradeRpPropertiesServlet : initialize : ");
+		System.out.println ("AutoSetZenithPropertiesServlet : initialize : ");
 // TODO : commented to check connection pool issues using hibernate sessions 0n 2/6/2019
 		UserManagementInitializer.initialize ();
 //		EMailDataProcessor oEMailDataProcessor = new EMailDataProcessor ();

@@ -18,8 +18,9 @@
                     <input 
                         class="filterTextBox"
                         id="filterStudentInfo_input_studentUID"
-                        onkeypress="handleFilter('studentListInfo_filter()','#filterStudentInfo_input_studentUID')"
-                        placeholder="Student UID"/>
+                        onkeypress="handleFilter('studentListInfo_filter()','#filterStudentInfo_input_studentUID');validateNumber(this)"
+                        placeholder="Student UID"
+                        maxlength="4"/>
                   </td>
                   <td class="zenith" style="width:15%">
                     <input 
@@ -32,15 +33,17 @@
                     <input 
                         class="filterTextBox"
                         id="filterStudentInfo_input_phonenumber"
-                        onkeypress="handleFilter('tatkalStudentListInfo_filter()','#filterTatkalStudentListInfo_input_PhoneNumber')"
-                        placeholder = "Phone Number"/>
+                        onkeypress="handleFilter('tatkalStudentListInfo_filter()','#filterTatkalStudentListInfo_input_PhoneNumber');validateNumber(this)"
+                        placeholder = "Phone Number"
+                        maxlength="10"/>
                   </td>
                   <td class="zenith" style="width:15%">
                      <input 
                         class="filterTextBox"
                         id="filterStudentInfo_input_aadhar"
-                        onkeypress="handleFilter('tatkalStudentListInfo_filter()','#filterTatkalStudentListInfo_input_studentAadhar')"
-                        placeholder="Student Aadhar"/>
+                        onkeypress="handleFilter('tatkalStudentListInfo_filter()','#filterTatkalStudentListInfo_input_studentAadhar');validateNumber(this)"
+                        placeholder="Student Aadhar"
+                        maxlength="16"/>
                   </td>
                   <td class="zenith" style="width: 5%">
                   	<select id = "selectTatkalAcademicYear" style="width: 100px;"></select>

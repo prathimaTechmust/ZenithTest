@@ -40,6 +40,8 @@ public class Reports
 						oCell.setCellValue((String) oObject);
 					else if(oObject instanceof Integer)
 						oCell.setCellValue((Integer)oObject);
+					else if(oObject instanceof Float)
+						oCell.setCellValue((Float) oObject);
 					else
 						oCell.setCellValue((Long)oObject);
 				}				
@@ -80,6 +82,7 @@ public class Reports
 		List columnList = new ArrayList ();
 		columnList.add("UID");
 		columnList.add("NAME");
+		columnList.add("STUDENTADHAARNUMBER");
 		columnList.add("CATEGORY");
 		columnList.add("REFERENCE");
 		columnList.add("GENDER");
@@ -88,13 +91,17 @@ public class Reports
 		columnList.add("INSTITUTION");
 		columnList.add("SCORES");
 		columnList.add("PARENTAL STATUS");
-		columnList.add("FATHER'S NAME");		
+		columnList.add("FATHER'S NAME");
+		columnList.add("FATHERADHAARNUMBER");
 		columnList.add("FATHER OCCUPATION");
 		columnList.add("CONTACTNUMBER");
 		columnList.add("MOTHER'SNAME");
+		columnList.add("MOTHERADHAARNUMBER");
 		columnList.add("MOTHER OCCUPATION");
 		columnList.add("CITY");
 		columnList.add("STATE");
+		columnList.add("PINCODE");
+		columnList.add("AMOUNTSANCTIONED");
 		columnList.add("CHEQUENUMBER");
 		columnList.add("REMARKS");
 		arrColumnHeaders = columnList.toArray();
