@@ -751,8 +751,8 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 				Join oJoinRoot = (Join) oStudentRoot.fetch("m_oSibilingDetails");
 				Expression sibilingCount = oCriteriaBuilder.count(oJoinRoot);
 				oCriteriaQuery.groupBy(oStudentRoot.get("m_nStudentId"));				
-				oCriteriaQuery.having(oCriteriaBuilder.and(oCriteriaBuilder.equal(sibilingCount,oStudentData.getM_nFamilyCount()),
-														   oCriteriaBuilder.notEqual(oJoinRoot.get("m_nZenithUID"),0)));
+				oCriteriaQuery.having(oCriteriaBuilder.and(oCriteriaBuilder.equal(sibilingCount,oStudentData.getM_nFamilyCount())));
+				m_PredicateList.add(oCriteriaBuilder.greaterThan(oJoinRoot.get("m_nZenithUID"),0));
 			}
 			oCriteriaQuery.select(oStudentRoot);			
 			if(oStudentData.getM_strSortBy().equals("m_nUID"))

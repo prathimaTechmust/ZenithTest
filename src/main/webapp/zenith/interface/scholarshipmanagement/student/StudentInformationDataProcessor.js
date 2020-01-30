@@ -138,7 +138,7 @@ var StudentInformationDataProcessor = (function __StudentInformationDataProcesso
 	
 	function downloadReports (oStudentReportsData,callback)
 	{		
-		ajaxCall(oStudentReportsData,"/downloadStudentReports",callback);
+		ajaxCallList(oStudentReportsData,"/downloadStudentReports",callback);
 	}
 	
 	return { 

@@ -54,7 +54,8 @@ function studentReportsInfo_submit ()
 
 function studentreports_progressbarLoaded ()
 {
-	createPopup('dialog','','',true);
+	createPopup('ProcessDialog','','',true);
+	studentReportsInfo_Download();
 }
 function studentReportsValidate ()
 {
@@ -370,7 +371,8 @@ function fromDateReport()
 function downloadReportResponse (oDownloadResponse)
 {
 	if(oDownloadResponse.m_bSuccess)
-	{		
+	{	
+		HideDialog("ProcessDialog");	
 		var strExcelURL = oDownloadResponse.m_strStudentDownloadReportURL;
 		document.getElementById('my_iframe').src = strExcelURL;
 		informUser("Reports Downloading","kSuccess");
