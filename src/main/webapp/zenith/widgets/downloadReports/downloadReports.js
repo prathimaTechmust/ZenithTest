@@ -380,6 +380,7 @@ function downloadReportResponse (oDownloadResponse)
 	}		
 	else
 	{
+		HideDialog("ProcessDialog");
 		informUser("Reports Download Failed","kError");
 	}
 	
