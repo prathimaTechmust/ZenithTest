@@ -138,11 +138,25 @@ function approveStudentListInfo_list (strColumn,strOrder,nPageNumber,nPageSize)
 
 function approveStudentInfo_Student()
 {
-	createPopup('dialog', '', '', true);	
-	var oZenith = new ZenithScholarshipDetails ();
-	var oApproveUserInfo = getLoginUserData ();
 	if($("#zenithInfo_approvedamount").val() != 0)
 	{
+		var bIsApproveConfirmation = getUserConfirmation("The approved amount is "+$("#zenithInfo_approvedamount").val()+"/-.Are you sure?");
+		isApproved(bIsApproveConfirmation);		
+	}
+	else
+	{
+		alert("Please Enter Valid Amount");
+		$("#zenithInfo_approvedamount").focus();
+	}	
+}
+
+function isApproved(isBoolean)
+{
+	if(isBoolean)
+	{
+		createPopup('dialog', '', '', true);	
+		var oZenith = new ZenithScholarshipDetails ();
+		var oApproveUserInfo = getLoginUserData ();
 		oZenith.m_fApprovedAmount = $("#zenithInfo_approvedamount").val();
 		oZenith.m_nStudentId = m_oApproveStudentList_Info_MemberData.m_nStudentId;
 		oZenith.m_nAcademicYearId = $("#selectApproveAcademicYear").val();
@@ -151,9 +165,8 @@ function approveStudentInfo_Student()
 	}
 	else
 	{
-		alert("Please Enter Valid Amount");
-		approveStudentInfo_init ();		
-	}	
+		$("#zenithInfo_approvedamount").focus();
+	}
 }
 
 function recjectStudentInfo_Student ()

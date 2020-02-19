@@ -322,6 +322,7 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		return strXml;
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value="/isAadharnumberExist", method = RequestMethod.POST, headers = {"Content-type=application/json"})
 	@ResponseBody
 	public GenericResponse getAadharNumber(@RequestBody StudentInformationData oStudentInformationData) throws Exception
@@ -331,9 +332,8 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		StudentDataResponse oStudentDataResponse = new StudentDataResponse();
 		try
 		{
-			oStudentInformationData = (StudentInformationData) populateObject (oStudentInformationData);
-			oStudentDataResponse.m_arrStudentInformationData.add (oStudentInformationData);	
-			if(oStudentInformationData != null)
+			oStudentDataResponse.m_arrStudentInformationData = new ArrayList(getFatherAadharandMotherAadhar(oStudentInformationData));	
+			if(oStudentDataResponse.m_arrStudentInformationData.size() > 0)
 				oStudentDataResponse.m_bSuccess = true;
 		}
 		catch (Exception oException) 
@@ -344,6 +344,37 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		return oStudentDataResponse;		
 	}
 	
+	private ArrayList<StudentInformationData> getFatherAadharandMotherAadhar(StudentInformationData oStudentInformationData)
+	{
+		ArrayList<StudentInformationData> arrStudentList = null;
+		EntityManager oEntityManager = oStudentInformationData._getEntityManager();
+		try 
+		{
+			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
+			CriteriaQuery<StudentInformationData> oCriteriaQuery = oCriteriaBuilder.createQuery(StudentInformationData.class);
+			Root<StudentInformationData> oStudentRoot = oCriteriaQuery.from(StudentInformationData.class);
+			oCriteriaQuery.select(oStudentRoot);
+			List<Predicate> arrPredicateList = new ArrayList<Predicate>();
+			if(oStudentInformationData.getM_nFatherAadharNumber() > 0)
+				arrPredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_nFatherAadharNumber"),oStudentInformationData.getM_nFatherAadharNumber()));
+			else
+				arrPredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_nMotherAadharNumber"),oStudentInformationData.getM_nMotherAadharNumber()));
+			oCriteriaQuery.where(arrPredicateList.toArray(new Predicate[] {}));
+			arrStudentList = (ArrayList<StudentInformationData>) oEntityManager.createQuery(oCriteriaQuery).getResultList();
+		} 
+		catch (Exception oException)
+		{
+			m_oLogger.error ("isAadharExist - oException : "  + oException);
+			throw oException;
+		}
+		finally 
+		{
+			oEntityManager.close();
+			HibernateUtil.removeConnection();
+		}
+		return arrStudentList;
+	}
+
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "/studentStatusInfoList",method = RequestMethod.POST,headers = {"Content-type=application/json"})
 	@ResponseBody
