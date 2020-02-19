@@ -1072,6 +1072,16 @@ function clearFilterBoxes ()
 	document.getElementById("filterStudentInfo_input_aadhar").value = "";
 }
 
+function handleStudentDataFilter(strFilterBoxId)
+{
+	if(event.keyCode == 13)
+	{
+		event.preventDefault();
+		$("#student_filter_button_id").click();
+		$(strFilterBoxId).focus();
+	}
+}
+
 //Getting Student Upload Documents
 function viewStudentDocument(academicId,academicyearId) 
 {
