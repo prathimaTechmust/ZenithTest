@@ -98,7 +98,23 @@
 									<xsl:value-of select="StudentInformationData/m_oZenithScholarshipDetails/ZenithScholarshipDetails/m_strVerifyRemarks"/>
 								</td>
 								
-							</tr>	
+							</tr>
+							<xsl:if test="StudentInformationData/m_strStudentMedicalIssue != ''">
+								<tr>
+									<td class ="xslt_fieldHeading">Student Medical Issue:</td>
+									<td class ="xslt_fieldData">
+										<xsl:value-of select="StudentInformationData/m_strStudentMedicalIssue"></xsl:value-of>
+									</td>
+								</tr>
+							</xsl:if>
+							<xsl:if test="StudentInformationData/m_strParentMedicalIssue != ''">
+								<tr>
+									<td class ="xslt_fieldHeading">Parent Medical Issue:</td>
+									<td class ="xslt_fieldData">
+										<xsl:value-of select="StudentInformationData/m_strParentMedicalIssue"></xsl:value-of>
+									</td>
+								</tr>
+							</xsl:if>	
 							</table>
 							<table class="zenith">
 								<tr>

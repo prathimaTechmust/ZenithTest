@@ -710,7 +710,7 @@ function studentInfo_gotData (oStudentInfoResponse)
 
 function gotAcademicDetails (arrAcademicDetails)
 {
-	if(arrAcademicDetails.length > 0 && arrAcademicDetails != undefined)
+	if(arrAcademicDetails != undefined && arrAcademicDetails.length > 0)
 	{
 		 $("#select_input_academic_name").jqxComboBox('val',arrAcademicDetails[0].m_oInstitutionInformationData.m_nInstitutionId);	
 		 $("#select_input_studentcourse").jqxComboBox('val',arrAcademicDetails[0].m_oCourseInformationData.m_nCourseId);
@@ -731,7 +731,7 @@ function assignDataToMemberVariable (oStudentInfoData)
 	m_oStudentInfoMemberData.oUserUpdatedBy = oStudentInfoData.m_oUserUpdatedBy;
 	m_oStudentInfoMemberData.m_strImageId = oStudentInfoData.m_strStudentImageId;
 	m_oStudentInfoMemberData.m_studentDateofBirth = oStudentInfoData.m_dDateOfBirth;
-	if(oStudentInfoData.m_oAcademicDetails[0] != null)
+	if(oStudentInfoData.m_oAcademicDetails != undefined && oStudentInfoData.m_oAcademicDetails[0] != null)
 	{
 		m_oStudentInfoMemberData.m_nAcademicId = oStudentInfoData.m_oAcademicDetails[0].m_nAcademicId;
 		m_oStudentInfoMemberData.m_nAcademicYearId = oStudentInfoData.m_oAcademicDetails[0].m_oAcademicYear.m_nAcademicYearId;
@@ -932,7 +932,15 @@ function studentUIDInfo_validate()
 function aadharResponse(oAadharResponse)
 {
 	if(oAadharResponse.m_bSuccess)
-		alert("The Following Candidate Sibling is already linked to this foundation");
+	{
+		var strStudentUID= "";
+		for(var nIndex = 0; nIndex < oAadharResponse.m_arrStudentInformationData.length; nIndex++)
+		{
+			strStudentUID += oAadharResponse.m_arrStudentInformationData[nIndex].m_nUID;
+			strStudentUID += (nIndex+1 < oAadharResponse.m_arrStudentInformationData.length ? "," : ".");
+		}
+		alert("This student sibling is already part of Zenith Foundation with UID No's "+strStudentUID);
+	}		
 }
 
 function studentInfo_cancel()

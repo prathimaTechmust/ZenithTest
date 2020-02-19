@@ -22,7 +22,7 @@
                     <input 
                         class="filterTextBox"
                         id="filterStudentInfo_input_studentUID"
-                        onkeypress="handleFilter('studentListInfo_filter()','#filterStudentInfo_input_studentUID');validateNumber(this)"
+                        onkeypress="handleStudentDataFilter('#filterStudentInfo_input_studentUID');validateNumber(this)"
                         placeholder="Student UID"
                         maxlength="4"/>
                   </td>
@@ -30,14 +30,14 @@
                     <input 
                         class="filterTextBox"
                         id="filterStudentInfo_input_studentName"
-                        onkeypress="handleFilter('studentListInfo_filter()','#filterStudentInfo_input_studentName')"
+                        onkeypress="handleStudentDataFilter('#filterStudentInfo_input_studentName')"
                         placeholder="Student Name"/>
                   </td>
      			<td class="zenith" style="width:15%">
                      <input 
                         class="filterTextBox"
                         id="filterStudentInfo_input_phonenumber"
-                        onkeypress="handleFilter('studentListInfo_filter()','#filterStudentInfo_input_phonenumber');validateNumber(this)"
+                        onkeypress="handleStudentDataFilter('#filterStudentInfo_input_phonenumber');validateNumber(this)"
                         placeholder="Phone Number"
                         maxlength="10"/>
                   </td>
@@ -45,12 +45,12 @@
                     <input 
                         class="filterTextBox"
                         id="filterStudentInfo_input_aadhar"
-                        onkeypress="handleFilter('studentListInfo_filter()','#filterStudentInfo_input_aadhar');validateNumber(this)"
+                        onkeypress="handleStudentDataFilter('#filterStudentInfo_input_aadhar');validateNumber(this)"
                         placeholder="Student Aadhar"
                         maxlength="16"/>
                   </td>
                   <td class="zenith" style="width:5%">
-                    <button class="zenith filterButton" type="button" onclick="studentListInfo_filter (toBeClaimChequeList_table,'cheque disbursed','selectToBeClaimAcademicYear')">
+                    <button class="zenith filterButton" id="student_filter_button_id" type="button" onclick="studentListInfo_filter (toBeClaimChequeList_table,'cheque disbursed','selectToBeClaimAcademicYear')">
                       Filter
                     </button>
                   </td>               

@@ -849,6 +849,8 @@ public class StudentInformationData  extends MasterData implements Serializable
 			addChild (oXmlDocument, oRootElement, "m_strEmailAddress", m_strEmailAddress);
 			addChild (oXmlDocument, oRootElement, "m_strPhoneNumber", m_strPhoneNumber);
 			addChild (oXmlDocument, oRootElement, "m_strAlternateNumber", m_strAlternateNumber);
+			addChild(oXmlDocument, oRootElement, "m_strStudentMedicalIssue", m_strStudentMedicalIssue);
+			addChild(oXmlDocument, oRootElement, "m_strParentMedicalIssue",m_strParentMedicalIssue);
 			addChild (oXmlDocument, oRootElement, "m_strCurrentAddress", m_strCurrentAddress);
 			addChild (oXmlDocument, oRootElement, "m_strCity", m_strCity);
 			addChild (oXmlDocument, oRootElement, "m_strState", m_strState);
