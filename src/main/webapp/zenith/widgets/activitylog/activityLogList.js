@@ -9,8 +9,8 @@ function activityLogInfo_memberData ()
 {
 	this.m_nPageNumber = 1;
 	this.m_nPageSize = 10;
-	this.m_strSortColumn = "m_strLoginUserName";
-	this.m_strOrderBy = "asc";
+	this.m_strSortColumn = "m_dCreatedOn";
+	this.m_strOrderBy = "desc";
 }
 
 var m_oActivityLogInfo_memberData = new activityLogInfo_memberData();
