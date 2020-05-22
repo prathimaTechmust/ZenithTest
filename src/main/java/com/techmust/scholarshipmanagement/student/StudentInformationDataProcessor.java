@@ -743,6 +743,37 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		return oDataResponse;		
 	}
 	
+	//Check Max Student UID Number
+	@RequestMapping(value = "/getMaxUIDNumber",method = RequestMethod.POST,headers = {"Content-type=application/json"})
+	@ResponseBody
+	public GenericResponse getStudentMaxUID(@RequestBody StudentInformationData oStudentInformationData)
+	{
+		m_oLogger.info("getStudentMaxUID");
+		StudentDataResponse oStudentDataResponse = new StudentDataResponse();
+		EntityManager oEntityManager = oStudentInformationData._getEntityManager();
+		try
+		{
+			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
+			CriteriaQuery<Long> oCriteriaQuery = oCriteriaBuilder.createQuery(Long.class);
+			Root<StudentInformationData> oStudentRoot = oCriteriaQuery.from(StudentInformationData.class);
+			oCriteriaQuery.select(oCriteriaBuilder.max(oStudentRoot.get("m_nUID")));
+			TypedQuery<Long> oTypedQuery = oEntityManager.createQuery(oCriteriaQuery);
+			Long nStudentUID = oTypedQuery.getSingleResult();
+			oStudentDataResponse.m_nUID = nStudentUID;
+			oStudentDataResponse.m_bSuccess = true;
+		}
+		catch (Exception oException)
+		{
+			m_oLogger.error("getStudentMaxUID - oException: "+oException);
+		}
+		finally
+		{
+			oEntityManager.close();
+			HibernateUtil.removeConnection();
+		}
+		return oStudentDataResponse;
+	}	
+	
 	@SuppressWarnings({ "unchecked", "rawtypes", "unused" })
 	public static ArrayList<StudentInformationData> getDownloadReportData (StudentInformationData oStudentData)
 	{

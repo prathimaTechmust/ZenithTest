@@ -48,7 +48,10 @@
 											<input type="text" id="studentInfo_input_studentUIDNumber" maxlength="4"
 									   		  	data-options="required:true" style = "width:200px;"
 												class="zenith easyui-validatebox"
-												onchange = "searchStudentUID ()" onkeyup="validateNumber (this)"/>
+												onchange = "searchStudentUID ()" onkeyup="validateNumber (this);checkButtonDisable(this);"/>
+							                </td>
+							                <td>
+							                	<button id="uidgeneratorbuttonid" type="button" class="zenith" style="width: 158%;float: right;" onclick="generateUID ()">Auto Generate</button>
 							                </td>
 											<td style="padding-right: 16px"> </td>  
 											<td class="fieldHeading"> Category <em>*</em> </td>
@@ -290,7 +293,7 @@
 														<td style=""><input type="text"
 															id="studentInfo_input_fatherAadharNumber" maxlength="12"
 															 style="width: 200px;"															
-															onchange="fatherAadharValidate();" /></td>
+															onchange="fatherAadharValidate();" onkeyup="validateNumber (this)" /></td>
 													</tr>
 													<tr>
 														<td class="fieldHeading">Mother Name</td>
@@ -307,7 +310,7 @@
 														<td style=""><input type="text"
 															id="studentInfo_input_motherAadharNumber" maxlength="12"
 															style="width: 200px;"
-															onchange="motherAadharValidate();" /></td>
+															onchange="motherAadharValidate();" onkeyup="validateNumber (this)" /></td>
 														<td style="padding-right: 15px"></td>
 													</tr>
 														 <tr>
@@ -410,7 +413,7 @@
 											<td style="padding-right: 16px"> </td>  
 						                    <td class="fieldHeading">Academic Year<em>*</em> </td>
 						                    <td>
-						                    	<select id = "selectacademicyear" name="selectacademicyear"  class="zenith validate_box" onchange="studentNewAcademic()">
+						                    	<select id = "selectacademicyear" name="selectacademicyear"  class="zenith validate_box" onchange="studentNewAcademic()" disabled>
 						                    	</select>			                    
 						                    </td>						
 										</tr>								

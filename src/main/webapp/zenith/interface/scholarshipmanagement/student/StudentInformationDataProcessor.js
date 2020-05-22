@@ -141,6 +141,11 @@ var StudentInformationDataProcessor = (function __StudentInformationDataProcesso
 		ajaxCallList(oStudentReportsData,"/downloadStudentReports",callback);
 	}
 	
+	function getMaxUIDNumber(oStudentData,callback)
+	{
+		ajaxCall(oStudentData,"/getMaxUIDNumber",callback);
+	}
+	
 	return { 
 		create : create,
 		createandprint:createandprint,
@@ -165,6 +170,7 @@ var StudentInformationDataProcessor = (function __StudentInformationDataProcesso
 		getParentalOccupations:getParentalOccupations,
 		getMotherOccupations:getMotherOccupations,
 		getParentalStatus:getParentalStatus,
-		downloadReports :downloadReports
+		downloadReports :downloadReports,
+		getMaxUIDNumber : getMaxUIDNumber
 	};
 })();

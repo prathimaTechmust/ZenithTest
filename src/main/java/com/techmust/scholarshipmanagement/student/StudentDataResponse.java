@@ -16,6 +16,7 @@ public class StudentDataResponse extends GenericResponse
 	public String m_strStudentXMLData;
 	public String m_strStudentDownloadReportURL;
 	public String m_strStudentImageId;
+	public long m_nUID;
     public StudentDataResponse ()
 	{
     	m_arrStudentInformationData = new ArrayList<StudentInformationData> ();
@@ -27,5 +28,6 @@ public class StudentDataResponse extends GenericResponse
     	m_nAcademicId = -1;
     	m_oStudentData = new StudentInformationData();
     	m_strStudentImageId = "";
+    	m_nUID = -1;
 	}
 }

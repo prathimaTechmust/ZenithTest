@@ -2,9 +2,16 @@ package com.techmust.scholarshipmanagement.activitylog;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Controller;
@@ -58,7 +65,7 @@ public class ActivityLogDataProcessor  extends GenericIDataProcessor<ActivityLog
 		try 
 		{
 			oActivityLogResponse.m_nRowCount = getRowCount(oActivityLog);
-			oActivityLogResponse.m_arrActivityLog = new ArrayList (oActivityLog.list (arrOrderBy, nPageNumber, nPageSize));
+			oActivityLogResponse.m_arrActivityLog = getActivityLogList(oActivityLog,arrOrderBy, nPageNumber, nPageSize);
 		} 
 		catch (Exception oException) 
 		{
@@ -67,6 +74,55 @@ public class ActivityLogDataProcessor  extends GenericIDataProcessor<ActivityLog
 		return oActivityLogResponse;
 	}
 	
+	private ArrayList<ActivityLog> getActivityLogList(ActivityLog oActivityLog, HashMap<String, String> arrOrderBy,int nPageNumber, int nPageSize)
+	{
+		EntityManager oEntityManager = oActivityLog._getEntityManager();
+		ArrayList<ActivityLog> arrActivityLogList = new ArrayList<ActivityLog>();
+		try 
+		{
+			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
+			CriteriaQuery<ActivityLog> oCriteriaQuery = oCriteriaBuilder.createQuery(ActivityLog.class);
+			Root<ActivityLog> oActivityLogRoot = oCriteriaQuery.from(ActivityLog.class);
+			oCriteriaQuery.select(oActivityLogRoot);
+			oCriteriaQuery.orderBy(getSortOrder(arrOrderBy,oActivityLogRoot,oCriteriaBuilder));
+			TypedQuery<ActivityLog> oTypedQuery = oEntityManager.createQuery(oCriteriaQuery);
+			oTypedQuery.setFirstResult((nPageNumber-1) * nPageSize);
+			oTypedQuery.setMaxResults(nPageSize);
+			arrActivityLogList = (ArrayList<ActivityLog>) oTypedQuery.getResultList();
+			
+		}
+		catch (Exception oException) 
+		{
+			m_oLogger.error("getActivityLogList - oException : " +oException);
+		}
+		finally 
+		{
+			oEntityManager.close();
+			HibernateUtil.removeConnection();
+		}
+		return arrActivityLogList;
+	}
+
+	private List<Order> getSortOrder(HashMap<String, String> arrOrderBy, Root<ActivityLog> oActivityLogRoot,CriteriaBuilder oCriteriaBuilder) 
+	{
+		List<Order> arrOrder =  new  ArrayList<Order>();
+		Set<String> arrKeys = arrOrderBy.keySet();
+		for(Map.Entry<String, String> oEntry : arrOrderBy.entrySet())
+		{
+			String strColumn = oEntry.getKey();
+			String strOrderBy = oEntry.getValue();
+			Order oOrder = null;
+			if (strOrderBy != null && strOrderBy.contains("asc"))
+				oOrder = oCriteriaBuilder.asc(oActivityLogRoot.get(strColumn));
+			else if (strOrderBy != null && strOrderBy.contains("desc"))
+				oOrder = oCriteriaBuilder.desc(oActivityLogRoot.get(strColumn));
+			if(oOrder != null)
+				arrOrder.add(oOrder);
+
+		}
+		return arrOrder;
+	}
+
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "/sortActivityLogListInfo",method = RequestMethod.POST,headers = {"Content-type=application/json"})
 	@ResponseBody
