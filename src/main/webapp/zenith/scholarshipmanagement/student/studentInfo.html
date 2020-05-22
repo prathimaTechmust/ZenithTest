@@ -56,8 +56,8 @@
 											<td style="padding-right: 16px"> </td>  
 											<td class="fieldHeading"> Category <em>*</em> </td>
 											<td>
-												<select id ="StudentInfo_SelectCategory" class ="zenith easyui-validatebox" data-options="required:true" style="width:118px;" required>
-													<option>
+												<select id ="StudentInfo_SelectCategory" class ="zenith easyui-validatebox" data-options="required:true" style="width:118px;">
+													<option value="">
 														Select Category
 													</option>
 												</select>
@@ -68,7 +68,7 @@
 			                          		<td style = "padding-left = 20px;">                      
 							                    <!-- <input type="text" id="selectStudentInfo_input_studentfacilitator" class = "easyui-combobox zenith" data-options="hasDownArrow:false,panelWidth: 0,required:true"
 								                        style = "width:200px;"/> -->
-								                  <div id ="selectStudentInfo_input_studentfacilitator"></div>    								                       					                        
+								                  <div id ="selectStudentInfo_input_studentfacilitator" class="easyui-validatebox" data-options="required:true"></div>    								                       					                        
 						                    </td>
 			                          	</tr> 
 			                          	<tr>
@@ -132,7 +132,7 @@
 											<td class="fieldHeading">Parental Status <em>*</em></td>
 											<td>
 											<select id ="select_input_studentParentalStatus" class ="zenith easyui-validatebox" data-options="required:true" style="width:200px;" required>
-													<option>
+													<option value="">
 														Select Parental Status
 													</option>
 												</select>
@@ -142,7 +142,7 @@
 											<td class="fieldHeading"> Religion <em>*</em> </td>
 											<td>
 												<select id ="studentInfo_input_religion" class ="zenith easyui-validatebox" data-options="required:true" style="width:200px;" required>
-													<option>
+													<option value="">
 														Select Religion
 													</option>
 												</select>
@@ -405,23 +405,23 @@
 			                        <td >
 			                        <table class="zenith">
 			                         	<tr>
-											<td class="fieldHeading">School/College/Institute</td>
+											<td class="fieldHeading">School/College/Institute <em>*</em></td>
 											<td>
 												<!-- <input type ="text" id = "select_input_academic_name" class = "easyui-combobox zenith" data-options="hasDownArrow:false,panelWidth: 0,required:true" style="width:200px;"/> -->
-												<div id = "select_input_academic_name"></div>
+												<div id = "select_input_academic_name" class="easyui-validatebox" data-options="required:true"></div>
 											</td>
 											<td style="padding-right: 16px"> </td>  
-						                    <td class="fieldHeading">Academic Year<em>*</em> </td>
+						                    <td class="fieldHeading">Academic Year</td>
 						                    <td>
 						                    	<select id = "selectacademicyear" name="selectacademicyear"  class="zenith validate_box" onchange="studentNewAcademic()" disabled>
 						                    	</select>			                    
 						                    </td>						
 										</tr>								
 										<tr>
-											<td class="fieldHeading">Class/Course</td>
+											<td class="fieldHeading">Class/Course<em>*</em></td>
 											<td>
 												<!-- <input type ="text" id = "select_input_studentcourse" class = "easyui-combobox zenith" data-options="hasDownArrow:false,panelWidth: 0,required:true" style="width:200px;"/> -->								
-												<div id="select_input_studentcourse"></div>
+												<div id="select_input_studentcourse" class="easyui-validatebox" data-options="required:true"></div>
 											</td>
 										</tr>
 										<tr>
@@ -434,7 +434,7 @@
 											<td class="fieldHeading"> Score <em>*</em> </td>
 											<td>
 												<select id ="studentInfo_input_studentScore" class ="zenith easyui-validatebox" data-options="required:true" style="width:200px;" required>
-													<option>
+													<option value="">
 														Select Score
 													</option>
 												</select>
