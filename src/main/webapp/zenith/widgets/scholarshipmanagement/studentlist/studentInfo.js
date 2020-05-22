@@ -369,6 +369,7 @@ function studentInfo_edit ()
 	var oStudentInformationData = new StudentInformationData ();
 	oStudentInformationData.m_nStudentId = m_oStudentInfoListMemberData.m_nSelectedStudentId;
 	oStudentInformationData.m_nAcademicYearId = m_oStudentInfoListMemberData.m_nAcademicYearId;
+	$("#uidgeneratorbuttonid").remove();
 	document.getElementById("studentInfo_button_submit").setAttribute('update', true);
 	document.getElementById("studentInfo_button_submit").innerHTML = "Update";
 	document.getElementById("studentInfo_button_print").innerHTML = "UpdateAndPrint";
