@@ -19,244 +19,249 @@
 		</style>	
  </head>
 <body>
-<form class="zenith" id="studentInfo_form_id" style="width:800px;">
-	<table class = "zenith" summary = "">		
-		<tr>
-			<td class="formHeading" style="width:500px;">Student Information</td>		
-		</tr>
-		<tr>
-		 <td >
-           <table>
-	            <tr>
-		            <td>             
-						<div id="student_div_tabs" class="tab" data-options="tabWidth:125,tabHeight:30">								
-							 <button type="button" class="tablinks" onclick="openTab(event, 'Personal_details')" id="defaultOpen">Personal details</button>
-							 <button type="button" class="tablinks"onclick="openTab(event, 'Family_details')" id='Family_details_btn'>Family details</button>
-							 <button type="button" class="tablinks" onclick="openTab(event, 'Academic_details')"id='Academic_details_btn'>Academic details</button>
-							 <button type="button" class="tablinks"onclick="openTab(event, 'Scholarship_details')"id='Scholarship_details_btn'>Scholarship details</button>
-							 <button type="button" class="tablinks"onclick="openTab(event, 'DocumentUpload_details')"id='DocumentUpload_details_btn'>Documents</button>																							
-		      	 	   </div>	
-		      	 	        <!-- Personal details	 -->      	 	   
-		      	 	   		<div id="Personal_details" style="padding: 10px" class="StudentInfoTab" >
-							    <table class="zenith">
-								 <tr bgcolor="#efefef">
-			                        <td >
-			                          <table class="zenith">
-										<tr>
-											<td class="fieldHeading"> UID Number <em> * </em> </td>
-											<td style = "padding-left = 20px;">                      
-											<input type="text" id="studentInfo_input_studentUIDNumber" maxlength="4"
-									   		  	data-options="required:true" style = "width:200px;"
-												class="zenith easyui-validatebox"
-												onchange = "searchStudentUID ()" onkeyup="validateNumber (this);checkButtonDisable(this);"/>
-							                </td>
-							                <td>
-							                	<button id="uidgeneratorbuttonid" type="button" class="zenith" style="width: 158%;float: right;" onclick="generateUID ()">Auto Generate</button>
-							                </td>
-											<td style="padding-right: 16px"> </td>  
-											<td class="fieldHeading"> Category <em>*</em> </td>
-											<td>
-												<select id ="StudentInfo_SelectCategory" class ="zenith easyui-validatebox" data-options="required:true" style="width:118px;">
-													<option value="">
-														Select Category
-													</option>
-												</select>
-											</td> 
-										</tr>			                    
-			                          	<tr>
-			                          		<td class="fieldHeading"> Facilitator Name <em> * </em> </td>
-			                          		<td style = "padding-left = 20px;">                      
-							                    <!-- <input type="text" id="selectStudentInfo_input_studentfacilitator" class = "easyui-combobox zenith" data-options="hasDownArrow:false,panelWidth: 0,required:true"
-								                        style = "width:200px;"/> -->
-								                  <div id ="selectStudentInfo_input_studentfacilitator" class="easyui-validatebox" data-options="required:true"></div>    								                       					                        
-						                    </td>
-			                          	</tr> 
-			                          	<tr>
-											<td class="fieldHeading"> Student Name <em> * </em> </td>
-						                    <td style = "padding-left = 20px;">                      
-							                    <input type="text" id="studentInfo_input_studentName"
-							                        data-options="required:true" style = "width:300px;"
-							                        class="zenith easyui-validatebox"/>
-						                    </td>   
-										</tr>  
-			                          	<tr>
-			                          		<td class="fieldHeading"> Student Aadhar Number <em> * </em> </td>
-			                          		<td style = "padding-left = 20px;">                      
-							                    <input type="text" id="studentInfo_input_studentAadharNumber" maxlength="12"
-								                        data-options="required:true" style = "width:200px;"
-								                        class="zenith easyui-validatebox"
-								                        onkeyup="validateNumber (this)"
-								                        onchange="searchStudentAadhar()"/>
-						                    </td>
-			                          	</tr>			
-										<tr>
-											<td class="fieldHeading"> Gender <em> * </em> </td>
-							                    <td>
-							                        <input 
-							                            id="studentInfo_input_male"
-							                            name="studentInfo_input_gender"
-							                            type="radio"
-							                            value="Male" 
-							                            checked
-							                            data-options="required:true"
-							                            class="easyui-validatebox"/>
-							                            Male
-							                                                    
-							                        <input 
-							                             id="studentInfo_input_female"
-							                             name="studentInfo_input_gender"
-							                             type="radio"
-							                             value="Female"
-							                             data-options="required:true"
-							                             class="easyui-validatebox"/>
-							                             Female
-							                        
-							                        <input 
-							                          id="studentInfo_input_other"
-							                          name="studentInfo_input_gender"
-							                          type="radio"
-							                          value="Other"
-							                          data-options="required:true"
-							                          class="easyui-validatebox"/>
-							                        Other
-							                    </td>
-										</tr>
-										<tr>
-											<td class="fieldHeading">Date of Birth 	</td>
-											<td>
-												<input type="date" id="student_input_dateofbirth"  class="zenith" style="width:200px;"/>
-											</td>
-										</tr>
-										
-			                          	<tr>
-											<td class="fieldHeading">Parental Status <em>*</em></td>
-											<td>
-											<select id ="select_input_studentParentalStatus" class ="zenith easyui-validatebox" data-options="required:true" style="width:200px;" required>
-													<option value="">
-														Select Parental Status
-													</option>
-												</select>
-											</td>
-										</tr>  
-										<tr>
-											<td class="fieldHeading"> Religion <em>*</em> </td>
-											<td>
-												<select id ="studentInfo_input_religion" class ="zenith easyui-validatebox" data-options="required:true" style="width:200px;" required>
-													<option value="">
-														Select Religion
-													</option>
-												</select>
-											</td> 
-										</tr>
-									 <tr>
-	      								<td class="fieldHeading">Having Medical Condition</td>
-	 										<td>
-												<input type="radio" id="studentInfo_input_MedicalConditionYes" name="studentInfo_input_MedicalCondition" value="true" data-options="required:true"
-							                            class="easyui-validatebox" onchange="studentMedicalConditionYes(studentMedicalIssueLable, studentMedicalIssueData)">Yes
-												<input type="radio" id="studentInfo_input_MedicalConditionNo" name="studentInfo_input_MedicalCondition" value="false" checked  data-options="required:true"
-							                            class="easyui-validatebox" onchange="studentMedicalConditionNo(studentMedicalIssueLable, studentMedicalIssueData)">No
-  											</td>
-								  	</tr>
-									  	<tr>
-										  	<td class="fieldHeading"> 
-										  	<div id="studentMedicalIssueLable" style="display:none"> Medical Issue</div>
-										  	</td>
-								            <td> 
-								            <div id="studentMedicalIssueData" style="display:none">
-								           	 <textarea type="text"  rows="2" cols="35" maxlength="200" id="StudentInfo_Input_MedicalIssue" name="student_MedicalIssue"></textarea>
-								          
-								            </div>
-								            </td>
-								    	 </tr>
-									 <tr>
-											<td class="fieldHeading"> Family Income Per Annum(Rupees)</td>
-						                     <td>
-						                          <input type="text" id="studentInfo_input_income"  class="zenith" onkeyup="validateNumber (this)"/>
-						                     </td>
-										</tr>
-										<tr>
-											<td class="fieldHeading"> Phone Number<em> * </em></td>
-						                    <td>
-						                    <input 
-						                            type="tel"  maxlength="10"
-						                            id="studentInfo_input_phoneNumber1"
-						                            required
-						                            style="width: 200px;"
-						                            class="zenith easyui-validatebox"  data-options="validType:'minLength[10]'"
-						                            onkeyup="validateNumber (this)"/>
-						                    </td>
-						                    <td style="padding-right: 10px"> </td>
-						                    <td class="fieldHeading"> Alternative Number </td>
-						                    <td>
-						                       <input 
-						                           type="tel"  maxlength="10"
-						                           id="studentInfo_input_phoneNumber2"			                           
-						                           class="zenith"
-						                           data-options="validType:'minLength[10]'"
-						                           onkeyup="validateNumber (this)"/>
-						                    </td>       
-										</tr>							
-						                <tr>
-						                    <td class="fieldHeading">Student photo</td>
-						                    <td class="borderinputImage">
-						                      <input   name="studentimage"  type="file"  accept="image/*"  id="studentInfo_input_studentPhoto" style="width:100%;"/>
-						                    </td>
-						                </tr> 
-						                <tr>
-						                    <td class="fieldHeading">E-Mail</td>
-						                    <td>
-						                        <input type="text" id="studentInfo_input_email" maxlength="40" class="zenith"
-						                            data-options="validType:'email'"/>
-						                    </td>
-						                </tr>
-						                <tr>
-						                    <td class="fieldHeading">Address<em>* </em> </td>
-						                    <td>
-						                        <textarea 
-						                            id="studentInfo_textarea_address"
-						                            rows="2"
-						                            cols="20"  
-						                            maxlength="200"
-						                            class="zenith easyui-validatebox"
-						                            data-options="required:true"></textarea>
-						                    </td>
-						                    <td style="padding-right: 15px"> </td>
-						                    <td class="fieldHeading" > City <em>*</em> </td>				                 
-					                         <td>
-					                             <input
-					                              data-options="required:true"
-					                              class="easyui-validatebox zenith"
-					                              id="studentInfo_input_cityName"  maxlength="70"
-					                              style="width:150px"
-					                              placeholder="City"
-					                              type="text"/>
-					                         </td>                             
-						                </tr>
-					                	<tr>
-					                		<td class="fieldHeading"> State <em>*</em> </td>
-			        		                <td>
-						                          <input
-						                            data-options="required:true"
-						                            class="easyui-validatebox zenith"
-						                            id="studentInfo_input_stateName"  maxlength="70"
-						                            placeholder="State"
-						                            type="text"/>
-					                         </td>
-					                         <td style="padding-right: 15px"> </td>
-					                         <td class="fieldHeading"> Pincode <em>*</em> </td>
-					                         <td>
-					                           	  <input
-					                                type="text"
-					                                id="studentInfo_input_pincodeName"  maxlength="6"
-					                                class="easyui-validatebox zenith"
-					                                data-options="required:true"                                  
-					                                placeholder="Pincode"
-					                                keyup = "validateNumber (this)"/>
-					                         </td>
-					                	</tr>			                                 
-								   </table>
-					             </td>
-			                   </tr>   
+<form class="zenith" id="studentInfo_form_id" style="width:803px;">
+	<table class = "zenith" summary = "">
+		<tbody>		
+			<tr>
+				<td class="formHeading" style="width:500px;">Student Information</td>		
+			</tr>
+			<tr>
+		 		<td>
+           			<table>
+           				<tbody>
+	            		  <tr>
+		            		<td>		            		             
+								<div id="student_div_tabs" class="tab" data-options="tabWidth:125,tabHeight:30">								
+									 <button type="button" class="tablinks" onclick="openTab(event, 'Personal_details')" id="defaultOpen">Personal details</button>
+									 <button type="button" class="tablinks"onclick="openTab(event, 'Family_details')" id='Family_details_btn'>Family details</button>
+									 <button type="button" class="tablinks" onclick="openTab(event, 'Academic_details')"id='Academic_details_btn'>Academic details</button>
+									 <button type="button" class="tablinks"onclick="openTab(event, 'Scholarship_details')"id='Scholarship_details_btn'>Scholarship details</button>
+									 <button type="button" class="tablinks"onclick="openTab(event, 'DocumentUpload_details')"id='DocumentUpload_details_btn'>Documents</button>																							
+								</div>	
+      	 	         <!-- Personal details	 -->      	 	   
+		      	 	   		    <div id="Personal_details" style="padding: 10px;" class="StudentInfoTab" >
+							    	<table class="zenith">
+							    		<tbody>
+								 			<tr bgcolor="#efefef">
+			                        			<td>
+			                          				<table class="zenith">
+			                          					<tbody>
+															<tr>														
+																<td class="fieldHeading"> UID Number <em> * </em> </td>
+																<td style = "padding-left = 20px;">
+																	<table>
+																		<tbody>
+																			<tr>
+																				<td>
+																					<input type="text" id="studentInfo_input_studentUIDNumber" maxlength="4"
+																		   		  	data-options="required:true" style = "width:200px;"
+																					class="zenith easyui-validatebox"
+																					onchange = "searchStudentUID ()" onkeyup="validateNumber (this);checkButtonDisable(this);"/>
+																				</td>
+																				<td></td>
+																				<td>
+																					<button id="uidgeneratorbuttonid" type="button" class="zenith" style="width: 120%;" onclick="generateUID ()">Generate UID</button>
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</td>
+																<td></td>
+																<td class="fieldHeading"> Category <em>*</em> </td>					
+																<td>
+																	<select id ="StudentInfo_SelectCategory" class ="zenith easyui-validatebox" data-options="required:true" style="width:118px;">
+																		<option value="">Select Category</option>
+																	</select>
+																</td>	
+														    </tr>			                    
+								                          	<tr>
+								                          		<td class="fieldHeading"> Facilitator Name <em> * </em> </td>
+								                          		<td style = "padding-left = 20px;">
+													                  <div id ="selectStudentInfo_input_studentfacilitator" class="easyui-validatebox" data-options="required:true"></div>    								                       					                        
+											                    </td>
+								                          	</tr>
+								                          	<tr>
+																<td class="fieldHeading"> Student Name <em> * </em> </td>
+											                    <td style = "padding-left = 20px;">                      
+												                    <input type="text" id="studentInfo_input_studentName"
+												                        data-options="required:true" style = "width:300px;"
+												                        class="zenith easyui-validatebox"/>
+											                    </td>   
+															</tr> 
+								                          	<tr>
+								                          		<td class="fieldHeading"> Student Aadhar Number <em> * </em> </td>
+								                          		<td style = "padding-left = 20px;">                      
+												                    <input type="text" id="studentInfo_input_studentAadharNumber" maxlength="12"
+													                        data-options="required:true" style = "width:200px;"
+													                        class="zenith easyui-validatebox"
+													                        onkeyup="validateNumber (this)"
+													                        onchange="searchStudentAadhar()"/>
+											                    </td>
+								                          	</tr>			
+															<tr>
+																<td class="fieldHeading"> Gender <em> * </em> </td>
+												                    <td>
+												                        <input 
+												                            id="studentInfo_input_male"
+												                            name="studentInfo_input_gender"
+												                            type="radio"
+												                            value="Male" 
+												                            checked
+												                            data-options="required:true"
+												                            class="easyui-validatebox"/>
+												                            Male
+												                                                    
+												                        <input 
+												                             id="studentInfo_input_female"
+												                             name="studentInfo_input_gender"
+												                             type="radio"
+												                             value="Female"
+												                             data-options="required:true"
+												                             class="easyui-validatebox"/>
+												                             Female
+												                        
+												                        <input 
+												                          id="studentInfo_input_other"
+												                          name="studentInfo_input_gender"
+												                          type="radio"
+												                          value="Other"
+												                          data-options="required:true"
+												                          class="easyui-validatebox"/>
+												                        Other
+												                    </td>
+															</tr>														
+															<tr>
+																<td class="fieldHeading">Date of Birth 	</td>
+																<td>
+																	<input type="date" id="student_input_dateofbirth"  class="zenith" style="width:200px;"/>
+																</td>
+															</tr>
+								                          	<tr>
+																<td class="fieldHeading">Parental Status <em>*</em></td>
+																<td>
+																	<select id ="select_input_studentParentalStatus" class ="zenith easyui-validatebox" data-options="required:true" style="width:200px;" required>
+																		<option value="">Select Parental Status</option>
+																	</select>
+																</td>
+															</tr>
+															<tr>
+																<td class="fieldHeading"> Religion <em>*</em> </td>
+																<td>
+																	<select id ="studentInfo_input_religion" class ="zenith easyui-validatebox" data-options="required:true" style="width:200px;" required>
+																		<option value="">Select Religion</option>
+																	</select>
+																</td> 
+															</tr>
+															<tr>
+							      								<td class="fieldHeading">Having Medical Condition</td>
+						 										<td>
+																	<input type="radio" id="studentInfo_input_MedicalConditionYes" name="studentInfo_input_MedicalCondition" value="true" data-options="required:true"
+												                            class="easyui-validatebox" onchange="studentMedicalConditionYes(studentMedicalIssueLable, studentMedicalIssueData)">Yes
+																	<input type="radio" id="studentInfo_input_MedicalConditionNo" name="studentInfo_input_MedicalCondition" value="false" checked  data-options="required:true"
+													                            class="easyui-validatebox" onchange="studentMedicalConditionNo(studentMedicalIssueLable, studentMedicalIssueData)">No
+					  											</td>
+														  	</tr>
+														  	<tr>
+															  	<td class="fieldHeading"> 
+															  	<div id="studentMedicalIssueLable" style="display:none"> Medical Issue</div>
+															  	</td>
+													            <td> 
+													            <div id="studentMedicalIssueData" style="display:none">
+													           	 <textarea type="text"  rows="2" cols="35" maxlength="200" id="StudentInfo_Input_MedicalIssue" name="student_MedicalIssue"></textarea>
+													          
+													            </div>
+													            </td>
+												    	   </tr>
+														   <tr>
+																<td class="fieldHeading"> Family Income Per Annum(Rupees)</td>
+											                    <td>
+											                          <input type="text" id="studentInfo_input_income"  class="zenith" onkeyup="validateNumber (this)"/>
+											                    </td>
+														   </tr>
+														   <tr>
+																<td class="fieldHeading"> Phone Number<em> * </em></td>
+											                    <td>
+											                    <input 
+											                            type="tel"  maxlength="10"
+											                            id="studentInfo_input_phoneNumber1"
+											                            required
+											                            style="width: 200px;"
+											                            class="zenith easyui-validatebox"  data-options="validType:'minLength[10]'"
+											                            onkeyup="validateNumber (this)"/>
+											                    </td>
+											                    <td style="padding-right: 10px"> </td>
+											                    <td class="fieldHeading"> Alternative Number </td>
+											                    <td>
+											                       <input 
+											                           type="tel"  maxlength="10"
+											                           id="studentInfo_input_phoneNumber2"			                           
+											                           class="zenith"
+											                           data-options="validType:'minLength[10]'"
+											                           onkeyup="validateNumber (this)"/>
+											                    </td>       
+														   </tr>							
+											               <tr>
+											                    <td class="fieldHeading">Student photo</td>
+											                    <td class="borderinputImage">
+											                      <input   name="studentimage"  type="file"  accept="image/*"  id="studentInfo_input_studentPhoto" style="width:100%;"/>
+											                    </td>
+											               </tr> 
+											               <tr>
+											                    <td class="fieldHeading">E-Mail</td>
+											                    <td>
+											                        <input type="text" id="studentInfo_input_email" maxlength="40" class="zenith"
+											                            data-options="validType:'email'"/>
+											                    </td>
+											               </tr>
+											               <tr>
+											                    <td class="fieldHeading">Address<em>* </em> </td>
+											                    <td>
+											                        <textarea 
+											                            id="studentInfo_textarea_address"
+											                            rows="2"
+											                            cols="20"  
+											                            maxlength="200"
+											                            class="zenith easyui-validatebox"
+											                            data-options="required:true"></textarea>
+											                    </td>
+											                    <td style="padding-right: 15px"> </td>
+											                    <td class="fieldHeading" > City <em>*</em> </td>				                 
+										                        <td>
+										                             <input
+										                              data-options="required:true"
+										                              class="easyui-validatebox zenith"
+										                              id="studentInfo_input_cityName"  maxlength="70"
+										                              style="width:150px"
+										                              placeholder="City"
+										                              type="text"/>
+										                        </td>                             
+											               </tr>
+										                   <tr>
+										                		<td class="fieldHeading"> State <em>*</em> </td>
+								        		                <td>
+											                          <input
+											                            data-options="required:true"
+											                            class="easyui-validatebox zenith"
+											                            id="studentInfo_input_stateName"  maxlength="70"
+											                            placeholder="State"
+											                            type="text"/>
+										                         </td>
+										                         <td style="padding-right: 15px"> </td>
+										                         <td class="fieldHeading"> Pincode <em>*</em> </td>
+										                         <td>
+										                           	  <input
+										                                type="text"
+										                                id="studentInfo_input_pincodeName"  maxlength="6"
+										                                class="easyui-validatebox zenith"
+										                                data-options="required:true"                                  
+										                                placeholder="Pincode"
+										                                keyup = "validateNumber (this)"/>
+										                         </td>
+										                </tr>
+										         </tbody>			                                 
+								   		 </table>
+					                </td>
+			                    </tr>   
 		                   			<tr>
 										<td align="right" colspan="2">
 											<hr>
@@ -268,17 +273,17 @@
 												class="zenith" onclick="studentInfo_cancel()">
 												Cancel</button>
 										</td>
-									</tr>              
+									</tr> 
+								</tbody>             
 							</table>
 						 </div>			
-							
 							<!-- Family Details -->
-								 <div id="Family_details" style="padding: 10px" class="StudentInfoTab">
-								   <table class="zenith">
+						 <div id="Family_details" style="padding: 10px" class="StudentInfoTab">
+						   	<table class="zenith">
 								    <tr bgcolor="#efefef">
-									 <td>
-										<table class="zenith">
-								            		<tr>
+									 	<td>
+											<table class="zenith">
+						            			<tr>
 														<td class="fieldHeading">Father Name</td>
 														<td><input type="text"
 															id="studentInfo_input_fathername" class="zenith" /></td>
