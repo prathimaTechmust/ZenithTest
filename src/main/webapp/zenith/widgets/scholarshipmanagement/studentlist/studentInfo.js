@@ -301,17 +301,51 @@ function studentInfo_submit ()
 
 	if (studentInfo_validate())
 	{
-		 document.getElementById("progress").style.display = "block";
-		 document.getElementById("studentInfo_button_submit").style.display = "none";
-		 document.getElementById("studentInfo_button_print").style.display = "none";
-		 document.getElementById("studentInfoButton_button_cancel").style.display = "none";
-		 setTimeout(function(){student_progressbarLoaded ()}, 1000);
+		 isUIDExist (); 
 	}
 	else
 	{
 		alert("Please Fill Mandiatory Fields");
 		$('#studentInfo_form_id').focus();
 	}
+}
+
+function isUIDExist()
+{
+	if(document.getElementById("studentInfo_button_submit").getAttribute('update') == "false")
+	{
+		var oStudentInformationData = new StudentInformationData ();
+		oStudentInformationData.m_nUID = $("#studentInfo_input_studentUIDNumber").val();
+		StudentInformationDataProcessor.getStudentDataUID (oStudentInformationData,uidExistResponse);
+	}
+	else
+	{
+		processStudentCreateAndUpdate();
+	}
+}
+
+function uidExistResponse(oResponse)
+{
+	if(oResponse.m_bSuccess)
+	{
+		alert("UID Already Exist.Click on Auto Generate for different UID");
+		enableUIDButton();
+		document.getElementById("defaultOpen").click();
+	}
+	else
+	{
+		processStudentCreateAndUpdate();
+	}
+		
+}
+
+function processStudentCreateAndUpdate()
+{
+	document.getElementById("progress").style.display = "block";
+	document.getElementById("studentInfo_button_submit").style.display = "none";
+	document.getElementById("studentInfo_button_print").style.display = "none";
+	document.getElementById("studentInfoButton_button_cancel").style.display = "none";
+	setTimeout(function(){student_progressbarLoaded ()}, 1000);
 }
 
 function student_progressbarLoaded ()
@@ -335,8 +369,10 @@ function studentInfo_edit ()
 	var oStudentInformationData = new StudentInformationData ();
 	oStudentInformationData.m_nStudentId = m_oStudentInfoListMemberData.m_nSelectedStudentId;
 	oStudentInformationData.m_nAcademicYearId = m_oStudentInfoListMemberData.m_nAcademicYearId;
+	$("#uidgeneratorbuttonid").remove();
 	document.getElementById("studentInfo_button_submit").setAttribute('update', true);
 	document.getElementById("studentInfo_button_submit").innerHTML = "Update";
+	document.getElementById("studentInfo_button_print").innerHTML = "UpdateAndPrint";
 	document.getElementById("DocumentUpload_details_btn").style.display="inline";
 	document.getElementById("studentInfo_button_print").style.display="none";
 	StudentInformationDataProcessor.get (oStudentInformationData, studentInfo_gotData);
@@ -636,6 +672,7 @@ function studentInfo_gotData (oStudentInfoResponse)
 	assignDataToMemberVariable (oStudentInfoData);	
 	//Load Values in Form respectively
 	 $("#studentInfo_input_studentUIDNumber").val(oStudentInfoData.m_nUID);
+	 disabledUIDButton();
 	 $("#studentInfo_input_studentAadharNumber").val(oStudentInfoData.m_nStudentAadharNumber);
 	 $("#studentInfo_input_studentName").val(oStudentInfoData.m_strStudentName);
 	 facilitatorPopulateCombobox(oStudentInfoData);
@@ -836,6 +873,7 @@ function studentInfo_setStudentData (oStudentUIDAadharResponse)
 		
 		document.getElementById("studentInfo_button_submit").setAttribute('update', true);
 		document.getElementById("studentInfo_button_submit").innerHTML = "Update";
+		document.getElementById("studentInfo_button_print").innerHTML = "UpdateAndPrint";
 		document.getElementById("DocumentUpload_details_btn").style.display="inline";
 		studentInfo_gotData(oStudentUIDAadharResponse);		
 	}
@@ -1433,3 +1471,39 @@ function documentResponse(oDocumentResponse)
 	 HideDialog ("secondDialog");
 }
 
+function generateUID ()
+{
+	var oStudentInformationData = new StudentInformationData();
+	StudentInformationDataProcessor.getMaxUIDNumber(oStudentInformationData,maxUIDResponse);
+}
+
+function maxUIDResponse(oResponse)
+{
+	if(oResponse.m_bSuccess)
+	{
+		$('#studentInfo_input_studentUIDNumber').val(oResponse.m_nUID + 1);
+		$('#studentInfo_input_studentUIDNumber').prop("readonly", true);
+		disabledUIDButton();
+		initFormValidateBoxes ("studentInfo_form_id");
+	}
+}
+
+function checkButtonDisable(oData)
+{
+	if(oData.value.length == 4)
+		disabledUIDButton();
+	else
+		enableUIDButton();
+}
+
+function disabledUIDButton()
+{
+	$('#uidgeneratorbuttonid').prop("disabled",true);
+	$('#uidgeneratorbuttonid').removeClass("zenith");
+}
+
+function enableUIDButton()
+{
+	$('#uidgeneratorbuttonid').prop("disabled",false);
+	$('#uidgeneratorbuttonid').addClass("zenith");
+}
