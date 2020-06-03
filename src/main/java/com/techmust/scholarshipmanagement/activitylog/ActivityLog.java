@@ -28,6 +28,7 @@ import org.xml.sax.InputSource;
 import com.techmust.generic.data.GenericData;
 import com.techmust.generic.data.MasterData;
 import com.techmust.usermanagement.userinfo.UserInformationData;
+import com.techmust.utils.Utils;
 
 @Entity
 @Table(name = "activitylog")
@@ -221,6 +222,7 @@ public class ActivityLog  extends MasterData
 			addChild (oXmlDocument, oRootElement, "m_nActivityId", m_nActivityId);
 			addChild (oXmlDocument, oRootElement, "m_strLoginUserName", m_strLoginUserName);
 			addChild (oXmlDocument, oRootElement, "m_strTaskPerformed", m_strTaskPerformed);
+			addChild (oXmlDocument, oRootElement, "m_dCreatedOn", m_dCreatedOn != null ? getCreatedDate(m_dCreatedOn):"");
 			strActivityInfoXML = getXmlString (oXmlDocument);
 		}
 		catch (Exception oException) 
@@ -228,6 +230,12 @@ public class ActivityLog  extends MasterData
 			m_oLogger.error("generateXML - oException : " + oException);
 		}
 		return strActivityInfoXML;		
+	}
+
+	@SuppressWarnings("deprecation")
+	private String getCreatedDate(Date dCreatedOn)
+	{	
+		return Utils.formatDate(dCreatedOn.toString());
 	}
 
 	private Document convertXmlStringToXmlDocument(String strXMLString)
