@@ -70,72 +70,10 @@
 						<td class="xslt_fieldHeading">Student Name : </td>
 						<td class="xslt_fieldData"><xsl:value-of select="StudentInformationData/m_strStudentName"/></td>
 					</tr>
-					<xsl:if test="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oAcademicYear/AcademicYear/m_nAcademicYearId=1">
-						<tr>
-					  		<td class="xslt_fieldHeading"> Academic Year :</td>
-					  		<td class="xslt_fieldData"> 2019-2020 </td>
-					  	</tr>
-					</xsl:if>
-					<xsl:if test="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oAcademicYear/AcademicYear/m_nAcademicYearId=2">
-						<tr>
-					  		<td class="xslt_fieldHeading"> Academic Year :</td>
-					  		<td class="xslt_fieldData"> 2020-2021 </td>
-					  	</tr>
-					</xsl:if>
-					<xsl:if test="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oAcademicYear/AcademicYear/m_nAcademicYearId=3">
-						<tr>
-					  		<td class="xslt_fieldHeading"> Academic Year :</td>
-					  		<td class="xslt_fieldData"> 2021-2022 </td>
-					  	</tr>
-					</xsl:if>
-					<xsl:if test="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oAcademicYear/AcademicYear/m_nAcademicYearId=4">
-						<tr>
-					  		<td class="xslt_fieldHeading"> Academic Year :</td>
-					  		<td class="xslt_fieldData"> 2022-2023 </td>
-					  	</tr>
-					</xsl:if>
-					<xsl:if test="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oAcademicYear/AcademicYear/m_nAcademicYearId=5">
-						<tr>
-					  		<td class="xslt_fieldHeading"> Academic Year :</td>
-					  		<td class="xslt_fieldData"> 2023-2024 </td>
-					  	</tr>
-					</xsl:if>
-					<xsl:if test="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oAcademicYear/AcademicYear/m_nAcademicYearId=6">
-						<tr>
-					  		<td class="xslt_fieldHeading"> Academic Year :</td>
-					  		<td class="xslt_fieldData"> 2024-2025 </td>
-					  	</tr>
-					</xsl:if>
-					<xsl:if test="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oAcademicYear/AcademicYear/m_nAcademicYearId=7">
-						<tr>
-					  		<td class="xslt_fieldHeading"> Academic Year :</td>
-					  		<td class="xslt_fieldData"> 2025-2026 </td>
-					  	</tr>
-					</xsl:if>
-					<xsl:if test="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oAcademicYear/AcademicYear/m_nAcademicYearId=8">
-						<tr>
-					  		<td class="xslt_fieldHeading"> Academic Year :</td>
-					  		<td class="xslt_fieldData"> 2026-2027 </td>
-					  	</tr>
-					</xsl:if>
-					<xsl:if test="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oAcademicYear/AcademicYear/m_nAcademicYearId=9">
-						<tr>
-					  		<td class="xslt_fieldHeading"> Academic Year :</td>
-					  		<td class="xslt_fieldData"> 2027-2028 </td>
-					  	</tr>
-					</xsl:if>
-					<xsl:if test="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oAcademicYear/AcademicYear/m_nAcademicYearId=10">
-						<tr>
-					  		<td class="xslt_fieldHeading"> Academic Year :</td>
-					  		<td class="xslt_fieldData"> 2028-2029 </td>
-					  	</tr>
-					</xsl:if>
-					<xsl:if test="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oAcademicYear/AcademicYear/m_nAcademicYearId=11">
-						<tr>
-					  		<td class="xslt_fieldHeading"> Academic Year :</td>
-					  		<td class="xslt_fieldData"> 2029-2030 </td>
-					  	</tr>
-					</xsl:if>
+					<tr>
+				  		<td class="xslt_fieldHeading"> Academic Year :</td>
+				  		<td class="xslt_fieldData"><xsl:value-of select="StudentInformationData/m_oAcademicDetails/AcademicDetails/m_oAcademicYear/AcademicYear/m_nAcademicYearId"/> </td>
+				  	</tr>
 				</xsl:if>
 				
 				<xsl:if test="FacilitatorInformationData">
@@ -185,6 +123,21 @@
 						<td class="xslt_fieldHeading">State : </td>
 						<td class="xslt_fieldData"><xsl:value-of select="InstitutionInformationData/m_strState"/></td>
 					</tr>
+				</xsl:if>
+				<xsl:if test="ZenithScholarshipDetails">
+					<tr>
+						<td class="xslt_fieldHeading">UID :</td>
+						<td class="xslt_fieldData"><xsl:value-of select="ZenithScholarshipDetails/m_nStudentUID"/></td>
+					</tr>
+					<tr>
+						<td class="xslt_fieldHeading">Student Name :</td>
+						<td class="xslt_fieldData"><xsl:value-of select="ZenithScholarshipDetails/m_strStudentName"/></td>
+					</tr>
+					<tr>
+				  		<td class="xslt_fieldHeading"> Academic Year :</td>
+				  		<td class="xslt_fieldData"> <xsl:value-of select="ZenithScholarshipDetails/m_nAcademicYearId"/> </td>
+				  	</tr>
+				
 				</xsl:if>
 					
 				</table>

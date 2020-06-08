@@ -134,7 +134,13 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 	private int m_nAcademicId;
 	
 	@Transient
-	private int m_nAcademicYearId;	
+	private int m_nAcademicYearId;
+	
+	@Transient
+	private String m_strStudentName;
+	
+	@Transient
+	private long m_nStudentUID;
 	
 	public ZenithScholarshipDetails()
 	{
@@ -159,7 +165,27 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 		m_dUpdatedOn = Calendar.getInstance().getTime();
 		m_oUserCreatedBy = new UserInformationData();
 		m_oUserUpdatedBy = new UserInformationData();
-	}	
+	}
+	
+	public String getM_strStudentName()
+	{
+		return m_strStudentName;
+	}
+
+	public void setM_strStudentName(String m_strStudentName) 
+	{
+		this.m_strStudentName = m_strStudentName;
+	}
+	
+	public long getM_nStudentUID() 
+	{
+		return m_nStudentUID;
+	}
+
+	public void setM_nStudentUID(long m_nStudentUID) 
+	{
+		this.m_nStudentUID = m_nStudentUID;
+	}
 
 	public int getM_nAcademicYearId()
 	{
@@ -484,6 +510,9 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 			addChild (oXmlDocument, oRootElement, "m_dClaimedDate",m_dClaimedDate != null ? getDate(m_dClaimedDate.toString()) :"");
 			addChild (oXmlDocument, oRootElement, "m_dCounselingDate",m_dCounselingDate != null ? getDate(m_dCounselingDate.toString()) :"");
 			addChild (oXmlDocument, oRootElement, "m_dApplicationSubmitDate",m_dApplicationSubmitDate != null ? getDate(m_dApplicationSubmitDate.toString()) :"");
+			addChild (oXmlDocument, oRootElement, "m_nAcademicYearId",m_nAcademicYearId);
+			addChild (oXmlDocument, oRootElement, "m_strStudentName",m_strStudentName);
+			addChild (oXmlDocument, oRootElement, "m_nStudentUID",m_nStudentUID);
 			strZenithScholarshipDetailsInfoXML = getXmlString (oXmlDocument);			 
 		}
 		catch (Exception oException) 
@@ -492,7 +521,7 @@ public class ZenithScholarshipDetails extends MasterData implements Serializable
 		}
 		return strZenithScholarshipDetailsInfoXML;
 	}
-
+	
 	private String buildUserDetails(UserInformationData oUserDetails) 
 	{
 		return oUserDetails.generateXML();
