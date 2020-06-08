@@ -47,7 +47,6 @@ public class StudentScholarshipAccountsProcessor extends GenericIDataProcessor<S
 			{				
 				oStudentScholarshipAccount.setM_oAcademicDetails(list.get(0));
 				oAccountsDataResponse.m_bSuccess = oStudentScholarshipAccount.saveObject();
-				Utils.createActivityLog("StudentScholarshipAccountsProcessor::create", oStudentScholarshipAccount);
 				oAccountsDataResponse.m_nStudentId = oStudentScholarshipAccount.getM_nStudentId();
 			}
 			
@@ -57,6 +56,8 @@ public class StudentScholarshipAccountsProcessor extends GenericIDataProcessor<S
 				oZenithScholarshipDetails.setM_nAcademicYearId(oStudentScholarshipAccount.getM_nAcademicYearId());
 				oZenithScholarshipDetails.setM_oUserUpdatedBy(oStudentScholarshipAccount.getM_oUserUpdatedBy());
 				boolean m_bSuccess = oZenithScholarshipDetails.applicationStatusUpdate(oZenithScholarshipDetails);
+				oZenithScholarshipDetails.setM_strStudentName(oStudentInformationData.getM_strStudentName());
+				oZenithScholarshipDetails.setM_nStudentUID(oStudentInformationData.getM_nUID());
 				Utils.createActivityLog("StudentScholarshipAccountsProcessor::applicationStatusUpdate", oZenithScholarshipDetails);
 			}			
 		}

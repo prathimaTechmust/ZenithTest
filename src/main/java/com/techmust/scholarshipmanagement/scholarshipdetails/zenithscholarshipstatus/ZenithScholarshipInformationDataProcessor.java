@@ -3,6 +3,12 @@ package com.techmust.scholarshipmanagement.scholarshipdetails.zenithscholarships
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.techmust.constants.Constants;
 import com.techmust.generic.dataprocessor.GenericIDataProcessor;
 import com.techmust.generic.response.GenericResponse;
+import com.techmust.generic.util.HibernateUtil;
 import com.techmust.scholarshipmanagement.chequeFavourOf.ChequeInFavourOf;
 import com.techmust.scholarshipmanagement.student.StudentInformationData;
 import com.techmust.usermanagement.userinfo.UserInformationData;
@@ -60,8 +67,11 @@ public class ZenithScholarshipInformationDataProcessor extends GenericIDataProce
 			AWSUtils.UploadSealedCopyDocumentsFolder(strFileName,oScanCopyMultipartFile);
 			oZenithScholarshipDetails.setM_strImage(strUUID);
 			oZenithScholarshipDetailsDataResponse.m_bSuccess =  oZenithScholarshipDetails.updateStudentApplicationVerifiedStatus(oZenithScholarshipDetails);
-			if(oZenithScholarshipDetailsDataResponse.m_bSuccess)			
-				Utils.createActivityLog("ZenithScholarshipInformationDataProcessor::toBeVerifiedStatusUpdate", oZenithScholarshipDetails);
+			if(oZenithScholarshipDetailsDataResponse.m_bSuccess)
+			{
+				ZenithScholarshipDetails oZenithScholarshipData = getStudentData(nStudentId,nAcademicyearId,oZenithScholarshipDetails);
+				Utils.createActivityLog("ZenithScholarshipInformationDataProcessor::toBeVerifiedStatusUpdate", oZenithScholarshipData);
+			}
 		}
 		catch (Exception oException)
 		{
@@ -70,7 +80,7 @@ public class ZenithScholarshipInformationDataProcessor extends GenericIDataProce
 		}
 		return oZenithScholarshipDetailsDataResponse;
 	}
-	
+
 	@RequestMapping(value="/studentApprovedStatusInfoUpdate", method = RequestMethod.POST, headers = {"Content-type=application/json"})
 	@ResponseBody
 	public GenericResponse approvedStatusUpdate( @RequestBody ZenithScholarshipDetails oZenithScholarshipDetails) throws Exception
@@ -82,8 +92,11 @@ public class ZenithScholarshipInformationDataProcessor extends GenericIDataProce
 		try
 		{			
 			oZenithScholarshipDetailsDataResponse.m_bSuccess =  oZenithScholarshipDetails.updateStudentApplicationApprovedStatus(oZenithScholarshipDetails);
-			if(oZenithScholarshipDetailsDataResponse.m_bSuccess)		
-				Utils.createActivityLog("ZenithScholarshipInformationDataProcessor::approvedStatusUpdate", oZenithScholarshipDetails);	
+			if(oZenithScholarshipDetailsDataResponse.m_bSuccess)
+			{
+				ZenithScholarshipDetails oScholarshipDetails = getStudentData(oZenithScholarshipDetails.getM_nStudentId(), oZenithScholarshipDetails.getM_nAcademicYearId(), oZenithScholarshipDetails);
+				Utils.createActivityLog("ZenithScholarshipInformationDataProcessor::approvedStatusUpdate", oScholarshipDetails);
+			}
 		}
 		catch (Exception oException)
 		{
@@ -103,8 +116,12 @@ public class ZenithScholarshipInformationDataProcessor extends GenericIDataProce
 		try 
 		{
 			oZenithScholarshipDetailsDataResponse.m_bSuccess = oZenithScholarshipDetails.updateStudentApplicationRejectedStatus(oZenithScholarshipDetails);
-			if(oZenithScholarshipDetailsDataResponse.m_bSuccess)		
-				Utils.createActivityLog("ZenithScholarshipInformationDataProcessor::rejectedStatusUpdate", oZenithScholarshipDetails);			
+			if(oZenithScholarshipDetailsDataResponse.m_bSuccess)
+			{
+				ZenithScholarshipDetails oScholarshipDetails = getStudentData(oZenithScholarshipDetails.getM_nStudentId(), oZenithScholarshipDetails.getM_nAcademicYearId(), oZenithScholarshipDetails);
+				Utils.createActivityLog("ZenithScholarshipInformationDataProcessor::rejectedStatusUpdate", oScholarshipDetails);
+			}
+							
 		} 
 		catch (Exception oException)
 		{
@@ -124,8 +141,12 @@ public class ZenithScholarshipInformationDataProcessor extends GenericIDataProce
 		try 
 		{
 			oZenithScholarshipDetailsDataResponse.m_bSuccess = oZenithScholarshipDetails.disburseCheque(oZenithScholarshipDetails);
-			if(oZenithScholarshipDetailsDataResponse.m_bSuccess)		
-				Utils.createActivityLog("ZenithScholarshipInformationDataProcessor::disburseCheque", oZenithScholarshipDetails);			
+			if(oZenithScholarshipDetailsDataResponse.m_bSuccess)
+			{
+				ZenithScholarshipDetails oScholarshipDetails = getStudentData(oZenithScholarshipDetails.getM_nStudentId(), oZenithScholarshipDetails.getM_nAcademicYearId(), oZenithScholarshipDetails);
+				Utils.createActivityLog("ZenithScholarshipInformationDataProcessor::disburseCheque", oScholarshipDetails);
+			}
+							
 		} 
 		catch (Exception oException)
 		{
@@ -154,7 +175,8 @@ public class ZenithScholarshipInformationDataProcessor extends GenericIDataProce
 			    StudentInformationData  oStudentData= oStudentInformationData.getStudentDetails(oStudentInformationData);
 			    List<ZenithScholarshipDetails> oDetails = new ArrayList<ZenithScholarshipDetails>(oStudentData.getM_oZenithScholarshipDetails());
 			    AmazonSMS.sendSmsToCounselingCandidate(oStudentData.getM_strStudentName(),Constants.NUMBERPREFIX+oStudentData.getM_strPhoneNumber(),oDetails.get(0).getM_dCounselingDate());	
-				Utils.createActivityLog("ZenithScholarshipInformationDataProcessor::counselingStatusApplication", oZenithScholarshipDetails);			
+			    ZenithScholarshipDetails oScholarshipDetails = getStudentData(oZenithScholarshipDetails.getM_nStudentId(), oZenithScholarshipDetails.getM_nAcademicYearId(), oZenithScholarshipDetails);
+			    Utils.createActivityLog("ZenithScholarshipInformationDataProcessor::counselingStatusApplication", oScholarshipDetails);			
 			} 
 		}
 		catch (Exception oException)
@@ -176,7 +198,11 @@ public class ZenithScholarshipInformationDataProcessor extends GenericIDataProce
 		{
 		    oZenithScholarshipDetailsDataResponse.m_bSuccess = oZenithScholarshipDetails.reVerifyStudentApplication(oZenithScholarshipDetails);
 		    if(oZenithScholarshipDetailsDataResponse.m_bSuccess)
-				Utils.createActivityLog("ZenithScholarshipInformationDataProcessor::reVerifyStudentApplication", oZenithScholarshipDetails);			
+		    {
+		    	ZenithScholarshipDetails oScholarshipDetails = getStudentData(oZenithScholarshipDetails.getM_nStudentId(), oZenithScholarshipDetails.getM_nAcademicYearId(), oZenithScholarshipDetails);
+		    	Utils.createActivityLog("ZenithScholarshipInformationDataProcessor::reVerifyStudentApplication", oScholarshipDetails);
+		    }
+							
 		} 
 		catch (Exception oException)
 		{
@@ -197,7 +223,11 @@ public class ZenithScholarshipInformationDataProcessor extends GenericIDataProce
 		{
 		    oZenithScholarshipDetailsDataResponse.m_bSuccess = oZenithScholarshipDetails.approveCounselingStudentApplication(oZenithScholarshipDetails);
 		    if(oZenithScholarshipDetailsDataResponse.m_bSuccess)
-				Utils.createActivityLog("ZenithScholarshipInformationDataProcessor::approveCounselingStudentApplication", oZenithScholarshipDetails);			
+		    {
+		    	ZenithScholarshipDetails oScholarshipDetails = getStudentData(oZenithScholarshipDetails.getM_nStudentId(), oZenithScholarshipDetails.getM_nAcademicYearId(), oZenithScholarshipDetails);
+		    	Utils.createActivityLog("ZenithScholarshipInformationDataProcessor::approveCounselingStudentApplication", oScholarshipDetails);
+		    }
+							
 		} 
 		catch (Exception oException)
 		{
@@ -218,7 +248,11 @@ public class ZenithScholarshipInformationDataProcessor extends GenericIDataProce
 		{
 			oZenithScholarshipDetailsDataResponse.m_bSuccess = oZenithScholarshipDetails.claimCheque(oZenithScholarshipDetails);
 			if(oZenithScholarshipDetailsDataResponse.m_bSuccess)
-				Utils.createActivityLog("ZenithScholarshipInformationDataProcessor::claimCheque", oZenithScholarshipDetails);
+			{
+				ZenithScholarshipDetails oScholarshipDetails = getStudentData(oZenithScholarshipDetails.getM_nStudentId(), oZenithScholarshipDetails.getM_nAcademicYearId(), oZenithScholarshipDetails);
+				Utils.createActivityLog("ZenithScholarshipInformationDataProcessor::claimCheque", oScholarshipDetails);
+			}
+				
 		} 
 		catch (Exception oException)
 		{
@@ -239,7 +273,11 @@ public class ZenithScholarshipInformationDataProcessor extends GenericIDataProce
 		{
 			oZenithScholarshipDetailsDataResponse.m_bSuccess = oZenithScholarshipDetails.reIssueCheckDetails(oZenithScholarshipDetails);
 			if(oZenithScholarshipDetailsDataResponse.m_bSuccess)
-				Utils.createActivityLog("ZenithScholarshipInformationDataProcessor::reIssueCheque", oZenithScholarshipDetails);
+			{
+				ZenithScholarshipDetails oScholarshipDetails = getStudentData(oZenithScholarshipDetails.getM_nStudentId(), oZenithScholarshipDetails.getM_nAcademicYearId(), oZenithScholarshipDetails);
+				Utils.createActivityLog("ZenithScholarshipInformationDataProcessor::reIssueCheque", oScholarshipDetails);
+			}
+				
 		} 
 		catch (Exception oException)
 		{
@@ -248,6 +286,39 @@ public class ZenithScholarshipInformationDataProcessor extends GenericIDataProce
 		}				
 		return oZenithScholarshipDetailsDataResponse; 
 	}	
+	
+	private ZenithScholarshipDetails getStudentData(int nStudentId, Integer nAcademicyearId, ZenithScholarshipDetails oZenithScholarshipDetails)
+	{
+		EntityManager oEntityManager = oZenithScholarshipDetails._getEntityManager();
+		try 
+		{
+			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
+			CriteriaQuery<StudentInformationData> oCriteriaQuery = oCriteriaBuilder.createQuery(StudentInformationData.class);
+			Root<StudentInformationData> oRoot = oCriteriaQuery.from(StudentInformationData.class);
+			oCriteriaQuery.select(oRoot);
+			oCriteriaQuery.where(oCriteriaBuilder.equal(oRoot.get("m_nStudentId"), nStudentId));
+			ArrayList<StudentInformationData> arrStudentListData = (ArrayList<StudentInformationData>) oEntityManager.createQuery(oCriteriaQuery).getResultList();
+			if(arrStudentListData.size() > 0)
+			{
+				StudentInformationData oStudentData = arrStudentListData.get(0);
+				oZenithScholarshipDetails.setM_nStudentUID(oStudentData.getM_nUID());
+				oZenithScholarshipDetails.setM_strStudentName(oStudentData.getM_strStudentName());
+				oZenithScholarshipDetails.setM_nAcademicYearId(nAcademicyearId);
+			}
+				
+		} 
+		catch (Exception oException)
+		{
+			m_oLogger.error ("getStudentData - oException : " + oException);
+		}
+		finally
+		{
+			oEntityManager.close();
+			HibernateUtil.removeConnection();
+		}
+		return oZenithScholarshipDetails;
+	}
+	
 	
 	@Override
 	public GenericResponse create(ZenithScholarshipDetails oGenericData) throws Exception 

@@ -1,11 +1,13 @@
 package com.techmust.scholarshipmanagement.activitylog;
 
 import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,14 +22,21 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.jsoup.Jsoup;
+import org.jsoup.parser.Parser;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 import com.techmust.generic.data.GenericData;
 import com.techmust.generic.data.MasterData;
+import com.techmust.generic.util.HibernateUtil;
+import com.techmust.scholarshipmanagement.academicyear.AcademicYear;
 import com.techmust.usermanagement.userinfo.UserInformationData;
+import com.techmust.utils.Utils;
 
 @Entity
 @Table(name = "activitylog")
@@ -216,11 +225,13 @@ public class ActivityLog  extends MasterData
 			Document oXmlDocument = createNewXMLDocument ();
 			Element oRootElement = createRootElement(oXmlDocument, "ActivityLog");			
 			Document oXMLParameter = convertXmlStringToXmlDocument(m_strXMLString);
-			Node oXmlParameterNode = oXmlDocument.importNode(oXMLParameter.getFirstChild(), true);			
-			oRootElement.appendChild(oXmlParameterNode);
+			Document oXmlData =  getAcademicYear(oXMLParameter);
+			Node oXmlParameterNode = oXmlDocument.importNode(oXmlData.getFirstChild(), true);
+			oRootElement.appendChild(oXmlParameterNode);			
 			addChild (oXmlDocument, oRootElement, "m_nActivityId", m_nActivityId);
 			addChild (oXmlDocument, oRootElement, "m_strLoginUserName", m_strLoginUserName);
 			addChild (oXmlDocument, oRootElement, "m_strTaskPerformed", m_strTaskPerformed);
+			addChild (oXmlDocument, oRootElement, "m_dCreatedOn", m_dCreatedOn != null ? getCreatedDate(m_dCreatedOn):"");
 			strActivityInfoXML = getXmlString (oXmlDocument);
 		}
 		catch (Exception oException) 
@@ -228,6 +239,57 @@ public class ActivityLog  extends MasterData
 			m_oLogger.error("generateXML - oException : " + oException);
 		}
 		return strActivityInfoXML;		
+	}
+
+	private Document getAcademicYear(Document oXMLParameter)
+	{
+		NodeList nChildRoot;
+		NodeList nParentRoot = oXMLParameter.getElementsByTagName("m_nAcademicYearId");
+		if(nParentRoot.getLength() > 0)
+		{
+			nChildRoot = nParentRoot.item(0).getChildNodes();
+			String strNodeValue = nChildRoot.item(0).getNodeValue();
+			String strAcademicYear = getAcademicYearValue(Integer.parseInt(strNodeValue));
+			nChildRoot.item(0).setNodeValue(strAcademicYear);
+		}
+		return oXMLParameter;
+	}
+
+	private String getAcademicYearValue(int nAcademicyearId)
+	{
+		ActivityLog oActivityLog = new ActivityLog();
+		EntityManager oEntityManager = oActivityLog._getEntityManager();
+		String strAcademicYear = "";
+		try 
+		{
+			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
+			CriteriaQuery<AcademicYear> oCriteriaQuery = oCriteriaBuilder.createQuery(AcademicYear.class);
+			Root<AcademicYear> oAcademicRoot = oCriteriaQuery.from(AcademicYear.class);
+			oCriteriaQuery.select(oAcademicRoot);
+			oCriteriaQuery.where(oCriteriaBuilder.equal(oAcademicRoot.get("m_nAcademicYearId"), nAcademicyearId));
+			ArrayList<AcademicYear> arrArrayList = (ArrayList<AcademicYear>) oEntityManager.createQuery(oCriteriaQuery).getResultList();
+			if(arrArrayList.size() > 0)
+			{
+				AcademicYear oAcademicYear = arrArrayList.get(0);
+				strAcademicYear = oAcademicYear.getM_strAcademicYear();				
+			}
+		}
+		catch (Exception oException) 
+		{
+			m_oLogger.error("getAcademicYearValue" + oException);
+		}
+		finally
+		{
+			oEntityManager.close();
+			HibernateUtil.removeConnection();
+		}
+		return strAcademicYear;
+	}
+
+	@SuppressWarnings("deprecation")
+	private String getCreatedDate(Date dCreatedOn)
+	{	
+		return Utils.formatDate(dCreatedOn.toString());
 	}
 
 	private Document convertXmlStringToXmlDocument(String strXMLString)
