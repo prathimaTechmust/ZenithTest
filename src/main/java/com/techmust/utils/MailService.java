@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import com.techmust.generic.data.GenericData;
+import com.techmust.scholarshipmanagement.student.StudentInformationData;
 
 
 public class MailService
@@ -19,7 +20,10 @@ public class MailService
 	
 	public static String strSubject = "Cheque is Prepared";
 	public static String strFacilitatorBodyHeading = "Dear ";
-	public static String strFacilitatorBodyMessage = "your following student application of scholarship with Zenith Foundation has been processed and cheque prepared";							
+	public static String strFacilitatorBodyStartMessage = "your following student ";
+	public static String strStudentUID = "UID : ";
+	public static String strStudentName = " Name : ";
+	public static String strFacilitatorBodyEndMessage = " application of scholarship with Zenith Foundation has been processed and cheque is prepared.Please come and collect cheque from our office in next 4 working days.";							
 	public static String strStudentBodyHeading = "Congratulations ";							
 	public static String strStudentBodyMessage = "your application of scholarship with Zenith Foundation has been processed and cheque prepared. Kindly collect your cheque from the office after 4 working days.\r\n" + 
 													"\r\n" + 
@@ -38,7 +42,7 @@ public class MailService
 		return oEmailProperties;		
 	}
 	
-	public void sendMailToFacilitator(String strToFacilitatorMail,String strFacilitatorName) throws MessagingException
+	public void sendMailToFacilitator(String strToFacilitatorMail,String strFacilitatorName, StudentInformationData oStudentInformationData) throws MessagingException
 	{
 		
 		try
@@ -58,7 +62,7 @@ public class MailService
 			SimpleMailMessage oMessage = new SimpleMailMessage();
 			oMessage.setTo(strToFacilitatorMail);
 			oMessage.setSubject(strSubject);
-			oMessage.setText(strFacilitatorBodyHeading+strFacilitatorName+","+strFacilitatorBodyMessage);
+			oMessage.setText(strFacilitatorBodyHeading+strFacilitatorName+","+strFacilitatorBodyStartMessage+strStudentUID+oStudentInformationData.getM_nUID()+strStudentName+oStudentInformationData.getM_strStudentName()+strFacilitatorBodyEndMessage);
 			oSender.send(oMessage);
 			System.out.println("Email Sent Sucessfully");
 		}
