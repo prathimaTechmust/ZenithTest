@@ -35,9 +35,9 @@ function createActivityLog_dataGrid ()
 			fit:true,
 			columns:
 			[[
-				{field:'m_nActivityId',title:'ID',sortable:true,width:300},
-				{field:'m_strLoginUserName',title:'User Name',sortable:true,width:300},
-				{field:'m_strTaskPerformed',title:'Function Name',sortable:true,width:300},
+				{field:'m_nActivityId',title:'ID',sortable:true,width:200},
+				{field:'m_strLoginUserName',title:'User Name',sortable:true,width:200},
+				{field:'m_strTaskPerformed',title:'Function Name',sortable:true,width:500},
 				{field:'m_dCreatedOn',title:'Date',sortable:true,width:200,
 					formatter:function(row,value,index)
 					{

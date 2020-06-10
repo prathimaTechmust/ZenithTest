@@ -42,7 +42,7 @@ function counselingStudentListInfo_createDataGrid ()
 			fit:true,
 			columns:
 			[[
-				{field:'m_nUID',title:'UID',sortable:true,width:150},
+				{field:'m_nUID',title:'UID',sortable:true,width:100},
 				{field:'m_strStudentName',title:'Student Name',sortable:true,width:300},
 				{field:'m_strPhoneNumber',title:'Phone Number',sortable:true,width:200},
 				{field:'m_strCity',title:'City',sortable:true,width:200}, 
@@ -59,7 +59,7 @@ function counselingStudentListInfo_createDataGrid ()
 		        	}
 				},
 				
-				{field:'m_strStudentRemarks',title:'Remarks',sortable:true,width:200,
+				{field:'m_strStudentRemarks',title:'Remarks',sortable:true,width:300,
 					formatter:function(value,row,index)
 		        	{
 		        		return row.m_oZenithScholarshipDetails[0].m_strStudentRemarks;
