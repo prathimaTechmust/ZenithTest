@@ -103,7 +103,7 @@ public class StudentScholarshipAccountsProcessor extends GenericIDataProcessor<S
 			}			
 			if(oFacilitatorInformationData.getM_strPhoneNumber() != null)
 			{
-				AmazonSMS.sendSMSToFacilitator(Constants.NUMBERPREFIX+oFacilitatorInformationData.getM_strPhoneNumber(), oFacilitatorInformationData.getM_strFacilitatorName());
+				AmazonSMS.sendSMSToFacilitator(Constants.NUMBERPREFIX+oFacilitatorInformationData.getM_strPhoneNumber(), oFacilitatorInformationData.getM_strFacilitatorName(),oStudentInformationData);
 				m_bIsSentSMSAndMail = true;
 			}
 			if(oStudentInformationData.getM_strEmailAddress() != null)
@@ -113,7 +113,7 @@ public class StudentScholarshipAccountsProcessor extends GenericIDataProcessor<S
 			}			
 			if(oFacilitatorInformationData.getM_strEmail() != null)
 			{
-				m_oMailService.sendMailToFacilitator(oFacilitatorInformationData.getM_strEmail(), oFacilitatorInformationData.getM_strFacilitatorName());
+				m_oMailService.sendMailToFacilitator(oFacilitatorInformationData.getM_strEmail(), oFacilitatorInformationData.getM_strFacilitatorName(),oStudentInformationData);
 				m_bIsSentSMSAndMail = true;
 			}			
 			

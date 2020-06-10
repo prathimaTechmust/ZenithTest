@@ -829,7 +829,20 @@ public class StudentInformationData  extends MasterData implements Serializable
 			//Siblings Details
 			Document oSiblingsDetailsDataXmlDoc = getXmlDocument ("<m_oSibilingDetails>"+buildSiblingsDetails (m_oSibilingDetails)+"</m_oSibilingDetails>");
 			Node oSiblingsDetailssDataNode = oXmlDocument.importNode(oSiblingsDetailsDataXmlDoc.getFirstChild(), true);
-			oRootElement.appendChild(oSiblingsDetailssDataNode);			
+			oRootElement.appendChild(oSiblingsDetailssDataNode);
+			//User Created by
+			if(m_oUserCreatedBy != null)
+			{
+				Document oCreateUserXmlData = getXmlDocument("<m_oUserCreatedBy>"+buildUserCreatedUpdatedBy(m_oUserCreatedBy)+"</m_oUserCreatedBy>");
+				Node oUserCreatedByNode = oXmlDocument.importNode(oCreateUserXmlData.getFirstChild(), true);
+				oRootElement.appendChild(oUserCreatedByNode);
+			}
+			if(m_oUserUpdatedBy != null)
+			{
+				Document oUpdateUserXmlData = getXmlDocument("<m_oUserUpdatedBy>"+buildUserCreatedUpdatedBy(m_oUserUpdatedBy)+"</m_oUserUpdatedBy>");
+				Node oUserUpdatedByNode = oXmlDocument.importNode(oUpdateUserXmlData.getFirstChild(), true);
+				oRootElement.appendChild(oUserUpdatedByNode);
+			}
 			addChild (oXmlDocument, oRootElement, "m_nStudentId", m_nStudentId);
 			addChild (oXmlDocument, oRootElement, "m_nUID", m_nUID);
 			addChild (oXmlDocument, oRootElement, "m_nStudentAadharNumber", m_nStudentAadharNumber);
@@ -859,6 +872,8 @@ public class StudentInformationData  extends MasterData implements Serializable
 			addChild (oXmlDocument, oRootElement, "m_nApplicationPriority", getApplicationPriority(m_nApplicationPriority));
 			addChild (oXmlDocument, oRootElement, "m_strStudentImageId", m_strStudentImageId);					
 			addChild (oXmlDocument, oRootElement, "m_strStudentImageUrl", getStudentImageURL(m_strStudentImageId));
+			addChild (oXmlDocument, oRootElement, "m_dCreatedOn", m_dCreatedOn != null ? getDateFormat(m_dCreatedOn) : "");
+			addChild (oXmlDocument, oRootElement, "m_dUpdatedOn", m_dUpdatedOn != null ? getDateFormat(m_dUpdatedOn) : "");
 			strStudentInfoXML = getXmlString (oXmlDocument);
 		}
 		catch (Exception oException) 
@@ -866,6 +881,16 @@ public class StudentInformationData  extends MasterData implements Serializable
 			m_oLogger.error("generateXML - oException : " + oException);
 		}
 		return strStudentInfoXML;		
+	}
+
+	private String getDateFormat(Date dDate)
+	{
+		return Utils.formatDate(dDate.toString());
+	}
+
+	private String buildUserCreatedUpdatedBy(UserInformationData oUserCreatedUpdatedBy)
+	{
+		return oUserCreatedUpdatedBy.generateXML();
 	}
 
 	private String getApplicationPriority(int nApplicationPriority)

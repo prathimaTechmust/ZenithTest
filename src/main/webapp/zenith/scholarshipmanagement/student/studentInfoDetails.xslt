@@ -77,6 +77,26 @@
 								<xsl:value-of select="StudentInformationData/m_oZenithScholarshipDetails/ZenithScholarshipDetails/m_strStatus"/>								
 								</td>
 							</tr>
+							<tr>
+								<td class="xslt_fieldHeading">Created By :</td>
+								<td class="xslt_fieldData">
+								<xsl:value-of select="StudentInformationData/m_oUserCreatedBy/UserInformationData/m_strUserName"/>
+								</td>
+								<td class="xslt_fieldHeading">Created On :</td>
+								<td class="xslt_fieldData">
+								<xsl:value-of select="StudentInformationData/m_dCreatedOn"/>
+								</td>
+							</tr>
+							<tr>
+								<td class="xslt_fieldHeading">Updated By :</td>
+								<td class="xslt_fieldData">
+								<xsl:value-of select="StudentInformationData/m_oUserUpdatedBy/UserInformationData/m_strUserName"/>
+								</td>
+								<td class="xslt_fieldHeading">Updated On :</td>
+								<td class="xslt_fieldData">
+								<xsl:value-of select="StudentInformationData/m_dUpdatedOn"/>
+								</td>
+							</tr>
 						</table>
 					</td>
 				</tr>
