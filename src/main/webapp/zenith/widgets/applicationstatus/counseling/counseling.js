@@ -43,23 +43,23 @@ function counselingStudentListInfo_createDataGrid ()
 			columns:
 			[[
 				{field:'m_nUID',title:'UID',sortable:true,width:100},
-				{field:'m_strStudentName',title:'Student Name',sortable:true,width:300},
-				{field:'m_strPhoneNumber',title:'Phone Number',sortable:true,width:200},
-				{field:'m_strCity',title:'City',sortable:true,width:200}, 
-				{field:'m_strStatus',title:'Application Status',sortable:true,width:200,
+				{field:'m_strStudentName',title:'Student Name',sortable:true,width:200},
+				{field:'m_strPhoneNumber',title:'Phone Number',sortable:true,width:150},
+				{field:'m_strCity',title:'City',sortable:true,width:150}, 
+				{field:'m_strStatus',title:'Application Status',sortable:true,width:150,
 					formatter:function(value,row,index)
 		        	{
 		        		return row.m_oZenithScholarshipDetails[0].m_strStatus;
 		        	}
 				},	
-				{field:'m_nCounselingDate',title:'Counseling Date',sortable:true,width:200,
+				{field:'m_nCounselingDate',title:'Counseling Date',sortable:true,width:150,
 					formatter:function(value,row,index)
 		        	{
 		        		return convertTimestampToDayMonthYear(row.m_oZenithScholarshipDetails[0].m_dCounselingDate);
 		        	}
 				},
 				
-				{field:'m_strStudentRemarks',title:'Remarks',sortable:true,width:300,
+				{field:'m_strStudentRemarks',title:'Remarks',sortable:true,width:600,
 					formatter:function(value,row,index)
 		        	{
 		        		return row.m_oZenithScholarshipDetails[0].m_strStudentRemarks;
