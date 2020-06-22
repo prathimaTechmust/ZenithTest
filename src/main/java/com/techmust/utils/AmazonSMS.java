@@ -50,6 +50,9 @@ public class AmazonSMS
 	@SuppressWarnings("unused")
 	public static void sendSMSToStudent (String strPhoneNumber,String strStudentName)
 	{
+		m_oLogger.info("sendSMSToStudent");
+		m_oLogger.debug("sendSMSToStudent - strPhoneNumber [IN] :"+strPhoneNumber);
+		m_oLogger.debug("sendSMSToStudent - strStudentName [IN] :"+strStudentName);
 		try
 		{
 			AmazonSNSClient oAmazonSNSClient = (AmazonSNSClient) getClient();
@@ -59,13 +62,17 @@ public class AmazonSMS
 		}
 		catch (Exception oException)
 		{
-			m_oLogger.error("sendSMS - oException"+oException);
+			m_oLogger.error("sendSMSToStudent - oException"+oException);
 		}
 	}
 	
 	@SuppressWarnings("unused")
 	public static void sendSMSToFacilitator (String strPhoneNumber,String strFacilitatorName, StudentInformationData oStudentInformationData)
 	{
+		m_oLogger.info("sendSMSToFacilitator");
+		m_oLogger.debug("sendSMSToFacilitator - strPhoneNumber [IN] :"+strPhoneNumber);
+		m_oLogger.debug("sendSMSToFacilitator - strFacilitatorName [IN] :"+strFacilitatorName);
+		m_oLogger.debug("sendSMSToFacilitator - oStudentInformationData [IN] :"+oStudentInformationData.toString());
 		try
 		{
 			AmazonSNSClient oAmazonSNSClient = (AmazonSNSClient) getClient();
@@ -75,13 +82,17 @@ public class AmazonSMS
 		}
 		catch (Exception oException)
 		{
-			m_oLogger.error("sendSMS - oException"+oException);
+			m_oLogger.error("sendSMSToFacilitator - oException"+oException);
 		}		
 	} 
 	
     @SuppressWarnings("unused")
 	public  static void sendSmsToCounselingCandidate(String strStudentName, String strPhoneNumber, Date dCounselingDate) 
 	 {
+    	 m_oLogger.info("sendSmsToCounselingCandidate");
+		 m_oLogger.debug("sendSmsToCounselingCandidate - strStudentName [IN] :"+strStudentName);
+		 m_oLogger.debug("sendSmsToCounselingCandidate - strPhoneNumber [IN] :"+strPhoneNumber);
+		 m_oLogger.debug("sendSmsToCounselingCandidate - dCounselingDate [IN] :"+dCounselingDate);
 		 try
 		 {
 			 AmazonSNSClient oAmazonSNSClient = (AmazonSNSClient) getClient();
@@ -92,7 +103,7 @@ public class AmazonSMS
 		 }
 		 catch (Exception oException) 
 		 {
-			 m_oLogger.error("sendSMS - oException"+oException);
+			 m_oLogger.error("sendSmsToCounselingCandidate - oException"+oException);
 		 }		
 	}
 }

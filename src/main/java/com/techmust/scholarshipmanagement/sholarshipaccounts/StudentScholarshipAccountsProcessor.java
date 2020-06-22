@@ -91,6 +91,8 @@ public class StudentScholarshipAccountsProcessor extends GenericIDataProcessor<S
 	
 	private boolean sendSMSAndEmail(StudentInformationData oStudentInformationData)
 	{
+		m_oLogger.info("sendSMSAndEmail");
+		m_oLogger.debug("sendSMSAndEmail - oStudentInformationData [IN] :"+oStudentInformationData.toString());
 		boolean m_bIsSentSMSAndMail = false;
 		MailService m_oMailService = new MailService();
 		FacilitatorInformationData oFacilitatorInformationData = oStudentInformationData.getM_oFacilitatorInformationData();		

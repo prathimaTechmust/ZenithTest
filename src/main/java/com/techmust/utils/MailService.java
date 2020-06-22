@@ -44,7 +44,10 @@ public class MailService
 	
 	public void sendMailToFacilitator(String strToFacilitatorMail,String strFacilitatorName, StudentInformationData oStudentInformationData) throws MessagingException
 	{
-		
+		m_oLogger.info("sendMailToFacilitator");
+		m_oLogger.debug("sendMailToFacilitator - strToFacilitatorMail [IN] :"+strToFacilitatorMail);
+		m_oLogger.debug("sendMailToFacilitator - strFacilitatorName [IN] :"+strFacilitatorName);
+		m_oLogger.debug("sendMailToFacilitator - oStudentInformationData [IN] :"+oStudentInformationData.toString());
 		try
 		{
 			Session oMailSession = Session.getInstance(setEmailProperties(),new Authenticator()
@@ -68,13 +71,16 @@ public class MailService
 		}
 		catch (Exception oException)
 		{
-			m_oLogger.debug("Send Email To User - oException"+oException);
+			m_oLogger.error("Send Email To Facilitator - oException"+oException);
 			oException.printStackTrace();
 		}		
 	}	
 
 	public void sendMailToStudent(String strToStudentEmail, String strStudentName)
-	{		
+	{	
+		m_oLogger.info("sendMailToStudent");
+		m_oLogger.debug("sendMailToStudent - strToStudentEmail [IN] : "+strToStudentEmail);
+		m_oLogger.debug("sendMailToStudent - strStudentName [IN] : "+strStudentName);
 		try
 		{
 			Session oMailSession = Session.getInstance(setEmailProperties(),new Authenticator()
@@ -98,7 +104,7 @@ public class MailService
 		}
 		catch (Exception oException)
 		{
-			m_oLogger.debug("Send Email To User - oException"+oException);
+			m_oLogger.error("Send Email To Student - oException"+oException);
 			oException.printStackTrace();
 		}		
 	}
