@@ -87,7 +87,7 @@ var StudentInformationDataProcessor = (function __StudentInformationDataProcesso
 
 	function getFacilitatorWiseStudent(oFacilitatorStudentData, callback) 
 	{
-	   ajaxCall(oFacilitatorStudentData,"/getFacilitatorWiseData", callback)	
+		ajaxCallList(oFacilitatorStudentData,"/getFacilitatorWiseData", callback)	
 	}
 
 	function filterStudentData(oStudentFilterData,callback)
