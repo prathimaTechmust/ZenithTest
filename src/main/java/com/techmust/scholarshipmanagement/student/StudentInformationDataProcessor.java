@@ -487,6 +487,7 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		return oStudentDataResponse;
 	}	
 
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/getFacilitatorWiseData", method = RequestMethod.POST, headers = {"content-type=application/json"})
 	@ResponseBody
 	public  GenericResponse getFacilitatorWiseStudent(@RequestBody StudentInformationData oStudentInformationData)
@@ -500,15 +501,27 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 			 CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
 			 CriteriaQuery<StudentInformationData>  oCriteriaQuery = oCriteriaBuilder.createQuery(StudentInformationData.class);
 			 Root<StudentInformationData> oStudentRoot = oCriteriaQuery.from(StudentInformationData.class);
+			 Join<Object,Object> oZenithJoin = (Join<Object, Object>) oStudentRoot.fetch("m_oZenithScholarshipDetails");
+			 Join<Object,Object> oAcademicJoin = (Join<Object, Object>) oStudentRoot.fetch("m_oAcademicDetails");
 			 oCriteriaQuery.select(oStudentRoot);
-			 oCriteriaQuery.where(oCriteriaBuilder.equal(oStudentRoot.get("m_oFacilitatorInformationData"),oStudentInformationData.getM_nFacilitatorId()));
+			 List<Predicate> m_arrPredicateList = new ArrayList<Predicate>();
+			 m_arrPredicateList.add(oCriteriaBuilder.equal(oAcademicJoin.get("m_oAcademicYear"),oStudentInformationData.getM_nAcademicYearId()));
+			 m_arrPredicateList.add(oCriteriaBuilder.equal(oZenithJoin.get("m_oAcademicYear"),oStudentInformationData.getM_nAcademicYearId()));
+			 m_arrPredicateList.add(oCriteriaBuilder.equal(oStudentRoot.get("m_oFacilitatorInformationData"),oStudentInformationData.getM_nFacilitatorId()));
+			 oCriteriaQuery.where(m_arrPredicateList.toArray(new Predicate[] {}));
 		     List<StudentInformationData> list = oEntityManager.createQuery(oCriteriaQuery).getResultList();
-		    oStudentDataResponse.m_arrStudentInformationData.addAll(list);
+		     oStudentDataResponse.m_nRowCount = list.size();
+		     oStudentDataResponse.m_arrStudentInformationData.addAll(list);
 		}
 		catch (Exception oException)
 		{
 			oException.printStackTrace();
 		}
+		finally
+		{
+			oEntityManager.close();
+			HibernateUtil.removeConnection();
+		}	
 		return oStudentDataResponse;	
 	}
 	
