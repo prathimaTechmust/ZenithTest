@@ -69,26 +69,26 @@ function createFacilitatorWiseList_DataGrid ()
 				{field:'m_strInstitutionName',title:'Institution Name',sortable:true,width:200,
 					formatter:function(value,row,index)
 					  {						
-						return row.m_oAcademicDetails[0].m_oInstitutionInformationData.m_strInstitutionName;
+						return row.m_oAcademicDetails !== undefined ? row.m_oAcademicDetails[0].m_oInstitutionInformationData.m_strInstitutionName : "";
 					  }
 				},
 				{field:'m_strShortCourseName',title:'Course Name',sortable:true,width:200,
 					formatter:function(value,row,index)
 					  {						
-						return row.m_oAcademicDetails[0].m_oCourseInformationData.m_strShortCourseName;
+						return row.m_oAcademicDetails !== undefined ? row.m_oAcademicDetails[0].m_oCourseInformationData.m_strShortCourseName : "";
 					  }
 				},
 				{field:'m_fApprovedAmount',title:'Scholarship Amount',sortable:true,width:200,
 					
 					formatter:function(value,row,index)
 					  {						
-						return row.m_oZenithScholarshipDetails[0].m_fApprovedAmount;
+						return row.m_oZenithScholarshipDetails !== undefined ? row.m_oZenithScholarshipDetails[0].m_fApprovedAmount : "";
 					  }
 				},	
 				{field:'m_strStatus',title:'Application Status',sortable:true,width:200,
 					formatter:function(value,row,index)
 		        	{
-		        		return row.m_oZenithScholarshipDetails[0].m_strStatus;
+		        		return row.m_oZenithScholarshipDetails !== undefined ? row.m_oZenithScholarshipDetails[0].m_strStatus : "";
 		        	}
 				},		
 			]],				
@@ -165,28 +165,19 @@ function facilitatorWiseInfo_list (strColumn,strOrder,nPageNumber,nPageSize)
 	m_ofacilitatorList_MemberData.m_strSortOrder = strOrder;
 	m_ofacilitatorList_MemberData.m_nPageNumber = nPageNumber;
 	m_ofacilitatorList_MemberData.m_nPageSize = nPageSize;
-	loadPage ("progressbarmanagement/progressbar.html", "dialog", "facilitatorWiseListInfo_progressbarLoaded ()");
-}
-
-function facilitatorWiseListInfo_progressbarLoaded ()
-{
-		createPopup('dialog', '', '', true);
-		var oStudentInformationData = new StudentInformationData ();
-		StudentInformationDataProcessor.list(oStudentInformationData, m_ofacilitatorList_MemberData.m_strSortColumn, m_ofacilitatorList_MemberData.m_strSortOrder, m_ofacilitatorList_MemberData.m_nPageNumber, m_ofacilitatorList_MemberData.m_nPageSize, facilitatorWiseListInfo_listed);
-}
-function facilitatorWiseListInfo_listed (oResponseData)
-{
-	clearGridData ("#facilitatorWiseList_table");
-	HideDialog("dialog");	
 }
 
 function searchfacilitatorName() 
+{
+	loadPage ("progressbarmanagement/progressbar.html", "dialog", "getFacilitatorStudents ()");	
+}
+
+function getFacilitatorStudents()
 {
 	var oStudentInformationData = new StudentInformationData ();
 	oStudentInformationData.m_nFacilitatorId = $("#facilitatorWiseInfo_input_name").val();
 	oStudentInformationData.m_nAcademicYearId = $("#selectReportAcademicYear").val();
 	StudentInformationDataProcessor.getFacilitatorWiseStudent(oStudentInformationData, getFacilitatorWiseStudentDetails);
-	
 }
 
 function getFacilitatorWiseStudentDetails (oResponse)
