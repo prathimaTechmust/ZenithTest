@@ -52,7 +52,17 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		StudentDataResponse oStudentDataResponse = new StudentDataResponse();
 		try
 		{			
-			oStudentDataResponse.m_bSuccess = oStudentInformationData.saveObject();
+			boolean bUIDUsed = isValidUID(oStudentInformationData);
+			if(bUIDUsed)
+			{
+				oStudentDataResponse.m_bSuccess = false;
+				oStudentDataResponse.setM_strResponseMessage("User UID is already taken, please use different.");
+			}
+			else
+			{
+				oStudentDataResponse.m_bSuccess = oStudentInformationData.saveObject();
+			}
+				
 			if(oStudentDataResponse.m_bSuccess)
 			{
 				oStudentDataResponse.m_arrStudentInformationData.add(oStudentInformationData);
@@ -257,9 +267,17 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		StudentDataResponse oStudentDataResponse = new StudentDataResponse();
 		try
 		{	
-			
-			StudentInformationData oStudentData = getStudentDocuments(oStudentInformationData);		
-			oStudentDataResponse.m_bSuccess = oStudentInformationData.updateObject();
+			StudentInformationData oPersistedStudentData = getStudentData(oStudentInformationData);
+			if(oPersistedStudentData.getM_nUID() == oStudentInformationData.getM_nUID())
+			{
+				StudentInformationData oStudentData = getStudentDocuments(oStudentInformationData);		
+				oStudentDataResponse.m_bSuccess = oStudentInformationData.updateObject();
+			}
+			else
+			{
+				oStudentDataResponse.m_bSuccess = false;
+				oStudentDataResponse.setM_strResponseMessage("Student update failed");
+			}
 			if(oStudentDataResponse.m_bSuccess)
 			{
 				Utils.createActivityLog("StudentInformationDataProcessor::update", oStudentInformationData);
@@ -275,6 +293,24 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 			throw oException;
 		}
 		return oStudentDataResponse;
+	}
+
+	private StudentInformationData getStudentData(StudentInformationData oStudentInformationData)
+	{
+		m_oLogger.info ("getStudentData");
+		m_oLogger.debug ("getStudentData - oStudentInformationData.getM_nStudentId() [IN] : " + oStudentInformationData.getM_nStudentId());
+		StudentInformationData oStudentData = new StudentInformationData();
+		
+		try
+		{
+			oStudentData = oStudentInformationData.getStudentDetails (oStudentInformationData);
+		}
+		catch (Exception oException) 
+		{
+			m_oLogger.error ("getStudentData - oException : " + oException);
+			throw oException;
+		}
+		return oStudentData;
 	}
 
 	private StudentInformationData getStudentDocuments(StudentInformationData oStudentInformationData)
@@ -1039,4 +1075,54 @@ public class StudentInformationDataProcessor extends GenericIDataProcessor <Stud
 		}
 		return isUpdate;
 	}
+	
+	@SuppressWarnings("unchecked")
+	private boolean isValidUID(StudentInformationData oStudentData)
+	{
+		m_oLogger.info("isValidUID - oStudentData : "+oStudentData.getM_nUID());
+		boolean bUsed = false;
+		EntityManager oEntityManager = oStudentData._getEntityManager();
+		ArrayList<StudentInformationData> m_arrStudentList = new ArrayList<StudentInformationData>();
+		try
+		{
+			CriteriaBuilder oCriteriaBuilder = oEntityManager.getCriteriaBuilder();
+			CriteriaQuery<StudentInformationData> oCriteriaQuery = oCriteriaBuilder.createQuery(StudentInformationData.class);
+			Root<StudentInformationData> oStudentRoot = oCriteriaQuery.from(StudentInformationData.class);
+			oCriteriaQuery.select(oStudentRoot);
+			oCriteriaQuery.where(oCriteriaBuilder.equal(oStudentRoot.get("m_nUID"), oStudentData.getM_nUID()));
+			m_arrStudentList = (ArrayList<StudentInformationData>)oEntityManager.createQuery(oCriteriaQuery).getResultList();
+			if(m_arrStudentList.size() > 0)
+				bUsed = true;
+		}
+		catch (Exception oException)
+		{
+			m_oLogger.error("isValidUID - oException "+oException.getMessage());
+		}
+		return bUsed;
+	}
+	
+	 @RequestMapping(value = "/isUIDPresent",method = RequestMethod.POST,headers = {"Content-type=application/json"}) 
+	 @ResponseBody
+	 public GenericResponse isUIDPresent (@RequestBody StudentInformationData oInformationData) 
+	 {
+		 m_oLogger.info("isUIDPresent");
+		 StudentDataResponse oDataResponse = new StudentDataResponse();
+		 try
+		 {
+			 boolean bUIDUsed = isValidUID(oInformationData);
+			 if(bUIDUsed)
+			 {
+				 oDataResponse.m_bSuccess = false;
+				 throw new Exception("User UID is already taken, please use different.");
+			 }
+			 else
+			 {
+				 oDataResponse.m_bSuccess = true;oDataResponse.setM_strResponseMessage("valid UID");
+			 }}
+		 catch (Exception oException)
+		 {
+			 m_oLogger.error("isUIDPresent - oException : " + oException);
+		 }
+		 return oDataResponse; 
+	 } 
 }

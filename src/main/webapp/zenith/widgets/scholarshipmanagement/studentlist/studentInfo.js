@@ -607,7 +607,18 @@ function studentInfo_created (oStudentInfoResponse)
 		catch(oException){}
 	}
 	else
-		studentInfo_displayInfo("student creation failed", "kError");
+	{
+		alert(oStudentInfoResponse.m_strResponseMessage);
+		enableUIDButton();
+		document.getElementById("progress").style.display = "none";
+		document.getElementById("studentInfo_button_submit").style.display = "block";
+		document.getElementById("studentInfo_button_print").style.display = "block";
+		document.getElementById("studentInfoButton_button_cancel").style.display = "block";
+		$('#studentInfo_input_studentUIDNumber').prop("readonly", true);
+		$('#studentInfo_input_studentUIDNumber').val("");
+		document.getElementById("defaultOpen").click();
+		$('#studentInfo_form_id').focus();
+	}
 }
 
 function studentInfo_updated (oStudentInfoResponse)
@@ -634,7 +645,12 @@ function studentInfo_updated (oStudentInfoResponse)
 			}			
 		}
 		catch(oException){}		
-	}	
+	}
+	else
+	{
+		HideDialog ("dialog");
+		informUser (oStudentInfoResponse.m_strResponseMessage, "kError");
+	}
 }
 
 function student_image_created ()

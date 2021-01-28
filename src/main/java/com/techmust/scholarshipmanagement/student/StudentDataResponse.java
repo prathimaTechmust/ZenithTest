@@ -17,6 +17,7 @@ public class StudentDataResponse extends GenericResponse
 	public String m_strStudentDownloadReportURL;
 	public String m_strStudentImageId;
 	public long m_nUID;
+	public String m_strResponseMessage="";
     public StudentDataResponse ()
 	{
     	m_arrStudentInformationData = new ArrayList<StudentInformationData> ();
@@ -30,4 +31,14 @@ public class StudentDataResponse extends GenericResponse
     	m_strStudentImageId = "";
     	m_nUID = -1;
 	}
+    
+	public String getM_strResponseMessage()
+	{
+		return m_strResponseMessage;
+	}
+
+	public void setM_strResponseMessage(String strResponseMessage)
+	{
+		this.m_strResponseMessage = strResponseMessage;
+	}	
 }
