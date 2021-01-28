@@ -648,7 +648,8 @@ function studentInfo_updated (oStudentInfoResponse)
 	}
 	else
 	{
-		informUser (oResponse.m_strResponseMessage, "kError");
+		HideDialog ("dialog");
+		informUser (oStudentInfoResponse.m_strResponseMessage, "kError");
 	}
 }
 
