@@ -22,7 +22,7 @@ multitenancy:
   mtapp:
     master:
       datasource:
-        url: jdbc:mysql://zenithdb.ckevpqhd0yy7.ap-southeast-1.rds.amazonaws.com:3306/zenith_master?useSSL=false&createDatabaseIfNotExist=TRUE
+        url: jdbc:mysql://zenithdb.c9sffuysowjo.ap-southeast-1.rds.amazonaws.com:3306/zenith_master?useSSL=false&createDatabaseIfNotExist=TRUE
         username: admin
         password: zenith786
         driverClassName: com.mysql.cj.jdbc.Driver
